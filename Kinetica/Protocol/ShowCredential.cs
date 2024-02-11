@@ -6,31 +6,27 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showCredential(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Shows information about a specified <a
+    /// cref="Kinetica.showCredential(ShowCredentialRequest)">Kinetica.showCredential</see>.
+    /// </summary>
+    /// <remarks><para>Shows information about a specified <a
     /// href="../../../concepts/credentials/" target="_top">credential</a> or
-    /// all credentials.</summary>
+    /// all credentials.</para></remarks>
     public class ShowCredentialRequest : KineticaData
     {
-
         /// <summary>Name of the credential on which to retrieve information.
-        /// The name must refer to a currently existing credential. If '*' is
-        /// specified, information about all credentials will be returned.
         /// </summary>
+        /// <remarks><para>The name must refer to a currently existing
+        /// credential. If '*' is specified, information about all credentials
+        /// will be returned.</para></remarks>
         public string credential_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowCredentialRequest object with default
         /// parameters.</summary>
@@ -38,54 +34,44 @@ namespace kinetica
 
         /// <summary>Constructs a ShowCredentialRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="credential_name">Name of the credential on which to
         /// retrieve information. The name must refer to a currently existing
         /// credential. If '*' is specified, information about all credentials
-        /// will be returned.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// will be returned.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public ShowCredentialRequest( string credential_name,
                                       IDictionary<string, string> options = null)
         {
             this.credential_name = credential_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowCredentialRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showCredential(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showCredential(ShowCredentialRequest)">Kinetica.showCredential</see>.
+    /// </summary>
     public class ShowCredentialResponse : KineticaData
     {
-
-        /// <summary>A list of all credential names.  </summary>
+        /// <summary>A list of all credential names.</summary>
         public IList<string> credential_names { get; set; } = new List<string>();
 
-        /// <summary>A list of each credential's type.  </summary>
+        /// <summary>A list of each credential's type.</summary>
         public IList<string> credential_types { get; set; } = new List<string>();
 
-        /// <summary>A list of each credential's identity.  </summary>
+        /// <summary>A list of each credential's identity.</summary>
         public IList<string> credential_identities { get; set; } = new List<string>();
 
         /// <summary>A list of each credential's create_credential_request JSON
-        /// encoded structure.  </summary>
+        /// encoded structure.</summary>
         public IList<string> credentials { get; set; } = new List<string>();
 
         /// <summary>Additional information about the respective credential in
-        /// <member name="credential_names" />.  </summary>
+        /// <see cref="credential_names" />.</summary>
         public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowCredentialResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

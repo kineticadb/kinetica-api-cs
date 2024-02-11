@@ -6,140 +6,89 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.getJob(long,IDictionary{string, string})" />.
-    /// <br />
-    /// Get the status and result of asynchronously running job.  See the <see
-    /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
-    /// /> for starting an asynchronous job.  Some fields of the response are
-    /// filled only after the submitted job has finished execution.</summary>
+    /// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</summary>
+    /// <remarks><para>Get the status and result of asynchronously running job.
+    /// See the <see
+    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>
+    /// for starting an asynchronous job.  Some fields of the response are
+    /// filled only after the submitted job has finished execution.</para>
+    /// </remarks>
     public class GetJobRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>Job tag returned in call to create the
-        /// job</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Job tag returned in call to create the job</summary>
             public const string JOB_TAG = "job_tag";
         } // end struct Options
 
-
         /// <summary>A unique identifier for the job whose status and result is
-        /// to be fetched.  </summary>
+        /// to be fetched.</summary>
         public long job_id { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>Job tag returned in call to create the
-        /// job</description>
+        ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the job
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a GetJobRequest object with default
-        /// parameters.</summary>
+        /// <summary>Constructs a GetJobRequest object with default parameters.
+        /// </summary>
         public GetJobRequest() { }
 
         /// <summary>Constructs a GetJobRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="job_id">A unique identifier for the job whose status
-        /// and result is to be fetched.  </param>
+        /// and result is to be fetched.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>Job tag returned in call to create the
-        /// job</description>
+        ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the job
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public GetJobRequest( long job_id,
                               IDictionary<string, string> options = null)
         {
             this.job_id = job_id;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class GetJobRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getJob(long,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</summary>
     public class GetJobResponse : KineticaData
     {
-
-        /// <summary>Status of the submitted job.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
-        ///         <description>The job is currently executing.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.DONE">DONE</see>:</term>
-        ///         <description>The job execution has successfully completed
-        /// and the response is included in the <member name="job_response" />
-        /// or <member name="job_response_str" /> field</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.ERROR">ERROR</see>:</term>
-        ///         <description>The job was attempted, but an error was
-        /// encountered.  The <member name="status_map" /> contains the details
-        /// of the error in error_message</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.CANCELLED">CANCELLED</see>:</term>
-        ///         <description>Job cancellation was requested while the
-        /// execution was in progress.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="job_status" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="job_status" />.</summary>
+        /// <remarks><para>Status of the submitted job.</para></remarks>
         public struct JobStatus
         {
-
             /// <summary>The job is currently executing.</summary>
             public const string RUNNING = "RUNNING";
 
             /// <summary>The job execution has successfully completed and the
-            /// response is included in the <member name="job_response" /> or
-            /// <member name="job_response_str" /> field</summary>
+            /// response is included in the <see cref="job_response" /> or <see
+            /// cref="job_response_str" /> field</summary>
             public const string DONE = "DONE";
 
             /// <summary>The job was attempted, but an error was encountered.
-            /// The <member name="status_map" /> contains the details of the
-            /// error in error_message</summary>
+            /// </summary>
+            /// <remarks><para> The <see cref="status_map" /> contains the
+            /// details of the error in error_message</para></remarks>
             public const string ERROR = "ERROR";
 
             /// <summary>Job cancellation was requested while the execution was
@@ -147,155 +96,127 @@ namespace kinetica
             public const string CANCELLED = "CANCELLED";
         } // end struct JobStatus
 
-
-        /// <summary>The encoding of the job result (contained in <member
-        /// name="job_response" /> or <member name="job_response_str" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.ResponseEncoding.BINARY">BINARY</see>:</term>
-        ///         <description>The job result is binary-encoded.  It is
-        /// contained in <member name="job_response" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.ResponseEncoding.JSON">JSON</see>:</term>
-        ///         <description>The job result is json-encoded.  It is
-        /// contained in <member name="job_response_str" />.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="response_encoding" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="response_encoding" />.</summary>
+        /// <remarks><para>The encoding of the job result (contained in <see
+        /// cref="job_response" /> or <see cref="job_response_str" />.</para>
+        /// </remarks>
         public struct ResponseEncoding
         {
-
-            /// <summary>The job result is binary-encoded.  It is contained in
-            /// <member name="job_response" />.</summary>
+            /// <summary>The job result is binary-encoded.</summary>
+            /// <remarks><para> It is contained in <see cref="job_response" />.
+            /// </para></remarks>
             public const string BINARY = "binary";
 
-            /// <summary>The job result is json-encoded.  It is contained in
-            /// <member name="job_response_str" />.</summary>
+            /// <summary>The job result is json-encoded.</summary>
+            /// <remarks><para> It is contained in <see cref="job_response_str"
+            /// />.</para></remarks>
             public const string JSON = "json";
         } // end struct ResponseEncoding
 
-
-        /// <summary>Map of various status strings for the executed job.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.StatusMap.ERROR_MESSAGE">ERROR_MESSAGE</see>:</term>
-        ///         <description>Explains what error occurred while running the
-        /// job asynchronously.  This entry only exists when the job status is
-        /// <i>ERROR</i>.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="status_map" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="status_map" />.</summary>
+        /// <remarks><para>Map of various status strings for the executed job.
+        /// </para></remarks>
         public struct StatusMap
         {
-
             /// <summary>Explains what error occurred while running the job
-            /// asynchronously.  This entry only exists when the job status is
-            /// <i>ERROR</i>.</summary>
+            /// asynchronously.</summary>
+            /// <remarks><para> This entry only exists when the job status is
+            /// <see cref="JobStatus.ERROR">ERROR</see>.</para></remarks>
             public const string ERROR_MESSAGE = "error_message";
         } // end struct StatusMap
 
-
-        /// <summary>The endpoint which is being executed asynchronously.  E.g.
-        /// '/alter/table'.  </summary>
+        /// <summary>The endpoint which is being executed asynchronously.
+        /// </summary>
+        /// <remarks><para> E.g. '/alter/table'.</para></remarks>
         public string endpoint { get; set; }
 
-        /// <summary>Status of the submitted job.
-        /// Supported values:
+        /// <summary>Status of the submitted job.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
+        ///         <term><see cref="JobStatus.RUNNING">RUNNING</see>:</term>
         ///         <description>The job is currently executing.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.DONE">DONE</see>:</term>
+        ///         <term><see cref="JobStatus.DONE">DONE</see>:</term>
         ///         <description>The job execution has successfully completed
-        /// and the response is included in the <member name="job_response" />
-        /// or <member name="job_response_str" /> field</description>
+        ///         and the response is included in the <see
+        ///         cref="job_response" /> or <see cref="job_response_str" />
+        ///         field</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.ERROR">ERROR</see>:</term>
+        ///         <term><see cref="JobStatus.ERROR">ERROR</see>:</term>
         ///         <description>The job was attempted, but an error was
-        /// encountered.  The <member name="status_map" /> contains the details
-        /// of the error in error_message</description>
+        ///         encountered.  The <see cref="status_map" /> contains the
+        ///         details of the error in error_message</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.JobStatus.CANCELLED">CANCELLED</see>:</term>
+        ///         <term><see cref="JobStatus.CANCELLED">CANCELLED</see>:
+        ///         </term>
         ///         <description>Job cancellation was requested while the
-        /// execution was in progress.</description>
+        ///         execution was in progress.</description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string job_status { get; set; }
 
-        /// <summary>True if the end point is still executing.  </summary>
+        /// <summary>True if the end point is still executing.</summary>
         public bool running { get; set; }
 
-        /// <summary>Approximate percentage of the job completed.  </summary>
+        /// <summary>Approximate percentage of the job completed.</summary>
         public int progress { get; set; }
 
         /// <summary>True if the job execution completed and no errors were
-        /// encountered.  </summary>
+        /// encountered.</summary>
         public bool successful { get; set; }
 
-        /// <summary>The encoding of the job result (contained in <member
-        /// name="job_response" /> or <member name="job_response_str" />.
-        /// Supported values:
+        /// <summary>The encoding of the job result (contained in <see
+        /// cref="job_response" /> or <see cref="job_response_str" />.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.ResponseEncoding.BINARY">BINARY</see>:</term>
+        ///         <term><see cref="ResponseEncoding.BINARY">BINARY</see>:
+        ///         </term>
         ///         <description>The job result is binary-encoded.  It is
-        /// contained in <member name="job_response" />.</description>
+        ///         contained in <see cref="job_response" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetJobResponse.ResponseEncoding.JSON">JSON</see>:</term>
+        ///         <term><see cref="ResponseEncoding.JSON">JSON</see>:</term>
         ///         <description>The job result is json-encoded.  It is
-        /// contained in <member name="job_response_str" />.</description>
+        ///         contained in <see cref="job_response_str" />.</description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string response_encoding { get; set; }
 
-        /// <summary>The binary-encoded response of the job.  This field is
-        /// populated only when the job has completed and <member
-        /// name="response_encoding" /> is <i>binary</i>  </summary>
+        /// <summary>The binary-encoded response of the job.</summary>
+        /// <remarks><para> This field is populated only when the job has
+        /// completed and <see cref="response_encoding" /> is <see
+        /// cref="ResponseEncoding.BINARY">BINARY</see></para></remarks>
         public byte[] job_response { get; set; }
 
-        /// <summary>The json-encoded response of the job.  This field is
-        /// populated only when the job has completed and <member
-        /// name="response_encoding" /> is <i>json</i>  </summary>
+        /// <summary>The json-encoded response of the job.</summary>
+        /// <remarks><para> This field is populated only when the job has
+        /// completed and <see cref="response_encoding" /> is <see
+        /// cref="ResponseEncoding.JSON">JSON</see></para></remarks>
         public string job_response_str { get; set; }
 
         /// <summary>Map of various status strings for the executed job.
-        /// <list type="bullet">
+        /// </summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="GetJobResponse.StatusMap.ERROR_MESSAGE">ERROR_MESSAGE</see>:</term>
+        ///         cref="StatusMap.ERROR_MESSAGE">ERROR_MESSAGE</see>:</term>
         ///         <description>Explains what error occurred while running the
-        /// job asynchronously.  This entry only exists when the job status is
-        /// <i>ERROR</i>.</description>
+        ///         job asynchronously.  This entry only exists when the job
+        ///         status is <see cref="JobStatus.ERROR">ERROR</see>.
+        ///         </description>
         ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, string> status_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GetJobResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

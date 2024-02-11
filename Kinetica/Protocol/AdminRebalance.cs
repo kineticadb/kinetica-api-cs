@@ -6,479 +6,315 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
-    /// <br />
-    /// Rebalance the data in the cluster so that all nodes contain an equal
-    /// number of records approximately and/or rebalance the shards to be
-    /// equally
-    /// distributed (as much as possible) across all the ranks.
-    /// <br />
-    /// The database must be offline for this operation, see <see
-    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
-    /// <br />
-    /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
-    /// /> is invoked after a change is
-    ///   made to the cluster, e.g., a host was added or removed,
-    ///   <a href="../../../concepts/tables/#sharding" target="_top">sharded
-    /// data</a> will be
-    ///   evenly redistributed across the cluster by number of shards per rank
-    ///   while unsharded data will be redistributed across the cluster by data
-    ///   size per rank
-    /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
-    /// />
-    ///   is invoked at some point when unsharded data (a.k.a.
-    ///   <a href="../../../concepts/tables/#random-sharding"
-    /// target="_top">randomly-sharded</a>)
-    ///   in the cluster is unevenly distributed over time, sharded data will
-    ///   not move while unsharded data will be redistributed across the
-    ///   cluster by data size per rank
-    /// <br />
-    /// NOTE: Replicated data will not move as a result of this call
-    /// <br />
-    /// This endpoint's processing time depends on the amount of data in the
-    /// system,
-    /// thus the API call may time out if run directly.  It is recommended to
-    /// run this
-    /// endpoint asynchronously via <see
-    /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>.
+    /// </summary>
+    /// <remarks><para>Rebalance the data in the cluster so that all nodes
+    /// contain an equal number of records approximately and/or rebalance the
+    /// shards to be equally distributed (as much as possible) across all the
+    /// ranks.</para>
+    /// <para>The database must be offline for this operation, see <see
+    /// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see></para>
+    /// <para>* If <see
+    /// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>
+    /// is invoked after a change is made to the cluster, e.g., a host was
+    /// added or removed, <a href="../../../concepts/tables/#sharding"
+    /// target="_top">sharded data</a> will be evenly redistributed across the
+    /// cluster by number of shards per rank while unsharded data will be
+    /// redistributed across the cluster by data size per rank</para>
+    /// <para>* If <see
+    /// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>
+    /// is invoked at some point when unsharded data (a.k.a. <a
+    /// href="../../../concepts/tables/#random-sharding"
+    /// target="_top">randomly-sharded</a>) in the cluster is unevenly
+    /// distributed over time, sharded data will not move while unsharded data
+    /// will be redistributed across the cluster by data size per rank</para>
+    /// <para>NOTE: Replicated data will not move as a result of this
+    /// call</para>
+    /// <para>This endpoint's processing time depends on the amount of data in
+    /// the system, thus the API call may time out if run directly.  It is
+    /// recommended to run this endpoint asynchronously via <see
+    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+    /// </para></remarks>
     public class AdminRebalanceRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, <a
-        /// href="../../../concepts/tables/#sharding" target="_top">sharded
-        /// data</a> will be rebalanced approximately equally across the
-        /// cluster. Note that for clusters with large amounts of sharded data,
-        /// this data transfer could be time consuming and result in delayed
-        /// query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../../concepts/tables/#random-sharding"
-        /// target="_top">randomly-sharded</a>) will be rebalanced
-        /// approximately equally across the cluster. Note that for clusters
-        /// with large amounts of unsharded data, this data transfer could be
-        /// time consuming and result in delayed query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
-        ///         <description>Comma-separated list of unsharded table names
-        /// to rebalance. Not applicable to sharded tables because they are
-        /// always rebalanced. Cannot be used simultaneously with
-        /// <i>table_excludes</i>. This parameter is ignored if
-        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
-        ///         <description>Comma-separated list of unsharded table names
-        /// to not rebalance. Not applicable to sharded tables because they are
-        /// always rebalanced. Cannot be used simultaneously with
-        /// <i>table_includes</i>. This parameter is ignored if
-        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data is moved at a time
-        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
-        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
-        /// but allow for better interleaving between the rebalance and other
-        /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '10'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
-        ///         <description>Perform compaction of deleted records once the
-        /// rebalance completes to reclaim memory and disk space. Default is
-        /// <i>true</i>, unless <i>repair_incorrectly_sharded_data</i> is set
-        /// to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
-        ///         <description>If set to <i>true</i>, ignore rebalance
-        /// options and attempt to perform compaction of deleted records to
-        /// reclaim memory and disk space without rebalancing first.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
-        ///         <description>Scans for any data sharded incorrectly and
-        /// re-routes the data to the correct location. Only necessary if
-        /// /admin/verifydb reports an error in sharding alignment. This can be
-        /// done as part of a typical rebalance after expanding the cluster or
-        /// in a standalone fashion when it is believed that data is sharded
-        /// incorrectly somewhere in the cluster. Compaction will not be
-        /// performed by default when this is enabled. If this option is set to
-        /// <i>true</i>, the time necessary to rebalance and the memory used by
-        /// the rebalance may increase.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, <a
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, <a
             /// href="../../../concepts/tables/#sharding" target="_top">sharded
             /// data</a> will be rebalanced approximately equally across the
-            /// cluster. Note that for clusters with large amounts of sharded
-            /// data, this data transfer could be time consuming and result in
-            /// delayed query responses.
-            /// Supported values:
+            /// cluster.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string REBALANCE_SHARDED_DATA = "rebalance_sharded_data";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i>, unsharded data (a.k.a. <a
-            /// href="../../../concepts/tables/#random-sharding"
-            /// target="_top">randomly-sharded</a>) will be rebalanced
-            /// approximately equally across the cluster. Note that for
-            /// clusters with large amounts of unsharded data, this data
-            /// transfer could be time consuming and result in delayed query
-            /// responses.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, unsharded data
+            /// (a.k.a.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string REBALANCE_UNSHARDED_DATA = "rebalance_unsharded_data";
 
             /// <summary>Comma-separated list of unsharded table names to
-            /// rebalance. Not applicable to sharded tables because they are
-            /// always rebalanced. Cannot be used simultaneously with
-            /// <i>table_excludes</i>. This parameter is ignored if
-            /// <i>rebalance_unsharded_data</i> is <i>false</i>.</summary>
+            /// rebalance.</summary>
+            /// <remarks><para>Not applicable to sharded tables because they
+            /// are always rebalanced. Cannot be used simultaneously with <see
+            /// cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>. This
+            /// parameter is ignored if <see
+            /// cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+            /// is <see cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string TABLE_INCLUDES = "table_includes";
 
             /// <summary>Comma-separated list of unsharded table names to not
-            /// rebalance. Not applicable to sharded tables because they are
-            /// always rebalanced. Cannot be used simultaneously with
-            /// <i>table_includes</i>. This parameter is ignored if
-            /// <i>rebalance_unsharded_data</i> is <i>false</i>.</summary>
+            /// rebalance.</summary>
+            /// <remarks><para>Not applicable to sharded tables because they
+            /// are always rebalanced. Cannot be used simultaneously with <see
+            /// cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>. This
+            /// parameter is ignored if <see
+            /// cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+            /// is <see cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string TABLE_EXCLUDES = "table_excludes";
 
             /// <summary>Influences how much data is moved at a time during
-            /// rebalance.  A higher <i>aggressiveness</i> will complete the
-            /// rebalance faster.  A lower <i>aggressiveness</i> will take
+            /// rebalance.</summary>
+            /// <remarks><para> A higher <see
+            /// cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
+            /// complete the rebalance faster.  A lower <see
+            /// cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will take
             /// longer but allow for better interleaving between the rebalance
             /// and other queries. Valid values are constants from 1 (lowest)
-            /// to 10 (highest).  The default value is '10'.</summary>
+            /// to 10 (highest). The default value is '10'.</para></remarks>
             public const string AGGRESSIVENESS = "aggressiveness";
 
             /// <summary>Perform compaction of deleted records once the
-            /// rebalance completes to reclaim memory and disk space. Default
-            /// is <i>true</i>, unless <i>repair_incorrectly_sharded_data</i>
-            /// is set to <i>true</i>.
-            /// Supported values:
+            /// rebalance completes to reclaim memory and disk space.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string COMPACT_AFTER_REBALANCE = "compact_after_rebalance";
 
-            /// <summary>If set to <i>true</i>, ignore rebalance options and
-            /// attempt to perform compaction of deleted records to reclaim
-            /// memory and disk space without rebalancing first.
-            /// Supported values:
+            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, ignore
+            /// rebalance options and attempt to perform compaction of deleted
+            /// records to reclaim memory and disk space without rebalancing
+            /// first.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string COMPACT_ONLY = "compact_only";
 
             /// <summary>Scans for any data sharded incorrectly and re-routes
-            /// the data to the correct location. Only necessary if <see
-            /// cref="Kinetica.adminVerifyDb(IDictionary{string, string})" />
-            /// reports an error in sharding alignment. This can be done as
-            /// part of a typical rebalance after expanding the cluster or in a
-            /// standalone fashion when it is believed that data is sharded
-            /// incorrectly somewhere in the cluster. Compaction will not be
-            /// performed by default when this is enabled. If this option is
-            /// set to <i>true</i>, the time necessary to rebalance and the
-            /// memory used by the rebalance may increase.
-            /// Supported values:
+            /// the data to the correct location.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string REPAIR_INCORRECTLY_SHARDED_DATA = "repair_incorrectly_sharded_data";
         } // end struct Options
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, <a
-        /// href="../../../concepts/tables/#sharding" target="_top">sharded
-        /// data</a> will be rebalanced approximately equally across the
-        /// cluster. Note that for clusters with large amounts of sharded data,
-        /// this data transfer could be time consuming and result in delayed
-        /// query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, <a
+        ///         href="../../../concepts/tables/#sharding"
+        ///         target="_top">sharded data</a> will be rebalanced
+        ///         approximately equally across the cluster. Note that for
+        ///         clusters with large amounts of sharded data, this data
+        ///         transfer could be time consuming and result in delayed
+        ///         query responses.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../../concepts/tables/#random-sharding"
-        /// target="_top">randomly-sharded</a>) will be rebalanced
-        /// approximately equally across the cluster. Note that for clusters
-        /// with large amounts of unsharded data, this data transfer could be
-        /// time consuming and result in delayed query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         unsharded data (a.k.a. <a
+        ///         href="../../../concepts/tables/#random-sharding"
+        ///         target="_top">randomly-sharded</a>) will be rebalanced
+        ///         approximately equally across the cluster. Note that for
+        ///         clusters with large amounts of unsharded data, this data
+        ///         transfer could be time consuming and result in delayed
+        ///         query responses.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
-        /// to rebalance. Not applicable to sharded tables because they are
-        /// always rebalanced. Cannot be used simultaneously with
-        /// <i>table_excludes</i>. This parameter is ignored if
-        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
+        ///         to rebalance. Not applicable to sharded tables because they
+        ///         are always rebalanced. Cannot be used simultaneously with
+        ///         <see cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>.
+        ///         This parameter is ignored if <see
+        ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+        ///         is <see cref="Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
+        ///         cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
-        /// to not rebalance. Not applicable to sharded tables because they are
-        /// always rebalanced. Cannot be used simultaneously with
-        /// <i>table_includes</i>. This parameter is ignored if
-        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
+        ///         to not rebalance. Not applicable to sharded tables because
+        ///         they are always rebalanced. Cannot be used simultaneously
+        ///         with <see
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>. This
+        ///         parameter is ignored if <see
+        ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+        ///         is <see cref="Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
         ///         <description>Influences how much data is moved at a time
-        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
-        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
-        /// but allow for better interleaving between the rebalance and other
-        /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '10'.</description>
+        ///         during rebalance.  A higher <see
+        ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
+        ///         complete the rebalance faster.  A lower <see
+        ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
+        ///         take longer but allow for better interleaving between the
+        ///         rebalance and other queries. Valid values are constants
+        ///         from 1 (lowest) to 10 (highest). The default value is '10'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
+        ///         cref="Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:
+        ///         </term>
         ///         <description>Perform compaction of deleted records once the
-        /// rebalance completes to reclaim memory and disk space. Default is
-        /// <i>true</i>, unless <i>repair_incorrectly_sharded_data</i> is set
-        /// to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
+        ///         rebalance completes to reclaim memory and disk space.
+        ///         Default is <see cref="Options.TRUE">TRUE</see>, unless <see
+        ///         cref="Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>
+        ///         is set to <see cref="Options.TRUE">TRUE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.COMPACT_ONLY">COMPACT_ONLY</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         ignore rebalance options and attempt to perform compaction
+        ///         of deleted records to reclaim memory and disk space without
+        ///         rebalancing first.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
-        ///         <description>If set to <i>true</i>, ignore rebalance
-        /// options and attempt to perform compaction of deleted records to
-        /// reclaim memory and disk space without rebalancing first.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
+        ///         cref="Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:
+        ///         </term>
         ///         <description>Scans for any data sharded incorrectly and
-        /// re-routes the data to the correct location. Only necessary if
-        /// /admin/verifydb reports an error in sharding alignment. This can be
-        /// done as part of a typical rebalance after expanding the cluster or
-        /// in a standalone fashion when it is believed that data is sharded
-        /// incorrectly somewhere in the cluster. Compaction will not be
-        /// performed by default when this is enabled. If this option is set to
-        /// <i>true</i>, the time necessary to rebalance and the memory used by
-        /// the rebalance may increase.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///         re-routes the data to the correct location. Only necessary
+        ///         if <see
+        ///         cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>
+        ///         reports an error in sharding alignment. This can be done as
+        ///         part of a typical rebalance after expanding the cluster or
+        ///         in a standalone fashion when it is believed that data is
+        ///         sharded incorrectly somewhere in the cluster. Compaction
+        ///         will not be performed by default when this is enabled. If
+        ///         this option is set to <see cref="Options.TRUE">TRUE</see>,
+        ///         the time necessary to rebalance and the memory used by the
+        ///         rebalance may increase.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminRebalanceRequest object with default
         /// parameters.</summary>
@@ -486,174 +322,174 @@ namespace kinetica
 
         /// <summary>Constructs an AdminRebalanceRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, <a
-        /// href="../../../concepts/tables/#sharding" target="_top">sharded
-        /// data</a> will be rebalanced approximately equally across the
-        /// cluster. Note that for clusters with large amounts of sharded data,
-        /// this data transfer could be time consuming and result in delayed
-        /// query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, <a
+        ///         href="../../../concepts/tables/#sharding"
+        ///         target="_top">sharded data</a> will be rebalanced
+        ///         approximately equally across the cluster. Note that for
+        ///         clusters with large amounts of sharded data, this data
+        ///         transfer could be time consuming and result in delayed
+        ///         query responses.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../../concepts/tables/#random-sharding"
-        /// target="_top">randomly-sharded</a>) will be rebalanced
-        /// approximately equally across the cluster. Note that for clusters
-        /// with large amounts of unsharded data, this data transfer could be
-        /// time consuming and result in delayed query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         unsharded data (a.k.a. <a
+        ///         href="../../../concepts/tables/#random-sharding"
+        ///         target="_top">randomly-sharded</a>) will be rebalanced
+        ///         approximately equally across the cluster. Note that for
+        ///         clusters with large amounts of unsharded data, this data
+        ///         transfer could be time consuming and result in delayed
+        ///         query responses.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
-        /// to rebalance. Not applicable to sharded tables because they are
-        /// always rebalanced. Cannot be used simultaneously with
-        /// <i>table_excludes</i>. This parameter is ignored if
-        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
+        ///         to rebalance. Not applicable to sharded tables because they
+        ///         are always rebalanced. Cannot be used simultaneously with
+        ///         <see cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>.
+        ///         This parameter is ignored if <see
+        ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+        ///         is <see cref="Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
+        ///         cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
-        /// to not rebalance. Not applicable to sharded tables because they are
-        /// always rebalanced. Cannot be used simultaneously with
-        /// <i>table_includes</i>. This parameter is ignored if
-        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
+        ///         to not rebalance. Not applicable to sharded tables because
+        ///         they are always rebalanced. Cannot be used simultaneously
+        ///         with <see
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>. This
+        ///         parameter is ignored if <see
+        ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+        ///         is <see cref="Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
         ///         <description>Influences how much data is moved at a time
-        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
-        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
-        /// but allow for better interleaving between the rebalance and other
-        /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '10'.</description>
+        ///         during rebalance.  A higher <see
+        ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
+        ///         complete the rebalance faster.  A lower <see
+        ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
+        ///         take longer but allow for better interleaving between the
+        ///         rebalance and other queries. Valid values are constants
+        ///         from 1 (lowest) to 10 (highest). The default value is '10'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
+        ///         cref="Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:
+        ///         </term>
         ///         <description>Perform compaction of deleted records once the
-        /// rebalance completes to reclaim memory and disk space. Default is
-        /// <i>true</i>, unless <i>repair_incorrectly_sharded_data</i> is set
-        /// to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
+        ///         rebalance completes to reclaim memory and disk space.
+        ///         Default is <see cref="Options.TRUE">TRUE</see>, unless <see
+        ///         cref="Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>
+        ///         is set to <see cref="Options.TRUE">TRUE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.COMPACT_ONLY">COMPACT_ONLY</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         ignore rebalance options and attempt to perform compaction
+        ///         of deleted records to reclaim memory and disk space without
+        ///         rebalancing first.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
-        ///         <description>If set to <i>true</i>, ignore rebalance
-        /// options and attempt to perform compaction of deleted records to
-        /// reclaim memory and disk space without rebalancing first.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
+        ///         cref="Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:
+        ///         </term>
         ///         <description>Scans for any data sharded incorrectly and
-        /// re-routes the data to the correct location. Only necessary if
-        /// /admin/verifydb reports an error in sharding alignment. This can be
-        /// done as part of a typical rebalance after expanding the cluster or
-        /// in a standalone fashion when it is believed that data is sharded
-        /// incorrectly somewhere in the cluster. Compaction will not be
-        /// performed by default when this is enabled. If this option is set to
-        /// <i>true</i>, the time necessary to rebalance and the memory used by
-        /// the rebalance may increase.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///         re-routes the data to the correct location. Only necessary
+        ///         if <see
+        ///         cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>
+        ///         reports an error in sharding alignment. This can be done as
+        ///         part of a typical rebalance after expanding the cluster or
+        ///         in a standalone fashion when it is believed that data is
+        ///         sharded incorrectly somewhere in the cluster. Compaction
+        ///         will not be performed by default when this is enabled. If
+        ///         this option is set to <see cref="Options.TRUE">TRUE</see>,
+        ///         the time necessary to rebalance and the memory used by the
+        ///         rebalance may increase.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AdminRebalanceRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminRebalanceRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminRebalance(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>.
+    /// </summary>
     public class AdminRebalanceResponse : KineticaData
     {
-
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminRebalanceResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

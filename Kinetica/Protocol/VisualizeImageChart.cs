@@ -6,260 +6,77 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageChart(string,IList{string},IList{string},double,double,double,double,int,int,string,IDictionary{string, IList{string}},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Scatter plot is the only plot type currently supported. A non-numeric
-    /// column can be specified as x or y column and jitters can be added to
-    /// them to avoid excessive overlapping. All color values must be in the
-    /// format RRGGBB or AARRGGBB (to specify the alpha value).
-    /// The image is contained in the <member name="image_data" />
-    /// field.</summary>
+    /// cref="Kinetica.visualizeImageChart(VisualizeImageChartRequest)">Kinetica.visualizeImageChart</see>.
+    /// </summary>
+    /// <remarks><para>Scatter plot is the only plot type currently supported.
+    /// A non-numeric column can be specified as x or y column and jitters can
+    /// be added to them to avoid excessive overlapping. All color values must
+    /// be in the format RRGGBB or AARRGGBB (to specify the alpha value).
+    /// The image is contained in the <see
+    /// cref="VisualizeImageChartResponse.image_data">image_data</see> field.
+    /// </para></remarks>
     public class VisualizeImageChartRequest : KineticaData
     {
-
-        /// <summary>Rendering style options for a chart.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
-        ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.  The default value is '0000FF'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
-        ///         <description>The size of points in the plot represented as
-        /// number of pixels.  The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSHAPE">POINTSHAPE</see>:</term>
-        ///         <description>The shape of points in the plot.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTCOLORS">CB_POINTCOLORS</see>:</term>
-        ///         <description>Point color class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point color values. This option overrides the pointcolor option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point color values
-        /// are separated by cb_delimiter, e.g. {"price", "20:30;30:40;40:50",
-        /// "0xFF0000;0x00FF00;0x0000FF"}.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSIZES">CB_POINTSIZES</see>:</term>
-        ///         <description>Point size class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point size values. This option overrides the pointsize option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point size values
-        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
-        /// "3;5;7"}.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSHAPES">CB_POINTSHAPES</see>:</term>
-        ///         <description>Point shape class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point shape names. This option overrides the pointshape option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point shape names
-        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
-        /// "circle;square;diamond"}.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
-        ///         <description>A character or string which separates
-        /// per-class values in a class-break style option string.  The default
-        /// value is ';'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
-        ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g. "avg(price)
-        /// descending".</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
-        ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g. "avg(price)", which
-        /// defaults to "avg(price) ascending".</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
-        ///         <description>Type of x axis scale.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-        ///         <description>No scale is applied to the x
-        /// axis.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
-        ///         <description>A base-10 log scale is applied to the x
-        /// axis.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
-        ///         <description>Type of y axis scale.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-        ///         <description>No scale is applied to the y
-        /// axis.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
-        ///         <description>A base-10 log scale is applied to the y
-        /// axis.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
-        ///         <description>If this options is set to "false", this
-        /// endpoint expects request's min/max values are not yet scaled. They
-        /// will be scaled according to scale_type_x or scale_type_y for
-        /// response. If this options is set to "true", this endpoint expects
-        /// request's min/max values are already scaled according to
-        /// scale_type_x/scale_type_y. Response's min/max values will be equal
-        /// to request's min/max values.  The default value is
-        /// 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
-        ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.  The default value is
-        /// '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
-        ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.  The default value is
-        /// '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
-        ///         <description>If this options is set to "true", all
-        /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.  The default value is 'false'.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="style_options" />.</summary>
+        /// <remarks><para>Rendering style options for a chart.</para>
+        /// </remarks>
         public struct StyleOptions
         {
-
             /// <summary>The color of points in the plot represented as a
-            /// hexadecimal number.  The default value is '0000FF'.</summary>
+            /// hexadecimal number.</summary>
+            /// <remarks><para>The default value is '0000FF'.</para></remarks>
             public const string POINTCOLOR = "pointcolor";
 
             /// <summary>The size of points in the plot represented as number
-            /// of pixels.  The default value is '3'.</summary>
+            /// of pixels.</summary>
+            /// <remarks><para>The default value is '3'.</para></remarks>
             public const string POINTSIZE = "pointsize";
 
-            /// <summary>The shape of points in the plot.
-            /// Supported values:
+            /// <summary>The shape of points in the plot.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see></term>
+            ///         <term><see cref="StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="StyleOptions.CIRCLE">CIRCLE</see>
+            ///         </term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="StyleOptions.SQUARE">SQUARE</see>
+            ///         </term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="StyleOptions.DIAMOND">DIAMOND</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///         cref="StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///         cref="StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///         cref="StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="StyleOptions.SQUARE">SQUARE</see>.</para></remarks>
             public const string POINTSHAPE = "pointshape";
 
             /// <summary>No scale is applied to the y axis.</summary>
             public const string NONE = "none";
+
             public const string CIRCLE = "circle";
             public const string SQUARE = "square";
             public const string DIAMOND = "diamond";
@@ -269,35 +86,38 @@ namespace kinetica
 
             /// <summary>Point color class break information consisting of
             /// three entries: class-break attribute, class-break
-            /// values/ranges, and point color values. This option overrides
-            /// the pointcolor option if both are provided. Class-break ranges
-            /// are represented in the form of "min:max". Class-break
-            /// values/ranges and point color values are separated by
-            /// cb_delimiter, e.g. {"price", "20:30;30:40;40:50",
-            /// "0xFF0000;0x00FF00;0x0000FF"}.</summary>
+            /// values/ranges, and point color values.</summary>
+            /// <remarks><para>This option overrides the pointcolor option if
+            /// both are provided. Class-break ranges are represented in the
+            /// form of "min:max". Class-break values/ranges and point color
+            /// values are separated by cb_delimiter, e.g. {"price",
+            /// "20:30;30:40;40:50", "0xFF0000;0x00FF00;0x0000FF"}.</para>
+            /// </remarks>
             public const string CB_POINTCOLORS = "cb_pointcolors";
 
             /// <summary>Point size class break information consisting of three
             /// entries: class-break attribute, class-break values/ranges, and
-            /// point size values. This option overrides the pointsize option
-            /// if both are provided. Class-break ranges are represented in the
+            /// point size values.</summary>
+            /// <remarks><para>This option overrides the pointsize option if
+            /// both are provided. Class-break ranges are represented in the
             /// form of "min:max". Class-break values/ranges and point size
             /// values are separated by cb_delimiter, e.g. {"states",
-            /// "NY;TX;CA", "3;5;7"}.</summary>
+            /// "NY;TX;CA", "3;5;7"}.</para></remarks>
             public const string CB_POINTSIZES = "cb_pointsizes";
 
             /// <summary>Point shape class break information consisting of
             /// three entries: class-break attribute, class-break
-            /// values/ranges, and point shape names. This option overrides the
-            /// pointshape option if both are provided. Class-break ranges are
-            /// represented in the form of "min:max". Class-break values/ranges
-            /// and point shape names are separated by cb_delimiter, e.g.
-            /// {"states", "NY;TX;CA", "circle;square;diamond"}.</summary>
+            /// values/ranges, and point shape names.</summary>
+            /// <remarks><para>This option overrides the pointshape option if
+            /// both are provided. Class-break ranges are represented in the
+            /// form of "min:max". Class-break values/ranges and point shape
+            /// names are separated by cb_delimiter, e.g. {"states",
+            /// "NY;TX;CA", "circle;square;diamond"}.</para></remarks>
             public const string CB_POINTSHAPES = "cb_pointshapes";
 
             /// <summary>A character or string which separates per-class values
-            /// in a class-break style option string.  The default value is
-            /// ';'.</summary>
+            /// in a class-break style option string.</summary>
+            /// <remarks><para>The default value is ';'.</para></remarks>
             public const string CB_DELIMITER = "cb_delimiter";
 
             /// <summary>An expression or aggregate expression by which
@@ -310,128 +130,94 @@ namespace kinetica
             /// which defaults to "avg(price) ascending".</summary>
             public const string Y_ORDER_BY = "y_order_by";
 
-            /// <summary>Type of x axis scale.
-            /// Supported values:
+            /// <summary>Type of x axis scale.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-            ///         <description>No scale is applied to the x
-            /// axis.</description>
+            ///         <term><see cref="StyleOptions.NONE">NONE</see>:</term>
+            ///         <description>No scale is applied to the x axis.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+            ///         <term><see cref="StyleOptions.LOG">LOG</see>:</term>
             ///         <description>A base-10 log scale is applied to the x
-            /// axis.</description>
+            ///         axis.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="StyleOptions.NONE">NONE</see>.</para></remarks>
             public const string SCALE_TYPE_X = "scale_type_x";
 
-            /// <summary>A base-10 log scale is applied to the y
-            /// axis.</summary>
+            /// <summary>A base-10 log scale is applied to the y axis.
+            /// </summary>
             public const string LOG = "log";
 
-            /// <summary>Type of y axis scale.
-            /// Supported values:
+            /// <summary>Type of y axis scale.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-            ///         <description>No scale is applied to the y
-            /// axis.</description>
+            ///         <term><see cref="StyleOptions.NONE">NONE</see>:</term>
+            ///         <description>No scale is applied to the y axis.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+            ///         <term><see cref="StyleOptions.LOG">LOG</see>:</term>
             ///         <description>A base-10 log scale is applied to the y
-            /// axis.</description>
+            ///         axis.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="StyleOptions.NONE">NONE</see>.</para></remarks>
             public const string SCALE_TYPE_Y = "scale_type_y";
 
             /// <summary>If this options is set to "false", this endpoint
-            /// expects request's min/max values are not yet scaled. They will
-            /// be scaled according to scale_type_x or scale_type_y for
-            /// response. If this options is set to "true", this endpoint
-            /// expects request's min/max values are already scaled according
-            /// to scale_type_x/scale_type_y. Response's min/max values will be
-            /// equal to request's min/max values.  The default value is
-            /// 'false'.</summary>
+            /// expects request's min/max values are not yet scaled.</summary>
+            /// <remarks><para>They will be scaled according to scale_type_x or
+            /// scale_type_y for response. If this options is set to "true",
+            /// this endpoint expects request's min/max values are already
+            /// scaled according to scale_type_x/scale_type_y. Response's
+            /// min/max values will be equal to request's min/max values. The
+            /// default value is 'false'.</para></remarks>
             public const string MIN_MAX_SCALED = "min_max_scaled";
 
             /// <summary>Amplitude of horizontal jitter applied to non-numeric
-            /// x column values.  The default value is '0.0'.</summary>
+            /// x column values.</summary>
+            /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string JITTER_X = "jitter_x";
 
             /// <summary>Amplitude of vertical jitter applied to non-numeric y
-            /// column values.  The default value is '0.0'.</summary>
+            /// column values.</summary>
+            /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string JITTER_Y = "jitter_y";
 
             /// <summary>If this options is set to "true", all non-numeric
             /// column values are plotted ignoring min_x, max_x, min_y and
-            /// max_y parameters.  The default value is 'false'.</summary>
+            /// max_y parameters.</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string PLOT_ALL = "plot_all";
         } // end struct StyleOptions
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
-        ///         <description>Encoding to be applied to the output image.
-        /// When using JSON serialization it is recommended to specify this as
-        /// <i>base64</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
-        ///         <description>Apply base64 encoding to the output
-        /// image.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>Do not apply any additional encoding to the
-        /// output image.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Encoding to be applied to the output image. When using
-            /// JSON serialization it is recommended to specify this as
-            /// <i>base64</i>.
-            /// Supported values:
+            /// <summary>Encoding to be applied to the output image.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
-            ///         <description>Apply base64 encoding to the output
-            /// image.</description>
+            ///         <term><see cref="Options.BASE64">BASE64</see>:</term>
+            ///         <description>Apply base64 encoding to the output image.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
+            ///         <term><see cref="Options.NONE">NONE</see>:</term>
             ///         <description>Do not apply any additional encoding to
-            /// the output image.</description>
+            ///         the output image.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</summary>
+            /// <para>The default value is <see cref="Options.NONE">NONE</see>.
+            /// </para></remarks>
             public const string IMAGE_ENCODING = "image_encoding";
 
             /// <summary>Apply base64 encoding to the output image.</summary>
@@ -442,267 +228,276 @@ namespace kinetica
             public const string NONE = "none";
         } // end struct Options
 
-
         /// <summary>Name of the table containing the data to be drawn as a
         /// chart, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public string table_name { get; set; }
 
         /// <summary>Names of the columns containing the data mapped to the x
-        /// axis of a chart.  </summary>
+        /// axis of a chart.</summary>
         public IList<string> x_column_names { get; set; } = new List<string>();
 
         /// <summary>Names of the columns containing the data mapped to the y
-        /// axis of a chart.  </summary>
+        /// axis of a chart.</summary>
         public IList<string> y_column_names { get; set; } = new List<string>();
 
-        /// <summary>Lower bound for the x column values. For non-numeric x
-        /// column, each x column item is mapped to an integral value starting
-        /// from 0.  </summary>
+        /// <summary>Lower bound for the x column values.</summary>
+        /// <remarks><para>For non-numeric x column, each x column item is
+        /// mapped to an integral value starting from 0.</para></remarks>
         public double min_x { get; set; }
 
-        /// <summary>Upper bound for the x column values. For non-numeric x
-        /// column, each x column item is mapped to an integral value starting
-        /// from 0.  </summary>
+        /// <summary>Upper bound for the x column values.</summary>
+        /// <remarks><para>For non-numeric x column, each x column item is
+        /// mapped to an integral value starting from 0.</para></remarks>
         public double max_x { get; set; }
 
-        /// <summary>Lower bound for the y column values. For non-numeric y
-        /// column, each y column item is mapped to an integral value starting
-        /// from 0.  </summary>
+        /// <summary>Lower bound for the y column values.</summary>
+        /// <remarks><para>For non-numeric y column, each y column item is
+        /// mapped to an integral value starting from 0.</para></remarks>
         public double min_y { get; set; }
 
-        /// <summary>Upper bound for the y column values. For non-numeric y
-        /// column, each y column item is mapped to an integral value starting
-        /// from 0.  </summary>
+        /// <summary>Upper bound for the y column values.</summary>
+        /// <remarks><para>For non-numeric y column, each y column item is
+        /// mapped to an integral value starting from 0.</para></remarks>
         public double max_y { get; set; }
 
-        /// <summary>Width of the generated image in pixels.  </summary>
+        /// <summary>Width of the generated image in pixels.</summary>
         public int width { get; set; }
 
-        /// <summary>Height of the generated image in pixels.  </summary>
+        /// <summary>Height of the generated image in pixels.</summary>
         public int height { get; set; }
 
-        /// <summary>Background color of the generated image.  </summary>
+        /// <summary>Background color of the generated image.</summary>
         public string bg_color { get; set; }
 
-        /// <summary>Rendering style options for a chart.
-        /// <list type="bullet">
+        /// <summary>Rendering style options for a chart.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
+        ///         <term><see cref="StyleOptions.POINTCOLOR">POINTCOLOR</see>:
+        ///         </term>
         ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.  The default value is '0000FF'.</description>
+        ///         a hexadecimal number. The default value is '0000FF'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
+        ///         <term><see cref="StyleOptions.POINTSIZE">POINTSIZE</see>:
+        ///         </term>
         ///         <description>The size of points in the plot represented as
-        /// number of pixels.  The default value is '3'.</description>
+        ///         number of pixels. The default value is '3'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSHAPE">POINTSHAPE</see>:</term>
+        ///         <term><see cref="StyleOptions.POINTSHAPE">POINTSHAPE</see>:
+        ///         </term>
         ///         <description>The shape of points in the plot.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see></term>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.NONE">NONE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.CIRCLE">CIRCLE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.SQUARE">SQUARE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="StyleOptions.SQUARE">SQUARE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTCOLORS">CB_POINTCOLORS</see>:</term>
+        ///         cref="StyleOptions.CB_POINTCOLORS">CB_POINTCOLORS</see>:
+        ///         </term>
         ///         <description>Point color class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point color values. This option overrides the pointcolor option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point color values
-        /// are separated by cb_delimiter, e.g. {"price", "20:30;30:40;40:50",
-        /// "0xFF0000;0x00FF00;0x0000FF"}.</description>
+        ///         of three entries: class-break attribute, class-break
+        ///         values/ranges, and point color values. This option
+        ///         overrides the pointcolor option if both are provided.
+        ///         Class-break ranges are represented in the form of
+        ///         "min:max". Class-break values/ranges and point color values
+        ///         are separated by cb_delimiter, e.g. {"price",
+        ///         "20:30;30:40;40:50", "0xFF0000;0x00FF00;0x0000FF"}.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSIZES">CB_POINTSIZES</see>:</term>
+        ///         cref="StyleOptions.CB_POINTSIZES">CB_POINTSIZES</see>:
+        ///         </term>
         ///         <description>Point size class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point size values. This option overrides the pointsize option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point size values
-        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
-        /// "3;5;7"}.</description>
+        ///         of three entries: class-break attribute, class-break
+        ///         values/ranges, and point size values. This option overrides
+        ///         the pointsize option if both are provided. Class-break
+        ///         ranges are represented in the form of "min:max".
+        ///         Class-break values/ranges and point size values are
+        ///         separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
+        ///         "3;5;7"}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSHAPES">CB_POINTSHAPES</see>:</term>
+        ///         cref="StyleOptions.CB_POINTSHAPES">CB_POINTSHAPES</see>:
+        ///         </term>
         ///         <description>Point shape class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point shape names. This option overrides the pointshape option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point shape names
-        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
-        /// "circle;square;diamond"}.</description>
+        ///         of three entries: class-break attribute, class-break
+        ///         values/ranges, and point shape names. This option overrides
+        ///         the pointshape option if both are provided. Class-break
+        ///         ranges are represented in the form of "min:max".
+        ///         Class-break values/ranges and point shape names are
+        ///         separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
+        ///         "circle;square;diamond"}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
+        ///         cref="StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
         ///         <description>A character or string which separates
-        /// per-class values in a class-break style option string.  The default
-        /// value is ';'.</description>
+        ///         per-class values in a class-break style option string. The
+        ///         default value is ';'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
+        ///         <term><see cref="StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:
+        ///         </term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g. "avg(price)
-        /// descending".</description>
+        ///         non-numeric x column values are sorted, e.g. "avg(price)
+        ///         descending".</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
+        ///         <term><see cref="StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:
+        ///         </term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g. "avg(price)", which
-        /// defaults to "avg(price) ascending".</description>
+        ///         non-numeric y column values are sorted, e.g. "avg(price)",
+        ///         which defaults to "avg(price) ascending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
+        ///         cref="StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
         ///         <description>Type of x axis scale.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-        ///         <description>No scale is applied to the x
-        /// axis.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.NONE">NONE</see>:
+        ///                 </term>
+        ///                 <description>No scale is applied to the x axis.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.LOG">LOG</see>:
+        ///                 </term>
+        ///                 <description>A base-10 log scale is applied to the
+        ///                 x axis.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="StyleOptions.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
-        ///         <description>A base-10 log scale is applied to the x
-        /// axis.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
+        ///         cref="StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
         ///         <description>Type of y axis scale.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-        ///         <description>No scale is applied to the y
-        /// axis.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.NONE">NONE</see>:
+        ///                 </term>
+        ///                 <description>No scale is applied to the y axis.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.LOG">LOG</see>:
+        ///                 </term>
+        ///                 <description>A base-10 log scale is applied to the
+        ///                 y axis.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="StyleOptions.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
-        ///         <description>A base-10 log scale is applied to the y
-        /// axis.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         cref="StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:
+        ///         </term>
         ///         <description>If this options is set to "false", this
-        /// endpoint expects request's min/max values are not yet scaled. They
-        /// will be scaled according to scale_type_x or scale_type_y for
-        /// response. If this options is set to "true", this endpoint expects
-        /// request's min/max values are already scaled according to
-        /// scale_type_x/scale_type_y. Response's min/max values will be equal
-        /// to request's min/max values.  The default value is
-        /// 'false'.</description>
+        ///         endpoint expects request's min/max values are not yet
+        ///         scaled. They will be scaled according to scale_type_x or
+        ///         scale_type_y for response. If this options is set to
+        ///         "true", this endpoint expects request's min/max values are
+        ///         already scaled according to scale_type_x/scale_type_y.
+        ///         Response's min/max values will be equal to request's
+        ///         min/max values. The default value is 'false'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
+        ///         <term><see cref="StyleOptions.JITTER_X">JITTER_X</see>:
+        ///         </term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.  The default value is
-        /// '0.0'.</description>
+        ///         non-numeric x column values. The default value is '0.0'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
+        ///         <term><see cref="StyleOptions.JITTER_Y">JITTER_Y</see>:
+        ///         </term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.  The default value is
-        /// '0.0'.</description>
+        ///         non-numeric y column values. The default value is '0.0'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
+        ///         <term><see cref="StyleOptions.PLOT_ALL">PLOT_ALL</see>:
+        ///         </term>
         ///         <description>If this options is set to "true", all
-        /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.  The default value is 'false'.</description>
+        ///         non-numeric column values are plotted ignoring min_x,
+        ///         max_x, min_y and max_y parameters. The default value is
+        ///         'false'.</description>
         ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
+        ///         cref="Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
         ///         <description>Encoding to be applied to the output image.
-        /// When using JSON serialization it is recommended to specify this as
-        /// <i>base64</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
-        ///         <description>Apply base64 encoding to the output
-        /// image.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>Do not apply any additional encoding to the
-        /// output image.</description>
+        ///         When using JSON serialization it is recommended to specify
+        ///         this as <see cref="Options.BASE64">BASE64</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.BASE64">BASE64</see>:
+        ///                 </term>
+        ///                 <description>Apply base64 encoding to the output
+        ///                 image.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+        ///                 <description>Do not apply any additional encoding
+        ///                 to the output image.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a VisualizeImageChartRequest object with
         /// default parameters.</summary>
@@ -710,29 +505,28 @@ namespace kinetica
 
         /// <summary>Constructs a VisualizeImageChartRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table containing the data to
         /// be drawn as a chart, in [schema_name.]table_name format, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="x_column_names">Names of the columns containing the
-        /// data mapped to the x axis of a chart.  </param>
+        /// data mapped to the x axis of a chart.</param>
         /// <param name="y_column_names">Names of the columns containing the
-        /// data mapped to the y axis of a chart.  </param>
+        /// data mapped to the y axis of a chart.</param>
         /// <param name="min_x">Lower bound for the x column values. For
         /// non-numeric x column, each x column item is mapped to an integral
-        /// value starting from 0.  </param>
+        /// value starting from 0.</param>
         /// <param name="max_x">Upper bound for the x column values. For
         /// non-numeric x column, each x column item is mapped to an integral
-        /// value starting from 0.  </param>
+        /// value starting from 0.</param>
         /// <param name="min_y">Lower bound for the y column values. For
         /// non-numeric y column, each y column item is mapped to an integral
-        /// value starting from 0.  </param>
+        /// value starting from 0.</param>
         /// <param name="max_y">Upper bound for the y column values. For
         /// non-numeric y column, each y column item is mapped to an integral
-        /// value starting from 0.  </param>
-        /// <param name="width">Width of the generated image in pixels.
-        /// </param>
+        /// value starting from 0.</param>
+        /// <param name="width">Width of the generated image in pixels.</param>
         /// <param name="height">Height of the generated image in pixels.
         /// </param>
         /// <param name="bg_color">Background color of the generated image.
@@ -740,217 +534,227 @@ namespace kinetica
         /// <param name="style_options">Rendering style options for a chart.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
+        ///         <term><see cref="StyleOptions.POINTCOLOR">POINTCOLOR</see>:
+        ///         </term>
         ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.  The default value is '0000FF'.</description>
+        ///         a hexadecimal number. The default value is '0000FF'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
+        ///         <term><see cref="StyleOptions.POINTSIZE">POINTSIZE</see>:
+        ///         </term>
         ///         <description>The size of points in the plot represented as
-        /// number of pixels.  The default value is '3'.</description>
+        ///         number of pixels. The default value is '3'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSHAPE">POINTSHAPE</see>:</term>
+        ///         <term><see cref="StyleOptions.POINTSHAPE">POINTSHAPE</see>:
+        ///         </term>
         ///         <description>The shape of points in the plot.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see></term>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.NONE">NONE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.CIRCLE">CIRCLE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.SQUARE">SQUARE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="StyleOptions.SQUARE">SQUARE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTCOLORS">CB_POINTCOLORS</see>:</term>
+        ///         cref="StyleOptions.CB_POINTCOLORS">CB_POINTCOLORS</see>:
+        ///         </term>
         ///         <description>Point color class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point color values. This option overrides the pointcolor option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point color values
-        /// are separated by cb_delimiter, e.g. {"price", "20:30;30:40;40:50",
-        /// "0xFF0000;0x00FF00;0x0000FF"}.</description>
+        ///         of three entries: class-break attribute, class-break
+        ///         values/ranges, and point color values. This option
+        ///         overrides the pointcolor option if both are provided.
+        ///         Class-break ranges are represented in the form of
+        ///         "min:max". Class-break values/ranges and point color values
+        ///         are separated by cb_delimiter, e.g. {"price",
+        ///         "20:30;30:40;40:50", "0xFF0000;0x00FF00;0x0000FF"}.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSIZES">CB_POINTSIZES</see>:</term>
+        ///         cref="StyleOptions.CB_POINTSIZES">CB_POINTSIZES</see>:
+        ///         </term>
         ///         <description>Point size class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point size values. This option overrides the pointsize option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point size values
-        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
-        /// "3;5;7"}.</description>
+        ///         of three entries: class-break attribute, class-break
+        ///         values/ranges, and point size values. This option overrides
+        ///         the pointsize option if both are provided. Class-break
+        ///         ranges are represented in the form of "min:max".
+        ///         Class-break values/ranges and point size values are
+        ///         separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
+        ///         "3;5;7"}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSHAPES">CB_POINTSHAPES</see>:</term>
+        ///         cref="StyleOptions.CB_POINTSHAPES">CB_POINTSHAPES</see>:
+        ///         </term>
         ///         <description>Point shape class break information consisting
-        /// of three entries: class-break attribute, class-break values/ranges,
-        /// and point shape names. This option overrides the pointshape option
-        /// if both are provided. Class-break ranges are represented in the
-        /// form of "min:max". Class-break values/ranges and point shape names
-        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
-        /// "circle;square;diamond"}.</description>
+        ///         of three entries: class-break attribute, class-break
+        ///         values/ranges, and point shape names. This option overrides
+        ///         the pointshape option if both are provided. Class-break
+        ///         ranges are represented in the form of "min:max".
+        ///         Class-break values/ranges and point shape names are
+        ///         separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
+        ///         "circle;square;diamond"}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
+        ///         cref="StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
         ///         <description>A character or string which separates
-        /// per-class values in a class-break style option string.  The default
-        /// value is ';'.</description>
+        ///         per-class values in a class-break style option string. The
+        ///         default value is ';'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
+        ///         <term><see cref="StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:
+        ///         </term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g. "avg(price)
-        /// descending".</description>
+        ///         non-numeric x column values are sorted, e.g. "avg(price)
+        ///         descending".</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
+        ///         <term><see cref="StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:
+        ///         </term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g. "avg(price)", which
-        /// defaults to "avg(price) ascending".</description>
+        ///         non-numeric y column values are sorted, e.g. "avg(price)",
+        ///         which defaults to "avg(price) ascending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
+        ///         cref="StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
         ///         <description>Type of x axis scale.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-        ///         <description>No scale is applied to the x
-        /// axis.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.NONE">NONE</see>:
+        ///                 </term>
+        ///                 <description>No scale is applied to the x axis.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.LOG">LOG</see>:
+        ///                 </term>
+        ///                 <description>A base-10 log scale is applied to the
+        ///                 x axis.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="StyleOptions.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
-        ///         <description>A base-10 log scale is applied to the x
-        /// axis.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
+        ///         cref="StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
         ///         <description>Type of y axis scale.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
-        ///         <description>No scale is applied to the y
-        /// axis.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.NONE">NONE</see>:
+        ///                 </term>
+        ///                 <description>No scale is applied to the y axis.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="StyleOptions.LOG">LOG</see>:
+        ///                 </term>
+        ///                 <description>A base-10 log scale is applied to the
+        ///                 y axis.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="StyleOptions.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
-        ///         <description>A base-10 log scale is applied to the y
-        /// axis.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         cref="StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:
+        ///         </term>
         ///         <description>If this options is set to "false", this
-        /// endpoint expects request's min/max values are not yet scaled. They
-        /// will be scaled according to scale_type_x or scale_type_y for
-        /// response. If this options is set to "true", this endpoint expects
-        /// request's min/max values are already scaled according to
-        /// scale_type_x/scale_type_y. Response's min/max values will be equal
-        /// to request's min/max values.  The default value is
-        /// 'false'.</description>
+        ///         endpoint expects request's min/max values are not yet
+        ///         scaled. They will be scaled according to scale_type_x or
+        ///         scale_type_y for response. If this options is set to
+        ///         "true", this endpoint expects request's min/max values are
+        ///         already scaled according to scale_type_x/scale_type_y.
+        ///         Response's min/max values will be equal to request's
+        ///         min/max values. The default value is 'false'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
+        ///         <term><see cref="StyleOptions.JITTER_X">JITTER_X</see>:
+        ///         </term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.  The default value is
-        /// '0.0'.</description>
+        ///         non-numeric x column values. The default value is '0.0'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
+        ///         <term><see cref="StyleOptions.JITTER_Y">JITTER_Y</see>:
+        ///         </term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.  The default value is
-        /// '0.0'.</description>
+        ///         non-numeric y column values. The default value is '0.0'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
+        ///         <term><see cref="StyleOptions.PLOT_ALL">PLOT_ALL</see>:
+        ///         </term>
         ///         <description>If this options is set to "true", all
-        /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.  The default value is 'false'.</description>
+        ///         non-numeric column values are plotted ignoring min_x,
+        ///         max_x, min_y and max_y parameters. The default value is
+        ///         'false'.</description>
         ///     </item>
-        /// </list>
-        ///   </param>
+        /// </list></param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
+        ///         cref="Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
         ///         <description>Encoding to be applied to the output image.
-        /// When using JSON serialization it is recommended to specify this as
-        /// <i>base64</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
-        ///         <description>Apply base64 encoding to the output
-        /// image.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>Do not apply any additional encoding to the
-        /// output image.</description>
+        ///         When using JSON serialization it is recommended to specify
+        ///         this as <see cref="Options.BASE64">BASE64</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.BASE64">BASE64</see>:
+        ///                 </term>
+        ///                 <description>Apply base64 encoding to the output
+        ///                 image.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+        ///                 <description>Do not apply any additional encoding
+        ///                 to the output image.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public VisualizeImageChartRequest( string table_name,
                                            IList<string> x_column_names,
                                            IList<string> y_column_names,
@@ -977,51 +781,19 @@ namespace kinetica
             this.style_options = style_options ?? new Dictionary<string, IList<string>>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class VisualizeImageChartRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageChart(string,IList{string},IList{string},double,double,double,double,int,int,string,IDictionary{string, IList{string}},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.visualizeImageChart(VisualizeImageChartRequest)">Kinetica.visualizeImageChart</see>.
+    /// </summary>
     public class VisualizeImageChartResponse : KineticaData
     {
-
-        /// <summary>Information returned for drawing labels for the axes
-        /// associated with non-numeric columns.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.SORTED_X_VALUES">SORTED_X_VALUES</see>:</term>
-        ///         <description>Sorted non-numeric x column value list for
-        /// drawing x axis label.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.LOCATION_X">LOCATION_X</see>:</term>
-        ///         <description>X axis label positions of sorted_x_values in
-        /// pixel coordinates.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.SORTED_Y_VALUES">SORTED_Y_VALUES</see>:</term>
-        ///         <description>Sorted non-numeric y column value list for
-        /// drawing y axis label.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.LOCATION_Y">LOCATION_Y</see>:</term>
-        ///         <description>Y axis label positions of sorted_y_values in
-        /// pixel coordinates.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="axes_info" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="axes_info" />.</summary>
+        /// <remarks><para>Information returned for drawing labels for the axes
+        /// associated with non-numeric columns.</para></remarks>
         public struct AxesInfo
         {
-
             /// <summary>Sorted non-numeric x column value list for drawing x
             /// axis label.</summary>
             public const string SORTED_X_VALUES = "sorted_x_values";
@@ -1039,79 +811,75 @@ namespace kinetica
             public const string LOCATION_Y = "location_y";
         } // end struct AxesInfo
 
-
-        /// <summary>Lower bound for the x column values as provided in
-        /// <paramref cref="VisualizeImageChartRequest.min_x" /> or calculated
-        /// for non-numeric columns when plot_all option is used.  </summary>
+        /// <summary>Lower bound for the x column values as provided in <see
+        /// cref="VisualizeImageChartRequest.min_x">min_x</see> or calculated
+        /// for non-numeric columns when plot_all option is used.</summary>
         public double min_x { get; set; }
 
-        /// <summary>Upper bound for the x column values as provided in
-        /// <paramref cref="VisualizeImageChartRequest.max_x" /> or calculated
-        /// for non-numeric columns when plot_all option is used.  </summary>
+        /// <summary>Upper bound for the x column values as provided in <see
+        /// cref="VisualizeImageChartRequest.max_x">max_x</see> or calculated
+        /// for non-numeric columns when plot_all option is used.</summary>
         public double max_x { get; set; }
 
-        /// <summary>Lower bound for the y column values as provided in
-        /// <paramref cref="VisualizeImageChartRequest.min_y" /> or calculated
-        /// for non-numeric columns when plot_all option is used.  </summary>
+        /// <summary>Lower bound for the y column values as provided in <see
+        /// cref="VisualizeImageChartRequest.min_y">min_y</see> or calculated
+        /// for non-numeric columns when plot_all option is used.</summary>
         public double min_y { get; set; }
 
-        /// <summary>Upper bound for the y column values as provided in
-        /// <paramref cref="VisualizeImageChartRequest.max_y" /> or calculated
-        /// for non-numeric columns when plot_all option is used.  </summary>
+        /// <summary>Upper bound for the y column values as provided in <see
+        /// cref="VisualizeImageChartRequest.max_y">max_y</see> or calculated
+        /// for non-numeric columns when plot_all option is used.</summary>
         public double max_y { get; set; }
 
-        /// <summary>Width of the image as provided in <paramref
-        /// cref="VisualizeImageChartRequest.width" />.  </summary>
+        /// <summary>Width of the image as provided in <see
+        /// cref="VisualizeImageChartRequest.width">width</see>.</summary>
         public int width { get; set; }
 
-        /// <summary>Height of the image as provided in <paramref
-        /// cref="VisualizeImageChartRequest.height" />.  </summary>
+        /// <summary>Height of the image as provided in <see
+        /// cref="VisualizeImageChartRequest.height">height</see>.</summary>
         public int height { get; set; }
 
-        /// <summary>Background color of the image as provided in <paramref
-        /// cref="VisualizeImageChartRequest.bg_color" />.  </summary>
+        /// <summary>Background color of the image as provided in <see
+        /// cref="VisualizeImageChartRequest.bg_color">bg_color</see>.
+        /// </summary>
         public string bg_color { get; set; }
 
-        /// <summary>The generated image data.  </summary>
+        /// <summary>The generated image data.</summary>
         public byte[] image_data { get; set; }
 
         /// <summary>Information returned for drawing labels for the axes
-        /// associated with non-numeric columns.
-        /// <list type="bullet">
+        /// associated with non-numeric columns.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.SORTED_X_VALUES">SORTED_X_VALUES</see>:</term>
+        ///         cref="AxesInfo.SORTED_X_VALUES">SORTED_X_VALUES</see>:
+        ///         </term>
         ///         <description>Sorted non-numeric x column value list for
-        /// drawing x axis label.</description>
+        ///         drawing x axis label.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.LOCATION_X">LOCATION_X</see>:</term>
+        ///         <term><see cref="AxesInfo.LOCATION_X">LOCATION_X</see>:
+        ///         </term>
         ///         <description>X axis label positions of sorted_x_values in
-        /// pixel coordinates.</description>
+        ///         pixel coordinates.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.SORTED_Y_VALUES">SORTED_Y_VALUES</see>:</term>
+        ///         cref="AxesInfo.SORTED_Y_VALUES">SORTED_Y_VALUES</see>:
+        ///         </term>
         ///         <description>Sorted non-numeric y column value list for
-        /// drawing y axis label.</description>
+        ///         drawing y axis label.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageChartResponse.AxesInfo.LOCATION_Y">LOCATION_Y</see>:</term>
+        ///         <term><see cref="AxesInfo.LOCATION_Y">LOCATION_Y</see>:
+        ///         </term>
         ///         <description>Y axis label positions of sorted_y_values in
-        /// pixel coordinates.</description>
+        ///         pixel coordinates.</description>
         ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, IList<string>> axes_info { get; set; } = new Dictionary<string, IList<string>>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class VisualizeImageChartResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

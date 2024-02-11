@@ -6,43 +6,23 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.grantPermissionCredential(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Grants a <a
+    /// cref="Kinetica.grantPermissionCredential(GrantPermissionCredentialRequest)">Kinetica.grantPermissionCredential</see>.
+    /// </summary>
+    /// <remarks><para>Grants a <a
     /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
-    /// target="_top">credential-level permission</a> to a user or
-    /// role.</summary>
+    /// target="_top">credential-level permission</a> to a user or role.</para>
+    /// </remarks>
     public class GrantPermissionCredentialRequest : KineticaData
     {
-
-        /// <summary>Permission to grant to the user or role.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
-        ///         <description>Full read/write and administrative access on
-        /// the credential.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
-        ///         <description>Ability to read and use the
-        /// credential.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="permission"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="permission" />.</summary>
+        /// <remarks><para>Permission to grant to the user or role.</para>
+        /// </remarks>
         public struct Permission
         {
-
             /// <summary>Full read/write and administrative access on the
             /// credential.</summary>
             public const string CREDENTIAL_ADMIN = "credential_admin";
@@ -51,38 +31,41 @@ namespace kinetica
             public const string CREDENTIAL_READ = "credential_read";
         } // end struct Permission
 
-
         /// <summary>Name of the user or role to which the permission will be
-        /// granted. Must be an existing user or role.  </summary>
+        /// granted.</summary>
+        /// <remarks><para>Must be an existing user or role.</para></remarks>
         public string name { get; set; }
 
-        /// <summary>Permission to grant to the user or role.
-        /// Supported values:
+        /// <summary>Permission to grant to the user or role.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
+        ///         cref="Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
+        ///         </term>
         ///         <description>Full read/write and administrative access on
-        /// the credential.</description>
+        ///         the credential.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
-        ///         <description>Ability to read and use the
-        /// credential.</description>
+        ///         cref="Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:
+        ///         </term>
+        ///         <description>Ability to read and use the credential.
+        ///         </description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string permission { get; set; }
 
         /// <summary>Name of the credential on which the permission will be
-        /// granted. Must be an existing credential, or an empty string to
-        /// grant access on all credentials.  </summary>
+        /// granted.</summary>
+        /// <remarks><para>Must be an existing credential, or an empty string
+        /// to grant access on all credentials.</para></remarks>
         public string credential_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a GrantPermissionCredentialRequest object with
         /// default parameters.</summary>
@@ -90,31 +73,32 @@ namespace kinetica
 
         /// <summary>Constructs a GrantPermissionCredentialRequest object with
         /// the specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the user or role to which the permission
-        /// will be granted. Must be an existing user or role.  </param>
+        /// will be granted. Must be an existing user or role.</param>
         /// <param name="permission">Permission to grant to the user or role.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
+        ///         cref="Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
+        ///         </term>
         ///         <description>Full read/write and administrative access on
-        /// the credential.</description>
+        ///         the credential.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
-        ///         <description>Ability to read and use the
-        /// credential.</description>
+        ///         cref="Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:
+        ///         </term>
+        ///         <description>Ability to read and use the credential.
+        ///         </description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="credential_name">Name of the credential on which the
         /// permission will be granted. Must be an existing credential, or an
-        /// empty string to grant access on all credentials.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// empty string to grant access on all credentials.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public GrantPermissionCredentialRequest( string name,
                                                  string permission,
                                                  string credential_name,
@@ -125,36 +109,28 @@ namespace kinetica
             this.credential_name = credential_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class GrantPermissionCredentialRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.grantPermissionCredential(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.grantPermissionCredential(GrantPermissionCredentialRequest)">Kinetica.grantPermissionCredential</see>.
+    /// </summary>
     public class GrantPermissionCredentialResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionCredentialRequest.name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionCredentialRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionCredentialRequest.permission" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionCredentialRequest.permission">permission</see>.
+        /// </summary>
         public string permission { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionCredentialRequest.credential_name" />.
+        /// <summary>Value of <see
+        /// cref="GrantPermissionCredentialRequest.credential_name">credential_name</see>.
         /// </summary>
         public string credential_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GrantPermissionCredentialResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

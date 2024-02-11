@@ -6,31 +6,27 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showStatistics(IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Retrieves the collected column statistics for the specified
-    /// table(s).</summary>
+    /// cref="Kinetica.showStatistics(ShowStatisticsRequest)">Kinetica.showStatistics</see>.
+    /// </summary>
+    /// <remarks><para>Retrieves the collected column statistics for the
+    /// specified table(s).</para></remarks>
     public class ShowStatisticsRequest : KineticaData
     {
-
         /// <summary>Names of tables whose metadata will be fetched, each in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  All provided tables must
-        /// exist, or an error is returned.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> All provided tables must exist, or an error is
+        /// returned.</para></remarks>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowStatisticsRequest object with default
         /// parameters.</summary>
@@ -38,47 +34,39 @@ namespace kinetica
 
         /// <summary>Constructs a ShowStatisticsRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_names">Names of tables whose metadata will be
         /// fetched, each in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All provided tables must
-        /// exist, or an error is returned.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// exist, or an error is returned.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public ShowStatisticsRequest( IList<string> table_names,
                                       IDictionary<string, string> options = null)
         {
             this.table_names = table_names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowStatisticsRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showStatistics(IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showStatistics(ShowStatisticsRequest)">Kinetica.showStatistics</see>.
+    /// </summary>
     public class ShowStatisticsResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="ShowStatisticsRequest.table_names" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="ShowStatisticsRequest.table_names">table_names</see>.
+        /// </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>A list of maps which contain the column statistics of the
-        /// table <paramref cref="ShowStatisticsRequest.table_names" />.
+        /// table <see
+        /// cref="ShowStatisticsRequest.table_names">table_names</see>.
         /// </summary>
         public IList<IList<IDictionary<string, string>>> stastistics_map { get; set; } = new List<IList<IDictionary<string, string>>>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowStatisticsResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

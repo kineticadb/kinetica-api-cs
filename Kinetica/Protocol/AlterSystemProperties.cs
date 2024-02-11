@@ -6,279 +6,26 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// The <see
-    /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
-    /// /> endpoint is primarily used to simplify the testing of the system and
-    /// is not expected to be used during normal execution.  Commands are given
+    /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
+    /// </summary>
+    /// <remarks><para>The <see
+    /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>
+    /// endpoint is primarily used to simplify the testing of the system and is
+    /// not expected to be used during normal execution.  Commands are given
     /// through the <see cref="property_updates_map" /> whose keys are commands
     /// and values are strings representing integer values (for example '8000')
-    /// or boolean values ('true' or 'false').</summary>
+    /// or boolean values ('true' or 'false').</para></remarks>
     public class AlterSystemPropertiesRequest : KineticaData
     {
-
-        /// <summary>Map containing the properties of the system to be updated.
-        /// Error if empty.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
-        ///         <description>Set the number of OpenMP threads that will be
-        /// used to service filter & aggregation requests to the specified
-        /// integer value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
-        ///         <description>Set the number of kernel OpenMP threads to the
-        /// specified integer value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
-        ///         <description>Enables concurrent kernel execution if the
-        /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
-        ///         <description>Sets the maximum number of simultaneous
-        /// threads allocated to a given request, on each rank. Note that
-        /// thread allocation may also be limted by resource group limits
-        /// and/or system load.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Sets the number of records per chunk to be
-        /// used for all new tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:</term>
-        ///         <description>Attempts to evict columns from memory to the
-        /// persistent store.  Value string is a semicolon separated list of
-        /// entries, each entry being a table name optionally followed by a
-        /// comma and a comma separated list of column names to attempt to
-        /// evict.  An empty value string will attempt to evict all tables and
-        /// columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
-        ///         <description>Sets the execution_mode for kernel executions
-        /// to the specified string value. Possible values are host, device,
-        /// default (engine decides) or an integer value that indicates max
-        /// chunk size to exec on host</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
-        ///         <description>Sets the root directory path where external
-        /// table data files are accessed from.  Path must exist on the head
-        /// node</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
-        ///         <description>Flushes any changes to any tables to the
-        /// persistent store.  These changes include updates to the vector
-        /// store, object store, and text search store, Value string is
-        /// ignored</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
-        ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints.  Value string is the name of the
-        /// table for which to clear the cached results, or an empty string to
-        /// clear the cached results for all tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
-        ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
-        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
-        /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=[bytes] where bytes is the size in bytes of the
-        /// messages to send; check_values=[enabled] where if enabled is true
-        /// the value of the messages received are verified.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
-        ///         <description>Invoke the network speed test and report
-        /// timing results. Value string is a semicolon-separated list of
-        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
-        /// where time is the time in seconds to run the test;
-        /// data_size=[bytes] where bytes is the size in bytes of the block to
-        /// be transferred; threads=[number of threads];
-        /// to_ranks=[space-separated list of ranks] where the list of ranks is
-        /// the ranks that rank 0 will send data to and get data from. If
-        /// to_ranks is unspecified then all worker ranks are
-        /// used.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
-        ///         <description>Number of minutes after which filtering (e.g.,
-        /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.  The default value is '20'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
-        ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call.  The default value is
-        /// '20000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
-        ///         <description>Enable or disable auditing.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// headers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// bodies.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// data.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
-        ///         <description>Enable or disable auditing of response
-        /// information.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
-        ///         <description>Size of the shadow aggregate chunk cache in
-        /// bytes.  The default value is '10000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
-        ///         <description>Size of the shadow filter chunk cache in
-        /// bytes.  The default value is '10000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
-        ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread).  The default value is
-        /// 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
-        ///         <description>Enable overlapped-equi-join filter.  The
-        /// default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records to be ingested in a
-        /// single batch.  The default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
-        ///         <description>Maximum time (milliseconds) for each poll to
-        /// get records from kafka.  The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
-        ///         <description>Maximum time (seconds) to buffer records
-        /// received from kafka before ingestion.  The default value is
-        /// '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
-        ///         <description>Parquet file compression type
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
-        ///         <description>Max file size (in MB) to allow saving to a
-        /// single file. May be overridden by target limitations.  The default
-        /// value is '100'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
-        ///         <description>Sets the max_concurrent_kernels value of the
-        /// conf.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
-        ///         <description>Sets the tcs_per_tom value of the
-        /// conf.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
-        ///         <description>Sets the tps_per_tom value of the
-        /// conf.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="property_updates_map" />.</summary>
+        /// <remarks><para>Map containing the properties of the system to be
+        /// updated. Error if empty.</para></remarks>
         public struct PropertyUpdatesMap
         {
-
             /// <summary>Set the number of OpenMP threads that will be used to
             /// service filter & aggregation requests to the specified integer
             /// value.</summary>
@@ -289,75 +36,93 @@ namespace kinetica
             public const string KERNEL_OMP_THREADS = "kernel_omp_threads";
 
             /// <summary>Enables concurrent kernel execution if the value is
-            /// <i>true</i> and disables it if the value is <i>false</i>.
-            /// Supported values:
+            /// <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables it
+            /// if the value is <see
+            /// cref="PropertyUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+            ///         <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string CONCURRENT_KERNEL_EXECUTION = "concurrent_kernel_execution";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>Sets the maximum number of simultaneous threads
-            /// allocated to a given request, on each rank. Note that thread
-            /// allocation may also be limted by resource group limits and/or
-            /// system load.</summary>
+            /// allocated to a given request, on each rank.</summary>
+            /// <remarks><para>Note that thread allocation may also be limted
+            /// by resource group limits and/or system load.</para></remarks>
             public const string SUBTASK_CONCURRENCY_LIMIT = "subtask_concurrency_limit";
 
             /// <summary>Sets the number of records per chunk to be used for
             /// all new tables.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
+            /// <summary>Sets the target maximum data size for each column in a
+            /// chunk to be used for all new tables.</summary>
+            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+            /// <summary>Indicates the target maximum data size for all columns
+            /// in a chunk to be used for all new tables.</summary>
+            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
             /// <summary>Attempts to evict columns from memory to the
-            /// persistent store.  Value string is a semicolon separated list
-            /// of entries, each entry being a table name optionally followed
-            /// by a comma and a comma separated list of column names to
-            /// attempt to evict.  An empty value string will attempt to evict
-            /// all tables and columns.</summary>
+            /// persistent store.</summary>
+            /// <remarks><para> Value string is a semicolon separated list of
+            /// entries, each entry being a table name optionally followed by a
+            /// comma and a comma separated list of column names to attempt to
+            /// evict.  An empty value string will attempt to evict all tables
+            /// and columns.</para></remarks>
             public const string EVICT_COLUMNS = "evict_columns";
 
             /// <summary>Sets the execution_mode for kernel executions to the
-            /// specified string value. Possible values are host, device,
-            /// default (engine decides) or an integer value that indicates max
-            /// chunk size to exec on host</summary>
+            /// specified string value.</summary>
+            /// <remarks><para>Possible values are host, device, default
+            /// (engine decides) or an integer value that indicates max chunk
+            /// size to exec on host</para></remarks>
             public const string EXECUTION_MODE = "execution_mode";
 
             /// <summary>Sets the root directory path where external table data
-            /// files are accessed from.  Path must exist on the head
-            /// node</summary>
+            /// files are accessed from.</summary>
+            /// <remarks><para> Path must exist on the head node</para>
+            /// </remarks>
             public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
 
             /// <summary>Flushes any changes to any tables to the persistent
-            /// store.  These changes include updates to the vector store,
-            /// object store, and text search store, Value string is
-            /// ignored</summary>
+            /// store.</summary>
+            /// <remarks><para> These changes include updates to the vector
+            /// store, object store, and text search store, Value string is
+            /// ignored</para></remarks>
             public const string FLUSH_TO_DISK = "flush_to_disk";
 
-            /// <summary>Clears cached results.  Useful to allow repeated
-            /// timing of endpoints.  Value string is the name of the table for
-            /// which to clear the cached results, or an empty string to clear
-            /// the cached results for all tables.</summary>
+            /// <summary>Clears cached results.</summary>
+            /// <remarks><para> Useful to allow repeated timing of endpoints.
+            /// Value string is the name of the table for which to clear the
+            /// cached results, or an empty string to clear the cached results
+            /// for all tables.</para></remarks>
             public const string CLEAR_CACHE = "clear_cache";
 
             /// <summary>Invoke the communicator test and report timing
-            /// results. Value string is is a semicolon separated list of
+            /// results.</summary>
+            /// <remarks><para>Value string is is a semicolon separated list of
             /// [key]=[value] expressions.  Expressions are:
             /// num_transactions=[num] where num is the number of request reply
             /// transactions to invoke per test; message_size=[bytes] where
             /// bytes is the size in bytes of the messages to send;
             /// check_values=[enabled] where if enabled is true the value of
-            /// the messages received are verified.</summary>
+            /// the messages received are verified.</para></remarks>
             public const string COMMUNICATOR_TEST = "communicator_test";
 
             /// <summary>Invoke the network speed test and report timing
-            /// results. Value string is a semicolon-separated list of
+            /// results.</summary>
+            /// <remarks><para>Value string is a semicolon-separated list of
             /// [key]=[value] expressions.  Valid expressions are:
             /// seconds=[time] where time is the time in seconds to run the
             /// test; data_size=[bytes] where bytes is the size in bytes of the
@@ -365,491 +130,610 @@ namespace kinetica
             /// to_ranks=[space-separated list of ranks] where the list of
             /// ranks is the ranks that rank 0 will send data to and get data
             /// from. If to_ranks is unspecified then all worker ranks are
-            /// used.</summary>
+            /// used.</para></remarks>
             public const string NETWORK_SPEED = "network_speed";
 
             /// <summary>Number of minutes after which filtering (e.g., <see
-            /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
-            /// />) and aggregating (e.g., <see
-            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-            /// />) queries will timeout.  The default value is '20'.</summary>
+            /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+            /// and aggregating (e.g., <see
+            /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+            /// queries will timeout.</summary>
+            /// <remarks><para>The default value is '20'. The minimum allowed
+            /// value is '0'. The maximum allowed value is '1440'.</para>
+            /// </remarks>
             public const string REQUEST_TIMEOUT = "request_timeout";
 
             /// <summary>The maximum number of records the database will serve
-            /// for a given data retrieval call.  The default value is
-            /// '20000'.</summary>
+            /// for a given data retrieval call.</summary>
+            /// <remarks><para>The default value is '20000'. The minimum
+            /// allowed value is '0'. The maximum allowed value is '1000000'.
+            /// </para></remarks>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
+
+            /// <summary>&lt;DEVELOPER&gt;</summary>
+            public const string MAX_GRBC_BATCH_SIZE = "max_grbc_batch_size";
 
             /// <summary>Enable or disable auditing.</summary>
             public const string ENABLE_AUDIT = "enable_audit";
 
-            /// <summary>Enable or disable auditing of request
-            /// headers.</summary>
+            /// <summary>Enable or disable auditing of request headers.
+            /// </summary>
             public const string AUDIT_HEADERS = "audit_headers";
 
-            /// <summary>Enable or disable auditing of request
-            /// bodies.</summary>
+            /// <summary>Enable or disable auditing of request bodies.
+            /// </summary>
             public const string AUDIT_BODY = "audit_body";
 
             /// <summary>Enable or disable auditing of request data.</summary>
             public const string AUDIT_DATA = "audit_data";
 
-            /// <summary>Enable or disable auditing of response
-            /// information.</summary>
+            /// <summary>Enable or disable auditing of response information.
+            /// </summary>
             public const string AUDIT_RESPONSE = "audit_response";
 
             /// <summary>Size of the shadow aggregate chunk cache in bytes.
-            /// The default value is '10000000'.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is '10000000'. The minimum
+            /// allowed value is '0'. The maximum allowed value is
+            /// '2147483647'.</para></remarks>
             public const string SHADOW_AGG_SIZE = "shadow_agg_size";
 
-            /// <summary>Size of the shadow filter chunk cache in bytes.  The
-            /// default value is '10000000'.</summary>
+            /// <summary>Size of the shadow filter chunk cache in bytes.
+            /// </summary>
+            /// <remarks><para>The default value is '10000000'. The minimum
+            /// allowed value is '0'. The maximum allowed value is
+            /// '2147483647'.</para></remarks>
             public const string SHADOW_FILTER_SIZE = "shadow_filter_size";
 
             /// <summary>compress vector on set_compression (instead of waiting
-            /// for background thread).  The default value is
-            /// 'false'.</summary>
+            /// for background thread).</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string SYNCHRONOUS_COMPRESSION = "synchronous_compression";
 
-            /// <summary>Enable overlapped-equi-join filter.  The default value
-            /// is 'true'.</summary>
+            /// <summary>Enable overlapped-equi-join filter.</summary>
+            /// <remarks><para>The default value is 'true'.</para></remarks>
             public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
 
             /// <summary>Maximum number of records to be ingested in a single
-            /// batch.  The default value is '1000'.</summary>
+            /// batch.</summary>
+            /// <remarks><para>The default value is '1000'. The minimum allowed
+            /// value is '1'. The maximum allowed value is '10000000'.</para>
+            /// </remarks>
             public const string KAFKA_BATCH_SIZE = "kafka_batch_size";
 
             /// <summary>Maximum time (milliseconds) for each poll to get
-            /// records from kafka.  The default value is '0'.</summary>
+            /// records from kafka.</summary>
+            /// <remarks><para>The default value is '0'. The minimum allowed
+            /// value is '0'. The maximum allowed value is '1000'.</para>
+            /// </remarks>
             public const string KAFKA_POLL_TIMEOUT = "kafka_poll_timeout";
 
             /// <summary>Maximum time (seconds) to buffer records received from
-            /// kafka before ingestion.  The default value is '30'.</summary>
+            /// kafka before ingestion.</summary>
+            /// <remarks><para>The default value is '30'. The minimum allowed
+            /// value is '1'. The maximum allowed value is '120'.</para>
+            /// </remarks>
             public const string KAFKA_WAIT_TIME = "kafka_wait_time";
 
-            /// <summary>Parquet file compression type
-            /// Supported values:
+            /// <summary>Parquet file compression type.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+            ///         cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+            ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
+            ///         <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</para></remarks>
             public const string EGRESS_PARQUET_COMPRESSION = "egress_parquet_compression";
+
             public const string UNCOMPRESSED = "uncompressed";
             public const string SNAPPY = "snappy";
             public const string GZIP = "gzip";
 
             /// <summary>Max file size (in MB) to allow saving to a single
-            /// file. May be overridden by target limitations.  The default
-            /// value is '100'.</summary>
+            /// file.</summary>
+            /// <remarks><para>May be overridden by target limitations. The
+            /// default value is '100'. The minimum allowed value is '1'. The
+            /// maximum allowed value is '200'.</para></remarks>
             public const string EGRESS_SINGLE_FILE_MAX_SIZE = "egress_single_file_max_size";
 
-            /// <summary>Sets the max_concurrent_kernels value of the
-            /// conf.</summary>
+            /// <summary>Sets the max_concurrent_kernels value of the conf.
+            /// </summary>
+            /// <remarks><para>The minimum allowed value is '0'. The maximum
+            /// allowed value is '256'.</para></remarks>
             public const string MAX_CONCURRENT_KERNELS = "max_concurrent_kernels";
 
+            /// <summary>Sets the system_metadata.retention_period value of the
+            /// conf.</summary>
+            /// <remarks><para>The minimum allowed value is '1'.</para>
+            /// </remarks>
+            public const string SYSTEM_METADATA_RETENTION_PERIOD = "system_metadata_retention_period";
+
             /// <summary>Sets the tcs_per_tom value of the conf.</summary>
+            /// <remarks><para>The minimum allowed value is '2'. The maximum
+            /// allowed value is '8192'.</para></remarks>
             public const string TCS_PER_TOM = "tcs_per_tom";
 
             /// <summary>Sets the tps_per_tom value of the conf.</summary>
+            /// <remarks><para>The minimum allowed value is '2'. The maximum
+            /// allowed value is '8192'.</para></remarks>
             public const string TPS_PER_TOM = "tps_per_tom";
+
+            /// <summary>AI API provider type</summary>
+            public const string AI_API_PROVIDER = "ai_api_provider";
+
+            /// <summary>AI API URL</summary>
+            public const string AI_API_URL = "ai_api_url";
+
+            /// <summary>AI API key</summary>
+            public const string AI_API_KEY = "ai_api_key";
+
+            /// <summary>AI API connection timeout in seconds</summary>
+            public const string AI_API_CONNECTION_TIMEOUT = "ai_api_connection_timeout";
+
+            /// <summary>Enable or disable persisting of query metrics.
+            /// </summary>
+            public const string TELM_PERSIST_QUERY_METRICS = "telm_persist_query_metrics";
         } // end struct PropertyUpdatesMap
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
-        ///         <description>If <i>true</i> and evict_columns is specified,
-        /// the given objects will be evicted to cold storage (if such a tier
-        /// exists).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> the system configuration will
-        /// be written to disk upon successful application of this request.
-        /// This will commit the changes from this request and any additional
-        /// in-memory modifications.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i> and evict_columns is specified, the
-            /// given objects will be evicted to cold storage (if such a tier
-            /// exists).
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> and
+            /// evict_columns is specified, the given objects will be evicted
+            /// to cold storage (if such a tier exists).</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string EVICT_TO_COLD = "evict_to_cold";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i> the system configuration will be
-            /// written to disk upon successful application of this request.
-            /// This will commit the changes from this request and any
-            /// additional in-memory modifications.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> the system
+            /// configuration will be written to disk upon successful
+            /// application of this request.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string PERSIST = "persist";
         } // end struct Options
 
-
         /// <summary>Map containing the properties of the system to be updated.
-        /// Error if empty.
-        /// <list type="bullet">
+        /// </summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
+        ///         cref="PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:
+        ///         </term>
         ///         <description>Set the number of OpenMP threads that will be
-        /// used to service filter & aggregation requests to the specified
-        /// integer value.</description>
+        ///         used to service filter & aggregation requests to the
+        ///         specified integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
+        ///         cref="PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:
+        ///         </term>
         ///         <description>Set the number of kernel OpenMP threads to the
-        /// specified integer value.</description>
+        ///         specified integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
+        ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+        ///         </term>
         ///         <description>Enables concurrent kernel execution if the
-        /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
+        ///         value is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and
+        ///         disables it if the value is <see
+        ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
+        ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+        ///         </term>
         ///         <description>Sets the maximum number of simultaneous
-        /// threads allocated to a given request, on each rank. Note that
-        /// thread allocation may also be limted by resource group limits
-        /// and/or system load.</description>
+        ///         threads allocated to a given request, on each rank. Note
+        ///         that thread allocation may also be limted by resource group
+        ///         limits and/or system load.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Sets the number of records per chunk to be
-        /// used for all new tables.</description>
+        ///         used for all new tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:</term>
+        ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Sets the target maximum data size for each
+        ///         column in a chunk to be used for all new tables.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for all new tables.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:
+        ///         </term>
         ///         <description>Attempts to evict columns from memory to the
-        /// persistent store.  Value string is a semicolon separated list of
-        /// entries, each entry being a table name optionally followed by a
-        /// comma and a comma separated list of column names to attempt to
-        /// evict.  An empty value string will attempt to evict all tables and
-        /// columns.</description>
+        ///         persistent store.  Value string is a semicolon separated
+        ///         list of entries, each entry being a table name optionally
+        ///         followed by a comma and a comma separated list of column
+        ///         names to attempt to evict.  An empty value string will
+        ///         attempt to evict all tables and columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
+        ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
+        ///         </term>
         ///         <description>Sets the execution_mode for kernel executions
-        /// to the specified string value. Possible values are host, device,
-        /// default (engine decides) or an integer value that indicates max
-        /// chunk size to exec on host</description>
+        ///         to the specified string value. Possible values are host,
+        ///         device, default (engine decides) or an integer value that
+        ///         indicates max chunk size to exec on host</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
+        ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
+        ///         </term>
         ///         <description>Sets the root directory path where external
-        /// table data files are accessed from.  Path must exist on the head
-        /// node</description>
+        ///         table data files are accessed from.  Path must exist on the
+        ///         head node</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         cref="PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
+        ///         </term>
         ///         <description>Flushes any changes to any tables to the
-        /// persistent store.  These changes include updates to the vector
-        /// store, object store, and text search store, Value string is
-        /// ignored</description>
+        ///         persistent store.  These changes include updates to the
+        ///         vector store, object store, and text search store, Value
+        ///         string is ignored</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
+        ///         cref="PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:
+        ///         </term>
         ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints.  Value string is the name of the
-        /// table for which to clear the cached results, or an empty string to
-        /// clear the cached results for all tables.</description>
+        ///         repeated timing of endpoints.  Value string is the name of
+        ///         the table for which to clear the cached results, or an
+        ///         empty string to clear the cached results for all tables.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
+        ///         cref="PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:
+        ///         </term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
-        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
-        /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=[bytes] where bytes is the size in bytes of the
-        /// messages to send; check_values=[enabled] where if enabled is true
-        /// the value of the messages received are verified.</description>
+        ///         results. Value string is is a semicolon separated list of
+        ///         [key]=[value] expressions.  Expressions are:
+        ///         num_transactions=[num] where num is the number of request
+        ///         reply transactions to invoke per test; message_size=[bytes]
+        ///         where bytes is the size in bytes of the messages to send;
+        ///         check_values=[enabled] where if enabled is true the value
+        ///         of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
+        ///         cref="PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:
+        ///         </term>
         ///         <description>Invoke the network speed test and report
-        /// timing results. Value string is a semicolon-separated list of
-        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
-        /// where time is the time in seconds to run the test;
-        /// data_size=[bytes] where bytes is the size in bytes of the block to
-        /// be transferred; threads=[number of threads];
-        /// to_ranks=[space-separated list of ranks] where the list of ranks is
-        /// the ranks that rank 0 will send data to and get data from. If
-        /// to_ranks is unspecified then all worker ranks are
-        /// used.</description>
+        ///         timing results. Value string is a semicolon-separated list
+        ///         of [key]=[value] expressions.  Valid expressions are:
+        ///         seconds=[time] where time is the time in seconds to run the
+        ///         test; data_size=[bytes] where bytes is the size in bytes of
+        ///         the block to be transferred; threads=[number of threads];
+        ///         to_ranks=[space-separated list of ranks] where the list of
+        ///         ranks is the ranks that rank 0 will send data to and get
+        ///         data from. If to_ranks is unspecified then all worker ranks
+        ///         are used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
+        ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Number of minutes after which filtering (e.g.,
-        /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.  The default value is '20'.</description>
+        ///         <see
+        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+        ///         and aggregating (e.g., <see
+        ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+        ///         queries will timeout. The default value is '20'. The
+        ///         minimum allowed value is '0'. The maximum allowed value is
+        ///         '1440'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
+        ///         </term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call.  The default value is
-        /// '20000'.</description>
+        ///         will serve for a given data retrieval call. The default
+        ///         value is '20000'. The minimum allowed value is '0'. The
+        ///         maximum allowed value is '1000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
+        ///         cref="PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:
+        ///         </term>
+        ///         <description>&lt;DEVELOPER&gt;</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
+        ///         </term>
         ///         <description>Enable or disable auditing.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// headers.</description>
+        ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
+        ///         </term>
+        ///         <description>Enable or disable auditing of request headers.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// bodies.</description>
+        ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:
+        ///         </term>
+        ///         <description>Enable or disable auditing of request bodies.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// data.</description>
+        ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:
+        ///         </term>
+        ///         <description>Enable or disable auditing of request data.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
+        ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
+        ///         </term>
         ///         <description>Enable or disable auditing of response
-        /// information.</description>
+        ///         information.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
+        ///         </term>
         ///         <description>Size of the shadow aggregate chunk cache in
-        /// bytes.  The default value is '10000000'.</description>
+        ///         bytes. The default value is '10000000'. The minimum allowed
+        ///         value is '0'. The maximum allowed value is '2147483647'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
+        ///         </term>
         ///         <description>Size of the shadow filter chunk cache in
-        /// bytes.  The default value is '10000000'.</description>
+        ///         bytes. The default value is '10000000'. The minimum allowed
+        ///         value is '0'. The maximum allowed value is '2147483647'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
+        ///         cref="PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:
+        ///         </term>
         ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread).  The default value is
-        /// 'false'.</description>
+        ///         waiting for background thread). The default value is
+        ///         'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
-        ///         <description>Enable overlapped-equi-join filter.  The
-        /// default value is 'true'.</description>
+        ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Enable overlapped-equi-join filter. The
+        ///         default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum number of records to be ingested in a
-        /// single batch.  The default value is '1000'.</description>
+        ///         single batch. The default value is '1000'. The minimum
+        ///         allowed value is '1'. The maximum allowed value is
+        ///         '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
+        ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Maximum time (milliseconds) for each poll to
-        /// get records from kafka.  The default value is '0'.</description>
+        ///         get records from kafka. The default value is '0'. The
+        ///         minimum allowed value is '0'. The maximum allowed value is
+        ///         '1000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
+        ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
+        ///         </term>
         ///         <description>Maximum time (seconds) to buffer records
-        /// received from kafka before ingestion.  The default value is
-        /// '30'.</description>
+        ///         received from kafka before ingestion. The default value is
+        ///         '30'. The minimum allowed value is '1'. The maximum allowed
+        ///         value is '120'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
-        ///         <description>Parquet file compression type
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
+        ///         </term>
+        ///         <description>Parquet file compression type.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
+        ///         </term>
         ///         <description>Max file size (in MB) to allow saving to a
-        /// single file. May be overridden by target limitations.  The default
-        /// value is '100'.</description>
+        ///         single file. May be overridden by target limitations. The
+        ///         default value is '100'. The minimum allowed value is '1'.
+        ///         The maximum allowed value is '200'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
+        ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
+        ///         </term>
         ///         <description>Sets the max_concurrent_kernels value of the
-        /// conf.</description>
+        ///         conf. The minimum allowed value is '0'. The maximum allowed
+        ///         value is '256'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
-        ///         <description>Sets the tcs_per_tom value of the
-        /// conf.</description>
+        ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
+        ///         </term>
+        ///         <description>Sets the system_metadata.retention_period
+        ///         value of the conf. The minimum allowed value is '1'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
-        ///         <description>Sets the tps_per_tom value of the
-        /// conf.</description>
+        ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
+        ///         </term>
+        ///         <description>Sets the tcs_per_tom value of the conf. The
+        ///         minimum allowed value is '2'. The maximum allowed value is
+        ///         '8192'.</description>
         ///     </item>
-        /// </list>
-        ///   </summary>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
+        ///         </term>
+        ///         <description>Sets the tps_per_tom value of the conf. The
+        ///         minimum allowed value is '2'. The maximum allowed value is
+        ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
+        ///         </term>
+        ///         <description>AI API provider type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
+        ///         </term>
+        ///         <description>AI API URL</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
+        ///         </term>
+        ///         <description>AI API key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>AI API connection timeout in seconds
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
+        ///         </term>
+        ///         <description>Enable or disable persisting of query metrics.
+        ///         </description>
+        ///     </item>
+        /// </list></remarks>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
-        ///         <description>If <i>true</i> and evict_columns is specified,
-        /// the given objects will be evicted to cold storage (if such a tier
-        /// exists).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> and
+        ///         evict_columns is specified, the given objects will be
+        ///         evicted to cold storage (if such a tier exists).
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> the system configuration will
-        /// be written to disk upon successful application of this request.
-        /// This will commit the changes from this request and any additional
-        /// in-memory modifications.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</description>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> the
+        ///         system configuration will be written to disk upon
+        ///         successful application of this request. This will commit
+        ///         the changes from this request and any additional in-memory
+        ///         modifications.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterSystemPropertiesRequest object with
         /// default parameters.</summary>
@@ -857,327 +741,431 @@ namespace kinetica
 
         /// <summary>Constructs an AlterSystemPropertiesRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="property_updates_map">Map containing the properties of
         /// the system to be updated. Error if empty.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
+        ///         cref="PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:
+        ///         </term>
         ///         <description>Set the number of OpenMP threads that will be
-        /// used to service filter & aggregation requests to the specified
-        /// integer value.</description>
+        ///         used to service filter & aggregation requests to the
+        ///         specified integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
+        ///         cref="PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:
+        ///         </term>
         ///         <description>Set the number of kernel OpenMP threads to the
-        /// specified integer value.</description>
+        ///         specified integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
+        ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+        ///         </term>
         ///         <description>Enables concurrent kernel execution if the
-        /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
+        ///         value is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and
+        ///         disables it if the value is <see
+        ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
+        ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+        ///         </term>
         ///         <description>Sets the maximum number of simultaneous
-        /// threads allocated to a given request, on each rank. Note that
-        /// thread allocation may also be limted by resource group limits
-        /// and/or system load.</description>
+        ///         threads allocated to a given request, on each rank. Note
+        ///         that thread allocation may also be limted by resource group
+        ///         limits and/or system load.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Sets the number of records per chunk to be
-        /// used for all new tables.</description>
+        ///         used for all new tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:</term>
+        ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Sets the target maximum data size for each
+        ///         column in a chunk to be used for all new tables.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for all new tables.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:
+        ///         </term>
         ///         <description>Attempts to evict columns from memory to the
-        /// persistent store.  Value string is a semicolon separated list of
-        /// entries, each entry being a table name optionally followed by a
-        /// comma and a comma separated list of column names to attempt to
-        /// evict.  An empty value string will attempt to evict all tables and
-        /// columns.</description>
+        ///         persistent store.  Value string is a semicolon separated
+        ///         list of entries, each entry being a table name optionally
+        ///         followed by a comma and a comma separated list of column
+        ///         names to attempt to evict.  An empty value string will
+        ///         attempt to evict all tables and columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
+        ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
+        ///         </term>
         ///         <description>Sets the execution_mode for kernel executions
-        /// to the specified string value. Possible values are host, device,
-        /// default (engine decides) or an integer value that indicates max
-        /// chunk size to exec on host</description>
+        ///         to the specified string value. Possible values are host,
+        ///         device, default (engine decides) or an integer value that
+        ///         indicates max chunk size to exec on host</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
+        ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
+        ///         </term>
         ///         <description>Sets the root directory path where external
-        /// table data files are accessed from.  Path must exist on the head
-        /// node</description>
+        ///         table data files are accessed from.  Path must exist on the
+        ///         head node</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         cref="PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
+        ///         </term>
         ///         <description>Flushes any changes to any tables to the
-        /// persistent store.  These changes include updates to the vector
-        /// store, object store, and text search store, Value string is
-        /// ignored</description>
+        ///         persistent store.  These changes include updates to the
+        ///         vector store, object store, and text search store, Value
+        ///         string is ignored</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
+        ///         cref="PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:
+        ///         </term>
         ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints.  Value string is the name of the
-        /// table for which to clear the cached results, or an empty string to
-        /// clear the cached results for all tables.</description>
+        ///         repeated timing of endpoints.  Value string is the name of
+        ///         the table for which to clear the cached results, or an
+        ///         empty string to clear the cached results for all tables.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
+        ///         cref="PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:
+        ///         </term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
-        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
-        /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=[bytes] where bytes is the size in bytes of the
-        /// messages to send; check_values=[enabled] where if enabled is true
-        /// the value of the messages received are verified.</description>
+        ///         results. Value string is is a semicolon separated list of
+        ///         [key]=[value] expressions.  Expressions are:
+        ///         num_transactions=[num] where num is the number of request
+        ///         reply transactions to invoke per test; message_size=[bytes]
+        ///         where bytes is the size in bytes of the messages to send;
+        ///         check_values=[enabled] where if enabled is true the value
+        ///         of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
+        ///         cref="PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:
+        ///         </term>
         ///         <description>Invoke the network speed test and report
-        /// timing results. Value string is a semicolon-separated list of
-        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
-        /// where time is the time in seconds to run the test;
-        /// data_size=[bytes] where bytes is the size in bytes of the block to
-        /// be transferred; threads=[number of threads];
-        /// to_ranks=[space-separated list of ranks] where the list of ranks is
-        /// the ranks that rank 0 will send data to and get data from. If
-        /// to_ranks is unspecified then all worker ranks are
-        /// used.</description>
+        ///         timing results. Value string is a semicolon-separated list
+        ///         of [key]=[value] expressions.  Valid expressions are:
+        ///         seconds=[time] where time is the time in seconds to run the
+        ///         test; data_size=[bytes] where bytes is the size in bytes of
+        ///         the block to be transferred; threads=[number of threads];
+        ///         to_ranks=[space-separated list of ranks] where the list of
+        ///         ranks is the ranks that rank 0 will send data to and get
+        ///         data from. If to_ranks is unspecified then all worker ranks
+        ///         are used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
+        ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Number of minutes after which filtering (e.g.,
-        /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.  The default value is '20'.</description>
+        ///         <see
+        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+        ///         and aggregating (e.g., <see
+        ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+        ///         queries will timeout. The default value is '20'. The
+        ///         minimum allowed value is '0'. The maximum allowed value is
+        ///         '1440'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
+        ///         </term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call.  The default value is
-        /// '20000'.</description>
+        ///         will serve for a given data retrieval call. The default
+        ///         value is '20000'. The minimum allowed value is '0'. The
+        ///         maximum allowed value is '1000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
+        ///         cref="PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:
+        ///         </term>
+        ///         <description>&lt;DEVELOPER&gt;</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
+        ///         </term>
         ///         <description>Enable or disable auditing.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// headers.</description>
+        ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
+        ///         </term>
+        ///         <description>Enable or disable auditing of request headers.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// bodies.</description>
+        ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:
+        ///         </term>
+        ///         <description>Enable or disable auditing of request bodies.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
-        ///         <description>Enable or disable auditing of request
-        /// data.</description>
+        ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:
+        ///         </term>
+        ///         <description>Enable or disable auditing of request data.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
+        ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
+        ///         </term>
         ///         <description>Enable or disable auditing of response
-        /// information.</description>
+        ///         information.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
+        ///         </term>
         ///         <description>Size of the shadow aggregate chunk cache in
-        /// bytes.  The default value is '10000000'.</description>
+        ///         bytes. The default value is '10000000'. The minimum allowed
+        ///         value is '0'. The maximum allowed value is '2147483647'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
+        ///         </term>
         ///         <description>Size of the shadow filter chunk cache in
-        /// bytes.  The default value is '10000000'.</description>
+        ///         bytes. The default value is '10000000'. The minimum allowed
+        ///         value is '0'. The maximum allowed value is '2147483647'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
+        ///         cref="PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:
+        ///         </term>
         ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread).  The default value is
-        /// 'false'.</description>
+        ///         waiting for background thread). The default value is
+        ///         'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
-        ///         <description>Enable overlapped-equi-join filter.  The
-        /// default value is 'true'.</description>
+        ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Enable overlapped-equi-join filter. The
+        ///         default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum number of records to be ingested in a
-        /// single batch.  The default value is '1000'.</description>
+        ///         single batch. The default value is '1000'. The minimum
+        ///         allowed value is '1'. The maximum allowed value is
+        ///         '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
+        ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Maximum time (milliseconds) for each poll to
-        /// get records from kafka.  The default value is '0'.</description>
+        ///         get records from kafka. The default value is '0'. The
+        ///         minimum allowed value is '0'. The maximum allowed value is
+        ///         '1000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
+        ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
+        ///         </term>
         ///         <description>Maximum time (seconds) to buffer records
-        /// received from kafka before ingestion.  The default value is
-        /// '30'.</description>
+        ///         received from kafka before ingestion. The default value is
+        ///         '30'. The minimum allowed value is '1'. The maximum allowed
+        ///         value is '120'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
-        ///         <description>Parquet file compression type
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
+        ///         </term>
+        ///         <description>Parquet file compression type.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
+        ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
+        ///         </term>
         ///         <description>Max file size (in MB) to allow saving to a
-        /// single file. May be overridden by target limitations.  The default
-        /// value is '100'.</description>
+        ///         single file. May be overridden by target limitations. The
+        ///         default value is '100'. The minimum allowed value is '1'.
+        ///         The maximum allowed value is '200'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
+        ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
+        ///         </term>
         ///         <description>Sets the max_concurrent_kernels value of the
-        /// conf.</description>
+        ///         conf. The minimum allowed value is '0'. The maximum allowed
+        ///         value is '256'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
-        ///         <description>Sets the tcs_per_tom value of the
-        /// conf.</description>
+        ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
+        ///         </term>
+        ///         <description>Sets the system_metadata.retention_period
+        ///         value of the conf. The minimum allowed value is '1'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
-        ///         <description>Sets the tps_per_tom value of the
-        /// conf.</description>
+        ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
+        ///         </term>
+        ///         <description>Sets the tcs_per_tom value of the conf. The
+        ///         minimum allowed value is '2'. The maximum allowed value is
+        ///         '8192'.</description>
         ///     </item>
-        /// </list>
-        ///   </param>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
+        ///         </term>
+        ///         <description>Sets the tps_per_tom value of the conf. The
+        ///         minimum allowed value is '2'. The maximum allowed value is
+        ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
+        ///         </term>
+        ///         <description>AI API provider type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
+        ///         </term>
+        ///         <description>AI API URL</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
+        ///         </term>
+        ///         <description>AI API key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>AI API connection timeout in seconds
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
+        ///         </term>
+        ///         <description>Enable or disable persisting of query metrics.
+        ///         </description>
+        ///     </item>
+        /// </list></param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
-        ///         <description>If <i>true</i> and evict_columns is specified,
-        /// the given objects will be evicted to cold storage (if such a tier
-        /// exists).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> and
+        ///         evict_columns is specified, the given objects will be
+        ///         evicted to cold storage (if such a tier exists).
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> the system configuration will
-        /// be written to disk upon successful application of this request.
-        /// This will commit the changes from this request and any additional
-        /// in-memory modifications.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> the
+        ///         system configuration will be written to disk upon
+        ///         successful application of this request. This will commit
+        ///         the changes from this request and any additional in-memory
+        ///         modifications.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AlterSystemPropertiesRequest( IDictionary<string, string> property_updates_map,
                                              IDictionary<string, string> options = null)
         {
             this.property_updates_map = property_updates_map ?? new Dictionary<string, string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterSystemPropertiesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
+    /// </summary>
     public class AlterSystemPropertiesResponse : KineticaData
     {
-
         /// <summary>Map of values updated; for speed tests, a map of values
-        /// measured to the measurement  </summary>
+        /// measured to the measurement</summary>
         public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterSystemPropertiesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

@@ -6,54 +6,28 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
     /// @cond NO_DOCS
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showGraphGrammar(IDictionary{string, string})" />.
-    /// <br />
-    /// </summary>
     public class ShowGraphGrammarRequest : KineticaData
     {
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a ShowGraphGrammarRequest object with default
-        /// parameters.</summary>
         public ShowGraphGrammarRequest() { }
 
-        /// <summary>Constructs a ShowGraphGrammarRequest object with the
-        /// specified parameters.</summary>
-        /// 
-        /// <param name="options"></param>
-        /// 
         public ShowGraphGrammarRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowGraphGrammarRequest
     /// @endcond
 
-
-
     /// @cond NO_DOCS
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showGraphGrammar(IDictionary{string, string})"
-    /// />.</summary>
     public class ShowGraphGrammarResponse : KineticaData
     {
         public bool result { get; set; }
         public string components_json { get; set; }
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowGraphGrammarResponse
     /// @endcond
-
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

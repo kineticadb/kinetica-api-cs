@@ -6,24 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showSystemTiming(IDictionary{string, string})" />.
-    /// <br />
-    /// Returns the last 100 database requests along with the request timing
-    /// and internal job id. The admin tool uses it to present request timing
-    /// information to the user.</summary>
+    /// cref="Kinetica.showSystemTiming(ShowSystemTimingRequest)">Kinetica.showSystemTiming</see>.
+    /// </summary>
+    /// <remarks><para>Returns the last 100 database requests along with the
+    /// request timing and internal job id. The admin tool uses it to present
+    /// request timing information to the user.</para></remarks>
     public class ShowSystemTimingRequest : KineticaData
     {
-
-        /// <summary>Optional parameters, currently unused.  The default value
-        /// is an empty {@link Dictionary}.</summary>
+        /// <summary>Optional parameters, currently unused.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowSystemTimingRequest object with default
         /// parameters.</summary>
@@ -31,42 +27,32 @@ namespace kinetica
 
         /// <summary>Constructs a ShowSystemTimingRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="options">Optional parameters, currently unused.  The
-        /// default value is an empty {@link Dictionary}.</param>
-        /// 
+        ///
+        /// <param name="options">Optional parameters, currently unused. The
+        /// default value is an empty Dictionary.</param>
         public ShowSystemTimingRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowSystemTimingRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showSystemTiming(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showSystemTiming(ShowSystemTimingRequest)">Kinetica.showSystemTiming</see>.
+    /// </summary>
     public class ShowSystemTimingResponse : KineticaData
     {
-
         /// <summary>List of recently called endpoints, most recent first.
         /// </summary>
         public IList<string> endpoints { get; set; } = new List<string>();
 
-        /// <summary>List of time (in ms) of the recent requests.  </summary>
+        /// <summary>List of time (in ms) of the recent requests.</summary>
         public IList<float> time_in_ms { get; set; } = new List<float>();
 
         /// <summary>List of the internal job ids for the recent requests.
         /// </summary>
         public IList<string> jobIds { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowSystemTimingResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

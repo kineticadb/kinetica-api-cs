@@ -6,205 +6,146 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createProc(string,string,IDictionary{string, byte[]},string,IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Creates an instance (proc) of the
-    /// <a href="../../../concepts/udf/" target="_top">user-defined
-    /// functions</a> (UDF) specified by the
-    /// given command, options, and files, and makes it available for
-    /// execution.</summary>
+    /// cref="Kinetica.createProc(CreateProcRequest)">Kinetica.createProc</see>.
+    /// </summary>
+    /// <remarks><para>Creates an instance (proc) of the <a
+    /// href="../../../concepts/udf/" target="_top">user-defined functions</a>
+    /// (UDF) specified by the given command, options, and files, and makes it
+    /// available for execution.</para></remarks>
     public class CreateProcRequest : KineticaData
     {
-
-        /// <summary>The execution mode of the proc.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
-        ///         <description>Input table data will be divided into data
-        /// segments that are distributed across all nodes in the cluster, and
-        /// the proc
-        /// command will be invoked once per data segment in parallel. Output
-        /// table data
-        /// from each invocation will be saved to the same node as the
-        /// corresponding input
-        /// data.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
-        ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have direct access to any tables named as
-        /// input or
-        /// output table parameters in the call to /execute/proc.  It will,
-        /// however, be able to access the database using native API
-        /// calls.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="execution_mode" />.</summary>
+        /// <remarks><para>The execution mode of the proc.</para></remarks>
         public struct ExecutionMode
         {
-
-            /// <summary>Input table data will be divided into data
-            /// segments that are distributed across all nodes in the cluster,
-            /// and the proc
-            /// command will be invoked once per data segment in parallel.
-            /// Output table data
-            /// from each invocation will be saved to the same node as the
-            /// corresponding input
-            /// data.</summary>
+            /// <summary>Input table data will be divided into data segments
+            /// that are distributed across all nodes in the cluster, and the
+            /// proc command will be invoked once per data segment in parallel.
+            /// </summary>
+            /// <remarks><para>Output table data from each invocation will be
+            /// saved to the same node as the corresponding input data.</para>
+            /// </remarks>
             public const string DISTRIBUTED = "distributed";
 
             /// <summary>The proc command will be invoked only once per
             /// execution, and will not have direct access to any tables named
-            /// as input or
-            /// output table parameters in the call to <see
-            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
-            /// />.  It will,
-            /// however, be able to access the database using native API
-            /// calls.</summary>
+            /// as input or output table parameters in the call to <see
+            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+            /// </summary>
+            /// <remarks><para> It will, however, be able to access the
+            /// database using native API calls.</para></remarks>
             public const string NONDISTRIBUTED = "nondistributed";
         } // end struct ExecutionMode
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
-        ///         <description>The maximum number of concurrent instances of
-        /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.  The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
-        ///         <description>A python environment to use when executing the
-        /// proc. Must be an existing environment, else an error will be
-        /// returned.  The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>The maximum number of concurrent instances of the proc
-            /// that will be executed per node. 0 allows unlimited concurrency.
-            /// The default value is '0'.</summary>
+            /// that will be executed per node.</summary>
+            /// <remarks><para>0 allows unlimited concurrency. The default
+            /// value is '0'.</para></remarks>
             public const string MAX_CONCURRENCY_PER_NODE = "max_concurrency_per_node";
 
             /// <summary>A python environment to use when executing the proc.
-            /// Must be an existing environment, else an error will be
-            /// returned.  The default value is ''.</summary>
+            /// </summary>
+            /// <remarks><para>Must be an existing environment, else an error
+            /// will be returned. The default value is ''.</para></remarks>
             public const string SET_ENVIRONMENT = "set_environment";
         } // end struct Options
 
-
-        /// <summary>Name of the proc to be created. Must not be the name of a
-        /// currently existing proc.  </summary>
+        /// <summary>Name of the proc to be created.</summary>
+        /// <remarks><para>Must not be the name of a currently existing proc.
+        /// </para></remarks>
         public string proc_name { get; set; }
 
-        /// <summary>The execution mode of the proc.
-        /// Supported values:
+        /// <summary>The execution mode of the proc.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
+        ///         cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
-        /// segments that are distributed across all nodes in the cluster, and
-        /// the proc
-        /// command will be invoked once per data segment in parallel. Output
-        /// table data
-        /// from each invocation will be saved to the same node as the
-        /// corresponding input
-        /// data.</description>
+        ///         segments that are distributed across all nodes in the
+        ///         cluster, and the proc command will be invoked once per data
+        ///         segment in parallel. Output table data from each invocation
+        ///         will be saved to the same node as the corresponding input
+        ///         data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
+        ///         cref="ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:
+        ///         </term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have direct access to any tables named as
-        /// input or
-        /// output table parameters in the call to /execute/proc.  It will,
-        /// however, be able to access the database using native API
-        /// calls.</description>
+        ///         execution, and will not have direct access to any tables
+        ///         named as input or output table parameters in the call to
+        ///         <see
+        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        ///         It will, however, be able to access the database using
+        ///         native API calls.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
-        /// </summary>
+        /// <para>The default value is <see
+        /// cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.</para>
+        /// </remarks>
         public string execution_mode { get; set; } = ExecutionMode.DISTRIBUTED;
 
-        /// <summary>A map of the files that make up the proc. The keys of the
-        /// map are file names, and the values are the binary contents of the
-        /// files. The
-        /// file names may include subdirectory names (e.g. 'subdir/file') but
-        /// must not
-        /// resolve to a directory above the root for the proc.
-        /// <br />
-        /// Files may be loaded from existing files in KiFS. Those file names
-        /// should be
-        /// prefixed with the uri kifs:// and the values in the map should be
-        /// empty.  The default value is an empty {@link Dictionary}.</summary>
+        /// <summary>A map of the files that make up the proc.</summary>
+        /// <remarks><para>The keys of the map are file names, and the values
+        /// are the binary contents of the files. The file names may include
+        /// subdirectory names (e.g. 'subdir/file') but must not resolve to a
+        /// directory above the root for the proc.</para>
+        /// <para>Files may be loaded from existing files in KiFS. Those file
+        /// names should be prefixed with the uri kifs:// and the values in the
+        /// map should be empty. The default value is an empty Dictionary.
+        /// </para></remarks>
         public IDictionary<string, byte[]> files { get; set; } = new Dictionary<string, byte[]>();
 
         /// <summary>The command (excluding arguments) that will be invoked
-        /// when
-        /// the proc is executed. It will be invoked from the directory
-        /// containing the proc
-        /// <paramref cref="CreateProcRequest.files" /> and may be any command
-        /// that can be resolved from that directory.
-        /// It need not refer to a file actually in that directory; for
-        /// example, it could be
-        /// 'java' if the proc is a Java application; however, any necessary
-        /// external
-        /// programs must be preinstalled on every database node. If the
-        /// command refers to a
+        /// when the proc is executed.</summary>
+        /// <remarks><para>It will be invoked from the directory containing the
+        /// proc <see cref="files" /> and may be any command that can be
+        /// resolved from that directory. It need not refer to a file actually
+        /// in that directory; for example, it could be 'java' if the proc is a
+        /// Java application; however, any necessary external programs must be
+        /// preinstalled on every database node. If the command refers to a
         /// file in that directory, it must be preceded with './' as per Linux
-        /// convention.
-        /// If not specified, and exactly one file is provided in <paramref
-        /// cref="CreateProcRequest.files" />, that file
-        /// will be invoked.  The default value is ''.</summary>
+        /// convention. If not specified, and exactly one file is provided in
+        /// <see cref="files" />, that file will be invoked. The default value
+        /// is ''.</para></remarks>
         public string command { get; set; } = "";
 
         /// <summary>An array of command-line arguments that will be passed to
-        /// <paramref cref="CreateProcRequest.command" /> when the proc is
-        /// executed.  The default value is an empty {@link List}.</summary>
+        /// <see cref="command" /> when the proc is executed.</summary>
+        /// <remarks><para>The default value is an empty List.</para></remarks>
         public IList<string> args { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
+        ///         cref="Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:
+        ///         </term>
         ///         <description>The maximum number of concurrent instances of
-        /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.  The default value is '0'.</description>
+        ///         the proc that will be executed per node. 0 allows unlimited
+        ///         concurrency. The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+        ///         cref="Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:
+        ///         </term>
         ///         <description>A python environment to use when executing the
-        /// proc. Must be an existing environment, else an error will be
-        /// returned.  The default value is ''.</description>
+        ///         proc. Must be an existing environment, else an error will
+        ///         be returned. The default value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateProcRequest object with default
         /// parameters.</summary>
@@ -212,89 +153,79 @@ namespace kinetica
 
         /// <summary>Constructs a CreateProcRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="proc_name">Name of the proc to be created. Must not be
-        /// the name of a currently existing proc.  </param>
+        /// the name of a currently existing proc.</param>
         /// <param name="execution_mode">The execution mode of the proc.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
+        ///         cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
-        /// segments that are distributed across all nodes in the cluster, and
-        /// the proc
-        /// command will be invoked once per data segment in parallel. Output
-        /// table data
-        /// from each invocation will be saved to the same node as the
-        /// corresponding input
-        /// data.</description>
+        ///         segments that are distributed across all nodes in the
+        ///         cluster, and the proc command will be invoked once per data
+        ///         segment in parallel. Output table data from each invocation
+        ///         will be saved to the same node as the corresponding input
+        ///         data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
+        ///         cref="ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:
+        ///         </term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have direct access to any tables named as
-        /// input or
-        /// output table parameters in the call to /execute/proc.  It will,
-        /// however, be able to access the database using native API
-        /// calls.</description>
+        ///         execution, and will not have direct access to any tables
+        ///         named as input or output table parameters in the call to
+        ///         <see
+        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        ///         It will, however, be able to access the database using
+        ///         native API calls.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
-        /// </param>
+        /// cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.</param>
         /// <param name="files">A map of the files that make up the proc. The
-        /// keys of the
-        /// map are file names, and the values are the binary contents of the
-        /// files. The
-        /// file names may include subdirectory names (e.g. 'subdir/file') but
-        /// must not
-        /// resolve to a directory above the root for the proc.
+        /// keys of the map are file names, and the values are the binary
+        /// contents of the files. The file names may include subdirectory
+        /// names (e.g. 'subdir/file') but must not resolve to a directory
+        /// above the root for the proc.
         /// Files may be loaded from existing files in KiFS. Those file names
-        /// should be
-        /// prefixed with the uri kifs:// and the values in the map should be
-        /// empty.  The default value is an empty {@link Dictionary}.</param>
+        /// should be prefixed with the uri kifs:// and the values in the map
+        /// should be empty. The default value is an empty Dictionary.</param>
         /// <param name="command">The command (excluding arguments) that will
-        /// be invoked when
-        /// the proc is executed. It will be invoked from the directory
-        /// containing the proc
-        /// <paramref cref="CreateProcRequest.files" /> and may be any command
-        /// that can be resolved from that directory.
-        /// It need not refer to a file actually in that directory; for
-        /// example, it could be
-        /// 'java' if the proc is a Java application; however, any necessary
-        /// external
-        /// programs must be preinstalled on every database node. If the
-        /// command refers to a
-        /// file in that directory, it must be preceded with './' as per Linux
-        /// convention.
-        /// If not specified, and exactly one file is provided in <paramref
-        /// cref="CreateProcRequest.files" />, that file
-        /// will be invoked.  The default value is ''.</param>
+        /// be invoked when the proc is executed. It will be invoked from the
+        /// directory containing the proc <paramref name="files" /> and may be
+        /// any command that can be resolved from that directory. It need not
+        /// refer to a file actually in that directory; for example, it could
+        /// be 'java' if the proc is a Java application; however, any necessary
+        /// external programs must be preinstalled on every database node. If
+        /// the command refers to a file in that directory, it must be preceded
+        /// with './' as per Linux convention. If not specified, and exactly
+        /// one file is provided in <paramref name="files" />, that file will
+        /// be invoked. The default value is ''.</param>
         /// <param name="args">An array of command-line arguments that will be
-        /// passed to <paramref cref="CreateProcRequest.command" /> when the
-        /// proc is executed.  The default value is an empty {@link
-        /// List}.</param>
+        /// passed to <paramref name="command" /> when the proc is executed.
+        /// The default value is an empty List.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
+        ///         cref="Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:
+        ///         </term>
         ///         <description>The maximum number of concurrent instances of
-        /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.  The default value is '0'.</description>
+        ///         the proc that will be executed per node. 0 allows unlimited
+        ///         concurrency. The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+        ///         cref="Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:
+        ///         </term>
         ///         <description>A python environment to use when executing the
-        /// proc. Must be an existing environment, else an error will be
-        /// returned.  The default value is ''.</description>
+        ///         proc. Must be an existing environment, else an error will
+        ///         be returned. The default value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateProcRequest( string proc_name,
                                   string execution_mode = null,
                                   IDictionary<string, byte[]> files = null,
@@ -309,27 +240,18 @@ namespace kinetica
             this.args = args ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateProcRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createProc(string,string,IDictionary{string, byte[]},string,IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createProc(CreateProcRequest)">Kinetica.createProc</see>.
+    /// </summary>
     public class CreateProcResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="CreateProcRequest.proc_name" />.
-        /// </summary>
+        /// <summary>Value of <see
+        /// cref="CreateProcRequest.proc_name">proc_name</see>.</summary>
         public string proc_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateProcResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

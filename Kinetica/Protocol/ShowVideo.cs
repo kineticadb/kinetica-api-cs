@@ -6,28 +6,24 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showVideo(IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Retrieves information about rendered videos.</summary>
+    /// cref="Kinetica.showVideo(ShowVideoRequest)">Kinetica.showVideo</see>.
+    /// </summary>
+    /// <remarks><para>Retrieves information about rendered videos.</para>
+    /// </remarks>
     public class ShowVideoRequest : KineticaData
     {
-
         /// <summary>The fully-qualified <a href="../../../tools/kifs/"
-        /// target="_top">KiFS</a> paths for the videos to show. If empty,
-        /// shows all videos.  </summary>
+        /// target="_top">KiFS</a> paths for the videos to show.</summary>
+        /// <remarks><para>If empty, shows all videos.</para></remarks>
         public IList<string> paths { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowVideoRequest object with default
         /// parameters.</summary>
@@ -35,30 +31,25 @@ namespace kinetica
 
         /// <summary>Constructs a ShowVideoRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="paths">The fully-qualified <a
         /// href="../../../tools/kifs/" target="_top">KiFS</a> paths for the
-        /// videos to show. If empty, shows all videos.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// videos to show. If empty, shows all videos.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public ShowVideoRequest( IList<string> paths,
                                  IDictionary<string, string> options = null)
         {
             this.paths = paths ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowVideoRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showVideo(IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showVideo(ShowVideoRequest)">Kinetica.showVideo</see>.
+    /// </summary>
     public class ShowVideoResponse : KineticaData
     {
-
         /// <summary>Creation time for each video as an ISO-8601 datetime.
         /// </summary>
         public IList<string> creation_times { get; set; } = new List<string>();
@@ -68,21 +59,21 @@ namespace kinetica
         public IList<long> elapsed_render_time_seconds { get; set; } = new List<long>();
 
         /// <summary>The job id of the rendering process, for each video that
-        /// is still being rendered.  </summary>
+        /// is still being rendered.</summary>
         public IList<long> job_ids { get; set; } = new List<long>();
 
-        /// <summary>KIFS path to each video.  </summary>
+        /// <summary>KIFS path to each video.</summary>
         public IList<string> paths { get; set; } = new List<string>();
 
         /// <summary>The number of bytes emitted by the encoder for each video.
         /// </summary>
         public IList<long> rendered_bytes { get; set; } = new List<long>();
 
-        /// <summary>The number of frames rendered for each video.  </summary>
+        /// <summary>The number of frames rendered for each video.</summary>
         public IList<long> rendered_frames { get; set; } = new List<long>();
 
         /// <summary>Percent completion of each video's rendering process
-        /// (0-100)  </summary>
+        /// (0-100)</summary>
         public IList<long> rendered_percents { get; set; } = new List<long>();
 
         /// <summary>JSON-string reflecting each video's creation parameters.
@@ -90,21 +81,17 @@ namespace kinetica
         public IList<string> requests { get; set; } = new List<string>();
 
         /// <summary>The status of the last rendered frame for each video.
-        /// Either OK or Error with a message indicating the nature of the
-        /// error.  </summary>
+        /// </summary>
+        /// <remarks><para> Either OK or Error with a message indicating the
+        /// nature of the error.</para></remarks>
         public IList<string> status { get; set; } = new List<string>();
 
         /// <summary>The remaining <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a>, in minutes, before the respective video
-        /// expires (-1 if it will never expire).  </summary>
+        /// expires (-1 if it will never expire).</summary>
         public IList<long> ttls { get; set; } = new List<long>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowVideoResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

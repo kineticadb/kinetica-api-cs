@@ -6,277 +6,139 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.uploadFiles(IList{string},IList{byte[]},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Uploads one or more files to <a href="../../../tools/kifs/"
-    /// target="_top">KiFS</a>. There are
-    /// two methods for uploading files: load files in their entirety, or load
-    /// files in
-    /// parts. The latter is recommeded for files of approximately 60 MB or
-    /// larger.
-    /// <br />
-    /// To upload files in their entirety, populate <see cref="file_names" />
-    /// with the file
-    /// names to upload into on KiFS, and their respective byte content in
-    /// <see cref="file_data" />.
-    /// <br />
-    /// Multiple steps are involved when uploading in multiple parts. Only one
-    /// file at a
-    /// time can be uploaded in this manner. A user-provided UUID is utilized
-    /// to tie all
-    /// the upload steps together for a given file.  To upload a file in
-    /// multiple parts:
-    /// <br />
-    /// 1. Provide the file name in <see cref="file_names" />, the UUID in
-    ///    the <i>multipart_upload_uuid</i> key in <see cref="options" />, and
-    ///    a <i>multipart_operation</i> value of
-    ///    <i>init</i>.
-    /// 2. Upload one or more parts by providing the file name, the part data
-    ///    in <see cref="file_data" />, the UUID, a <i>multipart_operation</i>
-    ///    value of <i>upload_part</i>, and
-    ///    the part number in the <i>multipart_upload_part_number</i>.
-    ///    The part numbers must start at 1 and increase incrementally.
-    ///    Parts may not be uploaded out of order.
-    /// 3. Complete the upload by providing the file name, the UUID, and a
-    ///    <i>multipart_operation</i> value of
-    ///    <i>complete</i>.
-    /// <br />
-    /// Multipart uploads in progress may be canceled by providing the file
-    /// name, the
-    /// UUID, and a <i>multipart_operation</i> value of
-    /// <i>cancel</i>.  If an new upload is
+    /// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
+    /// </summary>
+    /// <remarks><para>Uploads one or more files to <a
+    /// href="../../../tools/kifs/" target="_top">KiFS</a>. There are two
+    /// methods for uploading files: load files in their entirety, or load
+    /// files in parts. The latter is recommeded for files of approximately 60
+    /// MB or larger.</para>
+    /// <para>To upload files in their entirety, populate <see
+    /// cref="file_names" /> with the file names to upload into on KiFS, and
+    /// their respective byte content in <see cref="file_data" />.</para>
+    /// <para>Multiple steps are involved when uploading in multiple parts.
+    /// Only one file at a time can be uploaded in this manner. A user-provided
+    /// UUID is utilized to tie all the upload steps together for a given file.
+    /// To upload a file in multiple parts:</para>
+    /// <para>1. Provide the file name in <see cref="file_names" />, the UUID
+    /// in the <see
+    /// cref="Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see> key in
+    /// <see cref="options" />, and a <see
+    /// cref="Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see> value of
+    /// <see cref="Options.INIT">INIT</see>.</para>
+    /// <para>2. Upload one or more parts by providing the file name, the part
+    /// data in <see cref="file_data" />, the UUID, a <see
+    /// cref="Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see> value of
+    /// <see cref="Options.UPLOAD_PART">UPLOAD_PART</see>, and the part number
+    /// in the <see
+    /// cref="Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>.
+    /// The part numbers must start at 1 and increase incrementally. Parts may
+    /// not be uploaded out of order.</para>
+    /// <para>3. Complete the upload by providing the file name, the UUID, and
+    /// a <see cref="Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>
+    /// value of <see cref="Options.COMPLETE">COMPLETE</see>.</para>
+    /// <para>Multipart uploads in progress may be canceled by providing the
+    /// file name, the UUID, and a <see
+    /// cref="Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see> value of
+    /// <see cref="Options.CANCEL">CANCEL</see>.  If an new upload is
     /// initialized with a different UUID for an existing upload in progress,
-    /// the
-    /// pre-existing upload is automatically canceled in favor of the new
-    /// upload.
-    /// <br />
-    /// The multipart upload must be completed for the file to be usable in
-    /// KiFS.
-    /// Information about multipart uploads in progress is available in
-    /// <see
-    /// cref="Kinetica.showFiles(IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// File data may be pre-encoded using base64 encoding. This should be
-    /// indicated
-    /// using the <i>file_encoding</i> option, and is recommended when
-    /// using JSON serialization.
-    /// <br />
-    /// Each file path must reside in a top-level KiFS directory, i.e. one of
-    /// the
-    /// directories listed in <see
-    /// cref="Kinetica.showDirectories(string,IDictionary{string, string})"
-    /// />. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name
-    /// paths. Directories are deliniated with the directory separator of '/'.
-    /// For
-    /// example, given the file path '/a/b/c/d.txt', 'a' must be a KiFS
-    /// directory.
-    /// <br />
-    /// These characters are allowed in file name paths: letters, numbers,
-    /// spaces, the
-    /// path delimiter of '/', and the characters: '.' '-' ':' '[' ']' '(' ')'
-    /// '#' '='.</summary>
+    /// the pre-existing upload is automatically canceled in favor of the new
+    /// upload.</para>
+    /// <para>The multipart upload must be completed for the file to be usable
+    /// in KiFS. Information about multipart uploads in progress is available
+    /// in <see
+    /// cref="Kinetica.showFiles(ShowFilesRequest)">Kinetica.showFiles</see>.</para>
+    /// <para>File data may be pre-encoded using base64 encoding. This should
+    /// be indicated using the <see
+    /// cref="Options.FILE_ENCODING">FILE_ENCODING</see> option, and is
+    /// recommended when using JSON serialization.</para>
+    /// <para>Each file path must reside in a top-level KiFS directory, i.e.
+    /// one of the directories listed in <see
+    /// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// deliniated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// <para>These characters are allowed in file name paths: letters,
+    /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
+    /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
     public class UploadFilesRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
-        ///         <description>Encoding that has been applied to the uploaded
-        /// file data. When using JSON serialization it is recommended to
-        /// utilize
-        /// <i>base64</i>. The caller is responsible
-        /// for encoding the data provided in this payload
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.BASE64">BASE64</see>:</term>
-        ///         <description>Specifies that the file data being uploaded
-        /// has been base64 encoded.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>The uploaded file data has not been
-        /// encoded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>:</term>
-        ///         <description>Multipart upload operation to perform
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>Default, indicates this is not a multipart
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.INIT">INIT</see>:</term>
-        ///         <description>Initialize a multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Uploads a part of the specified multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:</term>
-        ///         <description>Complete the specified multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:</term>
-        ///         <description>Cancel the specified multipart file
-        /// upload</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:</term>
-        ///         <description>UUID to uniquely identify a multipart
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>:</term>
-        ///         <description>Incremental part number for each part in a
-        /// multipart upload. Part numbers start at 1, increment by 1, and must
-        /// be uploaded
-        /// sequentially</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>,
-        /// any existing files specified in <paramref
-        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
-        /// start of upload.
-        /// Otherwise the file is replaced once the upload completes.  Rollback
-        /// of the original file is
-        /// no longer possible if the upload is cancelled, aborted or fails if
-        /// the file was deleted beforehand.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Encoding that has been applied to the uploaded
-            /// file data. When using JSON serialization it is recommended to
-            /// utilize
-            /// <i>base64</i>. The caller is responsible
-            /// for encoding the data provided in this payload
-            /// Supported values:
+            /// <summary>Encoding that has been applied to the uploaded file
+            /// data.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.BASE64">BASE64</see>:</term>
+            ///         <term><see cref="Options.BASE64">BASE64</see>:</term>
             ///         <description>Specifies that the file data being
-            /// uploaded has been base64 encoded.</description>
+            ///         uploaded has been base64 encoded.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+            ///         <term><see cref="Options.NONE">NONE</see>:</term>
             ///         <description>The uploaded file data has not been
-            /// encoded.</description>
+            ///         encoded.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</summary>
+            /// <para>The default value is <see cref="Options.NONE">NONE</see>.
+            /// </para></remarks>
             public const string FILE_ENCODING = "file_encoding";
 
             /// <summary>Specifies that the file data being uploaded has been
             /// base64 encoded.</summary>
             public const string BASE64 = "base64";
 
-            /// <summary>Default, indicates this is not a multipart
-            /// upload</summary>
+            /// <summary>Default, indicates this is not a multipart upload
+            /// </summary>
             public const string NONE = "none";
 
-            /// <summary>Multipart upload operation to perform
-            /// Supported values:
+            /// <summary>Multipart upload operation to perform.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+            ///         <term><see cref="Options.NONE">NONE</see>:</term>
             ///         <description>Default, indicates this is not a multipart
-            /// upload</description>
+            ///         upload</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.INIT">INIT</see>:</term>
+            ///         <description>Initialize a multipart file upload
+            ///         </description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="UploadFilesRequest.Options.INIT">INIT</see>:</term>
-            ///         <description>Initialize a multipart file
-            /// upload</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
+            ///         cref="Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
             ///         <description>Uploads a part of the specified multipart
-            /// file upload</description>
+            ///         file upload</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:</term>
+            ///         <term><see cref="Options.COMPLETE">COMPLETE</see>:
+            ///         </term>
             ///         <description>Complete the specified multipart file
-            /// upload</description>
+            ///         upload</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:</term>
-            ///         <description>Cancel the specified multipart file
-            /// upload</description>
+            ///         <term><see cref="Options.CANCEL">CANCEL</see>:</term>
+            ///         <description>Cancel the specified multipart file upload
+            ///         </description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</summary>
+            /// <para>The default value is <see cref="Options.NONE">NONE</see>.
+            /// </para></remarks>
             public const string MULTIPART_OPERATION = "multipart_operation";
 
             /// <summary>Initialize a multipart file upload</summary>
             public const string INIT = "init";
 
-            /// <summary>Uploads a part of the specified multipart file
-            /// upload</summary>
+            /// <summary>Uploads a part of the specified multipart file upload
+            /// </summary>
             public const string UPLOAD_PART = "upload_part";
 
             /// <summary>Complete the specified multipart file upload</summary>
@@ -288,164 +150,153 @@ namespace kinetica
             /// <summary>UUID to uniquely identify a multipart upload</summary>
             public const string MULTIPART_UPLOAD_UUID = "multipart_upload_uuid";
 
-            /// <summary>Incremental part number for each part in a
-            /// multipart upload. Part numbers start at 1, increment by 1, and
-            /// must be uploaded
-            /// sequentially</summary>
+            /// <summary>Incremental part number for each part in a multipart
+            /// upload.</summary>
+            /// <remarks><para>Part numbers start at 1, increment by 1, and
+            /// must be uploaded sequentially</para></remarks>
             public const string MULTIPART_UPLOAD_PART_NUMBER = "multipart_upload_part_number";
 
-            /// <summary>If <i>true</i>,
-            /// any existing files specified in <see cref="file_names" /> will
-            /// be deleted prior to start of upload.
-            /// Otherwise the file is replaced once the upload completes.
-            /// Rollback of the original file is
-            /// no longer possible if the upload is cancelled, aborted or fails
-            /// if the file was deleted beforehand.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, any existing
+            /// files specified in <see cref="file_names" /> will be deleted
+            /// prior to start of upload.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string DELETE_IF_EXISTS = "delete_if_exists";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
         /// <summary>An array of full file name paths to be used for the files
-        /// uploaded to KiFS. File names may have any number of nested
-        /// directories in their
-        /// paths, but the top-level directory must be an existing KiFS
-        /// directory. Each file
-        /// must reside in or under a top-level directory. A full file name
-        /// path cannot be
-        /// larger than 1024 characters.  </summary>
+        /// uploaded to KiFS.</summary>
+        /// <remarks><para>File names may have any number of nested directories
+        /// in their paths, but the top-level directory must be an existing
+        /// KiFS directory. Each file must reside in or under a top-level
+        /// directory. A full file name path cannot be larger than 1024
+        /// characters.</para></remarks>
         public IList<string> file_names { get; set; } = new List<string>();
 
         /// <summary>File data for the files being uploaded, for the respective
-        /// files in <paramref cref="UploadFilesRequest.file_names" />.
-        /// </summary>
+        /// files in <see cref="file_names" />.</summary>
         public IList<byte[]> file_data { get; set; } = new List<byte[]>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
+        ///         cref="Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
         ///         <description>Encoding that has been applied to the uploaded
-        /// file data. When using JSON serialization it is recommended to
-        /// utilize
-        /// <i>base64</i>. The caller is responsible
-        /// for encoding the data provided in this payload
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.BASE64">BASE64</see>:</term>
-        ///         <description>Specifies that the file data being uploaded
-        /// has been base64 encoded.</description>
+        ///         file data. When using JSON serialization it is recommended
+        ///         to utilize <see cref="Options.BASE64">BASE64</see>. The
+        ///         caller is responsible for encoding the data provided in
+        ///         this payload.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.BASE64">BASE64</see>:
+        ///                 </term>
+        ///                 <description>Specifies that the file data being
+        ///                 uploaded has been base64 encoded.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+        ///                 <description>The uploaded file data has not been
+        ///                 encoded.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>The uploaded file data has not been
-        /// encoded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>:</term>
-        ///         <description>Multipart upload operation to perform
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>Default, indicates this is not a multipart
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.INIT">INIT</see>:</term>
-        ///         <description>Initialize a multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Uploads a part of the specified multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:</term>
-        ///         <description>Complete the specified multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:</term>
-        ///         <description>Cancel the specified multipart file
-        /// upload</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
+        ///         cref="Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>:
+        ///         </term>
+        ///         <description>Multipart upload operation to perform.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+        ///                 <description>Default, indicates this is not a
+        ///                 multipart upload</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.INIT">INIT</see>:</term>
+        ///                 <description>Initialize a multipart file upload
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UPLOAD_PART">UPLOAD_PART</see>:
+        ///                 </term>
+        ///                 <description>Uploads a part of the specified
+        ///                 multipart file upload</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.COMPLETE">COMPLETE</see>:
+        ///                 </term>
+        ///                 <description>Complete the specified multipart file
+        ///                 upload</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.CANCEL">CANCEL</see>:
+        ///                 </term>
+        ///                 <description>Cancel the specified multipart file
+        ///                 upload</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:</term>
-        ///         <description>UUID to uniquely identify a multipart
-        /// upload</description>
+        ///         cref="Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:
+        ///         </term>
+        ///         <description>UUID to uniquely identify a multipart upload
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>:</term>
+        ///         cref="Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>:
+        ///         </term>
         ///         <description>Incremental part number for each part in a
-        /// multipart upload. Part numbers start at 1, increment by 1, and must
-        /// be uploaded
-        /// sequentially</description>
+        ///         multipart upload. Part numbers start at 1, increment by 1,
+        ///         and must be uploaded sequentially</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>,
-        /// any existing files specified in <paramref
-        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
-        /// start of upload.
-        /// Otherwise the file is replaced once the upload completes.  Rollback
-        /// of the original file is
-        /// no longer possible if the upload is cancelled, aborted or fails if
-        /// the file was deleted beforehand.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, any
+        ///         existing files specified in <see cref="file_names" /> will
+        ///         be deleted prior to start of upload. Otherwise the file is
+        ///         replaced once the upload completes.  Rollback of the
+        ///         original file is no longer possible if the upload is
+        ///         cancelled, aborted or fails if the file was deleted
+        ///         beforehand.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an UploadFilesRequest object with default
         /// parameters.</summary>
@@ -453,129 +304,122 @@ namespace kinetica
 
         /// <summary>Constructs an UploadFilesRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="file_names">An array of full file name paths to be
-        /// used for the files
-        /// uploaded to KiFS. File names may have any number of nested
-        /// directories in their
-        /// paths, but the top-level directory must be an existing KiFS
-        /// directory. Each file
-        /// must reside in or under a top-level directory. A full file name
-        /// path cannot be
-        /// larger than 1024 characters.  </param>
+        /// used for the files uploaded to KiFS. File names may have any number
+        /// of nested directories in their paths, but the top-level directory
+        /// must be an existing KiFS directory. Each file must reside in or
+        /// under a top-level directory. A full file name path cannot be larger
+        /// than 1024 characters.</param>
         /// <param name="file_data">File data for the files being uploaded, for
-        /// the respective files in <paramref
-        /// cref="UploadFilesRequest.file_names" />.  </param>
+        /// the respective files in <paramref name="file_names" />.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
+        ///         cref="Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
         ///         <description>Encoding that has been applied to the uploaded
-        /// file data. When using JSON serialization it is recommended to
-        /// utilize
-        /// <i>base64</i>. The caller is responsible
-        /// for encoding the data provided in this payload
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.BASE64">BASE64</see>:</term>
-        ///         <description>Specifies that the file data being uploaded
-        /// has been base64 encoded.</description>
+        ///         file data. When using JSON serialization it is recommended
+        ///         to utilize <see cref="Options.BASE64">BASE64</see>. The
+        ///         caller is responsible for encoding the data provided in
+        ///         this payload.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.BASE64">BASE64</see>:
+        ///                 </term>
+        ///                 <description>Specifies that the file data being
+        ///                 uploaded has been base64 encoded.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+        ///                 <description>The uploaded file data has not been
+        ///                 encoded.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>The uploaded file data has not been
-        /// encoded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>:</term>
-        ///         <description>Multipart upload operation to perform
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
-        ///         <description>Default, indicates this is not a multipart
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.INIT">INIT</see>:</term>
-        ///         <description>Initialize a multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Uploads a part of the specified multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:</term>
-        ///         <description>Complete the specified multipart file
-        /// upload</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:</term>
-        ///         <description>Cancel the specified multipart file
-        /// upload</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
+        ///         cref="Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>:
+        ///         </term>
+        ///         <description>Multipart upload operation to perform.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+        ///                 <description>Default, indicates this is not a
+        ///                 multipart upload</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.INIT">INIT</see>:</term>
+        ///                 <description>Initialize a multipart file upload
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UPLOAD_PART">UPLOAD_PART</see>:
+        ///                 </term>
+        ///                 <description>Uploads a part of the specified
+        ///                 multipart file upload</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.COMPLETE">COMPLETE</see>:
+        ///                 </term>
+        ///                 <description>Complete the specified multipart file
+        ///                 upload</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.CANCEL">CANCEL</see>:
+        ///                 </term>
+        ///                 <description>Cancel the specified multipart file
+        ///                 upload</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:</term>
-        ///         <description>UUID to uniquely identify a multipart
-        /// upload</description>
+        ///         cref="Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:
+        ///         </term>
+        ///         <description>UUID to uniquely identify a multipart upload
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>:</term>
+        ///         cref="Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>:
+        ///         </term>
         ///         <description>Incremental part number for each part in a
-        /// multipart upload. Part numbers start at 1, increment by 1, and must
-        /// be uploaded
-        /// sequentially</description>
+        ///         multipart upload. Part numbers start at 1, increment by 1,
+        ///         and must be uploaded sequentially</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>,
-        /// any existing files specified in <paramref
-        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
-        /// start of upload.
-        /// Otherwise the file is replaced once the upload completes.  Rollback
-        /// of the original file is
-        /// no longer possible if the upload is cancelled, aborted or fails if
-        /// the file was deleted beforehand.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, any
+        ///         existing files specified in <paramref name="file_names" />
+        ///         will be deleted prior to start of upload. Otherwise the
+        ///         file is replaced once the upload completes.  Rollback of
+        ///         the original file is no longer possible if the upload is
+        ///         cancelled, aborted or fails if the file was deleted
+        ///         beforehand.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public UploadFilesRequest( IList<string> file_names,
                                    IList<byte[]> file_data,
                                    IDictionary<string, string> options = null)
@@ -584,23 +428,14 @@ namespace kinetica
             this.file_data = file_data ?? new List<byte[]>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class UploadFilesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.uploadFiles(IList{string},IList{byte[]},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
+    /// </summary>
     public class UploadFilesResponse : KineticaData
     {
-
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class UploadFilesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

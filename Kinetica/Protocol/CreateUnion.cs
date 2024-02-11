@@ -6,347 +6,160 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createUnion(string,IList{string},IList{IList{string}},IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Merges data from one or more tables with comparable data types into a
-    /// new table.
-    /// <br />
-    /// The following merges are supported:
-    /// <br />
-    /// UNION (DISTINCT/ALL) - For data set union details and examples, see <a
-    /// href="../../../concepts/unions/" target="_top">Union</a>.  For
+    /// cref="Kinetica.createUnion(CreateUnionRequest)">Kinetica.createUnion</see>.
+    /// </summary>
+    /// <remarks><para>Merges data from one or more tables with comparable data
+    /// types into a new table.</para>
+    /// <para>The following merges are supported:</para>
+    /// <para>UNION (DISTINCT/ALL) - For data set union details and examples,
+    /// see <a href="../../../concepts/unions/" target="_top">Union</a>.  For
     /// limitations, see <a
     /// href="../../../concepts/unions/#limitations-and-cautions"
-    /// target="_top">Union Limitations and Cautions</a>.
-    /// <br />
-    /// INTERSECT (DISTINCT/ALL) - For data set intersection details and
+    /// target="_top">Union Limitations and Cautions</a>.</para>
+    /// <para>INTERSECT (DISTINCT/ALL) - For data set intersection details and
     /// examples, see <a href="../../../concepts/intersect/"
     /// target="_top">Intersect</a>.  For limitations, see <a
     /// href="../../../concepts/intersect/#limitations" target="_top">Intersect
-    /// Limitations</a>.
-    /// <br />
-    /// EXCEPT (DISTINCT/ALL) - For data set subtraction details and examples,
-    /// see <a href="../../../concepts/except/" target="_top">Except</a>.  For
-    /// limitations, see <a href="../../../concepts/except/#limitations"
-    /// target="_top">Except Limitations</a>.
-    /// <br />
-    /// MERGE VIEWS - For a given set of <a
+    /// Limitations</a>.</para>
+    /// <para>EXCEPT (DISTINCT/ALL) - For data set subtraction details and
+    /// examples, see <a href="../../../concepts/except/"
+    /// target="_top">Except</a>.  For limitations, see <a
+    /// href="../../../concepts/except/#limitations" target="_top">Except
+    /// Limitations</a>.</para>
+    /// <para>MERGE VIEWS - For a given set of <a
     /// href="../../../concepts/filtered_views/" target="_top">filtered
     /// views</a> on a single table, creates a single filtered view containing
-    /// all of the unique records across all of the given filtered data sets.
-    /// <br />
-    /// Non-charN 'string' and 'bytes' column types cannot be merged, nor can
-    /// columns marked as <a href="../../../concepts/types/#data-handling"
-    /// target="_top">store-only</a>.</summary>
+    /// all of the unique records across all of the given filtered data
+    /// sets.</para>
+    /// <para>Non-charN 'string' and 'bytes' column types cannot be merged, nor
+    /// can columns marked as <a href="../../../concepts/types/#data-handling"
+    /// target="_top">store-only</a>.</para></remarks>
     public class CreateUnionRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="CreateUnionRequest.table_name" />. If
-        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
-        /// always allowed even if the caller does not have permission to
-        /// create tables. The generated name is returned in
-        /// <i>qualified_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the projection as part of <paramref
-        /// cref="CreateUnionRequest.table_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of the schema for the
-        /// output table. If the schema provided is non-existent, it will be
-        /// automatically created.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
-        ///         <description>If <i>merge_views</i>, then this operation
-        /// will merge the provided views. All <paramref
-        /// cref="CreateUnionRequest.table_names" /> must be views from the
-        /// same underlying base table.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
-        ///         <description>Retains all rows from the specified
-        /// tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
-        ///         <description>Retains all unique rows from the specified
-        /// tables (synonym for <i>union_distinct</i>).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
-        ///         <description>Retains all unique rows from the specified
-        /// tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
-        ///         <description>Retains all unique rows from the first table
-        /// that do not appear in the second table (only works on 2
-        /// tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
-        ///         <description>Retains all rows(including duplicates) from
-        /// the first table that do not appear in the second table (only works
-        /// on 2 tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
-        ///         <description>Retains all unique rows that appear in both of
-        /// the specified tables (only works on 2 tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
-        ///         <description>Retains all rows(including duplicates) that
-        /// appear in both of the specified tables (only works on 2
-        /// tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
-        ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. If this mode is selected
-        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
-        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
-        /// empty. The resulting view would match the results of a SQL OR
-        /// operation, e.g., if filter 1 creates a view using the expression 'x
-        /// = 20' and filter 2 creates a view using the expression 'x <= 10',
-        /// then the merge views operation creates a new view using the
-        /// expression 'x = 20 OR x <= 10'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the number of records per chunk to
-        /// be used for this output table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
-        ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
-        /// present in <paramref cref="CreateUnionRequest.output_column_names"
-        /// />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the output table specified in <paramref
-        /// cref="CreateUnionRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the output table
-        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
-        /// be persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the output table will be an in-memory table
-        /// and will expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>ID of view of which this output table is a
-        /// member.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the output table
-        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
-        /// be replicated even if the source tables are not.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of <see
-            /// cref="table_name" />. If <i>persist</i> is <i>false</i> (or
-            /// unspecified), then this is always allowed even if the caller
-            /// does not have permission to create tables. The generated name
-            /// is returned in <i>qualified_table_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see cref="table_name" />.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the projection as part of <see cref="table_name" /> and use
             /// <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of the schema
-            /// for the output table. If the schema provided is non-existent,
-            /// it will be automatically created.  The default value is
-            /// ''.</summary>
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of the schema for
+            /// the output table.</summary>
+            /// <remarks><para>If the schema provided is non-existent, it will
+            /// be automatically created. The default value is ''.</para>
+            /// </remarks>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>If <i>merge_views</i>, then this operation will merge
-            /// the provided views. All <see cref="table_names" /> must be
-            /// views from the same underlying base table.
-            /// Supported values:
+            /// <summary>If <see cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>,
+            /// then this operation will merge the provided views.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
+            ///         <term><see cref="Options.UNION_ALL">UNION_ALL</see>:
+            ///         </term>
             ///         <description>Retains all rows from the specified
-            /// tables.</description>
+            ///         tables.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
+            ///         <term><see cref="Options.UNION">UNION</see>:</term>
             ///         <description>Retains all unique rows from the specified
-            /// tables (synonym for <i>union_distinct</i>).</description>
+            ///         tables (synonym for <see
+            ///         cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+            ///         </description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+            ///         cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>:
+            ///         </term>
             ///         <description>Retains all unique rows from the specified
-            /// tables.</description>
+            ///         tables.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
+            ///         <term><see cref="Options.EXCEPT">EXCEPT</see>:</term>
             ///         <description>Retains all unique rows from the first
-            /// table that do not appear in the second table (only works on 2
-            /// tables).</description>
+            ///         table that do not appear in the second table (only
+            ///         works on 2 tables).</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+            ///         <term><see cref="Options.EXCEPT_ALL">EXCEPT_ALL</see>:
+            ///         </term>
             ///         <description>Retains all rows(including duplicates)
-            /// from the first table that do not appear in the second table
-            /// (only works on 2 tables).</description>
+            ///         from the first table that do not appear in the second
+            ///         table (only works on 2 tables).</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
+            ///         <term><see cref="Options.INTERSECT">INTERSECT</see>:
+            ///         </term>
             ///         <description>Retains all unique rows that appear in
-            /// both of the specified tables (only works on 2
-            /// tables).</description>
+            ///         both of the specified tables (only works on 2 tables).
+            ///         </description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+            ///         cref="Options.INTERSECT_ALL">INTERSECT_ALL</see>:
+            ///         </term>
             ///         <description>Retains all rows(including duplicates)
-            /// that appear in both of the specified tables (only works on 2
-            /// tables).</description>
+            ///         that appear in both of the specified tables (only works
+            ///         on 2 tables).</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
+            ///         cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
             ///         <description>Merge two or more views (or views of
-            /// views) of the same base data set into a new view. If this mode
-            /// is selected <see cref="input_column_names" /> AND <see
-            /// cref="output_column_names" /> must be empty. The resulting view
-            /// would match the results of a SQL OR operation, e.g., if filter
-            /// 1 creates a view using the expression 'x = 20' and filter 2
-            /// creates a view using the expression 'x <= 10', then the merge
-            /// views operation creates a new view using the expression 'x = 20
-            /// OR x <= 10'.</description>
+            ///         views) of the same base data set into a new view. If
+            ///         this mode is selected <see cref="input_column_names" />
+            ///         AND <see cref="output_column_names" /> must be empty.
+            ///         The resulting view would match the results of a SQL OR
+            ///         operation, e.g., if filter 1 creates a view using the
+            ///         expression 'x = 20' and filter 2 creates a view using
+            ///         the expression 'x &lt;= 10', then the merge views
+            ///         operation creates a new view using the expression 'x =
+            ///         20 OR x &lt;= 10'.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.UNION_ALL">UNION_ALL</see>.</para></remarks>
             public const string MODE = "mode";
 
             /// <summary>Retains all rows from the specified tables.</summary>
             public const string UNION_ALL = "union_all";
 
             /// <summary>Retains all unique rows from the specified tables
-            /// (synonym for <i>union_distinct</i>).</summary>
+            /// (synonym for <see
+            /// cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).</summary>
             public const string UNION = "union";
 
-            /// <summary>Retains all unique rows from the specified
-            /// tables.</summary>
+            /// <summary>Retains all unique rows from the specified tables.
+            /// </summary>
             public const string UNION_DISTINCT = "union_distinct";
 
             /// <summary>Retains all unique rows from the first table that do
-            /// not appear in the second table (only works on 2
-            /// tables).</summary>
+            /// not appear in the second table (only works on 2 tables).
+            /// </summary>
             public const string EXCEPT = "except";
 
             /// <summary>Retains all rows(including duplicates) from the first
@@ -359,28 +172,38 @@ namespace kinetica
             public const string INTERSECT = "intersect";
 
             /// <summary>Retains all rows(including duplicates) that appear in
-            /// both of the specified tables (only works on 2
-            /// tables).</summary>
+            /// both of the specified tables (only works on 2 tables).
+            /// </summary>
             public const string INTERSECT_ALL = "intersect_all";
 
             /// <summary>Merge two or more views (or views of views) of the
-            /// same base data set into a new view. If this mode is selected
-            /// <see cref="input_column_names" /> AND <see
+            /// same base data set into a new view.</summary>
+            /// <remarks><para>If this mode is selected <see
+            /// cref="input_column_names" /> AND <see
             /// cref="output_column_names" /> must be empty. The resulting view
             /// would match the results of a SQL OR operation, e.g., if filter
             /// 1 creates a view using the expression 'x = 20' and filter 2
-            /// creates a view using the expression 'x <= 10', then the merge
-            /// views operation creates a new view using the expression 'x = 20
-            /// OR x <= 10'.</summary>
+            /// creates a view using the expression 'x &lt;= 10', then the
+            /// merge views operation creates a new view using the expression
+            /// 'x = 20 OR x &lt;= 10'.</para></remarks>
             public const string MERGE_VIEWS = "merge_views";
 
             /// <summary>Indicates the number of records per chunk to be used
             /// for this output table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
+            /// <summary>Indicates the target maximum data size for each column
+            /// in a chunk to be used for this output table.</summary>
+            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+            /// <summary>Indicates the target maximum data size for all columns
+            /// in a chunk to be used for this output table.</summary>
+            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
             /// <summary>Comma-separated list of columns on which to create
-            /// indexes on the output table.  The columns specified must be
-            /// present in <see cref="output_column_names" />.</summary>
+            /// indexes on the output table.</summary>
+            /// <remarks><para> The columns specified must be present in <see
+            /// cref="output_column_names" />.</para></remarks>
             public const string CREATE_INDEXES = "create_indexes";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
@@ -388,253 +211,286 @@ namespace kinetica
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If <i>true</i>, then the output table specified in
-            /// <see cref="table_name" /> will be persisted and will not expire
-            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
-            /// output table will be an in-memory table and will expire unless
-            /// a <i>ttl</i> is specified otherwise.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
+            /// output table specified in <see cref="table_name" /> will be
+            /// persisted and will not expire unless a <see
+            /// cref="Options.TTL">TTL</see> is specified.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string PERSIST = "persist";
 
             /// <summary>ID of view of which this output table is a member.
-            /// The default value is ''.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>If <i>true</i>, then the output table specified in
-            /// <see cref="table_name" /> will be replicated even if the source
-            /// tables are not.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
+            /// output table specified in <see cref="table_name" /> will be
+            /// replicated even if the source tables are not.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string FORCE_REPLICATED = "force_replicated";
-        } // end struct Options
 
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its columns.
+            /// </summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
+        } // end struct Options
 
         /// <summary>Name of the table to be created, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  </summary>
+        /// target="_top">table naming criteria</a>.</summary>
         public string table_name { get; set; }
 
         /// <summary>The list of table names to merge, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must contain the names of
-        /// one or more existing tables.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> Must contain the names of one or more existing
+        /// tables.</para></remarks>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>The list of columns from each of the corresponding input
-        /// tables.  </summary>
+        /// tables.</summary>
         public IList<IList<string>> input_column_names { get; set; } = new List<IList<string>>();
 
         /// <summary>The list of names of the columns to be stored in the
-        /// output table.  </summary>
+        /// output table.</summary>
         public IList<string> output_column_names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="CreateUnionRequest.table_name" />. If
-        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
-        /// always allowed even if the caller does not have permission to
-        /// create tables. The generated name is returned in
-        /// <i>qualified_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see cref="table_name"
+        ///         />. If <see cref="Options.PERSIST">PERSIST</see> is <see
+        ///         cref="Options.FALSE">FALSE</see> (or unspecified), then
+        ///         this is always allowed even if the caller does not have
+        ///         permission to create tables. The generated name is returned
+        ///         in <see
+        ///         cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the projection as part of <paramref
-        /// cref="CreateUnionRequest.table_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of the schema for the
-        /// output table. If the schema provided is non-existent, it will be
-        /// automatically created.  The default value is ''.</description>
+        ///         schema for the projection as part of <see cref="table_name"
+        ///         /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of the schema
+        ///         for the output table. If the schema provided is
+        ///         non-existent, it will be automatically created. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
-        ///         <description>If <i>merge_views</i>, then this operation
-        /// will merge the provided views. All <paramref
-        /// cref="CreateUnionRequest.table_names" /> must be views from the
-        /// same underlying base table.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
-        ///         <description>Retains all rows from the specified
-        /// tables.</description>
+        ///         <term><see cref="Options.MODE">MODE</see>:</term>
+        ///         <description>If <see
+        ///         cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>, then this
+        ///         operation will merge the provided views. All <see
+        ///         cref="table_names" /> must be views from the same
+        ///         underlying base table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///                 <description>Retains all rows from the specified
+        ///                 tables.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.UNION">UNION</see>:</term>
+        ///                 <description>Retains all unique rows from the
+        ///                 specified tables (synonym for <see
+        ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>:
+        ///                 </term>
+        ///                 <description>Retains all unique rows from the
+        ///                 specified tables.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.EXCEPT">EXCEPT</see>:
+        ///                 </term>
+        ///                 <description>Retains all unique rows from the first
+        ///                 table that do not appear in the second table (only
+        ///                 works on 2 tables).</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+        ///                 <description>Retains all rows(including duplicates)
+        ///                 from the first table that do not appear in the
+        ///                 second table (only works on 2 tables).
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.INTERSECT">INTERSECT</see>:</term>
+        ///                 <description>Retains all unique rows that appear in
+        ///                 both of the specified tables (only works on 2
+        ///                 tables).</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.INTERSECT_ALL">INTERSECT_ALL</see>:
+        ///                 </term>
+        ///                 <description>Retains all rows(including duplicates)
+        ///                 that appear in both of the specified tables (only
+        ///                 works on 2 tables).</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>:
+        ///                 </term>
+        ///                 <description>Merge two or more views (or views of
+        ///                 views) of the same base data set into a new view.
+        ///                 If this mode is selected <see
+        ///                 cref="input_column_names" /> AND <see
+        ///                 cref="output_column_names" /> must be empty. The
+        ///                 resulting view would match the results of a SQL OR
+        ///                 operation, e.g., if filter 1 creates a view using
+        ///                 the expression 'x = 20' and filter 2 creates a view
+        ///                 using the expression 'x &lt;= 10', then the merge
+        ///                 views operation creates a new view using the
+        ///                 expression 'x = 20 OR x &lt;= 10'.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.UNION_ALL">UNION_ALL</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
-        ///         <description>Retains all unique rows from the specified
-        /// tables (synonym for <i>union_distinct</i>).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
-        ///         <description>Retains all unique rows from the specified
-        /// tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
-        ///         <description>Retains all unique rows from the first table
-        /// that do not appear in the second table (only works on 2
-        /// tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
-        ///         <description>Retains all rows(including duplicates) from
-        /// the first table that do not appear in the second table (only works
-        /// on 2 tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
-        ///         <description>Retains all unique rows that appear in both of
-        /// the specified tables (only works on 2 tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
-        ///         <description>Retains all rows(including duplicates) that
-        /// appear in both of the specified tables (only works on 2
-        /// tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
-        ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. If this mode is selected
-        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
-        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
-        /// empty. The resulting view would match the results of a SQL OR
-        /// operation, e.g., if filter 1 creates a view using the expression 'x
-        /// = 20' and filter 2 creates a view using the expression 'x <= 10',
-        /// then the merge views operation creates a new view using the
-        /// expression 'x = 20 OR x <= 10'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for this output table.</description>
+        ///         be used for this output table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for this output table.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for this output table.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
-        /// present in <paramref cref="CreateUnionRequest.output_column_names"
-        /// />.</description>
+        ///         create indexes on the output table.  The columns specified
+        ///         must be present in <see cref="output_column_names" />.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the output table specified in <paramref
-        /// cref="CreateUnionRequest.table_name" />.</description>
+        ///         target="_top">TTL</a> of the output table specified in <see
+        ///         cref="table_name" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the output table
-        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
-        /// be persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the output table will be an in-memory table
-        /// and will expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the output table specified in <see cref="table_name" />
+        ///         will be persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the output table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which this output table is a
-        /// member.  The default value is ''.</description>
+        ///         member. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the output table
-        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
-        /// be replicated even if the source tables are not.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the output table specified in <see cref="table_name" />
+        ///         will be replicated even if the source tables are not.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
+        ///         <description>The <a
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateUnionRequest object with default
         /// parameters.</summary>
@@ -642,201 +498,234 @@ namespace kinetica
 
         /// <summary>Constructs a CreateUnionRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table to be created, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  </param>
+        /// target="_top">table naming criteria</a>.</param>
         /// <param name="table_names">The list of table names to merge, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must contain the names of
-        /// one or more existing tables.  </param>
+        /// one or more existing tables.</param>
         /// <param name="input_column_names">The list of columns from each of
-        /// the corresponding input tables.  </param>
+        /// the corresponding input tables.</param>
         /// <param name="output_column_names">The list of names of the columns
-        /// to be stored in the output table.  </param>
+        /// to be stored in the output table.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="CreateUnionRequest.table_name" />. If
-        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
-        /// always allowed even if the caller does not have permission to
-        /// create tables. The generated name is returned in
-        /// <i>qualified_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <paramref
+        ///         name="table_name" />. If <see
+        ///         cref="Options.PERSIST">PERSIST</see> is <see
+        ///         cref="Options.FALSE">FALSE</see> (or unspecified), then
+        ///         this is always allowed even if the caller does not have
+        ///         permission to create tables. The generated name is returned
+        ///         in <see
+        ///         cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the projection as part of <paramref
-        /// cref="CreateUnionRequest.table_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of the schema for the
-        /// output table. If the schema provided is non-existent, it will be
-        /// automatically created.  The default value is ''.</description>
+        ///         schema for the projection as part of <paramref
+        ///         name="table_name" /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of the schema
+        ///         for the output table. If the schema provided is
+        ///         non-existent, it will be automatically created. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
-        ///         <description>If <i>merge_views</i>, then this operation
-        /// will merge the provided views. All <paramref
-        /// cref="CreateUnionRequest.table_names" /> must be views from the
-        /// same underlying base table.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
-        ///         <description>Retains all rows from the specified
-        /// tables.</description>
+        ///         <term><see cref="Options.MODE">MODE</see>:</term>
+        ///         <description>If <see
+        ///         cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>, then this
+        ///         operation will merge the provided views. All <paramref
+        ///         name="table_names" /> must be views from the same
+        ///         underlying base table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///                 <description>Retains all rows from the specified
+        ///                 tables.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.UNION">UNION</see>:</term>
+        ///                 <description>Retains all unique rows from the
+        ///                 specified tables (synonym for <see
+        ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>:
+        ///                 </term>
+        ///                 <description>Retains all unique rows from the
+        ///                 specified tables.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.EXCEPT">EXCEPT</see>:
+        ///                 </term>
+        ///                 <description>Retains all unique rows from the first
+        ///                 table that do not appear in the second table (only
+        ///                 works on 2 tables).</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+        ///                 <description>Retains all rows(including duplicates)
+        ///                 from the first table that do not appear in the
+        ///                 second table (only works on 2 tables).
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.INTERSECT">INTERSECT</see>:</term>
+        ///                 <description>Retains all unique rows that appear in
+        ///                 both of the specified tables (only works on 2
+        ///                 tables).</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.INTERSECT_ALL">INTERSECT_ALL</see>:
+        ///                 </term>
+        ///                 <description>Retains all rows(including duplicates)
+        ///                 that appear in both of the specified tables (only
+        ///                 works on 2 tables).</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>:
+        ///                 </term>
+        ///                 <description>Merge two or more views (or views of
+        ///                 views) of the same base data set into a new view.
+        ///                 If this mode is selected <paramref
+        ///                 name="input_column_names" /> AND <paramref
+        ///                 name="output_column_names" /> must be empty. The
+        ///                 resulting view would match the results of a SQL OR
+        ///                 operation, e.g., if filter 1 creates a view using
+        ///                 the expression 'x = 20' and filter 2 creates a view
+        ///                 using the expression 'x &lt;= 10', then the merge
+        ///                 views operation creates a new view using the
+        ///                 expression 'x = 20 OR x &lt;= 10'.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.UNION_ALL">UNION_ALL</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
-        ///         <description>Retains all unique rows from the specified
-        /// tables (synonym for <i>union_distinct</i>).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
-        ///         <description>Retains all unique rows from the specified
-        /// tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
-        ///         <description>Retains all unique rows from the first table
-        /// that do not appear in the second table (only works on 2
-        /// tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
-        ///         <description>Retains all rows(including duplicates) from
-        /// the first table that do not appear in the second table (only works
-        /// on 2 tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
-        ///         <description>Retains all unique rows that appear in both of
-        /// the specified tables (only works on 2 tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
-        ///         <description>Retains all rows(including duplicates) that
-        /// appear in both of the specified tables (only works on 2
-        /// tables).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
-        ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. If this mode is selected
-        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
-        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
-        /// empty. The resulting view would match the results of a SQL OR
-        /// operation, e.g., if filter 1 creates a view using the expression 'x
-        /// = 20' and filter 2 creates a view using the expression 'x <= 10',
-        /// then the merge views operation creates a new view using the
-        /// expression 'x = 20 OR x <= 10'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for this output table.</description>
+        ///         be used for this output table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for this output table.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for this output table.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
-        /// present in <paramref cref="CreateUnionRequest.output_column_names"
-        /// />.</description>
+        ///         create indexes on the output table.  The columns specified
+        ///         must be present in <paramref name="output_column_names" />.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the output table specified in <paramref
-        /// cref="CreateUnionRequest.table_name" />.</description>
+        ///         target="_top">TTL</a> of the output table specified in
+        ///         <paramref name="table_name" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the output table
-        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
-        /// be persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the output table will be an in-memory table
-        /// and will expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the output table specified in <paramref name="table_name"
+        ///         /> will be persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the output table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which this output table is a
-        /// member.  The default value is ''.</description>
+        ///         member. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the output table
-        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
-        /// be replicated even if the source tables are not.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the output table specified in <paramref name="table_name"
+        ///         /> will be replicated even if the source tables are not.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
+        ///         <description>The <a
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateUnionRequest( string table_name,
                                    IList<string> table_names,
                                    IList<IList<string>> input_column_names,
@@ -849,38 +738,18 @@ namespace kinetica
             this.output_column_names = output_column_names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateUnionRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createUnion(string,IList{string},IList{IList{string}},IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createUnion(CreateUnionRequest)">Kinetica.createUnion</see>.
+    /// </summary>
     public class CreateUnionResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionResponse.Info.COUNT">COUNT</see>:</term>
-        ///         <description>Number of records in the final
-        /// table</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the result table
-        /// (i.e. including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>Number of records in the final table</summary>
             public const string COUNT = "count";
 
@@ -889,32 +758,26 @@ namespace kinetica
             public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
         } // end struct Info
 
-
-        /// <summary>Value of <paramref cref="CreateUnionRequest.table_name"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="CreateUnionRequest.table_name">table_name</see>.</summary>
         public string table_name { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionResponse.Info.COUNT">COUNT</see>:</term>
-        ///         <description>Number of records in the final
-        /// table</description>
+        ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final table
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the result table
-        /// (i.e. including the schema)</description>
+        ///         (i.e. including the schema)</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateUnionResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

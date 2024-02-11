@@ -6,64 +6,34 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.aggregateUnpivot(string,IList{string},string,string,IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Rotate the column values into rows values.
-    /// <br />
-    /// For unpivot details and examples, see
-    /// <a href="../../../concepts/unpivot/" target="_top">Unpivot</a>.  For
-    /// limitations, see
-    /// <a href="../../../concepts/unpivot/#limitations" target="_top">Unpivot
-    /// Limitations</a>.
-    /// <br />
-    /// Unpivot is used to normalize tables that are built for cross tabular
-    /// reporting
-    /// purposes. The unpivot operator rotates the column values for all the
-    /// pivoted
-    /// columns. A variable column, value column and all columns from the
-    /// source table
-    /// except the unpivot columns are projected into the result table. The
-    /// variable
-    /// column and value columns in the result table indicate the pivoted
-    /// column name
-    /// and values respectively.
-    /// <br />
-    /// The response is returned as a dynamic schema. For details see:
-    /// <a href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
-    /// schemas documentation</a>.</summary>
+    /// cref="Kinetica.aggregateUnpivot(AggregateUnpivotRequest)">Kinetica.aggregateUnpivot</see>.
+    /// </summary>
+    /// <remarks><para>Rotate the column values into rows values.</para>
+    /// <para>For unpivot details and examples, see <a
+    /// href="../../../concepts/unpivot/" target="_top">Unpivot</a>.  For
+    /// limitations, see <a href="../../../concepts/unpivot/#limitations"
+    /// target="_top">Unpivot Limitations</a>.</para>
+    /// <para>Unpivot is used to normalize tables that are built for cross
+    /// tabular reporting purposes. The unpivot operator rotates the column
+    /// values for all the pivoted columns. A variable column, value column and
+    /// all columns from the source table except the unpivot columns are
+    /// projected into the result table. The variable column and value columns
+    /// in the result table indicate the pivoted column name and values
+    /// respectively.</para>
+    /// <para>The response is returned as a dynamic schema. For details see: <a
+    /// href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.</para></remarks>
     public class AggregateUnpivotRequest : KineticaData
     {
-
-        /// <summary>Specifies the encoding for returned records.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Encoding.BINARY">BINARY</see>:</term>
-        ///         <description>Indicates that the returned records should be
-        /// binary encoded.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Encoding.JSON">JSON</see>:</term>
-        ///         <description>Indicates that the returned records should be
-        /// json encoded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Encoding.BINARY">BINARY</see>.
-        /// A set of string constants for the parameter <see cref="encoding"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="encoding" />.</summary>
+        /// <remarks><para>Specifies the encoding for returned records.</para>
+        /// </remarks>
         public struct Encoding
         {
-
             /// <summary>Indicates that the returned records should be binary
             /// encoded.</summary>
             public const string BINARY = "binary";
@@ -73,182 +43,40 @@ namespace kinetica
             public const string JSON = "json";
         } // end struct Encoding
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// is non-existent, it will be automatically created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>. If present, no results are
-        /// returned in the response.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
-        ///         <description>Filter expression to apply to the table prior
-        /// to unpivot processing.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in input table.  If any alias is given for any
-        /// column name, the alias must be used, rather than the original
-        /// column name.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
-        ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the table specified in <i>result_table</i>. The
-        /// columns specified must be present in output column names.  If any
-        /// alias is given for any column name, the alias must be used, rather
-        /// than the original column name.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
-        ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of
-            /// <i>result_table</i>. If <i>result_table_persist</i> is
-            /// <i>false</i> (or unspecified), then this is always allowed even
-            /// if the caller does not have permission to create tables. The
-            /// generated name is returned in
-            /// <i>qualified_result_table_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema as
-            /// part of <i>result_table</i> and use <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema
-            /// which is to contain the table specified in <i>result_table</i>.
-            /// If the schema is non-existent, it will be automatically
-            /// created.</summary>
+            /// part of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> and
+            /// use <see
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema which
+            /// is to contain the table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+            /// <remarks><para>If the schema is non-existent, it will be
+            /// automatically created.</para></remarks>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>The name of a table used to store the results, in
@@ -256,28 +84,27 @@ namespace kinetica
             /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
             /// href="../../../concepts/tables/#table-naming-criteria"
-            /// target="_top">table naming criteria</a>. If present, no results
-            /// are returned in the response.</summary>
+            /// target="_top">table naming criteria</a>.</summary>
+            /// <remarks><para>If present, no results are returned in the
+            /// response.</para></remarks>
             public const string RESULT_TABLE = "result_table";
 
-            /// <summary>If <i>true</i>, then the result table specified in
-            /// <i>result_table</i> will be persisted and will not expire
-            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
-            /// result table will be an in-memory table and will expire unless
-            /// a <i>ttl</i> is specified otherwise.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
+            /// result table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+            /// persisted and will not expire unless a <see
+            /// cref="Options.TTL">TTL</see> is specified.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string RESULT_TABLE_PERSIST = "result_table_persist";
 
             /// <summary>Filter expression to apply to the table prior to
@@ -285,244 +112,288 @@ namespace kinetica
             public const string EXPRESSION = "expression";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
-            /// e.g. 'timestamp asc, x desc'.  The columns specified must be
-            /// present in input table.  If any alias is given for any column
-            /// name, the alias must be used, rather than the original column
-            /// name.  The default value is ''.</summary>
+            /// e.g. 'timestamp asc, x desc'.</summary>
+            /// <remarks><para> The columns specified must be present in input
+            /// table.  If any alias is given for any column name, the alias
+            /// must be used, rather than the original column name. The default
+            /// value is ''.</para></remarks>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Indicates the number of records per chunk to be used
-            /// for the result table. Must be used in combination with the
-            /// <i>result_table</i> option.</summary>
+            /// for the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>The number of records to keep.  The default value is
-            /// ''.</summary>
+            /// <summary>Indicates the target maximum data size for each column
+            /// in a chunk to be used for the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
+            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+            /// <summary>Indicates the target maximum data size for all columns
+            /// in a chunk to be used for the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
+            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
+            /// <summary>The number of records to keep.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string LIMIT = "limit";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the table specified in
-            /// <i>result_table</i>.</summary>
+            /// target="_top">TTL</a> of the table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>view this result table is part of.  The default value
-            /// is ''.</summary>
+            /// <summary>view this result table is part of.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string VIEW_ID = "view_id";
 
             /// <summary>Comma-separated list of columns on which to create
-            /// indexes on the table specified in <i>result_table</i>. The
-            /// columns specified must be present in output column names.  If
-            /// any alias is given for any column name, the alias must be used,
-            /// rather than the original column name.</summary>
+            /// indexes on the table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+            /// <remarks><para>The columns specified must be present in output
+            /// column names.  If any alias is given for any column name, the
+            /// alias must be used, rather than the original column name.
+            /// </para></remarks>
             public const string CREATE_INDEXES = "create_indexes";
 
             /// <summary>Force the result table to be replicated (ignores any
-            /// sharding). Must be used in combination with the
-            /// <i>result_table</i> option.
-            /// Supported values:
+            /// sharding).</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
         } // end struct Options
 
-
         /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table/view, in
+        /// performed.</summary>
+        /// <remarks><para>Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</para></remarks>
         public string table_name { get; set; }
 
-        /// <summary>List of column names or expressions. A wildcard '*' can be
-        /// used to include all the non-pivoted columns from the source table.
-        /// </summary>
+        /// <summary>List of column names or expressions.</summary>
+        /// <remarks><para>A wildcard '*' can be used to include all the
+        /// non-pivoted columns from the source table.</para></remarks>
         public IList<string> column_names { get; set; } = new List<string>();
 
-        /// <summary>Specifies the variable/parameter column name.  The default
-        /// value is ''.</summary>
+        /// <summary>Specifies the variable/parameter column name.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
         public string variable_column_name { get; set; } = "";
 
-        /// <summary>Specifies the value column name.  The default value is
-        /// ''.</summary>
+        /// <summary>Specifies the value column name.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
         public string value_column_name { get; set; } = "";
 
         /// <summary>List of one or more values typically the column names of
-        /// the input table. All the columns in the source table must have the
-        /// same data type.  </summary>
+        /// the input table.</summary>
+        /// <remarks><para>All the columns in the source table must have the
+        /// same data type.</para></remarks>
         public IList<string> pivoted_columns { get; set; } = new List<string>();
 
-        /// <summary>Specifies the encoding for returned records.
-        /// Supported values:
+        /// <summary>Specifies the encoding for returned records.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <term><see cref="Encoding.BINARY">BINARY</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// binary encoded.</description>
+        ///         binary encoded.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <term><see cref="Encoding.JSON">JSON</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// json encoded.</description>
+        ///         json encoded.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Encoding.BINARY">BINARY</see>.
-        /// </summary>
+        /// <para>The default value is <see
+        /// cref="Encoding.BINARY">BINARY</see>.</para></remarks>
         public string encoding { get; set; } = Encoding.BINARY;
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified),
+        ///         then this is always allowed even if the caller does not
+        ///         have permission to create tables. The generated name is
+        ///         returned in <see
+        ///         cref="AggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// is non-existent, it will be automatically created.</description>
+        ///         schema as part of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the
+        ///         schema is non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+        ///         </term>
         ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>. If present, no results are
-        /// returned in the response.</description>
+        ///         in [schema_name.]table_name format, using standard <a
+        ///         href="../../../concepts/tables/#table-name-resolution"
+        ///         target="_top">name resolution rules</a> and meeting <a
+        ///         href="../../../concepts/tables/#table-naming-criteria"
+        ///         target="_top">table naming criteria</a>. If present, no
+        ///         results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the result table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the result table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Filter expression to apply to the table prior
-        /// to unpivot processing.</description>
+        ///         to unpivot processing.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in input table.  If any alias is given for any
-        /// column name, the alias must be used, rather than the original
-        /// column name.  The default value is ''.</description>
+        ///         sorted by; e.g. 'timestamp asc, x desc'.  The columns
+        ///         specified must be present in input table.  If any alias is
+        ///         given for any column name, the alias must be used, rather
+        ///         than the original column name. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        ///         be used for the result table. Must be used in combination
+        ///         with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the result table.
+        ///         Must be used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the result table. Must be
+        ///         used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>The number of records to keep. The default
+        ///         value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part of. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the table specified in <i>result_table</i>. The
-        /// columns specified must be present in output column names.  If any
-        /// alias is given for any column name, the alias must be used, rather
-        /// than the original column name.</description>
+        ///         create indexes on the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. The columns
+        ///         specified must be present in output column names.  If any
+        ///         alias is given for any column name, the alias must be used,
+        ///         rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+        ///         </term>
         ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///         (ignores any sharding). Must be used in combination with
+        ///         the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+        ///         option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AggregateUnpivotRequest object with default
         /// parameters.</summary>
@@ -530,162 +401,192 @@ namespace kinetica
 
         /// <summary>Constructs an AggregateUnpivotRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
-        /// from the source table.  </param>
+        /// from the source table.</param>
         /// <param name="variable_column_name">Specifies the variable/parameter
-        /// column name.  The default value is ''.</param>
+        /// column name. The default value is ''.</param>
         /// <param name="value_column_name">Specifies the value column name.
         /// The default value is ''.</param>
         /// <param name="pivoted_columns">List of one or more values typically
         /// the column names of the input table. All the columns in the source
-        /// table must have the same data type.  </param>
+        /// table must have the same data type.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified),
+        ///         then this is always allowed even if the caller does not
+        ///         have permission to create tables. The generated name is
+        ///         returned in <see
+        ///         cref="AggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// is non-existent, it will be automatically created.</description>
+        ///         schema as part of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the
+        ///         schema is non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+        ///         </term>
         ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>. If present, no results are
-        /// returned in the response.</description>
+        ///         in [schema_name.]table_name format, using standard <a
+        ///         href="../../../concepts/tables/#table-name-resolution"
+        ///         target="_top">name resolution rules</a> and meeting <a
+        ///         href="../../../concepts/tables/#table-naming-criteria"
+        ///         target="_top">table naming criteria</a>. If present, no
+        ///         results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the result table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the result table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Filter expression to apply to the table prior
-        /// to unpivot processing.</description>
+        ///         to unpivot processing.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in input table.  If any alias is given for any
-        /// column name, the alias must be used, rather than the original
-        /// column name.  The default value is ''.</description>
+        ///         sorted by; e.g. 'timestamp asc, x desc'.  The columns
+        ///         specified must be present in input table.  If any alias is
+        ///         given for any column name, the alias must be used, rather
+        ///         than the original column name. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        ///         be used for the result table. Must be used in combination
+        ///         with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the result table.
+        ///         Must be used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the result table. Must be
+        ///         used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>The number of records to keep. The default
+        ///         value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part of. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the table specified in <i>result_table</i>. The
-        /// columns specified must be present in output column names.  If any
-        /// alias is given for any column name, the alias must be used, rather
-        /// than the original column name.</description>
+        ///         create indexes on the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. The columns
+        ///         specified must be present in output column names.  If any
+        ///         alias is given for any column name, the alias must be used,
+        ///         rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+        ///         </term>
         ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///         (ignores any sharding). Must be used in combination with
+        ///         the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+        ///         option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AggregateUnpivotRequest( string table_name,
                                         IList<string> column_names,
                                         string variable_column_name,
@@ -702,184 +603,210 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
         /// <summary>Constructs an AggregateUnpivotRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
-        /// from the source table.  </param>
+        /// from the source table.</param>
         /// <param name="variable_column_name">Specifies the variable/parameter
-        /// column name.  The default value is ''.</param>
+        /// column name. The default value is ''.</param>
         /// <param name="value_column_name">Specifies the value column name.
         /// The default value is ''.</param>
         /// <param name="pivoted_columns">List of one or more values typically
         /// the column names of the input table. All the columns in the source
-        /// table must have the same data type.  </param>
+        /// table must have the same data type.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <term><see cref="Encoding.BINARY">BINARY</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// binary encoded.</description>
+        ///         binary encoded.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <term><see cref="Encoding.JSON">JSON</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// json encoded.</description>
+        ///         json encoded.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Encoding.BINARY">BINARY</see>.
+        /// The default value is <see cref="Encoding.BINARY">BINARY</see>.
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified),
+        ///         then this is always allowed even if the caller does not
+        ///         have permission to create tables. The generated name is
+        ///         returned in <see
+        ///         cref="AggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// is non-existent, it will be automatically created.</description>
+        ///         schema as part of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the
+        ///         schema is non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+        ///         </term>
         ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>. If present, no results are
-        /// returned in the response.</description>
+        ///         in [schema_name.]table_name format, using standard <a
+        ///         href="../../../concepts/tables/#table-name-resolution"
+        ///         target="_top">name resolution rules</a> and meeting <a
+        ///         href="../../../concepts/tables/#table-naming-criteria"
+        ///         target="_top">table naming criteria</a>. If present, no
+        ///         results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the result table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the result table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Filter expression to apply to the table prior
-        /// to unpivot processing.</description>
+        ///         to unpivot processing.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in input table.  If any alias is given for any
-        /// column name, the alias must be used, rather than the original
-        /// column name.  The default value is ''.</description>
+        ///         sorted by; e.g. 'timestamp asc, x desc'.  The columns
+        ///         specified must be present in input table.  If any alias is
+        ///         given for any column name, the alias must be used, rather
+        ///         than the original column name. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        ///         be used for the result table. Must be used in combination
+        ///         with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the result table.
+        ///         Must be used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the result table. Must be
+        ///         used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>The number of records to keep. The default
+        ///         value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part of. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the table specified in <i>result_table</i>. The
-        /// columns specified must be present in output column names.  If any
-        /// alias is given for any column name, the alias must be used, rather
-        /// than the original column name.</description>
+        ///         create indexes on the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. The columns
+        ///         specified must be present in output column names.  If any
+        ///         alias is given for any column name, the alias must be used,
+        ///         rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+        ///         </term>
         ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///         (ignores any sharding). Must be used in combination with
+        ///         the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+        ///         option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AggregateUnpivotRequest( string table_name,
                                         IList<string> column_names,
                                         string variable_column_name,
@@ -896,129 +823,100 @@ namespace kinetica
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor
-
     } // end class AggregateUnpivotRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateUnpivot(string,IList{string},string,string,IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.aggregateUnpivot(AggregateUnpivotRequest)">Kinetica.aggregateUnpivot</see>.
+    /// </summary>
     public class RawAggregateUnpivotResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the table (i.e. including
             /// the schema) used to store the results.</summary>
             public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
         } // end struct Info
 
-
         /// <summary>Typically shows the result-table name if provided in the
-        /// request (Ignore otherwise).  </summary>
+        /// request (Ignore otherwise).</summary>
         public string table_name { get; set; }
 
-        /// <summary>Avro schema of <member name="binary_encoded_response" />
-        /// or <member name="json_encoded_response" />.  </summary>
+        /// <summary>Avro schema of <see cref="binary_encoded_response" /> or
+        /// <see cref="json_encoded_response" />.</summary>
         public string response_schema_str { get; set; }
 
-        /// <summary>Avro binary encoded response.  </summary>
+        /// <summary>Avro binary encoded response.</summary>
         public byte[] binary_encoded_response { get; set; }
 
-        /// <summary>Avro JSON encoded response.  </summary>
+        /// <summary>Avro JSON encoded response.</summary>
         public string json_encoded_response { get; set; }
 
-        /// <summary>Total/Filtered number of records.  </summary>
+        /// <summary>Total/Filtered number of records.</summary>
         public long total_number_of_records { get; set; }
 
-        /// <summary>Too many records. Returned a partial set.  </summary>
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Returned a partial set.</para></remarks>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
+        ///         including the schema) used to store the results.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class RawAggregateUnpivotResponse
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateUnpivot(string,IList{string},string,string,IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.aggregateUnpivot(AggregateUnpivotRequest)">Kinetica.aggregateUnpivot</see>.
+    /// </summary>
     public class AggregateUnpivotResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the table (i.e. including
             /// the schema) used to store the results.</summary>
             public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
         } // end struct Info
 
-
         /// <summary>Typically shows the result-table name if provided in the
-        /// request (Ignore otherwise).  </summary>
+        /// request (Ignore otherwise).</summary>
         public string table_name { get; set; }
 
-        /// <summary>Avro binary encoded response.  </summary>
+        /// <summary>Avro binary encoded response.</summary>
         public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
 
-        /// <summary>Total/Filtered number of records.  </summary>
+        /// <summary>Total/Filtered number of records.</summary>
         public long total_number_of_records { get; set; }
 
-        /// <summary>Too many records. Returned a partial set.  </summary>
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Returned a partial set.</para></remarks>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
+        ///         including the schema) used to store the results.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AggregateUnpivotResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

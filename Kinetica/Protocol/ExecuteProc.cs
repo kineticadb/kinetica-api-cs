@@ -6,237 +6,257 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Executes a proc. This endpoint is asynchronous and does not wait for
-    /// the proc to complete before returning.
-    /// <br />
-    /// If the proc being executed is distributed, <see
-    /// cref="input_table_names" /> &
-    /// <see cref="input_column_names" /> may be passed to the proc to use for
-    /// reading data,
-    /// and <see cref="output_table_names" /> may be passed to the proc to use
-    /// for writing
-    /// data.
-    /// <br />
-    /// If the proc being executed is non-distributed, these table parameters
-    /// will be
-    /// ignored.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    /// </summary>
+    /// <remarks><para>Executes a proc. This endpoint is asynchronous and does
+    /// not wait for the proc to complete before returning.</para>
+    /// <para>If the proc being executed is distributed, <see
+    /// cref="input_table_names" /> & <see cref="input_column_names" /> may be
+    /// passed to the proc to use for reading data, and <see
+    /// cref="output_table_names" /> may be passed to the proc to use for
+    /// writing data.</para>
+    /// <para>If the proc being executed is non-distributed, these table
+    /// parameters will be ignored.</para></remarks>
     public class ExecuteProcRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
-        ///         <description>A comma-delimited list of table names from
-        /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
-        /// input data will be cached for use in subsequent calls to
-        /// /execute/proc with the <i>use_cached_input</i> option. Cached input
-        /// data will be retained until the proc status is cleared with the
-        /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.  The default value
-        /// is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
-        ///         <description>A comma-delimited list of run IDs (as returned
-        /// from prior calls to /execute/proc) of running or completed proc
-        /// instances from which input data cached using the <i>cache_input</i>
-        /// option will be used. Cached input data will not be used for any
-        /// tables specified in <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, but data from all
-        /// other tables cached for the specified run IDs will be passed to the
-        /// proc. If the same table was cached for multiple specified run IDs,
-        /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>A string that, if not empty, can be used in
-        /// subsequent calls to /show/proc/status or /kill/proc to identify the
-        /// proc instance.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
-        ///         <description>The maximum number of lines of output from
-        /// stdout and stderr to return via /show/proc/status. If the number of
-        /// lines output exceeds the maximum, earlier lines are discarded.  The
-        /// default value is '100'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>A comma-delimited list of table names from <see
             /// cref="input_table_names" /> from which input data will be
             /// cached for use in subsequent calls to <see
-            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
-            /// /> with the <i>use_cached_input</i> option. Cached input data
-            /// will be retained until the proc status is cleared with the <see
-            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})">clear_complete</see>
+            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+            /// with the <see
+            /// cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see> option.
+            /// </summary>
+            /// <remarks><para>Cached input data will be retained until the
+            /// proc status is cleared with the <see
+            /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">clear_complete</see>
             /// option of <see
-            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
-            /// /> and all proc instances using the cached data have completed.
-            /// The default value is ''.</summary>
+            /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+            /// and all proc instances using the cached data have completed.
+            /// The default value is ''.</para></remarks>
             public const string CACHE_INPUT = "cache_input";
 
             /// <summary>A comma-delimited list of run IDs (as returned from
             /// prior calls to <see
-            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
-            /// />) of running or completed proc instances from which input
-            /// data cached using the <i>cache_input</i> option will be used.
-            /// Cached input data will not be used for any tables specified in
-            /// <see cref="input_table_names" />, but data from all other
-            /// tables cached for the specified run IDs will be passed to the
-            /// proc. If the same table was cached for multiple specified run
-            /// IDs, the cached data from the first run ID specified in the
-            /// list that includes that table will be used.  The default value
-            /// is ''.</summary>
+            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
+            /// of running or completed proc instances from which input data
+            /// cached using the <see
+            /// cref="Options.CACHE_INPUT">CACHE_INPUT</see> option will be
+            /// used.</summary>
+            /// <remarks><para>Cached input data will not be used for any
+            /// tables specified in <see cref="input_table_names" />, but data
+            /// from all other tables cached for the specified run IDs will be
+            /// passed to the proc. If the same table was cached for multiple
+            /// specified run IDs, the cached data from the first run ID
+            /// specified in the list that includes that table will be used.
+            /// The default value is ''.</para></remarks>
             public const string USE_CACHED_INPUT = "use_cached_input";
 
             /// <summary>A string that, if not empty, can be used in subsequent
             /// calls to <see
-            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
-            /// /> or <see
-            /// cref="Kinetica.killProc(string,IDictionary{string, string})"
-            /// /> to identify the proc instance.  The default value is
-            /// ''.</summary>
+            /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+            /// or <see
+            /// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+            /// to identify the proc instance.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string RUN_TAG = "run_tag";
 
             /// <summary>The maximum number of lines of output from stdout and
             /// stderr to return via <see
-            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
-            /// />. If the number of lines output exceeds the maximum, earlier
-            /// lines are discarded.  The default value is '100'.</summary>
+            /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+            /// </summary>
+            /// <remarks><para>If the number of lines output exceeds the
+            /// maximum, earlier lines are discarded. The default value is
+            /// '100'.</para></remarks>
             public const string MAX_OUTPUT_LINES = "max_output_lines";
+
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, an instance of
+            /// the proc will run when the database is started instead of
+            /// running immediately.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string EXECUTE_AT_STARTUP = "execute_at_startup";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>Sets the alternate user name to execute this proc
+            /// instance as when <see
+            /// cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see> is
+            /// <see cref="Options.TRUE">TRUE</see>.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string EXECUTE_AT_STARTUP_AS = "execute_at_startup_as";
         } // end struct Options
 
-
-        /// <summary>Name of the proc to execute. Must be the name of a
-        /// currently existing proc.  </summary>
+        /// <summary>Name of the proc to execute.</summary>
+        /// <remarks><para>Must be the name of a currently existing proc.
+        /// </para></remarks>
         public string proc_name { get; set; }
 
         /// <summary>A map containing named parameters to pass to the proc.
-        /// Each key/value pair specifies the name of a parameter and its
-        /// value.  The default value is an empty {@link Dictionary}.</summary>
+        /// </summary>
+        /// <remarks><para>Each key/value pair specifies the name of a
+        /// parameter and its value. The default value is an empty Dictionary.
+        /// </para></remarks>
         public IDictionary<string, string> _params { get; set; } = new Dictionary<string, string>();
 
         /// <summary>A map containing named binary parameters to pass to the
-        /// proc. Each key/value pair specifies the name of a parameter and its
-        /// value.  The default value is an empty {@link Dictionary}.</summary>
+        /// proc.</summary>
+        /// <remarks><para>Each key/value pair specifies the name of a
+        /// parameter and its value. The default value is an empty Dictionary.
+        /// </para></remarks>
         public IDictionary<string, byte[]> bin_params { get; set; } = new Dictionary<string, byte[]>();
 
         /// <summary>Names of the tables containing data to be passed to the
-        /// proc. Each name specified must be the name of a currently existing
-        /// table, in
-        /// [schema_name.]table_name format, using standard
+        /// proc.</summary>
+        /// <remarks><para>Each name specified must be the name of a currently
+        /// existing table, in [schema_name.]table_name format, using standard
         /// <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.
-        /// If no table names are specified, no data will be passed to the
-        /// proc.  This
-        /// parameter is ignored if the proc has a non-distributed execution
-        /// mode.  The default value is an empty {@link List}.</summary>
+        /// target="_top">name resolution rules</a>. If no table names are
+        /// specified, no data will be passed to the proc.  This parameter is
+        /// ignored if the proc has a non-distributed execution mode. The
+        /// default value is an empty List.</para></remarks>
         public IList<string> input_table_names { get; set; } = new List<string>();
 
-        /// <summary>Map of table names from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> to lists
-        /// of names of columns from those tables that will be passed to the
-        /// proc. Each
-        /// column name specified must be the name of an existing column in the
-        /// corresponding table. If a table name from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> is not
-        /// included, all columns from that table will be passed to the proc.
-        /// This
-        /// parameter is ignored if the proc has a non-distributed execution
-        /// mode.  The default value is an empty {@link Dictionary}.</summary>
+        /// <summary>Map of table names from <see cref="input_table_names" />
+        /// to lists of names of columns from those tables that will be passed
+        /// to the proc.</summary>
+        /// <remarks><para>Each column name specified must be the name of an
+        /// existing column in the corresponding table. If a table name from
+        /// <see cref="input_table_names" /> is not included, all columns from
+        /// that table will be passed to the proc.  This parameter is ignored
+        /// if the proc has a non-distributed execution mode. The default value
+        /// is an empty Dictionary.</para></remarks>
         public IDictionary<string, IList<string>> input_column_names { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Names of the tables to which output data from the proc
-        /// will
-        /// be written, each in [schema_name.]table_name format, using standard
-        /// <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>
-        /// and meeting <a
+        /// will be written, each in [schema_name.]table_name format, using
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.
-        /// If a specified table does not exist, it will automatically be
-        /// created with the
-        /// same schema as the corresponding table (by order) from
-        /// <paramref cref="ExecuteProcRequest.input_table_names" />, excluding
-        /// any primary and shard keys. If a specified
-        /// table is a non-persistent result table, it must not have primary or
-        /// shard keys.
-        /// If no table names are specified, no output data can be returned
-        /// from the proc.
-        /// This parameter is ignored if the proc has a non-distributed
-        /// execution mode.  The default value is an empty {@link
-        /// List}.</summary>
+        /// target="_top">table naming criteria</a>.</summary>
+        /// <remarks><para>If a specified table does not exist, it will
+        /// automatically be created with the same schema as the corresponding
+        /// table (by order) from <see cref="input_table_names" />, excluding
+        /// any primary and shard keys. If a specified table is a
+        /// non-persistent result table, it must not have primary or shard
+        /// keys. If no table names are specified, no output data can be
+        /// returned from the proc. This parameter is ignored if the proc has a
+        /// non-distributed execution mode. The default value is an empty List.
+        /// </para></remarks>
         public IList<string> output_table_names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
+        ///         <term><see cref="Options.CACHE_INPUT">CACHE_INPUT</see>:
+        ///         </term>
         ///         <description>A comma-delimited list of table names from
-        /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
-        /// input data will be cached for use in subsequent calls to
-        /// /execute/proc with the <i>use_cached_input</i> option. Cached input
-        /// data will be retained until the proc status is cleared with the
-        /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.  The default value
-        /// is ''.</description>
+        ///         <see cref="input_table_names" /> from which input data will
+        ///         be cached for use in subsequent calls to <see
+        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+        ///         with the <see
+        ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>
+        ///         option. Cached input data will be retained until the proc
+        ///         status is cleared with the <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">clear_complete</see>
+        ///         option of <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+        ///         and all proc instances using the cached data have
+        ///         completed. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
+        ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:
+        ///         </term>
         ///         <description>A comma-delimited list of run IDs (as returned
-        /// from prior calls to /execute/proc) of running or completed proc
-        /// instances from which input data cached using the <i>cache_input</i>
-        /// option will be used. Cached input data will not be used for any
-        /// tables specified in <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, but data from all
-        /// other tables cached for the specified run IDs will be passed to the
-        /// proc. If the same table was cached for multiple specified run IDs,
-        /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.  The default value is
-        /// ''.</description>
+        ///         from prior calls to <see
+        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
+        ///         of running or completed proc instances from which input
+        ///         data cached using the <see
+        ///         cref="Options.CACHE_INPUT">CACHE_INPUT</see> option will be
+        ///         used. Cached input data will not be used for any tables
+        ///         specified in <see cref="input_table_names" />, but data
+        ///         from all other tables cached for the specified run IDs will
+        ///         be passed to the proc. If the same table was cached for
+        ///         multiple specified run IDs, the cached data from the first
+        ///         run ID specified in the list that includes that table will
+        ///         be used. The default value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
         ///         <description>A string that, if not empty, can be used in
-        /// subsequent calls to /show/proc/status or /kill/proc to identify the
-        /// proc instance.  The default value is ''.</description>
+        ///         subsequent calls to <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+        ///         or <see
+        ///         cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+        ///         to identify the proc instance. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+        ///         cref="Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:
+        ///         </term>
         ///         <description>The maximum number of lines of output from
-        /// stdout and stderr to return via /show/proc/status. If the number of
-        /// lines output exceeds the maximum, earlier lines are discarded.  The
-        /// default value is '100'.</description>
+        ///         stdout and stderr to return via <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+        ///         If the number of lines output exceeds the maximum, earlier
+        ///         lines are discarded. The default value is '100'.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, an
+        ///         instance of the proc will run when the database is started
+        ///         instead of running immediately. The <see
+        ///         cref="ExecuteProcResponse.run_id">run_id</see> can be
+        ///         retrieved using <see
+        ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
+        ///         and used in <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:
+        ///         </term>
+        ///         <description>Sets the alternate user name to execute this
+        ///         proc instance as when <see
+        ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>. The default value
+        ///         is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an ExecuteProcRequest object with default
         /// parameters.</summary>
@@ -244,106 +264,141 @@ namespace kinetica
 
         /// <summary>Constructs an ExecuteProcRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="proc_name">Name of the proc to execute. Must be the
-        /// name of a currently existing proc.  </param>
+        /// name of a currently existing proc.</param>
         /// <param name="_params">A map containing named parameters to pass to
         /// the proc. Each key/value pair specifies the name of a parameter and
-        /// its value.  The default value is an empty {@link
-        /// Dictionary}.</param>
+        /// its value. The default value is an empty Dictionary.</param>
         /// <param name="bin_params">A map containing named binary parameters
         /// to pass to the proc. Each key/value pair specifies the name of a
-        /// parameter and its value.  The default value is an empty {@link
-        /// Dictionary}.</param>
+        /// parameter and its value. The default value is an empty Dictionary.
+        /// </param>
         /// <param name="input_table_names">Names of the tables containing data
-        /// to be passed to the
-        /// proc. Each name specified must be the name of a currently existing
-        /// table, in
-        /// [schema_name.]table_name format, using standard
-        /// <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.
-        /// If no table names are specified, no data will be passed to the
-        /// proc.  This
-        /// parameter is ignored if the proc has a non-distributed execution
-        /// mode.  The default value is an empty {@link List}.</param>
+        /// to be passed to the proc. Each name specified must be the name of a
+        /// currently existing table, in [schema_name.]table_name format, using
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a>. If no table names are
+        /// specified, no data will be passed to the proc.  This parameter is
+        /// ignored if the proc has a non-distributed execution mode. The
+        /// default value is an empty List.</param>
         /// <param name="input_column_names">Map of table names from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> to lists
-        /// of names of columns from those tables that will be passed to the
-        /// proc. Each
-        /// column name specified must be the name of an existing column in the
-        /// corresponding table. If a table name from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> is not
+        /// name="input_table_names" /> to lists of names of columns from those
+        /// tables that will be passed to the proc. Each column name specified
+        /// must be the name of an existing column in the corresponding table.
+        /// If a table name from <paramref name="input_table_names" /> is not
         /// included, all columns from that table will be passed to the proc.
-        /// This
-        /// parameter is ignored if the proc has a non-distributed execution
-        /// mode.  The default value is an empty {@link Dictionary}.</param>
-        /// <param name="output_table_names">Names of the tables to which
-        /// output data from the proc will
-        /// be written, each in [schema_name.]table_name format, using standard
-        /// <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>
-        /// and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.
-        /// If a specified table does not exist, it will automatically be
-        /// created with the
-        /// same schema as the corresponding table (by order) from
-        /// <paramref cref="ExecuteProcRequest.input_table_names" />, excluding
-        /// any primary and shard keys. If a specified
-        /// table is a non-persistent result table, it must not have primary or
-        /// shard keys.
-        /// If no table names are specified, no output data can be returned
-        /// from the proc.
         /// This parameter is ignored if the proc has a non-distributed
-        /// execution mode.  The default value is an empty {@link
-        /// List}.</param>
+        /// execution mode. The default value is an empty Dictionary.</param>
+        /// <param name="output_table_names">Names of the tables to which
+        /// output data from the proc will be written, each in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../../concepts/tables/#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If a specified table does
+        /// not exist, it will automatically be created with the same schema as
+        /// the corresponding table (by order) from <paramref
+        /// name="input_table_names" />, excluding any primary and shard keys.
+        /// If a specified table is a non-persistent result table, it must not
+        /// have primary or shard keys. If no table names are specified, no
+        /// output data can be returned from the proc. This parameter is
+        /// ignored if the proc has a non-distributed execution mode. The
+        /// default value is an empty List.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
+        ///         <term><see cref="Options.CACHE_INPUT">CACHE_INPUT</see>:
+        ///         </term>
         ///         <description>A comma-delimited list of table names from
-        /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
-        /// input data will be cached for use in subsequent calls to
-        /// /execute/proc with the <i>use_cached_input</i> option. Cached input
-        /// data will be retained until the proc status is cleared with the
-        /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.  The default value
-        /// is ''.</description>
+        ///         <paramref name="input_table_names" /> from which input data
+        ///         will be cached for use in subsequent calls to <see
+        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+        ///         with the <see
+        ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>
+        ///         option. Cached input data will be retained until the proc
+        ///         status is cleared with the <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">clear_complete</see>
+        ///         option of <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+        ///         and all proc instances using the cached data have
+        ///         completed. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
+        ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:
+        ///         </term>
         ///         <description>A comma-delimited list of run IDs (as returned
-        /// from prior calls to /execute/proc) of running or completed proc
-        /// instances from which input data cached using the <i>cache_input</i>
-        /// option will be used. Cached input data will not be used for any
-        /// tables specified in <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, but data from all
-        /// other tables cached for the specified run IDs will be passed to the
-        /// proc. If the same table was cached for multiple specified run IDs,
-        /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.  The default value is
-        /// ''.</description>
+        ///         from prior calls to <see
+        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
+        ///         of running or completed proc instances from which input
+        ///         data cached using the <see
+        ///         cref="Options.CACHE_INPUT">CACHE_INPUT</see> option will be
+        ///         used. Cached input data will not be used for any tables
+        ///         specified in <paramref name="input_table_names" />, but
+        ///         data from all other tables cached for the specified run IDs
+        ///         will be passed to the proc. If the same table was cached
+        ///         for multiple specified run IDs, the cached data from the
+        ///         first run ID specified in the list that includes that table
+        ///         will be used. The default value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
         ///         <description>A string that, if not empty, can be used in
-        /// subsequent calls to /show/proc/status or /kill/proc to identify the
-        /// proc instance.  The default value is ''.</description>
+        ///         subsequent calls to <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+        ///         or <see
+        ///         cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+        ///         to identify the proc instance. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+        ///         cref="Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:
+        ///         </term>
         ///         <description>The maximum number of lines of output from
-        /// stdout and stderr to return via /show/proc/status. If the number of
-        /// lines output exceeds the maximum, earlier lines are discarded.  The
-        /// default value is '100'.</description>
+        ///         stdout and stderr to return via <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+        ///         If the number of lines output exceeds the maximum, earlier
+        ///         lines are discarded. The default value is '100'.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, an
+        ///         instance of the proc will run when the database is started
+        ///         instead of running immediately. The <see
+        ///         cref="ExecuteProcResponse.run_id">run_id</see> can be
+        ///         retrieved using <see
+        ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
+        ///         and used in <see
+        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:
+        ///         </term>
+        ///         <description>Sets the alternate user name to execute this
+        ///         proc instance as when <see
+        ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>. The default value
+        ///         is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public ExecuteProcRequest( string proc_name,
                                    IDictionary<string, string> _params = null,
                                    IDictionary<string, byte[]> bin_params = null,
@@ -360,28 +415,22 @@ namespace kinetica
             this.output_table_names = output_table_names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ExecuteProcRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    /// </summary>
     public class ExecuteProcResponse : KineticaData
     {
-
-        /// <summary>The run ID of the running proc instance. This may be
-        /// passed to /show/proc/status to obtain status information, or
-        /// /kill/proc to kill the proc instance.  </summary>
+        /// <summary>The run ID of the running proc instance.</summary>
+        /// <remarks><para>This may be passed to <see
+        /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+        /// to obtain status information, or <see
+        /// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+        /// to kill the proc instance.</para></remarks>
         public string run_id { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ExecuteProcResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

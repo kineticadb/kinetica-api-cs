@@ -6,28 +6,25 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasTable(string,IDictionary{string, string})" />.
-    /// <br />
-    /// Checks for the existence of a table with the given name.</summary>
+    /// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+    /// </summary>
+    /// <remarks><para>Checks for the existence of a table with the given name.
+    /// </para></remarks>
     public class HasTableRequest : KineticaData
     {
-
         /// <summary>Name of the table to check for existence, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a HasTableRequest object with default
         /// parameters.</summary>
@@ -35,76 +32,53 @@ namespace kinetica
 
         /// <summary>Constructs a HasTableRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table to check for existence,
         /// in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// target="_top">name resolution rules</a>.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public HasTableRequest( string table_name,
                                 IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class HasTableRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasTable(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+    /// </summary>
     public class HasTableResponse : KineticaData
     {
-
-        /// <summary>Indicates whether the table exists or not.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasTableResponse.TableExists.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasTableResponse.TableExists.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="table_exists" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="table_exists" />.</summary>
+        /// <remarks><para>Indicates whether the table exists or not.</para>
+        /// </remarks>
         public struct TableExists
         {
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct TableExists
 
-
-        /// <summary>Value of <paramref cref="HasTableRequest.table_name" />
-        /// </summary>
+        /// <summary>Value of <see
+        /// cref="HasTableRequest.table_name">table_name</see></summary>
         public string table_name { get; set; }
 
-        /// <summary>Indicates whether the table exists or not.
-        /// Supported values:
+        /// <summary>Indicates whether the table exists or not.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="HasTableResponse.TableExists.TRUE">TRUE</see></term>
+        ///         <term><see cref="TableExists.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="HasTableResponse.TableExists.FALSE">FALSE</see></term>
+        ///         <term><see cref="TableExists.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public bool table_exists { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class HasTableResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

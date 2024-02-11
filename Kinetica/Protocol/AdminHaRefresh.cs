@@ -6,24 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminHaRefresh(IDictionary{string, string})" />.
-    /// <br />
-    /// Restarts the HA processing on the given cluster as a mechanism of
-    /// accepting breaking HA conf changes. Additionally the cluster is put
-    /// into read-only while HA is restarting.</summary>
+    /// cref="Kinetica.adminHaRefresh(AdminHaRefreshRequest)">Kinetica.adminHaRefresh</see>.
+    /// </summary>
+    /// <remarks><para>Restarts the HA processing on the given cluster as a
+    /// mechanism of accepting breaking HA conf changes. Additionally the
+    /// cluster is put into read-only while HA is restarting.</para></remarks>
     public class AdminHaRefreshRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminHaRefreshRequest object with default
         /// parameters.</summary>
@@ -31,31 +27,21 @@ namespace kinetica
 
         /// <summary>Constructs an AdminHaRefreshRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        ///
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public AdminHaRefreshRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminHaRefreshRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminHaRefresh(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminHaRefresh(AdminHaRefreshRequest)">Kinetica.adminHaRefresh</see>.
+    /// </summary>
     public class AdminHaRefreshResponse : KineticaData
     {
-
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminHaRefreshResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

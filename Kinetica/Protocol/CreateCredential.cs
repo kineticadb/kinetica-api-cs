@@ -6,74 +6,19 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createCredential(string,string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Create a new <a href="../../../concepts/credentials/"
-    /// target="_top">credential</a>.</summary>
+    /// cref="Kinetica.createCredential(CreateCredentialRequest)">Kinetica.createCredential</see>.
+    /// </summary>
+    /// <remarks><para>Create a new <a href="../../../concepts/credentials/"
+    /// target="_top">credential</a>.</para></remarks>
     public class CreateCredentialRequest : KineticaData
     {
-
-        /// <summary>Type of the credential to be created.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_AD">AZURE_AD</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_SAS">AZURE_SAS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.DOCKER">DOCKER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.JDBC">JDBC</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="type"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="type" />.</summary>
+        /// <remarks><para>Type of the credential to be created.</para>
+        /// </remarks>
         public struct Type
         {
             public const string AWS_ACCESS_KEY = "aws_access_key";
@@ -88,78 +33,78 @@ namespace kinetica
             public const string HDFS = "hdfs";
             public const string JDBC = "jdbc";
             public const string KAFKA = "kafka";
+            public const string CONFLUENT = "confluent";
         } // end struct Type
 
-
-        /// <summary>Name of the credential to be created. Must contain only
-        /// letters, digits, and underscores, and cannot begin with a digit.
-        /// Must not match an existing credential name.  </summary>
+        /// <summary>Name of the credential to be created.</summary>
+        /// <remarks><para>Must contain only letters, digits, and underscores,
+        /// and cannot begin with a digit. Must not match an existing
+        /// credential name.</para></remarks>
         public string credential_name { get; set; }
 
-        /// <summary>Type of the credential to be created.
-        /// Supported values:
+        /// <summary>Type of the credential to be created.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see></term>
+        ///         <term><see cref="Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AZURE_AD">AZURE_AD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AZURE_SAS">AZURE_SAS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
+        ///         cref="Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.DOCKER">DOCKER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_AD">AZURE_AD</see></term>
+        ///         cref="Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+        ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
+        ///         cref="Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_SAS">AZURE_SAS</see></term>
+        ///         <term><see cref="Type.HDFS">HDFS</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
+        ///         <term><see cref="Type.JDBC">JDBC</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.DOCKER">DOCKER</see></term>
+        ///         <term><see cref="Type.KAFKA">KAFKA</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.JDBC">JDBC</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
-        ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string type { get; set; }
 
-        /// <summary>User of the credential to be created.  </summary>
+        /// <summary>User of the credential to be created.</summary>
         public string identity { get; set; }
 
-        /// <summary>Password of the credential to be created.  </summary>
+        /// <summary>Password of the credential to be created.</summary>
         public string secret { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateCredentialRequest object with default
         /// parameters.</summary>
@@ -167,7 +112,7 @@ namespace kinetica
 
         /// <summary>Constructs a CreateCredentialRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="credential_name">Name of the credential to be created.
         /// Must contain only letters, digits, and underscores, and cannot
         /// begin with a digit. Must not match an existing credential name.
@@ -176,61 +121,59 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see></term>
+        ///         <term><see cref="Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AZURE_AD">AZURE_AD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.AZURE_SAS">AZURE_SAS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
+        ///         cref="Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.DOCKER">DOCKER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_AD">AZURE_AD</see></term>
+        ///         cref="Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+        ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
+        ///         cref="Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_SAS">AZURE_SAS</see></term>
+        ///         <term><see cref="Type.HDFS">HDFS</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
+        ///         <term><see cref="Type.JDBC">JDBC</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.DOCKER">DOCKER</see></term>
+        ///         <term><see cref="Type.KAFKA">KAFKA</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.JDBC">JDBC</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
-        ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="identity">User of the credential to be created.
         /// </param>
         /// <param name="secret">Password of the credential to be created.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public CreateCredentialRequest( string credential_name,
                                         string type,
                                         string identity,
@@ -243,27 +186,19 @@ namespace kinetica
             this.secret = secret ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateCredentialRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createCredential(string,string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createCredential(CreateCredentialRequest)">Kinetica.createCredential</see>.
+    /// </summary>
     public class CreateCredentialResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="CreateCredentialRequest.credential_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="CreateCredentialRequest.credential_name">credential_name</see>.
+        /// </summary>
         public string credential_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateCredentialResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

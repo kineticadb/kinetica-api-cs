@@ -6,197 +6,144 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterTier(string,IDictionary{string, string})" />.
-    /// <br />
-    /// Alters properties of an exisiting
-    /// <a href="../../../rm/concepts/#storage-tiers" target="_top">tier</a> to
-    /// facilitate
-    /// <a href="../../../rm/concepts/" target="_top">resource management</a>.
-    /// <br />
-    /// To disable
-    /// <a href="../../../rm/concepts/#watermark-based-eviction"
-    /// target="_top">watermark-based eviction</a>,
-    /// set both <i>high_watermark</i> and
-    /// <i>low_watermark</i> to 100.</summary>
+    /// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
+    /// </summary>
+    /// <remarks><para>Alters properties of an exisiting <a
+    /// href="../../../rm/concepts/#storage-tiers" target="_top">tier</a> to
+    /// facilitate <a href="../../../rm/concepts/" target="_top">resource
+    /// management</a>.</para>
+    /// <para>To disable <a
+    /// href="../../../rm/concepts/#watermark-based-eviction"
+    /// target="_top">watermark-based eviction</a>, set both <see
+    /// cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see> and <see
+    /// cref="Options.LOW_WATERMARK">LOW_WATERMARK</see> to 100.</para>
+    /// </remarks>
     public class AlterTierRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.CAPACITY">CAPACITY</see>:</term>
-        ///         <description>Maximum size in bytes this tier may hold at
-        /// once.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
-        ///         <description>Threshold of usage of this tier's resource
-        /// that once exceeded, will trigger watermark-based eviction from this
-        /// tier.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Threshold of resource usage that once fallen
-        /// below after crossing the <i>high_watermark</i>, will cease
-        /// watermark-based eviction from this tier.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for reading from or writing
-        /// to this resource. Applies to cold storage tiers only.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> the system configuration will
-        /// be written to disk upon successful application of this request.
-        /// This will commit the changes from this request and any additional
-        /// in-memory modifications.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
-        ///         <description>Apply the requested change only to a specific
-        /// rank.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Maximum size in bytes this tier may hold at
-            /// once.</summary>
+            /// <summary>Maximum size in bytes this tier may hold at once.
+            /// </summary>
             public const string CAPACITY = "capacity";
 
             /// <summary>Threshold of usage of this tier's resource that once
-            /// exceeded, will trigger watermark-based eviction from this
-            /// tier.</summary>
+            /// exceeded, will trigger watermark-based eviction from this tier.
+            /// </summary>
+            /// <remarks><para>The minimum allowed value is '0'. The maximum
+            /// allowed value is '100'.</para></remarks>
             public const string HIGH_WATERMARK = "high_watermark";
 
             /// <summary>Threshold of resource usage that once fallen below
-            /// after crossing the <i>high_watermark</i>, will cease
+            /// after crossing the <see
+            /// cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>, will cease
             /// watermark-based eviction from this tier.</summary>
+            /// <remarks><para>The minimum allowed value is '0'. The maximum
+            /// allowed value is '100'.</para></remarks>
             public const string LOW_WATERMARK = "low_watermark";
 
             /// <summary>Timeout in seconds for reading from or writing to this
-            /// resource. Applies to cold storage tiers only.</summary>
+            /// resource.</summary>
+            /// <remarks><para>Applies to cold storage tiers only.</para>
+            /// </remarks>
             public const string WAIT_TIMEOUT = "wait_timeout";
 
-            /// <summary>If <i>true</i> the system configuration will be
-            /// written to disk upon successful application of this request.
-            /// This will commit the changes from this request and any
-            /// additional in-memory modifications.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> the system
+            /// configuration will be written to disk upon successful
+            /// application of this request.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string PERSIST = "persist";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Apply the requested change only to a specific
-            /// rank.</summary>
+            /// <summary>Apply the requested change only to a specific rank.
+            /// </summary>
+            /// <remarks><para>The minimum allowed value is '0'. The maximum
+            /// allowed value is '10000'.</para></remarks>
             public const string RANK = "rank";
         } // end struct Options
 
-
-        /// <summary>Name of the tier to be altered. Must be an existing tier
-        /// group name.  </summary>
+        /// <summary>Name of the tier to be altered.</summary>
+        /// <remarks><para>Must be an existing tier group name.</para>
+        /// </remarks>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.CAPACITY">CAPACITY</see>:</term>
+        ///         <term><see cref="Options.CAPACITY">CAPACITY</see>:</term>
         ///         <description>Maximum size in bytes this tier may hold at
-        /// once.</description>
+        ///         once.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
+        ///         cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
         ///         <description>Threshold of usage of this tier's resource
-        /// that once exceeded, will trigger watermark-based eviction from this
-        /// tier.</description>
+        ///         that once exceeded, will trigger watermark-based eviction
+        ///         from this tier. The minimum allowed value is '0'. The
+        ///         maximum allowed value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
+        ///         cref="Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
         ///         <description>Threshold of resource usage that once fallen
-        /// below after crossing the <i>high_watermark</i>, will cease
-        /// watermark-based eviction from this tier.</description>
+        ///         below after crossing the <see
+        ///         cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>, will
+        ///         cease watermark-based eviction from this tier. The minimum
+        ///         allowed value is '0'. The maximum allowed value is '100'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for reading from or writing
-        /// to this resource. Applies to cold storage tiers only.</description>
+        ///         to this resource. Applies to cold storage tiers only.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> the system configuration will
-        /// be written to disk upon successful application of this request.
-        /// This will commit the changes from this request and any additional
-        /// in-memory modifications.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> the
+        ///         system configuration will be written to disk upon
+        ///         successful application of this request. This will commit
+        ///         the changes from this request and any additional in-memory
+        ///         modifications.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
+        ///         <term><see cref="Options.RANK">RANK</see>:</term>
         ///         <description>Apply the requested change only to a specific
-        /// rank.</description>
+        ///         rank. The minimum allowed value is '0'. The maximum allowed
+        ///         value is '10000'.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterTierRequest object with default
         /// parameters.</summary>
@@ -204,94 +151,86 @@ namespace kinetica
 
         /// <summary>Constructs an AlterTierRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the tier to be altered. Must be an
-        /// existing tier group name.  </param>
+        /// existing tier group name.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.CAPACITY">CAPACITY</see>:</term>
+        ///         <term><see cref="Options.CAPACITY">CAPACITY</see>:</term>
         ///         <description>Maximum size in bytes this tier may hold at
-        /// once.</description>
+        ///         once.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
+        ///         cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
         ///         <description>Threshold of usage of this tier's resource
-        /// that once exceeded, will trigger watermark-based eviction from this
-        /// tier.</description>
+        ///         that once exceeded, will trigger watermark-based eviction
+        ///         from this tier. The minimum allowed value is '0'. The
+        ///         maximum allowed value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
+        ///         cref="Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
         ///         <description>Threshold of resource usage that once fallen
-        /// below after crossing the <i>high_watermark</i>, will cease
-        /// watermark-based eviction from this tier.</description>
+        ///         below after crossing the <see
+        ///         cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>, will
+        ///         cease watermark-based eviction from this tier. The minimum
+        ///         allowed value is '0'. The maximum allowed value is '100'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for reading from or writing
-        /// to this resource. Applies to cold storage tiers only.</description>
+        ///         to this resource. Applies to cold storage tiers only.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> the system configuration will
-        /// be written to disk upon successful application of this request.
-        /// This will commit the changes from this request and any additional
-        /// in-memory modifications.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> the
+        ///         system configuration will be written to disk upon
+        ///         successful application of this request. This will commit
+        ///         the changes from this request and any additional in-memory
+        ///         modifications.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
+        ///         <term><see cref="Options.RANK">RANK</see>:</term>
         ///         <description>Apply the requested change only to a specific
-        /// rank.</description>
+        ///         rank. The minimum allowed value is '0'. The maximum allowed
+        ///         value is '10000'.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AlterTierRequest( string name,
                                  IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterTierRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterTier(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
+    /// </summary>
     public class AlterTierResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="AlterTierRequest.name" />.
+        /// <summary>Value of <see cref="AlterTierRequest.name">name</see>.
         /// </summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterTierResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

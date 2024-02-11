@@ -6,119 +6,78 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />.
-    /// <br />
-    /// Take the system offline. When the system is offline, no user operations
-    /// can be performed with the exception of a system shutdown.</summary>
+    /// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see>.
+    /// </summary>
+    /// <remarks><para>Take the system offline. When the system is offline, no
+    /// user operations can be performed with the exception of a system
+    /// shutdown.</para></remarks>
     public class AdminOfflineRequest : KineticaData
     {
-
-        /// <summary>Set to true if desired state is offline.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="offline"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="offline" />.</summary>
+        /// <remarks><para>Set to true if desired state is offline.</para>
+        /// </remarks>
         public struct Offline
         {
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Offline
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
-        ///         <description>Flush to disk when going offline
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Flush to disk when going offline
-            /// Supported values:
+            /// <summary>Flush to disk when going offline.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string FLUSH_TO_DISK = "flush_to_disk";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
-        /// <summary>Set to true if desired state is offline.
-        /// Supported values:
+        /// <summary>Set to true if desired state is offline.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///         <term><see cref="Offline.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///         <term><see cref="Offline.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public bool offline { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
-        ///         <description>Flush to disk when going offline
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
+        ///         cref="Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         <description>Flush to disk when going offline.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminOfflineRequest object with default
         /// parameters.</summary>
@@ -126,67 +85,53 @@ namespace kinetica
 
         /// <summary>Constructs an AdminOfflineRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="offline">Set to true if desired state is offline.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///         <term><see cref="Offline.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///         <term><see cref="Offline.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
-        ///         <description>Flush to disk when going offline
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
+        ///         cref="Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         <description>Flush to disk when going offline.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AdminOfflineRequest( bool offline,
                                     IDictionary<string, string> options = null)
         {
             this.offline = offline;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminOfflineRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see>.
+    /// </summary>
     public class AdminOfflineResponse : KineticaData
     {
-
         /// <summary>Returns true if the system is offline, or false otherwise.
         /// </summary>
         public bool is_offline { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminOfflineResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

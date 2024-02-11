@@ -6,29 +6,25 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showDirectories(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Shows information about directories in <a href="../../../tools/kifs/"
-    /// target="_top">KiFS</a>. Can be used to show a single directory, or all
-    /// directories.</summary>
+    /// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
+    /// </summary>
+    /// <remarks><para>Shows information about directories in <a
+    /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used to show
+    /// a single directory, or all directories.</para></remarks>
     public class ShowDirectoriesRequest : KineticaData
     {
-
-        /// <summary>The KiFS directory name to show. If empty, shows all
-        /// directories.  The default value is ''.</summary>
+        /// <summary>The KiFS directory name to show.</summary>
+        /// <remarks><para>If empty, shows all directories. The default value
+        /// is ''.</para></remarks>
         public string directory_name { get; set; } = "";
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowDirectoriesRequest object with default
         /// parameters.</summary>
@@ -36,62 +32,52 @@ namespace kinetica
 
         /// <summary>Constructs a ShowDirectoriesRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="directory_name">The KiFS directory name to show. If
-        /// empty, shows all directories.  The default value is ''.</param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// empty, shows all directories. The default value is ''.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public ShowDirectoriesRequest( string directory_name = null,
                                        IDictionary<string, string> options = null)
         {
             this.directory_name = directory_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowDirectoriesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showDirectories(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
+    /// </summary>
     public class ShowDirectoriesResponse : KineticaData
     {
-
-        /// <summary>KiFS directory names  </summary>
+        /// <summary>KiFS directory names</summary>
         public IList<string> directories { get; set; } = new List<string>();
 
         /// <summary>User that created each directory for the respective
-        /// directories in <member name="directories" />  </summary>
+        /// directories in <see cref="directories" /></summary>
         public IList<string> users { get; set; } = new List<string>();
 
         /// <summary>The creation time for each directory in milliseconds since
-        /// epoch, for the respective directories in <member name="directories"
-        /// />  </summary>
+        /// epoch, for the respective directories in <see cref="directories" />
+        /// </summary>
         public IList<long> creation_times { get; set; } = new List<long>();
 
         /// <summary>The data usage each directory in bytes, for the respective
-        /// directories in <member name="directories" />  </summary>
+        /// directories in <see cref="directories" /></summary>
         public IList<long> data_usages { get; set; } = new List<long>();
 
         /// <summary>The data limit for each directory in bytes, for the
-        /// respective directories in <member name="directories" />  </summary>
+        /// respective directories in <see cref="directories" /></summary>
         public IList<long> data_limits { get; set; } = new List<long>();
 
         /// <summary>Highest level of permission the calling user has for the
-        /// respective directories in <member name="directories" />.
-        /// Will be empty if no permissions. If a user has been granted both
-        /// read and write permissions, 'directory_write' will be listed.
-        /// </summary>
+        /// respective directories in <see cref="directories" />.</summary>
+        /// <remarks><para>Will be empty if no permissions. If a user has been
+        /// granted both read and write permissions, 'directory_write' will be
+        /// listed.</para></remarks>
         public IList<string> permissions { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowDirectoriesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

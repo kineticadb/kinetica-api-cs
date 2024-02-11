@@ -6,54 +6,21 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.grantPermissionTable(string,string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Grants a table-level permission to a user or role.</summary>
+    /// cref="Kinetica.grantPermissionTable(GrantPermissionTableRequest)">Kinetica.grantPermissionTable</see>.
+    /// </summary>
+    /// <remarks><para>Grants a table-level permission to a user or role.
+    /// </para></remarks>
     public class GrantPermissionTableRequest : KineticaData
     {
-
-        /// <summary>Permission to grant to the user or role.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
-        ///         <description>Full read/write and administrative access to
-        /// the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
-        ///         <description>Insert access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
-        ///         <description>Update access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
-        ///         <description>Delete access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
-        ///         <description>Read access to the table.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="permission"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="permission" />.</summary>
+        /// <remarks><para>Permission to grant to the user or role.</para>
+        /// </remarks>
         public struct Permission
         {
-
             /// <summary>Full read/write and administrative access to the
             /// table.</summary>
             public const string TABLE_ADMIN = "table_admin";
@@ -71,89 +38,79 @@ namespace kinetica
             public const string TABLE_READ = "table_read";
         } // end struct Permission
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
-        ///         <description>Apply security to these columns,
-        /// comma-separated.  The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Apply security to these columns, comma-separated.  The
-            /// default value is ''.</summary>
+            /// <summary>Apply security to these columns, comma-separated.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string COLUMNS = "columns";
         } // end struct Options
 
-
         /// <summary>Name of the user or role to which the permission will be
-        /// granted. Must be an existing user or role.  </summary>
+        /// granted.</summary>
+        /// <remarks><para>Must be an existing user or role.</para></remarks>
         public string name { get; set; }
 
-        /// <summary>Permission to grant to the user or role.
-        /// Supported values:
+        /// <summary>Permission to grant to the user or role.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+        ///         </term>
         ///         <description>Full read/write and administrative access to
-        /// the table.</description>
+        ///         the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
         ///         <description>Insert access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
         ///         <description>Delete access to the table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+        ///         </term>
         ///         <description>Read access to the table.</description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string permission { get; set; }
 
         /// <summary>Name of the table to which the permission grants access,
         /// in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table, view, or schema. If a schema, the permission also applies to
-        /// tables and views in the schema.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> Must be an existing table, view, or schema. If a
+        /// schema, the permission also applies to tables and views in the
+        /// schema.</para></remarks>
         public string table_name { get; set; }
 
-        /// <summary>Optional filter expression to apply to this grant.  Only
-        /// rows that match the filter will be affected.  The default value is
-        /// ''.</summary>
+        /// <summary>Optional filter expression to apply to this grant.
+        /// </summary>
+        /// <remarks><para> Only rows that match the filter will be affected.
+        /// The default value is ''.</para></remarks>
         public string filter_expression { get; set; } = "";
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
         ///         <description>Apply security to these columns,
-        /// comma-separated.  The default value is ''.</description>
+        ///         comma-separated. The default value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a GrantPermissionTableRequest object with
         /// default parameters.</summary>
@@ -161,59 +118,57 @@ namespace kinetica
 
         /// <summary>Constructs a GrantPermissionTableRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the user or role to which the permission
-        /// will be granted. Must be an existing user or role.  </param>
+        /// will be granted. Must be an existing user or role.</param>
         /// <param name="permission">Permission to grant to the user or role.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+        ///         </term>
         ///         <description>Full read/write and administrative access to
-        /// the table.</description>
+        ///         the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
         ///         <description>Insert access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
         ///         <description>Delete access to the table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+        ///         </term>
         ///         <description>Read access to the table.</description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access, in [schema_name.]table_name format, using standard
         /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, view, or schema. If a schema, the permission also applies to
-        /// tables and views in the schema.  </param>
+        /// tables and views in the schema.</param>
         /// <param name="filter_expression">Optional filter expression to apply
         /// to this grant.  Only rows that match the filter will be affected.
         /// The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
         ///         <description>Apply security to these columns,
-        /// comma-separated.  The default value is ''.</description>
+        ///         comma-separated. The default value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public GrantPermissionTableRequest( string name,
                                             string permission,
                                             string table_name,
@@ -226,40 +181,33 @@ namespace kinetica
             this.filter_expression = filter_expression ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class GrantPermissionTableRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.grantPermissionTable(string,string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.grantPermissionTable(GrantPermissionTableRequest)">Kinetica.grantPermissionTable</see>.
+    /// </summary>
     public class GrantPermissionTableResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="GrantPermissionTableRequest.name"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionTableRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionTableRequest.permission" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionTableRequest.permission">permission</see>.
+        /// </summary>
         public string permission { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionTableRequest.table_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionTableRequest.table_name">table_name</see>.
+        /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionTableRequest.filter_expression" />.
+        /// <summary>Value of <see
+        /// cref="GrantPermissionTableRequest.filter_expression">filter_expression</see>.
         /// </summary>
         public string filter_expression { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GrantPermissionTableResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

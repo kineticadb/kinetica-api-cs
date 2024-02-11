@@ -6,75 +6,63 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Calculates unique combinations (groups) of values for the given columns
-    /// in a given table or view and computes aggregates on each unique
-    /// combination. This is somewhat analogous to an SQL-style SELECT...GROUP
-    /// BY.
-    /// <br />
-    /// For aggregation details and examples, see <a
+    /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>.
+    /// </summary>
+    /// <remarks><para>Calculates unique combinations (groups) of values for
+    /// the given columns in a given table or view and computes aggregates on
+    /// each unique combination. This is somewhat analogous to an SQL-style
+    /// SELECT...GROUP BY.</para>
+    /// <para>For aggregation details and examples, see <a
     /// href="../../../concepts/aggregation/" target="_top">Aggregation</a>.
     /// For limitations, see <a
     /// href="../../../concepts/aggregation/#limitations"
-    /// target="_top">Aggregation Limitations</a>.
-    /// <br />
-    /// Any column(s) can be grouped on, and all column types except
+    /// target="_top">Aggregation Limitations</a>.</para>
+    /// <para>Any column(s) can be grouped on, and all column types except
     /// unrestricted-length strings may be used for computing applicable
     /// aggregates; columns marked as <a
     /// href="../../../concepts/types/#data-handling"
     /// target="_top">store-only</a> are unable to be used in grouping or
-    /// aggregation.
-    /// <br />
-    /// The results can be paged via the <see cref="offset" /> and <see
+    /// aggregation.</para>
+    /// <para>The results can be paged via the <see cref="offset" /> and <see
     /// cref="limit" /> parameters. For example, to get 10 groups with the
     /// largest counts the inputs would be: limit=10,
-    /// options={"sort_order":"descending", "sort_by":"value"}.
-    /// <br />
-    /// <see cref="options" /> can be used to customize behavior of this call
-    /// e.g. filtering or sorting the results.
-    /// <br />
-    /// To group by columns 'x' and 'y' and compute the number of objects
-    /// within each group, use:  column_names=['x','y','count(*)'].
-    /// <br />
-    /// To also compute the sum of 'z' over each group, use:
-    /// column_names=['x','y','count(*)','sum(z)'].
-    /// <br />
-    /// Available <a
+    /// options={"sort_order":"descending", "sort_by":"value"}.</para>
+    /// <para><see cref="options" /> can be used to customize behavior of this
+    /// call e.g. filtering or sorting the results.</para>
+    /// <para>To group by columns 'x' and 'y' and compute the number of objects
+    /// within each group, use:  column_names=['x','y','count(*)'].</para>
+    /// <para>To also compute the sum of 'z' over each group, use:
+    /// column_names=['x','y','count(*)','sum(z)'].</para>
+    /// <para>Available <a
     /// href="../../../concepts/expressions/#aggregate-expressions"
     /// target="_top">aggregation functions</a> are: count(*), sum, min, max,
     /// avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop, var_samp,
-    /// arg_min, arg_max and count_distinct.
-    /// <br />
-    /// Available grouping functions are <a href="../../../concepts/rollup/"
-    /// target="_top">Rollup</a>, <a href="../../../concepts/cube/"
-    /// target="_top">Cube</a>, and <a href="../../../concepts/grouping_sets/"
-    /// target="_top">Grouping Sets</a>
-    /// <br />
-    /// This service also provides support for <a
-    /// href="../../../concepts/pivot/" target="_top">Pivot</a> operations.
-    /// <br />
-    /// Filtering on aggregates is supported via expressions using <a
+    /// arg_min, arg_max and count_distinct.</para>
+    /// <para>Available grouping functions are <a
+    /// href="../../../concepts/rollup/" target="_top">Rollup</a>, <a
+    /// href="../../../concepts/cube/" target="_top">Cube</a>, and <a
+    /// href="../../../concepts/grouping_sets/" target="_top">Grouping
+    /// Sets</a></para>
+    /// <para>This service also provides support for <a
+    /// href="../../../concepts/pivot/" target="_top">Pivot</a>
+    /// operations.</para>
+    /// <para>Filtering on aggregates is supported via expressions using <a
     /// href="../../../concepts/expressions/#aggregate-expressions"
-    /// target="_top">aggregation functions</a> supplied to <i>having</i>.
-    /// <br />
-    /// The response is returned as a dynamic schema. For details see: <a
+    /// target="_top">aggregation functions</a> supplied to <see
+    /// cref="Options.HAVING">HAVING</see>.</para>
+    /// <para>The response is returned as a dynamic schema. For details see: <a
     /// href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
-    /// schemas documentation</a>.
-    /// <br />
-    /// If a <i>result_table</i> name is specified in the <see cref="options"
-    /// />, the results are stored in a new table with that name--no results
-    /// are returned in the response.  Both the table name and resulting column
-    /// names must adhere to <a href="../../../concepts/tables/#table"
-    /// target="_top">standard naming conventions</a>; column/aggregation
-    /// expressions will need to be aliased.  If the source table's <a
+    /// schemas documentation</a>.</para>
+    /// <para>If a <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> name is
+    /// specified in the <see cref="options" />, the results are stored in a
+    /// new table with that name--no results are returned in the response.
+    /// Both the table name and resulting column names must adhere to <a
+    /// href="../../../concepts/tables/#table" target="_top">standard naming
+    /// conventions</a>; column/aggregation expressions will need to be
+    /// aliased.  If the source table's <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// is used as the grouping column(s) and all result records are selected
     /// (<see cref="offset" /> is 0 and <see cref="limit" /> is -9999), the
@@ -82,33 +70,16 @@ namespace kinetica
     /// Sorting will properly function only if the result table is replicated
     /// or if there is only one processing node and should not be relied upon
     /// in other cases.  Not available when any of the values of <see
-    /// cref="column_names" /> is an unrestricted-length string.</summary>
+    /// cref="column_names" /> is an unrestricted-length string.</para>
+    /// </remarks>
     public class AggregateGroupByRequest : KineticaData
     {
-
-        /// <summary>Specifies the encoding for returned records.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>:</term>
-        ///         <description>Indicates that the returned records should be
-        /// binary encoded.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Encoding.JSON">JSON</see>:</term>
-        ///         <description>Indicates that the returned records should be
-        /// json encoded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>.
-        /// A set of string constants for the parameter <see cref="encoding"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="encoding" />.</summary>
+        /// <remarks><para>Specifies the encoding for returned records.</para>
+        /// </remarks>
         public struct Encoding
         {
-
             /// <summary>Indicates that the returned records should be binary
             /// encoded.</summary>
             public const string BINARY = "binary";
@@ -118,310 +89,69 @@ namespace kinetica
             public const string JSON = "json";
         } // end struct Encoding
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
-        ///         <description>Filter expression to apply to the table prior
-        /// to computing the aggregate group by.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
-        ///         <description>Filter expression to apply to the aggregated
-        /// results.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
-        ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in ascending order.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in descending order.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>String determining how the results are sorted.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by key, which corresponds to the grouping columns. If you
-        /// have multiple grouping columns (and are sorting by key), it will
-        /// first sort the first grouping column, then the second grouping
-        /// column, etc.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by value, which corresponds to the aggregates. If you have
-        /// multiple aggregates (and are sorting by value), it will first sort
-        /// by the first aggregate, then the second aggregate,
-        /// etc.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Column names (group-by
-        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
-        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
-        /// returned in the response.  This option is not available if one of
-        /// the grouping attributes is an unrestricted string (i.e.; not charN)
-        /// type.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
-        ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If <i>true</i> then set a primary key for the
-        /// result table. Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
-        ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the result table. Must be used in combination
-        /// with the <i>result_table</i> option.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>ID of view of which the result table will be a
-        /// member.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
-        ///         <description>pivot column</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
-        ///         <description>The value list provided will become the column
-        /// headers in the output. Should be the values from the
-        /// pivot_column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
-        ///         <description>Customize the grouping attribute sets to
-        /// compute the aggregates. These sets can include ROLLUP or CUBE
-        /// operartors. The attribute sets should be enclosed in paranthesis
-        /// and can include composite attributes. All attributes specified in
-        /// the grouping sets must present in the groupby
-        /// attributes.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
-        ///         <description>This option is used to specify the multilevel
-        /// aggregates.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
-        ///         <description>This option is used to specify the
-        /// multidimensional aggregates.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of
-            /// <i>result_table</i>. If <i>result_table_persist</i> is
-            /// <i>false</i> (or unspecified), then this is always allowed even
-            /// if the caller does not have permission to create tables. The
-            /// generated name is returned in
-            /// <i>qualified_result_table_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema as
-            /// part of <i>result_table</i> and use <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema
-            /// which is to contain the table specified in <i>result_table</i>.
-            /// If the schema provided is non-existent, it will be
-            /// automatically created.</summary>
+            /// part of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> and
+            /// use <see
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema which
+            /// is to contain the table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+            /// <remarks><para>If the schema provided is non-existent, it will
+            /// be automatically created.</para></remarks>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Filter expression to apply to the table prior to
             /// computing the aggregate group by.</summary>
             public const string EXPRESSION = "expression";
 
-            /// <summary>Filter expression to apply to the aggregated
-            /// results.</summary>
+            /// <summary>Filter expression to apply to the aggregated results.
+            /// </summary>
             public const string HAVING = "having";
 
             /// <summary>String indicating how the returned values should be
-            /// sorted - ascending or descending.
-            /// Supported values:
+            /// sorted - ascending or descending.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+            ///         <term><see cref="Options.ASCENDING">ASCENDING</see>:
+            ///         </term>
             ///         <description>Indicates that the returned values should
-            /// be sorted in ascending order.</description>
+            ///         be sorted in ascending order.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+            ///         <term><see cref="Options.DESCENDING">DESCENDING</see>:
+            ///         </term>
             ///         <description>Indicates that the returned values should
-            /// be sorted in descending order.</description>
+            ///         be sorted in descending order.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.ASCENDING">ASCENDING</see>.</para></remarks>
             public const string SORT_ORDER = "sort_order";
 
             /// <summary>Indicates that the returned values should be sorted in
@@ -433,146 +163,167 @@ namespace kinetica
             public const string DESCENDING = "descending";
 
             /// <summary>String determining how the results are sorted.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+            ///         <term><see cref="Options.KEY">KEY</see>:</term>
             ///         <description>Indicates that the returned values should
-            /// be sorted by key, which corresponds to the grouping columns. If
-            /// you have multiple grouping columns (and are sorting by key), it
-            /// will first sort the first grouping column, then the second
-            /// grouping column, etc.</description>
+            ///         be sorted by key, which corresponds to the grouping
+            ///         columns. If you have multiple grouping columns (and are
+            ///         sorting by key), it will first sort the first grouping
+            ///         column, then the second grouping column, etc.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+            ///         <term><see cref="Options.VALUE">VALUE</see>:</term>
             ///         <description>Indicates that the returned values should
-            /// be sorted by value, which corresponds to the aggregates. If you
-            /// have multiple aggregates (and are sorting by value), it will
-            /// first sort by the first aggregate, then the second aggregate,
-            /// etc.</description>
+            ///         be sorted by value, which corresponds to the
+            ///         aggregates. If you have multiple aggregates (and are
+            ///         sorting by value), it will first sort by the first
+            ///         aggregate, then the second aggregate, etc.
+            ///         </description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.VALUE">VALUE</see>.</para></remarks>
             public const string SORT_BY = "sort_by";
 
             /// <summary>Indicates that the returned values should be sorted by
-            /// key, which corresponds to the grouping columns. If you have
-            /// multiple grouping columns (and are sorting by key), it will
-            /// first sort the first grouping column, then the second grouping
-            /// column, etc.</summary>
+            /// key, which corresponds to the grouping columns.</summary>
+            /// <remarks><para>If you have multiple grouping columns (and are
+            /// sorting by key), it will first sort the first grouping column,
+            /// then the second grouping column, etc.</para></remarks>
             public const string KEY = "key";
 
             /// <summary>Indicates that the returned values should be sorted by
-            /// value, which corresponds to the aggregates. If you have
-            /// multiple aggregates (and are sorting by value), it will first
-            /// sort by the first aggregate, then the second aggregate,
-            /// etc.</summary>
+            /// value, which corresponds to the aggregates.</summary>
+            /// <remarks><para>If you have multiple aggregates (and are sorting
+            /// by value), it will first sort by the first aggregate, then the
+            /// second aggregate, etc.</para></remarks>
             public const string VALUE = "value";
+
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its columns.
+            /// </summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>The name of a table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
             /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
             /// href="../../../concepts/tables/#table-naming-criteria"
-            /// target="_top">table naming criteria</a>.  Column names
-            /// (group-by and aggregate fields) need to be given aliases e.g.
-            /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present,
-            /// no results are returned in the response.  This option is not
-            /// available if one of the grouping attributes is an unrestricted
-            /// string (i.e.; not charN) type.</summary>
+            /// target="_top">table naming criteria</a>.</summary>
+            /// <remarks><para> Column names (group-by and aggregate fields)
+            /// need to be given aliases e.g. ["FChar256 as fchar256",
+            /// "sum(FDouble) as sfd"].  If present, no results are returned in
+            /// the response.  This option is not available if one of the
+            /// grouping attributes is an unrestricted string (i.e.; not charN)
+            /// type.</para></remarks>
             public const string RESULT_TABLE = "result_table";
 
-            /// <summary>If <i>true</i>, then the result table specified in
-            /// <i>result_table</i> will be persisted and will not expire
-            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
-            /// result table will be an in-memory table and will expire unless
-            /// a <i>ttl</i> is specified otherwise.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
+            /// result table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+            /// persisted and will not expire unless a <see
+            /// cref="Options.TTL">TTL</see> is specified.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string RESULT_TABLE_PERSIST = "result_table_persist";
 
             /// <summary>Force the result table to be replicated (ignores any
-            /// sharding). Must be used in combination with the
-            /// <i>result_table</i> option.
-            /// Supported values:
+            /// sharding).</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
 
-            /// <summary>If <i>true</i> then set a primary key for the result
-            /// table. Must be used in combination with the <i>result_table</i>
-            /// option.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> then set a
+            /// primary key for the result table.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the table specified in
-            /// <i>result_table</i>.</summary>
+            /// target="_top">TTL</a> of the table specified in <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
             public const string TTL = "ttl";
 
             /// <summary>Indicates the number of records per chunk to be used
-            /// for the result table. Must be used in combination with the
-            /// <i>result_table</i> option.</summary>
+            /// for the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
             public const string CHUNK_SIZE = "chunk_size";
 
+            /// <summary>Indicates the target maximum data size for each column
+            /// in a chunk to be used for the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
+            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+            /// <summary>Indicates the target maximum data size for all columns
+            /// in a chunk to be used for the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
+            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
             /// <summary>Comma-separated list of columns on which to create
-            /// indexes on the result table. Must be used in combination with
-            /// the <i>result_table</i> option.</summary>
+            /// indexes on the result table.</summary>
+            /// <remarks><para>Must be used in combination with the <see
+            /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
+            /// </remarks>
             public const string CREATE_INDEXES = "create_indexes";
 
             /// <summary>ID of view of which the result table will be a member.
-            /// The default value is ''.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string VIEW_ID = "view_id";
 
             /// <summary>pivot column</summary>
             public const string PIVOT = "pivot";
 
             /// <summary>The value list provided will become the column headers
-            /// in the output. Should be the values from the
-            /// pivot_column.</summary>
+            /// in the output.</summary>
+            /// <remarks><para>Should be the values from the pivot_column.
+            /// </para></remarks>
             public const string PIVOT_VALUES = "pivot_values";
 
             /// <summary>Customize the grouping attribute sets to compute the
-            /// aggregates. These sets can include ROLLUP or CUBE operartors.
-            /// The attribute sets should be enclosed in paranthesis and can
-            /// include composite attributes. All attributes specified in the
-            /// grouping sets must present in the groupby attributes.</summary>
+            /// aggregates.</summary>
+            /// <remarks><para>These sets can include ROLLUP or CUBE
+            /// operartors. The attribute sets should be enclosed in
+            /// paranthesis and can include composite attributes. All
+            /// attributes specified in the grouping sets must present in the
+            /// groupby attributes.</para></remarks>
             public const string GROUPING_SETS = "grouping_sets";
 
             /// <summary>This option is used to specify the multilevel
@@ -584,300 +335,332 @@ namespace kinetica
             public const string CUBE = "cube";
         } // end struct Options
 
-
         /// <summary>Name of an existing table or view on which the operation
         /// will be performed, in [schema_name.]table_name format, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public string table_name { get; set; }
 
         /// <summary>List of one or more column names, expressions, and
-        /// aggregate expressions.  </summary>
+        /// aggregate expressions.</summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
         /// <summary>A positive integer indicating the number of initial
         /// results to skip (this can be useful for paging through the
-        /// results).  The default value is 0.The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT. </summary>
+        /// results).</summary>
+        /// <remarks><para>The default value is 0. The minimum allowed value is
+        /// 0. The maximum allowed value is MAX_INT.</para></remarks>
         public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned, or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be
-        /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the
-        /// <a href="../../../config/#config-main-general"
+        /// results to be returned, or END_OF_SET (-9999) to indicate that the
+        /// maximum number of results allowed by the server should be returned.
+        /// </summary>
+        /// <remarks><para> The number of records returned will never exceed
+        /// the server's own limit, defined by the <a
+        /// href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.
-        /// Use <member name="has_more_records" /> to see if more records exist
-        /// in the result to be fetched, and
-        /// <paramref cref="AggregateGroupByRequest.offset" /> & <paramref
-        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
-        /// of results.  The default value is -9999.</summary>
+        /// configuration. Use <see
+        /// cref="AggregateGroupByResponse.has_more_records">has_more_records</see>
+        /// to see if more records exist in the result to be fetched, and <see
+        /// cref="offset" /> & <see cref="limit" /> to request subsequent pages
+        /// of results. The default value is -9999.</para></remarks>
         public long limit { get; set; } = -9999;
 
-        /// <summary>Specifies the encoding for returned records.
-        /// Supported values:
+        /// <summary>Specifies the encoding for returned records.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <term><see cref="Encoding.BINARY">BINARY</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// binary encoded.</description>
+        ///         binary encoded.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <term><see cref="Encoding.JSON">JSON</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// json encoded.</description>
+        ///         json encoded.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>.
-        /// </summary>
+        /// <para>The default value is <see
+        /// cref="Encoding.BINARY">BINARY</see>.</para></remarks>
         public string encoding { get; set; } = Encoding.BINARY;
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified),
+        ///         then this is always allowed even if the caller does not
+        ///         have permission to create tables. The generated name is
+        ///         returned in <see
+        ///         cref="AggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
+        ///         schema as part of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the
+        ///         schema provided is non-existent, it will be automatically
+        ///         created.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Filter expression to apply to the table prior
-        /// to computing the aggregate group by.</description>
+        ///         to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
+        ///         <term><see cref="Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
-        /// results.</description>
+        ///         results.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
+        ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
+        ///         </term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in ascending order.</description>
+        ///         should be sorted - ascending or descending.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ASCENDING">ASCENDING</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted in ascending order.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DESCENDING">DESCENDING</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted in descending order.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in descending order.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
+        ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by key, which corresponds to the grouping columns. If you
-        /// have multiple grouping columns (and are sorting by key), it will
-        /// first sort the first grouping column, then the second grouping
-        /// column, etc.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.KEY">KEY</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted by key, which corresponds to the
+        ///                 grouping columns. If you have multiple grouping
+        ///                 columns (and are sorting by key), it will first
+        ///                 sort the first grouping column, then the second
+        ///                 grouping column, etc.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted by value, which corresponds to the
+        ///                 aggregates. If you have multiple aggregates (and
+        ///                 are sorting by value), it will first sort by the
+        ///                 first aggregate, then the second aggregate, etc.
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.VALUE">VALUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by value, which corresponds to the aggregates. If you have
-        /// multiple aggregates (and are sorting by value), it will first sort
-        /// by the first aggregate, then the second aggregate,
-        /// etc.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
+        ///         <description>The <a
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+        ///         </term>
         ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Column names (group-by
-        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
-        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
-        /// returned in the response.  This option is not available if one of
-        /// the grouping attributes is an unrestricted string (i.e.; not charN)
-        /// type.</description>
+        ///         in [schema_name.]table_name format, using standard <a
+        ///         href="../../../concepts/tables/#table-name-resolution"
+        ///         target="_top">name resolution rules</a> and meeting <a
+        ///         href="../../../concepts/tables/#table-naming-criteria"
+        ///         target="_top">table naming criteria</a>.  Column names
+        ///         (group-by and aggregate fields) need to be given aliases
+        ///         e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
+        ///         present, no results are returned in the response.  This
+        ///         option is not available if one of the grouping attributes
+        ///         is an unrestricted string (i.e.; not charN) type.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the result table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the result table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+        ///         </term>
         ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         (ignores any sharding). Must be used in combination with
+        ///         the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+        ///         option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If <i>true</i> then set a primary key for the
-        /// result table. Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///         cref="Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         set a primary key for the result table. Must be used in
+        ///         combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        ///         be used for the result table. Must be used in combination
+        ///         with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the result table.
+        ///         Must be used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the result table. Must be
+        ///         used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the result table. Must be used in combination
-        /// with the <i>result_table</i> option.</description>
+        ///         create indexes on the result table. Must be used in
+        ///         combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
-        /// member.  The default value is ''.</description>
+        ///         member. The default value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <term><see cref="Options.PIVOT">PIVOT</see>:</term>
         ///         <description>pivot column</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <term><see cref="Options.PIVOT_VALUES">PIVOT_VALUES</see>:
+        ///         </term>
         ///         <description>The value list provided will become the column
-        /// headers in the output. Should be the values from the
-        /// pivot_column.</description>
+        ///         headers in the output. Should be the values from the
+        ///         pivot_column.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         cref="Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
         ///         <description>Customize the grouping attribute sets to
-        /// compute the aggregates. These sets can include ROLLUP or CUBE
-        /// operartors. The attribute sets should be enclosed in paranthesis
-        /// and can include composite attributes. All attributes specified in
-        /// the grouping sets must present in the groupby
-        /// attributes.</description>
+        ///         compute the aggregates. These sets can include ROLLUP or
+        ///         CUBE operartors. The attribute sets should be enclosed in
+        ///         paranthesis and can include composite attributes. All
+        ///         attributes specified in the grouping sets must present in
+        ///         the groupby attributes.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <term><see cref="Options.ROLLUP">ROLLUP</see>:</term>
         ///         <description>This option is used to specify the multilevel
-        /// aggregates.</description>
+        ///         aggregates.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <term><see cref="Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
-        /// multidimensional aggregates.</description>
+        ///         multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AggregateGroupByRequest object with default
         /// parameters.</summary>
@@ -885,271 +668,305 @@ namespace kinetica
 
         /// <summary>Constructs an AggregateGroupByRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="column_names">List of one or more column names,
-        /// expressions, and aggregate expressions.  </param>
+        /// expressions, and aggregate expressions.</param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The default value is 0.The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT. </param>
+        /// results). The default value is 0. The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT.</param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the
-        /// <a href="../../../config/#config-main-general"
+        /// server's own limit, defined by the <a
+        /// href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.
-        /// Use <member name="has_more_records" /> to see if more records exist
-        /// in the result to be fetched, and
-        /// <paramref cref="AggregateGroupByRequest.offset" /> & <paramref
-        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
-        /// of results.  The default value is -9999.</param>
+        /// configuration. Use <see
+        /// cref="AggregateGroupByResponse.has_more_records">has_more_records</see>
+        /// to see if more records exist in the result to be fetched, and
+        /// <paramref name="offset" /> & <paramref name="limit" /> to request
+        /// subsequent pages of results. The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified),
+        ///         then this is always allowed even if the caller does not
+        ///         have permission to create tables. The generated name is
+        ///         returned in <see
+        ///         cref="AggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
+        ///         schema as part of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the
+        ///         schema provided is non-existent, it will be automatically
+        ///         created.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Filter expression to apply to the table prior
-        /// to computing the aggregate group by.</description>
+        ///         to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
+        ///         <term><see cref="Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
-        /// results.</description>
+        ///         results.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
+        ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
+        ///         </term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in ascending order.</description>
+        ///         should be sorted - ascending or descending.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ASCENDING">ASCENDING</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted in ascending order.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DESCENDING">DESCENDING</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted in descending order.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in descending order.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
+        ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by key, which corresponds to the grouping columns. If you
-        /// have multiple grouping columns (and are sorting by key), it will
-        /// first sort the first grouping column, then the second grouping
-        /// column, etc.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.KEY">KEY</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted by key, which corresponds to the
+        ///                 grouping columns. If you have multiple grouping
+        ///                 columns (and are sorting by key), it will first
+        ///                 sort the first grouping column, then the second
+        ///                 grouping column, etc.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted by value, which corresponds to the
+        ///                 aggregates. If you have multiple aggregates (and
+        ///                 are sorting by value), it will first sort by the
+        ///                 first aggregate, then the second aggregate, etc.
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.VALUE">VALUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by value, which corresponds to the aggregates. If you have
-        /// multiple aggregates (and are sorting by value), it will first sort
-        /// by the first aggregate, then the second aggregate,
-        /// etc.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
+        ///         <description>The <a
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+        ///         </term>
         ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Column names (group-by
-        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
-        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
-        /// returned in the response.  This option is not available if one of
-        /// the grouping attributes is an unrestricted string (i.e.; not charN)
-        /// type.</description>
+        ///         in [schema_name.]table_name format, using standard <a
+        ///         href="../../../concepts/tables/#table-name-resolution"
+        ///         target="_top">name resolution rules</a> and meeting <a
+        ///         href="../../../concepts/tables/#table-naming-criteria"
+        ///         target="_top">table naming criteria</a>.  Column names
+        ///         (group-by and aggregate fields) need to be given aliases
+        ///         e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
+        ///         present, no results are returned in the response.  This
+        ///         option is not available if one of the grouping attributes
+        ///         is an unrestricted string (i.e.; not charN) type.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the result table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the result table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+        ///         </term>
         ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         (ignores any sharding). Must be used in combination with
+        ///         the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+        ///         option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If <i>true</i> then set a primary key for the
-        /// result table. Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///         cref="Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         set a primary key for the result table. Must be used in
+        ///         combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        ///         be used for the result table. Must be used in combination
+        ///         with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the result table.
+        ///         Must be used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the result table. Must be
+        ///         used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the result table. Must be used in combination
-        /// with the <i>result_table</i> option.</description>
+        ///         create indexes on the result table. Must be used in
+        ///         combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
-        /// member.  The default value is ''.</description>
+        ///         member. The default value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <term><see cref="Options.PIVOT">PIVOT</see>:</term>
         ///         <description>pivot column</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <term><see cref="Options.PIVOT_VALUES">PIVOT_VALUES</see>:
+        ///         </term>
         ///         <description>The value list provided will become the column
-        /// headers in the output. Should be the values from the
-        /// pivot_column.</description>
+        ///         headers in the output. Should be the values from the
+        ///         pivot_column.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         cref="Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
         ///         <description>Customize the grouping attribute sets to
-        /// compute the aggregates. These sets can include ROLLUP or CUBE
-        /// operartors. The attribute sets should be enclosed in paranthesis
-        /// and can include composite attributes. All attributes specified in
-        /// the grouping sets must present in the groupby
-        /// attributes.</description>
+        ///         compute the aggregates. These sets can include ROLLUP or
+        ///         CUBE operartors. The attribute sets should be enclosed in
+        ///         paranthesis and can include composite attributes. All
+        ///         attributes specified in the grouping sets must present in
+        ///         the groupby attributes.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <term><see cref="Options.ROLLUP">ROLLUP</see>:</term>
         ///         <description>This option is used to specify the multilevel
-        /// aggregates.</description>
+        ///         aggregates.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <term><see cref="Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
-        /// multidimensional aggregates.</description>
+        ///         multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
                                         long? offset = null,
@@ -1164,293 +981,323 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
         /// <summary>Constructs an AggregateGroupByRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="column_names">List of one or more column names,
-        /// expressions, and aggregate expressions.  </param>
+        /// expressions, and aggregate expressions.</param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The default value is 0.The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT. </param>
+        /// results). The default value is 0. The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT.</param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the
-        /// <a href="../../../config/#config-main-general"
+        /// server's own limit, defined by the <a
+        /// href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.
-        /// Use <member name="has_more_records" /> to see if more records exist
-        /// in the result to be fetched, and
-        /// <paramref cref="AggregateGroupByRequest.offset" /> & <paramref
-        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
-        /// of results.  The default value is -9999.</param>
+        /// configuration. Use <see
+        /// cref="AggregateGroupByResponse.has_more_records">has_more_records</see>
+        /// to see if more records exist in the result to be fetched, and
+        /// <paramref name="offset" /> & <paramref name="limit" /> to request
+        /// subsequent pages of results. The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <term><see cref="Encoding.BINARY">BINARY</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// binary encoded.</description>
+        ///         binary encoded.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <term><see cref="Encoding.JSON">JSON</see>:</term>
         ///         <description>Indicates that the returned records should be
-        /// json encoded.</description>
+        ///         json encoded.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>.
+        /// The default value is <see cref="Encoding.BINARY">BINARY</see>.
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
-        /// (or unspecified), then this is always allowed even if the caller
-        /// does not have permission to create tables. The generated name is
-        /// returned in <i>qualified_result_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified),
+        ///         then this is always allowed even if the caller does not
+        ///         have permission to create tables. The generated name is
+        ///         returned in <see
+        ///         cref="AggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema as part of <i>result_table</i> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <i>result_table</i>. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
+        ///         schema as part of <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the
+        ///         schema provided is non-existent, it will be automatically
+        ///         created.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Filter expression to apply to the table prior
-        /// to computing the aggregate group by.</description>
+        ///         to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
+        ///         <term><see cref="Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
-        /// results.</description>
+        ///         results.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
+        ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
+        ///         </term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in ascending order.</description>
+        ///         should be sorted - ascending or descending.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ASCENDING">ASCENDING</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted in ascending order.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DESCENDING">DESCENDING</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted in descending order.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted in descending order.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
+        ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by key, which corresponds to the grouping columns. If you
-        /// have multiple grouping columns (and are sorting by key), it will
-        /// first sort the first grouping column, then the second grouping
-        /// column, etc.</description>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.KEY">KEY</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted by key, which corresponds to the
+        ///                 grouping columns. If you have multiple grouping
+        ///                 columns (and are sorting by key), it will first
+        ///                 sort the first grouping column, then the second
+        ///                 grouping column, etc.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
+        ///                 <description>Indicates that the returned values
+        ///                 should be sorted by value, which corresponds to the
+        ///                 aggregates. If you have multiple aggregates (and
+        ///                 are sorting by value), it will first sort by the
+        ///                 first aggregate, then the second aggregate, etc.
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.VALUE">VALUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Indicates that the returned values should be
-        /// sorted by value, which corresponds to the aggregates. If you have
-        /// multiple aggregates (and are sorting by value), it will first sort
-        /// by the first aggregate, then the second aggregate,
-        /// etc.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
+        ///         <description>The <a
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+        ///         </term>
         ///         <description>The name of a table used to store the results,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Column names (group-by
-        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
-        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
-        /// returned in the response.  This option is not available if one of
-        /// the grouping attributes is an unrestricted string (i.e.; not charN)
-        /// type.</description>
+        ///         in [schema_name.]table_name format, using standard <a
+        ///         href="../../../concepts/tables/#table-name-resolution"
+        ///         target="_top">name resolution rules</a> and meeting <a
+        ///         href="../../../concepts/tables/#table-naming-criteria"
+        ///         target="_top">table naming criteria</a>.  Column names
+        ///         (group-by and aggregate fields) need to be given aliases
+        ///         e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
+        ///         present, no results are returned in the response.  This
+        ///         option is not available if one of the grouping attributes
+        ///         is an unrestricted string (i.e.; not charN) type.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the result table
-        /// specified in <i>result_table</i> will be persisted and will not
-        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
-        /// the result table will be an in-memory table and will expire unless
-        /// a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the result table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the result table
+        ///         will be an in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+        ///         </term>
         ///         <description>Force the result table to be replicated
-        /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///         (ignores any sharding). Must be used in combination with
+        ///         the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+        ///         option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If <i>true</i> then set a primary key for the
-        /// result table. Must be used in combination with the
-        /// <i>result_table</i> option.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///         cref="Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         set a primary key for the result table. Must be used in
+        ///         combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in
-        /// <i>result_table</i>.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        ///         be used for the result table. Must be used in combination
+        ///         with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the result table.
+        ///         Must be used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the result table. Must be
+        ///         used in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the result table. Must be used in combination
-        /// with the <i>result_table</i> option.</description>
+        ///         create indexes on the result table. Must be used in
+        ///         combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
-        /// member.  The default value is ''.</description>
+        ///         member. The default value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <term><see cref="Options.PIVOT">PIVOT</see>:</term>
         ///         <description>pivot column</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <term><see cref="Options.PIVOT_VALUES">PIVOT_VALUES</see>:
+        ///         </term>
         ///         <description>The value list provided will become the column
-        /// headers in the output. Should be the values from the
-        /// pivot_column.</description>
+        ///         headers in the output. Should be the values from the
+        ///         pivot_column.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         cref="Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
         ///         <description>Customize the grouping attribute sets to
-        /// compute the aggregates. These sets can include ROLLUP or CUBE
-        /// operartors. The attribute sets should be enclosed in paranthesis
-        /// and can include composite attributes. All attributes specified in
-        /// the grouping sets must present in the groupby
-        /// attributes.</description>
+        ///         compute the aggregates. These sets can include ROLLUP or
+        ///         CUBE operartors. The attribute sets should be enclosed in
+        ///         paranthesis and can include composite attributes. All
+        ///         attributes specified in the grouping sets must present in
+        ///         the groupby attributes.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <term><see cref="Options.ROLLUP">ROLLUP</see>:</term>
         ///         <description>This option is used to specify the multilevel
-        /// aggregates.</description>
+        ///         aggregates.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <term><see cref="Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
-        /// multidimensional aggregates.</description>
+        ///         multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
                                         long? offset = null,
@@ -1465,121 +1312,92 @@ namespace kinetica
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor
-
     } // end class AggregateGroupByRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>.
+    /// </summary>
     public class RawAggregateGroupByResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the table (i.e. including
             /// the schema) used to store the results.</summary>
             public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
         } // end struct Info
 
-
-        /// <summary>Avro schema of <member name="binary_encoded_response" />
-        /// or <member name="json_encoded_response" />.  </summary>
+        /// <summary>Avro schema of <see cref="binary_encoded_response" /> or
+        /// <see cref="json_encoded_response" />.</summary>
         public string response_schema_str { get; set; }
 
-        /// <summary>Avro binary encoded response.  </summary>
+        /// <summary>Avro binary encoded response.</summary>
         public byte[] binary_encoded_response { get; set; }
 
-        /// <summary>Avro JSON encoded response.  </summary>
+        /// <summary>Avro JSON encoded response.</summary>
         public string json_encoded_response { get; set; }
 
-        /// <summary>Total/Filtered number of records.  </summary>
+        /// <summary>Total/Filtered number of records.</summary>
         public long total_number_of_records { get; set; }
 
-        /// <summary>Too many records. Returned a partial set.  </summary>
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Returned a partial set.</para></remarks>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
+        ///         including the schema) used to store the results.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class RawAggregateGroupByResponse
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>.
+    /// </summary>
     public class AggregateGroupByResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the table (i.e. including
             /// the schema) used to store the results.</summary>
             public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
         } // end struct Info
 
-
-        /// <summary>Avro binary encoded response.  </summary>
+        /// <summary>Avro binary encoded response.</summary>
         public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
 
-        /// <summary>Total/Filtered number of records.  </summary>
+        /// <summary>Total/Filtered number of records.</summary>
         public long total_number_of_records { get; set; }
 
-        /// <summary>Too many records. Returned a partial set.  </summary>
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Returned a partial set.</para></remarks>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the table (i.e.
-        /// including the schema) used to store the results.</description>
+        ///         including the schema) used to store the results.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AggregateGroupByResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

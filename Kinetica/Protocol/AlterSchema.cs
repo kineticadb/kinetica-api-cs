@@ -6,73 +6,66 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterSchema(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Used to change the name of a SQL-style <a
+    /// cref="Kinetica.alterSchema(AlterSchemaRequest)">Kinetica.alterSchema</see>.
+    /// </summary>
+    /// <remarks><para>Used to change the name of a SQL-style <a
     /// href="../../../concepts/schemas/" target="_top">schema</a>, specified
-    /// in <see cref="schema_name" />.</summary>
+    /// in <see cref="schema_name" />.</para></remarks>
     public class AlterSchemaRequest : KineticaData
     {
-
-        /// <summary>Modification operation to be applied
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
-        ///         <description>Renames a schema to <paramref
-        /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="action"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="action" />.</summary>
+        /// <remarks><para>Modification operation to be applied</para>
+        /// </remarks>
         public struct Action
         {
+            /// <summary>Adds a comment describing the schema</summary>
+            public const string ADD_COMMENT = "add_comment";
 
-            /// <summary>Renames a schema to <see cref="_value" />. Has the
-            /// same naming restrictions as <a href="../../../concepts/tables/"
-            /// target="_top">tables</a>.</summary>
+            /// <summary>Renames a schema to <see cref="_value" />.</summary>
+            /// <remarks><para>Has the same naming restrictions as <a
+            /// href="../../../concepts/tables/" target="_top">tables</a>.
+            /// </para></remarks>
             public const string RENAME_SCHEMA = "rename_schema";
         } // end struct Action
 
-
-        /// <summary>Name of the schema to be altered.  </summary>
+        /// <summary>Name of the schema to be altered.</summary>
         public string schema_name { get; set; }
 
-        /// <summary>Modification operation to be applied
-        /// Supported values:
+        /// <summary>Modification operation to be applied.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
-        ///         <description>Renames a schema to <paramref
-        /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</description>
+        ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:
+        ///         </term>
+        ///         <description>Adds a comment describing the schema
+        ///         </description>
         ///     </item>
-        /// </list>  </summary>
+        ///     <item>
+        ///         <term><see cref="Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Renames a schema to <see cref="_value" />. Has
+        ///         the same naming restrictions as <a
+        ///         href="../../../concepts/tables/" target="_top">tables</a>.
+        ///         </description>
+        ///     </item>
+        /// </list></remarks>
         public string action { get; set; }
 
-        /// <summary>The value of the modification, depending on <paramref
-        /// cref="AlterSchemaRequest.action" />.  For now the only value of
-        /// <paramref cref="AlterSchemaRequest.action" /> is
-        /// <i>rename_schema</i>.  In this case the value is the new name of
-        /// the schema.  </summary>
+        /// <summary>The value of the modification, depending on <see
+        /// cref="action" />.</summary>
+        /// <remarks><para> For now the only value of <see cref="action" /> is
+        /// <see cref="Action.RENAME_SCHEMA">RENAME_SCHEMA</see>.  In this case
+        /// the value is the new name of the schema.</para></remarks>
         public string _value { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterSchemaRequest object with default
         /// parameters.</summary>
@@ -80,29 +73,33 @@ namespace kinetica
 
         /// <summary>Constructs an AlterSchemaRequest object with the specified
         /// parameters.</summary>
-        /// 
-        /// <param name="schema_name">Name of the schema to be altered.
-        /// </param>
-        /// <param name="action">Modification operation to be applied
+        ///
+        /// <param name="schema_name">Name of the schema to be altered.</param>
+        /// <param name="action">Modification operation to be applied.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
-        ///         <description>Renames a schema to <paramref
-        /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</description>
+        ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:
+        ///         </term>
+        ///         <description>Adds a comment describing the schema
+        ///         </description>
         ///     </item>
-        /// </list>  </param>
+        ///     <item>
+        ///         <term><see cref="Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Renames a schema to <paramref name="_value"
+        ///         />. Has the same naming restrictions as <a
+        ///         href="../../../concepts/tables/" target="_top">tables</a>.
+        ///         </description>
+        ///     </item>
+        /// </list></param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref cref="AlterSchemaRequest.action" />.  For now the only
-        /// value of <paramref cref="AlterSchemaRequest.action" /> is
-        /// <i>rename_schema</i>.  In this case the value is the new name of
-        /// the schema.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// <paramref name="action" />.  For now the only value of <paramref
+        /// name="action" /> is <see
+        /// cref="Action.RENAME_SCHEMA">RENAME_SCHEMA</see>.  In this case the
+        /// value is the new name of the schema.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public AlterSchemaRequest( string schema_name,
                                    string action,
                                    string _value,
@@ -113,27 +110,18 @@ namespace kinetica
             this._value = _value ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterSchemaRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterSchema(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterSchema(AlterSchemaRequest)">Kinetica.alterSchema</see>.
+    /// </summary>
     public class AlterSchemaResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="AlterSchemaRequest.schema_name"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="AlterSchemaRequest.schema_name">schema_name</see>.</summary>
         public string schema_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterSchemaResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

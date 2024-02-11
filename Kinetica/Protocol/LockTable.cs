@@ -6,64 +6,33 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.lockTable(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Manages global access to a table's data.  By default a table has a <see
-    /// cref="lock_type" /> of <i>read_write</i>, indicating all operations are
-    /// permitted.  A user may request a <i>read_only</i> or a
-    /// <i>write_only</i> lock, after which only read or write operations,
-    /// respectively, are permitted on the table until the lock is removed.
-    /// When <see cref="lock_type" /> is <i>no_access</i> then no operations
-    /// are permitted on the table.  The lock status can be queried by setting
-    /// <see cref="lock_type" /> to <i>status</i>.</summary>
+    /// cref="Kinetica.lockTable(LockTableRequest)">Kinetica.lockTable</see>.
+    /// </summary>
+    /// <remarks><para>Manages global access to a table's data.  By default a
+    /// table has a <see cref="lock_type" /> of <see
+    /// cref="LockType.READ_WRITE">READ_WRITE</see>, indicating all operations
+    /// are permitted.  A user may request a <see
+    /// cref="LockType.READ_ONLY">READ_ONLY</see> or a <see
+    /// cref="LockType.WRITE_ONLY">WRITE_ONLY</see> lock, after which only read
+    /// or write operations, respectively, are permitted on the table until the
+    /// lock is removed.  When <see cref="lock_type" /> is <see
+    /// cref="LockType.NO_ACCESS">NO_ACCESS</see> then no operations are
+    /// permitted on the table.  The lock status can be queried by setting <see
+    /// cref="lock_type" /> to <see cref="LockType.STATUS">STATUS</see>.</para>
+    /// </remarks>
     public class LockTableRequest : KineticaData
     {
-
-        /// <summary>The type of lock being applied to the table. Setting it to
-        /// <i>status</i> will return the current lock status of the table
-        /// without changing it.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
-        ///         <description>Show locked status</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
-        ///         <description>Allow no read/write operations</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
-        ///         <description>Allow only read operations</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
-        ///         <description>Allow only write operations</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
-        ///         <description>Allow all read/write operations</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.
-        /// A set of string constants for the parameter <see cref="lock_type"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="lock_type" />.</summary>
+        /// <remarks><para>The type of lock being applied to the table. Setting
+        /// it to <see cref="LockType.STATUS">STATUS</see> will return the
+        /// current lock status of the table without changing it.</para>
+        /// </remarks>
         public struct LockType
         {
-
             /// <summary>Show locked status</summary>
             public const string STATUS = "status";
 
@@ -80,53 +49,50 @@ namespace kinetica
             public const string READ_WRITE = "read_write";
         } // end struct LockType
 
-
         /// <summary>Name of the table to be locked, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  It must be a currently
-        /// existing table or view.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> It must be a currently existing table or view.
+        /// </para></remarks>
         public string table_name { get; set; }
 
-        /// <summary>The type of lock being applied to the table. Setting it to
-        /// <i>status</i> will return the current lock status of the table
-        /// without changing it.
-        /// Supported values:
+        /// <summary>The type of lock being applied to the table.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
+        ///         <term><see cref="LockType.STATUS">STATUS</see>:</term>
         ///         <description>Show locked status</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
+        ///         <term><see cref="LockType.NO_ACCESS">NO_ACCESS</see>:
+        ///         </term>
         ///         <description>Allow no read/write operations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
+        ///         <term><see cref="LockType.READ_ONLY">READ_ONLY</see>:
+        ///         </term>
         ///         <description>Allow only read operations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         <term><see cref="LockType.WRITE_ONLY">WRITE_ONLY</see>:
+        ///         </term>
         ///         <description>Allow only write operations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
+        ///         <term><see cref="LockType.READ_WRITE">READ_WRITE</see>:
+        ///         </term>
         ///         <description>Allow all read/write operations</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </summary>
+        /// <para>The default value is <see
+        /// cref="LockType.STATUS">STATUS</see>.</para></remarks>
         public string lock_type { get; set; } = LockType.STATUS;
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a LockTableRequest object with default
         /// parameters.</summary>
@@ -134,48 +100,46 @@ namespace kinetica
 
         /// <summary>Constructs a LockTableRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table to be locked, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  It must be a currently
-        /// existing table or view.  </param>
+        /// existing table or view.</param>
         /// <param name="lock_type">The type of lock being applied to the
-        /// table. Setting it to <i>status</i> will return the current lock
-        /// status of the table without changing it.
+        /// table. Setting it to <see cref="LockType.STATUS">STATUS</see> will
+        /// return the current lock status of the table without changing it.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
+        ///         <term><see cref="LockType.STATUS">STATUS</see>:</term>
         ///         <description>Show locked status</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
+        ///         <term><see cref="LockType.NO_ACCESS">NO_ACCESS</see>:
+        ///         </term>
         ///         <description>Allow no read/write operations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
+        ///         <term><see cref="LockType.READ_ONLY">READ_ONLY</see>:
+        ///         </term>
         ///         <description>Allow only read operations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         <term><see cref="LockType.WRITE_ONLY">WRITE_ONLY</see>:
+        ///         </term>
         ///         <description>Allow only write operations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
+        ///         <term><see cref="LockType.READ_WRITE">READ_WRITE</see>:
+        ///         </term>
         ///         <description>Allow all read/write operations</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is <see cref="LockType.STATUS">STATUS</see>.
+        /// </param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public LockTableRequest( string table_name,
                                  string lock_type = null,
                                  IDictionary<string, string> options = null)
@@ -184,26 +148,17 @@ namespace kinetica
             this.lock_type = lock_type ?? LockType.STATUS;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class LockTableRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.lockTable(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.lockTable(LockTableRequest)">Kinetica.lockTable</see>.
+    /// </summary>
     public class LockTableResponse : KineticaData
     {
-
-        /// <summary>Returns the lock state of the table.  </summary>
+        /// <summary>Returns the lock state of the table.</summary>
         public string lock_type { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class LockTableResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

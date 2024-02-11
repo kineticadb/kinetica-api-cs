@@ -6,397 +6,281 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminVerifyDb(IDictionary{string, string})" />.
-    /// <br />
-    /// Verify database is in a consistent state.  When inconsistencies or
-    /// errors are found, the verified_ok flag in the response is set to false
-    /// and the list of errors found is provided in the error_list.</summary>
+    /// cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>.
+    /// </summary>
+    /// <remarks><para>Verify database is in a consistent state.  When
+    /// inconsistencies or errors are found, the verified_ok flag in the
+    /// response is set to false and the list of errors found is provided in
+    /// the error_list.</para></remarks>
     public class AdminVerifyDbRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
-        ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
-        /// GAdmin instead.]
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When <i>true</i>, verifies that null values
-        /// are set to zero
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory and workers will be checked
-        /// for orphaned table data in persist. To check for orphaned worker
-        /// data, either set <i>concurrent_safe</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
-        /// database offline.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When <i>true</i>, allows this endpoint to be
-        /// run safely with other concurrent database operations. Other
-        /// operations may be slower while this is running.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>If <i>true</i>, compare rank0 table metadata
-        /// against workers' metadata
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
-        ///         <description>If <i>true</i>, orphaned table directories
-        /// found on workers for which there is no corresponding metadata will
-        /// be deleted. Must set <i>verify_persist</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
-        /// recommended to run this while the database is offline OR set
-        /// <i>concurrent_safe</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>[DEPRECATED -- Use the Rebuild DB feature of GAdmin
-            /// instead.]
-            /// Supported values:
+            /// instead.].</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string REBUILD_ON_ERROR = "rebuild_on_error";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>When <i>true</i>, verifies that null values are set to
-            /// zero
-            /// Supported values:
+            /// <summary>When <see cref="Options.TRUE">TRUE</see>, verifies
+            /// that null values are set to zero.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string VERIFY_NULLS = "verify_nulls";
 
-            /// <summary>When <i>true</i>, persistent objects will be compared
-            /// against their state in memory and workers will be checked for
-            /// orphaned table data in persist. To check for orphaned worker
-            /// data, either set <i>concurrent_safe</i> in <see cref="options"
-            /// /> to <i>true</i> or place the database offline.
-            /// Supported values:
+            /// <summary>When <see cref="Options.TRUE">TRUE</see>, persistent
+            /// objects will be compared against their state in memory and
+            /// workers will be checked for orphaned table data in persist.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string VERIFY_PERSIST = "verify_persist";
 
-            /// <summary>When <i>true</i>, allows this endpoint to be run
-            /// safely with other concurrent database operations. Other
-            /// operations may be slower while this is running.
-            /// Supported values:
+            /// <summary>When <see cref="Options.TRUE">TRUE</see>, allows this
+            /// endpoint to be run safely with other concurrent database
+            /// operations.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string CONCURRENT_SAFE = "concurrent_safe";
 
-            /// <summary>If <i>true</i>, compare rank0 table metadata against
-            /// workers' metadata
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, compare rank0
+            /// table metadata against workers' metadata.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string VERIFY_RANK0 = "verify_rank0";
 
-            /// <summary>If <i>true</i>, orphaned table directories found on
-            /// workers for which there is no corresponding metadata will be
-            /// deleted. Must set <i>verify_persist</i> in <see cref="options"
-            /// /> to <i>true</i>. It is recommended to run this while the
-            /// database is offline OR set <i>concurrent_safe</i> in <see
-            /// cref="options" /> to <i>true</i>
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, orphaned table
+            /// directories found on workers for which there is no
+            /// corresponding metadata will be deleted.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string DELETE_ORPHANED_TABLES = "delete_orphaned_tables";
+
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, only the
+            /// presence of orphaned table directories will be checked, all
+            /// persistence checks will be skipped.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string VERIFY_ORPHANED_TABLES_ONLY = "verify_orphaned_tables_only";
         } // end struct Options
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
+        ///         cref="Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:
+        ///         </term>
         ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
-        /// GAdmin instead.]
-        /// Supported values:
-        /// <list type="bullet">
+        ///         GAdmin instead.].
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.VERIFY_NULLS">VERIFY_NULLS</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>,
+        ///         verifies that null values are set to zero.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>,
+        ///         persistent objects will be compared against their state in
+        ///         memory and workers will be checked for orphaned table data
+        ///         in persist. To check for orphaned worker data, either set
+        ///         <see cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>
+        ///         in <see cref="options" /> to <see
+        ///         cref="Options.TRUE">TRUE</see> or place the database
+        ///         offline.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>,
+        ///         allows this endpoint to be run safely with other concurrent
+        ///         database operations. Other operations may be slower while
+        ///         this is running.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VERIFY_RANK0">VERIFY_RANK0</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         compare rank0 table metadata against workers' metadata.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         orphaned table directories found on workers for which there
+        ///         is no corresponding metadata will be deleted. Must set <see
+        ///         cref="Options.VERIFY_PERSIST">VERIFY_PERSIST</see> in <see
+        ///         cref="options" /> to <see cref="Options.TRUE">TRUE</see>.
+        ///         It is recommended to run this while the database is offline
+        ///         OR set <see
+        ///         cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see> in
+        ///         <see cref="options" /> to <see
+        ///         cref="Options.TRUE">TRUE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, only
+        ///         the presence of orphaned table directories will be checked,
+        ///         all persistence checks will be skipped.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When <i>true</i>, verifies that null values
-        /// are set to zero
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory and workers will be checked
-        /// for orphaned table data in persist. To check for orphaned worker
-        /// data, either set <i>concurrent_safe</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
-        /// database offline.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When <i>true</i>, allows this endpoint to be
-        /// run safely with other concurrent database operations. Other
-        /// operations may be slower while this is running.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>If <i>true</i>, compare rank0 table metadata
-        /// against workers' metadata
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
-        ///         <description>If <i>true</i>, orphaned table directories
-        /// found on workers for which there is no corresponding metadata will
-        /// be deleted. Must set <i>verify_persist</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
-        /// recommended to run this while the database is offline OR set
-        /// <i>concurrent_safe</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminVerifyDbRequest object with default
         /// parameters.</summary>
@@ -404,166 +288,183 @@ namespace kinetica
 
         /// <summary>Constructs an AdminVerifyDbRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
+        ///         cref="Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:
+        ///         </term>
         ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
-        /// GAdmin instead.]
-        /// Supported values:
-        /// <list type="bullet">
+        ///         GAdmin instead.].
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.VERIFY_NULLS">VERIFY_NULLS</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>,
+        ///         verifies that null values are set to zero.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>,
+        ///         persistent objects will be compared against their state in
+        ///         memory and workers will be checked for orphaned table data
+        ///         in persist. To check for orphaned worker data, either set
+        ///         <see cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>
+        ///         in <paramref name="options" /> to <see
+        ///         cref="Options.TRUE">TRUE</see> or place the database
+        ///         offline.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>,
+        ///         allows this endpoint to be run safely with other concurrent
+        ///         database operations. Other operations may be slower while
+        ///         this is running.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VERIFY_RANK0">VERIFY_RANK0</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         compare rank0 table metadata against workers' metadata.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         orphaned table directories found on workers for which there
+        ///         is no corresponding metadata will be deleted. Must set <see
+        ///         cref="Options.VERIFY_PERSIST">VERIFY_PERSIST</see> in
+        ///         <paramref name="options" /> to <see
+        ///         cref="Options.TRUE">TRUE</see>. It is recommended to run
+        ///         this while the database is offline OR set <see
+        ///         cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see> in
+        ///         <paramref name="options" /> to <see
+        ///         cref="Options.TRUE">TRUE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, only
+        ///         the presence of orphaned table directories will be checked,
+        ///         all persistence checks will be skipped.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When <i>true</i>, verifies that null values
-        /// are set to zero
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory and workers will be checked
-        /// for orphaned table data in persist. To check for orphaned worker
-        /// data, either set <i>concurrent_safe</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
-        /// database offline.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When <i>true</i>, allows this endpoint to be
-        /// run safely with other concurrent database operations. Other
-        /// operations may be slower while this is running.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>If <i>true</i>, compare rank0 table metadata
-        /// against workers' metadata
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
-        ///         <description>If <i>true</i>, orphaned table directories
-        /// found on workers for which there is no corresponding metadata will
-        /// be deleted. Must set <i>verify_persist</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
-        /// recommended to run this while the database is offline OR set
-        /// <i>concurrent_safe</i> in <paramref
-        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AdminVerifyDbRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminVerifyDbRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminVerifyDb(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>.
+    /// </summary>
     public class AdminVerifyDbResponse : KineticaData
     {
-
-        /// <summary>True if no errors were found, false otherwise.  The
-        /// default value is false.</summary>
+        /// <summary>True if no errors were found, false otherwise.</summary>
+        /// <remarks><para>The default value is false.</para></remarks>
         public bool verified_ok { get; set; } = false;
 
         /// <summary>List of errors found while validating the database
-        /// internal state.  The default value is an empty {@link
-        /// List}.</summary>
+        /// internal state.</summary>
+        /// <remarks><para>The default value is an empty List.</para></remarks>
         public IList<string> error_list { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>If <see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>
+        /// is <see cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>, <see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>
+        /// is <see cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see> or <see
+        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>
+        /// is <see cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>, this
+        /// is the sum in bytes of all orphaned tables found.</summary>
+        /// <remarks><para> Otherwise, -1.</para></remarks>
+        public long orphaned_tables_total_size { get; set; }
+
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminVerifyDbResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

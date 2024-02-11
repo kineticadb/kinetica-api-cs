@@ -6,98 +6,54 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.aggregateStatisticsByRange(string,string,string,string,string,double,double,double,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Divides the given set into bins and calculates statistics of the
-    /// values of a value-column in each bin.  The bins are based on the values
-    /// of a
-    /// given binning-column.  The statistics that may be requested are mean,
-    /// stdv
-    /// (standard deviation), variance, skew, kurtosis, sum, min, max, first,
-    /// last and
-    /// weighted average. In addition to the requested statistics the count of
-    /// total
-    /// samples in each bin is returned. This counts vector is just the
-    /// histogram of the
-    /// column used to divide the set members into bins. The weighted average
-    /// statistic
-    /// requires a weight column to be specified in
-    /// <i>weight_column_name</i>. The weighted average is then
-    /// defined as the sum of the products of the value column times the weight
-    /// column
-    /// divided by the sum of the weight column.
-    /// <br />
-    /// There are two methods for binning the set members. In the first, which
-    /// can be
-    /// used for numeric valued binning-columns, a min, max and interval are
-    /// specified.
-    /// The number of bins, nbins, is the integer upper bound of
-    /// (max-min)/interval.
-    /// Values that fall in the range [min+n*interval,min+(n+1)*interval) are
-    /// placed in
-    /// the nth bin where n ranges from 0..nbin-2. The final bin is
-    /// [min+(nbin-1)*interval,max]. In the second method,
-    /// <i>bin_values</i> specifies a list of binning column values.
-    /// Binning-columns whose value matches the nth member of the
-    /// <i>bin_values</i> list are placed in the nth bin. When a list
-    /// is provided, the binning-column must be of type string or int.
-    /// <br />
-    /// NOTE:  The Kinetica instance being accessed must be running a CUDA
-    /// (GPU-based)
-    /// build to service this request.</summary>
+    /// cref="Kinetica.aggregateStatisticsByRange(AggregateStatisticsByRangeRequest)">Kinetica.aggregateStatisticsByRange</see>.
+    /// </summary>
+    /// <remarks><para>Divides the given set into bins and calculates
+    /// statistics of the values of a value-column in each bin.  The bins are
+    /// based on the values of a given binning-column.  The statistics that may
+    /// be requested are mean, stdv (standard deviation), variance, skew,
+    /// kurtosis, sum, min, max, first, last and weighted average. In addition
+    /// to the requested statistics the count of total samples in each bin is
+    /// returned. This counts vector is just the histogram of the column used
+    /// to divide the set members into bins. The weighted average statistic
+    /// requires a weight column to be specified in <see
+    /// cref="Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>. The
+    /// weighted average is then defined as the sum of the products of the
+    /// value column times the weight column divided by the sum of the weight
+    /// column.</para>
+    /// <para>There are two methods for binning the set members. In the first,
+    /// which can be used for numeric valued binning-columns, a min, max and
+    /// interval are specified. The number of bins, nbins, is the integer upper
+    /// bound of (max-min)/interval. Values that fall in the range
+    /// [min+n*interval,min+(n+1)*interval) are placed in the nth bin where n
+    /// ranges from 0..nbin-2. The final bin is [min+(nbin-1)*interval,max]. In
+    /// the second method, <see cref="Options.BIN_VALUES">BIN_VALUES</see>
+    /// specifies a list of binning column values. Binning-columns whose value
+    /// matches the nth member of the <see
+    /// cref="Options.BIN_VALUES">BIN_VALUES</see> list are placed in the nth
+    /// bin. When a list is provided, the binning-column must be of type string
+    /// or int.</para>
+    /// <para>NOTE:  The Kinetica instance being accessed must be running a
+    /// CUDA (GPU-based) build to service this request.</para></remarks>
     public class AggregateStatisticsByRangeRequest : KineticaData
     {
-
-        /// <summary>Map of optional parameters:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
-        ///         <description>A list of comma separated value-column names
-        /// over which statistics can be accumulated along with the primary
-        /// value_column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
-        ///         <description>A list of comma separated binning-column
-        /// values. Values that match the nth bin_values value are placed in
-        /// the nth bin.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
-        ///         <description>Name of the column used as weighting column
-        /// for the weighted_average statistic.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
-        ///         <description>Name of the column used for candlestick
-        /// charting techniques.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Map of optional parameters:</para></remarks>
         public struct Options
         {
-
             /// <summary>A list of comma separated value-column names over
             /// which statistics can be accumulated along with the primary
             /// value_column.</summary>
             public const string ADDITIONAL_COLUMN_NAMES = "additional_column_names";
 
             /// <summary>A list of comma separated binning-column values.
-            /// Values that match the nth bin_values value are placed in the
-            /// nth bin.</summary>
+            /// </summary>
+            /// <remarks><para>Values that match the nth bin_values value are
+            /// placed in the nth bin.</para></remarks>
             public const string BIN_VALUES = "bin_values";
 
             /// <summary>Name of the column used as weighting column for the
@@ -109,74 +65,77 @@ namespace kinetica
             public const string ORDER_COLUMN_NAME = "order_column_name";
         } // end struct Options
 
-
         /// <summary>Name of the table on which the ranged-statistics operation
         /// will be performed, in [schema_name.]table_name format, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public string table_name { get; set; }
 
         /// <summary>For a non-empty expression statistics are calculated for
-        /// those records for which the expression is true.  The default value
-        /// is ''.</summary>
+        /// those records for which the expression is true.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
         public string select_expression { get; set; } = "";
 
         /// <summary>Name of the binning-column used to divide the set samples
-        /// into bins.  </summary>
+        /// into bins.</summary>
         public string column_name { get; set; }
 
         /// <summary>Name of the value-column for which statistics are to be
-        /// computed.  </summary>
+        /// computed.</summary>
         public string value_column_name { get; set; }
 
         /// <summary>A string of comma separated list of the statistics to
-        /// calculate, e.g. 'sum,mean'. Available statistics: mean, stdv
-        /// (standard deviation), variance, skew, kurtosis, sum.  </summary>
+        /// calculate, e.g. 'sum,mean'.</summary>
+        /// <remarks><para>Available statistics: mean, stdv (standard
+        /// deviation), variance, skew, kurtosis, sum.</para></remarks>
         public string stats { get; set; }
 
-        /// <summary>The lower bound of the binning-column.  </summary>
+        /// <summary>The lower bound of the binning-column.</summary>
         public double start { get; set; }
 
-        /// <summary>The upper bound of the binning-column.  </summary>
+        /// <summary>The upper bound of the binning-column.</summary>
         public double end { get; set; }
 
-        /// <summary>The interval of a bin. Set members fall into bin i if the
-        /// binning-column falls in the range [start+interval*i,
-        /// start+interval*(i+1)).  </summary>
+        /// <summary>The interval of a bin.</summary>
+        /// <remarks><para>Set members fall into bin i if the binning-column
+        /// falls in the range [start+interval*i, start+interval*(i+1)).</para>
+        /// </remarks>
         public double interval { get; set; }
 
-        /// <summary>Map of optional parameters:
-        /// <list type="bullet">
+        /// <summary>Map of optional parameters:</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
+        ///         cref="Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:
+        ///         </term>
         ///         <description>A list of comma separated value-column names
-        /// over which statistics can be accumulated along with the primary
-        /// value_column.</description>
+        ///         over which statistics can be accumulated along with the
+        ///         primary value_column.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
+        ///         <term><see cref="Options.BIN_VALUES">BIN_VALUES</see>:
+        ///         </term>
         ///         <description>A list of comma separated binning-column
-        /// values. Values that match the nth bin_values value are placed in
-        /// the nth bin.</description>
+        ///         values. Values that match the nth bin_values value are
+        ///         placed in the nth bin.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
+        ///         cref="Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:
+        ///         </term>
         ///         <description>Name of the column used as weighting column
-        /// for the weighted_average statistic.</description>
+        ///         for the weighted_average statistic.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
+        ///         cref="Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:
+        ///         </term>
         ///         <description>Name of the column used for candlestick
-        /// charting techniques.</description>
+        ///         charting techniques.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AggregateStatisticsByRangeRequest object
         /// with default parameters.</summary>
@@ -184,60 +143,61 @@ namespace kinetica
 
         /// <summary>Constructs an AggregateStatisticsByRangeRequest object
         /// with the specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table on which the
         /// ranged-statistics operation will be performed, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="select_expression">For a non-empty expression
         /// statistics are calculated for those records for which the
-        /// expression is true.  The default value is ''.</param>
+        /// expression is true. The default value is ''.</param>
         /// <param name="column_name">Name of the binning-column used to divide
-        /// the set samples into bins.  </param>
+        /// the set samples into bins.</param>
         /// <param name="value_column_name">Name of the value-column for which
-        /// statistics are to be computed.  </param>
+        /// statistics are to be computed.</param>
         /// <param name="stats">A string of comma separated list of the
         /// statistics to calculate, e.g. 'sum,mean'. Available statistics:
         /// mean, stdv (standard deviation), variance, skew, kurtosis, sum.
         /// </param>
-        /// <param name="start">The lower bound of the binning-column.
-        /// </param>
-        /// <param name="end">The upper bound of the binning-column.  </param>
+        /// <param name="start">The lower bound of the binning-column.</param>
+        /// <param name="end">The upper bound of the binning-column.</param>
         /// <param name="interval">The interval of a bin. Set members fall into
         /// bin i if the binning-column falls in the range [start+interval*i,
-        /// start+interval*(i+1)).  </param>
+        /// start+interval*(i+1)).</param>
         /// <param name="options">Map of optional parameters:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
+        ///         cref="Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:
+        ///         </term>
         ///         <description>A list of comma separated value-column names
-        /// over which statistics can be accumulated along with the primary
-        /// value_column.</description>
+        ///         over which statistics can be accumulated along with the
+        ///         primary value_column.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
+        ///         <term><see cref="Options.BIN_VALUES">BIN_VALUES</see>:
+        ///         </term>
         ///         <description>A list of comma separated binning-column
-        /// values. Values that match the nth bin_values value are placed in
-        /// the nth bin.</description>
+        ///         values. Values that match the nth bin_values value are
+        ///         placed in the nth bin.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
+        ///         cref="Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:
+        ///         </term>
         ///         <description>Name of the column used as weighting column
-        /// for the weighted_average statistic.</description>
+        ///         for the weighted_average statistic.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
+        ///         cref="Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:
+        ///         </term>
         ///         <description>Name of the column used for candlestick
-        /// charting techniques.</description>
+        ///         charting techniques.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AggregateStatisticsByRangeRequest( string table_name,
                                                   string select_expression,
                                                   string column_name,
@@ -258,29 +218,21 @@ namespace kinetica
             this.interval = interval;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AggregateStatisticsByRangeRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateStatisticsByRange(string,string,string,string,string,double,double,double,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.aggregateStatisticsByRange(AggregateStatisticsByRangeRequest)">Kinetica.aggregateStatisticsByRange</see>.
+    /// </summary>
     public class AggregateStatisticsByRangeResponse : KineticaData
     {
-
         /// <summary>A map with a key for each statistic in the stats input
         /// parameter having a value that is a vector of the corresponding
-        /// value-column bin statistics. In a addition the key count has a
-        /// value that is a histogram of the binning-column.  </summary>
+        /// value-column bin statistics.</summary>
+        /// <remarks><para>In a addition the key count has a value that is a
+        /// histogram of the binning-column.</para></remarks>
         public IDictionary<string, IList<double>> stats { get; set; } = new Dictionary<string, IList<double>>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AggregateStatisticsByRangeResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

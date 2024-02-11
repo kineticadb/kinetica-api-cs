@@ -6,185 +6,58 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createMaterializedView(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Initiates the process of creating a materialized view, reserving the
-    /// view's name to prevent other views or tables from being created with
-    /// that name.
-    /// <br />
-    /// For materialized view details and examples, see
-    /// <a href="../../../concepts/materialized_views/"
-    /// target="_top">Materialized Views</a>.
-    /// <br />
-    /// The response contains <member name="view_id" />, which is used to tag
-    /// each subsequent
-    /// operation (projection, union, aggregation, filter, or join) that will
-    /// compose
-    /// the view.</summary>
+    /// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>.
+    /// </summary>
+    /// <remarks><para>Initiates the process of creating a materialized view,
+    /// reserving the view's name to prevent other views or tables from being
+    /// created with that name.</para>
+    /// <para>For materialized view details and examples, see <a
+    /// href="../../../concepts/materialized_views/" target="_top">Materialized
+    /// Views</a>.</para>
+    /// <para>The response contains <see
+    /// cref="CreateMaterializedViewResponse.view_id">view_id</see>, which is
+    /// used to tag each subsequent operation (projection, union, aggregation,
+    /// filter, or join) that will compose the view.</para></remarks>
     public class CreateMaterializedViewRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the materialized view as part of <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" /> and use
-        /// /create/schema to create the schema if non-existent]  Name of a
-        /// schema which is to contain the newly created view. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the materialized view
-        /// specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" /> will be
-        /// persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the materialized view will be an in-memory
-        /// table and will expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
-        ///         <description>Sets the future time-offset(in seconds) at
-        /// which periodic refresh stops</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the time at which a periodic refresh is stopped.  Value
-        /// is a datetime string with format 'YYYY-MM-DD
-        /// HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
-        ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>Refresh only occurs when manually requested by
-        /// calling /alter/table with an 'action' of 'refresh'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Refresh any time the view is
-        /// queried.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
-        ///         <description>If possible, incrementally refresh (refresh
-        /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh is done if an
-        /// incremental refresh is not possible. </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
-        ///         <description>Refresh table periodically at rate specified
-        /// by <i>refresh_period</i></description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the period in seconds at which refresh
-        /// occurs</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the first time at which a refresh is to be done.  Value
-        /// is a datetime string with format 'YYYY-MM-DD
-        /// HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the materialized view as part of <see cref="table_name" /> and
             /// use <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema
-            /// which is to contain the newly created view. If the schema
-            /// provided is non-existent, it will be automatically
-            /// created.</summary>
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema which
+            /// is to contain the newly created view.</summary>
+            /// <remarks><para>If the schema provided is non-existent, it will
+            /// be automatically created.</para></remarks>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>User name to use to run the refresh job</summary>
             public const string EXECUTE_AS = "execute_as";
 
-            /// <summary>If <i>true</i>, then the materialized view specified
-            /// in <see cref="table_name" /> will be persisted and will not
-            /// expire unless a <i>ttl</i> is specified.   If <i>false</i>,
-            /// then the materialized view will be an in-memory table and will
-            /// expire unless a <i>ttl</i> is specified otherwise.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
+            /// materialized view specified in <see cref="table_name" /> will
+            /// be persisted and will not expire unless a <see
+            /// cref="Options.TTL">TTL</see> is specified.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string PERSIST = "persist";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
@@ -192,53 +65,57 @@ namespace kinetica
             /// periodic refresh stops</summary>
             public const string REFRESH_SPAN = "refresh_span";
 
-            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
-            /// specifies the time at which a periodic refresh is stopped.
-            /// Value is a datetime string with format 'YYYY-MM-DD
-            /// HH:MM:SS'.</summary>
+            /// <summary>When <see
+            /// cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+            /// cref="Options.PERIODIC">PERIODIC</see>, specifies the time at
+            /// which a periodic refresh is stopped.</summary>
+            /// <remarks><para> Value is a datetime string with format
+            /// 'YYYY-MM-DD HH:MM:SS'.</para></remarks>
             public const string REFRESH_STOP_TIME = "refresh_stop_time";
 
             /// <summary>Method by which the join can be refreshed when the
-            /// data in underlying member tables have changed.
-            /// Supported values:
+            /// data in underlying member tables have changed.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
+            ///         <term><see cref="Options.MANUAL">MANUAL</see>:</term>
             ///         <description>Refresh only occurs when manually
-            /// requested by calling <see
-            /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
-            /// /> with an 'action' of 'refresh'</description>
+            ///         requested by calling <see
+            ///         cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
+            ///         with an 'action' of 'refresh'</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-            ///         <description>Refresh any time the view is
-            /// queried.</description>
+            ///         <term><see cref="Options.ON_QUERY">ON_QUERY</see>:
+            ///         </term>
+            ///         <description>Refresh any time the view is queried.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+            ///         <term><see cref="Options.ON_CHANGE">ON_CHANGE</see>:
+            ///         </term>
             ///         <description>If possible, incrementally refresh
-            /// (refresh just those records added) whenever an insert, update,
-            /// delete or refresh of input table is done.  A full refresh is
-            /// done if an incremental refresh is not possible. </description>
+            ///         (refresh just those records added) whenever an insert,
+            ///         update, delete or refresh of input table is done.  A
+            ///         full refresh is done if an incremental refresh is not
+            ///         possible.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
+            ///         <term><see cref="Options.PERIODIC">PERIODIC</see>:
+            ///         </term>
             ///         <description>Refresh table periodically at rate
-            /// specified by <i>refresh_period</i></description>
+            ///         specified by <see
+            ///         cref="Options.REFRESH_PERIOD">REFRESH_PERIOD</see>
+            ///         </description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.MANUAL">MANUAL</see>.</para></remarks>
             public const string REFRESH_METHOD = "refresh_method";
 
             /// <summary>Refresh only occurs when manually requested by calling
             /// <see
-            /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
-            /// /> with an 'action' of 'refresh'</summary>
+            /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
+            /// with an 'action' of 'refresh'</summary>
             public const string MANUAL = "manual";
 
             /// <summary>Refresh any time the view is queried.</summary>
@@ -246,23 +123,27 @@ namespace kinetica
 
             /// <summary>If possible, incrementally refresh (refresh just those
             /// records added) whenever an insert, update, delete or refresh of
-            /// input table is done.  A full refresh is done if an incremental
-            /// refresh is not possible. </summary>
+            /// input table is done.</summary>
+            /// <remarks><para> A full refresh is done if an incremental
+            /// refresh is not possible.</para></remarks>
             public const string ON_CHANGE = "on_change";
 
-            /// <summary>Refresh table periodically at rate specified by
-            /// <i>refresh_period</i></summary>
+            /// <summary>Refresh table periodically at rate specified by <see
+            /// cref="Options.REFRESH_PERIOD">REFRESH_PERIOD</see></summary>
             public const string PERIODIC = "periodic";
 
-            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
-            /// specifies the period in seconds at which refresh
-            /// occurs</summary>
+            /// <summary>When <see
+            /// cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+            /// cref="Options.PERIODIC">PERIODIC</see>, specifies the period in
+            /// seconds at which refresh occurs</summary>
             public const string REFRESH_PERIOD = "refresh_period";
 
-            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
-            /// specifies the first time at which a refresh is to be done.
-            /// Value is a datetime string with format 'YYYY-MM-DD
-            /// HH:MM:SS'.</summary>
+            /// <summary>When <see
+            /// cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+            /// cref="Options.PERIODIC">PERIODIC</see>, specifies the first
+            /// time at which a refresh is to be done.</summary>
+            /// <remarks><para> Value is a datetime string with format
+            /// 'YYYY-MM-DD HH:MM:SS'.</para></remarks>
             public const string REFRESH_START_TIME = "refresh_start_time";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
@@ -271,135 +152,143 @@ namespace kinetica
             public const string TTL = "ttl";
         } // end struct Options
 
-
         /// <summary>Name of the table to be created that is the top-level
         /// table of the materialized view, in [schema_name.]table_name format,
         /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  </summary>
+        /// target="_top">table naming criteria</a>.</summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the materialized view as part of <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" /> and use
-        /// /create/schema to create the schema if non-existent]  Name of a
-        /// schema which is to contain the newly created view. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
+        ///         schema for the materialized view as part of <see
+        ///         cref="table_name" /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the newly created view. If the schema
+        ///         provided is non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
+        ///         <term><see cref="Options.EXECUTE_AS">EXECUTE_AS</see>:
+        ///         </term>
+        ///         <description>User name to use to run the refresh job
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the materialized view
-        /// specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" /> will be
-        /// persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the materialized view will be an in-memory
-        /// table and will expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the materialized view specified in <see cref="table_name"
+        ///         /> will be persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the materialized
+        ///         view will be an in-memory table and will expire unless a
+        ///         <see cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
+        ///         <term><see cref="Options.REFRESH_SPAN">REFRESH_SPAN</see>:
+        ///         </term>
         ///         <description>Sets the future time-offset(in seconds) at
-        /// which periodic refresh stops</description>
+        ///         which periodic refresh stops</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the time at which a periodic refresh is stopped.  Value
-        /// is a datetime string with format 'YYYY-MM-DD
-        /// HH:MM:SS'.</description>
+        ///         cref="Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:
+        ///         </term>
+        ///         <description>When <see
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+        ///         cref="Options.PERIODIC">PERIODIC</see>, specifies the time
+        ///         at which a periodic refresh is stopped.  Value is a
+        ///         datetime string with format 'YYYY-MM-DD HH:MM:SS'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
         ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>Refresh only occurs when manually requested by
-        /// calling /alter/table with an 'action' of 'refresh'</description>
+        ///         the data in underlying member tables have changed.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.MANUAL">MANUAL</see>:
+        ///                 </term>
+        ///                 <description>Refresh only occurs when manually
+        ///                 requested by calling <see
+        ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
+        ///                 with an 'action' of 'refresh'</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.ON_QUERY">ON_QUERY</see>:
+        ///                 </term>
+        ///                 <description>Refresh any time the view is queried.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///                 <description>If possible, incrementally refresh
+        ///                 (refresh just those records added) whenever an
+        ///                 insert, update, delete or refresh of input table is
+        ///                 done.  A full refresh is done if an incremental
+        ///                 refresh is not possible.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.PERIODIC">PERIODIC</see>:
+        ///                 </term>
+        ///                 <description>Refresh table periodically at rate
+        ///                 specified by <see
+        ///                 cref="Options.REFRESH_PERIOD">REFRESH_PERIOD</see>
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.MANUAL">MANUAL</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Refresh any time the view is
-        /// queried.</description>
+        ///         cref="Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When <see
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+        ///         cref="Options.PERIODIC">PERIODIC</see>, specifies the
+        ///         period in seconds at which refresh occurs</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
-        ///         <description>If possible, incrementally refresh (refresh
-        /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh is done if an
-        /// incremental refresh is not possible. </description>
+        ///         cref="Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:
+        ///         </term>
+        ///         <description>When <see
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+        ///         cref="Options.PERIODIC">PERIODIC</see>, specifies the first
+        ///         time at which a refresh is to be done.  Value is a datetime
+        ///         string with format 'YYYY-MM-DD HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
-        ///         <description>Refresh table periodically at rate specified
-        /// by <i>refresh_period</i></description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the period in seconds at which refresh
-        /// occurs</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the first time at which a refresh is to be done.  Value
-        /// is a datetime string with format 'YYYY-MM-DD
-        /// HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        ///         target="_top">TTL</a> of the table specified in <see
+        ///         cref="table_name" />.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateMaterializedViewRequest object with
         /// default parameters.</summary>
@@ -407,192 +296,184 @@ namespace kinetica
 
         /// <summary>Constructs a CreateMaterializedViewRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table to be created that is
         /// the top-level table of the materialized view, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  </param>
+        /// target="_top">table naming criteria</a>.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the materialized view as part of <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" /> and use
-        /// /create/schema to create the schema if non-existent]  Name of a
-        /// schema which is to contain the newly created view. If the schema
-        /// provided is non-existent, it will be automatically
-        /// created.</description>
+        ///         schema for the materialized view as part of <paramref
+        ///         name="table_name" /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema
+        ///         which is to contain the newly created view. If the schema
+        ///         provided is non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
+        ///         <term><see cref="Options.EXECUTE_AS">EXECUTE_AS</see>:
+        ///         </term>
+        ///         <description>User name to use to run the refresh job
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the materialized view
-        /// specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" /> will be
-        /// persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the materialized view will be an in-memory
-        /// table and will expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the materialized view specified in <paramref
+        ///         name="table_name" /> will be persisted and will not expire
+        ///         unless a <see cref="Options.TTL">TTL</see> is specified.
+        ///         If <see cref="Options.FALSE">FALSE</see>, then the
+        ///         materialized view will be an in-memory table and will
+        ///         expire unless a <see cref="Options.TTL">TTL</see> is
+        ///         specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
+        ///         <term><see cref="Options.REFRESH_SPAN">REFRESH_SPAN</see>:
+        ///         </term>
         ///         <description>Sets the future time-offset(in seconds) at
-        /// which periodic refresh stops</description>
+        ///         which periodic refresh stops</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the time at which a periodic refresh is stopped.  Value
-        /// is a datetime string with format 'YYYY-MM-DD
-        /// HH:MM:SS'.</description>
+        ///         cref="Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:
+        ///         </term>
+        ///         <description>When <see
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+        ///         cref="Options.PERIODIC">PERIODIC</see>, specifies the time
+        ///         at which a periodic refresh is stopped.  Value is a
+        ///         datetime string with format 'YYYY-MM-DD HH:MM:SS'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
         ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>Refresh only occurs when manually requested by
-        /// calling /alter/table with an 'action' of 'refresh'</description>
+        ///         the data in underlying member tables have changed.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.MANUAL">MANUAL</see>:
+        ///                 </term>
+        ///                 <description>Refresh only occurs when manually
+        ///                 requested by calling <see
+        ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
+        ///                 with an 'action' of 'refresh'</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.ON_QUERY">ON_QUERY</see>:
+        ///                 </term>
+        ///                 <description>Refresh any time the view is queried.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///                 <description>If possible, incrementally refresh
+        ///                 (refresh just those records added) whenever an
+        ///                 insert, update, delete or refresh of input table is
+        ///                 done.  A full refresh is done if an incremental
+        ///                 refresh is not possible.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.PERIODIC">PERIODIC</see>:
+        ///                 </term>
+        ///                 <description>Refresh table periodically at rate
+        ///                 specified by <see
+        ///                 cref="Options.REFRESH_PERIOD">REFRESH_PERIOD</see>
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.MANUAL">MANUAL</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Refresh any time the view is
-        /// queried.</description>
+        ///         cref="Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When <see
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+        ///         cref="Options.PERIODIC">PERIODIC</see>, specifies the
+        ///         period in seconds at which refresh occurs</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
-        ///         <description>If possible, incrementally refresh (refresh
-        /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh is done if an
-        /// incremental refresh is not possible. </description>
+        ///         cref="Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:
+        ///         </term>
+        ///         <description>When <see
+        ///         cref="Options.REFRESH_METHOD">REFRESH_METHOD</see> is <see
+        ///         cref="Options.PERIODIC">PERIODIC</see>, specifies the first
+        ///         time at which a refresh is to be done.  Value is a datetime
+        ///         string with format 'YYYY-MM-DD HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
-        ///         <description>Refresh table periodically at rate specified
-        /// by <i>refresh_period</i></description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the period in seconds at which refresh
-        /// occurs</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
-        /// specifies the first time at which a refresh is to be done.  Value
-        /// is a datetime string with format 'YYYY-MM-DD
-        /// HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        ///         target="_top">TTL</a> of the table specified in <paramref
+        ///         name="table_name" />.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateMaterializedViewRequest( string table_name,
                                               IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateMaterializedViewRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createMaterializedView(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>.
+    /// </summary>
     public class CreateMaterializedViewResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateMaterializedViewResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the result table
-        /// (i.e. including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the result table (i.e.
             /// including the schema)</summary>
             public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
         } // end struct Info
 
-
-        /// <summary>Value of <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="CreateMaterializedViewRequest.table_name">table_name</see>.
+        /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>Value of view_id.  </summary>
+        /// <summary>Value of view_id.</summary>
         public string view_id { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the result table
-        /// (i.e. including the schema)</description>
+        ///         (i.e. including the schema)</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateMaterializedViewResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

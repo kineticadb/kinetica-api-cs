@@ -6,113 +6,62 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Calculates which objects from a table has a particular value for a
-    /// particular column. The input parameters provide a way to specify either
-    /// a String
-    /// or a Double valued column and a desired value for the column on which
-    /// the filter
-    /// is performed. The operation is synchronous, meaning that a response
-    /// will not be
-    /// returned until all the objects are fully available. The response
-    /// payload
-    /// provides the count of the resulting set. A new result view which
-    /// satisfies the
-    /// input filter restriction specification is also created with a view name
-    /// passed
-    /// in as part of the input payload.  Although this functionality can also
-    /// be
-    /// accomplished with the standard filter function, it is more
-    /// efficient.</summary>
+    /// cref="Kinetica.filterByValue(FilterByValueRequest)">Kinetica.filterByValue</see>.
+    /// </summary>
+    /// <remarks><para>Calculates which objects from a table has a particular
+    /// value for a particular column. The input parameters provide a way to
+    /// specify either a String or a Double valued column and a desired value
+    /// for the column on which the filter is performed. The operation is
+    /// synchronous, meaning that a response will not be returned until all the
+    /// objects are fully available. The response payload provides the count of
+    /// the resulting set. A new result view which satisfies the input filter
+    /// restriction specification is also created with a view name passed in as
+    /// part of the input payload.  Although this functionality can also be
+    /// accomplished with the standard filter function, it is more efficient.
+    /// </para></remarks>
     public class FilterByValueRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterByValueRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterByValueRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema is non-existent, it will be
-        /// automatically created.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of <see
-            /// cref="view_name" />. This is always allowed even if the caller
-            /// does not have permission to create tables. The generated name
-            /// is returned in <i>qualified_view_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see cref="view_name" />.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="FilterByValueRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="FilterByValueRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="FilterByValueRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the view as part of <see cref="view_name" /> and use <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema for
-            /// the newly created view. If the schema is non-existent, it will
-            /// be automatically created.</summary>
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema for the
+            /// newly created view.</summary>
+            /// <remarks><para>If the schema is non-existent, it will be
+            /// automatically created.</para></remarks>
             public const string COLLECTION_NAME = "collection_name";
         } // end struct Options
-
 
         /// <summary>Name of an existing table on which to perform the
         /// calculation, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
@@ -120,65 +69,67 @@ namespace kinetica
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Must not be an already
-        /// existing table or view.  The default value is ''.</summary>
+        /// target="_top">table naming criteria</a>.</summary>
+        /// <remarks><para> Must not be an already existing table or view. The
+        /// default value is ''.</para></remarks>
         public string view_name { get; set; } = "";
 
         /// <summary>Indicates whether the value being searched for is string
-        /// or numeric.  </summary>
+        /// or numeric.</summary>
         public bool is_string { get; set; }
 
-        /// <summary>The value to search for.  The default value is
-        /// 0.</summary>
+        /// <summary>The value to search for.</summary>
+        /// <remarks><para>The default value is 0.</para></remarks>
         public double _value { get; set; } = 0;
 
-        /// <summary>The string value to search for.  The default value is
-        /// ''.</summary>
+        /// <summary>The string value to search for.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
         public string value_str { get; set; } = "";
 
         /// <summary>Name of a column on which the filter by value would be
-        /// applied.  </summary>
+        /// applied.</summary>
         public string column_name { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterByValueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterByValueRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see cref="view_name"
+        ///         />. This is always allowed even if the caller does not have
+        ///         permission to create tables. The generated name is returned
+        ///         in <see
+        ///         cref="FilterByValueResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterByValueRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema is non-existent, it will be
-        /// automatically created.</description>
+        ///         schema for the view as part of <see cref="view_name" /> and
+        ///         use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created view. If the schema is non-existent, it
+        ///         will be automatically created.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a FilterByValueRequest object with default
         /// parameters.</summary>
@@ -186,11 +137,11 @@ namespace kinetica
 
         /// <summary>Constructs a FilterByValueRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of an existing table on which to
         /// perform the calculation, in [schema_name.]table_name format, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
@@ -198,53 +149,54 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
-        /// existing table or view.  The default value is ''.</param>
+        /// existing table or view. The default value is ''.</param>
         /// <param name="is_string">Indicates whether the value being searched
-        /// for is string or numeric.  </param>
-        /// <param name="_value">The value to search for.  The default value is
+        /// for is string or numeric.</param>
+        /// <param name="_value">The value to search for. The default value is
         /// 0.</param>
-        /// <param name="value_str">The string value to search for.  The
-        /// default value is ''.</param>
+        /// <param name="value_str">The string value to search for. The default
+        /// value is ''.</param>
         /// <param name="column_name">Name of a column on which the filter by
-        /// value would be applied.  </param>
+        /// value would be applied.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterByValueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterByValueRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <paramref
+        ///         name="view_name" />. This is always allowed even if the
+        ///         caller does not have permission to create tables. The
+        ///         generated name is returned in <see
+        ///         cref="FilterByValueResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterByValueRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema is non-existent, it will be
-        /// automatically created.</description>
+        ///         schema for the view as part of <paramref name="view_name"
+        ///         /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created view. If the schema is non-existent, it
+        ///         will be automatically created.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public FilterByValueRequest( string table_name,
                                      string view_name,
                                      bool is_string,
@@ -261,57 +213,37 @@ namespace kinetica
             this.column_name = column_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class FilterByValueRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.filterByValue(FilterByValueRequest)">Kinetica.filterByValue</see>.
+    /// </summary>
     public class FilterByValueResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByValueResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
-        ///         <description>The fully qualified name of the view (i.e.
-        /// including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the view (i.e. including
             /// the schema)</summary>
             public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
         } // end struct Info
 
-
-        /// <summary>The number of records passing the value filter.
-        /// </summary>
+        /// <summary>The number of records passing the value filter.</summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterByValueResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the view (i.e.
-        /// including the schema)</description>
+        ///         including the schema)</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class FilterByValueResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

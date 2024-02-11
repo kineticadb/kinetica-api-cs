@@ -6,58 +6,22 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterEnvironment(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Alters an existing environment which can be referenced by a <a
-    /// href="../../../concepts/udf/" target="_top">user-defined function</a>
-    /// (UDF).</summary>
+    /// cref="Kinetica.alterEnvironment(AlterEnvironmentRequest)">Kinetica.alterEnvironment</see>.
+    /// </summary>
+    /// <remarks><para>Alters an existing environment which can be referenced
+    /// by a <a href="../../../concepts/udf/" target="_top">user-defined
+    /// function</a> (UDF).</para></remarks>
     public class AlterEnvironmentRequest : KineticaData
     {
-
-        /// <summary>Modification operation to be applied
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:</term>
-        ///         <description>Install packages from a requirements
-        /// file</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_PACKAGE">UNINSTALL_PACKAGE</see>:</term>
-        ///         <description>Uninstall a python package.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:</term>
-        ///         <description>Uninstall packages from a requirements
-        /// file</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
-        ///         <description>Uninstalls all packages in the environment and
-        /// resets it to the original state at time of creation</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="action"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="action" />.</summary>
+        /// <remarks><para>Modification operation to be applied</para>
+        /// </remarks>
         public struct Action
         {
-
             /// <summary>Install a python package</summary>
             public const string INSTALL_PACKAGE = "install_package";
 
@@ -73,100 +37,100 @@ namespace kinetica
             /// <summary>Uninstalls all packages in the environment and resets
             /// it to the original state at time of creation</summary>
             public const string RESET = "reset";
+
+            /// <summary>Recreates the environment and re-installs all
+            /// packages, upgrades the packages if necessary based on
+            /// dependencies</summary>
+            public const string REBUILD = "rebuild";
         } // end struct Action
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
-        ///         <description>Name of an existing external data source from
-        /// which packages specified in <paramref
-        /// cref="AlterEnvironmentRequest._value" /> can be
-        /// loaded</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Name of an existing external data source from which
-            /// packages specified in <see cref="_value" /> can be
-            /// loaded</summary>
+            /// packages specified in <see cref="_value" /> can be loaded
+            /// </summary>
             public const string DATASOURCE_NAME = "datasource_name";
         } // end struct Options
 
-
-        /// <summary>Name of the environment to be altered.  </summary>
+        /// <summary>Name of the environment to be altered.</summary>
         public string environment_name { get; set; }
 
-        /// <summary>Modification operation to be applied
-        /// Supported values:
+        /// <summary>Modification operation to be applied.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
+        ///         cref="Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
         ///         <description>Install a python package</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:</term>
-        ///         <description>Install packages from a requirements
-        /// file</description>
+        ///         cref="Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:
+        ///         </term>
+        ///         <description>Install packages from a requirements file
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_PACKAGE">UNINSTALL_PACKAGE</see>:</term>
+        ///         cref="Action.UNINSTALL_PACKAGE">UNINSTALL_PACKAGE</see>:
+        ///         </term>
         ///         <description>Uninstall a python package.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:</term>
-        ///         <description>Uninstall packages from a requirements
-        /// file</description>
+        ///         cref="Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:
+        ///         </term>
+        ///         <description>Uninstall packages from a requirements file
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
+        ///         <term><see cref="Action.RESET">RESET</see>:</term>
         ///         <description>Uninstalls all packages in the environment and
-        /// resets it to the original state at time of creation</description>
+        ///         resets it to the original state at time of creation
+        ///         </description>
         ///     </item>
-        /// </list>  </summary>
+        ///     <item>
+        ///         <term><see cref="Action.REBUILD">REBUILD</see>:</term>
+        ///         <description>Recreates the environment and re-installs all
+        ///         packages, upgrades the packages if necessary based on
+        ///         dependencies</description>
+        ///     </item>
+        /// </list></remarks>
         public string action { get; set; }
 
-        /// <summary>The value of the modification, depending on <paramref
-        /// cref="AlterEnvironmentRequest.action" />.  For example, if
-        /// <paramref cref="AlterEnvironmentRequest.action" /> is
-        /// <i>install_package</i>, this would be the python package name.
-        /// <br />
-        /// If <paramref cref="AlterEnvironmentRequest.action" /> is
-        /// <i>install_requirements</i>, this would be the path of a
-        /// requirements file from which to install packages.
-        /// <br />
-        /// If an external data source is specified in <i>datasource_name</i>,
-        /// this can be the path to a wheel file or source archive.
-        /// Alternatively, if installing from a file (wheel or source archive),
-        /// the value may be a reference to a file in <a
-        /// href="../../../tools/kifs/" target="_top">KiFS</a>.  </summary>
+        /// <summary>The value of the modification, depending on <see
+        /// cref="action" />.</summary>
+        /// <remarks><para> For example, if <see cref="action" /> is <see
+        /// cref="Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>, this would be
+        /// the python package name.</para>
+        /// <para>If <see cref="action" /> is <see
+        /// cref="Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>, this
+        /// would be the path of a requirements file from which to install
+        /// packages.</para>
+        /// <para>If an external data source is specified in <see
+        /// cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>, this can be
+        /// the path to a wheel file or source archive. Alternatively, if
+        /// installing from a file (wheel or source archive), the value may be
+        /// a reference to a file in <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>.</para></remarks>
         public string _value { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+        ///         cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
+        ///         </term>
         ///         <description>Name of an existing external data source from
-        /// which packages specified in <paramref
-        /// cref="AlterEnvironmentRequest._value" /> can be
-        /// loaded</description>
+        ///         which packages specified in <see cref="_value" /> can be
+        ///         loaded</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterEnvironmentRequest object with default
         /// parameters.</summary>
@@ -174,66 +138,77 @@ namespace kinetica
 
         /// <summary>Constructs an AlterEnvironmentRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="environment_name">Name of the environment to be
-        /// altered.  </param>
-        /// <param name="action">Modification operation to be applied
+        /// altered.</param>
+        /// <param name="action">Modification operation to be applied.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
+        ///         cref="Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
         ///         <description>Install a python package</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:</term>
-        ///         <description>Install packages from a requirements
-        /// file</description>
+        ///         cref="Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:
+        ///         </term>
+        ///         <description>Install packages from a requirements file
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_PACKAGE">UNINSTALL_PACKAGE</see>:</term>
+        ///         cref="Action.UNINSTALL_PACKAGE">UNINSTALL_PACKAGE</see>:
+        ///         </term>
         ///         <description>Uninstall a python package.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:</term>
-        ///         <description>Uninstall packages from a requirements
-        /// file</description>
+        ///         cref="Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:
+        ///         </term>
+        ///         <description>Uninstall packages from a requirements file
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
+        ///         <term><see cref="Action.RESET">RESET</see>:</term>
         ///         <description>Uninstalls all packages in the environment and
-        /// resets it to the original state at time of creation</description>
+        ///         resets it to the original state at time of creation
+        ///         </description>
         ///     </item>
-        /// </list>  </param>
+        ///     <item>
+        ///         <term><see cref="Action.REBUILD">REBUILD</see>:</term>
+        ///         <description>Recreates the environment and re-installs all
+        ///         packages, upgrades the packages if necessary based on
+        ///         dependencies</description>
+        ///     </item>
+        /// </list></param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref cref="AlterEnvironmentRequest.action" />.  For example,
-        /// if <paramref cref="AlterEnvironmentRequest.action" /> is
-        /// <i>install_package</i>, this would be the python package name.
-        /// If <paramref cref="AlterEnvironmentRequest.action" /> is
-        /// <i>install_requirements</i>, this would be the path of a
-        /// requirements file from which to install packages.
-        /// If an external data source is specified in <i>datasource_name</i>,
-        /// this can be the path to a wheel file or source archive.
-        /// Alternatively, if installing from a file (wheel or source archive),
-        /// the value may be a reference to a file in <a
-        /// href="../../../tools/kifs/" target="_top">KiFS</a>.  </param>
+        /// <paramref name="action" />.  For example, if <paramref
+        /// name="action" /> is <see
+        /// cref="Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>, this would be
+        /// the python package name.
+        /// If <paramref name="action" /> is <see
+        /// cref="Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>, this
+        /// would be the path of a requirements file from which to install
+        /// packages.
+        /// If an external data source is specified in <see
+        /// cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>, this can be
+        /// the path to a wheel file or source archive. Alternatively, if
+        /// installing from a file (wheel or source archive), the value may be
+        /// a reference to a file in <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterEnvironmentRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+        ///         cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
+        ///         </term>
         ///         <description>Name of an existing external data source from
-        /// which packages specified in <paramref
-        /// cref="AlterEnvironmentRequest._value" /> can be
-        /// loaded</description>
+        ///         which packages specified in <paramref name="_value" /> can
+        ///         be loaded</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AlterEnvironmentRequest( string environment_name,
                                         string action,
                                         string _value,
@@ -244,27 +219,19 @@ namespace kinetica
             this._value = _value ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterEnvironmentRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterEnvironment(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterEnvironment(AlterEnvironmentRequest)">Kinetica.alterEnvironment</see>.
+    /// </summary>
     public class AlterEnvironmentResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="AlterEnvironmentRequest.environment_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="AlterEnvironmentRequest.environment_name">environment_name</see>.
+        /// </summary>
         public string environment_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterEnvironmentResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

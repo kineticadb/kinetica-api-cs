@@ -6,47 +6,26 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
     /// @cond NO_DOCS
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.listGraph(string,IDictionary{string, string})" />.
-    /// <br />
-    /// </summary>
     public class ListGraphRequest : KineticaData
     {
         public string graph_name { get; set; } = "";
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a ListGraphRequest object with default
-        /// parameters.</summary>
         public ListGraphRequest() { }
 
-        /// <summary>Constructs a ListGraphRequest object with the specified
-        /// parameters.</summary>
-        /// 
-        /// <param name="graph_name"></param>
-        /// <param name="options"></param>
-        /// 
         public ListGraphRequest( string graph_name = null,
                                  IDictionary<string, string> options = null)
         {
             this.graph_name = graph_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ListGraphRequest
     /// @endcond
 
-
-
     /// @cond NO_DOCS
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.listGraph(string,IDictionary{string, string})"
-    /// />.</summary>
     public class ListGraphResponse : KineticaData
     {
         public bool result { get; set; }
@@ -54,12 +33,6 @@ namespace kinetica
         public IList<long> num_nodes { get; set; } = new List<long>();
         public IList<long> num_edges { get; set; } = new List<long>();
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ListGraphResponse
     /// @endcond
-
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

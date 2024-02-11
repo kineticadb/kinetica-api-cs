@@ -6,43 +6,23 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Create a job which will run asynchronously. The response returns a job
-    /// ID, which can be used to query the status and result of the job. The
-    /// status and the result of the job upon completion can be requested by
-    /// <see cref="Kinetica.getJob(long,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+    /// </summary>
+    /// <remarks><para>Create a job which will run asynchronously. The response
+    /// returns a job ID, which can be used to query the status and result of
+    /// the job. The status and the result of the job upon completion can be
+    /// requested by <see
+    /// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</para>
+    /// </remarks>
     public class CreateJobRequest : KineticaData
     {
-
-        /// <summary>The encoding of the request payload for the job.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.JSON">JSON</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see>.
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="request_encoding" />.</summary>
+        /// <remarks><para>The encoding of the request payload for the job.
+        /// </para></remarks>
         public struct RequestEncoding
         {
             public const string BINARY = "binary";
@@ -50,135 +30,102 @@ namespace kinetica
             public const string SNAPPY = "snappy";
         } // end struct RequestEncoding
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>Tag to use for submitted job. The same tag
-        /// could be used on backup cluster to retrieve response for the job.
-        /// Tags can use letter, numbers, '_' and '-'</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>
-            /// Supported values:
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string REMOVE_JOB_ON_COMPLETE = "remove_job_on_complete";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Tag to use for submitted job. The same tag could be
-            /// used on backup cluster to retrieve response for the job. Tags
-            /// can use letter, numbers, '_' and '-'</summary>
+            /// <summary>Tag to use for submitted job.</summary>
+            /// <remarks><para>The same tag could be used on backup cluster to
+            /// retrieve response for the job. Tags can use letter, numbers,
+            /// '_' and '-'</para></remarks>
             public const string JOB_TAG = "job_tag";
         } // end struct Options
-
 
         /// <summary>Indicates which endpoint to execute, e.g. '/alter/table'.
         /// </summary>
         public string endpoint { get; set; }
 
-        /// <summary>The encoding of the request payload for the job.
-        /// Supported values:
+        /// <summary>The encoding of the request payload for the job.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="RequestEncoding.BINARY">BINARY</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.JSON">JSON</see></term>
+        ///         <term><see cref="RequestEncoding.JSON">JSON</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.SNAPPY">SNAPPY</see></term>
+        ///         <term><see cref="RequestEncoding.SNAPPY">SNAPPY</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see>.
-        /// </summary>
+        /// <para>The default value is <see
+        /// cref="RequestEncoding.BINARY">BINARY</see>.</para></remarks>
         public string request_encoding { get; set; } = RequestEncoding.BINARY;
 
         /// <summary>Binary-encoded payload for the job to be run
-        /// asynchronously.  The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <paramref
-        /// cref="CreateJobRequest.endpoint" />.  Please see the documentation
-        /// for the appropriate endpoint to see what values must (or can) be
-        /// specified.  If this parameter is used, then <paramref
-        /// cref="CreateJobRequest.request_encoding" /> must be <i>binary</i>
-        /// or <i>snappy</i>.  </summary>
+        /// asynchronously.</summary>
+        /// <remarks><para> The payload must contain the relevant input
+        /// parameters for the endpoint indicated in <see cref="endpoint" />.
+        /// Please see the documentation for the appropriate endpoint to see
+        /// what values must (or can) be specified.  If this parameter is used,
+        /// then <see cref="request_encoding" /> must be <see
+        /// cref="RequestEncoding.BINARY">BINARY</see> or <see
+        /// cref="RequestEncoding.SNAPPY">SNAPPY</see>.</para></remarks>
         public byte[] data { get; set; }
 
         /// <summary>JSON-encoded payload for the job to be run asynchronously.
-        /// The payload must contain the relevant input parameters for the
-        /// endpoint indicated in <paramref cref="CreateJobRequest.endpoint"
-        /// />.  Please see the documentation for the appropriate endpoint to
-        /// see what values must (or can) be specified.  If this parameter is
-        /// used, then <paramref cref="CreateJobRequest.request_encoding" />
-        /// must be <i>json</i>.  </summary>
+        /// </summary>
+        /// <remarks><para> The payload must contain the relevant input
+        /// parameters for the endpoint indicated in <see cref="endpoint" />.
+        /// Please see the documentation for the appropriate endpoint to see
+        /// what values must (or can) be specified.  If this parameter is used,
+        /// then <see cref="request_encoding" /> must be <see
+        /// cref="RequestEncoding.JSON">JSON</see>.</para></remarks>
         public string data_str { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateJobRequest.Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:
+        ///         </term>
+        ///         <description>Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
         ///         <description>Tag to use for submitted job. The same tag
-        /// could be used on backup cluster to retrieve response for the job.
-        /// Tags can use letter, numbers, '_' and '-'</description>
+        ///         could be used on backup cluster to retrieve response for
+        ///         the job. Tags can use letter, numbers, '_' and '-'
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateJobRequest object with default
         /// parameters.</summary>
@@ -186,73 +133,67 @@ namespace kinetica
 
         /// <summary>Constructs a CreateJobRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="endpoint">Indicates which endpoint to execute, e.g.
-        /// '/alter/table'.  </param>
+        /// '/alter/table'.</param>
         /// <param name="request_encoding">The encoding of the request payload
         /// for the job.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="RequestEncoding.BINARY">BINARY</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.JSON">JSON</see></term>
+        ///         <term><see cref="RequestEncoding.JSON">JSON</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.RequestEncoding.SNAPPY">SNAPPY</see></term>
+        ///         <term><see cref="RequestEncoding.SNAPPY">SNAPPY</see>
+        ///         </term>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see>.
-        /// </param>
+        /// cref="RequestEncoding.BINARY">BINARY</see>.</param>
         /// <param name="data">Binary-encoded payload for the job to be run
         /// asynchronously.  The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <paramref
-        /// cref="CreateJobRequest.endpoint" />.  Please see the documentation
-        /// for the appropriate endpoint to see what values must (or can) be
-        /// specified.  If this parameter is used, then <paramref
-        /// cref="CreateJobRequest.request_encoding" /> must be <i>binary</i>
-        /// or <i>snappy</i>.  </param>
+        /// parameters for the endpoint indicated in <paramref name="endpoint"
+        /// />.  Please see the documentation for the appropriate endpoint to
+        /// see what values must (or can) be specified.  If this parameter is
+        /// used, then <paramref name="request_encoding" /> must be <see
+        /// cref="RequestEncoding.BINARY">BINARY</see> or <see
+        /// cref="RequestEncoding.SNAPPY">SNAPPY</see>.</param>
         /// <param name="data_str">JSON-encoded payload for the job to be run
         /// asynchronously.  The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <paramref
-        /// cref="CreateJobRequest.endpoint" />.  Please see the documentation
-        /// for the appropriate endpoint to see what values must (or can) be
-        /// specified.  If this parameter is used, then <paramref
-        /// cref="CreateJobRequest.request_encoding" /> must be <i>json</i>.
-        /// </param>
+        /// parameters for the endpoint indicated in <paramref name="endpoint"
+        /// />.  Please see the documentation for the appropriate endpoint to
+        /// see what values must (or can) be specified.  If this parameter is
+        /// used, then <paramref name="request_encoding" /> must be <see
+        /// cref="RequestEncoding.JSON">JSON</see>.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateJobRequest.Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:
+        ///         </term>
+        ///         <description>Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
         ///         <description>Tag to use for submitted job. The same tag
-        /// could be used on backup cluster to retrieve response for the job.
-        /// Tags can use letter, numbers, '_' and '-'</description>
+        ///         could be used on backup cluster to retrieve response for
+        ///         the job. Tags can use letter, numbers, '_' and '-'
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateJobRequest( string endpoint,
                                  string request_encoding,
                                  byte[] data,
@@ -265,60 +206,37 @@ namespace kinetica
             this.data_str = data_str ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateJobRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+    /// </summary>
     public class CreateJobResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJobResponse.Info.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>The job tag specified by the user or if
-        /// unspecified by user, a unique identifier generated internally for
-        /// the job across clusters.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The job tag specified by the user or if unspecified by
             /// user, a unique identifier generated internally for the job
             /// across clusters.</summary>
             public const string JOB_TAG = "job_tag";
         } // end struct Info
 
-
-        /// <summary>An identifier for the job created by this call.
-        /// </summary>
+        /// <summary>An identifier for the job created by this call.</summary>
         public long job_id { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateJobResponse.Info.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <term><see cref="Info.JOB_TAG">JOB_TAG</see>:</term>
         ///         <description>The job tag specified by the user or if
-        /// unspecified by user, a unique identifier generated internally for
-        /// the job across clusters.</description>
+        ///         unspecified by user, a unique identifier generated
+        ///         internally for the job across clusters.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateJobResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

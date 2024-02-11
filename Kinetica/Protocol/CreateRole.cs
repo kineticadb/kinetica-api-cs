@@ -6,57 +6,41 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createRole(string,IDictionary{string, string})" />.
-    /// <br />
-    /// Creates a new role.</summary>
+    /// cref="Kinetica.createRole(CreateRoleRequest)">Kinetica.createRole</see>.
+    /// </summary>
+    /// <remarks><para>Creates a new role.</para></remarks>
     public class CreateRoleRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
-        ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Name of an existing resource group to associate with
             /// this user</summary>
             public const string RESOURCE_GROUP = "resource_group";
         } // end struct Options
 
-
-        /// <summary>Name of the role to be created. Must contain only
-        /// lowercase letters, digits, and underscores, and cannot begin with a
-        /// digit. Must not be the same name as an existing user or role.
-        /// </summary>
+        /// <summary>Name of the role to be created.</summary>
+        /// <remarks><para>Must contain only lowercase letters, digits, and
+        /// underscores, and cannot begin with a digit. Must not be the same
+        /// name as an existing user or role.</para></remarks>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
+        ///         associate with this user</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateRoleRequest object with default
         /// parameters.</summary>
@@ -64,49 +48,39 @@ namespace kinetica
 
         /// <summary>Constructs a CreateRoleRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the role to be created. Must contain
         /// only lowercase letters, digits, and underscores, and cannot begin
         /// with a digit. Must not be the same name as an existing user or
-        /// role.  </param>
+        /// role.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
+        ///         associate with this user</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateRoleRequest( string name,
                                   IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateRoleRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createRole(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createRole(CreateRoleRequest)">Kinetica.createRole</see>.
+    /// </summary>
     public class CreateRoleResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="CreateRoleRequest.name" />.
+        /// <summary>Value of <see cref="CreateRoleRequest.name">name</see>.
         /// </summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateRoleResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

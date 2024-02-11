@@ -6,367 +6,56 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Apply various modifications to a table or view.  The
-    /// available modifications include the following:
-    /// <br />
-    /// Manage a table's columns--a column can be added, removed, or have its
-    /// <a href="../../../concepts/types/" target="_top">type and
-    /// properties</a> modified, including whether it is
-    /// <a href="../../../concepts/dictionary_encoding/"
-    /// target="_top">dictionary encoded</a> or not.
-    /// <br />
-    /// External tables cannot be modified except for their refresh method.
-    /// <br />
-    /// Create or delete an <a href="../../../concepts/indexes/#column-index"
-    /// target="_top">index</a> on a
-    /// particular column. This can speed up certain operations when using
-    /// expressions
-    /// containing equality or relational operators on indexed columns. This
-    /// only
-    /// applies to tables.
-    /// <br />
-    /// Create or delete a <a href="../../../concepts/tables/#foreign-key"
-    /// target="_top">foreign key</a>
-    /// on a particular column.
-    /// <br />
-    /// Manage a
-    /// <a href="../../../concepts/tables/#partitioning-by-range"
-    /// target="_top">range-partitioned</a> or a
-    /// <a href="../../../concepts/tables/#partitioning-by-list-manual"
-    /// target="_top">manual list-partitioned</a>
-    /// table's partitions.
-    /// <br />
-    /// Set (or reset) the <a href="../../../rm/concepts/#tier-strategies"
-    /// target="_top">tier strategy</a>
-    /// of a table or view.
-    /// <br />
-    /// Refresh and manage the refresh mode of a
-    /// <a href="../../../concepts/materialized_views/"
-    /// target="_top">materialized view</a> or an
-    /// <a href="../../../concepts/external_tables/" target="_top">external
-    /// table</a>.
-    /// <br />
-    /// Set the <a href="../../../concepts/ttl/" target="_top">time-to-live
-    /// (TTL)</a>. This can be applied
-    /// to tables or views.
-    /// <br />
-    /// Set the global access mode (i.e. locking) for a table. This setting
-    /// trumps any
-    /// role-based access controls that may be in place; e.g., a user with
-    /// write access
-    /// to a table marked read-only will not be able to insert records into it.
-    /// The mode
-    /// can be set to read-only, write-only, read/write, and no
-    /// access.</summary>
+    /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
+    /// </summary>
+    /// <remarks><para>Apply various modifications to a table or view.  The
+    /// available modifications include the following:</para>
+    /// <para>Manage a table's columns--a column can be added, removed, or have
+    /// its <a href="../../../concepts/types/" target="_top">type and
+    /// properties</a> modified, including whether it is <a
+    /// href="../../../concepts/dictionary_encoding/" target="_top">dictionary
+    /// encoded</a> or not.</para>
+    /// <para>External tables cannot be modified except for their refresh
+    /// method.</para>
+    /// <para>Create or delete an <a
+    /// href="../../../concepts/indexes/#column-index" target="_top">index</a>
+    /// on a particular column. This can speed up certain operations when using
+    /// expressions containing equality or relational operators on indexed
+    /// columns. This only applies to tables.</para>
+    /// <para>Create or delete a <a
+    /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
+    /// key</a> on a particular column.</para>
+    /// <para>Manage a <a
+    /// href="../../../concepts/tables/#partitioning-by-range"
+    /// target="_top">range-partitioned</a> or a <a
+    /// href="../../../concepts/tables/#partitioning-by-list-manual"
+    /// target="_top">manual list-partitioned</a> table's partitions.</para>
+    /// <para>Set (or reset) the <a
+    /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    /// strategy</a> of a table or view.</para>
+    /// <para>Refresh and manage the refresh mode of a <a
+    /// href="../../../concepts/materialized_views/" target="_top">materialized
+    /// view</a> or an <a href="../../../concepts/external_tables/"
+    /// target="_top">external table</a>.</para>
+    /// <para>Set the <a href="../../../concepts/ttl/"
+    /// target="_top">time-to-live (TTL)</a>. This can be applied to tables or
+    /// views.</para>
+    /// <para>Set the global access mode (i.e. locking) for a table. This
+    /// setting trumps any role-based access controls that may be in place;
+    /// e.g., a user with write access to a table marked read-only will not be
+    /// able to insert records into it. The mode can be set to read-only,
+    /// write-only, read/write, and no access.</para></remarks>
     public class AlterTableRequest : KineticaData
     {
-
-        /// <summary>Modification operation to be applied
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; action will be
-        /// ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates either a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes either a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>[DEPRECATED--please use <i>move_to_schema</i>
-        /// and use /create/schema to create the schema if non-existent]  Moves
-        /// a table or view into a schema named <paramref
-        /// cref="AlterTableRequest._value" />.  If the schema provided is
-        /// non-existent, it will be automatically created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
-        ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
-        ///         <description>No longer used.  Previously set whether the
-        /// given <paramref cref="AlterTableRequest.table_name" /> should be
-        /// protected or not. The <paramref cref="AlterTableRequest._value" />
-        /// would have been either 'true' or 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Renames a table or view within its current
-        /// schema to <paramref cref="AlterTableRequest._value" />. Has the
-        /// same naming restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">time-to-live</a> in minutes of the table or view
-        /// specified in <paramref cref="AlterTableRequest.table_name"
-        /// />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
-        ///         <description>Adds the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
-        ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>No longer supported; action will be
-        /// ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
-        ///         <description>Deletes the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> from the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
-        ///         <description>Creates a <a
-        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
-        /// using the format '(source_column_name [, ...]) references
-        /// target_table_name(primary_key_column_name [, ...]) [as
-        /// foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
-        ///         <description>Deletes a <a
-        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-        /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
-        /// be the foreign_key_name specified when creating the key or the
-        /// complete string used to define it.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds the partition specified in <paramref
-        /// cref="AlterTableRequest._value" />, to either a <a
-        /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
-        ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> (and relocates all of its data
-        /// to the default partition) from either a <a
-        /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
-        ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> (and all of its data) from
-        /// either a <a href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
-        ///         <description>Sets the global access mode (i.e. locking) for
-        /// the table specified in <paramref
-        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
-        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no_access', 'read_only', 'write_only' and
-        /// 'read_write'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>For a <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a>, replays all the table creation
-        /// commands required to create the view.  For an <a
-        /// href="../../../concepts/external_tables/" target="_top">external
-        /// table</a>, reloads all data in the table from its associated source
-        /// files or <a href="../../../concepts/data_sources/"
-        /// target="_top">data source</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>For a <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a>, sets the method by which the
-        /// view is refreshed to the method specified in <paramref
-        /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
-        /// or 'on_change'.  For an <a
-        /// href="../../../concepts/external_tables/" target="_top">external
-        /// table</a>, sets the method by which the table is refreshed to the
-        /// method specified in <paramref cref="AlterTableRequest._value" /> -
-        /// either 'manual' or 'on_start'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
-        ///         <description>Sets the time to start periodic refreshes of
-        /// this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the datetime string
-        /// specified in <paramref cref="AlterTableRequest._value" /> with
-        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
-        /// specified time + N * the refresh period.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
-        ///         <description>Sets the time to stop periodic refreshes of
-        /// this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the datetime string
-        /// specified in <paramref cref="AlterTableRequest._value" /> with
-        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Sets the time interval in seconds at which to
-        /// refresh this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the value specified in
-        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
-        /// refresh method to periodic if not already set.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
-        ///         <description>Sets the future time-offset(in seconds) for
-        /// the view refresh to stop.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
-        ///         <description>Sets the user name to refresh this <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the value specified in
-        /// <paramref cref="AlterTableRequest._value" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
-        ///         <description>Removes <a
-        /// href="../../../concepts/full_text_search/" target="_top">text
-        /// search</a> attribute from all columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
-        ///         <description>Removes the shard key property from all
-        /// columns, so that the table will be considered randomly sharded.
-        /// The data is not moved.  The <paramref
-        /// cref="AlterTableRequest._value" /> is ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns to the one specified in
-        /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
-        ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
-        /// / Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
-        ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
-        /// / Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
-        ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
-        /// Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
-        ///         <description>Change the owner resource group of the
-        /// table.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="action"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="action" />.</summary>
+        /// <remarks><para>Modification operation to be applied</para>
+        /// </remarks>
         public struct Action
         {
-
             /// <summary>No longer supported; action will be ignored.</summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
@@ -375,9 +64,10 @@ namespace kinetica
             /// target="_top">column (attribute) index</a> or <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
             /// target="_top">chunk skip index</a>, depending on the specified
-            /// <i>index_type</i>, on the column name specified in <see
-            /// cref="_value" />. If this column already has the specified
-            /// index, an error will be returned.</summary>
+            /// <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
+            /// name specified in <see cref="_value" />.</summary>
+            /// <remarks><para>If this column already has the specified index,
+            /// an error will be returned.</para></remarks>
             public const string CREATE_INDEX = "create_index";
 
             /// <summary>Deletes either a <a
@@ -385,37 +75,41 @@ namespace kinetica
             /// target="_top">column (attribute) index</a> or <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
             /// target="_top">chunk skip index</a>, depending on the specified
-            /// <i>index_type</i>, on the column name specified in <see
-            /// cref="_value" />. If this column does not have the specified
-            /// index, an error will be returned.</summary>
+            /// <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
+            /// name specified in <see cref="_value" />.</summary>
+            /// <remarks><para>If this column does not have the specified
+            /// index, an error will be returned.</para></remarks>
             public const string DELETE_INDEX = "delete_index";
 
-            /// <summary>[DEPRECATED--please use <i>move_to_schema</i> and use
-            /// <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Moves a table or view
-            /// into a schema named <see cref="_value" />.  If the schema
-            /// provided is non-existent, it will be automatically
-            /// created.</summary>
+            /// <summary>[DEPRECATED--please use <see
+            /// cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use <see
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Moves a table or view
+            /// into a schema named <see cref="_value" />.</summary>
+            /// <remarks><para> If the schema provided is non-existent, it will
+            /// be automatically created.</para></remarks>
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
             /// <summary>Moves a table or view into a schema named <see
-            /// cref="_value" />.  If the schema provided is nonexistent, an
-            /// error will be thrown. If <see cref="_value" /> is empty, then
-            /// the table or view will be placed in the user's default
-            /// schema.</summary>
+            /// cref="_value" />.</summary>
+            /// <remarks><para> If the schema provided is nonexistent, an error
+            /// will be thrown. If <see cref="_value" /> is empty, then the
+            /// table or view will be placed in the user's default schema.
+            /// </para></remarks>
             public const string MOVE_TO_SCHEMA = "move_to_schema";
 
-            /// <summary>No longer used.  Previously set whether the given <see
+            /// <summary>No longer used.</summary>
+            /// <remarks><para> Previously set whether the given <see
             /// cref="table_name" /> should be protected or not. The <see
-            /// cref="_value" /> would have been either 'true' or
-            /// 'false'.</summary>
+            /// cref="_value" /> would have been either 'true' or 'false'.
+            /// </para></remarks>
             public const string PROTECTED = "protected";
 
             /// <summary>Renames a table or view within its current schema to
-            /// <see cref="_value" />. Has the same naming restrictions as <a
-            /// href="../../../concepts/tables/"
-            /// target="_top">tables</a>.</summary>
+            /// <see cref="_value" />.</summary>
+            /// <remarks><para>Has the same naming restrictions as <a
+            /// href="../../../concepts/tables/" target="_top">tables</a>.
+            /// </para></remarks>
             public const string RENAME_TABLE = "rename_table";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
@@ -423,30 +117,42 @@ namespace kinetica
             /// specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
+            /// <summary>Adds the comment specified in <see cref="_value" /> to
+            /// the table specified in <see cref="table_name" />.</summary>
+            /// <remarks><para> Use <see
+            /// cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the comment
+            /// for a column.</para></remarks>
+            public const string ADD_COMMENT = "add_comment";
+
             /// <summary>Adds the column specified in <see cref="_value" /> to
-            /// the table specified in <see cref="table_name" />.  Use
-            /// <i>column_type</i> and <i>column_properties</i> in <see
-            /// cref="options" /> to set the column's type and properties,
-            /// respectively.</summary>
+            /// the table specified in <see cref="table_name" />.</summary>
+            /// <remarks><para> Use <see
+            /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+            /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+            /// <see cref="options" /> to set the column's type and properties,
+            /// respectively.</para></remarks>
             public const string ADD_COLUMN = "add_column";
 
             /// <summary>Changes type and properties of the column specified in
-            /// <see cref="_value" />.  Use <i>column_type</i> and
-            /// <i>column_properties</i> in <see cref="options" /> to set the
-            /// column's type and properties, respectively. Note that primary
-            /// key and/or shard key columns cannot be changed. All unchanging
-            /// column properties must be listed for the change to take place,
-            /// e.g., to add dictionary encoding to an existing 'char4' column,
-            /// both 'char4' and 'dict' must be specified in the <see
-            /// cref="options" /> map.</summary>
+            /// <see cref="_value" />.</summary>
+            /// <remarks><para> Use <see
+            /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+            /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+            /// <see cref="options" /> to set the column's type and properties,
+            /// respectively. Note that primary key and/or shard key columns
+            /// cannot be changed. All unchanging column properties must be
+            /// listed for the change to take place, e.g., to add dictionary
+            /// encoding to an existing 'char4' column, both 'char4' and 'dict'
+            /// must be specified in the <see cref="options" /> map.</para>
+            /// </remarks>
             public const string CHANGE_COLUMN = "change_column";
 
             /// <summary>No longer supported; action will be ignored.</summary>
             public const string SET_COLUMN_COMPRESSION = "set_column_compression";
 
             /// <summary>Deletes the column specified in <see cref="_value" />
-            /// from the table specified in <see cref="table_name"
-            /// />.</summary>
+            /// from the table specified in <see cref="table_name" />.
+            /// </summary>
             public const string DELETE_COLUMN = "delete_column";
 
             /// <summary>Creates a <a
@@ -459,9 +165,10 @@ namespace kinetica
 
             /// <summary>Deletes a <a
             /// href="../../../concepts/tables/#foreign-key"
-            /// target="_top">foreign key</a>.  The <see cref="_value" />
-            /// should be the foreign_key_name specified when creating the key
-            /// or the complete string used to define it.</summary>
+            /// target="_top">foreign key</a>.</summary>
+            /// <remarks><para> The <see cref="_value" /> should be the
+            /// foreign_key_name specified when creating the key or the
+            /// complete string used to define it.</para></remarks>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
             /// <summary>Adds the partition specified in <see cref="_value" />,
@@ -490,38 +197,43 @@ namespace kinetica
             public const string DELETE_PARTITION = "delete_partition";
 
             /// <summary>Sets the global access mode (i.e. locking) for the
-            /// table specified in <see cref="table_name" />. Specify the
-            /// access mode in <see cref="_value" />. Valid modes are
-            /// 'no_access', 'read_only', 'write_only' and
-            /// 'read_write'.</summary>
+            /// table specified in <see cref="table_name" />.</summary>
+            /// <remarks><para>Specify the access mode in <see cref="_value"
+            /// />. Valid modes are 'no_access', 'read_only', 'write_only' and
+            /// 'read_write'.</para></remarks>
             public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
 
             /// <summary>For a <a href="../../../concepts/materialized_views/"
             /// target="_top">materialized view</a>, replays all the table
-            /// creation commands required to create the view.  For an <a
+            /// creation commands required to create the view.</summary>
+            /// <remarks><para> For an <a
             /// href="../../../concepts/external_tables/"
             /// target="_top">external table</a>, reloads all data in the table
             /// from its associated source files or <a
             /// href="../../../concepts/data_sources/" target="_top">data
-            /// source</a>.</summary>
+            /// source</a>.</para></remarks>
             public const string REFRESH = "refresh";
 
             /// <summary>For a <a href="../../../concepts/materialized_views/"
             /// target="_top">materialized view</a>, sets the method by which
             /// the view is refreshed to the method specified in <see
             /// cref="_value" /> - one of 'manual', 'periodic', or 'on_change'.
-            /// For an <a href="../../../concepts/external_tables/"
+            /// </summary>
+            /// <remarks><para> For an <a
+            /// href="../../../concepts/external_tables/"
             /// target="_top">external table</a>, sets the method by which the
             /// table is refreshed to the method specified in <see
-            /// cref="_value" /> - either 'manual' or 'on_start'.</summary>
+            /// cref="_value" /> - either 'manual' or 'on_start'.</para>
+            /// </remarks>
             public const string SET_REFRESH_METHOD = "set_refresh_method";
 
             /// <summary>Sets the time to start periodic refreshes of this <a
             /// href="../../../concepts/materialized_views/"
             /// target="_top">materialized view</a> to the datetime string
             /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
-            /// HH:MM:SS'.  Subsequent refreshes occur at the specified time +
-            /// N * the refresh period.</summary>
+            /// HH:MM:SS'.</summary>
+            /// <remarks><para> Subsequent refreshes occur at the specified
+            /// time + N * the refresh period.</para></remarks>
             public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
 
             /// <summary>Sets the time to stop periodic refreshes of this <a
@@ -534,8 +246,9 @@ namespace kinetica
             /// <summary>Sets the time interval in seconds at which to refresh
             /// this <a href="../../../concepts/materialized_views/"
             /// target="_top">materialized view</a> to the value specified in
-            /// <see cref="_value" />.  Also, sets the refresh method to
-            /// periodic if not already set.</summary>
+            /// <see cref="_value" />.</summary>
+            /// <remarks><para> Also, sets the refresh method to periodic if
+            /// not already set.</para></remarks>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
 
             /// <summary>Sets the future time-offset(in seconds) for the view
@@ -549,13 +262,14 @@ namespace kinetica
             public const string SET_REFRESH_EXECUTE_AS = "set_refresh_execute_as";
 
             /// <summary>Removes <a href="../../../concepts/full_text_search/"
-            /// target="_top">text search</a> attribute from all
-            /// columns.</summary>
+            /// target="_top">text search</a> attribute from all columns.
+            /// </summary>
             public const string REMOVE_TEXT_SEARCH_ATTRIBUTES = "remove_text_search_attributes";
 
             /// <summary>Removes the shard key property from all columns, so
-            /// that the table will be considered randomly sharded.  The data
-            /// is not moved.  The <see cref="_value" /> is ignored.</summary>
+            /// that the table will be considered randomly sharded.</summary>
+            /// <remarks><para> The data is not moved.  The <see cref="_value"
+            /// /> is ignored.</para></remarks>
             public const string REMOVE_SHARD_KEYS = "remove_shard_keys";
 
             /// <summary>Sets the <a
@@ -566,204 +280,31 @@ namespace kinetica
             public const string SET_STRATEGY_DEFINITION = "set_strategy_definition";
 
             /// <summary>Permanently unsubscribe a data source that is loading
-            /// continuously as a stream. The data source can be kafka / S3 /
-            /// Azure.</summary>
+            /// continuously as a stream.</summary>
+            /// <remarks><para>The data source can be kafka / S3 / Azure.
+            /// </para></remarks>
             public const string CANCEL_DATASOURCE_SUBSCRIPTION = "cancel_datasource_subscription";
 
             /// <summary>Temporarily unsubscribe a data source that is loading
-            /// continuously as a stream. The data source can be kafka / S3 /
-            /// Azure.</summary>
+            /// continuously as a stream.</summary>
+            /// <remarks><para>The data source can be kafka / S3 / Azure.
+            /// </para></remarks>
             public const string PAUSE_DATASOURCE_SUBSCRIPTION = "pause_datasource_subscription";
 
-            /// <summary>Resubscribe to a paused data source subscription. The
-            /// data source can be kafka / S3 / Azure.</summary>
+            /// <summary>Resubscribe to a paused data source subscription.
+            /// </summary>
+            /// <remarks><para>The data source can be kafka / S3 / Azure.
+            /// </para></remarks>
             public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
 
-            /// <summary>Change the owner resource group of the
-            /// table.</summary>
+            /// <summary>Change the owner resource group of the table.
+            /// </summary>
             public const string CHANGE_OWNER = "change_owner";
         } // end struct Action
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
-        ///         <description>When adding a column, set a default value for
-        /// existing records.  For nullable columns, the default value will be
-        /// null, regardless of data type.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
-        ///         <description>When adding or changing a column, set the
-        /// column properties (strings, separated by a comma: data, store_only,
-        /// text_search, char8, int8 etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
-        ///         <description>When adding or changing a column, set the
-        /// column type (strings, separated by a comma: int, double, string,
-        /// null etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
-        ///         <description>No longer supported; option will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>[DEPRECATED--please use
-        /// <i>add_column_expression</i> instead.]</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
-        ///         <description>When changing a column, specify new column
-        /// name.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
-        ///         <description>When changing a column, validate the change
-        /// before applying it (or not).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Validate all values. A value too large (or too
-        /// long) for the new type will prevent any change.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>When a value is too large or long, it will be
-        /// truncated.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
-        ///         <description>Indicates whether the <a
-        /// href="../../../concepts/ttl/" target="_top">time-to-live</a> (TTL)
-        /// expiration countdown timer should be reset to the table's TTL.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Reset the expiration countdown timer to the
-        /// table's configured TTL.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Don't reset the timer; expiration countdown
-        /// will continue from where it is, as if the table had not been
-        /// accessed.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
-        ///         <description>When adding a column, an optional expression
-        /// to use for the new column's values. Any valid expression may be
-        /// used, including one containing references to existing columns in
-        /// the same table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
-        ///         <description>Optional parameter for specifying the <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns when <paramref
-        /// cref="AlterTableRequest.action" /> is
-        /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
-        ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
-        /// <i>delete_index</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Create or delete a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Create or delete a <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///         <description>Create or delete a geospatial
-        /// index</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
             public const string ACTION = "action";
@@ -771,8 +312,9 @@ namespace kinetica
             public const string TABLE_NAME = "table_name";
 
             /// <summary>When adding a column, set a default value for existing
-            /// records.  For nullable columns, the default value will be null,
-            /// regardless of data type.</summary>
+            /// records.</summary>
+            /// <remarks><para> For nullable columns, the default value will be
+            /// null, regardless of data type.</para></remarks>
             public const string COLUMN_DEFAULT_VALUE = "column_default_value";
 
             /// <summary>When adding or changing a column, set the column
@@ -781,66 +323,62 @@ namespace kinetica
             public const string COLUMN_PROPERTIES = "column_properties";
 
             /// <summary>When adding or changing a column, set the column type
-            /// (strings, separated by a comma: int, double, string, null
-            /// etc).</summary>
+            /// (strings, separated by a comma: int, double, string, null etc).
+            /// </summary>
             public const string COLUMN_TYPE = "column_type";
 
-            /// <summary>No longer supported; option will be ignored.
-            /// Supported values:
+            /// <summary>No longer supported; option will be ignored.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
+            ///         <term><see cref="Options.NONE">NONE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
+            ///         <term><see cref="Options.SNAPPY">SNAPPY</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
+            ///         <term><see cref="Options.LZ4">LZ4</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
+            ///         <term><see cref="Options.LZ4HC">LZ4HC</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.SNAPPY">SNAPPY</see>.</para></remarks>
             public const string COMPRESSION_TYPE = "compression_type";
+
             public const string NONE = "none";
             public const string SNAPPY = "snappy";
             public const string LZ4 = "lz4";
             public const string LZ4HC = "lz4hc";
 
-            /// <summary>[DEPRECATED--please use <i>add_column_expression</i>
+            /// <summary>[DEPRECATED--please use <see
+            /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
             /// instead.]</summary>
             public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
 
-            /// <summary>When changing a column, specify new column
-            /// name.</summary>
+            /// <summary>When changing a column, specify new column name.
+            /// </summary>
             public const string RENAME_COLUMN = "rename_column";
 
             /// <summary>When changing a column, validate the change before
-            /// applying it (or not).
-            /// Supported values:
+            /// applying it (or not).</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
             ///         <description>Validate all values. A value too large (or
-            /// too long) for the new type will prevent any
-            /// change.</description>
+            ///         too long) for the new type will prevent any change.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
             ///         <description>When a value is too large or long, it will
-            /// be truncated.</description>
+            ///         be truncated.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
 
             /// <summary>Reset the expiration countdown timer to the table's
@@ -854,68 +392,69 @@ namespace kinetica
 
             /// <summary>Indicates whether the <a href="../../../concepts/ttl/"
             /// target="_top">time-to-live</a> (TTL) expiration countdown timer
-            /// should be reset to the table's TTL.
-            /// Supported values:
+            /// should be reset to the table's TTL.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
             ///         <description>Reset the expiration countdown timer to
-            /// the table's configured TTL.</description>
+            ///         the table's configured TTL.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
             ///         <description>Don't reset the timer; expiration
-            /// countdown will continue from where it is, as if the table had
-            /// not been accessed.</description>
+            ///         countdown will continue from where it is, as if the
+            ///         table had not been accessed.</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string UPDATE_LAST_ACCESS_TIME = "update_last_access_time";
 
             /// <summary>When adding a column, an optional expression to use
-            /// for the new column's values. Any valid expression may be used,
-            /// including one containing references to existing columns in the
-            /// same table.</summary>
+            /// for the new column's values.</summary>
+            /// <remarks><para>Any valid expression may be used, including one
+            /// containing references to existing columns in the same table.
+            /// </para></remarks>
             public const string ADD_COLUMN_EXPRESSION = "add_column_expression";
 
             /// <summary>Optional parameter for specifying the <a
             /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
             /// strategy</a> for the table and its columns when <see
-            /// cref="action" /> is <i>set_strategy_definition</i>, replacing
-            /// the existing tier strategy in its entirety.</summary>
+            /// cref="action" /> is <see
+            /// cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
+            /// replacing the existing tier strategy in its entirety.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>Type of index to create, when <see cref="action" /> is
-            /// <i>create_index</i>, or to delete, when <see cref="action" />
-            /// is <i>delete_index</i>.
-            /// Supported values:
+            /// <see cref="Action.CREATE_INDEX">CREATE_INDEX</see>, or to
+            /// delete, when <see cref="action" /> is <see
+            /// cref="Action.DELETE_INDEX">DELETE_INDEX</see>.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
+            ///         <term><see cref="Options.COLUMN">COLUMN</see>:</term>
             ///         <description>Create or delete a <a
-            /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a>.</description>
+            ///         href="../../../concepts/indexes/#column-index"
+            ///         target="_top">column (attribute) index</a>.
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+            ///         <term><see cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:
+            ///         </term>
             ///         <description>Create or delete a <a
-            /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>.</description>
+            ///         href="../../../concepts/indexes/#chunk-skip-index"
+            ///         target="_top">chunk skip index</a>.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-            ///         <description>Create or delete a geospatial
-            /// index</description>
+            ///         <term><see cref="Options.GEOSPATIAL">GEOSPATIAL</see>:
+            ///         </term>
+            ///         <description>Create or delete a geospatial index
+            ///         </description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.COLUMN">COLUMN</see>.</para></remarks>
             public const string INDEX_TYPE = "index_type";
 
             /// <summary>Create or delete a <a
@@ -932,500 +471,544 @@ namespace kinetica
             public const string GEOSPATIAL = "geospatial";
         } // end struct Options
 
-
         /// <summary>Table on which the operation will be performed, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// or view.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> Must be an existing table or view.</para></remarks>
         public string table_name { get; set; }
 
-        /// <summary>Modification operation to be applied
-        /// Supported values:
+        /// <summary>Modification operation to be applied.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; action will be
-        /// ignored.</description>
+        ///         cref="Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:
+        ///         </term>
+        ///         <description>No longer supported; action will be ignored.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
+        ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
+        ///         </term>
         ///         <description>Creates either a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
+        ///         href="../../../concepts/indexes/#column-index"
+        ///         target="_top">column (attribute) index</a> or <a
+        ///         href="../../../concepts/indexes/#chunk-skip-index"
+        ///         target="_top">chunk skip index</a>, depending on the
+        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
+        ///         on the column name specified in <see cref="_value" />. If
+        ///         this column already has the specified index, an error will
+        ///         be returned.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
+        ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
+        ///         </term>
         ///         <description>Deletes either a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
+        ///         href="../../../concepts/indexes/#column-index"
+        ///         target="_top">column (attribute) index</a> or <a
+        ///         href="../../../concepts/indexes/#chunk-skip-index"
+        ///         target="_top">chunk skip index</a>, depending on the
+        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
+        ///         on the column name specified in <see cref="_value" />. If
+        ///         this column does not have the specified index, an error
+        ///         will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>[DEPRECATED--please use <i>move_to_schema</i>
-        /// and use /create/schema to create the schema if non-existent]  Moves
-        /// a table or view into a schema named <paramref
-        /// cref="AlterTableRequest._value" />.  If the schema provided is
-        /// non-existent, it will be automatically created.</description>
+        ///         cref="Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:
+        ///         </term>
+        ///         <description>[DEPRECATED--please use <see
+        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use
+        ///         <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Moves a table or
+        ///         view into a schema named <see cref="_value" />.  If the
+        ///         schema provided is non-existent, it will be automatically
+        ///         created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
-        ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
+        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
+        ///         <description>Moves a table or view into a schema named <see
+        ///         cref="_value" />.  If the schema provided is nonexistent,
+        ///         an error will be thrown. If <see cref="_value" /> is empty,
+        ///         then the table or view will be placed in the user's default
+        ///         schema.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
+        ///         <term><see cref="Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>No longer used.  Previously set whether the
-        /// given <paramref cref="AlterTableRequest.table_name" /> should be
-        /// protected or not. The <paramref cref="AlterTableRequest._value" />
-        /// would have been either 'true' or 'false'.</description>
+        ///         given <see cref="table_name" /> should be protected or not.
+        ///         The <see cref="_value" /> would have been either 'true' or
+        ///         'false'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
+        ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
+        ///         </term>
         ///         <description>Renames a table or view within its current
-        /// schema to <paramref cref="AlterTableRequest._value" />. Has the
-        /// same naming restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</description>
+        ///         schema to <see cref="_value" />. Has the same naming
+        ///         restrictions as <a href="../../../concepts/tables/"
+        ///         target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
+        ///         <term><see cref="Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">time-to-live</a> in minutes of the table or view
-        /// specified in <paramref cref="AlterTableRequest.table_name"
-        /// />.</description>
+        ///         target="_top">time-to-live</a> in minutes of the table or
+        ///         view specified in <see cref="table_name" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
-        ///         <description>Adds the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:
+        ///         </term>
+        ///         <description>Adds the comment specified in <see
+        ///         cref="_value" /> to the table specified in <see
+        ///         cref="table_name" />.  Use <see
+        ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
+        ///         comment for a column.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
+        ///         <term><see cref="Action.ADD_COLUMN">ADD_COLUMN</see>:
+        ///         </term>
+        ///         <description>Adds the column specified in <see
+        ///         cref="_value" /> to the table specified in <see
+        ///         cref="table_name" />.  Use <see
+        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+        ///         <see cref="options" /> to set the column's type and
+        ///         properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
+        ///         </term>
         ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
+        ///         specified in <see cref="_value" />.  Use <see
+        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+        ///         <see cref="options" /> to set the column's type and
+        ///         properties, respectively. Note that primary key and/or
+        ///         shard key columns cannot be changed. All unchanging column
+        ///         properties must be listed for the change to take place,
+        ///         e.g., to add dictionary encoding to an existing 'char4'
+        ///         column, both 'char4' and 'dict' must be specified in the
+        ///         <see cref="options" /> map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>No longer supported; action will be
-        /// ignored.</description>
+        ///         cref="Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:
+        ///         </term>
+        ///         <description>No longer supported; action will be ignored.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
+        ///         </term>
+        ///         <description>Deletes the column specified in <see
+        ///         cref="_value" /> from the table specified in <see
+        ///         cref="table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
-        ///         <description>Deletes the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> from the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
+        ///         cref="Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:
+        ///         </term>
         ///         <description>Creates a <a
-        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
-        /// using the format '(source_column_name [, ...]) references
-        /// target_table_name(primary_key_column_name [, ...]) [as
-        /// foreign_key_name]'.</description>
+        ///         href="../../../concepts/tables/#foreign-key"
+        ///         target="_top">foreign key</a> specified in <see
+        ///         cref="_value" /> using the format '(source_column_name [,
+        ///         ...]) references target_table_name(primary_key_column_name
+        ///         [, ...]) [as foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
+        ///         cref="Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:
+        ///         </term>
         ///         <description>Deletes a <a
-        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-        /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
-        /// be the foreign_key_name specified when creating the key or the
-        /// complete string used to define it.</description>
+        ///         href="../../../concepts/tables/#foreign-key"
+        ///         target="_top">foreign key</a>.  The <see cref="_value" />
+        ///         should be the foreign_key_name specified when creating the
+        ///         key or the complete string used to define it.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.ADD_PARTITION">ADD_PARTITION</see>:
+        ///         </term>
+        ///         <description>Adds the partition specified in <see
+        ///         cref="_value" />, to either a <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range-partitioned</a> or <a
+        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+        ///         target="_top">manual list-partitioned</a> table.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds the partition specified in <paramref
-        /// cref="AlterTableRequest._value" />, to either a <a
-        /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
+        ///         cref="Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:
+        ///         </term>
+        ///         <description>Removes the partition specified in <see
+        ///         cref="_value" /> (and relocates all of its data to the
+        ///         default partition) from either a <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range-partitioned</a> or <a
+        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+        ///         target="_top">manual list-partitioned</a> table.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
-        ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> (and relocates all of its data
-        /// to the default partition) from either a <a
-        /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
+        ///         cref="Action.DELETE_PARTITION">DELETE_PARTITION</see>:
+        ///         </term>
+        ///         <description>Deletes the partition specified in <see
+        ///         cref="_value" /> (and all of its data) from either a <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range-partitioned</a> or <a
+        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+        ///         target="_top">manual list-partitioned</a> table.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
-        ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> (and all of its data) from
-        /// either a <a href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
+        ///         cref="Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:
+        ///         </term>
         ///         <description>Sets the global access mode (i.e. locking) for
-        /// the table specified in <paramref
-        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
-        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no_access', 'read_only', 'write_only' and
-        /// 'read_write'.</description>
+        ///         the table specified in <see cref="table_name" />. Specify
+        ///         the access mode in <see cref="_value" />. Valid modes are
+        ///         'no_access', 'read_only', 'write_only' and 'read_write'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
+        ///         <term><see cref="Action.REFRESH">REFRESH</see>:</term>
         ///         <description>For a <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a>, replays all the table creation
-        /// commands required to create the view.  For an <a
-        /// href="../../../concepts/external_tables/" target="_top">external
-        /// table</a>, reloads all data in the table from its associated source
-        /// files or <a href="../../../concepts/data_sources/"
-        /// target="_top">data source</a>.</description>
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a>, replays all the table
+        ///         creation commands required to create the view.  For an <a
+        ///         href="../../../concepts/external_tables/"
+        ///         target="_top">external table</a>, reloads all data in the
+        ///         table from its associated source files or <a
+        ///         href="../../../concepts/data_sources/" target="_top">data
+        ///         source</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
+        ///         cref="Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:
+        ///         </term>
         ///         <description>For a <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a>, sets the method by which the
-        /// view is refreshed to the method specified in <paramref
-        /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
-        /// or 'on_change'.  For an <a
-        /// href="../../../concepts/external_tables/" target="_top">external
-        /// table</a>, sets the method by which the table is refreshed to the
-        /// method specified in <paramref cref="AlterTableRequest._value" /> -
-        /// either 'manual' or 'on_start'.</description>
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a>, sets the method by
+        ///         which the view is refreshed to the method specified in <see
+        ///         cref="_value" /> - one of 'manual', 'periodic', or
+        ///         'on_change'.  For an <a
+        ///         href="../../../concepts/external_tables/"
+        ///         target="_top">external table</a>, sets the method by which
+        ///         the table is refreshed to the method specified in <see
+        ///         cref="_value" /> - either 'manual' or 'on_start'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
+        ///         cref="Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:
+        ///         </term>
         ///         <description>Sets the time to start periodic refreshes of
-        /// this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the datetime string
-        /// specified in <paramref cref="AlterTableRequest._value" /> with
-        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
-        /// specified time + N * the refresh period.</description>
+        ///         this <a href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the datetime string
+        ///         specified in <see cref="_value" /> with format 'YYYY-MM-DD
+        ///         HH:MM:SS'.  Subsequent refreshes occur at the specified
+        ///         time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
+        ///         cref="Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:
+        ///         </term>
         ///         <description>Sets the time to stop periodic refreshes of
-        /// this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the datetime string
-        /// specified in <paramref cref="AlterTableRequest._value" /> with
-        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///         this <a href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the datetime string
+        ///         specified in <see cref="_value" /> with format 'YYYY-MM-DD
+        ///         HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
+        ///         cref="Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:
+        ///         </term>
         ///         <description>Sets the time interval in seconds at which to
-        /// refresh this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the value specified in
-        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
-        /// refresh method to periodic if not already set.</description>
+        ///         refresh this <a
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the value specified
+        ///         in <see cref="_value" />.  Also, sets the refresh method to
+        ///         periodic if not already set.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+        ///         cref="Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:
+        ///         </term>
         ///         <description>Sets the future time-offset(in seconds) for
-        /// the view refresh to stop.</description>
+        ///         the view refresh to stop.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
+        ///         cref="Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:
+        ///         </term>
         ///         <description>Sets the user name to refresh this <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the value specified in
-        /// <paramref cref="AlterTableRequest._value" />.</description>
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the value specified
+        ///         in <see cref="_value" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
+        ///         cref="Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:
+        ///         </term>
         ///         <description>Removes <a
-        /// href="../../../concepts/full_text_search/" target="_top">text
-        /// search</a> attribute from all columns.</description>
+        ///         href="../../../concepts/full_text_search/"
+        ///         target="_top">text search</a> attribute from all columns.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+        ///         cref="Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:
+        ///         </term>
         ///         <description>Removes the shard key property from all
-        /// columns, so that the table will be considered randomly sharded.
-        /// The data is not moved.  The <paramref
-        /// cref="AlterTableRequest._value" /> is ignored.</description>
+        ///         columns, so that the table will be considered randomly
+        ///         sharded.  The data is not moved.  The <see cref="_value" />
+        ///         is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
+        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:
+        ///         </term>
         ///         <description>Sets the <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns to the one specified in
-        /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety.</description>
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns to the one specified in <see cref="_value" />,
+        ///         replacing the existing tier strategy in its entirety.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         cref="Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:
+        ///         </term>
         ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
-        /// / Azure.</description>
+        ///         loading continuously as a stream. The data source can be
+        ///         kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         cref="Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:
+        ///         </term>
         ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
-        /// / Azure.</description>
+        ///         loading continuously as a stream. The data source can be
+        ///         kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
+        ///         </term>
         ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
-        /// Azure.</description>
+        ///         subscription. The data source can be kafka / S3 / Azure.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
-        ///         <description>Change the owner resource group of the
-        /// table.</description>
+        ///         <term><see cref="Action.CHANGE_OWNER">CHANGE_OWNER</see>:
+        ///         </term>
+        ///         <description>Change the owner resource group of the table.
+        ///         </description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string action { get; set; }
 
-        /// <summary>The value of the modification, depending on <paramref
-        /// cref="AlterTableRequest.action" />.  For example, if <paramref
-        /// cref="AlterTableRequest.action" /> is <i>add_column</i>, this would
-        /// be the column name; while the column's definition would be covered
-        /// by the <i>column_type</i>, <i>column_properties</i>,
-        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
-        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
-        /// number of minutes for the new TTL. If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
-        /// would be blank.  </summary>
+        /// <summary>The value of the modification, depending on <see
+        /// cref="action" />.</summary>
+        /// <remarks><para> For example, if <see cref="action" /> is <see
+        /// cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be the column
+        /// name; while the column's definition would be covered by the <see
+        /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
+        /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
+        /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
+        /// <see
+        /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see> in
+        /// <see cref="options" />.  If <see cref="action" /> is <see
+        /// cref="Action.TTL">TTL</see>, it would be the number of minutes for
+        /// the new TTL. If <see cref="action" /> is <see
+        /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.
+        /// </para></remarks>
         public string _value { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
-        ///         <description></description>
+        ///         <term><see cref="Options.ACTION">ACTION</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.COLUMN_NAME">COLUMN_NAME</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.TABLE_NAME">TABLE_NAME</see>
+        ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
+        ///         cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
+        ///         </term>
         ///         <description>When adding a column, set a default value for
-        /// existing records.  For nullable columns, the default value will be
-        /// null, regardless of data type.</description>
+        ///         existing records.  For nullable columns, the default value
+        ///         will be null, regardless of data type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
+        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:
+        ///         </term>
         ///         <description>When adding or changing a column, set the
-        /// column properties (strings, separated by a comma: data, store_only,
-        /// text_search, char8, int8 etc).</description>
+        ///         column properties (strings, separated by a comma: data,
+        ///         store_only, text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+        ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:
+        ///         </term>
         ///         <description>When adding or changing a column, set the
-        /// column type (strings, separated by a comma: int, double, string,
-        /// null etc).</description>
+        ///         column type (strings, separated by a comma: int, double,
+        ///         string, null etc).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
+        ///         </term>
         ///         <description>No longer supported; option will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SNAPPY">SNAPPY</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LZ4">LZ4</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LZ4HC">LZ4HC</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SNAPPY">SNAPPY</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
+        ///         cref="Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
+        ///         </term>
+        ///         <description>[DEPRECATED--please use <see
+        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+        ///         instead.]</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>[DEPRECATED--please use
-        /// <i>add_column_expression</i> instead.]</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
+        ///         cref="Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
         ///         <description>When changing a column, specify new column
-        /// name.</description>
+        ///         name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+        ///         </term>
         ///         <description>When changing a column, validate the change
-        /// before applying it (or not).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Validate all values. A value too large (or too
-        /// long) for the new type will prevent any change.</description>
+        ///         before applying it (or not).
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Validate all values. A value too large
+        ///                 (or too long) for the new type will prevent any
+        ///                 change.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>When a value is too large or long, it
+        ///                 will be truncated.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>When a value is too large or long, it will be
-        /// truncated.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
+        ///         cref="Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:
+        ///         </term>
         ///         <description>Indicates whether the <a
-        /// href="../../../concepts/ttl/" target="_top">time-to-live</a> (TTL)
-        /// expiration countdown timer should be reset to the table's TTL.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Reset the expiration countdown timer to the
-        /// table's configured TTL.</description>
+        ///         href="../../../concepts/ttl/"
+        ///         target="_top">time-to-live</a> (TTL) expiration countdown
+        ///         timer should be reset to the table's TTL.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Reset the expiration countdown timer
+        ///                 to the table's configured TTL.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Don't reset the timer; expiration
+        ///                 countdown will continue from where it is, as if the
+        ///                 table had not been accessed.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Don't reset the timer; expiration countdown
-        /// will continue from where it is, as if the table had not been
-        /// accessed.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
+        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
+        ///         </term>
         ///         <description>When adding a column, an optional expression
-        /// to use for the new column's values. Any valid expression may be
-        /// used, including one containing references to existing columns in
-        /// the same table.</description>
+        ///         to use for the new column's values. Any valid expression
+        ///         may be used, including one containing references to
+        ///         existing columns in the same table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
         ///         <description>Optional parameter for specifying the <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns when <paramref
-        /// cref="AlterTableRequest.action" /> is
-        /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety.</description>
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns when <see cref="action" /> is <see
+        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
+        ///         replacing the existing tier strategy in its entirety.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
-        ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
-        /// <i>delete_index</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Create or delete a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Create or delete a <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///         <description>Create or delete a geospatial
-        /// index</description>
+        ///         <term><see cref="Options.INDEX_TYPE">INDEX_TYPE</see>:
+        ///         </term>
+        ///         <description>Type of index to create, when <see
+        ///         cref="action" /> is <see
+        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>, or to
+        ///         delete, when <see cref="action" /> is <see
+        ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.COLUMN">COLUMN</see>:
+        ///                 </term>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#column-index"
+        ///                 target="_top">column (attribute) index</a>.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#chunk-skip-index"
+        ///                 target="_top">chunk skip index</a>.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
+        ///                 <description>Create or delete a geospatial index
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.COLUMN">COLUMN</see>.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterTableRequest object with default
         /// parameters.</summary>
@@ -1433,493 +1016,540 @@ namespace kinetica
 
         /// <summary>Constructs an AlterTableRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Table on which the operation will be
         /// performed, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// or view.  </param>
-        /// <param name="action">Modification operation to be applied
+        /// or view.</param>
+        /// <param name="action">Modification operation to be applied.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; action will be
-        /// ignored.</description>
+        ///         cref="Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:
+        ///         </term>
+        ///         <description>No longer supported; action will be ignored.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
+        ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
+        ///         </term>
         ///         <description>Creates either a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
+        ///         href="../../../concepts/indexes/#column-index"
+        ///         target="_top">column (attribute) index</a> or <a
+        ///         href="../../../concepts/indexes/#chunk-skip-index"
+        ///         target="_top">chunk skip index</a>, depending on the
+        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
+        ///         on the column name specified in <paramref name="_value" />.
+        ///         If this column already has the specified index, an error
+        ///         will be returned.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
+        ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
+        ///         </term>
         ///         <description>Deletes either a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
+        ///         href="../../../concepts/indexes/#column-index"
+        ///         target="_top">column (attribute) index</a> or <a
+        ///         href="../../../concepts/indexes/#chunk-skip-index"
+        ///         target="_top">chunk skip index</a>, depending on the
+        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
+        ///         on the column name specified in <paramref name="_value" />.
+        ///         If this column does not have the specified index, an error
+        ///         will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>[DEPRECATED--please use <i>move_to_schema</i>
-        /// and use /create/schema to create the schema if non-existent]  Moves
-        /// a table or view into a schema named <paramref
-        /// cref="AlterTableRequest._value" />.  If the schema provided is
-        /// non-existent, it will be automatically created.</description>
+        ///         cref="Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:
+        ///         </term>
+        ///         <description>[DEPRECATED--please use <see
+        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use
+        ///         <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Moves a table or
+        ///         view into a schema named <paramref name="_value" />.  If
+        ///         the schema provided is non-existent, it will be
+        ///         automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
+        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
+        ///         <paramref name="_value" />.  If the schema provided is
+        ///         nonexistent, an error will be thrown. If <paramref
+        ///         name="_value" /> is empty, then the table or view will be
+        ///         placed in the user's default schema.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
+        ///         <term><see cref="Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>No longer used.  Previously set whether the
-        /// given <paramref cref="AlterTableRequest.table_name" /> should be
-        /// protected or not. The <paramref cref="AlterTableRequest._value" />
-        /// would have been either 'true' or 'false'.</description>
+        ///         given <paramref name="table_name" /> should be protected or
+        ///         not. The <paramref name="_value" /> would have been either
+        ///         'true' or 'false'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
+        ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
+        ///         </term>
         ///         <description>Renames a table or view within its current
-        /// schema to <paramref cref="AlterTableRequest._value" />. Has the
-        /// same naming restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</description>
+        ///         schema to <paramref name="_value" />. Has the same naming
+        ///         restrictions as <a href="../../../concepts/tables/"
+        ///         target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
+        ///         <term><see cref="Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">time-to-live</a> in minutes of the table or view
-        /// specified in <paramref cref="AlterTableRequest.table_name"
-        /// />.</description>
+        ///         target="_top">time-to-live</a> in minutes of the table or
+        ///         view specified in <paramref name="table_name" />.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+        ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:
+        ///         </term>
+        ///         <description>Adds the comment specified in <paramref
+        ///         name="_value" /> to the table specified in <paramref
+        ///         name="table_name" />.  Use <see
+        ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
+        ///         comment for a column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.ADD_COLUMN">ADD_COLUMN</see>:
+        ///         </term>
         ///         <description>Adds the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        ///         name="_value" /> to the table specified in <paramref
+        ///         name="table_name" />.  Use <see
+        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+        ///         <paramref name="options" /> to set the column's type and
+        ///         properties, respectively.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
+        ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
+        ///         </term>
         ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
+        ///         specified in <paramref name="_value" />.  Use <see
+        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+        ///         <paramref name="options" /> to set the column's type and
+        ///         properties, respectively. Note that primary key and/or
+        ///         shard key columns cannot be changed. All unchanging column
+        ///         properties must be listed for the change to take place,
+        ///         e.g., to add dictionary encoding to an existing 'char4'
+        ///         column, both 'char4' and 'dict' must be specified in the
+        ///         <paramref name="options" /> map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>No longer supported; action will be
-        /// ignored.</description>
+        ///         cref="Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:
+        ///         </term>
+        ///         <description>No longer supported; action will be ignored.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
+        ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
+        ///         </term>
         ///         <description>Deletes the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> from the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.</description>
+        ///         name="_value" /> from the table specified in <paramref
+        ///         name="table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
+        ///         cref="Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:
+        ///         </term>
         ///         <description>Creates a <a
-        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
-        /// using the format '(source_column_name [, ...]) references
-        /// target_table_name(primary_key_column_name [, ...]) [as
-        /// foreign_key_name]'.</description>
+        ///         href="../../../concepts/tables/#foreign-key"
+        ///         target="_top">foreign key</a> specified in <paramref
+        ///         name="_value" /> using the format '(source_column_name [,
+        ///         ...]) references target_table_name(primary_key_column_name
+        ///         [, ...]) [as foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
+        ///         cref="Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:
+        ///         </term>
         ///         <description>Deletes a <a
-        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-        /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
-        /// be the foreign_key_name specified when creating the key or the
-        /// complete string used to define it.</description>
+        ///         href="../../../concepts/tables/#foreign-key"
+        ///         target="_top">foreign key</a>.  The <paramref name="_value"
+        ///         /> should be the foreign_key_name specified when creating
+        ///         the key or the complete string used to define it.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
+        ///         <term><see cref="Action.ADD_PARTITION">ADD_PARTITION</see>:
+        ///         </term>
         ///         <description>Adds the partition specified in <paramref
-        /// cref="AlterTableRequest._value" />, to either a <a
-        /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
+        ///         name="_value" />, to either a <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range-partitioned</a> or <a
+        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+        ///         target="_top">manual list-partitioned</a> table.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+        ///         cref="Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:
+        ///         </term>
         ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> (and relocates all of its data
-        /// to the default partition) from either a <a
-        /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
+        ///         name="_value" /> (and relocates all of its data to the
+        ///         default partition) from either a <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range-partitioned</a> or <a
+        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+        ///         target="_top">manual list-partitioned</a> table.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+        ///         cref="Action.DELETE_PARTITION">DELETE_PARTITION</see>:
+        ///         </term>
         ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> (and all of its data) from
-        /// either a <a href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range-partitioned</a> or <a
-        /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list-partitioned</a> table.</description>
+        ///         name="_value" /> (and all of its data) from either a <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range-partitioned</a> or <a
+        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+        ///         target="_top">manual list-partitioned</a> table.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
+        ///         cref="Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:
+        ///         </term>
         ///         <description>Sets the global access mode (i.e. locking) for
-        /// the table specified in <paramref
-        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
-        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no_access', 'read_only', 'write_only' and
-        /// 'read_write'.</description>
+        ///         the table specified in <paramref name="table_name" />.
+        ///         Specify the access mode in <paramref name="_value" />.
+        ///         Valid modes are 'no_access', 'read_only', 'write_only' and
+        ///         'read_write'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
+        ///         <term><see cref="Action.REFRESH">REFRESH</see>:</term>
         ///         <description>For a <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a>, replays all the table creation
-        /// commands required to create the view.  For an <a
-        /// href="../../../concepts/external_tables/" target="_top">external
-        /// table</a>, reloads all data in the table from its associated source
-        /// files or <a href="../../../concepts/data_sources/"
-        /// target="_top">data source</a>.</description>
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a>, replays all the table
+        ///         creation commands required to create the view.  For an <a
+        ///         href="../../../concepts/external_tables/"
+        ///         target="_top">external table</a>, reloads all data in the
+        ///         table from its associated source files or <a
+        ///         href="../../../concepts/data_sources/" target="_top">data
+        ///         source</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
+        ///         cref="Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:
+        ///         </term>
         ///         <description>For a <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a>, sets the method by which the
-        /// view is refreshed to the method specified in <paramref
-        /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
-        /// or 'on_change'.  For an <a
-        /// href="../../../concepts/external_tables/" target="_top">external
-        /// table</a>, sets the method by which the table is refreshed to the
-        /// method specified in <paramref cref="AlterTableRequest._value" /> -
-        /// either 'manual' or 'on_start'.</description>
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a>, sets the method by
+        ///         which the view is refreshed to the method specified in
+        ///         <paramref name="_value" /> - one of 'manual', 'periodic',
+        ///         or 'on_change'.  For an <a
+        ///         href="../../../concepts/external_tables/"
+        ///         target="_top">external table</a>, sets the method by which
+        ///         the table is refreshed to the method specified in <paramref
+        ///         name="_value" /> - either 'manual' or 'on_start'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
+        ///         cref="Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:
+        ///         </term>
         ///         <description>Sets the time to start periodic refreshes of
-        /// this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the datetime string
-        /// specified in <paramref cref="AlterTableRequest._value" /> with
-        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
-        /// specified time + N * the refresh period.</description>
+        ///         this <a href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the datetime string
+        ///         specified in <paramref name="_value" /> with format
+        ///         'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
+        ///         specified time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
+        ///         cref="Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:
+        ///         </term>
         ///         <description>Sets the time to stop periodic refreshes of
-        /// this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the datetime string
-        /// specified in <paramref cref="AlterTableRequest._value" /> with
-        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///         this <a href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the datetime string
+        ///         specified in <paramref name="_value" /> with format
+        ///         'YYYY-MM-DD HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
+        ///         cref="Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:
+        ///         </term>
         ///         <description>Sets the time interval in seconds at which to
-        /// refresh this <a href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the value specified in
-        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
-        /// refresh method to periodic if not already set.</description>
+        ///         refresh this <a
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the value specified
+        ///         in <paramref name="_value" />.  Also, sets the refresh
+        ///         method to periodic if not already set.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+        ///         cref="Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:
+        ///         </term>
         ///         <description>Sets the future time-offset(in seconds) for
-        /// the view refresh to stop.</description>
+        ///         the view refresh to stop.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
+        ///         cref="Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:
+        ///         </term>
         ///         <description>Sets the user name to refresh this <a
-        /// href="../../../concepts/materialized_views/"
-        /// target="_top">materialized view</a> to the value specified in
-        /// <paramref cref="AlterTableRequest._value" />.</description>
+        ///         href="../../../concepts/materialized_views/"
+        ///         target="_top">materialized view</a> to the value specified
+        ///         in <paramref name="_value" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
+        ///         cref="Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:
+        ///         </term>
         ///         <description>Removes <a
-        /// href="../../../concepts/full_text_search/" target="_top">text
-        /// search</a> attribute from all columns.</description>
+        ///         href="../../../concepts/full_text_search/"
+        ///         target="_top">text search</a> attribute from all columns.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+        ///         cref="Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:
+        ///         </term>
         ///         <description>Removes the shard key property from all
-        /// columns, so that the table will be considered randomly sharded.
-        /// The data is not moved.  The <paramref
-        /// cref="AlterTableRequest._value" /> is ignored.</description>
+        ///         columns, so that the table will be considered randomly
+        ///         sharded.  The data is not moved.  The <paramref
+        ///         name="_value" /> is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
+        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:
+        ///         </term>
         ///         <description>Sets the <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns to the one specified in
-        /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety.</description>
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns to the one specified in <paramref name="_value" />,
+        ///         replacing the existing tier strategy in its entirety.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         cref="Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:
+        ///         </term>
         ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
-        /// / Azure.</description>
+        ///         loading continuously as a stream. The data source can be
+        ///         kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         cref="Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:
+        ///         </term>
         ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
-        /// / Azure.</description>
+        ///         loading continuously as a stream. The data source can be
+        ///         kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
+        ///         </term>
         ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
-        /// Azure.</description>
+        ///         subscription. The data source can be kafka / S3 / Azure.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
-        ///         <description>Change the owner resource group of the
-        /// table.</description>
+        ///         <term><see cref="Action.CHANGE_OWNER">CHANGE_OWNER</see>:
+        ///         </term>
+        ///         <description>Change the owner resource group of the table.
+        ///         </description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref cref="AlterTableRequest.action" />.  For example, if
-        /// <paramref cref="AlterTableRequest.action" /> is <i>add_column</i>,
+        /// <paramref name="action" />.  For example, if <paramref
+        /// name="action" /> is <see cref="Action.ADD_COLUMN">ADD_COLUMN</see>,
         /// this would be the column name; while the column's definition would
-        /// be covered by the <i>column_type</i>, <i>column_properties</i>,
-        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
-        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
-        /// number of minutes for the new TTL. If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
-        /// would be blank.  </param>
+        /// be covered by the <see
+        /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
+        /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
+        /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
+        /// <see
+        /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see> in
+        /// <paramref name="options" />.  If <paramref name="action" /> is <see
+        /// cref="Action.TTL">TTL</see>, it would be the number of minutes for
+        /// the new TTL. If <paramref name="action" /> is <see
+        /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
-        ///         <description></description>
+        ///         <term><see cref="Options.ACTION">ACTION</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.COLUMN_NAME">COLUMN_NAME</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.TABLE_NAME">TABLE_NAME</see>
+        ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
+        ///         cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
+        ///         </term>
         ///         <description>When adding a column, set a default value for
-        /// existing records.  For nullable columns, the default value will be
-        /// null, regardless of data type.</description>
+        ///         existing records.  For nullable columns, the default value
+        ///         will be null, regardless of data type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
+        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:
+        ///         </term>
         ///         <description>When adding or changing a column, set the
-        /// column properties (strings, separated by a comma: data, store_only,
-        /// text_search, char8, int8 etc).</description>
+        ///         column properties (strings, separated by a comma: data,
+        ///         store_only, text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+        ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:
+        ///         </term>
         ///         <description>When adding or changing a column, set the
-        /// column type (strings, separated by a comma: int, double, string,
-        /// null etc).</description>
+        ///         column type (strings, separated by a comma: int, double,
+        ///         string, null etc).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
+        ///         </term>
         ///         <description>No longer supported; option will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.NONE">NONE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SNAPPY">SNAPPY</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LZ4">LZ4</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LZ4HC">LZ4HC</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SNAPPY">SNAPPY</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
+        ///         cref="Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
+        ///         </term>
+        ///         <description>[DEPRECATED--please use <see
+        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+        ///         instead.]</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>[DEPRECATED--please use
-        /// <i>add_column_expression</i> instead.]</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
+        ///         cref="Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
         ///         <description>When changing a column, specify new column
-        /// name.</description>
+        ///         name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+        ///         </term>
         ///         <description>When changing a column, validate the change
-        /// before applying it (or not).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Validate all values. A value too large (or too
-        /// long) for the new type will prevent any change.</description>
+        ///         before applying it (or not).
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Validate all values. A value too large
+        ///                 (or too long) for the new type will prevent any
+        ///                 change.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>When a value is too large or long, it
+        ///                 will be truncated.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>When a value is too large or long, it will be
-        /// truncated.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
+        ///         cref="Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:
+        ///         </term>
         ///         <description>Indicates whether the <a
-        /// href="../../../concepts/ttl/" target="_top">time-to-live</a> (TTL)
-        /// expiration countdown timer should be reset to the table's TTL.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Reset the expiration countdown timer to the
-        /// table's configured TTL.</description>
+        ///         href="../../../concepts/ttl/"
+        ///         target="_top">time-to-live</a> (TTL) expiration countdown
+        ///         timer should be reset to the table's TTL.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Reset the expiration countdown timer
+        ///                 to the table's configured TTL.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Don't reset the timer; expiration
+        ///                 countdown will continue from where it is, as if the
+        ///                 table had not been accessed.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Don't reset the timer; expiration countdown
-        /// will continue from where it is, as if the table had not been
-        /// accessed.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
+        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
+        ///         </term>
         ///         <description>When adding a column, an optional expression
-        /// to use for the new column's values. Any valid expression may be
-        /// used, including one containing references to existing columns in
-        /// the same table.</description>
+        ///         to use for the new column's values. Any valid expression
+        ///         may be used, including one containing references to
+        ///         existing columns in the same table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+        ///         </term>
         ///         <description>Optional parameter for specifying the <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns when <paramref
-        /// cref="AlterTableRequest.action" /> is
-        /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety.</description>
+        ///         href="../../../rm/concepts/#tier-strategies"
+        ///         target="_top">tier strategy</a> for the table and its
+        ///         columns when <paramref name="action" /> is <see
+        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
+        ///         replacing the existing tier strategy in its entirety.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+        ///         <term><see cref="Options.INDEX_TYPE">INDEX_TYPE</see>:
+        ///         </term>
         ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
-        /// <i>delete_index</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Create or delete a <a
-        /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Create or delete a <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///         <description>Create or delete a geospatial
-        /// index</description>
+        ///         name="action" /> is <see
+        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>, or to
+        ///         delete, when <paramref name="action" /> is <see
+        ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.COLUMN">COLUMN</see>:
+        ///                 </term>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#column-index"
+        ///                 target="_top">column (attribute) index</a>.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#chunk-skip-index"
+        ///                 target="_top">chunk skip index</a>.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
+        ///                 <description>Create or delete a geospatial index
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.COLUMN">COLUMN</see>.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AlterTableRequest( string table_name,
                                   string action,
                                   string _value,
@@ -1930,21 +1560,17 @@ namespace kinetica
             this._value = _value ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterTableRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
+    /// </summary>
     public class AlterTableResponse : KineticaData
     {
-
-        /// <summary>Table on which the operation was performed.  </summary>
+        /// <summary>Table on which the operation was performed.</summary>
         public string table_name { get; set; }
 
-        /// <summary>Modification operation that was performed.  </summary>
+        /// <summary>Modification operation that was performed.</summary>
         public string action { get; set; }
 
         /// <summary>The value of the modification that was performed.
@@ -1952,27 +1578,22 @@ namespace kinetica
         public string _value { get; set; }
 
         /// <summary>return the type_id (when changing a table, a new type may
-        /// be created)  </summary>
+        /// be created)</summary>
         public string type_id { get; set; }
 
         /// <summary>return the type_definition  (when changing a table, a new
-        /// type may be created)  </summary>
+        /// type may be created)</summary>
         public string type_definition { get; set; }
 
         /// <summary>return the type properties  (when changing a table, a new
-        /// type may be created)  </summary>
+        /// type may be created)</summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>return the type label  (when changing a table, a new type
-        /// may be created)  </summary>
+        /// may be created)</summary>
         public string label { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterTableResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

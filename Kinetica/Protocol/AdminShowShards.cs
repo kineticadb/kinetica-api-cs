@@ -6,24 +6,21 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminShowShards(IDictionary{string, string})" />.
-    /// <br />
-    /// Show the mapping of shards to the corresponding rank and tom.  The
-    /// response message contains list of 16384 (total number of shards in the
-    /// system) Rank and TOM numbers corresponding to each shard.</summary>
+    /// cref="Kinetica.adminShowShards(AdminShowShardsRequest)">Kinetica.adminShowShards</see>.
+    /// </summary>
+    /// <remarks><para>Show the mapping of shards to the corresponding rank and
+    /// tom.  The response message contains list of 16384 (total number of
+    /// shards in the system) Rank and TOM numbers corresponding to each shard.
+    /// </para></remarks>
     public class AdminShowShardsRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminShowShardsRequest object with default
         /// parameters.</summary>
@@ -31,41 +28,31 @@ namespace kinetica
 
         /// <summary>Constructs an AdminShowShardsRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        ///
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public AdminShowShardsRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminShowShardsRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminShowShards(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminShowShards(AdminShowShardsRequest)">Kinetica.adminShowShards</see>.
+    /// </summary>
     public class AdminShowShardsResponse : KineticaData
     {
-
-        /// <summary>Current shard array version number.  </summary>
+        /// <summary>Current shard array version number.</summary>
         public long version { get; set; }
 
-        /// <summary>Array of ranks indexed by the shard number.  </summary>
+        /// <summary>Array of ranks indexed by the shard number.</summary>
         public IList<int> rank { get; set; } = new List<int>();
 
         /// <summary>Array of toms to which the corresponding shard belongs.
         /// </summary>
         public IList<int> tom { get; set; } = new List<int>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminShowShardsResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

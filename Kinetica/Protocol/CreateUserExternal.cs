@@ -6,68 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createUserExternal(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Creates a new external user (a user whose credentials are managed by an
-    /// external LDAP).</summary>
+    /// cref="Kinetica.createUserExternal(CreateUserExternalRequest)">Kinetica.createUserExternal</see>.
+    /// </summary>
+    /// <remarks><para>Creates a new external user (a user whose credentials
+    /// are managed by an external LDAP).</para></remarks>
     public class CreateUserExternalRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
-        ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Default schema to associate with this
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>When <i>true</i>, a home directory in KiFS is
-        /// created for this user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
-        ///         <description>The maximum capacity to apply to the created
-        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
-        /// to indicate no upper limit. If empty, the system default limit is
-        /// applied.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Name of an existing resource group to associate with
             /// this user</summary>
             public const string RESOURCE_GROUP = "resource_group";
@@ -75,83 +27,85 @@ namespace kinetica
             /// <summary>Default schema to associate with this user</summary>
             public const string DEFAULT_SCHEMA = "default_schema";
 
-            /// <summary>When <i>true</i>, a home directory in KiFS is created
-            /// for this user
-            /// Supported values:
+            /// <summary>When <see cref="Options.TRUE">TRUE</see>, a home
+            /// directory in KiFS is created for this user.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string CREATE_HOME_DIRECTORY = "create_home_directory";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>The maximum capacity to apply to the created directory
-            /// if <i>create_home_directory</i> is <i>true</i>. Set to -1 to
-            /// indicate no upper limit. If empty, the system default limit is
-            /// applied.</summary>
+            /// if <see
+            /// cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+            /// is <see cref="Options.TRUE">TRUE</see>.</summary>
+            /// <remarks><para>Set to -1 to indicate no upper limit. If empty,
+            /// the system default limit is applied.</para></remarks>
             public const string DIRECTORY_DATA_LIMIT = "directory_data_limit";
         } // end struct Options
 
-
-        /// <summary>Name of the user to be created. Must exactly match the
-        /// user's name in the external LDAP, prefixed with a @. Must not be
-        /// the same name as an existing user.  </summary>
+        /// <summary>Name of the user to be created.</summary>
+        /// <remarks><para>Must exactly match the user's name in the external
+        /// LDAP, prefixed with a @. Must not be the same name as an existing
+        /// user.</para></remarks>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
+        ///         associate with this user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Default schema to associate with this
-        /// user</description>
+        ///         cref="Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Default schema to associate with this user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>When <i>true</i>, a home directory in KiFS is
-        /// created for this user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>, a
+        ///         home directory in KiFS is created for this user.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         cref="Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
         ///         <description>The maximum capacity to apply to the created
-        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
-        /// to indicate no upper limit. If empty, the system default limit is
-        /// applied.</description>
+        ///         directory if <see
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>. Set to -1 to
+        ///         indicate no upper limit. If empty, the system default limit
+        ///         is applied.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateUserExternalRequest object with default
         /// parameters.</summary>
@@ -159,81 +113,73 @@ namespace kinetica
 
         /// <summary>Constructs a CreateUserExternalRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the user to be created. Must exactly
         /// match the user's name in the external LDAP, prefixed with a @. Must
-        /// not be the same name as an existing user.  </param>
+        /// not be the same name as an existing user.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
+        ///         associate with this user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Default schema to associate with this
-        /// user</description>
+        ///         cref="Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Default schema to associate with this user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>When <i>true</i>, a home directory in KiFS is
-        /// created for this user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>, a
+        ///         home directory in KiFS is created for this user.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserExternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         cref="Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
         ///         <description>The maximum capacity to apply to the created
-        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
-        /// to indicate no upper limit. If empty, the system default limit is
-        /// applied.</description>
+        ///         directory if <see
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>. Set to -1 to
+        ///         indicate no upper limit. If empty, the system default limit
+        ///         is applied.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateUserExternalRequest( string name,
                                           IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateUserExternalRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createUserExternal(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createUserExternal(CreateUserExternalRequest)">Kinetica.createUserExternal</see>.
+    /// </summary>
     public class CreateUserExternalResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="CreateUserExternalRequest.name"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="CreateUserExternalRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateUserExternalResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

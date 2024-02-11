@@ -6,30 +6,26 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminShutdown(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Exits the database server application.</summary>
+    /// cref="Kinetica.adminShutdown(AdminShutdownRequest)">Kinetica.adminShutdown</see>.
+    /// </summary>
+    /// <remarks><para>Exits the database server application.</para></remarks>
     public class AdminShutdownRequest : KineticaData
     {
-
-        /// <summary>Reserved for future use. User can pass an empty string.
-        /// </summary>
+        /// <summary>Reserved for future use.</summary>
+        /// <remarks><para>User can pass an empty string.</para></remarks>
         public string exit_type { get; set; }
 
-        /// <summary>No longer used. User can pass an empty string.  </summary>
+        /// <summary>No longer used.</summary>
+        /// <remarks><para>User can pass an empty string.</para></remarks>
         public string authorization { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminShutdownRequest object with default
         /// parameters.</summary>
@@ -37,14 +33,13 @@ namespace kinetica
 
         /// <summary>Constructs an AdminShutdownRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="exit_type">Reserved for future use. User can pass an
-        /// empty string.  </param>
+        /// empty string.</param>
         /// <param name="authorization">No longer used. User can pass an empty
-        /// string.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// string.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public AdminShutdownRequest( string exit_type,
                                      string authorization,
                                      IDictionary<string, string> options = null)
@@ -53,26 +48,17 @@ namespace kinetica
             this.authorization = authorization ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminShutdownRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminShutdown(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminShutdown(AdminShutdownRequest)">Kinetica.adminShutdown</see>.
+    /// </summary>
     public class AdminShutdownResponse : KineticaData
     {
-
-        /// <summary>'OK' upon (right before) successful exit.  </summary>
+        /// <summary>'OK' upon (right before) successful exit.</summary>
         public string exit_status { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminShutdownResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

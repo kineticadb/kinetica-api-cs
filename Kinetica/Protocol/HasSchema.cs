@@ -6,27 +6,24 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasSchema(string,IDictionary{string, string})" />.
-    /// <br />
-    /// Checks for the existence of a schema with the given name.</summary>
+    /// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
+    /// </summary>
+    /// <remarks><para>Checks for the existence of a schema with the given
+    /// name.</para></remarks>
     public class HasSchemaRequest : KineticaData
     {
-
         /// <summary>Name of the schema to check for existence, in root, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public string schema_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a HasSchemaRequest object with default
         /// parameters.</summary>
@@ -34,76 +31,53 @@ namespace kinetica
 
         /// <summary>Constructs a HasSchemaRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="schema_name">Name of the schema to check for
         /// existence, in root, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// target="_top">name resolution rules</a>.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public HasSchemaRequest( string schema_name,
                                  IDictionary<string, string> options = null)
         {
             this.schema_name = schema_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class HasSchemaRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasSchema(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
+    /// </summary>
     public class HasSchemaResponse : KineticaData
     {
-
-        /// <summary>Indicates whether the schema exists or not.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasSchemaResponse.SchemaExists.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasSchemaResponse.SchemaExists.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="schema_exists" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="schema_exists" />.</summary>
+        /// <remarks><para>Indicates whether the schema exists or not.</para>
+        /// </remarks>
         public struct SchemaExists
         {
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct SchemaExists
 
-
-        /// <summary>Value of <paramref cref="HasSchemaRequest.schema_name" />
-        /// </summary>
+        /// <summary>Value of <see
+        /// cref="HasSchemaRequest.schema_name">schema_name</see></summary>
         public string schema_name { get; set; }
 
-        /// <summary>Indicates whether the schema exists or not.
-        /// Supported values:
+        /// <summary>Indicates whether the schema exists or not.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="HasSchemaResponse.SchemaExists.TRUE">TRUE</see></term>
+        ///         <term><see cref="SchemaExists.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="HasSchemaResponse.SchemaExists.FALSE">FALSE</see></term>
+        ///         <term><see cref="SchemaExists.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public bool schema_exists { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class HasSchemaResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

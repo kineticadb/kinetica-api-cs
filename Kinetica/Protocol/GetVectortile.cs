@@ -6,16 +6,9 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
     /// @cond NO_DOCS
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.getVectortile(IList{string},IList{string},IDictionary{string, IList{string}},int,int,int,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// </summary>
     public class GetVectortileRequest : KineticaData
     {
         public IList<string> table_names { get; set; } = new List<string>();
@@ -26,22 +19,8 @@ namespace kinetica
         public int zoom { get; set; }
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a GetVectortileRequest object with default
-        /// parameters.</summary>
         public GetVectortileRequest() { }
 
-        /// <summary>Constructs a GetVectortileRequest object with the
-        /// specified parameters.</summary>
-        /// 
-        /// <param name="table_names"></param>
-        /// <param name="column_names"></param>
-        /// <param name="layers"></param>
-        /// <param name="tile_x"></param>
-        /// <param name="tile_y"></param>
-        /// <param name="zoom"></param>
-        /// <param name="options"></param>
-        /// 
         public GetVectortileRequest( IList<string> table_names,
                                      IList<string> column_names,
                                      IDictionary<string, IList<string>> layers,
@@ -58,26 +37,14 @@ namespace kinetica
             this.zoom = zoom;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class GetVectortileRequest
     /// @endcond
 
-
-
     /// @cond NO_DOCS
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getVectortile(IList{string},IList{string},IDictionary{string, IList{string}},int,int,int,IDictionary{string, string})"
-    /// />.</summary>
     public class GetVectortileResponse : KineticaData
     {
         public string encoded_data { get; set; }
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GetVectortileResponse
     /// @endcond
-
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

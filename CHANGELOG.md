@@ -1,5 +1,15 @@
 # GPUdb C# API Changelog
 
+## Version 7.2
+
+### Version 7.2.0.0 - 2024-02-11
+
+#### Added
+-   Support for Array & Vector types
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
 
 ## Version 7.1
 

@@ -6,35 +6,32 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showTablesByType(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Gets names of the tables whose type matches the given criteria. Each
-    /// table has a particular type. This type comprises the schema and
-    /// properties of the table and sometimes a type label. This function
-    /// allows a look up of the existing tables based on full or partial type
-    /// information. The operation is synchronous.</summary>
+    /// cref="Kinetica.showTablesByType(ShowTablesByTypeRequest)">Kinetica.showTablesByType</see>.
+    /// </summary>
+    /// <remarks><para>Gets names of the tables whose type matches the given
+    /// criteria. Each table has a particular type. This type comprises the
+    /// schema and properties of the table and sometimes a type label. This
+    /// function allows a look up of the existing tables based on full or
+    /// partial type information. The operation is synchronous.</para>
+    /// </remarks>
     public class ShowTablesByTypeRequest : KineticaData
     {
-
-        /// <summary>Type id returned by a call to /create/type.  </summary>
+        /// <summary>Type id returned by a call to <see
+        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
+        /// </summary>
         public string type_id { get; set; }
 
         /// <summary>Optional user supplied label which can be used instead of
-        /// the type_id to retrieve all tables with the given label.
-        /// </summary>
+        /// the type_id to retrieve all tables with the given label.</summary>
         public string label { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowTablesByTypeRequest object with default
         /// parameters.</summary>
@@ -42,15 +39,15 @@ namespace kinetica
 
         /// <summary>Constructs a ShowTablesByTypeRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="type_id">Type id returned by a call to /create/type.
+        ///
+        /// <param name="type_id">Type id returned by a call to <see
+        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
         /// </param>
         /// <param name="label">Optional user supplied label which can be used
         /// instead of the type_id to retrieve all tables with the given label.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public ShowTablesByTypeRequest( string type_id,
                                         string label,
                                         IDictionary<string, string> options = null)
@@ -59,26 +56,17 @@ namespace kinetica
             this.label = label ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowTablesByTypeRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showTablesByType(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showTablesByType(ShowTablesByTypeRequest)">Kinetica.showTablesByType</see>.
+    /// </summary>
     public class ShowTablesByTypeResponse : KineticaData
     {
-
-        /// <summary>List of tables matching the input criteria.  </summary>
+        /// <summary>List of tables matching the input criteria.</summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowTablesByTypeResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

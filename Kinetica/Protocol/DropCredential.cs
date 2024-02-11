@@ -6,28 +6,24 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.dropCredential(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Drop an existing <a href="../../../concepts/credentials/"
-    /// target="_top">credential</a>.</summary>
+    /// cref="Kinetica.dropCredential(DropCredentialRequest)">Kinetica.dropCredential</see>.
+    /// </summary>
+    /// <remarks><para>Drop an existing <a
+    /// href="../../../concepts/credentials/" target="_top">credential</a>.
+    /// </para></remarks>
     public class DropCredentialRequest : KineticaData
     {
-
-        /// <summary>Name of the credential to be dropped. Must be an existing
-        /// credential.  </summary>
+        /// <summary>Name of the credential to be dropped.</summary>
+        /// <remarks><para>Must be an existing credential.</para></remarks>
         public string credential_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a DropCredentialRequest object with default
         /// parameters.</summary>
@@ -35,39 +31,30 @@ namespace kinetica
 
         /// <summary>Constructs a DropCredentialRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="credential_name">Name of the credential to be dropped.
-        /// Must be an existing credential.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// Must be an existing credential.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public DropCredentialRequest( string credential_name,
                                       IDictionary<string, string> options = null)
         {
             this.credential_name = credential_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class DropCredentialRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.dropCredential(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.dropCredential(DropCredentialRequest)">Kinetica.dropCredential</see>.
+    /// </summary>
     public class DropCredentialResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="DropCredentialRequest.credential_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="DropCredentialRequest.credential_name">credential_name</see>.
+        /// </summary>
         public string credential_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class DropCredentialResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

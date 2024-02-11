@@ -6,117 +6,82 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showGraph(string,IDictionary{string, string})" />.
-    /// <br />
-    /// Shows information and characteristics of graphs that exist on the graph
-    /// server.</summary>
+    /// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see>.
+    /// </summary>
+    /// <remarks><para>Shows information and characteristics of graphs that
+    /// exist on the graph server.</para></remarks>
     public class ShowGraphRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
-        ///         <description>If set to <i>true</i>, the request that was
-        /// originally used to create the graph is also returned as JSON.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If set to <i>true</i>, the request that was originally
-            /// used to create the graph is also returned as JSON.
-            /// Supported values:
+            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the
+            /// request that was originally used to create the graph is also
+            /// returned as JSON.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string SHOW_ORIGINAL_REQUEST = "show_original_request";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>Indicates which graph server(s) to send the request
-            /// to. Default is to send to get information about all the
-            /// servers.</summary>
+            /// to.</summary>
+            /// <remarks><para>Default is to send to get information about all
+            /// the servers.</para></remarks>
             public const string SERVER_ID = "server_id";
         } // end struct Options
 
-
-        /// <summary>Name of the graph on which to retrieve information. If
-        /// left as the default value, information about all graphs is
-        /// returned.  The default value is ''.</summary>
+        /// <summary>Name of the graph on which to retrieve information.
+        /// </summary>
+        /// <remarks><para>If left as the default value, information about all
+        /// graphs is returned. The default value is ''.</para></remarks>
         public string graph_name { get; set; } = "";
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
-        ///         <description>If set to <i>true</i>, the request that was
-        /// originally used to create the graph is also returned as JSON.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         the request that was originally used to create the graph is
+        ///         also returned as JSON.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
+        ///         request to. Default is to send to get information about all
+        ///         the servers.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowGraphRequest object with default
         /// parameters.</summary>
@@ -124,116 +89,113 @@ namespace kinetica
 
         /// <summary>Constructs a ShowGraphRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="graph_name">Name of the graph on which to retrieve
         /// information. If left as the default value, information about all
-        /// graphs is returned.  The default value is ''.</param>
+        /// graphs is returned. The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
-        ///         <description>If set to <i>true</i>, the request that was
-        /// originally used to create the graph is also returned as JSON.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         the request that was originally used to create the graph is
+        ///         also returned as JSON.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
+        ///         request to. Default is to send to get information about all
+        ///         the servers.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public ShowGraphRequest( string graph_name = null,
                                  IDictionary<string, string> options = null)
         {
             this.graph_name = graph_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowGraphRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showGraph(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see>.
+    /// </summary>
     public class ShowGraphResponse : KineticaData
     {
-
-        /// <summary>Indicates a success. This call will fails of the graph
-        /// specified in the request does not exist.  </summary>
+        /// <summary>Indicates a success.</summary>
+        /// <remarks><para>This call will fails of the graph specified in the
+        /// request does not exist.</para></remarks>
         public bool result { get; set; }
 
         /// <summary>A percentage approximating the current computational load
-        /// on the server.  </summary>
+        /// on the server.</summary>
         public IList<int> load { get; set; } = new List<int>();
 
-        /// <summary>Available memory.  </summary>
+        /// <summary>Available memory.</summary>
         public IList<long> memory { get; set; } = new List<long>();
 
-        /// <summary>Name(s) of the graph(s).  </summary>
+        /// <summary>Name(s) of the graph(s).</summary>
         public IList<string> graph_names { get; set; } = new List<string>();
 
-        /// <summary>Id(s) of the graph(s).  </summary>
+        /// <summary>Id(s) of the graph(s).</summary>
         public IList<int> graph_server_ids { get; set; } = new List<int>();
 
         /// <summary>Owner the graph(s) and associated solution table(s).
         /// </summary>
         public IList<string> graph_owner_user_names { get; set; } = new List<string>();
 
-        /// <summary>Owner resource groups(s) of the graph(s).  </summary>
+        /// <summary>Owner resource groups(s) of the graph(s).</summary>
         public IList<string> graph_owner_resource_groups { get; set; } = new List<string>();
 
         /// <summary>Whether or not the edges of the graph have directions
-        /// (bi-directional edges can still exist in directed graphs). Consult
-        /// <a
+        /// (bi-directional edges can still exist in directed graphs).
+        /// </summary>
+        /// <remarks><para>Consult <a
         /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
-        /// target="_top">Directed Graphs</a> for more details.  </summary>
+        /// target="_top">Directed Graphs</a> for more details.</para>
+        /// </remarks>
         public IList<bool> directed { get; set; } = new List<bool>();
 
-        /// <summary>Total number of nodes in the graph.  </summary>
+        /// <summary>Total number of nodes in the graph.</summary>
         public IList<long> num_nodes { get; set; } = new List<long>();
 
-        /// <summary>Total number of edges in the graph.  </summary>
+        /// <summary>Total number of edges in the graph.</summary>
         public IList<long> num_edges { get; set; } = new List<long>();
 
-        /// <summary>Memory this graph uses in bytes.  </summary>
+        /// <summary>Memory this graph uses in bytes.</summary>
         public IList<long> num_bytes { get; set; } = new List<long>();
 
-        /// <summary>Memory this graph uses in bytes.  </summary>
+        /// <summary>Memory this graph uses in bytes.</summary>
         public IList<long> resource_capacity { get; set; } = new List<long>();
 
         /// <summary>Shows whether or not the graph is persisted (saved and
-        /// loaded on launch).  </summary>
+        /// loaded on launch).</summary>
         public IList<bool> is_persisted { get; set; } = new List<bool>();
 
         /// <summary>Indicated if the graph data data is distributed across all
-        /// available servers.  </summary>
+        /// available servers.</summary>
         public IList<bool> is_partitioned { get; set; } = new List<bool>();
 
         /// <summary>Shows whether or not the graph is linked to the original
         /// tables that created it, and will potentially be re-created instead
-        /// loaded from persist on launch.  </summary>
+        /// loaded from persist on launch.</summary>
         public IList<bool> is_sync_db { get; set; } = new List<bool>();
 
         /// <summary>Shows whether or not the graph has an insert table monitor
-        /// attached to it.  </summary>
+        /// attached to it.</summary>
         public IList<bool> has_insert_table_monitor { get; set; } = new List<bool>();
 
         /// <summary>The original client request used to create the graph
@@ -241,12 +203,7 @@ namespace kinetica
         /// </summary>
         public IList<string> original_request { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowGraphResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

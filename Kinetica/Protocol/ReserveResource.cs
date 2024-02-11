@@ -6,49 +6,11 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
     /// @cond NO_DOCS
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.reserveResource(string,string,string,long,long,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// </summary>
     public class ReserveResourceRequest : KineticaData
     {
-
-        /// <summary>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.GET_SIZE">GET_SIZE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.NOTIFY_UNTIERED">NOTIFY_UNTIERED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.TIER">TIER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.EVICT">EVICT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.DELETE">DELETE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="action"
-        /// />.</summary>
         public struct Action
         {
             public const string GET_SIZE = "get_size";
@@ -59,103 +21,15 @@ namespace kinetica
             public const string CHANGE_OWNER = "change_owner";
         } // end struct Action
 
-
-        /// <summary>
-        /// <list type="bullet">
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
-        public struct Options
-        {
-        } // end struct Options
-
         public string component { get; set; }
         public string name { get; set; }
-
-        /// <summary>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.GET_SIZE">GET_SIZE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.NOTIFY_UNTIERED">NOTIFY_UNTIERED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.TIER">TIER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.EVICT">EVICT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.DELETE">DELETE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see></term>
-        ///     </item>
-        /// </list></summary>
         public string action { get; set; }
         public long bytes_requested { get; set; } = 0;
         public long owner_id { get; set; } = 0;
-
-        /// <summary>
-        /// <list type="bullet">
-        /// </list>
-        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a ReserveResourceRequest object with default
-        /// parameters.</summary>
         public ReserveResourceRequest() { }
 
-        /// <summary>Constructs a ReserveResourceRequest object with the
-        /// specified parameters.</summary>
-        /// 
-        /// <param name="component"></param>
-        /// <param name="name"></param>
-        /// <param name="action">
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.GET_SIZE">GET_SIZE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.NOTIFY_UNTIERED">NOTIFY_UNTIERED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.TIER">TIER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.EVICT">EVICT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.DELETE">DELETE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ReserveResourceRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see></term>
-        ///     </item>
-        /// </list></param>
-        /// <param name="bytes_requested"></param>
-        /// <param name="owner_id"></param>
-        /// <param name="options">
-        /// <list type="bullet">
-        /// </list>
-        /// </param>
-        /// 
         public ReserveResourceRequest( string component,
                                        string name,
                                        string action,
@@ -170,28 +44,16 @@ namespace kinetica
             this.owner_id = owner_id ?? 0;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ReserveResourceRequest
     /// @endcond
 
-
-
     /// @cond NO_DOCS
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.reserveResource(string,string,string,long,long,IDictionary{string, string})"
-    /// />.</summary>
     public class ReserveResourceResponse : KineticaData
     {
         public string component { get; set; }
         public string name { get; set; }
         public long reservation { get; set; }
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ReserveResourceResponse
     /// @endcond
-
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

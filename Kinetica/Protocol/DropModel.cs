@@ -6,84 +6,35 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
     /// @cond NO_DOCS
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.dropModel(string,IDictionary{string, string})" />.
-    /// <br />
-    /// </summary>
     public class DropModelRequest : KineticaData
     {
         public string model_name { get; set; }
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a DropModelRequest object with default
-        /// parameters.</summary>
         public DropModelRequest() { }
 
-        /// <summary>Constructs a DropModelRequest object with the specified
-        /// parameters.</summary>
-        /// 
-        /// <param name="model_name"></param>
-        /// <param name="options"></param>
-        /// 
         public DropModelRequest( string model_name,
                                  IDictionary<string, string> options = null)
         {
             this.model_name = model_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class DropModelRequest
     /// @endcond
 
-
-
     /// @cond NO_DOCS
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.dropModel(string,IDictionary{string, string})"
-    /// />.</summary>
     public class DropModelResponse : KineticaData
     {
-
-        /// <summary>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DropModelResponse.Info.KML_RESPONSE">KML_RESPONSE</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
         public struct Info
         {
             public const string KML_RESPONSE = "kml_response";
         } // end struct Info
 
         public string model_name { get; set; }
-
-        /// <summary>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DropModelResponse.Info.KML_RESPONSE">KML_RESPONSE</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        /// </list>
-        /// </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class DropModelResponse
     /// @endcond
-
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

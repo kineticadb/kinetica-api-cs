@@ -6,323 +6,231 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// For a given table, retrieves the values from the requested
-    /// column(s). Maps of column name to the array of values as well as the
-    /// column data
-    /// type are returned. This endpoint supports pagination with the <see
-    /// cref="offset" />
-    /// and <see cref="limit" /> parameters.
-    /// <br />
-    /// <a href="../../../concepts/window/" target="_top">Window functions</a>,
-    /// which can perform
-    /// operations like moving averages, are available through this endpoint as
-    /// well as
-    /// <see
-    /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// When using pagination, if the table (or the underlying table in the
-    /// case of a
-    /// view) is modified (records are inserted, updated, or deleted) during a
-    /// call to
-    /// the endpoint, the records or values retrieved may differ between calls
-    /// based on
-    /// the type of the update, e.g., the contiguity across pages cannot be
-    /// relied upon.
-    /// <br />
-    /// If <see cref="table_name" /> is empty, selection is performed against a
-    /// single-row
-    /// virtual table.  This can be useful in executing temporal
-    /// (<a href="../../../concepts/expressions/#date-time-functions"
-    /// target="_top">NOW()</a>), identity
-    /// (<a href="../../../concepts/expressions/#user-security-functions"
-    /// target="_top">USER()</a>), or
-    /// constant-based functions
-    /// (<a href="../../../concepts/expressions/#scalar-functions"
-    /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
-    /// <br />
-    /// The response is returned as a dynamic schema. For details see:
-    /// <a href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
-    /// schemas documentation</a>.</summary>
+    /// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.
+    /// </summary>
+    /// <remarks><para>For a given table, retrieves the values from the
+    /// requested column(s). Maps of column name to the array of values as well
+    /// as the column data type are returned. This endpoint supports pagination
+    /// with the <see cref="offset" /> and <see cref="limit" />
+    /// parameters.</para>
+    /// <para><a href="../../../concepts/window/" target="_top">Window
+    /// functions</a>, which can perform operations like moving averages, are
+    /// available through this endpoint as well as <see
+    /// cref="Kinetica.createProjection(CreateProjectionRequest)">Kinetica.createProjection</see>.</para>
+    /// <para>When using pagination, if the table (or the underlying table in
+    /// the case of a view) is modified (records are inserted, updated, or
+    /// deleted) during a call to the endpoint, the records or values retrieved
+    /// may differ between calls based on the type of the update, e.g., the
+    /// contiguity across pages cannot be relied upon.</para>
+    /// <para>If <see cref="table_name" /> is empty, selection is performed
+    /// against a single-row virtual table.  This can be useful in executing
+    /// temporal (<a href="../../../concepts/expressions/#date-time-functions"
+    /// target="_top">NOW()</a>), identity (<a
+    /// href="../../../concepts/expressions/#user-security-functions"
+    /// target="_top">USER()</a>), or constant-based functions (<a
+    /// href="../../../concepts/expressions/#scalar-functions"
+    /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</para>
+    /// <para>The response is returned as a dynamic schema. For details see: <a
+    /// href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.</para></remarks>
     public class GetRecordsByColumnRequest : KineticaData
     {
-
-        /// <summary>Specifies the encoding for returned records; either
-        /// <i>binary</i> or <i>json</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Encoding.JSON">JSON</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see>.
-        /// A set of string constants for the parameter <see cref="encoding"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="encoding" />.</summary>
+        /// <remarks><para>Specifies the encoding for returned records; either
+        /// <see cref="Encoding.BINARY">BINARY</see> or <see
+        /// cref="Encoding.JSON">JSON</see>.</para></remarks>
         public struct Encoding
         {
             public const string BINARY = "binary";
             public const string JSON = "json";
         } // end struct Encoding
 
-
-        /// <summary>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
-        ///         <description>Optional filter expression to apply to the
-        /// table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column that the data should be sorted
-        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
-        /// option can be used in lieu of <i>sort_by</i> / <i>sort_order</i>.
-        /// The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
-        ///         <description>String indicating how the returned values
-        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
-        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
-        /// desc'.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If <i>true</i>, then WKT string columns will
-        /// be returned as WKB bytes.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
         public struct Options
         {
-
-            /// <summary>Optional filter expression to apply to the
-            /// table.</summary>
+            /// <summary>Optional filter expression to apply to the table.
+            /// </summary>
             public const string EXPRESSION = "expression";
 
             /// <summary>Optional column that the data should be sorted by.
-            /// Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
-            /// option can be used in lieu of <i>sort_by</i> /
-            /// <i>sort_order</i>.  The default value is ''.</summary>
+            /// </summary>
+            /// <remarks><para>Used in conjunction with <see
+            /// cref="Options.SORT_ORDER">SORT_ORDER</see>. The <see
+            /// cref="Options.ORDER_BY">ORDER_BY</see> option can be used in
+            /// lieu of <see cref="Options.SORT_BY">SORT_BY</see> / <see
+            /// cref="Options.SORT_ORDER">SORT_ORDER</see>. The default value
+            /// is ''.</para></remarks>
             public const string SORT_BY = "sort_by";
 
             /// <summary>String indicating how the returned values should be
-            /// sorted - <i>ascending</i> or <i>descending</i>. If
-            /// <i>sort_order</i> is provided, <i>sort_by</i> has to be
-            /// provided.
-            /// Supported values:
+            /// sorted - <see cref="Options.ASCENDING">ASCENDING</see> or <see
+            /// cref="Options.DESCENDING">DESCENDING</see>.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
+            ///         <term><see cref="Options.ASCENDING">ASCENDING</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+            ///         <term><see cref="Options.DESCENDING">DESCENDING</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.ASCENDING">ASCENDING</see>.</para></remarks>
             public const string SORT_ORDER = "sort_order";
+
             public const string ASCENDING = "ascending";
             public const string DESCENDING = "descending";
 
             /// <summary>Comma-separated list of the columns to be sorted by as
-            /// well as the sort direction, e.g., 'timestamp asc, x desc'.  The
-            /// default value is ''.</summary>
+            /// well as the sort direction, e.g., 'timestamp asc, x desc'.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string ORDER_BY = "order_by";
 
-            /// <summary>If <i>true</i>, then WKT string columns will be
-            /// returned as WKB bytes.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then WKT
+            /// string columns will be returned as WKB bytes.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CONVERT_WKTS_TO_WKBS = "convert_wkts_to_wkbs";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
         /// <summary>Name of the table or view on which this operation will be
         /// performed, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  An empty table name
-        /// retrieves one record from a single-row virtual table, where columns
-        /// specified should be constants or constant expressions.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> An empty table name retrieves one record from a
+        /// single-row virtual table, where columns specified should be
+        /// constants or constant expressions.</para></remarks>
         public string table_name { get; set; }
 
-        /// <summary>The list of column values to retrieve.  </summary>
+        /// <summary>The list of column values to retrieve.</summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
         /// <summary>A positive integer indicating the number of initial
         /// results to skip (this can be useful for paging through the
-        /// results).  The default value is 0.The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT. </summary>
+        /// results).</summary>
+        /// <remarks><para>The default value is 0. The minimum allowed value is
+        /// 0. The maximum allowed value is MAX_INT.</para></remarks>
         public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned, or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be
-        /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the
-        /// <a href="../../../config/#config-main-general"
+        /// results to be returned, or END_OF_SET (-9999) to indicate that the
+        /// maximum number of results allowed by the server should be returned.
+        /// </summary>
+        /// <remarks><para> The number of records returned will never exceed
+        /// the server's own limit, defined by the <a
+        /// href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.
-        /// Use <member name="has_more_records" /> to see if more records exist
-        /// in the result to be fetched, and
-        /// <paramref cref="GetRecordsByColumnRequest.offset" /> & <paramref
-        /// cref="GetRecordsByColumnRequest.limit" /> to request subsequent
-        /// pages of results.  The default value is -9999.</summary>
+        /// configuration. Use <see
+        /// cref="GetRecordsByColumnResponse.has_more_records">has_more_records</see>
+        /// to see if more records exist in the result to be fetched, and <see
+        /// cref="offset" /> & <see cref="limit" /> to request subsequent pages
+        /// of results. The default value is -9999.</para></remarks>
         public long limit { get; set; } = -9999;
 
-        /// <summary>Specifies the encoding for returned records; either
-        /// <i>binary</i> or <i>json</i>.
-        /// Supported values:
+        /// <summary>Specifies the encoding for returned records; either <see
+        /// cref="Encoding.BINARY">BINARY</see> or <see
+        /// cref="Encoding.JSON">JSON</see>.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Encoding.JSON">JSON</see></term>
+        ///         <term><see cref="Encoding.JSON">JSON</see></term>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see>.
-        /// </summary>
+        /// <para>The default value is <see
+        /// cref="Encoding.BINARY">BINARY</see>.</para></remarks>
         public string encoding { get; set; } = Encoding.BINARY;
 
-        /// <summary>
-        /// <list type="bullet">
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to the
-        /// table.</description>
+        ///         table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
+        ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
-        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
-        /// option can be used in lieu of <i>sort_by</i> / <i>sort_order</i>.
-        /// The default value is ''.</description>
+        ///         by. Used in conjunction with <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see>. The <see
+        ///         cref="Options.ORDER_BY">ORDER_BY</see> option can be used
+        ///         in lieu of <see cref="Options.SORT_BY">SORT_BY</see> / <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see>. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
+        ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
+        ///         </term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
-        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
+        ///         should be sorted - <see
+        ///         cref="Options.ASCENDING">ASCENDING</see> or <see
+        ///         cref="Options.DESCENDING">DESCENDING</see>. If <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see> is provided,
+        ///         <see cref="Options.SORT_BY">SORT_BY</see> has to be
+        ///         provided.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DESCENDING">DESCENDING</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
-        /// desc'.  The default value is ''.</description>
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If <i>true</i>, then WKT string columns will
-        /// be returned as WKB bytes.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         WKT string columns will be returned as WKB bytes.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a GetRecordsByColumnRequest object with default
         /// parameters.</summary>
@@ -330,99 +238,99 @@ namespace kinetica
 
         /// <summary>Constructs a GetRecordsByColumnRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table or view on which this
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  An empty table name
         /// retrieves one record from a single-row virtual table, where columns
-        /// specified should be constants or constant expressions.  </param>
+        /// specified should be constants or constant expressions.</param>
         /// <param name="column_names">The list of column values to retrieve.
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The default value is 0.The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT. </param>
+        /// results). The default value is 0. The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT.</param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the
-        /// <a href="../../../config/#config-main-general"
+        /// server's own limit, defined by the <a
+        /// href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.
-        /// Use <member name="has_more_records" /> to see if more records exist
-        /// in the result to be fetched, and
-        /// <paramref cref="GetRecordsByColumnRequest.offset" /> & <paramref
-        /// cref="GetRecordsByColumnRequest.limit" /> to request subsequent
-        /// pages of results.  The default value is -9999.</param>
-        /// <param name="options">
-        /// <list type="bullet">
+        /// configuration. Use <see
+        /// cref="GetRecordsByColumnResponse.has_more_records">has_more_records</see>
+        /// to see if more records exist in the result to be fetched, and
+        /// <paramref name="offset" /> & <paramref name="limit" /> to request
+        /// subsequent pages of results. The default value is -9999.</param>
+        /// <param name="options"><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to the
-        /// table.</description>
+        ///         table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
+        ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
-        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
-        /// option can be used in lieu of <i>sort_by</i> / <i>sort_order</i>.
-        /// The default value is ''.</description>
+        ///         by. Used in conjunction with <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see>. The <see
+        ///         cref="Options.ORDER_BY">ORDER_BY</see> option can be used
+        ///         in lieu of <see cref="Options.SORT_BY">SORT_BY</see> / <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see>. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
+        ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
+        ///         </term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
-        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
+        ///         should be sorted - <see
+        ///         cref="Options.ASCENDING">ASCENDING</see> or <see
+        ///         cref="Options.DESCENDING">DESCENDING</see>. If <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see> is provided,
+        ///         <see cref="Options.SORT_BY">SORT_BY</see> has to be
+        ///         provided.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DESCENDING">DESCENDING</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
-        /// desc'.  The default value is ''.</description>
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If <i>true</i>, then WKT string columns will
-        /// be returned as WKB bytes.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         WKT string columns will be returned as WKB bytes.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public GetRecordsByColumnRequest( string table_name,
                                           IList<string> column_names,
                                           long? offset = null,
@@ -437,118 +345,115 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
         /// <summary>Constructs a GetRecordsByColumnRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table or view on which this
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  An empty table name
         /// retrieves one record from a single-row virtual table, where columns
-        /// specified should be constants or constant expressions.  </param>
+        /// specified should be constants or constant expressions.</param>
         /// <param name="column_names">The list of column values to retrieve.
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The default value is 0.The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT. </param>
+        /// results). The default value is 0. The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT.</param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the
-        /// <a href="../../../config/#config-main-general"
+        /// server's own limit, defined by the <a
+        /// href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.
-        /// Use <member name="has_more_records" /> to see if more records exist
-        /// in the result to be fetched, and
-        /// <paramref cref="GetRecordsByColumnRequest.offset" /> & <paramref
-        /// cref="GetRecordsByColumnRequest.limit" /> to request subsequent
-        /// pages of results.  The default value is -9999.</param>
+        /// configuration. Use <see
+        /// cref="GetRecordsByColumnResponse.has_more_records">has_more_records</see>
+        /// to see if more records exist in the result to be fetched, and
+        /// <paramref name="offset" /> & <paramref name="limit" /> to request
+        /// subsequent pages of results. The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either <i>binary</i> or <i>json</i>.
+        /// either <see cref="Encoding.BINARY">BINARY</see> or <see
+        /// cref="Encoding.JSON">JSON</see>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Encoding.JSON">JSON</see></term>
+        ///         <term><see cref="Encoding.JSON">JSON</see></term>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see>.
+        /// The default value is <see cref="Encoding.BINARY">BINARY</see>.
         /// </param>
-        /// <param name="options">
-        /// <list type="bullet">
+        /// <param name="options"><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to the
-        /// table.</description>
+        ///         table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
+        ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
-        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
-        /// option can be used in lieu of <i>sort_by</i> / <i>sort_order</i>.
-        /// The default value is ''.</description>
+        ///         by. Used in conjunction with <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see>. The <see
+        ///         cref="Options.ORDER_BY">ORDER_BY</see> option can be used
+        ///         in lieu of <see cref="Options.SORT_BY">SORT_BY</see> / <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see>. The default
+        ///         value is ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
+        ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
+        ///         </term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
-        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
+        ///         should be sorted - <see
+        ///         cref="Options.ASCENDING">ASCENDING</see> or <see
+        ///         cref="Options.DESCENDING">DESCENDING</see>. If <see
+        ///         cref="Options.SORT_ORDER">SORT_ORDER</see> is provided,
+        ///         <see cref="Options.SORT_BY">SORT_BY</see> has to be
+        ///         provided.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DESCENDING">DESCENDING</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
-        /// desc'.  The default value is ''.</description>
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If <i>true</i>, then WKT string columns will
-        /// be returned as WKB bytes.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         WKT string columns will be returned as WKB bytes.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public GetRecordsByColumnRequest( string table_name,
                                           IList<string> column_names,
                                           long? offset = null,
@@ -563,69 +468,58 @@ namespace kinetica
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor
-
     } // end class GetRecordsByColumnRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.
+    /// </summary>
     public class RawGetRecordsByColumnResponse : KineticaData
     {
-
         /// <summary>The same table name as was passed in the parameter list.
         /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>Avro schema of <member name="binary_encoded_response" />
-        /// or <member name="json_encoded_response" />.  </summary>
+        /// <summary>Avro schema of <see cref="binary_encoded_response" /> or
+        /// <see cref="json_encoded_response" />.</summary>
         public string response_schema_str { get; set; }
 
-        /// <summary>Avro binary encoded response.  </summary>
+        /// <summary>Avro binary encoded response.</summary>
         public byte[] binary_encoded_response { get; set; }
 
-        /// <summary>Avro JSON encoded response.  </summary>
+        /// <summary>Avro JSON encoded response.</summary>
         public string json_encoded_response { get; set; }
 
-        /// <summary>Total/Filtered number of records.  </summary>
+        /// <summary>Total/Filtered number of records.</summary>
         public long total_number_of_records { get; set; }
 
-        /// <summary>Too many records. Returned a partial set.  </summary>
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Returned a partial set.</para></remarks>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class RawGetRecordsByColumnResponse
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.
+    /// </summary>
     public class GetRecordsByColumnResponse : KineticaData
     {
-
         /// <summary>The same table name as was passed in the parameter list.
         /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>Avro binary encoded response.  </summary>
+        /// <summary>Avro binary encoded response.</summary>
         public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
 
-        /// <summary>Total/Filtered number of records.  </summary>
+        /// <summary>Total/Filtered number of records.</summary>
         public long total_number_of_records { get; set; }
 
-        /// <summary>Too many records. Returned a partial set.  </summary>
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Returned a partial set.</para></remarks>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GetRecordsByColumnResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

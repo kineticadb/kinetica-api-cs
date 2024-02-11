@@ -6,52 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createVideo(string,string,double,string,double,string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Creates a job to generate a sequence of raster images that visualize
-    /// data over a specified time.</summary>
+    /// cref="Kinetica.createVideo(CreateVideoRequest)">Kinetica.createVideo</see>.
+    /// </summary>
+    /// <remarks><para>Creates a job to generate a sequence of raster images
+    /// that visualize data over a specified time.</para></remarks>
     public class CreateVideoRequest : KineticaData
     {
-
-        /// <summary>The name of the visualize mode; should correspond to the
-        /// schema used for the <paramref
-        /// cref="CreateVideoRequest.style_parameters" /> field.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CHART">CHART</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.RASTER">RASTER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CLASSBREAK">CLASSBREAK</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CONTOUR">CONTOUR</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.HEATMAP">HEATMAP</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.LABELS">LABELS</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="style"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="style" />.</summary>
+        /// <remarks><para>The name of the visualize mode; should correspond to
+        /// the schema used for the <see cref="style_parameters" /> field.
+        /// </para></remarks>
         public struct Style
         {
             public const string CHART = "chart";
@@ -62,257 +30,189 @@ namespace kinetica
             public const string LABELS = "labels";
         } // end struct Style
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the video.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.WINDOW">WINDOW</see>:</term>
-        ///         <description>Specified using the data-type corresponding to
-        /// the <paramref cref="CreateVideoRequest.attribute" />. For a window
-        /// of size W, a video frame rendered for time t will visualize data in
-        /// the interval [t-W,t]. The minimum window size is the interval
-        /// between successive frames.  The minimum value is the default.  If a
-        /// value less than the minimum value is specified, it is replaced with
-        /// the minimum window size.  Larger values will make changes
-        /// throughout the video appear more smooth while smaller values will
-        /// capture fast variations in the data.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, does not return an error if
-        /// the video already exists.  Ignored if <i>replace_if_exists</i> is
-        /// <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, deletes any existing video
-        /// with the same path before creating a new video.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
+            /// <summary>Sets the <a href="../../../concepts/ttl"
             /// target="_top">TTL</a> of the video.</summary>
             public const string TTL = "ttl";
 
             /// <summary>Specified using the data-type corresponding to the
-            /// <see cref="attribute" />. For a window of size W, a video frame
-            /// rendered for time t will visualize data in the interval
-            /// [t-W,t]. The minimum window size is the interval between
-            /// successive frames.  The minimum value is the default.  If a
-            /// value less than the minimum value is specified, it is replaced
-            /// with the minimum window size.  Larger values will make changes
-            /// throughout the video appear more smooth while smaller values
-            /// will capture fast variations in the data.</summary>
+            /// <see cref="attribute" />.</summary>
+            /// <remarks><para>For a window of size W, a video frame rendered
+            /// for time t will visualize data in the interval [t-W,t]. The
+            /// minimum window size is the interval between successive frames.
+            /// The minimum value is the default.  If a value less than the
+            /// minimum value is specified, it is replaced with the minimum
+            /// window size.  Larger values will make changes throughout the
+            /// video appear more smooth while smaller values will capture fast
+            /// variations in the data.</para></remarks>
             public const string WINDOW = "window";
 
-            /// <summary>If <i>true</i>, does not return an error if the video
-            /// already exists.  Ignored if <i>replace_if_exists</i> is
-            /// <i>true</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, does not
+            /// return an error if the video already exists.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
+
             public const string FALSE = "false";
             public const string TRUE = "true";
 
-            /// <summary>If <i>true</i>, deletes any existing video with the
-            /// same path before creating a new video.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, deletes any
+            /// existing video with the same path before creating a new video.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string REPLACE_IF_EXISTS = "replace_if_exists";
         } // end struct Options
 
-
-        /// <summary>The animated attribute to map to the video's frames. Must
-        /// be present in the LAYERS specified for the visualization. This is
-        /// often a time-related field but may be any numeric type.  </summary>
+        /// <summary>The animated attribute to map to the video's frames.
+        /// </summary>
+        /// <remarks><para>Must be present in the LAYERS specified for the
+        /// visualization. This is often a time-related field but may be any
+        /// numeric type.</para></remarks>
         public string attribute { get; set; }
 
-        /// <summary>The start point for the video. Accepts an expression
-        /// evaluable over the <paramref cref="CreateVideoRequest.attribute"
-        /// />.  </summary>
+        /// <summary>The start point for the video.</summary>
+        /// <remarks><para>Accepts an expression evaluable over the <see
+        /// cref="attribute" />.</para></remarks>
         public string begin { get; set; }
 
-        /// <summary>Seconds of video to produce  </summary>
+        /// <summary>Seconds of video to produce</summary>
         public double duration_seconds { get; set; }
 
-        /// <summary>The end point for the video. Accepts an expression
-        /// evaluable over the <paramref cref="CreateVideoRequest.attribute"
-        /// />.  </summary>
+        /// <summary>The end point for the video.</summary>
+        /// <remarks><para>Accepts an expression evaluable over the <see
+        /// cref="attribute" />.</para></remarks>
         public string end { get; set; }
 
         /// <summary>The presentation frame rate of the encoded video in frames
-        /// per second.  </summary>
+        /// per second.</summary>
         public double frames_per_second { get; set; }
 
         /// <summary>The name of the visualize mode; should correspond to the
-        /// schema used for the <paramref
-        /// cref="CreateVideoRequest.style_parameters" /> field.
-        /// Supported values:
+        /// schema used for the <see cref="style_parameters" /> field.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CHART">CHART</see></term>
+        ///         <term><see cref="Style.CHART">CHART</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.RASTER">RASTER</see></term>
+        ///         <term><see cref="Style.RASTER">RASTER</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CLASSBREAK">CLASSBREAK</see></term>
+        ///         <term><see cref="Style.CLASSBREAK">CLASSBREAK</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CONTOUR">CONTOUR</see></term>
+        ///         <term><see cref="Style.CONTOUR">CONTOUR</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.HEATMAP">HEATMAP</see></term>
+        ///         <term><see cref="Style.HEATMAP">HEATMAP</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.LABELS">LABELS</see></term>
+        ///         <term><see cref="Style.LABELS">LABELS</see></term>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string style { get; set; }
 
         /// <summary>Fully-qualified <a href="../../../tools/kifs/"
-        /// target="_top">KiFS</a> path.  Write access is required. A file must
-        /// not exist at that path, unless <i>replace_if_exists</i> is
-        /// <i>true</i>.  </summary>
+        /// target="_top">KiFS</a> path.</summary>
+        /// <remarks><para> Write access is required. A file must not exist at
+        /// that path, unless <see
+        /// cref="Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see> is <see
+        /// cref="Options.TRUE">TRUE</see>.</para></remarks>
         public string path { get; set; }
 
         /// <summary>A string containing the JSON-encoded visualize request.
-        /// Must correspond to the visualize mode specified in the <paramref
-        /// cref="CreateVideoRequest.style" /> field.  </summary>
+        /// </summary>
+        /// <remarks><para> Must correspond to the visualize mode specified in
+        /// the <see cref="style" /> field.</para></remarks>
         public string style_parameters { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the video.</description>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl"
+        ///         target="_top">TTL</a> of the video.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.WINDOW">WINDOW</see>:</term>
+        ///         <term><see cref="Options.WINDOW">WINDOW</see>:</term>
         ///         <description>Specified using the data-type corresponding to
-        /// the <paramref cref="CreateVideoRequest.attribute" />. For a window
-        /// of size W, a video frame rendered for time t will visualize data in
-        /// the interval [t-W,t]. The minimum window size is the interval
-        /// between successive frames.  The minimum value is the default.  If a
-        /// value less than the minimum value is specified, it is replaced with
-        /// the minimum window size.  Larger values will make changes
-        /// throughout the video appear more smooth while smaller values will
-        /// capture fast variations in the data.</description>
+        ///         the <see cref="attribute" />. For a window of size W, a
+        ///         video frame rendered for time t will visualize data in the
+        ///         interval [t-W,t]. The minimum window size is the interval
+        ///         between successive frames.  The minimum value is the
+        ///         default.  If a value less than the minimum value is
+        ///         specified, it is replaced with the minimum window size.
+        ///         Larger values will make changes throughout the video appear
+        ///         more smooth while smaller values will capture fast
+        ///         variations in the data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateVideoRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, does not return an error if
-        /// the video already exists.  Ignored if <i>replace_if_exists</i> is
-        /// <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, does
+        ///         not return an error if the video already exists.  Ignored
+        ///         if <see
+        ///         cref="Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see> is
+        ///         <see cref="Options.TRUE">TRUE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         deletes any existing video with the same path before
+        ///         creating a new video.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, deletes any existing video
-        /// with the same path before creating a new video.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateVideoRequest object with default
         /// parameters.</summary>
@@ -320,122 +220,114 @@ namespace kinetica
 
         /// <summary>Constructs a CreateVideoRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="attribute">The animated attribute to map to the
         /// video's frames. Must be present in the LAYERS specified for the
         /// visualization. This is often a time-related field but may be any
-        /// numeric type.  </param>
+        /// numeric type.</param>
         /// <param name="begin">The start point for the video. Accepts an
-        /// expression evaluable over the <paramref
-        /// cref="CreateVideoRequest.attribute" />.  </param>
-        /// <param name="duration_seconds">Seconds of video to produce
+        /// expression evaluable over the <paramref name="attribute" />.
         /// </param>
+        /// <param name="duration_seconds">Seconds of video to produce</param>
         /// <param name="end">The end point for the video. Accepts an
-        /// expression evaluable over the <paramref
-        /// cref="CreateVideoRequest.attribute" />.  </param>
+        /// expression evaluable over the <paramref name="attribute" />.
+        /// </param>
         /// <param name="frames_per_second">The presentation frame rate of the
-        /// encoded video in frames per second.  </param>
+        /// encoded video in frames per second.</param>
         /// <param name="style">The name of the visualize mode; should
         /// correspond to the schema used for the <paramref
-        /// cref="CreateVideoRequest.style_parameters" /> field.
+        /// name="style_parameters" /> field.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CHART">CHART</see></term>
+        ///         <term><see cref="Style.CHART">CHART</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.RASTER">RASTER</see></term>
+        ///         <term><see cref="Style.RASTER">RASTER</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CLASSBREAK">CLASSBREAK</see></term>
+        ///         <term><see cref="Style.CLASSBREAK">CLASSBREAK</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.CONTOUR">CONTOUR</see></term>
+        ///         <term><see cref="Style.CONTOUR">CONTOUR</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.HEATMAP">HEATMAP</see></term>
+        ///         <term><see cref="Style.HEATMAP">HEATMAP</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Style.LABELS">LABELS</see></term>
+        ///         <term><see cref="Style.LABELS">LABELS</see></term>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="path">Fully-qualified <a href="../../../tools/kifs/"
         /// target="_top">KiFS</a> path.  Write access is required. A file must
-        /// not exist at that path, unless <i>replace_if_exists</i> is
-        /// <i>true</i>.  </param>
+        /// not exist at that path, unless <see
+        /// cref="Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see> is <see
+        /// cref="Options.TRUE">TRUE</see>.</param>
         /// <param name="style_parameters">A string containing the JSON-encoded
         /// visualize request.  Must correspond to the visualize mode specified
-        /// in the <paramref cref="CreateVideoRequest.style" /> field.
-        /// </param>
+        /// in the <paramref name="style" /> field.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the video.</description>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl"
+        ///         target="_top">TTL</a> of the video.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.WINDOW">WINDOW</see>:</term>
+        ///         <term><see cref="Options.WINDOW">WINDOW</see>:</term>
         ///         <description>Specified using the data-type corresponding to
-        /// the <paramref cref="CreateVideoRequest.attribute" />. For a window
-        /// of size W, a video frame rendered for time t will visualize data in
-        /// the interval [t-W,t]. The minimum window size is the interval
-        /// between successive frames.  The minimum value is the default.  If a
-        /// value less than the minimum value is specified, it is replaced with
-        /// the minimum window size.  Larger values will make changes
-        /// throughout the video appear more smooth while smaller values will
-        /// capture fast variations in the data.</description>
+        ///         the <paramref name="attribute" />. For a window of size W,
+        ///         a video frame rendered for time t will visualize data in
+        ///         the interval [t-W,t]. The minimum window size is the
+        ///         interval between successive frames.  The minimum value is
+        ///         the default.  If a value less than the minimum value is
+        ///         specified, it is replaced with the minimum window size.
+        ///         Larger values will make changes throughout the video appear
+        ///         more smooth while smaller values will capture fast
+        ///         variations in the data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateVideoRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, does not return an error if
-        /// the video already exists.  Ignored if <i>replace_if_exists</i> is
-        /// <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, does
+        ///         not return an error if the video already exists.  Ignored
+        ///         if <see
+        ///         cref="Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see> is
+        ///         <see cref="Options.TRUE">TRUE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         deletes any existing video with the same path before
+        ///         creating a new video.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, deletes any existing video
-        /// with the same path before creating a new video.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateVideoRequest( string attribute,
                                    string begin,
                                    double duration_seconds,
@@ -456,29 +348,20 @@ namespace kinetica
             this.style_parameters = style_parameters ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateVideoRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createVideo(string,string,double,string,double,string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createVideo(CreateVideoRequest)">Kinetica.createVideo</see>.
+    /// </summary>
     public class CreateVideoResponse : KineticaData
     {
-
-        /// <summary>An identifier for the created job.  </summary>
+        /// <summary>An identifier for the created job.</summary>
         public long job_id { get; set; }
 
-        /// <summary>Fully qualified KIFS path to the video file.  </summary>
+        /// <summary>Fully qualified KIFS path to the video file.</summary>
         public string path { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateVideoResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

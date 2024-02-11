@@ -6,792 +6,500 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.exportRecordsToFiles(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Export records from a table to files. All tables can be exported, in
-    /// full or partial
-    /// (see <i>columns_to_export</i> and <i>columns_to_skip</i>).
-    /// Additional filtering can be applied when using export table with
-    /// expression through SQL.
-    /// Default destination is KIFS, though other storage types (Azure, S3,
-    /// GCS, and HDFS) are supported
-    /// through <i>datasink_name</i>; see <see
-    /// cref="Kinetica.createDatasink(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Server's local file system is not supported.  Default file format is
-    /// delimited text. See options for
-    /// different file types and different options for each file type.  Table
-    /// is saved to a single file if
-    /// within max file size limits (may vary depending on datasink type).  If
-    /// not, then table is split into
-    /// multiple files; these may be smaller than the max size limit.
-    /// <br />
-    /// All filenames created are returned in the response.</summary>
+    /// cref="Kinetica.exportRecordsToFiles(ExportRecordsToFilesRequest)">Kinetica.exportRecordsToFiles</see>.
+    /// </summary>
+    /// <remarks><para>Export records from a table to files. All tables can be
+    /// exported, in full or partial (see <see
+    /// cref="Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see> and <see
+    /// cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>). Additional
+    /// filtering can be applied when using export table with expression
+    /// through SQL. Default destination is KIFS, though other storage types
+    /// (Azure, S3, GCS, and HDFS) are supported through <see
+    /// cref="Options.DATASINK_NAME">DATASINK_NAME</see>; see <see
+    /// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.</para>
+    /// <para>Server's local file system is not supported.  Default file format
+    /// is delimited text. See options for different file types and different
+    /// options for each file type.  Table is saved to a single file if within
+    /// max file size limits (may vary depending on datasink type).  If not,
+    /// then table is split into multiple files; these may be smaller than the
+    /// max size limit.</para>
+    /// <para>All filenames created are returned in the response.</para>
+    /// </remarks>
     public class ExportRecordsToFilesRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
-        ///         <description>Number of records to be exported as a batch.
-        /// The default value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>For each source column specified, applies the
-        /// column-property-bound
-        /// format.  Currently supported column properties include date, time,
-        /// & datetime. The parameter value
-        /// must be formatted as a JSON string of maps of column names to maps
-        /// of column properties to their
-        /// corresponding column formats, e.g.,
-        /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
-        /// : "%H:%M:%S" } }'.
-        /// <br />
-        /// See <i>default_column_formats</i> for valid format
-        /// syntax.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>:</term>
-        ///         <description>Specifies a comma-delimited list of columns
-        /// from the source table to
-        /// export, written to the output file in the order they are given.
-        /// <br />
-        /// Column names can be provided, in which case the target file will
-        /// use those names as the column
-        /// headers as well.
-        /// <br />
-        /// Alternatively, column numbers can be specified--discretely or as a
-        /// range.  For example, a value of
-        /// '5,7,1..3' will write values from the fifth column in the source
-        /// table into the first column in the
-        /// target file, from the seventh column in the source table into the
-        /// second column in the target file,
-        /// and from the first through third columns in the source table into
-        /// the third through fifth columns in
-        /// the target file.
-        /// <br />
-        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
-        ///         <description>Comma-separated list of column names or column
-        /// numbers to not
-        /// export.  All columns in the source table not specified will be
-        /// written to the target file in the
-        /// order they appear in the table definition.  Mutually exclusive with
-        /// <i>columns_to_export</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
-        ///         <description>Datasink name, created using
-        /// /create/datasink.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
-        ///         <description>Specifies the default format to use to write
-        /// data.  Currently
-        /// supported column properties include date, time, & datetime.  This
-        /// default column-property-bound
-        /// format can be overridden by specifying a column property & format
-        /// for a given source column in
-        /// <i>column_formats</i>. For each specified annotation, the format
-        /// will apply to all
-        /// columns with that annotation unless custom <i>column_formats</i>
-        /// for that
-        /// annotation are specified.
-        /// <br />
-        /// The parameter value must be formatted as a JSON string that is a
-        /// map of column properties to their
-        /// respective column formats, e.g., '{ "date" : "%Y.%m.%d", "time" :
-        /// "%H:%M:%S" }'.  Column
-        /// formats are specified as a string of control characters and plain
-        /// text. The supported control
-        /// characters are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow
-        /// the Linux 'strptime()'
-        /// specification, as well as 's', which specifies seconds and
-        /// fractional seconds (though the fractional
-        /// component will be truncated past milliseconds).
-        /// <br />
-        /// Formats for the 'date' annotation must include the 'Y', 'm', and
-        /// 'd' control characters. Formats for
-        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
-        /// 's' (but not both) control
-        /// characters. Formats for the 'datetime' annotation meet both the
-        /// 'date' and 'time' control character
-        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
-        /// would be used to write text
-        /// as "05/04/2000 12:12:11"</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.EXPORT_DDL">EXPORT_DDL</see>:</term>
-        ///         <description>Save DDL to a separate file.  The default
-        /// value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
-        ///         <description>Extension to give the export file.  The
-        /// default value is '.csv'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the file format to use when
-        /// exporting data.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text file format; e.g., CSV, TSV,
-        /// PSV, etc.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.PARQUET">PARQUET</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER">KINETICA_HEADER</see>:</term>
-        ///         <description>Whether to include a Kinetica proprietary
-        /// header. Will not be
-        /// written if <i>text_has_header</i> is
-        /// <i>false</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER_DELIMITER">KINETICA_HEADER_DELIMITER</see>:</term>
-        ///         <description>If a Kinetica proprietary header is included,
-        /// then specify a
-        /// property separator. Different from column delimiter.  The default
-        /// value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
-        ///         <description>File compression type. GZip can be applied to
-        /// text and Parquet files.  Snappy can only be applied to Parquet
-        /// files, and is the default compression for them.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
-        ///         <description>Save records to a single file. This option may
-        /// be ignored if file
-        /// size exceeds internal file size limits (this limit will differ on
-        /// different targets).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Specifies the character to write out to
-        /// delimit field values and
-        /// field names in the header (if present).
-        /// <br />
-        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
-        ///         <description>Indicates whether to write out a header row.
-        /// <br />
-        /// For <i>delimited_text</i> <i>file_type</i> only.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
-        ///         <description>Specifies the character string that should be
-        /// written out for the null
-        /// value in the data.
-        /// <br />
-        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is '\\N'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Number of records to be exported as a batch.  The
-            /// default value is '1000000'.</summary>
+            /// <summary>Number of records to be exported as a batch.</summary>
+            /// <remarks><para>The default value is '1000000'.</para></remarks>
             public const string BATCH_SIZE = "batch_size";
 
             /// <summary>For each source column specified, applies the
-            /// column-property-bound
-            /// format.  Currently supported column properties include date,
-            /// time, & datetime. The parameter value
-            /// must be formatted as a JSON string of maps of column names to
-            /// maps of column properties to their
-            /// corresponding column formats, e.g.,
-            /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : {
-            /// "time" : "%H:%M:%S" } }'.
-            /// <br />
-            /// See <i>default_column_formats</i> for valid format
-            /// syntax.</summary>
+            /// column-property-bound format.</summary>
+            /// <remarks><para> Currently supported column properties include
+            /// date, time, & datetime. The parameter value must be formatted
+            /// as a JSON string of maps of column names to maps of column
+            /// properties to their corresponding column formats, e.g., '{
+            /// "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
+            /// : "%H:%M:%S" } }'.</para>
+            /// <para>See <see
+            /// cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+            /// for valid format syntax.</para></remarks>
             public const string COLUMN_FORMATS = "column_formats";
 
             /// <summary>Specifies a comma-delimited list of columns from the
-            /// source table to
-            /// export, written to the output file in the order they are given.
-            /// <br />
-            /// Column names can be provided, in which case the target file
-            /// will use those names as the column
-            /// headers as well.
-            /// <br />
-            /// Alternatively, column numbers can be specified--discretely or
-            /// as a range.  For example, a value of
+            /// source table to export, written to the output file in the order
+            /// they are given.</summary>
+            /// <remarks><para> Column names can be provided, in which case the
+            /// target file will use those names as the column headers as
+            /// well.</para>
+            /// <para>Alternatively, column numbers can be
+            /// specified--discretely or as a range.  For example, a value of
             /// '5,7,1..3' will write values from the fifth column in the
-            /// source table into the first column in the
-            /// target file, from the seventh column in the source table into
-            /// the second column in the target file,
-            /// and from the first through third columns in the source table
-            /// into the third through fifth columns in
-            /// the target file.
-            /// <br />
-            /// Mutually exclusive with <i>columns_to_skip</i>.</summary>
+            /// source table into the first column in the target file, from the
+            /// seventh column in the source table into the second column in
+            /// the target file, and from the first through third columns in
+            /// the source table into the third through fifth columns in the
+            /// target file.</para>
+            /// <para>Mutually exclusive with <see
+            /// cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.</para>
+            /// </remarks>
             public const string COLUMNS_TO_EXPORT = "columns_to_export";
 
             /// <summary>Comma-separated list of column names or column numbers
-            /// to not
-            /// export.  All columns in the source table not specified will be
-            /// written to the target file in the
-            /// order they appear in the table definition.  Mutually exclusive
-            /// with
-            /// <i>columns_to_export</i>.</summary>
+            /// to not export.</summary>
+            /// <remarks><para> All columns in the source table not specified
+            /// will be written to the target file in the order they appear in
+            /// the table definition.  Mutually exclusive with <see
+            /// cref="Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>.
+            /// </para></remarks>
             public const string COLUMNS_TO_SKIP = "columns_to_skip";
 
             /// <summary>Datasink name, created using <see
-            /// cref="Kinetica.createDatasink(string,string,IDictionary{string, string})"
-            /// />.</summary>
+            /// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+            /// </summary>
             public const string DATASINK_NAME = "datasink_name";
 
             /// <summary>Specifies the default format to use to write data.
-            /// Currently
-            /// supported column properties include date, time, & datetime.
-            /// This default column-property-bound
+            /// </summary>
+            /// <remarks><para> Currently supported column properties include
+            /// date, time, & datetime.  This default column-property-bound
             /// format can be overridden by specifying a column property &
-            /// format for a given source column in
-            /// <i>column_formats</i>. For each specified annotation, the
-            /// format will apply to all
-            /// columns with that annotation unless custom
-            /// <i>column_formats</i> for that
-            /// annotation are specified.
-            /// <br />
-            /// The parameter value must be formatted as a JSON string that is
-            /// a map of column properties to their
-            /// respective column formats, e.g., '{ "date" : "%Y.%m.%d", "time"
-            /// : "%H:%M:%S" }'.  Column
-            /// formats are specified as a string of control characters and
-            /// plain text. The supported control
-            /// characters are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which
-            /// follow the Linux 'strptime()'
-            /// specification, as well as 's', which specifies seconds and
-            /// fractional seconds (though the fractional
-            /// component will be truncated past milliseconds).
-            /// <br />
-            /// Formats for the 'date' annotation must include the 'Y', 'm',
-            /// and 'd' control characters. Formats for
-            /// the 'time' annotation must include the 'H', 'M', and either 'S'
-            /// or 's' (but not both) control
-            /// characters. Formats for the 'datetime' annotation meet both the
-            /// 'date' and 'time' control character
+            /// format for a given source column in <see
+            /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
+            /// specified annotation, the format will apply to all columns with
+            /// that annotation unless custom <see
+            /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
+            /// annotation are specified.</para>
+            /// <para>The parameter value must be formatted as a JSON string
+            /// that is a map of column properties to their respective column
+            /// formats, e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.
+            /// Column formats are specified as a string of control characters
+            /// and plain text. The supported control characters are 'Y', 'm',
+            /// 'd', 'H', 'M', 'S', and 's', which follow the Linux
+            /// 'strptime()' specification, as well as 's', which specifies
+            /// seconds and fractional seconds (though the fractional component
+            /// will be truncated past milliseconds).</para>
+            /// <para>Formats for the 'date' annotation must include the 'Y',
+            /// 'm', and 'd' control characters. Formats for the 'time'
+            /// annotation must include the 'H', 'M', and either 'S' or 's'
+            /// (but not both) control characters. Formats for the 'datetime'
+            /// annotation meet both the 'date' and 'time' control character
             /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S"
-            /// }' would be used to write text
-            /// as "05/04/2000 12:12:11"</summary>
+            /// }' would be used to write text as "05/04/2000 12:12:11"</para>
+            /// </remarks>
             public const string DEFAULT_COLUMN_FORMATS = "default_column_formats";
 
-            /// <summary>Save DDL to a separate file.  The default value is
-            /// 'false'.</summary>
+            /// <summary>Save DDL to a separate file.</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string EXPORT_DDL = "export_ddl";
 
-            /// <summary>Extension to give the export file.  The default value
-            /// is '.csv'.</summary>
+            /// <summary>Extension to give the export file.</summary>
+            /// <remarks><para>The default value is '.csv'.</para></remarks>
             public const string FILE_EXTENSION = "file_extension";
 
             /// <summary>Specifies the file format to use when exporting data.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+            ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+            ///         </term>
             ///         <description>Delimited text file format; e.g., CSV,
-            /// TSV, PSV, etc.</description>
+            ///         TSV, PSV, etc.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.PARQUET">PARQUET</see></term>
+            ///         <term><see cref="Options.PARQUET">PARQUET</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</para>
+            /// </remarks>
             public const string FILE_TYPE = "file_type";
 
-            /// <summary>Delimited text file format; e.g., CSV, TSV, PSV,
-            /// etc.</summary>
+            /// <summary>Delimited text file format; e.g., CSV, TSV, PSV, etc.
+            /// </summary>
             public const string DELIMITED_TEXT = "delimited_text";
+
             public const string PARQUET = "parquet";
 
-            /// <summary>Whether to include a Kinetica proprietary header. Will
-            /// not be
-            /// written if <i>text_has_header</i> is
-            /// <i>false</i>.
-            /// Supported values:
+            /// <summary>Whether to include a Kinetica proprietary header.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string KINETICA_HEADER = "kinetica_header";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>If a Kinetica proprietary header is included, then
-            /// specify a
-            /// property separator. Different from column delimiter.  The
-            /// default value is '|'.</summary>
+            /// specify a property separator.</summary>
+            /// <remarks><para>Different from column delimiter. The default
+            /// value is '|'.</para></remarks>
             public const string KINETICA_HEADER_DELIMITER = "kinetica_header_delimiter";
 
-            /// <summary>File compression type. GZip can be applied to text and
-            /// Parquet files.  Snappy can only be applied to Parquet files,
-            /// and is the default compression for them.
-            /// Supported values:
+            /// <summary>File compression type.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+            ///         cref="Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
+            ///         <term><see cref="Options.SNAPPY">SNAPPY</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
+            ///         <term><see cref="Options.GZIP">GZIP</see></term>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string COMPRESSION_TYPE = "compression_type";
+
             public const string UNCOMPRESSED = "uncompressed";
             public const string SNAPPY = "snappy";
             public const string GZIP = "gzip";
 
-            /// <summary>Save records to a single file. This option may be
-            /// ignored if file
-            /// size exceeds internal file size limits (this limit will differ
-            /// on different targets).
-            /// Supported values:
+            /// <summary>Save records to a single file.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
+            ///         <term><see cref="Options.OVERWRITE">OVERWRITE</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string SINGLE_FILE = "single_file";
+
             public const string OVERWRITE = "overwrite";
 
             /// <summary>Specifies the character to write out to delimit field
-            /// values and
-            /// field names in the header (if present).
-            /// <br />
-            /// For <i>delimited_text</i> <i>file_type</i> only.  The default
-            /// value is ','.</summary>
+            /// values and field names in the header (if present).</summary>
+            /// <remarks><para> For <see
+            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
+            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+            /// value is ','.</para></remarks>
             public const string TEXT_DELIMITER = "text_delimiter";
 
-            /// <summary>Indicates whether to write out a header row.
-            /// <br />
-            /// For <i>delimited_text</i> <i>file_type</i> only.
-            /// Supported values:
+            /// <summary>Indicates whether to write out a header row.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string TEXT_HAS_HEADER = "text_has_header";
 
             /// <summary>Specifies the character string that should be written
-            /// out for the null
-            /// value in the data.
-            /// <br />
-            /// For <i>delimited_text</i> <i>file_type</i> only.  The default
-            /// value is '\\N'.</summary>
+            /// out for the null value in the data.</summary>
+            /// <remarks><para> For <see
+            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
+            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+            /// value is '\\N'.</para></remarks>
             public const string TEXT_NULL_STRING = "text_null_string";
         } // end struct Options
 
         public string table_name { get; set; }
 
-        /// <summary>Path to data export target.  If <paramref
-        /// cref="ExportRecordsToFilesRequest.filepath" /> has a file
-        /// extension, it is
-        /// read as the name of a file. If <paramref
-        /// cref="ExportRecordsToFilesRequest.filepath" /> is a directory, then
-        /// the source table name with a
-        /// random UUID appended will be used as the name of each exported
-        /// file, all written to that directory.
-        /// If filepath is a filename, then all exported files will have a
-        /// random UUID appended to the given
-        /// name.  In either case, the target directory specified or implied
-        /// must exist.  The names of all
-        /// exported files are returned in the response.  </summary>
+        /// <summary>Path to data export target.</summary>
+        /// <remarks><para> If <see cref="filepath" /> has a file extension, it
+        /// is read as the name of a file. If <see cref="filepath" /> is a
+        /// directory, then the source table name with a random UUID appended
+        /// will be used as the name of each exported file, all written to that
+        /// directory. If filepath is a filename, then all exported files will
+        /// have a random UUID appended to the given name.  In either case, the
+        /// target directory specified or implied must exist.  The names of all
+        /// exported files are returned in the response.</para></remarks>
         public string filepath { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
+        ///         </term>
         ///         <description>Number of records to be exported as a batch.
-        /// The default value is '1000000'.</description>
+        ///         The default value is '1000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
         ///         <description>For each source column specified, applies the
-        /// column-property-bound
-        /// format.  Currently supported column properties include date, time,
-        /// & datetime. The parameter value
-        /// must be formatted as a JSON string of maps of column names to maps
-        /// of column properties to their
-        /// corresponding column formats, e.g.,
-        /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
-        /// : "%H:%M:%S" } }'.
-        /// <br />
-        /// See <i>default_column_formats</i> for valid format
-        /// syntax.</description>
+        ///         column-property-bound format.  Currently supported column
+        ///         properties include date, time, & datetime. The parameter
+        ///         value must be formatted as a JSON string of maps of column
+        ///         names to maps of column properties to their corresponding
+        ///         column formats, e.g., '{ "order_date" : { "date" :
+        ///         "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }'.
+        ///         See <see
+        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+        ///         for valid format syntax.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>:</term>
+        ///         cref="Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>:
+        ///         </term>
         ///         <description>Specifies a comma-delimited list of columns
-        /// from the source table to
-        /// export, written to the output file in the order they are given.
-        /// <br />
-        /// Column names can be provided, in which case the target file will
-        /// use those names as the column
-        /// headers as well.
-        /// <br />
-        /// Alternatively, column numbers can be specified--discretely or as a
-        /// range.  For example, a value of
-        /// '5,7,1..3' will write values from the fifth column in the source
-        /// table into the first column in the
-        /// target file, from the seventh column in the source table into the
-        /// second column in the target file,
-        /// and from the first through third columns in the source table into
-        /// the third through fifth columns in
-        /// the target file.
-        /// <br />
-        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
+        ///         from the source table to export, written to the output file
+        ///         in the order they are given.
+        ///         Column names can be provided, in which case the target file
+        ///         will use those names as the column headers as well.
+        ///         Alternatively, column numbers can be specified--discretely
+        ///         or as a range.  For example, a value of '5,7,1..3' will
+        ///         write values from the fifth column in the source table into
+        ///         the first column in the target file, from the seventh
+        ///         column in the source table into the second column in the
+        ///         target file, and from the first through third columns in
+        ///         the source table into the third through fifth columns in
+        ///         the target file.
+        ///         Mutually exclusive with <see
+        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:
+        ///         </term>
         ///         <description>Comma-separated list of column names or column
-        /// numbers to not
-        /// export.  All columns in the source table not specified will be
-        /// written to the target file in the
-        /// order they appear in the table definition.  Mutually exclusive with
-        /// <i>columns_to_export</i>.</description>
+        ///         numbers to not export.  All columns in the source table not
+        ///         specified will be written to the target file in the order
+        ///         they appear in the table definition.  Mutually exclusive
+        ///         with <see
+        ///         cref="Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
-        ///         <description>Datasink name, created using
-        /// /create/datasink.</description>
+        ///         cref="Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Datasink name, created using <see
+        ///         cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
+        ///         </term>
         ///         <description>Specifies the default format to use to write
-        /// data.  Currently
-        /// supported column properties include date, time, & datetime.  This
-        /// default column-property-bound
-        /// format can be overridden by specifying a column property & format
-        /// for a given source column in
-        /// <i>column_formats</i>. For each specified annotation, the format
-        /// will apply to all
-        /// columns with that annotation unless custom <i>column_formats</i>
-        /// for that
-        /// annotation are specified.
-        /// <br />
-        /// The parameter value must be formatted as a JSON string that is a
-        /// map of column properties to their
-        /// respective column formats, e.g., '{ "date" : "%Y.%m.%d", "time" :
-        /// "%H:%M:%S" }'.  Column
-        /// formats are specified as a string of control characters and plain
-        /// text. The supported control
-        /// characters are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow
-        /// the Linux 'strptime()'
-        /// specification, as well as 's', which specifies seconds and
-        /// fractional seconds (though the fractional
-        /// component will be truncated past milliseconds).
-        /// <br />
-        /// Formats for the 'date' annotation must include the 'Y', 'm', and
-        /// 'd' control characters. Formats for
-        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
-        /// 's' (but not both) control
-        /// characters. Formats for the 'datetime' annotation meet both the
-        /// 'date' and 'time' control character
-        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
-        /// would be used to write text
-        /// as "05/04/2000 12:12:11"</description>
+        ///         data.  Currently supported column properties include date,
+        ///         time, & datetime.  This default column-property-bound
+        ///         format can be overridden by specifying a column property &
+        ///         format for a given source column in <see
+        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For
+        ///         each specified annotation, the format will apply to all
+        ///         columns with that annotation unless custom <see
+        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
+        ///         annotation are specified.
+        ///         The parameter value must be formatted as a JSON string that
+        ///         is a map of column properties to their respective column
+        ///         formats, e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S"
+        ///         }'.  Column formats are specified as a string of control
+        ///         characters and plain text. The supported control characters
+        ///         are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow the
+        ///         Linux 'strptime()' specification, as well as 's', which
+        ///         specifies seconds and fractional seconds (though the
+        ///         fractional component will be truncated past milliseconds).
+        ///         Formats for the 'date' annotation must include the 'Y',
+        ///         'm', and 'd' control characters. Formats for the 'time'
+        ///         annotation must include the 'H', 'M', and either 'S' or 's'
+        ///         (but not both) control characters. Formats for the
+        ///         'datetime' annotation meet both the 'date' and 'time'
+        ///         control character requirements. For example, '{"datetime" :
+        ///         "%m/%d/%Y %H:%M:%S" }' would be used to write text as
+        ///         "05/04/2000 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.EXPORT_DDL">EXPORT_DDL</see>:
+        ///         </term>
+        ///         <description>Save DDL to a separate file. The default value
+        ///         is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.EXPORT_DDL">EXPORT_DDL</see>:</term>
-        ///         <description>Save DDL to a separate file.  The default
-        /// value is 'false'.</description>
+        ///         cref="Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
+        ///         <description>Extension to give the export file. The default
+        ///         value is '.csv'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
-        ///         <description>Extension to give the export file.  The
-        /// default value is '.csv'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
         ///         <description>Specifies the file format to use when
-        /// exporting data.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text file format; e.g., CSV, TSV,
-        /// PSV, etc.</description>
+        ///         exporting data.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+        ///                 </term>
+        ///                 <description>Delimited text file format; e.g., CSV,
+        ///                 TSV, PSV, etc.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.PARQUET">PARQUET</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.PARQUET">PARQUET</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER">KINETICA_HEADER</see>:</term>
+        ///         cref="Options.KINETICA_HEADER">KINETICA_HEADER</see>:
+        ///         </term>
         ///         <description>Whether to include a Kinetica proprietary
-        /// header. Will not be
-        /// written if <i>text_has_header</i> is
-        /// <i>false</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///         header. Will not be written if <see
+        ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see> is
+        ///         <see cref="Options.FALSE">FALSE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER_DELIMITER">KINETICA_HEADER_DELIMITER</see>:</term>
+        ///         cref="Options.KINETICA_HEADER_DELIMITER">KINETICA_HEADER_DELIMITER</see>:
+        ///         </term>
         ///         <description>If a Kinetica proprietary header is included,
-        /// then specify a
-        /// property separator. Different from column delimiter.  The default
-        /// value is '|'.</description>
+        ///         then specify a property separator. Different from column
+        ///         delimiter. The default value is '|'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
+        ///         </term>
         ///         <description>File compression type. GZip can be applied to
-        /// text and Parquet files.  Snappy can only be applied to Parquet
-        /// files, and is the default compression for them.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///         text and Parquet files.  Snappy can only be applied to
+        ///         Parquet files, and is the default compression for them.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UNCOMPRESSED">UNCOMPRESSED</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SNAPPY">SNAPPY</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.GZIP">GZIP</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
+        ///         <term><see cref="Options.SINGLE_FILE">SINGLE_FILE</see>:
+        ///         </term>
         ///         <description>Save records to a single file. This option may
-        /// be ignored if file
-        /// size exceeds internal file size limits (this limit will differ on
-        /// different targets).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///         be ignored if file size exceeds internal file size limits
+        ///         (this limit will differ on different targets).
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.OVERWRITE">OVERWRITE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
         ///         <description>Specifies the character to write out to
-        /// delimit field values and
-        /// field names in the header (if present).
-        /// <br />
-        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ','.</description>
+        ///         delimit field values and field names in the header (if
+        ///         present).
+        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
+        ///         default value is ','.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+        ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:
+        ///         </term>
         ///         <description>Indicates whether to write out a header row.
-        /// <br />
-        /// For <i>delimited_text</i> <i>file_type</i> only.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+        ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:
+        ///         </term>
         ///         <description>Specifies the character string that should be
-        /// written out for the null
-        /// value in the data.
-        /// <br />
-        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is '\\N'.</description>
+        ///         written out for the null value in the data.
+        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
+        ///         default value is '\\N'.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an ExportRecordsToFilesRequest object with
         /// default parameters.</summary>
@@ -799,264 +507,259 @@ namespace kinetica
 
         /// <summary>Constructs an ExportRecordsToFilesRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name"></param>
         /// <param name="filepath">Path to data export target.  If <paramref
-        /// cref="ExportRecordsToFilesRequest.filepath" /> has a file
-        /// extension, it is
-        /// read as the name of a file. If <paramref
-        /// cref="ExportRecordsToFilesRequest.filepath" /> is a directory, then
-        /// the source table name with a
-        /// random UUID appended will be used as the name of each exported
-        /// file, all written to that directory.
-        /// If filepath is a filename, then all exported files will have a
-        /// random UUID appended to the given
-        /// name.  In either case, the target directory specified or implied
-        /// must exist.  The names of all
-        /// exported files are returned in the response.  </param>
+        /// name="filepath" /> has a file extension, it is read as the name of
+        /// a file. If <paramref name="filepath" /> is a directory, then the
+        /// source table name with a random UUID appended will be used as the
+        /// name of each exported file, all written to that directory. If
+        /// filepath is a filename, then all exported files will have a random
+        /// UUID appended to the given name.  In either case, the target
+        /// directory specified or implied must exist.  The names of all
+        /// exported files are returned in the response.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
+        ///         </term>
         ///         <description>Number of records to be exported as a batch.
-        /// The default value is '1000000'.</description>
+        ///         The default value is '1000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
         ///         <description>For each source column specified, applies the
-        /// column-property-bound
-        /// format.  Currently supported column properties include date, time,
-        /// & datetime. The parameter value
-        /// must be formatted as a JSON string of maps of column names to maps
-        /// of column properties to their
-        /// corresponding column formats, e.g.,
-        /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
-        /// : "%H:%M:%S" } }'.
-        /// See <i>default_column_formats</i> for valid format
-        /// syntax.</description>
+        ///         column-property-bound format.  Currently supported column
+        ///         properties include date, time, & datetime. The parameter
+        ///         value must be formatted as a JSON string of maps of column
+        ///         names to maps of column properties to their corresponding
+        ///         column formats, e.g., '{ "order_date" : { "date" :
+        ///         "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }'.
+        ///         See <see
+        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+        ///         for valid format syntax.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>:</term>
+        ///         cref="Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>:
+        ///         </term>
         ///         <description>Specifies a comma-delimited list of columns
-        /// from the source table to
-        /// export, written to the output file in the order they are given.
-        /// Column names can be provided, in which case the target file will
-        /// use those names as the column
-        /// headers as well.
-        /// Alternatively, column numbers can be specified--discretely or as a
-        /// range.  For example, a value of
-        /// '5,7,1..3' will write values from the fifth column in the source
-        /// table into the first column in the
-        /// target file, from the seventh column in the source table into the
-        /// second column in the target file,
-        /// and from the first through third columns in the source table into
-        /// the third through fifth columns in
-        /// the target file.
-        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
+        ///         from the source table to export, written to the output file
+        ///         in the order they are given.
+        ///         Column names can be provided, in which case the target file
+        ///         will use those names as the column headers as well.
+        ///         Alternatively, column numbers can be specified--discretely
+        ///         or as a range.  For example, a value of '5,7,1..3' will
+        ///         write values from the fifth column in the source table into
+        ///         the first column in the target file, from the seventh
+        ///         column in the source table into the second column in the
+        ///         target file, and from the first through third columns in
+        ///         the source table into the third through fifth columns in
+        ///         the target file.
+        ///         Mutually exclusive with <see
+        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:
+        ///         </term>
         ///         <description>Comma-separated list of column names or column
-        /// numbers to not
-        /// export.  All columns in the source table not specified will be
-        /// written to the target file in the
-        /// order they appear in the table definition.  Mutually exclusive with
-        /// <i>columns_to_export</i>.</description>
+        ///         numbers to not export.  All columns in the source table not
+        ///         specified will be written to the target file in the order
+        ///         they appear in the table definition.  Mutually exclusive
+        ///         with <see
+        ///         cref="Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
-        ///         <description>Datasink name, created using
-        /// /create/datasink.</description>
+        ///         cref="Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Datasink name, created using <see
+        ///         cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
+        ///         </term>
         ///         <description>Specifies the default format to use to write
-        /// data.  Currently
-        /// supported column properties include date, time, & datetime.  This
-        /// default column-property-bound
-        /// format can be overridden by specifying a column property & format
-        /// for a given source column in
-        /// <i>column_formats</i>. For each specified annotation, the format
-        /// will apply to all
-        /// columns with that annotation unless custom <i>column_formats</i>
-        /// for that
-        /// annotation are specified.
-        /// The parameter value must be formatted as a JSON string that is a
-        /// map of column properties to their
-        /// respective column formats, e.g., '{ "date" : "%Y.%m.%d", "time" :
-        /// "%H:%M:%S" }'.  Column
-        /// formats are specified as a string of control characters and plain
-        /// text. The supported control
-        /// characters are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow
-        /// the Linux 'strptime()'
-        /// specification, as well as 's', which specifies seconds and
-        /// fractional seconds (though the fractional
-        /// component will be truncated past milliseconds).
-        /// Formats for the 'date' annotation must include the 'Y', 'm', and
-        /// 'd' control characters. Formats for
-        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
-        /// 's' (but not both) control
-        /// characters. Formats for the 'datetime' annotation meet both the
-        /// 'date' and 'time' control character
-        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
-        /// would be used to write text
-        /// as "05/04/2000 12:12:11"</description>
+        ///         data.  Currently supported column properties include date,
+        ///         time, & datetime.  This default column-property-bound
+        ///         format can be overridden by specifying a column property &
+        ///         format for a given source column in <see
+        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For
+        ///         each specified annotation, the format will apply to all
+        ///         columns with that annotation unless custom <see
+        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
+        ///         annotation are specified.
+        ///         The parameter value must be formatted as a JSON string that
+        ///         is a map of column properties to their respective column
+        ///         formats, e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S"
+        ///         }'.  Column formats are specified as a string of control
+        ///         characters and plain text. The supported control characters
+        ///         are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow the
+        ///         Linux 'strptime()' specification, as well as 's', which
+        ///         specifies seconds and fractional seconds (though the
+        ///         fractional component will be truncated past milliseconds).
+        ///         Formats for the 'date' annotation must include the 'Y',
+        ///         'm', and 'd' control characters. Formats for the 'time'
+        ///         annotation must include the 'H', 'M', and either 'S' or 's'
+        ///         (but not both) control characters. Formats for the
+        ///         'datetime' annotation meet both the 'date' and 'time'
+        ///         control character requirements. For example, '{"datetime" :
+        ///         "%m/%d/%Y %H:%M:%S" }' would be used to write text as
+        ///         "05/04/2000 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.EXPORT_DDL">EXPORT_DDL</see>:
+        ///         </term>
+        ///         <description>Save DDL to a separate file. The default value
+        ///         is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.EXPORT_DDL">EXPORT_DDL</see>:</term>
-        ///         <description>Save DDL to a separate file.  The default
-        /// value is 'false'.</description>
+        ///         cref="Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
+        ///         <description>Extension to give the export file. The default
+        ///         value is '.csv'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
-        ///         <description>Extension to give the export file.  The
-        /// default value is '.csv'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
         ///         <description>Specifies the file format to use when
-        /// exporting data.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text file format; e.g., CSV, TSV,
-        /// PSV, etc.</description>
+        ///         exporting data.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+        ///                 </term>
+        ///                 <description>Delimited text file format; e.g., CSV,
+        ///                 TSV, PSV, etc.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.PARQUET">PARQUET</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.PARQUET">PARQUET</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER">KINETICA_HEADER</see>:</term>
+        ///         cref="Options.KINETICA_HEADER">KINETICA_HEADER</see>:
+        ///         </term>
         ///         <description>Whether to include a Kinetica proprietary
-        /// header. Will not be
-        /// written if <i>text_has_header</i> is
-        /// <i>false</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///         header. Will not be written if <see
+        ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see> is
+        ///         <see cref="Options.FALSE">FALSE</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER_DELIMITER">KINETICA_HEADER_DELIMITER</see>:</term>
+        ///         cref="Options.KINETICA_HEADER_DELIMITER">KINETICA_HEADER_DELIMITER</see>:
+        ///         </term>
         ///         <description>If a Kinetica proprietary header is included,
-        /// then specify a
-        /// property separator. Different from column delimiter.  The default
-        /// value is '|'.</description>
+        ///         then specify a property separator. Different from column
+        ///         delimiter. The default value is '|'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
+        ///         </term>
         ///         <description>File compression type. GZip can be applied to
-        /// text and Parquet files.  Snappy can only be applied to Parquet
-        /// files, and is the default compression for them.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///         text and Parquet files.  Snappy can only be applied to
+        ///         Parquet files, and is the default compression for them.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.UNCOMPRESSED">UNCOMPRESSED</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SNAPPY">SNAPPY</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.GZIP">GZIP</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
+        ///         <term><see cref="Options.SINGLE_FILE">SINGLE_FILE</see>:
+        ///         </term>
         ///         <description>Save records to a single file. This option may
-        /// be ignored if file
-        /// size exceeds internal file size limits (this limit will differ on
-        /// different targets).
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///         be ignored if file size exceeds internal file size limits
+        ///         (this limit will differ on different targets).
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.OVERWRITE">OVERWRITE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
         ///         <description>Specifies the character to write out to
-        /// delimit field values and
-        /// field names in the header (if present).
-        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ','.</description>
+        ///         delimit field values and field names in the header (if
+        ///         present).
+        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
+        ///         default value is ','.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+        ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:
+        ///         </term>
         ///         <description>Indicates whether to write out a header row.
-        /// For <i>delimited_text</i> <i>file_type</i> only.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+        ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:
+        ///         </term>
         ///         <description>Specifies the character string that should be
-        /// written out for the null
-        /// value in the data.
-        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is '\\N'.</description>
+        ///         written out for the null value in the data.
+        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
+        ///         default value is '\\N'.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public ExportRecordsToFilesRequest( string table_name,
                                             string filepath,
                                             IDictionary<string, string> options = null)
@@ -1065,40 +768,33 @@ namespace kinetica
             this.filepath = filepath ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ExportRecordsToFilesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.exportRecordsToFiles(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.exportRecordsToFiles(ExportRecordsToFilesRequest)">Kinetica.exportRecordsToFiles</see>.
+    /// </summary>
     public class ExportRecordsToFilesResponse : KineticaData
     {
-
-        /// <summary>Name of source table  </summary>
+        /// <summary>Name of source table</summary>
         public string table_name { get; set; }
 
-        /// <summary>Number of source table records exported  </summary>
+        /// <summary>Number of source table records exported</summary>
         public long count_exported { get; set; }
 
-        /// <summary>Number of source table records skipped  </summary>
+        /// <summary>Number of source table records skipped</summary>
         public long count_skipped { get; set; }
 
-        /// <summary>Names of all exported files  </summary>
+        /// <summary>Names of all exported files</summary>
         public IList<string> files { get; set; } = new List<string>();
 
-        /// <summary>Timestamp of last file scanned  </summary>
+        /// <summary>Timestamp of last file scanned</summary>
         public long last_timestamp { get; set; }
+
         public IList<string> data_text { get; set; } = new List<string>();
+
         public IList<byte[]> data_bytes { get; set; } = new List<byte[]>();
 
-        /// <summary>Additional information  </summary>
+        /// <summary>Additional information</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ExportRecordsToFilesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

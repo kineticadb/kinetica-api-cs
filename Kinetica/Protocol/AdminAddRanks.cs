@@ -6,170 +6,124 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminAddRanks(IList{string},IList{IDictionary{string, string}},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Add one or more ranks to an existing Kinetica cluster. The new ranks
-    /// will not contain any data initially (other than replicated tables) and
-    /// will not be assigned any shards. To rebalance data and shards across
-    /// the cluster, use <see
-    /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
-    /// <br />
-    /// The database must be offline for this operation, see <see
-    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
-    /// <br />
-    /// For example, if attempting to add three new ranks (two ranks on host
-    /// 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica cluster
-    /// with additional configuration parameters:
-    /// <br />
-    /// * <see cref="hosts" />
-    ///   would be an array including 172.123.45.67 in the first two indices
-    ///   (signifying two ranks being added to host 172.123.45.67) and
-    ///   172.123.45.68 in the last index (signifying one rank being added
-    ///   to host 172.123.45.67)
-    /// * <see cref="config_params" />
-    ///   would be an array of maps, with each map corresponding to the ranks
-    ///   being added in <see cref="hosts" />. The key of each map would be
-    ///   the configuration parameter name and the value would be the
-    ///   parameter's value, e.g. '{"rank.gpu":"1"}'
-    /// <br />
-    /// This endpoint's processing includes copying all replicated table data
-    /// to the new rank(s) and therefore could take a long time. The API call
-    /// may time out if run directly.  It is recommended to run this endpoint
-    /// asynchronously via <see
-    /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminAddRanks(AdminAddRanksRequest)">Kinetica.adminAddRanks</see>.
+    /// </summary>
+    /// <remarks><para>Add one or more ranks to an existing Kinetica cluster.
+    /// The new ranks will not contain any data initially (other than
+    /// replicated tables) and will not be assigned any shards. To rebalance
+    /// data and shards across the cluster, use <see
+    /// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>.</para>
+    /// <para>The database must be offline for this operation, see <see
+    /// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see></para>
+    /// <para>For example, if attempting to add three new ranks (two ranks on
+    /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
+    /// cluster with additional configuration parameters:</para>
+    /// <para>* <see cref="hosts" /> would be an array including 172.123.45.67
+    /// in the first two indices (signifying two ranks being added to host
+    /// 172.123.45.67) and 172.123.45.68 in the last index (signifying one rank
+    /// being added to host 172.123.45.67)</para>
+    /// <para>* <see cref="config_params" /> would be an array of maps, with
+    /// each map corresponding to the ranks being added in <see cref="hosts"
+    /// />. The key of each map would be the configuration parameter name and
+    /// the value would be the parameter's value, e.g.
+    /// '{"rank.gpu":"1"}'</para>
+    /// <para>This endpoint's processing includes copying all replicated table
+    /// data to the new rank(s) and therefore could take a long time. The API
+    /// call may time out if run directly.  It is recommended to run this
+    /// endpoint asynchronously via <see
+    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+    /// </para></remarks>
     public class AdminAddRanksRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If <i>true</i>, only validation checks will be
-        /// performed. No ranks are added.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, only validation checks will be
-            /// performed. No ranks are added.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, only
+            /// validation checks will be performed.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string DRY_RUN = "dry_run";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
         /// <summary>Array of host IP addresses (matching a hostN.address from
         /// the gpudb.conf file), or host identifiers (e.g. 'host0' from the
-        /// gpudb.conf file), on which to add ranks to the cluster. The hosts
-        /// must already be in the cluster. If needed beforehand, to add a new
-        /// host to the cluster use /admin/add/host. Include the same entry as
-        /// many times as there are ranks to add to the cluster, e.g., if two
-        /// ranks on host 172.123.45.67 should be added, <paramref
-        /// cref="AdminAddRanksRequest.hosts" /> could look like
-        /// '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
-        /// simultaneously, i.e. they're not added in the order of this array.
-        /// Each entry in this array corresponds to the entry at the same index
-        /// in the <paramref cref="AdminAddRanksRequest.config_params" />.
-        /// </summary>
+        /// gpudb.conf file), on which to add ranks to the cluster.</summary>
+        /// <remarks><para>The hosts must already be in the cluster. If needed
+        /// beforehand, to add a new host to the cluster use <see
+        /// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
+        /// Include the same entry as many times as there are ranks to add to
+        /// the cluster, e.g., if two ranks on host 172.123.45.67 should be
+        /// added, <see cref="hosts" /> could look like '["172.123.45.67",
+        /// "172.123.45.67"]'. All ranks will be added simultaneously, i.e.
+        /// they're not added in the order of this array. Each entry in this
+        /// array corresponds to the entry at the same index in the <see
+        /// cref="config_params" />.</para></remarks>
         public IList<string> hosts { get; set; } = new List<string>();
 
         /// <summary>Array of maps containing configuration parameters to apply
-        /// to the new ranks
-        /// found in <paramref cref="AdminAddRanksRequest.hosts" />. For
-        /// example,
-        /// '{"rank.gpu":"2", "tier.ram.rank.limit":"10000000000"}'. Currently,
-        /// the available parameters
-        /// are rank-specific parameters in the <a
+        /// to the new ranks found in <see cref="hosts" />.</summary>
+        /// <remarks><para>For example, '{"rank.gpu":"2",
+        /// "tier.ram.rank.limit":"10000000000"}'. Currently, the available
+        /// parameters are rank-specific parameters in the <a
         /// href="../../../config/#config-main-network"
-        /// target="_top">Network</a>,
-        /// <a href="../../../config/#config-main-hardware"
-        /// target="_top">Hardware</a>,
-        /// <a href="../../../config/#config-main-text-search"
-        /// target="_top">Text Search</a>, and
-        /// <a href="../../../config/#config-main-ram-tier" target="_top">RAM
-        /// Tiered Storage</a> sections in the gpudb.conf file, with the
-        /// key exception of the 'rankN.host' settings in the Network section
-        /// that will be determined by
-        /// <paramref cref="AdminAddRanksRequest.hosts" /> instead. Though many
-        /// of these configuration parameters typically are affixed with
-        /// 'rankN' in the gpudb.conf file (where N is the rank number), the
-        /// 'N' should be omitted in
-        /// <paramref cref="AdminAddRanksRequest.config_params" /> as the new
-        /// rank number(s) are not allocated until the ranks have been added
-        /// to the cluster. Each entry in this array corresponds to the entry
-        /// at the same index in the
-        /// <paramref cref="AdminAddRanksRequest.hosts" />. This array must
-        /// either be completely empty or have the same number of elements as
-        /// the <paramref cref="AdminAddRanksRequest.hosts" />.  An empty
-        /// <paramref cref="AdminAddRanksRequest.config_params" /> array will
-        /// result in the new ranks being set
-        /// with default parameters.  </summary>
+        /// target="_top">Network</a>, <a
+        /// href="../../../config/#config-main-hardware"
+        /// target="_top">Hardware</a>, <a
+        /// href="../../../config/#config-main-text-search" target="_top">Text
+        /// Search</a>, and <a href="../../../config/#config-main-ram-tier"
+        /// target="_top">RAM Tiered Storage</a> sections in the gpudb.conf
+        /// file, with the key exception of the 'rankN.host' settings in the
+        /// Network section that will be determined by <see cref="hosts" />
+        /// instead. Though many of these configuration parameters typically
+        /// are affixed with 'rankN' in the gpudb.conf file (where N is the
+        /// rank number), the 'N' should be omitted in <see
+        /// cref="config_params" /> as the new rank number(s) are not allocated
+        /// until the ranks have been added to the cluster. Each entry in this
+        /// array corresponds to the entry at the same index in the <see
+        /// cref="hosts" />. This array must either be completely empty or have
+        /// the same number of elements as the <see cref="hosts" />.  An empty
+        /// <see cref="config_params" /> array will result in the new ranks
+        /// being set with default parameters.</para></remarks>
         public IList<IDictionary<string, string>> config_params { get; set; } = new List<IDictionary<string, string>>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If <i>true</i>, only validation checks will be
-        /// performed. No ranks are added.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
+        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, only
+        ///         validation checks will be performed. No ranks are added.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminAddRanksRequest object with default
         /// parameters.</summary>
@@ -177,75 +131,64 @@ namespace kinetica
 
         /// <summary>Constructs an AdminAddRanksRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="hosts">Array of host IP addresses (matching a
         /// hostN.address from the gpudb.conf file), or host identifiers (e.g.
         /// 'host0' from the gpudb.conf file), on which to add ranks to the
         /// cluster. The hosts must already be in the cluster. If needed
-        /// beforehand, to add a new host to the cluster use /admin/add/host.
+        /// beforehand, to add a new host to the cluster use <see
+        /// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
         /// Include the same entry as many times as there are ranks to add to
         /// the cluster, e.g., if two ranks on host 172.123.45.67 should be
-        /// added, <paramref cref="AdminAddRanksRequest.hosts" /> could look
-        /// like '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
-        /// simultaneously, i.e. they're not added in the order of this array.
-        /// Each entry in this array corresponds to the entry at the same index
-        /// in the <paramref cref="AdminAddRanksRequest.config_params" />.
-        /// </param>
+        /// added, <paramref name="hosts" /> could look like '["172.123.45.67",
+        /// "172.123.45.67"]'. All ranks will be added simultaneously, i.e.
+        /// they're not added in the order of this array. Each entry in this
+        /// array corresponds to the entry at the same index in the <paramref
+        /// name="config_params" />.</param>
         /// <param name="config_params">Array of maps containing configuration
-        /// parameters to apply to the new ranks
-        /// found in <paramref cref="AdminAddRanksRequest.hosts" />. For
-        /// example,
-        /// '{"rank.gpu":"2", "tier.ram.rank.limit":"10000000000"}'. Currently,
-        /// the available parameters
-        /// are rank-specific parameters in the <a
+        /// parameters to apply to the new ranks found in <paramref
+        /// name="hosts" />. For example, '{"rank.gpu":"2",
+        /// "tier.ram.rank.limit":"10000000000"}'. Currently, the available
+        /// parameters are rank-specific parameters in the <a
         /// href="../../../config/#config-main-network"
-        /// target="_top">Network</a>,
-        /// <a href="../../../config/#config-main-hardware"
-        /// target="_top">Hardware</a>,
-        /// <a href="../../../config/#config-main-text-search"
-        /// target="_top">Text Search</a>, and
-        /// <a href="../../../config/#config-main-ram-tier" target="_top">RAM
-        /// Tiered Storage</a> sections in the gpudb.conf file, with the
-        /// key exception of the 'rankN.host' settings in the Network section
-        /// that will be determined by
-        /// <paramref cref="AdminAddRanksRequest.hosts" /> instead. Though many
-        /// of these configuration parameters typically are affixed with
-        /// 'rankN' in the gpudb.conf file (where N is the rank number), the
-        /// 'N' should be omitted in
-        /// <paramref cref="AdminAddRanksRequest.config_params" /> as the new
-        /// rank number(s) are not allocated until the ranks have been added
-        /// to the cluster. Each entry in this array corresponds to the entry
-        /// at the same index in the
-        /// <paramref cref="AdminAddRanksRequest.hosts" />. This array must
-        /// either be completely empty or have the same number of elements as
-        /// the <paramref cref="AdminAddRanksRequest.hosts" />.  An empty
-        /// <paramref cref="AdminAddRanksRequest.config_params" /> array will
-        /// result in the new ranks being set
-        /// with default parameters.  </param>
+        /// target="_top">Network</a>, <a
+        /// href="../../../config/#config-main-hardware"
+        /// target="_top">Hardware</a>, <a
+        /// href="../../../config/#config-main-text-search" target="_top">Text
+        /// Search</a>, and <a href="../../../config/#config-main-ram-tier"
+        /// target="_top">RAM Tiered Storage</a> sections in the gpudb.conf
+        /// file, with the key exception of the 'rankN.host' settings in the
+        /// Network section that will be determined by <paramref name="hosts"
+        /// /> instead. Though many of these configuration parameters typically
+        /// are affixed with 'rankN' in the gpudb.conf file (where N is the
+        /// rank number), the 'N' should be omitted in <paramref
+        /// name="config_params" /> as the new rank number(s) are not allocated
+        /// until the ranks have been added to the cluster. Each entry in this
+        /// array corresponds to the entry at the same index in the <paramref
+        /// name="hosts" />. This array must either be completely empty or have
+        /// the same number of elements as the <paramref name="hosts" />.  An
+        /// empty <paramref name="config_params" /> array will result in the
+        /// new ranks being set with default parameters.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If <i>true</i>, only validation checks will be
-        /// performed. No ranks are added.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
+        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, only
+        ///         validation checks will be performed. No ranks are added.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AdminAddRanksRequest( IList<string> hosts,
                                      IList<IDictionary<string, string>> config_params,
                                      IDictionary<string, string> options = null)
@@ -254,29 +197,21 @@ namespace kinetica
             this.config_params = config_params ?? new List<IDictionary<string, string>>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminAddRanksRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminAddRanks(IList{string},IList{IDictionary{string, string}},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminAddRanks(AdminAddRanksRequest)">Kinetica.adminAddRanks</see>.
+    /// </summary>
     public class AdminAddRanksResponse : KineticaData
     {
-
         /// <summary>The number assigned to each added rank, formatted as
-        /// 'rankN', in the same order as the ranks in <paramref
-        /// cref="AdminAddRanksRequest.hosts" /> and <paramref
-        /// cref="AdminAddRanksRequest.config_params" />.  </summary>
+        /// 'rankN', in the same order as the ranks in <see
+        /// cref="AdminAddRanksRequest.hosts">hosts</see> and <see
+        /// cref="AdminAddRanksRequest.config_params">config_params</see>.
+        /// </summary>
         public IList<string> added_ranks { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminAddRanksResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

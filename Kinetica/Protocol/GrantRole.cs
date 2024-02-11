@@ -6,32 +6,29 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.grantRole(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Grants membership in a role to a user or role.</summary>
+    /// cref="Kinetica.grantRole(GrantRoleRequest)">Kinetica.grantRole</see>.
+    /// </summary>
+    /// <remarks><para>Grants membership in a role to a user or role.</para>
+    /// </remarks>
     public class GrantRoleRequest : KineticaData
     {
-
-        /// <summary>Name of the role in which membership will be granted. Must
-        /// be an existing role.  </summary>
+        /// <summary>Name of the role in which membership will be granted.
+        /// </summary>
+        /// <remarks><para>Must be an existing role.</para></remarks>
         public string role { get; set; }
 
         /// <summary>Name of the user or role that will be granted membership
-        /// in <paramref cref="GrantRoleRequest.role" />. Must be an existing
-        /// user or role.  </summary>
+        /// in <see cref="role" />.</summary>
+        /// <remarks><para>Must be an existing user or role.</para></remarks>
         public string member { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a GrantRoleRequest object with default
         /// parameters.</summary>
@@ -39,15 +36,14 @@ namespace kinetica
 
         /// <summary>Constructs a GrantRoleRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="role">Name of the role in which membership will be
-        /// granted. Must be an existing role.  </param>
+        /// granted. Must be an existing role.</param>
         /// <param name="member">Name of the user or role that will be granted
-        /// membership in <paramref cref="GrantRoleRequest.role" />. Must be an
-        /// existing user or role.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// membership in <paramref name="role" />. Must be an existing user or
+        /// role.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public GrantRoleRequest( string role,
                                  string member,
                                  IDictionary<string, string> options = null)
@@ -56,31 +52,22 @@ namespace kinetica
             this.member = member ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class GrantRoleRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.grantRole(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.grantRole(GrantRoleRequest)">Kinetica.grantRole</see>.
+    /// </summary>
     public class GrantRoleResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="GrantRoleRequest.role" />.
+        /// <summary>Value of <see cref="GrantRoleRequest.role">role</see>.
         /// </summary>
         public string role { get; set; }
 
-        /// <summary>Value of <paramref cref="GrantRoleRequest.member" />.
+        /// <summary>Value of <see cref="GrantRoleRequest.member">member</see>.
         /// </summary>
         public string member { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GrantRoleResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

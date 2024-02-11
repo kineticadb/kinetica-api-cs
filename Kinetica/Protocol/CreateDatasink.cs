@@ -6,294 +6,23 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createDatasink(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Creates a <a href="../../../concepts/data_sinks/" target="_top">data
-    /// sink</a>, which contains the
-    /// destination information for a data sink that is external to the
-    /// database.</summary>
+    /// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+    /// </summary>
+    /// <remarks><para>Creates a <a href="../../../concepts/data_sinks/"
+    /// target="_top">data sink</a>, which contains the destination information
+    /// for a data sink that is external to the database.</para></remarks>
     public class CreateDatasinkRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for connecting to this data
-        /// sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for waiting for a response
-        /// from this data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Name of the <a
-        /// href="../../../concepts/credentials/" target="_top">credential</a>
-        /// object to be used in this data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_REGION">S3_REGION</see>:</term>
-        ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
-        ///         <description>When true (default), the requests URI should
-        /// be specified in virtual-hosted-style format where the bucket name
-        /// is part of the domain name in the URL.
-        /// <br />
-        /// Otherwise set to false to use path-style URI for requests.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
-        ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
-        ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
-        ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
-        ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
-        ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
-        ///         <description>Name of the Azure storage account to use as
-        /// the data sink, this is valid only if tenant_id is
-        /// specified</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
-        ///         <description>Name of the Azure storage container to use as
-        /// the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
-        ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
-        ///         <description>Name of the Google Cloud project to use as the
-        /// data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
-        ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
-        ///         <description>Name of the JDBC driver class</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
-        ///         <description>Name of the Kafka topic to publish to if
-        /// <paramref cref="CreateDatasinkRequest.destination" /> is a Kafka
-        /// broker</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records per notification
-        /// message.  The default value is '1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
-        ///         <description>Maximum size in bytes of each notification
-        /// message.  The default value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
-        ///         <description>The desired format of JSON encoded
-        /// notifications message.
-        /// <br />
-        /// If <i>nested</i>, records are returned as an array. Otherwise, only
-        /// a single record per messages is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
-        ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
-        ///         <description>Use https to connect to datasink if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
-        ///         <description>Bypass validation of connection to this data
-        /// sink.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>Timeout in seconds for connecting to this data
-            /// sink</summary>
+            /// <summary>Timeout in seconds for connecting to this data sink
+            /// </summary>
             public const string CONNECTION_TIMEOUT = "connection_timeout";
 
             /// <summary>Timeout in seconds for waiting for a response from
@@ -305,8 +34,8 @@ namespace kinetica
             /// sink</summary>
             public const string CREDENTIAL = "credential";
 
-            /// <summary>Name of the Amazon S3 bucket to use as the data
-            /// sink</summary>
+            /// <summary>Name of the Amazon S3 bucket to use as the data sink
+            /// </summary>
             public const string S3_BUCKET_NAME = "s3_bucket_name";
 
             /// <summary>Name of the Amazon S3 region where the given bucket is
@@ -315,23 +44,20 @@ namespace kinetica
 
             /// <summary>When true (default), the requests URI should be
             /// specified in virtual-hosted-style format where the bucket name
-            /// is part of the domain name in the URL.
-            /// <br />
-            /// Otherwise set to false to use path-style URI for requests.
-            /// Supported values:
+            /// is part of the domain name in the URL.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
@@ -339,35 +65,35 @@ namespace kinetica
             /// that can be assumed for the given S3 IAM user</summary>
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
 
-            /// <summary>Customer encryption algorithm used encrypting
-            /// data</summary>
+            /// <summary>Customer encryption algorithm used encrypting data
+            /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
 
-            /// <summary>Customer encryption key to encrypt or decrypt
-            /// data</summary>
+            /// <summary>Customer encryption key to encrypt or decrypt data
+            /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
 
             /// <summary>Kerberos keytab file location for the given HDFS user.
-            /// This may be a KIFS file.</summary>
+            /// </summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
 
             /// <summary>Delegation token for the given HDFS user</summary>
             public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
 
-            /// <summary>Use kerberos authentication for the given HDFS cluster
-            /// Supported values:
+            /// <summary>Use kerberos authentication for the given HDFS
+            /// cluster.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
 
             /// <summary>Name of the Azure storage account to use as the data
@@ -385,8 +111,8 @@ namespace kinetica
             /// account to use as the data sink</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
 
-            /// <summary>Oauth token to access given storage
-            /// container</summary>
+            /// <summary>Oauth token to access given storage container
+            /// </summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
             /// <summary>Name of the Google Cloud Storage bucket to use as the
@@ -412,365 +138,362 @@ namespace kinetica
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
             /// <summary>Maximum number of records per notification message.
-            /// The default value is '1'.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is '1'.</para></remarks>
             public const string MAX_BATCH_SIZE = "max_batch_size";
 
             /// <summary>Maximum size in bytes of each notification message.
-            /// The default value is '1000000'.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is '1000000'.</para></remarks>
             public const string MAX_MESSAGE_SIZE = "max_message_size";
 
             /// <summary>The desired format of JSON encoded notifications
-            /// message.
-            /// <br />
-            /// If <i>nested</i>, records are returned as an array. Otherwise,
-            /// only a single record per messages is returned.
-            /// Supported values:
+            /// message.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+            ///         <term><see cref="Options.FLAT">FLAT</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
+            ///         <term><see cref="Options.NESTED">NESTED</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</summary>
+            /// <para>The default value is <see cref="Options.FLAT">FLAT</see>.
+            /// </para></remarks>
             public const string JSON_FORMAT = "json_format";
+
             public const string FLAT = "flat";
             public const string NESTED = "nested";
 
             /// <summary>When no credentials are supplied, we use anonymous
-            /// access by default.  If this is set, we will use cloud provider
-            /// user settings.
-            /// Supported values:
+            /// access by default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
 
             /// <summary>Use https to connect to datasink if true, otherwise
-            /// use http
-            /// Supported values:
+            /// use http.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string USE_HTTPS = "use_https";
 
             /// <summary>Bypass validation of connection to this data sink.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string SKIP_VALIDATION = "skip_validation";
         } // end struct Options
 
-
-        /// <summary>Name of the data sink to be created.  </summary>
+        /// <summary>Name of the data sink to be created.</summary>
         public string name { get; set; }
 
         /// <summary>Destination for the output data in format
-        /// 'storage_provider_type://path[:port]'.
-        /// <br />
-        /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
-        /// 'http', 'https', 'jdbc', 'kafka' and 's3'.  </summary>
+        /// 'storage_provider_type://path[:port]'.</summary>
+        /// <remarks><para> Supported storage provider types are 'azure',
+        /// 'gcs', 'hdfs', 'http', 'https', 'jdbc', 'kafka' and 's3'.</para>
+        /// </remarks>
         public string destination { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for connecting to this data
-        /// sink</description>
+        ///         sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for waiting for a response
-        /// from this data sink</description>
+        ///         from this data sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the <a
-        /// href="../../../concepts/credentials/" target="_top">credential</a>
-        /// object to be used in this data sink</description>
+        ///         href="../../../concepts/credentials/"
+        ///         target="_top">credential</a> object to be used in this data
+        ///         sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
         ///         <description>When true (default), the requests URI should
-        /// be specified in virtual-hosted-style format where the bucket name
-        /// is part of the domain name in the URL.
-        /// <br />
-        /// Otherwise set to false to use path-style URI for requests.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
         ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data sink, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data sink, this is valid only if tenant_id is specified
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data sink</description>
+        ///         the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data sink</description>
+        ///         storage account to use as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data sink</description>
+        ///         as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data sink</description>
+        ///         authenticating the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
         ///         <description>JDBC driver jar file location</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
         ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
-        ///         <description>Name of the Kafka topic to publish to if
-        /// <paramref cref="CreateDatasinkRequest.destination" /> is a Kafka
-        /// broker</description>
+        ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the Kafka topic to publish to if <see
+        ///         cref="destination" /> is a Kafka broker</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         cref="Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
         ///         <description>Maximum number of records per notification
-        /// message.  The default value is '1'.</description>
+        ///         message. The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         cref="Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum size in bytes of each notification
-        /// message.  The default value is '1000000'.</description>
+        ///         message. The default value is '1000000'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <term><see cref="Options.JSON_FORMAT">JSON_FORMAT</see>:
+        ///         </term>
         ///         <description>The desired format of JSON encoded
-        /// notifications message.
-        /// <br />
-        /// If <i>nested</i>, records are returned as an array. Otherwise, only
-        /// a single record per messages is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+        ///         notifications message.
+        ///         If <see cref="Options.NESTED">NESTED</see>, records are
+        ///         returned as an array. Otherwise, only a single record per
+        ///         messages is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.FLAT">FLAT</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.NESTED">NESTED</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FLAT">FLAT</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
         ///         <description>Use https to connect to datasink if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to this data
-        /// sink.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
+        ///         sink.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateDatasinkRequest object with default
         /// parameters.</summary>
@@ -778,276 +501,285 @@ namespace kinetica
 
         /// <summary>Constructs a CreateDatasinkRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="name">Name of the data sink to be created.  </param>
+        ///
+        /// <param name="name">Name of the data sink to be created.</param>
         /// <param name="destination">Destination for the output data in format
         /// 'storage_provider_type://path[:port]'.
         /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
-        /// 'http', 'https', 'jdbc', 'kafka' and 's3'.  </param>
+        /// 'http', 'https', 'jdbc', 'kafka' and 's3'.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for connecting to this data
-        /// sink</description>
+        ///         sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for waiting for a response
-        /// from this data sink</description>
+        ///         from this data sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the <a
-        /// href="../../../concepts/credentials/" target="_top">credential</a>
-        /// object to be used in this data sink</description>
+        ///         href="../../../concepts/credentials/"
+        ///         target="_top">credential</a> object to be used in this data
+        ///         sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
         ///         <description>When true (default), the requests URI should
-        /// be specified in virtual-hosted-style format where the bucket name
-        /// is part of the domain name in the URL.
-        /// Otherwise set to false to use path-style URI for requests.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
         ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data sink, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data sink, this is valid only if tenant_id is specified
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data sink</description>
+        ///         the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data sink</description>
+        ///         storage account to use as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data sink</description>
+        ///         as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data sink</description>
+        ///         authenticating the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
         ///         <description>JDBC driver jar file location</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
         ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to publish to if
-        /// <paramref cref="CreateDatasinkRequest.destination" /> is a Kafka
-        /// broker</description>
+        ///         <paramref name="destination" /> is a Kafka broker
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         cref="Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
         ///         <description>Maximum number of records per notification
-        /// message.  The default value is '1'.</description>
+        ///         message. The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         cref="Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum size in bytes of each notification
-        /// message.  The default value is '1000000'.</description>
+        ///         message. The default value is '1000000'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <term><see cref="Options.JSON_FORMAT">JSON_FORMAT</see>:
+        ///         </term>
         ///         <description>The desired format of JSON encoded
-        /// notifications message.
-        /// If <i>nested</i>, records are returned as an array. Otherwise, only
-        /// a single record per messages is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+        ///         notifications message.
+        ///         If <see cref="Options.NESTED">NESTED</see>, records are
+        ///         returned as an array. Otherwise, only a single record per
+        ///         messages is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.FLAT">FLAT</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.NESTED">NESTED</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FLAT">FLAT</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
         ///         <description>Use https to connect to datasink if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to this data
-        /// sink.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
+        ///         sink.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateDatasinkRequest( string name,
                                       string destination,
                                       IDictionary<string, string> options = null)
@@ -1056,27 +788,18 @@ namespace kinetica
             this.destination = destination ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateDatasinkRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createDatasink(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+    /// </summary>
     public class CreateDatasinkResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="CreateDatasinkRequest.name" />.
-        /// </summary>
+        /// <summary>Value of <see
+        /// cref="CreateDatasinkRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateDatasinkResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

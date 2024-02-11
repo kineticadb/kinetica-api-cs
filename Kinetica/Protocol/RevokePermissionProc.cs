@@ -6,62 +6,59 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.revokePermissionProc(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Revokes a proc-level permission from a user or role.</summary>
+    /// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+    /// </summary>
+    /// <remarks><para>Revokes a proc-level permission from a user or role.
+    /// </para></remarks>
     public class RevokePermissionProcRequest : KineticaData
     {
-
-        /// <summary>Permission to revoke from the user or role.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
-        ///         <description>Execute access to the proc.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="permission"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="permission" />.</summary>
+        /// <remarks><para>Permission to revoke from the user or role.</para>
+        /// </remarks>
         public struct Permission
         {
+            /// <summary>Admin access to the proc.</summary>
+            public const string PROC_ADMIN = "proc_admin";
 
             /// <summary>Execute access to the proc.</summary>
             public const string PROC_EXECUTE = "proc_execute";
         } // end struct Permission
 
-
         /// <summary>Name of the user or role from which the permission will be
-        /// revoked. Must be an existing user or role.  </summary>
+        /// revoked.</summary>
+        /// <remarks><para>Must be an existing user or role.</para></remarks>
         public string name { get; set; }
 
-        /// <summary>Permission to revoke from the user or role.
-        /// Supported values:
+        /// <summary>Permission to revoke from the user or role.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
+        ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+        ///         </term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
-        /// cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
+        ///         cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
         ///         <description>Execute access to the proc.</description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string permission { get; set; }
 
         /// <summary>Name of the proc to which the permission grants access.
-        /// Must be an existing proc, or an empty string if the permission
-        /// grants access to all procs.  </summary>
+        /// </summary>
+        /// <remarks><para>Must be an existing proc, or an empty string if the
+        /// permission grants access to all procs.</para></remarks>
         public string proc_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a RevokePermissionProcRequest object with
         /// default parameters.</summary>
@@ -69,7 +66,7 @@ namespace kinetica
 
         /// <summary>Constructs a RevokePermissionProcRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the user or role from which the
         /// permission will be revoked. Must be an existing user or role.
         /// </param>
@@ -78,17 +75,21 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
+        ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+        ///         </term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
-        /// cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
+        ///         cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
         ///         <description>Execute access to the proc.</description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="proc_name">Name of the proc to which the permission
         /// grants access. Must be an existing proc, or an empty string if the
-        /// permission grants access to all procs.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// permission grants access to all procs.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public RevokePermissionProcRequest( string name,
                                             string permission,
                                             string proc_name,
@@ -99,35 +100,28 @@ namespace kinetica
             this.proc_name = proc_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class RevokePermissionProcRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.revokePermissionProc(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+    /// </summary>
     public class RevokePermissionProcResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="RevokePermissionProcRequest.name"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="RevokePermissionProcRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="RevokePermissionProcRequest.permission" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="RevokePermissionProcRequest.permission">permission</see>.
+        /// </summary>
         public string permission { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="RevokePermissionProcRequest.proc_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="RevokePermissionProcRequest.proc_name">proc_name</see>.
+        /// </summary>
         public string proc_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class RevokePermissionProcResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

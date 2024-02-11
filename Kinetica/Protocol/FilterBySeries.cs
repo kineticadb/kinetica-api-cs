@@ -6,185 +6,100 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.filterBySeries(string,string,string,IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Filters objects matching all points of the given track (works only
-    /// on track type data).  It allows users to specify a particular track to
-    /// find all
-    /// other points in the table that fall within specified ranges (spatial
-    /// and
-    /// temporal) of all points of the given track. Additionally, the user can
-    /// specify
-    /// another track to see if the two intersect (or go close to each other
-    /// within the
-    /// specified ranges). The user also has the flexibility of using different
-    /// metrics
-    /// for the spatial distance calculation: Euclidean (flat geometry) or
-    /// Great Circle
+    /// cref="Kinetica.filterBySeries(FilterBySeriesRequest)">Kinetica.filterBySeries</see>.
+    /// </summary>
+    /// <remarks><para>Filters objects matching all points of the given track
+    /// (works only on track type data).  It allows users to specify a
+    /// particular track to find all other points in the table that fall within
+    /// specified ranges (spatial and temporal) of all points of the given
+    /// track. Additionally, the user can specify another track to see if the
+    /// two intersect (or go close to each other within the specified ranges).
+    /// The user also has the flexibility of using different metrics for the
+    /// spatial distance calculation: Euclidean (flat geometry) or Great Circle
     /// (spherical geometry to approximate the Earth's surface distances). The
-    /// filtered
-    /// points are stored in a newly created result set. The return value of
-    /// the
-    /// function is the number of points in the resultant set (view).
-    /// <br />
-    /// This operation is synchronous, meaning that a response will not be
-    /// returned
-    /// until all the objects are fully available.</summary>
+    /// filtered points are stored in a newly created result set. The return
+    /// value of the function is the number of points in the resultant set
+    /// (view).</para>
+    /// <para>This operation is synchronous, meaning that a response will not
+    /// be returned until all the objects are fully available.</para></remarks>
     public class FilterBySeriesRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterBySeriesRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterBySeriesRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema is non-existent, it will be
-        /// automatically created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
-        ///         <description>A positive number passed as a string
-        /// representing the radius of the search area centered around each
-        /// track point's geospatial coordinates. The value is interpreted in
-        /// meters. Required parameter.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
-        ///         <description>A positive number passed as a string
-        /// representing the maximum allowable time difference between the
-        /// timestamps of a filtered object and the given track's points. The
-        /// value is interpreted in seconds. Required parameter.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
-        ///         <description>A string representing the coordinate system to
-        /// use for the spatial search criteria. Acceptable values are
-        /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of <see
-            /// cref="view_name" />. This is always allowed even if the caller
-            /// does not have permission to create tables. The generated name
-            /// is returned in <i>qualified_view_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see cref="view_name" />.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="FilterBySeriesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the view as part of <see cref="view_name" /> and use <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema for
-            /// the newly created view. If the schema is non-existent, it will
-            /// be automatically created.</summary>
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema for the
+            /// newly created view.</summary>
+            /// <remarks><para>If the schema is non-existent, it will be
+            /// automatically created.</para></remarks>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>A positive number passed as a string representing the
             /// radius of the search area centered around each track point's
-            /// geospatial coordinates. The value is interpreted in meters.
-            /// Required parameter.</summary>
+            /// geospatial coordinates.</summary>
+            /// <remarks><para>The value is interpreted in meters. Required
+            /// parameter. The minimum allowed value is '0'.</para></remarks>
             public const string SPATIAL_RADIUS = "spatial_radius";
 
             /// <summary>A positive number passed as a string representing the
             /// maximum allowable time difference between the timestamps of a
-            /// filtered object and the given track's points. The value is
-            /// interpreted in seconds. Required parameter.</summary>
+            /// filtered object and the given track's points.</summary>
+            /// <remarks><para>The value is interpreted in seconds. Required
+            /// parameter. The minimum allowed value is '0'.</para></remarks>
             public const string TIME_RADIUS = "time_radius";
 
             /// <summary>A string representing the coordinate system to use for
-            /// the spatial search criteria. Acceptable values are 'euclidean'
-            /// and 'great_circle'. Optional parameter; default is 'euclidean'.
-            /// Supported values:
+            /// the spatial search criteria.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
+            ///         <term><see cref="Options.EUCLIDEAN">EUCLIDEAN</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+            ///         cref="Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string SPATIAL_DISTANCE_METRIC = "spatial_distance_metric";
+
             public const string EUCLIDEAN = "euclidean";
             public const string GREAT_CIRCLE = "great_circle";
         } // end struct Options
 
-
         /// <summary>Name of the table on which the filter by track operation
         /// will be performed, in [schema_name.]table_name format, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>. Must be a currently
-        /// existing table with a <a href="../../../geospatial/geo_objects/"
-        /// target="_top">track</a> present.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para>Must be a currently existing table with a <a
+        /// href="../../../geospatial/geo_objects/" target="_top">track</a>
+        /// present.</para></remarks>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
@@ -192,94 +107,102 @@ namespace kinetica
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Must not be an already
-        /// existing table or view.  The default value is ''.</summary>
+        /// target="_top">table naming criteria</a>.</summary>
+        /// <remarks><para> Must not be an already existing table or view. The
+        /// default value is ''.</para></remarks>
         public string view_name { get; set; } = "";
 
         /// <summary>The ID of the track which will act as the filtering
-        /// points. Must be an existing track within the given table.
-        /// </summary>
+        /// points.</summary>
+        /// <remarks><para>Must be an existing track within the given table.
+        /// </para></remarks>
         public string track_id { get; set; }
 
         /// <summary>Up to one track ID to intersect with the "filter" track.
-        /// If any provided, it must be an valid track ID within the given set.
         /// </summary>
+        /// <remarks><para>If any provided, it must be an valid track ID within
+        /// the given set.</para></remarks>
         public IList<string> target_track_ids { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterBySeriesRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see cref="view_name"
+        ///         />. This is always allowed even if the caller does not have
+        ///         permission to create tables. The generated name is returned
+        ///         in <see
+        ///         cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterBySeriesRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema is non-existent, it will be
-        /// automatically created.</description>
+        ///         schema for the view as part of <see cref="view_name" /> and
+        ///         use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created view. If the schema is non-existent, it
+        ///         will be automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
+        ///         cref="Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
-        /// representing the radius of the search area centered around each
-        /// track point's geospatial coordinates. The value is interpreted in
-        /// meters. Required parameter.</description>
+        ///         representing the radius of the search area centered around
+        ///         each track point's geospatial coordinates. The value is
+        ///         interpreted in meters. Required parameter. The minimum
+        ///         allowed value is '0'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
+        ///         <term><see cref="Options.TIME_RADIUS">TIME_RADIUS</see>:
+        ///         </term>
         ///         <description>A positive number passed as a string
-        /// representing the maximum allowable time difference between the
-        /// timestamps of a filtered object and the given track's points. The
-        /// value is interpreted in seconds. Required parameter.</description>
+        ///         representing the maximum allowable time difference between
+        ///         the timestamps of a filtered object and the given track's
+        ///         points. The value is interpreted in seconds. Required
+        ///         parameter. The minimum allowed value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
+        ///         cref="Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:
+        ///         </term>
         ///         <description>A string representing the coordinate system to
-        /// use for the spatial search criteria. Acceptable values are
-        /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
-        ///     </item>
-        /// </list></description>
+        ///         use for the spatial search criteria. Acceptable values are
+        ///         'euclidean' and 'great_circle'. Optional parameter; default
+        ///         is 'euclidean'.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.EUCLIDEAN">EUCLIDEAN</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.GREAT_CIRCLE">GREAT_CIRCLE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a FilterBySeriesRequest object with default
         /// parameters.</summary>
@@ -287,14 +210,14 @@ namespace kinetica
 
         /// <summary>Constructs a FilterBySeriesRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table on which the filter by
         /// track operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must be a currently
         /// existing table with a <a href="../../../geospatial/geo_objects/"
-        /// target="_top">track</a> present.  </param>
+        /// target="_top">track</a> present.</param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
@@ -302,86 +225,91 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
-        /// existing table or view.  The default value is ''.</param>
+        /// existing table or view. The default value is ''.</param>
         /// <param name="track_id">The ID of the track which will act as the
         /// filtering points. Must be an existing track within the given table.
         /// </param>
         /// <param name="target_track_ids">Up to one track ID to intersect with
         /// the "filter" track. If any provided, it must be an valid track ID
-        /// within the given set.  </param>
+        /// within the given set.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterBySeriesRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <paramref
+        ///         name="view_name" />. This is always allowed even if the
+        ///         caller does not have permission to create tables. The
+        ///         generated name is returned in <see
+        ///         cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterBySeriesRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema is non-existent, it will be
-        /// automatically created.</description>
+        ///         schema for the view as part of <paramref name="view_name"
+        ///         /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created view. If the schema is non-existent, it
+        ///         will be automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
+        ///         cref="Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
-        /// representing the radius of the search area centered around each
-        /// track point's geospatial coordinates. The value is interpreted in
-        /// meters. Required parameter.</description>
+        ///         representing the radius of the search area centered around
+        ///         each track point's geospatial coordinates. The value is
+        ///         interpreted in meters. Required parameter. The minimum
+        ///         allowed value is '0'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
+        ///         <term><see cref="Options.TIME_RADIUS">TIME_RADIUS</see>:
+        ///         </term>
         ///         <description>A positive number passed as a string
-        /// representing the maximum allowable time difference between the
-        /// timestamps of a filtered object and the given track's points. The
-        /// value is interpreted in seconds. Required parameter.</description>
+        ///         representing the maximum allowable time difference between
+        ///         the timestamps of a filtered object and the given track's
+        ///         points. The value is interpreted in seconds. Required
+        ///         parameter. The minimum allowed value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
+        ///         cref="Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:
+        ///         </term>
         ///         <description>A string representing the coordinate system to
-        /// use for the spatial search criteria. Acceptable values are
-        /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
-        ///     </item>
-        /// </list></description>
+        ///         use for the spatial search criteria. Acceptable values are
+        ///         'euclidean' and 'great_circle'. Optional parameter; default
+        ///         is 'euclidean'.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.EUCLIDEAN">EUCLIDEAN</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.GREAT_CIRCLE">GREAT_CIRCLE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public FilterBySeriesRequest( string table_name,
                                       string view_name,
                                       string track_id,
@@ -394,57 +322,37 @@ namespace kinetica
             this.target_track_ids = target_track_ids ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class FilterBySeriesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.filterBySeries(string,string,string,IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.filterBySeries(FilterBySeriesRequest)">Kinetica.filterBySeries</see>.
+    /// </summary>
     public class FilterBySeriesResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
-        ///         <description>The fully qualified name of the view (i.e.
-        /// including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the view (i.e. including
             /// the schema)</summary>
             public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
         } // end struct Info
 
-
-        /// <summary>The number of records passing the series filter.
-        /// </summary>
+        /// <summary>The number of records passing the series filter.</summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the view (i.e.
-        /// including the schema)</description>
+        ///         including the schema)</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class FilterBySeriesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

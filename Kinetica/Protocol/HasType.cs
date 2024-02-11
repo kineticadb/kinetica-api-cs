@@ -6,26 +6,23 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasType(string,IDictionary{string, string})" />.
-    /// <br />
-    /// Check for the existence of a type.</summary>
+    /// cref="Kinetica.hasType(HasTypeRequest)">Kinetica.hasType</see>.
+    /// </summary>
+    /// <remarks><para>Check for the existence of a type.</para></remarks>
     public class HasTypeRequest : KineticaData
     {
-
-        /// <summary>Id of the type returned in response to /create/type
-        /// request.  </summary>
+        /// <summary>Id of the type returned in response to <see
+        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>
+        /// request.</summary>
         public string type_id { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a HasTypeRequest object with default
         /// parameters.</summary>
@@ -33,74 +30,52 @@ namespace kinetica
 
         /// <summary>Constructs a HasTypeRequest object with the specified
         /// parameters.</summary>
-        /// 
-        /// <param name="type_id">Id of the type returned in response to
-        /// /create/type request.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        ///
+        /// <param name="type_id">Id of the type returned in response to <see
+        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>
+        /// request.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public HasTypeRequest( string type_id,
                                IDictionary<string, string> options = null)
         {
             this.type_id = type_id ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class HasTypeRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasType(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.hasType(HasTypeRequest)">Kinetica.hasType</see>.
+    /// </summary>
     public class HasTypeResponse : KineticaData
     {
-
-        /// <summary>Indicates whether the type exists or not.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasTypeResponse.TypeExists.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasTypeResponse.TypeExists.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="type_exists" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="type_exists" />.</summary>
+        /// <remarks><para>Indicates whether the type exists or not.</para>
+        /// </remarks>
         public struct TypeExists
         {
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct TypeExists
 
-
-        /// <summary>Value of <paramref cref="HasTypeRequest.type_id" />.
+        /// <summary>Value of <see cref="HasTypeRequest.type_id">type_id</see>.
         /// </summary>
         public string type_id { get; set; }
 
-        /// <summary>Indicates whether the type exists or not.
-        /// Supported values:
+        /// <summary>Indicates whether the type exists or not.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="HasTypeResponse.TypeExists.TRUE">TRUE</see></term>
+        ///         <term><see cref="TypeExists.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="HasTypeResponse.TypeExists.FALSE">FALSE</see></term>
+        ///         <term><see cref="TypeExists.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public bool type_exists { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class HasTypeResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

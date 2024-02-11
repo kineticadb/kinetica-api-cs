@@ -6,470 +6,286 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.appendRecords(string,string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Append (or insert) all records from a source table
+    /// cref="Kinetica.appendRecords(AppendRecordsRequest)">Kinetica.appendRecords</see>.
+    /// </summary>
+    /// <remarks><para>Append (or insert) all records from a source table
     /// (specified by <see cref="source_table_name" />) to a particular target
-    /// table
-    /// (specified by <see cref="table_name" />). The field map
+    /// table (specified by <see cref="table_name" />). The field map
     /// (specified by <see cref="field_map" />) holds the user specified map of
-    /// target table
-    /// column names with their mapped source column names.</summary>
+    /// target table column names with their mapped source column names.</para>
+    /// </remarks>
     public class AppendRecordsRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
-        ///         <description>A positive integer indicating the number of
-        /// initial results to skip from <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
-        /// The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
-        /// (-9999) to indicate that the max number of results should be
-        /// returned.  The default value is '-9999'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
-        ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
-        /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted by from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
-        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
-        /// value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
-        /// inserting source table
-        /// records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into a target
-        /// table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a>. If
-        /// set to <i>true</i>, any existing table record with
-        /// primary key values that match those of a source table record being
-        /// inserted will be replaced by that
-        /// new record (the new data will be "upserted"). If set to
-        /// <i>false</i>, any existing table record with primary
-        /// key values that match those of a source table record being inserted
-        /// will remain unchanged, while the
-        /// source record will be rejected and an error handled as determined
-        /// by
-        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
-        /// primary key,
-        /// then this option has no effect.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Upsert new records when primary keys match
-        /// existing records</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Reject new records when primary keys match
-        /// existing records</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision
-        /// error-suppression policy for
-        /// inserting source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into a target
-        /// table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a>, only
-        /// used when not in upsert mode (upsert mode is disabled when
-        /// <i>update_on_existing_pk</i> is
-        /// <i>false</i>).  If set to
-        /// <i>true</i>, any source table record being inserted that
-        /// is rejected for having primary key values that match those of an
-        /// existing target table record will
-        /// be ignored with no error generated.  If <i>false</i>,
-        /// the rejection of any source table record for having primary key
-        /// values matching an existing target
-        /// table record will result in an error being raised.  If the
-        /// specified table does not have a primary
-        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
-        /// <i>true</i>), then this option has no effect.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Ignore source table records whose primary key
-        /// values collide with those of target table records</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Raise an error for any source table record
-        /// whose primary key values collide with those of a target table
-        /// record</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to <i>true</i>, it allows inserting
-        /// longer strings into smaller charN string columns by truncating the
-        /// longer strings to fit.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>A positive integer indicating the number of initial
-            /// results to skip from <see cref="source_table_name" />. Default
-            /// is 0. The minimum allowed value is 0. The maximum allowed value
-            /// is MAX_INT.  The default value is '0'.</summary>
+            /// results to skip from <see cref="source_table_name" />.
+            /// </summary>
+            /// <remarks><para>Default is 0. The minimum allowed value is 0.
+            /// The maximum allowed value is MAX_INT. The default value is '0'.
+            /// </para></remarks>
             public const string OFFSET = "offset";
 
             /// <summary>A positive integer indicating the maximum number of
             /// results to be returned from <see cref="source_table_name" />.
-            /// Or END_OF_SET (-9999) to indicate that the max number of
-            /// results should be returned.  The default value is
-            /// '-9999'.</summary>
+            /// </summary>
+            /// <remarks><para>Or END_OF_SET (-9999) to indicate that the max
+            /// number of results should be returned. The default value is
+            /// '-9999'.</para></remarks>
             public const string LIMIT = "limit";
 
             /// <summary>Optional filter expression to apply to the <see
-            /// cref="source_table_name" />.  The default value is
-            /// ''.</summary>
+            /// cref="source_table_name" />.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string EXPRESSION = "expression";
 
             /// <summary>Comma-separated list of the columns to be sorted by
             /// from source table (specified by <see cref="source_table_name"
-            /// />), e.g., 'timestamp asc, x desc'. The <i>order_by</i> columns
-            /// do not have to be present in <see cref="field_map" />.  The
-            /// default value is ''.</summary>
+            /// />), e.g., 'timestamp asc, x desc'.</summary>
+            /// <remarks><para>The <see cref="Options.ORDER_BY">ORDER_BY</see>
+            /// columns do not have to be present in <see cref="field_map" />.
+            /// The default value is ''.</para></remarks>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Specifies the record collision policy for inserting
-            /// source table
-            /// records (specified by <see cref="source_table_name" />) into a
-            /// target table
-            /// (specified by <see cref="table_name" />) with a <a
+            /// source table records (specified by <see
+            /// cref="source_table_name" />) into a target table (specified by
+            /// <see cref="table_name" />) with a <a
             /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>. If
-            /// set to <i>true</i>, any existing table record with
-            /// primary key values that match those of a source table record
-            /// being inserted will be replaced by that
-            /// new record (the new data will be "upserted"). If set to
-            /// <i>false</i>, any existing table record with primary
-            /// key values that match those of a source table record being
-            /// inserted will remain unchanged, while the
-            /// source record will be rejected and an error handled as
-            /// determined by
-            /// <i>ignore_existing_pk</i>.  If the specified table does not
-            /// have a primary key,
-            /// then this option has no effect.
-            /// Supported values:
+            /// target="_top">primary key</a>.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
             ///         <description>Upsert new records when primary keys match
-            /// existing records</description>
+            ///         existing records</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
             ///         <description>Reject new records when primary keys match
-            /// existing records</description>
+            ///         existing records</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>Specifies the record collision error-suppression
-            /// policy for
-            /// inserting source table records (specified by <see
-            /// cref="source_table_name" />) into a target table
-            /// (specified by <see cref="table_name" />) with a <a
+            /// policy for inserting source table records (specified by <see
+            /// cref="source_table_name" />) into a target table (specified by
+            /// <see cref="table_name" />) with a <a
             /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>, only
-            /// used when not in upsert mode (upsert mode is disabled when
-            /// <i>update_on_existing_pk</i> is
-            /// <i>false</i>).  If set to
-            /// <i>true</i>, any source table record being inserted that
-            /// is rejected for having primary key values that match those of
-            /// an existing target table record will
-            /// be ignored with no error generated.  If <i>false</i>,
-            /// the rejection of any source table record for having primary key
-            /// values matching an existing target
-            /// table record will result in an error being raised.  If the
-            /// specified table does not have a primary
-            /// key or if upsert mode is in effect
-            /// (<i>update_on_existing_pk</i> is
-            /// <i>true</i>), then this option has no effect.
-            /// Supported values:
+            /// target="_top">primary key</a>, only used when not in upsert
+            /// mode (upsert mode is disabled when <see
+            /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+            /// is <see cref="Options.FALSE">FALSE</see>).</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
             ///         <description>Ignore source table records whose primary
-            /// key values collide with those of target table
-            /// records</description>
+            ///         key values collide with those of target table records
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
             ///         <description>Raise an error for any source table record
-            /// whose primary key values collide with those of a target table
-            /// record</description>
+            ///         whose primary key values collide with those of a target
+            ///         table record</description>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
-            /// <summary>If set to <i>true</i>, it allows inserting longer
-            /// strings into smaller charN string columns by truncating the
-            /// longer strings to fit.
-            /// Supported values:
+            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, it
+            /// allows inserting longer strings into smaller charN string
+            /// columns by truncating the longer strings to fit.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string TRUNCATE_STRINGS = "truncate_strings";
         } // end struct Options
-
 
         /// <summary>The table name for the records to be appended, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> Must be an existing table.</para></remarks>
         public string table_name { get; set; }
 
         /// <summary>The source table name to get records from, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// name.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> Must be an existing table name.</para></remarks>
         public string source_table_name { get; set; }
 
         /// <summary>Contains the mapping of column names from the target table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// as the keys, and corresponding column names or expressions (e.g.,
-        /// 'col_name+1') from the source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
-        /// column names in source table and target table, and their types must
-        /// be matched. For details on using expressions, see <a
-        /// href="../../../concepts/expressions/"
-        /// target="_top">Expressions</a>.  </summary>
+        /// (specified by <see cref="table_name" />) as the keys, and
+        /// corresponding column names or expressions (e.g., 'col_name+1') from
+        /// the source table (specified by <see cref="source_table_name" />).
+        /// </summary>
+        /// <remarks><para>Must be existing column names in source table and
+        /// target table, and their types must be matched. For details on using
+        /// expressions, see <a href="../../../concepts/expressions/"
+        /// target="_top">Expressions</a>.</para></remarks>
         public IDictionary<string, string> field_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <term><see cref="Options.OFFSET">OFFSET</see>:</term>
         ///         <description>A positive integer indicating the number of
-        /// initial results to skip from <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
-        /// The default value is '0'.</description>
+        ///         initial results to skip from <see cref="source_table_name"
+        ///         />. Default is 0. The minimum allowed value is 0. The
+        ///         maximum allowed value is MAX_INT. The default value is '0'.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
         ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
-        /// (-9999) to indicate that the max number of results should be
-        /// returned.  The default value is '-9999'.</description>
+        ///         number of results to be returned from <see
+        ///         cref="source_table_name" />. Or END_OF_SET (-9999) to
+        ///         indicate that the max number of results should be returned.
+        ///         The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
-        /// default value is ''.</description>
+        ///         <see cref="source_table_name" />. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
-        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
-        /// value is ''.</description>
+        ///         sorted by from source table (specified by <see
+        ///         cref="source_table_name" />), e.g., 'timestamp asc, x
+        ///         desc'. The <see cref="Options.ORDER_BY">ORDER_BY</see>
+        ///         columns do not have to be present in <see cref="field_map"
+        ///         />. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+        ///         </term>
         ///         <description>Specifies the record collision policy for
-        /// inserting source table
-        /// records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into a target
-        /// table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a>. If
-        /// set to <i>true</i>, any existing table record with
-        /// primary key values that match those of a source table record being
-        /// inserted will be replaced by that
-        /// new record (the new data will be "upserted"). If set to
-        /// <i>false</i>, any existing table record with primary
-        /// key values that match those of a source table record being inserted
-        /// will remain unchanged, while the
-        /// source record will be rejected and an error handled as determined
-        /// by
-        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
-        /// primary key,
-        /// then this option has no effect.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Upsert new records when primary keys match
-        /// existing records</description>
+        ///         inserting source table records (specified by <see
+        ///         cref="source_table_name" />) into a target table (specified
+        ///         by <see cref="table_name" />) with a <a
+        ///         href="../../../concepts/tables/#primary-keys"
+        ///         target="_top">primary key</a>. If set to <see
+        ///         cref="Options.TRUE">TRUE</see>, any existing table record
+        ///         with primary key values that match those of a source table
+        ///         record being inserted will be replaced by that new record
+        ///         (the new data will be "upserted"). If set to <see
+        ///         cref="Options.FALSE">FALSE</see>, any existing table record
+        ///         with primary key values that match those of a source table
+        ///         record being inserted will remain unchanged, while the
+        ///         source record will be rejected and an error handled as
+        ///         determined by <see
+        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+        ///         If the specified table does not have a primary key, then
+        ///         this option has no effect.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Upsert new records when primary keys
+        ///                 match existing records</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Reject new records when primary keys
+        ///                 match existing records</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Reject new records when primary keys match
-        /// existing records</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+        ///         </term>
         ///         <description>Specifies the record collision
-        /// error-suppression policy for
-        /// inserting source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into a target
-        /// table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a>, only
-        /// used when not in upsert mode (upsert mode is disabled when
-        /// <i>update_on_existing_pk</i> is
-        /// <i>false</i>).  If set to
-        /// <i>true</i>, any source table record being inserted that
-        /// is rejected for having primary key values that match those of an
-        /// existing target table record will
-        /// be ignored with no error generated.  If <i>false</i>,
-        /// the rejection of any source table record for having primary key
-        /// values matching an existing target
-        /// table record will result in an error being raised.  If the
-        /// specified table does not have a primary
-        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
-        /// <i>true</i>), then this option has no effect.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Ignore source table records whose primary key
-        /// values collide with those of target table records</description>
+        ///         error-suppression policy for inserting source table records
+        ///         (specified by <see cref="source_table_name" />) into a
+        ///         target table (specified by <see cref="table_name" />) with
+        ///         a <a href="../../../concepts/tables/#primary-keys"
+        ///         target="_top">primary key</a>, only used when not in upsert
+        ///         mode (upsert mode is disabled when <see
+        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+        ///         cref="Options.TRUE">TRUE</see>, any source table record
+        ///         being inserted that is rejected for having primary key
+        ///         values that match those of an existing target table record
+        ///         will be ignored with no error generated.  If <see
+        ///         cref="Options.FALSE">FALSE</see>, the rejection of any
+        ///         source table record for having primary key values matching
+        ///         an existing target table record will result in an error
+        ///         being raised.  If the specified table does not have a
+        ///         primary key or if upsert mode is in effect (<see
+        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
+        ///         has no effect.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Ignore source table records whose
+        ///                 primary key values collide with those of target
+        ///                 table records</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Raise an error for any source table
+        ///                 record whose primary key values collide with those
+        ///                 of a target table record</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Raise an error for any source table record
-        /// whose primary key values collide with those of a target table
-        /// record</description>
+        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         it allows inserting longer strings into smaller charN
+        ///         string columns by truncating the longer strings to fit.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to <i>true</i>, it allows inserting
-        /// longer strings into smaller charN string columns by truncating the
-        /// longer strings to fit.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AppendRecordsRequest object with default
         /// parameters.</summary>
@@ -477,171 +293,162 @@ namespace kinetica
 
         /// <summary>Constructs an AppendRecordsRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">The table name for the records to be
         /// appended, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table.  </param>
+        /// table.</param>
         /// <param name="source_table_name">The source table name to get
         /// records from, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// name.  </param>
+        /// name.</param>
         /// <param name="field_map">Contains the mapping of column names from
-        /// the target table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) as the keys, and
-        /// corresponding column names or expressions (e.g., 'col_name+1') from
-        /// the source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
-        /// column names in source table and target table, and their types must
-        /// be matched. For details on using expressions, see <a
+        /// the target table (specified by <paramref name="table_name" />) as
+        /// the keys, and corresponding column names or expressions (e.g.,
+        /// 'col_name+1') from the source table (specified by <paramref
+        /// name="source_table_name" />). Must be existing column names in
+        /// source table and target table, and their types must be matched. For
+        /// details on using expressions, see <a
         /// href="../../../concepts/expressions/"
-        /// target="_top">Expressions</a>.  </param>
+        /// target="_top">Expressions</a>.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <term><see cref="Options.OFFSET">OFFSET</see>:</term>
         ///         <description>A positive integer indicating the number of
-        /// initial results to skip from <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
-        /// The default value is '0'.</description>
+        ///         initial results to skip from <paramref
+        ///         name="source_table_name" />. Default is 0. The minimum
+        ///         allowed value is 0. The maximum allowed value is MAX_INT.
+        ///         The default value is '0'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
         ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
-        /// (-9999) to indicate that the max number of results should be
-        /// returned.  The default value is '-9999'.</description>
+        ///         number of results to be returned from <paramref
+        ///         name="source_table_name" />. Or END_OF_SET (-9999) to
+        ///         indicate that the max number of results should be returned.
+        ///         The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
-        /// default value is ''.</description>
+        ///         <paramref name="source_table_name" />. The default value is
+        ///         ''.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
-        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
-        /// value is ''.</description>
+        ///         sorted by from source table (specified by <paramref
+        ///         name="source_table_name" />), e.g., 'timestamp asc, x
+        ///         desc'. The <see cref="Options.ORDER_BY">ORDER_BY</see>
+        ///         columns do not have to be present in <paramref
+        ///         name="field_map" />. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+        ///         </term>
         ///         <description>Specifies the record collision policy for
-        /// inserting source table
-        /// records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into a target
-        /// table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a>. If
-        /// set to <i>true</i>, any existing table record with
-        /// primary key values that match those of a source table record being
-        /// inserted will be replaced by that
-        /// new record (the new data will be "upserted"). If set to
-        /// <i>false</i>, any existing table record with primary
-        /// key values that match those of a source table record being inserted
-        /// will remain unchanged, while the
-        /// source record will be rejected and an error handled as determined
-        /// by
-        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
-        /// primary key,
-        /// then this option has no effect.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Upsert new records when primary keys match
-        /// existing records</description>
+        ///         inserting source table records (specified by <paramref
+        ///         name="source_table_name" />) into a target table (specified
+        ///         by <paramref name="table_name" />) with a <a
+        ///         href="../../../concepts/tables/#primary-keys"
+        ///         target="_top">primary key</a>. If set to <see
+        ///         cref="Options.TRUE">TRUE</see>, any existing table record
+        ///         with primary key values that match those of a source table
+        ///         record being inserted will be replaced by that new record
+        ///         (the new data will be "upserted"). If set to <see
+        ///         cref="Options.FALSE">FALSE</see>, any existing table record
+        ///         with primary key values that match those of a source table
+        ///         record being inserted will remain unchanged, while the
+        ///         source record will be rejected and an error handled as
+        ///         determined by <see
+        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+        ///         If the specified table does not have a primary key, then
+        ///         this option has no effect.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Upsert new records when primary keys
+        ///                 match existing records</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Reject new records when primary keys
+        ///                 match existing records</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Reject new records when primary keys match
-        /// existing records</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+        ///         </term>
         ///         <description>Specifies the record collision
-        /// error-suppression policy for
-        /// inserting source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into a target
-        /// table
-        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a>, only
-        /// used when not in upsert mode (upsert mode is disabled when
-        /// <i>update_on_existing_pk</i> is
-        /// <i>false</i>).  If set to
-        /// <i>true</i>, any source table record being inserted that
-        /// is rejected for having primary key values that match those of an
-        /// existing target table record will
-        /// be ignored with no error generated.  If <i>false</i>,
-        /// the rejection of any source table record for having primary key
-        /// values matching an existing target
-        /// table record will result in an error being raised.  If the
-        /// specified table does not have a primary
-        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
-        /// <i>true</i>), then this option has no effect.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Ignore source table records whose primary key
-        /// values collide with those of target table records</description>
+        ///         error-suppression policy for inserting source table records
+        ///         (specified by <paramref name="source_table_name" />) into a
+        ///         target table (specified by <paramref name="table_name" />)
+        ///         with a <a href="../../../concepts/tables/#primary-keys"
+        ///         target="_top">primary key</a>, only used when not in upsert
+        ///         mode (upsert mode is disabled when <see
+        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+        ///         cref="Options.TRUE">TRUE</see>, any source table record
+        ///         being inserted that is rejected for having primary key
+        ///         values that match those of an existing target table record
+        ///         will be ignored with no error generated.  If <see
+        ///         cref="Options.FALSE">FALSE</see>, the rejection of any
+        ///         source table record for having primary key values matching
+        ///         an existing target table record will result in an error
+        ///         being raised.  If the specified table does not have a
+        ///         primary key or if upsert mode is in effect (<see
+        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
+        ///         has no effect.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Ignore source table records whose
+        ///                 primary key values collide with those of target
+        ///                 table records</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Raise an error for any source table
+        ///                 record whose primary key values collide with those
+        ///                 of a target table record</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Raise an error for any source table record
-        /// whose primary key values collide with those of a target table
-        /// record</description>
+        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         it allows inserting longer strings into smaller charN
+        ///         string columns by truncating the longer strings to fit.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to <i>true</i>, it allows inserting
-        /// longer strings into smaller charN string columns by truncating the
-        /// longer strings to fit.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AppendRecordsRequest( string table_name,
                                      string source_table_name,
                                      IDictionary<string, string> field_map,
@@ -652,25 +459,18 @@ namespace kinetica
             this.field_map = field_map ?? new Dictionary<string, string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AppendRecordsRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.appendRecords(string,string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.appendRecords(AppendRecordsRequest)">Kinetica.appendRecords</see>.
+    /// </summary>
     public class AppendRecordsResponse : KineticaData
     {
         public string table_name { get; set; }
 
-        /// <summary>Additional information.  The default value is an empty
-        /// {@link Dictionary}.</summary>
+        /// <summary>Additional information.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AppendRecordsResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

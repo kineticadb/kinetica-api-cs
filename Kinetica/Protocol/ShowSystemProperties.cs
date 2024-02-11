@@ -6,56 +6,40 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showSystemProperties(IDictionary{string, string})" />.
-    /// <br />
-    /// Returns server configuration and version related information to the
-    /// caller. The admin tool uses it to present server related information to
-    /// the user.</summary>
+    /// cref="Kinetica.showSystemProperties(ShowSystemPropertiesRequest)">Kinetica.showSystemProperties</see>.
+    /// </summary>
+    /// <remarks><para>Returns server configuration and version related
+    /// information to the caller. The admin tool uses it to present server
+    /// related information to the user.</para></remarks>
     public class ShowSystemPropertiesRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
-        ///         <description>A list of comma separated names of properties
-        /// requested. If not specified, all properties will be
-        /// returned.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>A list of comma separated names of properties
-            /// requested. If not specified, all properties will be
-            /// returned.</summary>
+            /// requested.</summary>
+            /// <remarks><para>If not specified, all properties will be
+            /// returned.</para></remarks>
             public const string PROPERTIES = "properties";
         } // end struct Options
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
+        ///         <term><see cref="Options.PROPERTIES">PROPERTIES</see>:
+        ///         </term>
         ///         <description>A list of comma separated names of properties
-        /// requested. If not specified, all properties will be
-        /// returned.</description>
+        ///         requested. If not specified, all properties will be
+        ///         returned.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowSystemPropertiesRequest object with
         /// default parameters.</summary>
@@ -63,115 +47,50 @@ namespace kinetica
 
         /// <summary>Constructs a ShowSystemPropertiesRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
+        ///         <term><see cref="Options.PROPERTIES">PROPERTIES</see>:
+        ///         </term>
         ///         <description>A list of comma separated names of properties
-        /// requested. If not specified, all properties will be
-        /// returned.</description>
+        ///         requested. If not specified, all properties will be
+        ///         returned.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public ShowSystemPropertiesRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowSystemPropertiesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showSystemProperties(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showSystemProperties(ShowSystemPropertiesRequest)">Kinetica.showSystemProperties</see>.
+    /// </summary>
     public class ShowSystemPropertiesResponse : KineticaData
     {
-
-        /// <summary>A map of server configuration parameters and version
-        /// information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_WORKER_HTTP_SERVERS">CONF_ENABLE_WORKER_HTTP_SERVERS</see>:</term>
-        ///         <description>Boolean value indicating whether the system is
-        /// configured for multi-head ingestion.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.TRUE">TRUE</see>:</term>
-        ///         <description>Indicates that the system is configured for
-        /// multi-head ingestion.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.FALSE">FALSE</see>:</term>
-        ///         <description>Indicates that the system is NOT configured
-        /// for multi-head ingestion.</description>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_WORKER_HTTP_SERVER_IPS">CONF_WORKER_HTTP_SERVER_IPS</see>:</term>
-        ///         <description>Semicolon (';') separated string of IP
-        /// addresses of all the ingestion-enabled worker heads of the
-        /// system.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_WORKER_HTTP_SERVER_PORTS">CONF_WORKER_HTTP_SERVER_PORTS</see>:</term>
-        ///         <description>Semicolon (';') separated string of the port
-        /// numbers of all the ingestion-enabled worker ranks of the
-        /// system.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
-        ///         <description>The host manager port number (an integer
-        /// value).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:</term>
-        ///         <description>Flag indicating whether high availability (HA)
-        /// is set up (a boolean value).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:</term>
-        ///         <description>A comma-separated string of high availability
-        /// (HA) ring node URLs.  If HA is not set up, then an empty
-        /// string.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="property_map" />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="property_map" />.</summary>
+        /// <remarks><para>A map of server configuration parameters and version
+        /// information.</para></remarks>
         public struct PropertyMap
         {
-
             /// <summary>Boolean value indicating whether the system is
-            /// configured for multi-head ingestion.
-            /// Supported values:
+            /// configured for multi-head ingestion.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="ShowSystemPropertiesResponse.PropertyMap.TRUE">TRUE</see>:</term>
+            ///         <term><see cref="PropertyMap.TRUE">TRUE</see>:</term>
             ///         <description>Indicates that the system is configured
-            /// for multi-head ingestion.</description>
+            ///         for multi-head ingestion.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="ShowSystemPropertiesResponse.PropertyMap.FALSE">FALSE</see>:</term>
+            ///         <term><see cref="PropertyMap.FALSE">FALSE</see>:</term>
             ///         <description>Indicates that the system is NOT
-            /// configured for multi-head ingestion.</description>
+            ///         configured for multi-head ingestion.</description>
             ///     </item>
-            /// </list></summary>
+            /// </list></remarks>
             public const string CONF_ENABLE_WORKER_HTTP_SERVERS = "conf.enable_worker_http_servers";
 
             /// <summary>Indicates that the system is configured for multi-head
@@ -187,12 +106,12 @@ namespace kinetica
             public const string CONF_WORKER_HTTP_SERVER_IPS = "conf.worker_http_server_ips";
 
             /// <summary>Semicolon (';') separated string of the port numbers
-            /// of all the ingestion-enabled worker ranks of the
-            /// system.</summary>
+            /// of all the ingestion-enabled worker ranks of the system.
+            /// </summary>
             public const string CONF_WORKER_HTTP_SERVER_PORTS = "conf.worker_http_server_ports";
 
-            /// <summary>The host manager port number (an integer
-            /// value).</summary>
+            /// <summary>The host manager port number (an integer value).
+            /// </summary>
             public const string CONF_HM_HTTP_PORT = "conf.hm_http_port";
 
             /// <summary>Flag indicating whether high availability (HA) is set
@@ -200,79 +119,79 @@ namespace kinetica
             public const string CONF_ENABLE_HA = "conf.enable_ha";
 
             /// <summary>A comma-separated string of high availability (HA)
-            /// ring node URLs.  If HA is not set up, then an empty
-            /// string.</summary>
+            /// ring node URLs.</summary>
+            /// <remarks><para> If HA is not set up, then an empty string.
+            /// </para></remarks>
             public const string CONF_HA_RING_HEAD_NODES = "conf.ha_ring_head_nodes";
         } // end struct PropertyMap
 
-
         /// <summary>A map of server configuration parameters and version
-        /// information.
-        /// <list type="bullet">
+        /// information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_WORKER_HTTP_SERVERS">CONF_ENABLE_WORKER_HTTP_SERVERS</see>:</term>
+        ///         cref="PropertyMap.CONF_ENABLE_WORKER_HTTP_SERVERS">CONF_ENABLE_WORKER_HTTP_SERVERS</see>:
+        ///         </term>
         ///         <description>Boolean value indicating whether the system is
-        /// configured for multi-head ingestion.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.TRUE">TRUE</see>:</term>
-        ///         <description>Indicates that the system is configured for
-        /// multi-head ingestion.</description>
+        ///         configured for multi-head ingestion.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="PropertyMap.TRUE">TRUE</see>:
+        ///                 </term>
+        ///                 <description>Indicates that the system is
+        ///                 configured for multi-head ingestion.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="PropertyMap.FALSE">FALSE</see>:
+        ///                 </term>
+        ///                 <description>Indicates that the system is NOT
+        ///                 configured for multi-head ingestion.</description>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.FALSE">FALSE</see>:</term>
-        ///         <description>Indicates that the system is NOT configured
-        /// for multi-head ingestion.</description>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_WORKER_HTTP_SERVER_IPS">CONF_WORKER_HTTP_SERVER_IPS</see>:</term>
+        ///         cref="PropertyMap.CONF_WORKER_HTTP_SERVER_IPS">CONF_WORKER_HTTP_SERVER_IPS</see>:
+        ///         </term>
         ///         <description>Semicolon (';') separated string of IP
-        /// addresses of all the ingestion-enabled worker heads of the
-        /// system.</description>
+        ///         addresses of all the ingestion-enabled worker heads of the
+        ///         system.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_WORKER_HTTP_SERVER_PORTS">CONF_WORKER_HTTP_SERVER_PORTS</see>:</term>
+        ///         cref="PropertyMap.CONF_WORKER_HTTP_SERVER_PORTS">CONF_WORKER_HTTP_SERVER_PORTS</see>:
+        ///         </term>
         ///         <description>Semicolon (';') separated string of the port
-        /// numbers of all the ingestion-enabled worker ranks of the
-        /// system.</description>
+        ///         numbers of all the ingestion-enabled worker ranks of the
+        ///         system.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
+        ///         cref="PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:
+        ///         </term>
         ///         <description>The host manager port number (an integer
-        /// value).</description>
+        ///         value).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:</term>
+        ///         cref="PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:
+        ///         </term>
         ///         <description>Flag indicating whether high availability (HA)
-        /// is set up (a boolean value).</description>
+        ///         is set up (a boolean value).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:</term>
+        ///         cref="PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:
+        ///         </term>
         ///         <description>A comma-separated string of high availability
-        /// (HA) ring node URLs.  If HA is not set up, then an empty
-        /// string.</description>
+        ///         (HA) ring node URLs.  If HA is not set up, then an empty
+        ///         string.</description>
         ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, string> property_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowSystemPropertiesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

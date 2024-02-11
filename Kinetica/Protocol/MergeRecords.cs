@@ -6,203 +6,76 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.mergeRecords(string,IList{string},IList{IDictionary{string, string}},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Create a new empty result table (specified by <see cref="table_name"
-    /// />),
-    /// and insert all records from source tables
+    /// cref="Kinetica.mergeRecords(MergeRecordsRequest)">Kinetica.mergeRecords</see>.
+    /// </summary>
+    /// <remarks><para>Create a new empty result table (specified by <see
+    /// cref="table_name" />), and insert all records from source tables
     /// (specified by <see cref="source_table_names" />) based on the field
-    /// mapping
-    /// information (specified by <see cref="field_maps" />).
-    /// <br />
-    /// For merge records details and examples, see
-    /// <a href="../../../concepts/merge_records/" target="_top">Merge
-    /// Records</a>.  For limitations, see
-    /// <a href="../../../concepts/merge_records/#limitations-and-cautions"
-    /// target="_top">Merge Records Limitations and Cautions</a>.
-    /// <br />
-    /// The field map (specified by <see cref="field_maps" />) holds the
-    /// user-specified maps
-    /// of target table column names to source table columns. The array of
-    /// <see cref="field_maps" /> must match one-to-one with the <see
-    /// cref="source_table_names" />,
-    /// e.g., there's a map present in <see cref="field_maps" /> for each table
-    /// listed in
-    /// <see cref="source_table_names" />.</summary>
+    /// mapping information (specified by <see cref="field_maps" />).</para>
+    /// <para>For merge records details and examples, see <a
+    /// href="../../../concepts/merge_records/" target="_top">Merge
+    /// Records</a>.  For limitations, see <a
+    /// href="../../../concepts/merge_records/#limitations-and-cautions"
+    /// target="_top">Merge Records Limitations and Cautions</a>.</para>
+    /// <para>The field map (specified by <see cref="field_maps" />) holds the
+    /// user-specified maps of target table column names to source table
+    /// columns. The array of <see cref="field_maps" /> must match one-to-one
+    /// with the <see cref="source_table_names" />, e.g., there's a map present
+    /// in <see cref="field_maps" /> for each table listed in <see
+    /// cref="source_table_names" />.</para></remarks>
     public class MergeRecordsRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="MergeRecordsRequest.table_name" />. If
-        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
-        /// the caller does not have permission to create tables. The generated
-        /// name is returned in <i>qualified_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the merged table as part of <paramref
-        /// cref="MergeRecordsRequest.table_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created merged table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>Indicates the <a
-        /// href="../../../concepts/tables/#distribution"
-        /// target="_top">distribution scheme</a> for the data of the merged
-        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
-        /// />.  If true, the table will be <a
-        /// href="../../../concepts/tables/#replication"
-        /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../../concepts/tables/#random-sharding"
-        /// target="_top">randomly sharded</a>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the merged table specified in <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
-        /// persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the number of records per chunk to
-        /// be used for the merged table specified in <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of <see
-            /// cref="table_name" />. If <i>persist</i> is <i>false</i>, then
-            /// this is always allowed even if the caller does not have
-            /// permission to create tables. The generated name is returned in
-            /// <i>qualified_table_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see cref="table_name" />.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the merged table as part of <see cref="table_name" /> and use
             /// <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema for
-            /// the newly created merged table specified by <see
-            /// cref="table_name" />.</summary>
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema for the
+            /// newly created merged table specified by <see cref="table_name"
+            /// />.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Indicates the <a
             /// href="../../../concepts/tables/#distribution"
             /// target="_top">distribution scheme</a> for the data of the
-            /// merged table specified in <see cref="table_name" />.  If true,
-            /// the table will be <a
-            /// href="../../../concepts/tables/#replication"
-            /// target="_top">replicated</a>.  If false, the table will be <a
-            /// href="../../../concepts/tables/#random-sharding"
-            /// target="_top">randomly sharded</a>.
-            /// Supported values:
+            /// merged table specified in <see cref="table_name" />.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string IS_REPLICATED = "is_replicated";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
@@ -210,173 +83,191 @@ namespace kinetica
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If <i>true</i>, then the table specified in <see
-            /// cref="table_name" /> will be persisted and will not expire
-            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
-            /// table will be an in-memory table and will expire unless a
-            /// <i>ttl</i> is specified otherwise.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the table
+            /// specified in <see cref="table_name" /> will be persisted and
+            /// will not expire unless a <see cref="Options.TTL">TTL</see> is
+            /// specified.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string PERSIST = "persist";
 
             /// <summary>Indicates the number of records per chunk to be used
-            /// for the merged table specified in <see cref="table_name"
-            /// />.</summary>
+            /// for the merged table specified in <see cref="table_name" />.
+            /// </summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>view this result table is part of.  The default value
-            /// is ''.</summary>
+            /// <summary>Indicates the target maximum data size for each column
+            /// in a chunk to be used for the merged table specified in <see
+            /// cref="table_name" />.</summary>
+            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+            /// <summary>Indicates the target maximum data size for all columns
+            /// in a chunk to be used for the merged table specified in <see
+            /// cref="table_name" />.</summary>
+            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
+            /// <summary>view this result table is part of.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string VIEW_ID = "view_id";
         } // end struct Options
-
 
         /// <summary>The name of the new result table for the records to be
         /// merged into, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Must NOT be an existing
-        /// table.  </summary>
+        /// target="_top">table naming criteria</a>.</summary>
+        /// <remarks><para> Must NOT be an existing table.</para></remarks>
         public string table_name { get; set; }
 
         /// <summary>The list of names of source tables to get the records
         /// from, each in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be existing table
-        /// names.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> Must be existing table names.</para></remarks>
         public IList<string> source_table_names { get; set; } = new List<string>();
 
         /// <summary>Contains a list of source/target column mappings, one
-        /// mapping for each source table listed in <paramref
-        /// cref="MergeRecordsRequest.source_table_names" /> being merged into
-        /// the target table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
-        /// the target column names (as keys) that the data in the mapped
-        /// source columns or column <a href="../../../concepts/expressions/"
-        /// target="_top">expressions</a> (as values) will be merged into.  All
-        /// of the source columns being merged into a given target column must
-        /// match in type, as that type will determine the type of the new
-        /// target column.  </summary>
+        /// mapping for each source table listed in <see
+        /// cref="source_table_names" /> being merged into the target table
+        /// specified by <see cref="table_name" />.</summary>
+        /// <remarks><para> Each mapping contains the target column names (as
+        /// keys) that the data in the mapped source columns or column <a
+        /// href="../../../concepts/expressions/" target="_top">expressions</a>
+        /// (as values) will be merged into.  All of the source columns being
+        /// merged into a given target column must match in type, as that type
+        /// will determine the type of the new target column.</para></remarks>
         public IList<IDictionary<string, string>> field_maps { get; set; } = new List<IDictionary<string, string>>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="MergeRecordsRequest.table_name" />. If
-        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
-        /// the caller does not have permission to create tables. The generated
-        /// name is returned in <i>qualified_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see cref="table_name"
+        ///         />. If <see cref="Options.PERSIST">PERSIST</see> is <see
+        ///         cref="Options.FALSE">FALSE</see>, then this is always
+        ///         allowed even if the caller does not have permission to
+        ///         create tables. The generated name is returned in <see
+        ///         cref="MergeRecordsResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the merged table as part of <paramref
-        /// cref="MergeRecordsRequest.table_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created merged table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///         schema for the merged table as part of <see
+        ///         cref="table_name" /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created merged table specified by <see
+        ///         cref="table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         cref="Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Indicates the <a
-        /// href="../../../concepts/tables/#distribution"
-        /// target="_top">distribution scheme</a> for the data of the merged
-        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
-        /// />.  If true, the table will be <a
-        /// href="../../../concepts/tables/#replication"
-        /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../../concepts/tables/#random-sharding"
-        /// target="_top">randomly sharded</a>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///         href="../../../concepts/tables/#distribution"
+        ///         target="_top">distribution scheme</a> for the data of the
+        ///         merged table specified in <see cref="table_name" />.  If
+        ///         true, the table will be <a
+        ///         href="../../../concepts/tables/#replication"
+        ///         target="_top">replicated</a>.  If false, the table will be
+        ///         <a href="../../../concepts/tables/#random-sharding"
+        ///         target="_top">randomly sharded</a>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the merged table specified in <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///         target="_top">TTL</a> of the merged table specified in <see
+        ///         cref="table_name" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
-        /// persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the table specified in <see cref="table_name" /> will be
+        ///         persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the table will be an
+        ///         in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the merged table specified in <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///         be used for the merged table specified in <see
+        ///         cref="table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the merged table
+        ///         specified in <see cref="table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the merged table
+        ///         specified in <see cref="table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part of. The default
+        ///         value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a MergeRecordsRequest object with default
         /// parameters.</summary>
@@ -384,7 +275,7 @@ namespace kinetica
 
         /// <summary>Constructs a MergeRecordsRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">The name of the new result table for the
         /// records to be merged into, in [schema_name.]table_name format,
         /// using standard <a
@@ -392,130 +283,143 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must NOT be an existing
-        /// table.  </param>
+        /// table.</param>
         /// <param name="source_table_names">The list of names of source tables
         /// to get the records from, each in [schema_name.]table_name format,
         /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be existing table
-        /// names.  </param>
+        /// names.</param>
         /// <param name="field_maps">Contains a list of source/target column
         /// mappings, one mapping for each source table listed in <paramref
-        /// cref="MergeRecordsRequest.source_table_names" /> being merged into
-        /// the target table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
+        /// name="source_table_names" /> being merged into the target table
+        /// specified by <paramref name="table_name" />.  Each mapping contains
         /// the target column names (as keys) that the data in the mapped
         /// source columns or column <a href="../../../concepts/expressions/"
         /// target="_top">expressions</a> (as values) will be merged into.  All
         /// of the source columns being merged into a given target column must
         /// match in type, as that type will determine the type of the new
-        /// target column.  </param>
+        /// target column.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="MergeRecordsRequest.table_name" />. If
-        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
-        /// the caller does not have permission to create tables. The generated
-        /// name is returned in <i>qualified_table_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <paramref
+        ///         name="table_name" />. If <see
+        ///         cref="Options.PERSIST">PERSIST</see> is <see
+        ///         cref="Options.FALSE">FALSE</see>, then this is always
+        ///         allowed even if the caller does not have permission to
+        ///         create tables. The generated name is returned in <see
+        ///         cref="MergeRecordsResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the merged table as part of <paramref
-        /// cref="MergeRecordsRequest.table_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created merged table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///         schema for the merged table as part of <paramref
+        ///         name="table_name" /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created merged table specified by <paramref
+        ///         name="table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         cref="Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Indicates the <a
-        /// href="../../../concepts/tables/#distribution"
-        /// target="_top">distribution scheme</a> for the data of the merged
-        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
-        /// />.  If true, the table will be <a
-        /// href="../../../concepts/tables/#replication"
-        /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../../concepts/tables/#random-sharding"
-        /// target="_top">randomly sharded</a>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///         href="../../../concepts/tables/#distribution"
+        ///         target="_top">distribution scheme</a> for the data of the
+        ///         merged table specified in <paramref name="table_name" />.
+        ///         If true, the table will be <a
+        ///         href="../../../concepts/tables/#replication"
+        ///         target="_top">replicated</a>.  If false, the table will be
+        ///         <a href="../../../concepts/tables/#random-sharding"
+        ///         target="_top">randomly sharded</a>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
+        ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the merged table specified in <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///         target="_top">TTL</a> of the merged table specified in
+        ///         <paramref name="table_name" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
-        /// persisted and will not expire unless a <i>ttl</i> is specified.
-        /// If <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         the table specified in <paramref name="table_name" /> will
+        ///         be persisted and will not expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified.   If <see
+        ///         cref="Options.FALSE">FALSE</see>, then the table will be an
+        ///         in-memory table and will expire unless a <see
+        ///         cref="Options.TTL">TTL</see> is specified otherwise.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+        ///         </term>
         ///         <description>Indicates the number of records per chunk to
-        /// be used for the merged table specified in <paramref
-        /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///         be used for the merged table specified in <paramref
+        ///         name="table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for
+        ///         each column in a chunk to be used for the merged table
+        ///         specified in <paramref name="table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+        ///         </term>
+        ///         <description>Indicates the target maximum data size for all
+        ///         columns in a chunk to be used for the merged table
+        ///         specified in <paramref name="table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part of. The default
+        ///         value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public MergeRecordsRequest( string table_name,
                                     IList<string> source_table_names,
                                     IList<IDictionary<string, string>> field_maps,
@@ -526,32 +430,18 @@ namespace kinetica
             this.field_maps = field_maps ?? new List<IDictionary<string, string>>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class MergeRecordsRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.mergeRecords(string,IList{string},IList{IDictionary{string, string}},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.mergeRecords(MergeRecordsRequest)">Kinetica.mergeRecords</see>.
+    /// </summary>
     public class MergeRecordsResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MergeRecordsResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
-        ///         <description>The fully qualified name of the result table
-        /// (i.e. including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the result table (i.e.
             /// including the schema)</summary>
             public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
@@ -559,21 +449,17 @@ namespace kinetica
 
         public string table_name { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MergeRecordsResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the result table
-        /// (i.e. including the schema)</description>
+        ///         (i.e. including the schema)</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class MergeRecordsResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

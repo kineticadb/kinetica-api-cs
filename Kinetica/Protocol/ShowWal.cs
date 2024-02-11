@@ -9,21 +9,20 @@ using System.Collections.Generic;
 namespace kinetica
 {
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
+    /// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.
     /// </summary>
-    /// <remarks><para>Creates a SQL-style <a href="../../../concepts/schemas/"
-    /// target="_top">schema</a>. Schemas are containers for tables and views.
-    /// Multiple tables and views can be defined with the same name in
-    /// different schemas.</para></remarks>
-    public class CreateSchemaRequest : KineticaData
+    /// <remarks><para>Requests table wal properties.
+    /// Returns information about the requested table wal entries.</para>
+    /// </remarks>
+    public class ShowWalRequest : KineticaData
     {
         /// <summary>A set of string constants for the parameter <see
         /// cref="options" />.</summary>
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an
-            /// error from occurring if the schema already exists.</summary>
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> include a map
+            /// of the wal settings for the requested tables.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -33,29 +32,25 @@ namespace kinetica
             ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
+            public const string SHOW_SETTINGS = "show_settings";
 
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-        /// <summary>Name of the schema to be created.</summary>
-        /// <remarks><para> Has the same naming restrictions as <a
-        /// href="../../../concepts/tables/" target="_top">tables</a>.</para>
-        /// </remarks>
-        public string schema_name { get; set; }
+        /// <summary>List of tables to query.</summary>
+        /// <remarks><para>An asterisk returns all tables.</para></remarks>
+        public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.</summary>
         /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         prevents an error from occurring if the schema already
-        ///         exists.
+        ///         cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
+        ///         a map of the wal settings for the requested tables.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -65,32 +60,29 @@ namespace kinetica
         ///                 <term><see cref="Options.FALSE">FALSE</see></term>
         ///             </item>
         ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
         ///         </description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Constructs a CreateSchemaRequest object with default
+        /// <summary>Constructs a ShowWalRequest object with default
         /// parameters.</summary>
-        public CreateSchemaRequest() { }
+        public ShowWalRequest() { }
 
-        /// <summary>Constructs a CreateSchemaRequest object with the specified
+        /// <summary>Constructs a ShowWalRequest object with the specified
         /// parameters.</summary>
         ///
-        /// <param name="schema_name">Name of the schema to be created.  Has
-        /// the same naming restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</param>
+        /// <param name="table_names">List of tables to query. An asterisk
+        /// returns all tables.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         prevents an error from occurring if the schema already
-        ///         exists.
+        ///         cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:</term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
+        ///         a map of the wal settings for the requested tables.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -100,29 +92,40 @@ namespace kinetica
         ///                 <term><see cref="Options.FALSE">FALSE</see></term>
         ///             </item>
         ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
         ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
-        public CreateSchemaRequest( string schema_name,
-                                    IDictionary<string, string> options = null)
+        public ShowWalRequest( IList<string> table_names,
+                               IDictionary<string, string> options = null)
         {
-            this.schema_name = schema_name ?? "";
+            this.table_names = table_names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-    } // end class CreateSchemaRequest
+    } // end class ShowWalRequest
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
+    /// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.
     /// </summary>
-    public class CreateSchemaResponse : KineticaData
+    public class ShowWalResponse : KineticaData
     {
-        /// <summary>Value of <see
-        /// cref="CreateSchemaRequest.schema_name">schema_name</see>.</summary>
-        public string schema_name { get; set; }
+        /// <summary>List of returned tables.</summary>
+        public IList<string> table_names { get; set; } = new List<string>();
+
+        /// <summary>List of current wal usage.</summary>
+        public IList<IList<long>> sizes { get; set; } = new List<IList<long>>();
+
+        /// <summary>List of wal capacities.</summary>
+        public IList<long> capacities { get; set; } = new List<long>();
+
+        /// <summary>List of number of uncommitted entries.</summary>
+        public IList<IList<long>> uncommitted { get; set; } = new List<IList<long>>();
+
+        /// <summary>List of table wal settings.</summary>
+        public IList<IDictionary<string, string>> settings { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateSchemaResponse
+    } // end class ShowWalResponse
 } // end namespace kinetica

@@ -6,32 +6,29 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.revokeRole(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Revokes membership in a role from a user or role.</summary>
+    /// cref="Kinetica.revokeRole(RevokeRoleRequest)">Kinetica.revokeRole</see>.
+    /// </summary>
+    /// <remarks><para>Revokes membership in a role from a user or role.</para>
+    /// </remarks>
     public class RevokeRoleRequest : KineticaData
     {
-
-        /// <summary>Name of the role in which membership will be revoked. Must
-        /// be an existing role.  </summary>
+        /// <summary>Name of the role in which membership will be revoked.
+        /// </summary>
+        /// <remarks><para>Must be an existing role.</para></remarks>
         public string role { get; set; }
 
         /// <summary>Name of the user or role that will be revoked membership
-        /// in <paramref cref="RevokeRoleRequest.role" />. Must be an existing
-        /// user or role.  </summary>
+        /// in <see cref="role" />.</summary>
+        /// <remarks><para>Must be an existing user or role.</para></remarks>
         public string member { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a RevokeRoleRequest object with default
         /// parameters.</summary>
@@ -39,15 +36,14 @@ namespace kinetica
 
         /// <summary>Constructs a RevokeRoleRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="role">Name of the role in which membership will be
-        /// revoked. Must be an existing role.  </param>
+        /// revoked. Must be an existing role.</param>
         /// <param name="member">Name of the user or role that will be revoked
-        /// membership in <paramref cref="RevokeRoleRequest.role" />. Must be
-        /// an existing user or role.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// membership in <paramref name="role" />. Must be an existing user or
+        /// role.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public RevokeRoleRequest( string role,
                                   string member,
                                   IDictionary<string, string> options = null)
@@ -56,31 +52,22 @@ namespace kinetica
             this.member = member ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class RevokeRoleRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.revokeRole(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.revokeRole(RevokeRoleRequest)">Kinetica.revokeRole</see>.
+    /// </summary>
     public class RevokeRoleResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="RevokeRoleRequest.role" />.
+        /// <summary>Value of <see cref="RevokeRoleRequest.role">role</see>.
         /// </summary>
         public string role { get; set; }
 
-        /// <summary>Value of <paramref cref="RevokeRoleRequest.member" />.
-        /// </summary>
+        /// <summary>Value of <see
+        /// cref="RevokeRoleRequest.member">member</see>.</summary>
         public string member { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class RevokeRoleResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

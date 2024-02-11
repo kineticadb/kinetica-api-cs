@@ -6,103 +6,71 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminAlterHost(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Alter properties on an existing host in the cluster. Currently, the
-    /// only property that can be altered is a hosts ability to accept failover
-    /// processes.</summary>
+    /// cref="Kinetica.adminAlterHost(AdminAlterHostRequest)">Kinetica.adminAlterHost</see>.
+    /// </summary>
+    /// <remarks><para>Alter properties on an existing host in the cluster.
+    /// Currently, the only property that can be altered is a hosts ability to
+    /// accept failover processes.</para></remarks>
     public class AdminAlterHostRequest : KineticaData
     {
-
-        /// <summary>Optional parameters
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-        ///         <description>If set to <i>true</i>, the host will accept
-        /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters</para></remarks>
         public struct Options
         {
-
-            /// <summary>If set to <i>true</i>, the host will accept processes
-            /// (ranks, graph server, etc.) in the event of a failover on
-            /// another node in the cluster.
-            /// Supported values:
+            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the
+            /// host will accept processes (ranks, graph server, etc.) in the
+            /// event of a failover on another node in the cluster.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AdminAlterHostRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string ACCEPTS_FAILOVER = "accepts_failover";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
-        /// <summary>Identifies the host this applies to. Can be the host
-        /// address, or formatted as 'hostN' where N is the host number as
-        /// specified in gpudb.conf  </summary>
+        /// <summary>Identifies the host this applies to.</summary>
+        /// <remarks><para>Can be the host address, or formatted as 'hostN'
+        /// where N is the host number as specified in gpudb.conf</para>
+        /// </remarks>
         public string host { get; set; }
 
-        /// <summary>Optional parameters
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-        ///         <description>If set to <i>true</i>, the host will accept
-        /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         the host will accept processes (ranks, graph server, etc.)
+        ///         in the event of a failover on another node in the cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AdminAlterHostRequest object with default
         /// parameters.</summary>
@@ -110,58 +78,47 @@ namespace kinetica
 
         /// <summary>Constructs an AdminAlterHostRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="host">Identifies the host this applies to. Can be the
         /// host address, or formatted as 'hostN' where N is the host number as
-        /// specified in gpudb.conf  </param>
-        /// <param name="options">Optional parameters
+        /// specified in gpudb.conf</param>
+        /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-        ///         <description>If set to <i>true</i>, the host will accept
-        /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         the host will accept processes (ranks, graph server, etc.)
+        ///         in the event of a failover on another node in the cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public AdminAlterHostRequest( string host,
                                       IDictionary<string, string> options = null)
         {
             this.host = host ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AdminAlterHostRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminAlterHost(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.adminAlterHost(AdminAlterHostRequest)">Kinetica.adminAlterHost</see>.
+    /// </summary>
     public class AdminAlterHostResponse : KineticaData
     {
-
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AdminAlterHostResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

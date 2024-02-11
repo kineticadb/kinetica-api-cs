@@ -6,68 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createUserInternal(string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Creates a new internal user (a user whose credentials are managed by
-    /// the database system).</summary>
+    /// cref="Kinetica.createUserInternal(CreateUserInternalRequest)">Kinetica.createUserInternal</see>.
+    /// </summary>
+    /// <remarks><para>Creates a new internal user (a user whose credentials
+    /// are managed by the database system).</para></remarks>
     public class CreateUserInternalRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
-        ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Default schema to associate with this
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>When <i>true</i>, a home directory in KiFS is
-        /// created for this user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
-        ///         <description>The maximum capacity to apply to the created
-        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
-        /// to indicate no upper limit. If empty, the system default limit is
-        /// applied.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Name of an existing resource group to associate with
             /// this user</summary>
             public const string RESOURCE_GROUP = "resource_group";
@@ -75,88 +27,90 @@ namespace kinetica
             /// <summary>Default schema to associate with this user</summary>
             public const string DEFAULT_SCHEMA = "default_schema";
 
-            /// <summary>When <i>true</i>, a home directory in KiFS is created
-            /// for this user
-            /// Supported values:
+            /// <summary>When <see cref="Options.TRUE">TRUE</see>, a home
+            /// directory in KiFS is created for this user.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateUserInternalRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string CREATE_HOME_DIRECTORY = "create_home_directory";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>The maximum capacity to apply to the created directory
-            /// if <i>create_home_directory</i> is <i>true</i>. Set to -1 to
-            /// indicate no upper limit. If empty, the system default limit is
-            /// applied.</summary>
+            /// if <see
+            /// cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+            /// is <see cref="Options.TRUE">TRUE</see>.</summary>
+            /// <remarks><para>Set to -1 to indicate no upper limit. If empty,
+            /// the system default limit is applied.</para></remarks>
             public const string DIRECTORY_DATA_LIMIT = "directory_data_limit";
         } // end struct Options
 
-
-        /// <summary>Name of the user to be created. Must contain only
-        /// lowercase letters, digits, and underscores, and cannot begin with a
-        /// digit. Must not be the same name as an existing user or role.
-        /// </summary>
+        /// <summary>Name of the user to be created.</summary>
+        /// <remarks><para>Must contain only lowercase letters, digits, and
+        /// underscores, and cannot begin with a digit. Must not be the same
+        /// name as an existing user or role.</para></remarks>
         public string name { get; set; }
 
-        /// <summary>Initial password of the user to be created. May be an
-        /// empty string for no password.  </summary>
+        /// <summary>Initial password of the user to be created.</summary>
+        /// <remarks><para>May be an empty string for no password.</para>
+        /// </remarks>
         public string password { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
+        ///         associate with this user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Default schema to associate with this
-        /// user</description>
+        ///         cref="Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Default schema to associate with this user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>When <i>true</i>, a home directory in KiFS is
-        /// created for this user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>, a
+        ///         home directory in KiFS is created for this user.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         cref="Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
         ///         <description>The maximum capacity to apply to the created
-        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
-        /// to indicate no upper limit. If empty, the system default limit is
-        /// applied.</description>
+        ///         directory if <see
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>. Set to -1 to
+        ///         indicate no upper limit. If empty, the system default limit
+        ///         is applied.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateUserInternalRequest object with default
         /// parameters.</summary>
@@ -164,57 +118,58 @@ namespace kinetica
 
         /// <summary>Constructs a CreateUserInternalRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the user to be created. Must contain
         /// only lowercase letters, digits, and underscores, and cannot begin
         /// with a digit. Must not be the same name as an existing user or
-        /// role.  </param>
+        /// role.</param>
         /// <param name="password">Initial password of the user to be created.
-        /// May be an empty string for no password.  </param>
+        /// May be an empty string for no password.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
-        /// associate with this user</description>
+        ///         associate with this user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Default schema to associate with this
-        /// user</description>
+        ///         cref="Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Default schema to associate with this user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>When <i>true</i>, a home directory in KiFS is
-        /// created for this user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+        ///         </term>
+        ///         <description>When <see cref="Options.TRUE">TRUE</see>, a
+        ///         home directory in KiFS is created for this user.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         cref="Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
         ///         <description>The maximum capacity to apply to the created
-        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
-        /// to indicate no upper limit. If empty, the system default limit is
-        /// applied.</description>
+        ///         directory if <see
+        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+        ///         is <see cref="Options.TRUE">TRUE</see>. Set to -1 to
+        ///         indicate no upper limit. If empty, the system default limit
+        ///         is applied.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateUserInternalRequest( string name,
                                           string password,
                                           IDictionary<string, string> options = null)
@@ -223,41 +178,20 @@ namespace kinetica
             this.password = password ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateUserInternalRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createUserInternal(string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createUserInternal(CreateUserInternalRequest)">Kinetica.createUserInternal</see>.
+    /// </summary>
     public class CreateUserInternalResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
-        public struct Info
-        {
-        } // end struct Info
-
-
-        /// <summary>Value of <paramref cref="CreateUserInternalRequest.name"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="CreateUserInternalRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <summary>Additional information.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateUserInternalResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

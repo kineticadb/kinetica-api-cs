@@ -6,30 +6,69 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showSecurity(IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Shows security information relating to users and/or roles. If the
-    /// caller is not a system administrator, only information relating to the
-    /// caller and their roles is returned.</summary>
+    /// cref="Kinetica.showSecurity(ShowSecurityRequest)">Kinetica.showSecurity</see>.
+    /// </summary>
+    /// <remarks><para>Shows security information relating to users and/or
+    /// roles. If the caller is not a system administrator, only information
+    /// relating to the caller and their roles is returned.</para></remarks>
     public class ShowSecurityRequest : KineticaData
     {
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
+        public struct Options
+        {
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, returns only
+            /// security information for the current user.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string SHOW_CURRENT_USER = "show_current_user";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
 
         /// <summary>A list of names of users and/or roles about which security
-        /// information is requested. If none are provided, information about
-        /// all users and roles will be returned.  </summary>
+        /// information is requested.</summary>
+        /// <remarks><para>If none are provided, information about all users
+        /// and roles will be returned.</para></remarks>
         public IList<string> names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         returns only security information for the current user.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowSecurityRequest object with default
         /// parameters.</summary>
@@ -37,56 +76,51 @@ namespace kinetica
 
         /// <summary>Constructs a ShowSecurityRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="names">A list of names of users and/or roles about
         /// which security information is requested. If none are provided,
-        /// information about all users and roles will be returned.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// information about all users and roles will be returned.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+        ///         returns only security information for the current user.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty Dictionary.</param>
         public ShowSecurityRequest( IList<string> names,
                                     IDictionary<string, string> options = null)
         {
             this.names = names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowSecurityRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showSecurity(IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showSecurity(ShowSecurityRequest)">Kinetica.showSecurity</see>.
+    /// </summary>
     public class ShowSecurityResponse : KineticaData
     {
-
-        /// <summary>Map of user/role name to the type of that user/role.
-        /// Valid values are:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSecurityResponse.Types.INTERNAL_USER">INTERNAL_USER</see>:</term>
-        ///         <description>A user whose credentials are managed by the
-        /// database system.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSecurityResponse.Types.EXTERNAL_USER">EXTERNAL_USER</see>:</term>
-        ///         <description>A user whose credentials are managed by an
-        /// external LDAP.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowSecurityResponse.Types.ROLE">ROLE</see>:</term>
-        ///         <description>A role.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member name="types"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="types" />.</summary>
+        /// <remarks><para>Map of user/role name to the type of that user/role.
+        /// </para></remarks>
         public struct Types
         {
-
             /// <summary>A user whose credentials are managed by the database
             /// system.</summary>
             public const string INTERNAL_USER = "internal_user";
@@ -99,47 +133,41 @@ namespace kinetica
             public const string ROLE = "role";
         } // end struct Types
 
-
         /// <summary>Map of user/role name to the type of that user/role.
-        /// Valid values are:
+        /// </summary>
+        /// <remarks><para>Valid values are:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="ShowSecurityResponse.Types.INTERNAL_USER">INTERNAL_USER</see>:</term>
+        ///         <term><see cref="Types.INTERNAL_USER">INTERNAL_USER</see>:
+        ///         </term>
         ///         <description>A user whose credentials are managed by the
-        /// database system.</description>
+        ///         database system.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ShowSecurityResponse.Types.EXTERNAL_USER">EXTERNAL_USER</see>:</term>
+        ///         <term><see cref="Types.EXTERNAL_USER">EXTERNAL_USER</see>:
+        ///         </term>
         ///         <description>A user whose credentials are managed by an
-        /// external LDAP.</description>
+        ///         external LDAP.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="ShowSecurityResponse.Types.ROLE">ROLE</see>:</term>
+        ///         <term><see cref="Types.ROLE">ROLE</see>:</term>
         ///         <description>A role.</description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public IDictionary<string, string> types { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Map of user/role name to a list of names of roles of which
-        /// that user/role is a member.  </summary>
+        /// that user/role is a member.</summary>
         public IDictionary<string, IList<string>> roles { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Map of user/role name to a list of permissions directly
-        /// granted to that user/role.  </summary>
+        /// granted to that user/role.</summary>
         public IDictionary<string, IList<IDictionary<string, string>>> permissions { get; set; } = new Dictionary<string, IList<IDictionary<string, string>>>();
 
-        /// <summary>Map of user name to resource group name.  </summary>
+        /// <summary>Map of user name to resource group name.</summary>
         public IDictionary<string, string> resource_groups { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowSecurityResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

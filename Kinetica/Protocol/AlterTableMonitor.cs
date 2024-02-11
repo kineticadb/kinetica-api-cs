@@ -6,70 +6,56 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterTableMonitor(string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Alters a table monitor previously created with <see
-    /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterTableMonitor(AlterTableMonitorRequest)">Kinetica.alterTableMonitor</see>.
+    /// </summary>
+    /// <remarks><para>Alters a table monitor previously created with <see
+    /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    /// </para></remarks>
     public class AlterTableMonitorRequest : KineticaData
     {
-
-        /// <summary>Map containing the properties of the table monitor to be
-        /// updated. Error if empty.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="monitor_updates_map" />.</summary>
+        /// <remarks><para>Map containing the properties of the table monitor
+        /// to be updated. Error if empty.</para></remarks>
         public struct MonitorUpdatesMap
         {
-
-            /// <summary>Updates the schema name.  If <i>schema_name</i>
-            /// doesn't exist, an error will be thrown. If <i>schema_name</i>
-            /// is empty, then the user's
-            /// default schema will be used.</summary>
+            /// <summary>Updates the schema name.</summary>
+            /// <remarks><para> If <see
+            /// cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> doesn't
+            /// exist, an error will be thrown. If <see
+            /// cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+            /// empty, then the user's default schema will be used.</para>
+            /// </remarks>
             public const string SCHEMA_NAME = "schema_name";
         } // end struct MonitorUpdatesMap
 
-
-        /// <summary>The topic ID returned by /create/tablemonitor.  </summary>
+        /// <summary>The topic ID returned by <see
+        /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+        /// </summary>
         public string topic_id { get; set; }
 
         /// <summary>Map containing the properties of the table monitor to be
-        /// updated. Error if empty.
-        /// <list type="bullet">
+        /// updated.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
+        ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Updates the schema name.  If <see
+        ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         doesn't exist, an error will be thrown. If <see
+        ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+        ///         empty, then the user's default schema will be used.
+        ///         </description>
         ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, string> monitor_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterTableMonitorRequest object with default
         /// parameters.</summary>
@@ -77,25 +63,26 @@ namespace kinetica
 
         /// <summary>Constructs an AlterTableMonitorRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="topic_id">The topic ID returned by
-        /// /create/tablemonitor.  </param>
+        ///
+        /// <param name="topic_id">The topic ID returned by <see
+        /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+        /// </param>
         /// <param name="monitor_updates_map">Map containing the properties of
         /// the table monitor to be updated. Error if empty.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
+        ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Updates the schema name.  If <see
+        ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         doesn't exist, an error will be thrown. If <see
+        ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+        ///         empty, then the user's default schema will be used.
+        ///         </description>
         ///     </item>
-        /// </list>
-        ///   </param>
-        /// <param name="options">Optional parameters.  </param>
-        /// 
+        /// </list></param>
+        /// <param name="options">Optional parameters.</param>
         public AlterTableMonitorRequest( string topic_id,
                                          IDictionary<string, string> monitor_updates_map,
                                          IDictionary<string, string> options)
@@ -104,27 +91,18 @@ namespace kinetica
             this.monitor_updates_map = monitor_updates_map ?? new Dictionary<string, string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterTableMonitorRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterTableMonitor(string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterTableMonitor(AlterTableMonitorRequest)">Kinetica.alterTableMonitor</see>.
+    /// </summary>
     public class AlterTableMonitorResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="AlterTableMonitorRequest.topic_id" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="AlterTableMonitorRequest.topic_id">topic_id</see>.</summary>
         public string topic_id { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterTableMonitorResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

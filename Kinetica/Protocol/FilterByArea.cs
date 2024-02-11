@@ -6,108 +6,60 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.filterByArea(string,string,string,IList{double},string,IList{double},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Calculates which objects from a table are within a named area of
-    /// interest (NAI/polygon). The operation is synchronous, meaning that a
-    /// response
-    /// will not be returned until all the matching objects are fully
-    /// available. The
-    /// response payload provides the count of the resulting set. A new
-    /// resultant set
-    /// (view) which satisfies the input NAI restriction specification is
-    /// created with
-    /// the name <see cref="view_name" /> passed in as part of the
-    /// input.</summary>
+    /// cref="Kinetica.filterByArea(FilterByAreaRequest)">Kinetica.filterByArea</see>.
+    /// </summary>
+    /// <remarks><para>Calculates which objects from a table are within a named
+    /// area of interest (NAI/polygon). The operation is synchronous, meaning
+    /// that a response will not be returned until all the matching objects are
+    /// fully available. The response payload provides the count of the
+    /// resulting set. A new resultant set (view) which satisfies the input NAI
+    /// restriction specification is created with the name <see
+    /// cref="view_name" /> passed in as part of the input.</para></remarks>
     public class FilterByAreaRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterByAreaRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterByAreaRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema provided is non-existent, it will be
-        /// automatically created.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, a unique temporary table name will be
-            /// generated in the sys_temp schema and used in place of <see
-            /// cref="view_name" />. This is always allowed even if the caller
-            /// does not have permission to create tables. The generated name
-            /// is returned in <i>qualified_view_name</i>.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
+            /// temporary table name will be generated in the sys_temp schema
+            /// and used in place of <see cref="view_name" />.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="FilterByAreaRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string CREATE_TEMP_TABLE = "create_temp_table";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the view as part of <see cref="view_name" /> and use <see
-            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
-            /// /> to create the schema if non-existent]  Name of a schema for
-            /// the newly created view. If the schema provided is non-existent,
-            /// it will be automatically created.</summary>
+            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+            /// to create the schema if non-existent]  Name of a schema for the
+            /// newly created view.</summary>
+            /// <remarks><para>If the schema provided is non-existent, it will
+            /// be automatically created.</para></remarks>
             public const string COLLECTION_NAME = "collection_name";
         } // end struct Options
-
 
         /// <summary>Name of the table to filter, in [schema_name.]table_name
         /// format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  This may be the name of a
-        /// table or a view (when chaining queries).  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
+        /// <remarks><para> This may be the name of a table or a view (when
+        /// chaining queries).</para></remarks>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
@@ -115,8 +67,9 @@ namespace kinetica
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  Must not be an already
-        /// existing table or view.  The default value is ''.</summary>
+        /// target="_top">table naming criteria</a>.</summary>
+        /// <remarks><para> Must not be an already existing table or view. The
+        /// default value is ''.</para></remarks>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the column containing the x values to be filtered.
@@ -124,7 +77,7 @@ namespace kinetica
         public string x_column_name { get; set; }
 
         /// <summary>List of x coordinates of the vertices of the polygon
-        /// representing the area to be filtered.  </summary>
+        /// representing the area to be filtered.</summary>
         public IList<double> x_vector { get; set; } = new List<double>();
 
         /// <summary>Name of the column containing the y values to be filtered.
@@ -132,48 +85,50 @@ namespace kinetica
         public string y_column_name { get; set; }
 
         /// <summary>List of y coordinates of the vertices of the polygon
-        /// representing the area to be filtered.  </summary>
+        /// representing the area to be filtered.</summary>
         public IList<double> y_vector { get; set; } = new List<double>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterByAreaRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterByAreaRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <see cref="view_name"
+        ///         />. This is always allowed even if the caller does not have
+        ///         permission to create tables. The generated name is returned
+        ///         in <see
+        ///         cref="FilterByAreaResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterByAreaRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema provided is non-existent, it will be
-        /// automatically created.</description>
+        ///         schema for the view as part of <see cref="view_name" /> and
+        ///         use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created view. If the schema provided is
+        ///         non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a FilterByAreaRequest object with default
         /// parameters.</summary>
@@ -181,12 +136,12 @@ namespace kinetica
 
         /// <summary>Constructs a FilterByAreaRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
-        /// table or a view (when chaining queries).  </param>
+        /// table or a view (when chaining queries).</param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
@@ -194,53 +149,55 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
-        /// existing table or view.  The default value is ''.</param>
+        /// existing table or view. The default value is ''.</param>
         /// <param name="x_column_name">Name of the column containing the x
-        /// values to be filtered.  </param>
+        /// values to be filtered.</param>
         /// <param name="x_vector">List of x coordinates of the vertices of the
-        /// polygon representing the area to be filtered.  </param>
+        /// polygon representing the area to be filtered.</param>
         /// <param name="y_column_name">Name of the column containing the y
-        /// values to be filtered.  </param>
+        /// values to be filtered.</param>
         /// <param name="y_vector">List of y coordinates of the vertices of the
-        /// polygon representing the area to be filtered.  </param>
+        /// polygon representing the area to be filtered.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterByAreaRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
-        ///         <description>If <i>true</i>, a unique temporary table name
-        /// will be generated in the sys_temp schema and used in place of
-        /// <paramref cref="FilterByAreaRequest.view_name" />. This is always
-        /// allowed even if the caller does not have permission to create
-        /// tables. The generated name is returned in
-        /// <i>qualified_view_name</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.TRUE">TRUE</see></term>
+        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
+        ///         unique temporary table name will be generated in the
+        ///         sys_temp schema and used in place of <paramref
+        ///         name="view_name" />. This is always allowed even if the
+        ///         caller does not have permission to create tables. The
+        ///         generated name is returned in <see
+        ///         cref="FilterByAreaResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+        ///         </term>
         ///         <description>[DEPRECATED--please specify the containing
-        /// schema for the view as part of <paramref
-        /// cref="FilterByAreaRequest.view_name" /> and use /create/schema to
-        /// create the schema if non-existent]  Name of a schema for the newly
-        /// created view. If the schema provided is non-existent, it will be
-        /// automatically created.</description>
+        ///         schema for the view as part of <paramref name="view_name"
+        ///         /> and use <see
+        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        ///         to create the schema if non-existent]  Name of a schema for
+        ///         the newly created view. If the schema provided is
+        ///         non-existent, it will be automatically created.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public FilterByAreaRequest( string table_name,
                                     string view_name,
                                     string x_column_name,
@@ -257,56 +214,37 @@ namespace kinetica
             this.y_vector = y_vector ?? new List<double>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class FilterByAreaRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.filterByArea(string,string,string,IList{double},string,IList{double},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.filterByArea(FilterByAreaRequest)">Kinetica.filterByArea</see>.
+    /// </summary>
     public class FilterByAreaResponse : KineticaData
     {
-
-        /// <summary>Additional information.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="FilterByAreaResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
-        ///         <description>The fully qualified name of the view (i.e.
-        /// including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <member name="info"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="info" />.</summary>
+        /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
-
             /// <summary>The fully qualified name of the view (i.e. including
             /// the schema)</summary>
             public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
         } // end struct Info
 
-
-        /// <summary>The number of records passing the area filter.  </summary>
+        /// <summary>The number of records passing the area filter.</summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.
-        /// <list type="bullet">
+        /// <summary>Additional information.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="FilterByAreaResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+        ///         </term>
         ///         <description>The fully qualified name of the view (i.e.
-        /// including the schema)</description>
+        ///         including the schema)</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class FilterByAreaResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

@@ -6,300 +6,31 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterDatasource(string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Alters the properties of an existing <a
-    /// href="../../../concepts/data_sources/" target="_top">data
-    /// source</a></summary>
+    /// cref="Kinetica.alterDatasource(AlterDatasourceRequest)">Kinetica.alterDatasource</see>.
+    /// </summary>
+    /// <remarks><para>Alters the properties of an existing <a
+    /// href="../../../concepts/data_sources/" target="_top">data source</a>
+    /// </para></remarks>
     public class AlterDatasourceRequest : KineticaData
     {
-
-        /// <summary>Map containing the properties of the data source to be
-        /// updated. Error if empty.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.LOCATION">LOCATION</see>:</term>
-        ///         <description>Location of the remote storage in
-        /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// <br />
-        /// Supported storage provider types are 'azure','gcs','hdfs','kafka'
-        /// and 's3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:</term>
-        ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:</term>
-        ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
-        ///         <description>Bypass validation of connection to remote
-        /// source.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for connecting to this
-        /// storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for reading from this
-        /// storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Name of the Credential object to be used in
-        /// data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:</term>
-        ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
-        ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
-        ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
-        ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
-        ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
-        ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
-        ///         <description>Name of the Azure storage account to use as
-        /// the data source, this is valid only if tenant_id is
-        /// specified</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
-        ///         <description>Name of the Azure storage container to use as
-        /// the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
-        ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
-        ///         <description>Name of the Google Cloud project to use as the
-        /// data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
-        ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
-        ///         <description>The publicly-accessible full path URL to the
-        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
-        ///         <description>Name of the Kafka topic to use as the data
-        /// source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        /// KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
-        ///         <description>Name of the JDBC driver class</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Create an anonymous connection to the storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
-        ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
-        ///         <description>Use https to connect to datasource if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="datasource_updates_map" />.</summary>
+        /// <remarks><para>Map containing the properties of the data source to
+        /// be updated. Error if empty.</para></remarks>
         public struct DatasourceUpdatesMap
         {
-
             /// <summary>Location of the remote storage in
             /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-            /// <br />
-            /// Supported storage provider types are
-            /// 'azure','gcs','hdfs','kafka' and 's3'.</summary>
+            /// </summary>
+            /// <remarks><para> Supported storage provider types are
+            /// 'azure','gcs','hdfs','kafka' and 's3'.</para></remarks>
             public const string LOCATION = "location";
 
-            /// <summary>Name of the remote system user; may be an empty
-            /// string</summary>
+            /// <summary>Name of the remote system user; may be an empty string
+            /// </summary>
             public const string USER_NAME = "user_name";
 
             /// <summary>Password for the remote system user; may be an empty
@@ -307,20 +38,22 @@ namespace kinetica
             public const string PASSWORD = "password";
 
             /// <summary>Bypass validation of connection to remote source.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasourceUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string SKIP_VALIDATION = "skip_validation";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
@@ -336,8 +69,8 @@ namespace kinetica
             /// source</summary>
             public const string CREDENTIAL = "credential";
 
-            /// <summary>Name of the Amazon S3 bucket to use as the data
-            /// source</summary>
+            /// <summary>Name of the Amazon S3 bucket to use as the data source
+            /// </summary>
             public const string S3_BUCKET_NAME = "s3_bucket_name";
 
             /// <summary>Name of the Amazon S3 region where the given bucket is
@@ -348,35 +81,37 @@ namespace kinetica
             /// that can be assumed for the given S3 IAM user</summary>
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
 
-            /// <summary>Customer encryption algorithm used encrypting
-            /// data</summary>
+            /// <summary>Customer encryption algorithm used encrypting data
+            /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
 
-            /// <summary>Customer encryption key to encrypt or decrypt
-            /// data</summary>
+            /// <summary>Customer encryption key to encrypt or decrypt data
+            /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
 
             /// <summary>Kerberos keytab file location for the given HDFS user.
-            /// This may be a KIFS file.</summary>
+            /// </summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
 
             /// <summary>Delegation token for the given HDFS user</summary>
             public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
 
-            /// <summary>Use kerberos authentication for the given HDFS cluster
-            /// Supported values:
+            /// <summary>Use kerberos authentication for the given HDFS
+            /// cluster.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasourceUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
 
             /// <summary>Name of the Azure storage account to use as the data
@@ -394,8 +129,8 @@ namespace kinetica
             /// account to use as the data source</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
 
-            /// <summary>Oauth token to access given storage
-            /// container</summary>
+            /// <summary>Oauth token to access given storage container
+            /// </summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
             /// <summary>Name of the Google Cloud Storage bucket to use as the
@@ -414,352 +149,389 @@ namespace kinetica
             /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
             public const string KAFKA_URL = "kafka_url";
 
-            /// <summary>Name of the Kafka topic to use as the data
-            /// source</summary>
+            /// <summary>Name of the Kafka topic to use as the data source
+            /// </summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
-            /// <summary>JDBC driver jar file location.  This may be a KIFS
-            /// file.</summary>
+            /// <summary>JDBC driver jar file location.</summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
             public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
 
             /// <summary>Name of the JDBC driver class</summary>
             public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
 
             /// <summary>Create an anonymous connection to the storage
-            /// provider--DEPRECATED: this is now the default.  Specify
-            /// use_managed_credentials for non-anonymous connection
-            /// Supported values:
+            /// provider--DEPRECATED: this is now the default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasourceUpdatesMap.TRUE">TRUE</see>.</para></remarks>
             public const string ANONYMOUS = "anonymous";
 
             /// <summary>When no credentials are supplied, we use anonymous
-            /// access by default.  If this is set, we will use cloud provider
-            /// user settings.
-            /// Supported values:
+            /// access by default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasourceUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
 
             /// <summary>Use https to connect to datasource if true, otherwise
-            /// use http
-            /// Supported values:
+            /// use http.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasourceUpdatesMap.TRUE">TRUE</see>.</para></remarks>
             public const string USE_HTTPS = "use_https";
 
-            /// <summary>Updates the schema name.  If <i>schema_name</i>
-            /// doesn't exist, an error will be thrown. If <i>schema_name</i>
-            /// is empty, then the user's
-            /// default schema will be used.</summary>
+            /// <summary>Updates the schema name.</summary>
+            /// <remarks><para> If <see
+            /// cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+            /// doesn't exist, an error will be thrown. If <see
+            /// cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+            /// empty, then the user's default schema will be used.</para>
+            /// </remarks>
             public const string SCHEMA_NAME = "schema_name";
         } // end struct DatasourceUpdatesMap
 
-
-        /// <summary>Name of the data source to be altered. Must be an existing
-        /// data source.  </summary>
+        /// <summary>Name of the data source to be altered.</summary>
+        /// <remarks><para>Must be an existing data source.</para></remarks>
         public string name { get; set; }
 
         /// <summary>Map containing the properties of the data source to be
-        /// updated. Error if empty.
-        /// <list type="bullet">
+        /// updated.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.LOCATION">LOCATION</see>:</term>
+        ///         cref="DatasourceUpdatesMap.LOCATION">LOCATION</see>:</term>
         ///         <description>Location of the remote storage in
-        /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// <br />
-        /// Supported storage provider types are 'azure','gcs','hdfs','kafka'
-        /// and 's3'.</description>
+        ///         'storage_provider_type://[storage_path[:storage_port]]'
+        ///         format.
+        ///         Supported storage provider types are
+        ///         'azure','gcs','hdfs','kafka' and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
+        ///         empty string</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:</term>
+        ///         cref="DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:</term>
         ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
+        ///         empty string</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="DatasourceUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to remote
-        /// source.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         cref="DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for connecting to this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         cref="DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for reading from this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         cref="DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the Credential object to be used in
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:
+        ///         </term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
         ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data source, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data source, this is valid only if tenant_id is
+        ///         specified</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data source</description>
+        ///         the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data source</description>
+        ///         storage account to use as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data source</description>
+        ///         as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data source</description>
+        ///         authenticating the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         cref="DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
+        ///         </term>
         ///         <description>The publicly-accessible full path URL to the
-        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
-        /// source</description>
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
         ///         <description>JDBC driver jar file location.  This may be a
-        /// KIFS file.</description>
+        ///         KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
         ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:
+        ///         </term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         provider--DEPRECATED: this is now the default.  Specify
+        ///         use_managed_credentials for non-anonymous connection.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:
+        ///         </term>
         ///         <description>Use https to connect to datasource if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///         cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Updates the schema name.  If <see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         doesn't exist, an error will be thrown. If <see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         is empty, then the user's default schema will be used.
+        ///         </description>
         ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, string> datasource_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterDatasourceRequest object with default
         /// parameters.</summary>
@@ -767,275 +539,313 @@ namespace kinetica
 
         /// <summary>Constructs an AlterDatasourceRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the data source to be altered. Must be
-        /// an existing data source.  </param>
+        /// an existing data source.</param>
         /// <param name="datasource_updates_map">Map containing the properties
         /// of the data source to be updated. Error if empty.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.LOCATION">LOCATION</see>:</term>
+        ///         cref="DatasourceUpdatesMap.LOCATION">LOCATION</see>:</term>
         ///         <description>Location of the remote storage in
-        /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are 'azure','gcs','hdfs','kafka'
-        /// and 's3'.</description>
+        ///         'storage_provider_type://[storage_path[:storage_port]]'
+        ///         format.
+        ///         Supported storage provider types are
+        ///         'azure','gcs','hdfs','kafka' and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
+        ///         empty string</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:</term>
+        ///         cref="DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:</term>
         ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
+        ///         empty string</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="DatasourceUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to remote
-        /// source.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         cref="DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for connecting to this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         cref="DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for reading from this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         cref="DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the Credential object to be used in
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:
+        ///         </term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
         ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         cref="DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data source, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data source, this is valid only if tenant_id is
+        ///         specified</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data source</description>
+        ///         the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data source</description>
+        ///         storage account to use as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data source</description>
+        ///         as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data source</description>
+        ///         authenticating the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         cref="DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
+        ///         </term>
         ///         <description>The publicly-accessible full path URL to the
-        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
-        /// source</description>
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
         ///         <description>JDBC driver jar file location.  This may be a
-        /// KIFS file.</description>
+        ///         KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
         ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:
+        ///         </term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         provider--DEPRECATED: this is now the default.  Specify
+        ///         use_managed_credentials for non-anonymous connection.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         cref="DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:
+        ///         </term>
         ///         <description>Use https to connect to datasource if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///         cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Updates the schema name.  If <see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         doesn't exist, an error will be thrown. If <see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         is empty, then the user's default schema will be used.
+        ///         </description>
         ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// <param name="options">Optional parameters.  </param>
-        /// 
+        /// </list></param>
+        /// <param name="options">Optional parameters.</param>
         public AlterDatasourceRequest( string name,
                                        IDictionary<string, string> datasource_updates_map,
                                        IDictionary<string, string> options)
@@ -1044,26 +854,17 @@ namespace kinetica
             this.datasource_updates_map = datasource_updates_map ?? new Dictionary<string, string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterDatasourceRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterDatasource(string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterDatasource(AlterDatasourceRequest)">Kinetica.alterDatasource</see>.
+    /// </summary>
     public class AlterDatasourceResponse : KineticaData
     {
-
-        /// <summary>Map of values updated  </summary>
+        /// <summary>Map of values updated</summary>
         public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterDatasourceResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

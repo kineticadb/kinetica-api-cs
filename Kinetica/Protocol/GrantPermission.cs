@@ -6,83 +6,22 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.grantPermission(string,string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Grant user or role the specified permission on the specified
-    /// object.</summary>
+    /// cref="Kinetica.grantPermission(GrantPermissionRequest)">Kinetica.grantPermission</see>.
+    /// </summary>
+    /// <remarks><para>Grant user or role the specified permission on the
+    /// specified object.</para></remarks>
     public class GrantPermissionRequest : KineticaData
     {
-
-        /// <summary>The type of object being granted to
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Credential</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
-        ///         <description>Data Sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
-        ///         <description>Data Source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KIFS File Directory</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
-        ///         <description>A Graph object</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
-        ///         <description>UDF Procedure</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
-        ///         <description>Schema</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
-        ///         <description>SQL Procedure</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
-        ///         <description>System-level access</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
-        ///         <description>Database Table</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
-        ///         <description>Table monitor</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="object_type"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="object_type" />.</summary>
+        /// <remarks><para>The type of object being granted to</para></remarks>
         public struct ObjectType
         {
+            /// <summary>Context</summary>
+            public const string CONTEXT = "context";
 
             /// <summary>Credential</summary>
             public const string CREDENTIAL = "credential";
@@ -118,73 +57,17 @@ namespace kinetica
             public const string TABLE_MONITOR = "table_monitor";
         } // end struct ObjectType
 
-
-        /// <summary>Permission being granted.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
-        ///         <description>Full read/write and administrative access on
-        /// the object.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
-        ///         <description>Connect access on the given data source or
-        /// data sink.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
-        ///         <description>Delete rows from tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
-        ///         <description>Ability to Execute the Procedure
-        /// object.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
-        ///         <description>Insert access to tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
-        ///         <description>Ability to read, list and use the
-        /// object.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
-        ///         <description>Update access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
-        ///         <description>Access to administer users and roles that do
-        /// not have system_admin permission.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
-        ///         <description>Access to write, change and delete
-        /// objects.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="permission"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="permission" />.</summary>
+        /// <remarks><para>Permission being granted.</para></remarks>
         public struct Permission
         {
-
             /// <summary>Full read/write and administrative access on the
             /// object.</summary>
             public const string ADMIN = "admin";
 
-            /// <summary>Connect access on the given data source or data
-            /// sink.</summary>
+            /// <summary>Connect access on the given data source or data sink.
+            /// </summary>
             public const string CONNECT = "connect";
 
             /// <summary>Delete rows from tables.</summary>
@@ -210,187 +93,161 @@ namespace kinetica
             public const string WRITE = "write";
         } // end struct Permission
 
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
-        ///         <description>Apply table security to these columns,
-        /// comma-separated.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
-        ///         <description>Optional filter expression to apply to this
-        /// grant.  Only rows that match the filter will be affected.  The
-        /// default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Apply table security to these columns,
-            /// comma-separated.  The default value is ''.</summary>
+            /// comma-separated.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string COLUMNS = "columns";
 
             /// <summary>Optional filter expression to apply to this grant.
-            /// Only rows that match the filter will be affected.  The default
-            /// value is ''.</summary>
+            /// </summary>
+            /// <remarks><para> Only rows that match the filter will be
+            /// affected. The default value is ''.</para></remarks>
             public const string FILTER_EXPRESSION = "filter_expression";
         } // end struct Options
 
-
         /// <summary>Name of the user or role for which the permission is being
-        /// granted.  Must be an existing user or role.  The default value is
-        /// ''.</summary>
+        /// granted.</summary>
+        /// <remarks><para> Must be an existing user or role. The default value
+        /// is ''.</para></remarks>
         public string principal { get; set; } = "";
 
-        /// <summary>Name of object permission is being granted to.  It is
-        /// recommended to use a fully-qualified name when possible.
-        /// </summary>
+        /// <summary>Name of object permission is being granted to.</summary>
+        /// <remarks><para> It is recommended to use a fully-qualified name
+        /// when possible.</para></remarks>
         public string _object { get; set; }
 
-        /// <summary>The type of object being granted to
-        /// Supported values:
+        /// <summary>The type of object being granted to.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <term><see cref="ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="ObjectType.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        ///         <term><see cref="ObjectType.DATASINK">DATASINK</see>:
+        ///         </term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        ///         <term><see cref="ObjectType.DATASOURCE">DATASOURCE</see>:
+        ///         </term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <term><see cref="ObjectType.DIRECTORY">DIRECTORY</see>:
+        ///         </term>
         ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        ///         <term><see cref="ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        ///         <term><see cref="ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        ///         <term><see cref="ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        ///         <term><see cref="ObjectType.SQL_PROC">SQL_PROC</see>:
+        ///         </term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        ///         <term><see cref="ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        ///         <term><see cref="ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         cref="ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
         ///         <description>Table monitor</description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string object_type { get; set; }
 
-        /// <summary>Permission being granted.
-        /// Supported values:
+        /// <summary>Permission being granted.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
-        /// the object.</description>
+        ///         the object.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
-        /// data sink.</description>
+        ///         data sink.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
-        ///         <description>Ability to Execute the Procedure
-        /// object.</description>
+        ///         <term><see cref="Permission.EXECUTE">EXECUTE</see>:</term>
+        ///         <description>Ability to Execute the Procedure object.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        ///         <term><see cref="Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
-        ///         <description>Ability to read, list and use the
-        /// object.</description>
+        ///         <term><see cref="Permission.READ">READ</see>:</term>
+        ///         <description>Ability to read, list and use the object.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        ///         <term><see cref="Permission.USER_ADMIN">USER_ADMIN</see>:
+        ///         </term>
         ///         <description>Access to administer users and roles that do
-        /// not have system_admin permission.</description>
+        ///         not have system_admin permission.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
-        ///         <description>Access to write, change and delete
-        /// objects.</description>
+        ///         <term><see cref="Permission.WRITE">WRITE</see>:</term>
+        ///         <description>Access to write, change and delete objects.
+        ///         </description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string permission { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
         ///         <description>Apply table security to these columns,
-        /// comma-separated.  The default value is ''.</description>
+        ///         comma-separated. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
+        ///         cref="Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to this
-        /// grant.  Only rows that match the filter will be affected.  The
-        /// default value is ''.</description>
+        ///         grant.  Only rows that match the filter will be affected.
+        ///         The default value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a GrantPermissionRequest object with default
         /// parameters.</summary>
@@ -398,145 +255,135 @@ namespace kinetica
 
         /// <summary>Constructs a GrantPermissionRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="principal">Name of the user or role for which the
-        /// permission is being granted.  Must be an existing user or role.
-        /// The default value is ''.</param>
+        /// permission is being granted.  Must be an existing user or role. The
+        /// default value is ''.</param>
         /// <param name="_object">Name of object permission is being granted
         /// to.  It is recommended to use a fully-qualified name when possible.
         /// </param>
-        /// <param name="object_type">The type of object being granted to
+        /// <param name="object_type">The type of object being granted to.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <term><see cref="ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="ObjectType.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        ///         <term><see cref="ObjectType.DATASINK">DATASINK</see>:
+        ///         </term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        ///         <term><see cref="ObjectType.DATASOURCE">DATASOURCE</see>:
+        ///         </term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <term><see cref="ObjectType.DIRECTORY">DIRECTORY</see>:
+        ///         </term>
         ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        ///         <term><see cref="ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        ///         <term><see cref="ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        ///         <term><see cref="ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        ///         <term><see cref="ObjectType.SQL_PROC">SQL_PROC</see>:
+        ///         </term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        ///         <term><see cref="ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        ///         <term><see cref="ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         cref="ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
         ///         <description>Table monitor</description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="permission">Permission being granted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
-        /// the object.</description>
+        ///         the object.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
-        /// data sink.</description>
+        ///         data sink.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
-        ///         <description>Ability to Execute the Procedure
-        /// object.</description>
+        ///         <term><see cref="Permission.EXECUTE">EXECUTE</see>:</term>
+        ///         <description>Ability to Execute the Procedure object.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        ///         <term><see cref="Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
-        ///         <description>Ability to read, list and use the
-        /// object.</description>
+        ///         <term><see cref="Permission.READ">READ</see>:</term>
+        ///         <description>Ability to read, list and use the object.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        ///         <term><see cref="Permission.USER_ADMIN">USER_ADMIN</see>:
+        ///         </term>
         ///         <description>Access to administer users and roles that do
-        /// not have system_admin permission.</description>
+        ///         not have system_admin permission.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
-        ///         <description>Access to write, change and delete
-        /// objects.</description>
+        ///         <term><see cref="Permission.WRITE">WRITE</see>:</term>
+        ///         <description>Access to write, change and delete objects.
+        ///         </description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
         ///         <description>Apply table security to these columns,
-        /// comma-separated.  The default value is ''.</description>
+        ///         comma-separated. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
+        ///         cref="Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
+        ///         </term>
         ///         <description>Optional filter expression to apply to this
-        /// grant.  Only rows that match the filter will be affected.  The
-        /// default value is ''.</description>
+        ///         grant.  Only rows that match the filter will be affected.
+        ///         The default value is ''.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public GrantPermissionRequest( string principal,
                                        string _object,
                                        string object_type,
@@ -549,39 +396,32 @@ namespace kinetica
             this.permission = permission ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class GrantPermissionRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.grantPermission(string,string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.grantPermission(GrantPermissionRequest)">Kinetica.grantPermission</see>.
+    /// </summary>
     public class GrantPermissionResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="GrantPermissionRequest.principal"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionRequest.principal">principal</see>.</summary>
         public string principal { get; set; }
 
-        /// <summary>Value of <paramref cref="GrantPermissionRequest._object"
-        /// />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionRequest._object">_object</see>.</summary>
         public string _object { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionRequest.object_type" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionRequest.object_type">object_type</see>.
+        /// </summary>
         public string object_type { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="GrantPermissionRequest.permission" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="GrantPermissionRequest.permission">permission</see>.
+        /// </summary>
         public string permission { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class GrantPermissionResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

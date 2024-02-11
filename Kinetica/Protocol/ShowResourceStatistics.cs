@@ -6,25 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showResourceStatistics(IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Requests various statistics for storage/memory tiers and resource
-    /// groups.
-    /// Returns statistics on a per-rank basis.</summary>
+    /// cref="Kinetica.showResourceStatistics(ShowResourceStatisticsRequest)">Kinetica.showResourceStatistics</see>.
+    /// </summary>
+    /// <remarks><para>Requests various statistics for storage/memory tiers and
+    /// resource groups.
+    /// Returns statistics on a per-rank basis.</para></remarks>
     public class ShowResourceStatisticsRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowResourceStatisticsRequest object with
         /// default parameters.</summary>
@@ -32,34 +27,24 @@ namespace kinetica
 
         /// <summary>Constructs a ShowResourceStatisticsRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        ///
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public ShowResourceStatisticsRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowResourceStatisticsRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showResourceStatistics(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showResourceStatistics(ShowResourceStatisticsRequest)">Kinetica.showResourceStatistics</see>.
+    /// </summary>
     public class ShowResourceStatisticsResponse : KineticaData
     {
-
-        /// <summary>Map of resource statistics  </summary>
+        /// <summary>Map of resource statistics</summary>
         public IDictionary<string, string> statistics_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowResourceStatisticsResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

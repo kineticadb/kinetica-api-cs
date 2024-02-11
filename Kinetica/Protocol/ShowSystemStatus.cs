@@ -6,24 +6,20 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />.
-    /// <br />
-    /// Provides server configuration and health related status to the caller.
-    /// The admin tool uses it to present server related information to the
-    /// user.</summary>
+    /// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>.
+    /// </summary>
+    /// <remarks><para>Provides server configuration and health related status
+    /// to the caller. The admin tool uses it to present server related
+    /// information to the user.</para></remarks>
     public class ShowSystemStatusRequest : KineticaData
     {
-
-        /// <summary>Optional parameters, currently unused.  The default value
-        /// is an empty {@link Dictionary}.</summary>
+        /// <summary>Optional parameters, currently unused.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a ShowSystemStatusRequest object with default
         /// parameters.</summary>
@@ -31,35 +27,25 @@ namespace kinetica
 
         /// <summary>Constructs a ShowSystemStatusRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="options">Optional parameters, currently unused.  The
-        /// default value is an empty {@link Dictionary}.</param>
-        /// 
+        ///
+        /// <param name="options">Optional parameters, currently unused. The
+        /// default value is an empty Dictionary.</param>
         public ShowSystemStatusRequest( IDictionary<string, string> options = null)
         {
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class ShowSystemStatusRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>.
+    /// </summary>
     public class ShowSystemStatusResponse : KineticaData
     {
-
         /// <summary>A map of server configuration and health related status.
         /// </summary>
         public IDictionary<string, string> status_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class ShowSystemStatusResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

@@ -6,300 +6,30 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterDatasink(string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Alters the properties of an existing <a
-    /// href="../../../concepts/data_sinks/" target="_top">data
-    /// sink</a></summary>
+    /// cref="Kinetica.alterDatasink(AlterDatasinkRequest)">Kinetica.alterDatasink</see>.
+    /// </summary>
+    /// <remarks><para>Alters the properties of an existing <a
+    /// href="../../../concepts/data_sinks/" target="_top">data sink</a></para>
+    /// </remarks>
     public class AlterDatasinkRequest : KineticaData
     {
-
-        /// <summary>Map containing the properties of the data sink to be
-        /// updated. Error if empty.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:</term>
-        ///         <description>Destination for the output data in format
-        /// 'destination_type://path[:port]'.
-        /// <br />
-        /// Supported destination types are 'http', 'https' and
-        /// 'kafka'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for connecting to this
-        /// sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for waiting for a response
-        /// from this sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Name of the <a
-        /// href="../../../concepts/credentials/" target="_top">credential</a>
-        /// object to be used in this data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
-        ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
-        ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
-        ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
-        ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
-        ///         <description>Name of the Azure storage account to use as
-        /// the data sink, this is valid only if tenant_id is
-        /// specified</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
-        ///         <description>Name of the Azure storage container to use as
-        /// the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
-        ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
-        ///         <description>Name of the Google Cloud project to use as the
-        /// data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
-        ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
-        ///         <description>The publicly-accessible full path URL to the
-        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
-        ///         <description>Name of the Kafka topic to use for this data
-        /// sink, if it references a Kafka broker</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Create an anonymous connection to the storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
-        ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
-        ///         <description>Use https to connect to datasink if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records per notification
-        /// message.  The default value is '1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
-        ///         <description>Maximum size in bytes of each notification
-        /// message.  The default value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
-        ///         <description>The desired format of JSON encoded
-        /// notifications message.
-        /// <br />
-        /// If <i>nested</i>, records are returned as an array.
-        /// Otherwise, only a single record per messages is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
-        ///         <description>Bypass validation of connection to this data
-        /// sink.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        /// <br />
-        /// A set of string constants for the parameter <see
+        /// <summary>A set of string constants for the parameter <see
         /// cref="datasink_updates_map" />.</summary>
+        /// <remarks><para>Map containing the properties of the data sink to be
+        /// updated. Error if empty.</para></remarks>
         public struct DatasinkUpdatesMap
         {
-
             /// <summary>Destination for the output data in format
-            /// 'destination_type://path[:port]'.
-            /// <br />
-            /// Supported destination types are 'http', 'https' and
-            /// 'kafka'.</summary>
+            /// 'destination_type://path[:port]'.</summary>
+            /// <remarks><para> Supported destination types are 'http', 'https'
+            /// and 'kafka'.</para></remarks>
             public const string DESTINATION = "destination";
 
-            /// <summary>Timeout in seconds for connecting to this
-            /// sink</summary>
+            /// <summary>Timeout in seconds for connecting to this sink
+            /// </summary>
             public const string CONNECTION_TIMEOUT = "connection_timeout";
 
             /// <summary>Timeout in seconds for waiting for a response from
@@ -311,8 +41,8 @@ namespace kinetica
             /// sink</summary>
             public const string CREDENTIAL = "credential";
 
-            /// <summary>Name of the Amazon S3 bucket to use as the data
-            /// sink</summary>
+            /// <summary>Name of the Amazon S3 bucket to use as the data sink
+            /// </summary>
             public const string S3_BUCKET_NAME = "s3_bucket_name";
 
             /// <summary>Name of the Amazon S3 region where the given bucket is
@@ -324,27 +54,30 @@ namespace kinetica
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
 
             /// <summary>Kerberos keytab file location for the given HDFS user.
-            /// This may be a KIFS file.</summary>
+            /// </summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
 
             /// <summary>Delegation token for the given HDFS user</summary>
             public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
 
-            /// <summary>Use kerberos authentication for the given HDFS cluster
-            /// Supported values:
+            /// <summary>Use kerberos authentication for the given HDFS
+            /// cluster.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
@@ -363,8 +96,8 @@ namespace kinetica
             /// account to use as the data sink</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
 
-            /// <summary>Oauth token to access given storage
-            /// container</summary>
+            /// <summary>Oauth token to access given storage container
+            /// </summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
             /// <summary>Name of the Google Cloud Storage bucket to use as the
@@ -388,386 +121,412 @@ namespace kinetica
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
             /// <summary>Create an anonymous connection to the storage
-            /// provider--DEPRECATED: this is now the default.  Specify
-            /// use_managed_credentials for non-anonymous connection
-            /// Supported values:
+            /// provider--DEPRECATED: this is now the default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</para></remarks>
             public const string ANONYMOUS = "anonymous";
 
             /// <summary>When no credentials are supplied, we use anonymous
-            /// access by default.  If this is set, we will use cloud provider
-            /// user settings.
-            /// Supported values:
+            /// access by default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
 
             /// <summary>Use https to connect to datasink if true, otherwise
-            /// use http
-            /// Supported values:
+            /// use http.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</para></remarks>
             public const string USE_HTTPS = "use_https";
 
             /// <summary>Maximum number of records per notification message.
-            /// The default value is '1'.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is '1'.</para></remarks>
             public const string MAX_BATCH_SIZE = "max_batch_size";
 
             /// <summary>Maximum size in bytes of each notification message.
-            /// The default value is '1000000'.</summary>
+            /// </summary>
+            /// <remarks><para>The default value is '1000000'.</para></remarks>
             public const string MAX_MESSAGE_SIZE = "max_message_size";
 
             /// <summary>The desired format of JSON encoded notifications
-            /// message.
-            /// <br />
-            /// If <i>nested</i>, records are returned as an array.
-            /// Otherwise, only a single record per messages is returned.
-            /// Supported values:
+            /// message.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.FLAT">FLAT</see>
+            ///         </term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
+            ///         cref="DatasinkUpdatesMap.NESTED">NESTED</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.FLAT">FLAT</see>.</para></remarks>
             public const string JSON_FORMAT = "json_format";
+
             public const string FLAT = "flat";
             public const string NESTED = "nested";
 
             /// <summary>Bypass validation of connection to this data sink.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string SKIP_VALIDATION = "skip_validation";
 
-            /// <summary>Updates the schema name.  If <i>schema_name</i>
-            /// doesn't exist, an error will be thrown. If <i>schema_name</i>
-            /// is empty, then the user's
-            /// default schema will be used.</summary>
+            /// <summary>Updates the schema name.</summary>
+            /// <remarks><para> If <see
+            /// cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> doesn't
+            /// exist, an error will be thrown. If <see
+            /// cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+            /// empty, then the user's default schema will be used.</para>
+            /// </remarks>
             public const string SCHEMA_NAME = "schema_name";
         } // end struct DatasinkUpdatesMap
 
-
-        /// <summary>Name of the data sink to be altered. Must be an existing
-        /// data sink.  </summary>
+        /// <summary>Name of the data sink to be altered.</summary>
+        /// <remarks><para>Must be an existing data sink.</para></remarks>
         public string name { get; set; }
 
         /// <summary>Map containing the properties of the data sink to be
-        /// updated. Error if empty.
-        /// <list type="bullet">
+        /// updated.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:</term>
+        ///         cref="DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:
+        ///         </term>
         ///         <description>Destination for the output data in format
-        /// 'destination_type://path[:port]'.
-        /// <br />
-        /// Supported destination types are 'http', 'https' and
-        /// 'kafka'.</description>
+        ///         'destination_type://path[:port]'.
+        ///         Supported destination types are 'http', 'https' and
+        ///         'kafka'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for connecting to this
-        /// sink</description>
+        ///         cref="DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Timeout in seconds for connecting to this sink
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         cref="DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for waiting for a response
-        /// from this sink</description>
+        ///         from this sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         cref="DatasinkUpdatesMap.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the <a
-        /// href="../../../concepts/credentials/" target="_top">credential</a>
-        /// object to be used in this data sink</description>
+        ///         href="../../../concepts/credentials/"
+        ///         target="_top">credential</a> object to be used in this data
+        ///         sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         cref="DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data sink, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data sink, this is valid only if tenant_id is specified
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data sink</description>
+        ///         the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data sink</description>
+        ///         storage account to use as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data sink</description>
+        ///         as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data sink</description>
+        ///         authenticating the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         cref="DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
-        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to use for this data
-        /// sink, if it references a Kafka broker</description>
+        ///         sink, if it references a Kafka broker</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         provider--DEPRECATED: this is now the default.  Specify
+        ///         use_managed_credentials for non-anonymous connection.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
         ///         <description>Use https to connect to datasink if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         cref="DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum number of records per notification
-        /// message.  The default value is '1'.</description>
+        ///         message. The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         cref="DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum size in bytes of each notification
-        /// message.  The default value is '1000000'.</description>
+        ///         message. The default value is '1000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         cref="DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:
+        ///         </term>
         ///         <description>The desired format of JSON encoded
-        /// notifications message.
-        /// <br />
-        /// If <i>nested</i>, records are returned as an array.
-        /// Otherwise, only a single record per messages is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///         notifications message.
+        ///         If <see cref="DatasinkUpdatesMap.NESTED">NESTED</see>,
+        ///         records are returned as an array. Otherwise, only a single
+        ///         record per messages is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.NESTED">NESTED</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="DatasinkUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to this data
-        /// sink.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         sink.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///         cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Updates the schema name.  If <see
+        ///         cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         doesn't exist, an error will be thrown. If <see
+        ///         cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+        ///         empty, then the user's default schema will be used.
+        ///         </description>
         ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        ///   </summary>
+        /// </list></remarks>
         public IDictionary<string, string> datasink_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterDatasinkRequest object with default
         /// parameters.</summary>
@@ -775,274 +534,301 @@ namespace kinetica
 
         /// <summary>Constructs an AlterDatasinkRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the data sink to be altered. Must be an
-        /// existing data sink.  </param>
+        /// existing data sink.</param>
         /// <param name="datasink_updates_map">Map containing the properties of
         /// the data sink to be updated. Error if empty.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:</term>
+        ///         cref="DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:
+        ///         </term>
         ///         <description>Destination for the output data in format
-        /// 'destination_type://path[:port]'.
-        /// Supported destination types are 'http', 'https' and
-        /// 'kafka'.</description>
+        ///         'destination_type://path[:port]'.
+        ///         Supported destination types are 'http', 'https' and
+        ///         'kafka'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for connecting to this
-        /// sink</description>
+        ///         cref="DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Timeout in seconds for connecting to this sink
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         cref="DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for waiting for a response
-        /// from this sink</description>
+        ///         from this sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         cref="DatasinkUpdatesMap.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the <a
-        /// href="../../../concepts/credentials/" target="_top">credential</a>
-        /// object to be used in this data sink</description>
+        ///         href="../../../concepts/credentials/"
+        ///         target="_top">credential</a> object to be used in this data
+        ///         sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         cref="DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data sink, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data sink, this is valid only if tenant_id is specified
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data sink</description>
+        ///         the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data sink</description>
+        ///         storage account to use as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data sink</description>
+        ///         as the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data sink</description>
+        ///         data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data sink</description>
+        ///         authenticating the data sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         cref="DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
-        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to use for this data
-        /// sink, if it references a Kafka broker</description>
+        ///         sink, if it references a Kafka broker</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         provider--DEPRECATED: this is now the default.  Specify
+        ///         use_managed_credentials for non-anonymous connection.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         cref="DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
         ///         <description>Use https to connect to datasink if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         cref="DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum number of records per notification
-        /// message.  The default value is '1'.</description>
+        ///         message. The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         cref="DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:
+        ///         </term>
         ///         <description>Maximum size in bytes of each notification
-        /// message.  The default value is '1000000'.</description>
+        ///         message. The default value is '1000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         cref="DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:
+        ///         </term>
         ///         <description>The desired format of JSON encoded
-        /// notifications message.
-        /// If <i>nested</i>, records are returned as an array.
-        /// Otherwise, only a single record per messages is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///         notifications message.
+        ///         If <see cref="DatasinkUpdatesMap.NESTED">NESTED</see>,
+        ///         records are returned as an array. Otherwise, only a single
+        ///         record per messages is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.NESTED">NESTED</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="DatasinkUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to this data
-        /// sink.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///         sink.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///         cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Updates the schema name.  If <see
+        ///         cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        ///         doesn't exist, an error will be thrown. If <see
+        ///         cref="DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
+        ///         empty, then the user's default schema will be used.
+        ///         </description>
         ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
-        ///         <description>Updates the schema name.  If
-        /// <i>schema_name</i>
-        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
-        /// empty, then the user's
-        /// default schema will be used.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// <param name="options">Optional parameters.  </param>
-        /// 
+        /// </list></param>
+        /// <param name="options">Optional parameters.</param>
         public AlterDatasinkRequest( string name,
                                      IDictionary<string, string> datasink_updates_map,
                                      IDictionary<string, string> options)
@@ -1051,26 +837,17 @@ namespace kinetica
             this.datasink_updates_map = datasink_updates_map ?? new Dictionary<string, string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterDatasinkRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterDatasink(string,IDictionary{string, string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterDatasink(AlterDatasinkRequest)">Kinetica.alterDatasink</see>.
+    /// </summary>
     public class AlterDatasinkResponse : KineticaData
     {
-
-        /// <summary>Map of values updated  </summary>
+        /// <summary>Map of values updated</summary>
         public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterDatasinkResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

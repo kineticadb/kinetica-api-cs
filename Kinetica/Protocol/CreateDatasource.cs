@@ -6,311 +6,37 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createDatasource(string,string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Creates a <a href="../../../concepts/data_sources/" target="_top">data
-    /// source</a>, which contains the
-    /// location and connection information for a data store that is external
-    /// to the database.</summary>
+    /// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+    /// </summary>
+    /// <remarks><para>Creates a <a href="../../../concepts/data_sources/"
+    /// target="_top">data source</a>, which contains the location and
+    /// connection information for a data store that is external to the
+    /// database.</para></remarks>
     public class CreateDatasourceRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
-        ///         <description>Bypass validation of connection to remote
-        /// source.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for connecting to this
-        /// storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
-        ///         <description>Timeout in seconds for reading from this
-        /// storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Name of the Credential object to be used in
-        /// data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:</term>
-        ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
-        ///         <description>When true (default), the requests URI should
-        /// be specified in virtual-hosted-style format where the bucket name
-        /// is part of the domain name in the URL.
-        /// <br />
-        /// Otherwise set to false to use path-style URI for requests.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
-        ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
-        ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
-        ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
-        ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
-        ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
-        ///         <description>Name of the Azure storage account to use as
-        /// the data source, this is valid only if tenant_id is
-        /// specified</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
-        ///         <description>Name of the Azure storage container to use as
-        /// the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
-        ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
-        ///         <description>Name of the Google Cloud project to use as the
-        /// data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
-        ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
-        ///         <description>To load from Azure/GCS/S3 as a stream
-        /// continuously.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
-        ///         <description>Name of the Kafka topic to use as the data
-        /// source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        /// KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
-        ///         <description>Name of the JDBC driver class</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
-        ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
-        ///         <description>Use https to connect to datasource if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
             /// <summary>Bypass validation of connection to remote source.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string SKIP_VALIDATION = "skip_validation";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
 
@@ -326,8 +52,8 @@ namespace kinetica
             /// source</summary>
             public const string CREDENTIAL = "credential";
 
-            /// <summary>Name of the Amazon S3 bucket to use as the data
-            /// source</summary>
+            /// <summary>Name of the Amazon S3 bucket to use as the data source
+            /// </summary>
             public const string S3_BUCKET_NAME = "s3_bucket_name";
 
             /// <summary>Name of the Amazon S3 region where the given bucket is
@@ -336,57 +62,53 @@ namespace kinetica
 
             /// <summary>When true (default), the requests URI should be
             /// specified in virtual-hosted-style format where the bucket name
-            /// is part of the domain name in the URL.
-            /// <br />
-            /// Otherwise set to false to use path-style URI for requests.
-            /// Supported values:
+            /// is part of the domain name in the URL.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
 
             /// <summary>Amazon IAM Role ARN which has required S3 permissions
             /// that can be assumed for the given S3 IAM user</summary>
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
 
-            /// <summary>Customer encryption algorithm used encrypting
-            /// data</summary>
+            /// <summary>Customer encryption algorithm used encrypting data
+            /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
 
-            /// <summary>Customer encryption key to encrypt or decrypt
-            /// data</summary>
+            /// <summary>Customer encryption key to encrypt or decrypt data
+            /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
 
             /// <summary>Kerberos keytab file location for the given HDFS user.
-            /// This may be a KIFS file.</summary>
+            /// </summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
 
             /// <summary>Delegation token for the given HDFS user</summary>
             public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
 
-            /// <summary>Use kerberos authentication for the given HDFS cluster
-            /// Supported values:
+            /// <summary>Use kerberos authentication for the given HDFS
+            /// cluster.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
 
             /// <summary>Name of the Azure storage account to use as the data
@@ -404,8 +126,8 @@ namespace kinetica
             /// account to use as the data source</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
 
-            /// <summary>Oauth token to access given storage
-            /// container</summary>
+            /// <summary>Oauth token to access given storage container
+            /// </summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
             /// <summary>Name of the Google Cloud Storage bucket to use as the
@@ -421,95 +143,94 @@ namespace kinetica
             public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
 
             /// <summary>To load from Azure/GCS/S3 as a stream continuously.
-            /// Supported values:
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string IS_STREAM = "is_stream";
 
-            /// <summary>Name of the Kafka topic to use as the data
-            /// source</summary>
+            /// <summary>Name of the Kafka topic to use as the data source
+            /// </summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
-            /// <summary>JDBC driver jar file location.  This may be a KIFS
-            /// file.</summary>
+            /// <summary>JDBC driver jar file location.</summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
             public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
 
             /// <summary>Name of the JDBC driver class</summary>
             public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
 
             /// <summary>Use anonymous connection to storage
-            /// provider--DEPRECATED: this is now the default.  Specify
-            /// use_managed_credentials for non-anonymous connection.
-            /// Supported values:
+            /// provider--DEPRECATED: this is now the default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string ANONYMOUS = "anonymous";
 
             /// <summary>When no credentials are supplied, we use anonymous
-            /// access by default.  If this is set, we will use cloud provider
-            /// user settings.
-            /// Supported values:
+            /// access by default.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
 
             /// <summary>Use https to connect to datasource if true, otherwise
-            /// use http
-            /// Supported values:
+            /// use http.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</summary>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
             public const string USE_HTTPS = "use_https";
+
+            /// <summary>Location of Confluent Schema registry in
+            /// '[storage_path[:storage_port]]' format.</summary>
+            public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
+
+            /// <summary>Confluent Schema registry Credential object name.
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CREDENTIAL = "schema_registry_credential";
         } // end struct Options
 
-
-        /// <summary>Name of the data source to be created.  </summary>
+        /// <summary>Name of the data source to be created.</summary>
         public string name { get; set; }
 
         /// <summary>Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// <br />
-        /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka' and 's3'.  </summary>
+        /// </summary>
+        /// <remarks><para> Supported storage provider types are
+        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.</para>
+        /// </remarks>
         public string location { get; set; }
 
         /// <summary>Name of the remote system user; may be an empty string
@@ -517,280 +238,294 @@ namespace kinetica
         public string user_name { get; set; }
 
         /// <summary>Password for the remote system user; may be an empty
-        /// string  </summary>
+        /// string</summary>
         public string password { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to remote
-        /// source.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for connecting to this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for reading from this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the Credential object to be used in
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
         ///         <description>When true (default), the requests URI should
-        /// be specified in virtual-hosted-style format where the bucket name
-        /// is part of the domain name in the URL.
-        /// <br />
-        /// Otherwise set to false to use path-style URI for requests.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
         ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data source, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data source, this is valid only if tenant_id is
+        ///         specified</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data source</description>
+        ///         the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data source</description>
+        ///         storage account to use as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data source</description>
+        ///         as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data source</description>
+        ///         authenticating the data source</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
+        ///         <term><see cref="Options.IS_STREAM">IS_STREAM</see>:</term>
         ///         <description>To load from Azure/GCS/S3 as a stream
-        /// continuously.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         continuously.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
-        /// source</description>
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
         ///         <description>JDBC driver jar file location.  This may be a
-        /// KIFS file.</description>
+        ///         KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
         ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <term><see cref="Options.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Use anonymous connection to storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         provider--DEPRECATED: this is now the default.  Specify
+        ///         use_managed_credentials for non-anonymous connection.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
         ///         <description>Use https to connect to datasource if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         </term>
+        ///         <description>Location of Confluent Schema registry in
+        ///         '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry Credential object
+        ///         name.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateDatasourceRequest object with default
         /// parameters.</summary>
@@ -798,285 +533,300 @@ namespace kinetica
 
         /// <summary>Constructs a CreateDatasourceRequest object with the
         /// specified parameters.</summary>
-        /// 
-        /// <param name="name">Name of the data source to be created.  </param>
+        ///
+        /// <param name="name">Name of the data source to be created.</param>
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka' and 's3'.  </param>
+        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.</param>
         /// <param name="user_name">Name of the remote system user; may be an
-        /// empty string  </param>
+        /// empty string</param>
         /// <param name="password">Password for the remote system user; may be
-        /// an empty string  </param>
+        /// an empty string</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+        ///         </term>
         ///         <description>Bypass validation of connection to remote
-        /// source.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for connecting to this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+        ///         </term>
         ///         <description>Timeout in seconds for reading from this
-        /// storage provider</description>
+        ///         storage provider</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
+        ///         </term>
         ///         <description>Name of the Credential object to be used in
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
         ///         <description>Name of the Amazon S3 bucket to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
-        /// bucket is located</description>
+        ///         bucket is located</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
         ///         <description>When true (default), the requests URI should
-        /// be specified in virtual-hosted-style format where the bucket name
-        /// is part of the domain name in the URL.
-        /// Otherwise set to false to use path-style URI for requests.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
+        ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
-        /// permissions that can be assumed for the given S3 IAM
-        /// user</description>
+        ///         permissions that can be assumed for the given S3 IAM user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
         ///         <description>Customer encryption algorithm used encrypting
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
-        /// data</description>
+        ///         data</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+        ///         </term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user.  This may be a KIFS file.</description>
+        ///         HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
-        ///         <description>Delegation token for the given HDFS
-        /// user</description>
+        ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+        ///         </term>
+        ///         <description>Delegation token for the given HDFS user
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+        ///         </term>
         ///         <description>Use kerberos authentication for the given HDFS
-        /// cluster
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         cluster.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage account to use as
-        /// the data source, this is valid only if tenant_id is
-        /// specified</description>
+        ///         the data source, this is valid only if tenant_id is
+        ///         specified</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Azure storage container to use as
-        /// the data source</description>
+        ///         the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
-        ///         <description>Active Directory tenant ID (or directory
-        /// ID)</description>
+        ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
+        ///         </term>
+        ///         <description>Active Directory tenant ID (or directory ID)
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
+        ///         </term>
         ///         <description>Shared access signature token for Azure
-        /// storage account to use as the data source</description>
+        ///         storage account to use as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
-        ///         <description>Oauth token to access given storage
-        /// container</description>
+        ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+        ///         </term>
+        ///         <description>Oauth token to access given storage container
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Google Cloud Storage bucket to use
-        /// as the data source</description>
+        ///         as the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
         ///         <description>Name of the Google Cloud project to use as the
-        /// data source</description>
+        ///         data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+        ///         </term>
         ///         <description>Google Cloud service account keys to use for
-        /// authenticating the data source</description>
+        ///         authenticating the data source</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
+        ///         <term><see cref="Options.IS_STREAM">IS_STREAM</see>:</term>
         ///         <description>To load from Azure/GCS/S3 as a stream
-        /// continuously.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         continuously.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+        ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
-        /// source</description>
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
         ///         <description>JDBC driver jar file location.  This may be a
-        /// KIFS file.</description>
+        ///         KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
         ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <term><see cref="Options.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Use anonymous connection to storage
-        /// provider--DEPRECATED: this is now the default.  Specify
-        /// use_managed_credentials for non-anonymous connection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         provider--DEPRECATED: this is now the default.  Specify
+        ///         use_managed_credentials for non-anonymous connection.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+        ///         </term>
         ///         <description>When no credentials are supplied, we use
-        /// anonymous access by default.  If this is set, we will use cloud
-        /// provider user settings.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         anonymous access by default.  If this is set, we will use
+        ///         cloud provider user settings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
         ///         <description>Use https to connect to datasource if true,
-        /// otherwise use http
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///         otherwise use http.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         </term>
+        ///         <description>Location of Confluent Schema registry in
+        ///         '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry Credential object
+        ///         name.</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public CreateDatasourceRequest( string name,
                                         string location,
                                         string user_name,
@@ -1089,27 +839,18 @@ namespace kinetica
             this.password = password ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateDatasourceRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createDatasource(string,string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+    /// </summary>
     public class CreateDatasourceResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="CreateDatasourceRequest.name" />.
-        /// </summary>
+        /// <summary>Value of <see
+        /// cref="CreateDatasourceRequest.name">name</see>.</summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateDatasourceResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

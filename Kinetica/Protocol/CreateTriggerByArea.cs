@@ -6,75 +6,70 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createTriggerByArea(string,IList{string},string,IList{double},string,IList{double},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Sets up an area trigger mechanism for two column_names for one or
-    /// more tables. (This function is essentially the two-dimensional version
-    /// of
-    /// <see
-    /// cref="Kinetica.createTriggerByRange(string,IList{string},string,double,double,IDictionary{string, string})"
-    /// />.) Once the trigger has been activated, any
-    /// record added to the listed tables(s) via <see
-    /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-    /// /> with the
-    /// chosen columns' values falling within the specified region will trip
-    /// the
-    /// trigger. All such records will be queued at the trigger port (by
-    /// default '9001'
-    /// but able to be retrieved via <see
-    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />) for
-    /// any listening
-    /// client to collect. Active triggers can be cancelled by using the
-    /// <see cref="Kinetica.clearTrigger(string,IDictionary{string, string})"
-    /// /> endpoint or by clearing all relevant tables.
-    /// <br />
-    /// The output returns the trigger handle as well as indicating success or
-    /// failure
-    /// of the trigger activation.</summary>
+    /// cref="Kinetica.createTriggerByArea(CreateTriggerByAreaRequest)">Kinetica.createTriggerByArea</see>.
+    /// </summary>
+    /// <remarks><para>Sets up an area trigger mechanism for two column_names
+    /// for one or more tables. (This function is essentially the
+    /// two-dimensional version of <see
+    /// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.)
+    /// Once the trigger has been activated, any record added to the listed
+    /// tables(s) via <see
+    /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
+    /// with the chosen columns' values falling within the specified region
+    /// will trip the trigger. All such records will be queued at the trigger
+    /// port (by default '9001' but able to be retrieved via <see
+    /// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>
+    /// endpoint or by clearing all relevant tables.</para>
+    /// <para>The output returns the trigger handle as well as indicating
+    /// success or failure of the trigger activation.</para></remarks>
     public class CreateTriggerByAreaRequest : KineticaData
     {
-
-        /// <summary>User-created ID for the trigger. The ID can be
-        /// alphanumeric, contain symbols, and must contain at least one
-        /// character.  </summary>
+        /// <summary>User-created ID for the trigger.</summary>
+        /// <remarks><para>The ID can be alphanumeric, contain symbols, and
+        /// must contain at least one character.</para></remarks>
         public string request_id { get; set; }
 
         /// <summary>Names of the tables on which the trigger will be activated
         /// and maintained, each in [schema_name.]table_name format, using
         /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>Name of a numeric column on which the trigger is
-        /// activated. Usually 'x' for geospatial data points.  </summary>
+        /// activated.</summary>
+        /// <remarks><para>Usually 'x' for geospatial data points.</para>
+        /// </remarks>
         public string x_column_name { get; set; }
 
         /// <summary>The respective coordinate values for the region on which
-        /// the trigger is activated. This usually translates to the
-        /// x-coordinates of a geospatial region.  </summary>
+        /// the trigger is activated.</summary>
+        /// <remarks><para>This usually translates to the x-coordinates of a
+        /// geospatial region.</para></remarks>
         public IList<double> x_vector { get; set; } = new List<double>();
 
         /// <summary>Name of a second numeric column on which the trigger is
-        /// activated. Usually 'y' for geospatial data points.  </summary>
+        /// activated.</summary>
+        /// <remarks><para>Usually 'y' for geospatial data points.</para>
+        /// </remarks>
         public string y_column_name { get; set; }
 
         /// <summary>The respective coordinate values for the region on which
-        /// the trigger is activated. This usually translates to the
-        /// y-coordinates of a geospatial region. Must be the same length as
-        /// xvals.  </summary>
+        /// the trigger is activated.</summary>
+        /// <remarks><para>This usually translates to the y-coordinates of a
+        /// geospatial region. Must be the same length as xvals.</para>
+        /// </remarks>
         public IList<double> y_vector { get; set; } = new List<double>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a CreateTriggerByAreaRequest object with
         /// default parameters.</summary>
@@ -82,31 +77,30 @@ namespace kinetica
 
         /// <summary>Constructs a CreateTriggerByAreaRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="request_id">User-created ID for the trigger. The ID
         /// can be alphanumeric, contain symbols, and must contain at least one
-        /// character.  </param>
+        /// character.</param>
         /// <param name="table_names">Names of the tables on which the trigger
         /// will be activated and maintained, each in [schema_name.]table_name
         /// format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="x_column_name">Name of a numeric column on which the
         /// trigger is activated. Usually 'x' for geospatial data points.
         /// </param>
         /// <param name="x_vector">The respective coordinate values for the
         /// region on which the trigger is activated. This usually translates
-        /// to the x-coordinates of a geospatial region.  </param>
+        /// to the x-coordinates of a geospatial region.</param>
         /// <param name="y_column_name">Name of a second numeric column on
         /// which the trigger is activated. Usually 'y' for geospatial data
-        /// points.  </param>
+        /// points.</param>
         /// <param name="y_vector">The respective coordinate values for the
         /// region on which the trigger is activated. This usually translates
         /// to the y-coordinates of a geospatial region. Must be the same
-        /// length as xvals.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// length as xvals.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public CreateTriggerByAreaRequest( string request_id,
                                            IList<string> table_names,
                                            string x_column_name,
@@ -123,27 +117,19 @@ namespace kinetica
             this.y_vector = y_vector ?? new List<double>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class CreateTriggerByAreaRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createTriggerByArea(string,IList{string},string,IList{double},string,IList{double},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.createTriggerByArea(CreateTriggerByAreaRequest)">Kinetica.createTriggerByArea</see>.
+    /// </summary>
     public class CreateTriggerByAreaResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="CreateTriggerByAreaRequest.request_id" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="CreateTriggerByAreaRequest.request_id">request_id</see>.
+        /// </summary>
         public string trigger_id { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class CreateTriggerByAreaResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

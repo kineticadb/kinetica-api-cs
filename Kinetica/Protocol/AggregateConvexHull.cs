@@ -6,39 +6,35 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.aggregateConvexHull(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Calculates and returns the convex hull for the values in a table
-    /// specified by <see cref="table_name" />.</summary>
+    /// cref="Kinetica.aggregateConvexHull(AggregateConvexHullRequest)">Kinetica.aggregateConvexHull</see>.
+    /// </summary>
+    /// <remarks><para>Calculates and returns the convex hull for the values in
+    /// a table specified by <see cref="table_name" />.</para></remarks>
     public class AggregateConvexHullRequest : KineticaData
     {
-
         /// <summary>Name of table on which the operation will be performed.
-        /// Must be an existing table, in [schema_name.]table_name format,
-        /// using standard <a
+        /// </summary>
+        /// <remarks><para>Must be an existing table, in
+        /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </summary>
+        /// target="_top">name resolution rules</a>.</para></remarks>
         public string table_name { get; set; }
 
         /// <summary>Name of the column containing the x coordinates of the
-        /// points for the operation being performed.  </summary>
+        /// points for the operation being performed.</summary>
         public string x_column_name { get; set; }
 
         /// <summary>Name of the column containing the y coordinates of the
-        /// points for the operation being performed.  </summary>
+        /// points for the operation being performed.</summary>
         public string y_column_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AggregateConvexHullRequest object with
         /// default parameters.</summary>
@@ -46,21 +42,20 @@ namespace kinetica
 
         /// <summary>Constructs an AggregateConvexHullRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="table_name">Name of table on which the operation will
         /// be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  </param>
+        /// target="_top">name resolution rules</a>.</param>
         /// <param name="x_column_name">Name of the column containing the x
         /// coordinates of the points for the operation being performed.
         /// </param>
         /// <param name="y_column_name">Name of the column containing the y
         /// coordinates of the points for the operation being performed.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public AggregateConvexHullRequest( string table_name,
                                            string x_column_name,
                                            string y_column_name,
@@ -71,17 +66,13 @@ namespace kinetica
             this.y_column_name = y_column_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AggregateConvexHullRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateConvexHull(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.aggregateConvexHull(AggregateConvexHullRequest)">Kinetica.aggregateConvexHull</see>.
+    /// </summary>
     public class AggregateConvexHullResponse : KineticaData
     {
-
         /// <summary>Array of x coordinates of the resulting convex set.
         /// </summary>
         public IList<double> x_vector { get; set; } = new List<double>();
@@ -90,17 +81,12 @@ namespace kinetica
         /// </summary>
         public IList<double> y_vector { get; set; } = new List<double>();
 
-        /// <summary>Count of the number of points in the convex set.
-        /// </summary>
+        /// <summary>Count of the number of points in the convex set.</summary>
         public int count { get; set; }
+
         public bool is_valid { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AggregateConvexHullResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

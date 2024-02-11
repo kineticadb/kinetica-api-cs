@@ -6,63 +6,11 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
     /// @cond NO_DOCS
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageLabels(string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,double,double,double,double,int,int,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// </summary>
     public class VisualizeImageLabelsRequest : KineticaData
     {
-
-        /// <summary>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.
-        /// A set of string constants for the parameter <see cref="projection"
-        /// />.</summary>
         public struct Projection
         {
             public const string EPSG_4326 = "EPSG:4326";
@@ -100,128 +48,11 @@ namespace kinetica
         public double max_y { get; set; }
         public int width { get; set; }
         public int height { get; set; }
-
-        /// <summary>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-
-        /// <summary>Constructs a VisualizeImageLabelsRequest object with
-        /// default parameters.</summary>
         public VisualizeImageLabelsRequest() { }
 
-        /// <summary>Constructs a VisualizeImageLabelsRequest object with the
-        /// specified parameters.</summary>
-        /// 
-        /// <param name="table_name"></param>
-        /// <param name="x_column_name"></param>
-        /// <param name="y_column_name"></param>
-        /// <param name="x_offset"></param>
-        /// <param name="y_offset"></param>
-        /// <param name="text_string"></param>
-        /// <param name="font"></param>
-        /// <param name="text_color"></param>
-        /// <param name="text_angle"></param>
-        /// <param name="text_scale"></param>
-        /// <param name="draw_box"></param>
-        /// <param name="draw_leader"></param>
-        /// <param name="line_width"></param>
-        /// <param name="line_color"></param>
-        /// <param name="fill_color"></param>
-        /// <param name="leader_x_column_name"></param>
-        /// <param name="leader_y_column_name"></param>
-        /// <param name="filter"></param>
-        /// <param name="min_x"></param>
-        /// <param name="max_x"></param>
-        /// <param name="min_y"></param>
-        /// <param name="max_y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="projection">
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeImageLabelsRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
-        /// <param name="options"></param>
-        /// 
         public VisualizeImageLabelsRequest( string table_name,
                                             string x_column_name,
                                             string y_column_name,
@@ -276,16 +107,10 @@ namespace kinetica
             this.projection = projection ?? Projection.PLATE_CARREE;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class VisualizeImageLabelsRequest
     /// @endcond
 
-
-
     /// @cond NO_DOCS
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageLabels(string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,double,double,double,double,int,int,string,IDictionary{string, string})"
-    /// />.</summary>
     public class VisualizeImageLabelsResponse : KineticaData
     {
         public double width { get; set; }
@@ -293,12 +118,6 @@ namespace kinetica
         public long bg_color { get; set; }
         public byte[] image_data { get; set; }
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class VisualizeImageLabelsResponse
     /// @endcond
-
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

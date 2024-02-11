@@ -6,111 +6,72 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.dropEnvironment(string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Drop an existing <a href="../../../concepts/udf/"
-    /// target="_top">user-defined function</a> (UDF) environment.</summary>
+    /// cref="Kinetica.dropEnvironment(DropEnvironmentRequest)">Kinetica.dropEnvironment</see>.
+    /// </summary>
+    /// <remarks><para>Drop an existing <a href="../../../concepts/udf/"
+    /// target="_top">user-defined function</a> (UDF) environment.</para>
+    /// </remarks>
     public class DropEnvironmentRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>true</i> and if the environment
-        /// specified in <paramref
-        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
-        /// no error is returned. If <i>false</i> and if the environment
-        /// specified in <paramref
-        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
-        /// then an error is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i> and if the environment specified in
-            /// <see cref="environment_name" /> does not exist, no error is
-            /// returned. If <i>false</i> and if the environment specified in
-            /// <see cref="environment_name" /> does not exist, then an error
-            /// is returned.
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the
+            /// environment specified in <see cref="environment_name" /> does
+            /// not exist, no error is returned.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="DropEnvironmentRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
-        /// <summary>Name of the environment to be dropped. Must be an existing
-        /// environment.  </summary>
+        /// <summary>Name of the environment to be dropped.</summary>
+        /// <remarks><para>Must be an existing environment.</para></remarks>
         public string environment_name { get; set; }
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>true</i> and if the environment
-        /// specified in <paramref
-        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
-        /// no error is returned. If <i>false</i> and if the environment
-        /// specified in <paramref
-        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
-        /// then an error is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.</description>
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
+        ///         the environment specified in <see cref="environment_name"
+        ///         /> does not exist, no error is returned. If <see
+        ///         cref="Options.FALSE">FALSE</see> and if the environment
+        ///         specified in <see cref="environment_name" /> does not
+        ///         exist, then an error is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a DropEnvironmentRequest object with default
         /// parameters.</summary>
@@ -118,65 +79,55 @@ namespace kinetica
 
         /// <summary>Constructs a DropEnvironmentRequest object with the
         /// specified parameters.</summary>
-        /// 
+        ///
         /// <param name="environment_name">Name of the environment to be
-        /// dropped. Must be an existing environment.  </param>
+        /// dropped. Must be an existing environment.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>true</i> and if the environment
-        /// specified in <paramref
-        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
-        /// no error is returned. If <i>false</i> and if the environment
-        /// specified in <paramref
-        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
-        /// then an error is returned.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
+        ///         the environment specified in <paramref
+        ///         name="environment_name" /> does not exist, no error is
+        ///         returned. If <see cref="Options.FALSE">FALSE</see> and if
+        ///         the environment specified in <paramref
+        ///         name="environment_name" /> does not exist, then an error is
+        ///         returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public DropEnvironmentRequest( string environment_name,
                                        IDictionary<string, string> options = null)
         {
             this.environment_name = environment_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class DropEnvironmentRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.dropEnvironment(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.dropEnvironment(DropEnvironmentRequest)">Kinetica.dropEnvironment</see>.
+    /// </summary>
     public class DropEnvironmentResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref
-        /// cref="DropEnvironmentRequest.environment_name" />.  </summary>
+        /// <summary>Value of <see
+        /// cref="DropEnvironmentRequest.environment_name">environment_name</see>.
+        /// </summary>
         public string environment_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class DropEnvironmentResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

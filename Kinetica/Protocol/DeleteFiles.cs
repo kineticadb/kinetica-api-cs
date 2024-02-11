@@ -6,102 +6,70 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.deleteFiles(IList{string},IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Deletes one or more files from <a href="../../../tools/kifs/"
-    /// target="_top">KiFS</a>.</summary>
+    /// cref="Kinetica.deleteFiles(DeleteFilesRequest)">Kinetica.deleteFiles</see>.
+    /// </summary>
+    /// <remarks><para>Deletes one or more files from <a
+    /// href="../../../tools/kifs/" target="_top">KiFS</a>.</para></remarks>
     public class DeleteFilesRequest : KineticaData
     {
-
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, no error is returned if a
-        /// specified file does not exist
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.
-        /// A set of string constants for the parameter <see cref="options"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-
-            /// <summary>If <i>true</i>, no error is returned if a specified
-            /// file does not exist
-            /// Supported values:
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error is
+            /// returned if a specified file does not exist.</summary>
+            /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see
-            /// cref="DeleteFilesRequest.Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
-            ///         <term><see
-            /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
-            /// The default value is <see
-            /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
+
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
 
-
-        /// <summary>An array of names of files to be deleted. File paths may
-        /// contain wildcard characters after the KiFS directory delimeter.
-        /// <br />
-        /// Accepted wildcard characters are asterisk (*) to represent any
-        /// string of zero or more characters, and question mark (?) to
-        /// indicate a single character.  </summary>
+        /// <summary>An array of names of files to be deleted.</summary>
+        /// <remarks><para>File paths may contain wildcard characters after the
+        /// KiFS directory delimeter.</para>
+        /// <para>Accepted wildcard characters are asterisk (*) to represent
+        /// any string of zero or more characters, and question mark (?) to
+        /// indicate a single character.</para></remarks>
         public IList<string> file_names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.
-        /// <list type="bullet">
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="DeleteFilesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, no error is returned if a
-        /// specified file does not exist
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, no
+        ///         error is returned if a specified file does not exist.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs a DeleteFilesRequest object with default
         /// parameters.</summary>
@@ -109,63 +77,52 @@ namespace kinetica
 
         /// <summary>Constructs a DeleteFilesRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="file_names">An array of names of files to be deleted.
         /// File paths may contain wildcard characters after the KiFS directory
         /// delimeter.
         /// Accepted wildcard characters are asterisk (*) to represent any
         /// string of zero or more characters, and question mark (?) to
-        /// indicate a single character.  </param>
+        /// indicate a single character.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="DeleteFilesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>true</i>, no error is returned if a
-        /// specified file does not exist
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see></term>
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, no
+        ///         error is returned if a specified file does not exist.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
-        /// 
+        /// The default value is an empty Dictionary.</param>
         public DeleteFilesRequest( IList<string> file_names,
                                    IDictionary<string, string> options = null)
         {
             this.file_names = file_names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class DeleteFilesRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.deleteFiles(IList{string},IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.deleteFiles(DeleteFilesRequest)">Kinetica.deleteFiles</see>.
+    /// </summary>
     public class DeleteFilesResponse : KineticaData
     {
-
-        /// <summary>Names of the files deleted from KiFS  </summary>
+        /// <summary>Names of the files deleted from KiFS</summary>
         public IList<string> file_names { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class DeleteFilesResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica

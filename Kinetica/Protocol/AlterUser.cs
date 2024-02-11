@@ -6,101 +6,89 @@
 
 using System.Collections.Generic;
 
-
-
 namespace kinetica
 {
-
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterUser(string,string,string,IDictionary{string, string})"
-    /// />.
-    /// <br />
-    /// Alters a user.</summary>
+    /// cref="Kinetica.alterUser(AlterUserRequest)">Kinetica.alterUser</see>.
+    /// </summary>
+    /// <remarks><para>Alters a user.</para></remarks>
     public class AlterUserRequest : KineticaData
     {
-
-        /// <summary>Modification operation to be applied to the user.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
-        ///         <description>Sets the password of the user. The user must
-        /// be an internal user.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
-        ///         <description>Sets the resource group for an internal user.
-        /// The resource group must exist, otherwise, an empty string assigns
-        /// the user to the default resource group.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:</term>
-        ///         <description>Set the default_schema for an internal user.
-        /// An empty string means the user will have no default
-        /// schema.</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <see cref="action"
-        /// />.</summary>
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="action" />.</summary>
+        /// <remarks><para>Modification operation to be applied to the user.
+        /// </para></remarks>
         public struct Action
         {
+            /// <summary>Sets the comment for an internal user.</summary>
+            public const string SET_COMMENT = "set_comment";
 
-            /// <summary>Sets the password of the user. The user must be an
-            /// internal user.</summary>
+            /// <summary>Sets the password of the user.</summary>
+            /// <remarks><para>The user must be an internal user.</para>
+            /// </remarks>
             public const string SET_PASSWORD = "set_password";
 
-            /// <summary>Sets the resource group for an internal user. The
-            /// resource group must exist, otherwise, an empty string assigns
-            /// the user to the default resource group.</summary>
+            /// <summary>Sets the resource group for an internal user.
+            /// </summary>
+            /// <remarks><para>The resource group must exist, otherwise, an
+            /// empty string assigns the user to the default resource group.
+            /// </para></remarks>
             public const string SET_RESOURCE_GROUP = "set_resource_group";
 
-            /// <summary>Set the default_schema for an internal user. An empty
-            /// string means the user will have no default schema.</summary>
+            /// <summary>Set the default_schema for an internal user.</summary>
+            /// <remarks><para>An empty string means the user will have no
+            /// default schema.</para></remarks>
             public const string SET_DEFAULT_SCHEMA = "set_default_schema";
         } // end struct Action
 
-
-        /// <summary>Name of the user to be altered. Must be an existing user.
-        /// </summary>
+        /// <summary>Name of the user to be altered.</summary>
+        /// <remarks><para>Must be an existing user.</para></remarks>
         public string name { get; set; }
 
         /// <summary>Modification operation to be applied to the user.
-        /// Supported values:
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
+        ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:
+        ///         </term>
+        ///         <description>Sets the comment for an internal user.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.SET_PASSWORD">SET_PASSWORD</see>:
+        ///         </term>
         ///         <description>Sets the password of the user. The user must
-        /// be an internal user.</description>
+        ///         be an internal user.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+        ///         </term>
         ///         <description>Sets the resource group for an internal user.
-        /// The resource group must exist, otherwise, an empty string assigns
-        /// the user to the default resource group.</description>
+        ///         The resource group must exist, otherwise, an empty string
+        ///         assigns the user to the default resource group.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:</term>
+        ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+        ///         </term>
         ///         <description>Set the default_schema for an internal user.
-        /// An empty string means the user will have no default
-        /// schema.</description>
+        ///         An empty string means the user will have no default schema.
+        ///         </description>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></remarks>
         public string action { get; set; }
 
-        /// <summary>The value of the modification, depending on <paramref
-        /// cref="AlterUserRequest.action" />.  </summary>
+        /// <summary>The value of the modification, depending on <see
+        /// cref="action" />.</summary>
         public string _value { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.</summary>
+        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// </remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
 
         /// <summary>Constructs an AlterUserRequest object with default
         /// parameters.</summary>
@@ -108,39 +96,47 @@ namespace kinetica
 
         /// <summary>Constructs an AlterUserRequest object with the specified
         /// parameters.</summary>
-        /// 
+        ///
         /// <param name="name">Name of the user to be altered. Must be an
-        /// existing user.  </param>
+        /// existing user.</param>
         /// <param name="action">Modification operation to be applied to the
         /// user.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
+        ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:
+        ///         </term>
+        ///         <description>Sets the comment for an internal user.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.SET_PASSWORD">SET_PASSWORD</see>:
+        ///         </term>
         ///         <description>Sets the password of the user. The user must
-        /// be an internal user.</description>
+        ///         be an internal user.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+        ///         </term>
         ///         <description>Sets the resource group for an internal user.
-        /// The resource group must exist, otherwise, an empty string assigns
-        /// the user to the default resource group.</description>
+        ///         The resource group must exist, otherwise, an empty string
+        ///         assigns the user to the default resource group.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:</term>
+        ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+        ///         </term>
         ///         <description>Set the default_schema for an internal user.
-        /// An empty string means the user will have no default
-        /// schema.</description>
+        ///         An empty string means the user will have no default schema.
+        ///         </description>
         ///     </item>
-        /// </list>  </param>
+        /// </list></param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref cref="AlterUserRequest.action" />.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
-        /// 
+        /// <paramref name="action" />.</param>
+        /// <param name="options">Optional parameters. The default value is an
+        /// empty Dictionary.</param>
         public AlterUserRequest( string name,
                                  string action,
                                  string _value,
@@ -151,27 +147,18 @@ namespace kinetica
             this._value = _value ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
-
     } // end class AlterUserRequest
 
-
-
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterUser(string,string,string,IDictionary{string, string})"
-    /// />.</summary>
+    /// cref="Kinetica.alterUser(AlterUserRequest)">Kinetica.alterUser</see>.
+    /// </summary>
     public class AlterUserResponse : KineticaData
     {
-
-        /// <summary>Value of <paramref cref="AlterUserRequest.name" />.
+        /// <summary>Value of <see cref="AlterUserRequest.name">name</see>.
         /// </summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
     } // end class AlterUserResponse
-
-
-
-
-}  // end namespace kinetica
+} // end namespace kinetica
