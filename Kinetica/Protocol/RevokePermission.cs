@@ -25,6 +25,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
@@ -83,6 +88,9 @@ namespace kinetica
         /// />.</summary>
         public struct ObjectType
         {
+
+            /// <summary>Context</summary>
+            public const string CONTEXT = "context";
 
             /// <summary>Credential</summary>
             public const string CREDENTIAL = "credential";
@@ -247,6 +255,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
@@ -389,6 +402,11 @@ namespace kinetica
         /// <param name="object_type">The type of object being revoked
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>

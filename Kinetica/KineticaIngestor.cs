@@ -206,7 +206,7 @@ namespace kinetica
         {
             foreach ( Utils.WorkerQueue<T> worker_queue in this.worker_queues )
             {
-                // Flush the the queue
+                // Flush the queue
                 IList<T> queue = worker_queue.flush();
                 // Actually insert the records
                 flush( queue, worker_queue.url );

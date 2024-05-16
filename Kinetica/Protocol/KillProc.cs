@@ -30,6 +30,27 @@ namespace kinetica
         /// instance(s) where a matching run tag was provided to /execute/proc.
         /// The default value is ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.CLEAR_EXECUTE_AT_STARTUP">CLEAR_EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, kill and remove the instance
+        /// of the proc matching the auto-start run ID that was created to run
+        /// when the database is started. The auto-start run ID was returned
+        /// from /execute/proc and can be retrieved using /show/proc.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -46,6 +67,31 @@ namespace kinetica
             /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
             /// />.  The default value is ''.</summary>
             public const string RUN_TAG = "run_tag";
+
+            /// <summary>If <i>true</i>, kill and remove the instance of the
+            /// proc matching the auto-start run ID that was created to run
+            /// when the database is started. The auto-start run ID was
+            /// returned from <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// /> and can be retrieved using <see
+            /// cref="Kinetica.showProc(string,IDictionary{string, string})"
+            /// />.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="KillProcRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="KillProcRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="KillProcRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CLEAR_EXECUTE_AT_STARTUP = "clear_execute_at_startup";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
 
@@ -66,6 +112,27 @@ namespace kinetica
         /// cref="KillProcRequest.run_id" /> is not specified, kill the proc
         /// instance(s) where a matching run tag was provided to /execute/proc.
         /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.CLEAR_EXECUTE_AT_STARTUP">CLEAR_EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, kill and remove the instance
+        /// of the proc matching the auto-start run ID that was created to run
+        /// when the database is started. The auto-start run ID was returned
+        /// from /execute/proc and can be retrieved using /show/proc.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -95,6 +162,27 @@ namespace kinetica
         /// cref="KillProcRequest.run_id" /> is not specified, kill the proc
         /// instance(s) where a matching run tag was provided to /execute/proc.
         /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.CLEAR_EXECUTE_AT_STARTUP">CLEAR_EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, kill and remove the instance
+        /// of the proc matching the auto-start run ID that was created to run
+        /// when the database is started. The auto-start run ID was returned
+        /// from /execute/proc and can be retrieved using /show/proc.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

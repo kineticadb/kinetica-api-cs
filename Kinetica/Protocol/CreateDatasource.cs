@@ -289,6 +289,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:</term>
+        ///         <description>Location of Confluent Schema registry in
+        /// '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:</term>
+        ///         <description>Confluent Schema registry Credential object
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:</term>
+        ///         <description>Confluent Schema registry port
+        /// (optional).</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -499,6 +517,17 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</summary>
             public const string USE_HTTPS = "use_https";
+
+            /// <summary>Location of Confluent Schema registry in
+            /// '[storage_path[:storage_port]]' format.</summary>
+            public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
+
+            /// <summary>Confluent Schema registry Credential object
+            /// name.</summary>
+            public const string SCHEMA_REGISTRY_CREDENTIAL = "schema_registry_credential";
+
+            /// <summary>Confluent Schema registry port (optional).</summary>
+            public const string SCHEMA_REGISTRY_PORT = "schema_registry_port";
         } // end struct Options
 
 
@@ -509,7 +538,8 @@ namespace kinetica
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// <br />
         /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka' and 's3'.  </summary>
+        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.
+        /// </summary>
         public string location { get; set; }
 
         /// <summary>Name of the remote system user; may be an empty string
@@ -787,6 +817,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:</term>
+        ///         <description>Location of Confluent Schema registry in
+        /// '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:</term>
+        ///         <description>Confluent Schema registry Credential object
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:</term>
+        ///         <description>Confluent Schema registry port
+        /// (optional).</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -803,7 +851,8 @@ namespace kinetica
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka' and 's3'.  </param>
+        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.
+        /// </param>
         /// <param name="user_name">Name of the remote system user; may be an
         /// empty string  </param>
         /// <param name="password">Password for the remote system user; may be
@@ -1073,6 +1122,24 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:</term>
+        ///         <description>Location of Confluent Schema registry in
+        /// '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:</term>
+        ///         <description>Confluent Schema registry Credential object
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:</term>
+        ///         <description>Confluent Schema registry port
+        /// (optional).</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

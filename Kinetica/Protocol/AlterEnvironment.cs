@@ -27,7 +27,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
+        ///         <description>Install a python package from PyPI, an
+        /// external data source or KiFS</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -52,13 +53,21 @@ namespace kinetica
         ///         <description>Uninstalls all packages in the environment and
         /// resets it to the original state at time of creation</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.REBUILD">REBUILD</see>:</term>
+        ///         <description>Recreates the environment and re-installs all
+        /// packages, upgrades the packages if necessary based on
+        /// dependencies</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
         public struct Action
         {
 
-            /// <summary>Install a python package</summary>
+            /// <summary>Install a python package from PyPI, an external data
+            /// source or KiFS</summary>
             public const string INSTALL_PACKAGE = "install_package";
 
             /// <summary>Install packages from a requirements file</summary>
@@ -73,6 +82,11 @@ namespace kinetica
             /// <summary>Uninstalls all packages in the environment and resets
             /// it to the original state at time of creation</summary>
             public const string RESET = "reset";
+
+            /// <summary>Recreates the environment and re-installs all
+            /// packages, upgrades the packages if necessary based on
+            /// dependencies</summary>
+            public const string REBUILD = "rebuild";
         } // end struct Action
 
 
@@ -109,7 +123,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
+        ///         <description>Install a python package from PyPI, an
+        /// external data source or KiFS</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -133,6 +148,13 @@ namespace kinetica
         /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
         ///         <description>Uninstalls all packages in the environment and
         /// resets it to the original state at time of creation</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.REBUILD">REBUILD</see>:</term>
+        ///         <description>Recreates the environment and re-installs all
+        /// packages, upgrades the packages if necessary based on
+        /// dependencies</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -183,7 +205,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
+        ///         <description>Install a python package from PyPI, an
+        /// external data source or KiFS</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -207,6 +230,13 @@ namespace kinetica
         /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
         ///         <description>Uninstalls all packages in the environment and
         /// resets it to the original state at time of creation</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.REBUILD">REBUILD</see>:</term>
+        ///         <description>Recreates the environment and re-installs all
+        /// packages, upgrades the packages if necessary based on
+        /// dependencies</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on

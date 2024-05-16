@@ -24,6 +24,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:</term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
         ///         <description>Execute access to the proc.</description>
         ///     </item>
@@ -32,6 +37,9 @@ namespace kinetica
         /// />.</summary>
         public struct Permission
         {
+
+            /// <summary>Admin access to the proc.</summary>
+            public const string PROC_ADMIN = "proc_admin";
 
             /// <summary>Execute access to the proc.</summary>
             public const string PROC_EXECUTE = "proc_execute";
@@ -45,6 +53,11 @@ namespace kinetica
         /// <summary>Permission to grant to the user or role.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:</term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
@@ -75,6 +88,11 @@ namespace kinetica
         /// <param name="permission">Permission to grant to the user or role.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:</term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>

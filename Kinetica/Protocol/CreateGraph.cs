@@ -221,6 +221,26 @@ namespace kinetica
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -374,6 +394,24 @@ namespace kinetica
             /// separate label onto the specified edge.  The default value is
             /// ''.</summary>
             public const string LABEL_DELIMITER = "label_delimiter";
+
+            /// <summary>Multigraph choice; allowing multiple edges with the
+            /// same node pairs if set to true, otherwise, new edges with
+            /// existing same node pairs will not be inserted.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string ALLOW_MULTIPLE_EDGES = "allow_multiple_edges";
         } // end struct Options
 
 
@@ -638,6 +676,26 @@ namespace kinetica
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -901,6 +959,26 @@ namespace kinetica
         /// according to this delimiter and each sub-string will be applied as
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

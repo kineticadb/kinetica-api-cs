@@ -27,7 +27,7 @@ namespace kinetica
     /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
     /// Tutorial</a>,
     /// and/or some
-    /// <a href="../../../guide-tags/graph-match/" target="_top">/match/graph
+    /// <a href="../../../guide-tags/graph---match/" target="_top">/match/graph
     /// examples</a>
     /// before using this endpoint.</summary>
     public class MatchGraphRequest : KineticaData
@@ -106,6 +106,11 @@ namespace kinetica
         ///         <description>Matches the graph nodes with a cluster index
         /// using Louvain clustering algorithm</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:</term>
+        ///         <description>Matches a pattern in the graph</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -163,6 +168,9 @@ namespace kinetica
             /// <summary>Matches the graph nodes with a cluster index using
             /// Louvain clustering algorithm</summary>
             public const string MATCH_CLUSTERS = "match_clusters";
+
+            /// <summary>Matches a pattern in the graph</summary>
+            public const string MATCH_PATTERN = "match_pattern";
         } // end struct SolveMethod
 
 
@@ -701,6 +709,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
+        ///         <description>For the <i>match_pattern</i> solver only.
+        /// Pattern matching will be using both pattern and graph as undirected
+        /// if set to true.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1184,6 +1212,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PAIRED_SIMILARITY = "paired_similarity";
+
+            /// <summary>For the <i>match_pattern</i> solver only. Pattern
+            /// matching will be using both pattern and graph as undirected if
+            /// set to true.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string FORCE_UNDIRECTED = "force_undirected";
         } // end struct Options
 
 
@@ -1280,6 +1326,11 @@ namespace kinetica
         /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
         ///         <description>Matches the graph nodes with a cluster index
         /// using Louvain clustering algorithm</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:</term>
+        ///         <description>Matches a pattern in the graph</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1838,6 +1889,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
+        ///         <description>For the <i>match_pattern</i> solver only.
+        /// Pattern matching will be using both pattern and graph as undirected
+        /// if set to true.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1941,6 +2012,11 @@ namespace kinetica
         /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
         ///         <description>Matches the graph nodes with a cluster index
         /// using Louvain clustering algorithm</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:</term>
+        ///         <description>Matches a pattern in the graph</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2494,6 +2570,26 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
+        ///         <description>For the <i>match_pattern</i> solver only.
+        /// Pattern matching will be using both pattern and graph as undirected
+        /// if set to true.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

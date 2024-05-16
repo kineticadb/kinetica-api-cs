@@ -214,6 +214,26 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DOT">DOT</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
@@ -520,6 +540,26 @@ namespace kinetica
             ///         <term><see
             /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.DASH">DASH</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.PIPE">PIPE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.PLUS">PLUS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.DOT">DOT</see></term>
+            ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</summary>
@@ -532,6 +572,11 @@ namespace kinetica
             public const string HOLLOWSQUARE = "hollowsquare";
             public const string HOLLOWDIAMOND = "hollowdiamond";
             public const string SYMBOLCODE = "symbolcode";
+            public const string DASH = "dash";
+            public const string PIPE = "pipe";
+            public const string PLUS = "plus";
+            public const string HOLLOWSQUAREWITHPLUS = "hollowsquarewithplus";
+            public const string DOT = "dot";
 
             /// <summary>  The default value is '0'.</summary>
             public const string SYMBOLROTATIONS = "symbolrotations";
@@ -904,6 +949,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DOT">DOT</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1319,6 +1384,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DOT">DOT</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

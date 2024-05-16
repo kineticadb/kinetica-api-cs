@@ -21,7 +21,7 @@ namespace kinetica
     /// IMPORTANT: It's highly recommended that you review the
     /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
-    /// concepts documentation and
+    /// concepts documentation, and
     /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
     /// Tutorial</a>
     /// before using this endpoint.</summary>
@@ -212,6 +212,34 @@ namespace kinetica
         /// The default value is <see
         /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -384,6 +412,30 @@ namespace kinetica
             /// The default value is <see
             /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string USE_RTREE = "use_rtree";
+
+            /// <summary>If provided the label string will be split according
+            /// to this delimiter and each sub-string will be applied as a
+            /// separate label onto the specified edge.  The default value is
+            /// ''.</summary>
+            public const string LABEL_DELIMITER = "label_delimiter";
+
+            /// <summary>Multigraph choice; allowing multiple edges with the
+            /// same node pairs if set to true, otherwise, new edges with
+            /// existing same node pairs will not be inserted.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string ALLOW_MULTIPLE_EDGES = "allow_multiple_edges";
         } // end struct Options
 
 
@@ -643,6 +695,34 @@ namespace kinetica
         /// cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:</term>
         ///         <description>Use an range tree structure to accelerate and
         /// improve the accuracy of snapping, especially to edges.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -917,6 +997,34 @@ namespace kinetica
         /// cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:</term>
         ///         <description>Use an range tree structure to accelerate and
         /// improve the accuracy of snapping, especially to edges.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

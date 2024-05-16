@@ -25,6 +25,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data
         /// source</description>
@@ -34,6 +40,9 @@ namespace kinetica
         /// />.</summary>
         public struct Permission
         {
+
+            /// <summary>Admin access on the given data source</summary>
+            public const string ADMIN = "admin";
 
             /// <summary>Connect access on the given data source</summary>
             public const string CONNECT = "connect";
@@ -47,6 +56,12 @@ namespace kinetica
         /// <summary>Permission to grant to the user or role
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>
@@ -78,6 +93,12 @@ namespace kinetica
         /// <param name="permission">Permission to grant to the user or role
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>

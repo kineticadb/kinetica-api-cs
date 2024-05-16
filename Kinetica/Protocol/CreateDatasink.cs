@@ -98,6 +98,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:</term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:</term>
+        ///         <description>KMS key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasinkRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user.  This may be a KIFS file.</description>
@@ -347,6 +357,12 @@ namespace kinetica
             /// data</summary>
             public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
 
+            /// <summary>Server side encryption type</summary>
+            public const string S3_ENCRYPTION_TYPE = "s3_encryption_type";
+
+            /// <summary>KMS key</summary>
+            public const string S3_KMS_KEY_ID = "s3_kms_key_id";
+
             /// <summary>Kerberos keytab file location for the given HDFS user.
             /// This may be a KIFS file.</summary>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
@@ -577,6 +593,16 @@ namespace kinetica
         /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
         ///         <description>Customer encryption key to encrypt or decrypt
         /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:</term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:</term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -856,6 +882,16 @@ namespace kinetica
         /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
         ///         <description>Customer encryption key to encrypt or decrypt
         /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:</term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:</term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see

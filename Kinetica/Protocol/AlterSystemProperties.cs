@@ -117,7 +117,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
+        /// results. Value string is a semicolon separated list of
         /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
         /// test; message_size=[bytes] where bytes is the size in bytes of the
@@ -151,6 +151,11 @@ namespace kinetica
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call.  The default value is
         /// '20000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -272,6 +277,39 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the
         /// conf.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:</term>
+        ///         <description>AI API provider type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
+        ///         <description>AI API URL</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
+        ///         <description>AI API key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>AI API connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>Idle connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:</term>
+        ///         <description>Enable  postgres proxy keep alive.  The
+        /// default value is 'false'.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -347,7 +385,7 @@ namespace kinetica
             public const string CLEAR_CACHE = "clear_cache";
 
             /// <summary>Invoke the communicator test and report timing
-            /// results. Value string is is a semicolon separated list of
+            /// results. Value string is a semicolon separated list of
             /// [key]=[value] expressions.  Expressions are:
             /// num_transactions=[num] where num is the number of request reply
             /// transactions to invoke per test; message_size=[bytes] where
@@ -379,6 +417,9 @@ namespace kinetica
             /// for a given data retrieval call.  The default value is
             /// '20000'.</summary>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
+
+            /// <summary><DEVELOPER></summary>
+            public const string MAX_GRBC_BATCH_SIZE = "max_grbc_batch_size";
 
             /// <summary>Enable or disable auditing.</summary>
             public const string ENABLE_AUDIT = "enable_audit";
@@ -464,6 +505,25 @@ namespace kinetica
 
             /// <summary>Sets the tps_per_tom value of the conf.</summary>
             public const string TPS_PER_TOM = "tps_per_tom";
+
+            /// <summary>AI API provider type</summary>
+            public const string AI_API_PROVIDER = "ai_api_provider";
+
+            /// <summary>AI API URL</summary>
+            public const string AI_API_URL = "ai_api_url";
+
+            /// <summary>AI API key</summary>
+            public const string AI_API_KEY = "ai_api_key";
+
+            /// <summary>AI API connection timeout in seconds</summary>
+            public const string AI_API_CONNECTION_TIMEOUT = "ai_api_connection_timeout";
+
+            /// <summary>Idle connection timeout in seconds</summary>
+            public const string POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT = "postgres_proxy_idle_connection_timeout";
+
+            /// <summary>Enable  postgres proxy keep alive.  The default value
+            /// is 'false'.</summary>
+            public const string POSTGRES_PROXY_KEEP_ALIVE = "postgres_proxy_keep_alive";
         } // end struct PropertyUpdatesMap
 
 
@@ -646,7 +706,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
+        /// results. Value string is a semicolon separated list of
         /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
         /// test; message_size=[bytes] where bytes is the size in bytes of the
@@ -680,6 +740,11 @@ namespace kinetica
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call.  The default value is
         /// '20000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -800,6 +865,39 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
         ///         <description>Sets the tps_per_tom value of the
         /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:</term>
+        ///         <description>AI API provider type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
+        ///         <description>AI API URL</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
+        ///         <description>AI API key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>AI API connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>Idle connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:</term>
+        ///         <description>Enable  postgres proxy keep alive.  The
+        /// default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -950,7 +1048,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
+        /// results. Value string is a semicolon separated list of
         /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
         /// test; message_size=[bytes] where bytes is the size in bytes of the
@@ -984,6 +1082,11 @@ namespace kinetica
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call.  The default value is
         /// '20000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1104,6 +1207,39 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
         ///         <description>Sets the tps_per_tom value of the
         /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:</term>
+        ///         <description>AI API provider type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
+        ///         <description>AI API URL</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
+        ///         <description>AI API key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>AI API connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>Idle connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:</term>
+        ///         <description>Enable  postgres proxy keep alive.  The
+        /// default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>

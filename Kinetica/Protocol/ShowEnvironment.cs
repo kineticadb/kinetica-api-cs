@@ -82,8 +82,8 @@ namespace kinetica
         /// <summary>Name of the environment on which to retrieve information.
         /// The name must refer to a currently existing environment. If '*' or
         /// an empty value is specified, information about all environments
-        /// will be returned.  </summary>
-        public string environment_name { get; set; }
+        /// will be returned.  The default value is ''.</summary>
+        public string environment_name { get; set; } = "";
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
@@ -126,7 +126,8 @@ namespace kinetica
         /// <param name="environment_name">Name of the environment on which to
         /// retrieve information. The name must refer to a currently existing
         /// environment. If '*' or an empty value is specified, information
-        /// about all environments will be returned.  </param>
+        /// about all environments will be returned.  The default value is
+        /// ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -156,7 +157,7 @@ namespace kinetica
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
-        public ShowEnvironmentRequest( string environment_name,
+        public ShowEnvironmentRequest( string environment_name = null,
                                        IDictionary<string, string> options = null)
         {
             this.environment_name = environment_name ?? "";

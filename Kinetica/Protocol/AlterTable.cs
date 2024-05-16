@@ -26,13 +26,15 @@ namespace kinetica
     /// <br />
     /// External tables cannot be modified except for their refresh method.
     /// <br />
-    /// Create or delete an <a href="../../../concepts/indexes/#column-index"
-    /// target="_top">index</a> on a
-    /// particular column. This can speed up certain operations when using
-    /// expressions
-    /// containing equality or relational operators on indexed columns. This
-    /// only
-    /// applies to tables.
+    /// Create or delete a <a href="../../../concepts/indexes/#column-index"
+    /// target="_top">column</a>,
+    /// <a href="../../../concepts/indexes/#chunk-skip-index"
+    /// target="_top">chunk skip</a>, or
+    /// <a href="../../../concepts/indexes/#geospatial-index"
+    /// target="_top">geospatial</a> index. This can speed up
+    /// certain operations when using expressions containing equality or
+    /// relational
+    /// operators on indexed columns. This only applies to tables.
     /// <br />
     /// Create or delete a <a href="../../../concepts/tables/#foreign-key"
     /// target="_top">foreign key</a>
@@ -82,26 +84,32 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates either a <a
+        ///         <description>Creates a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column already has the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes either a <a
+        ///         <description>Deletes a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column does not have the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -116,10 +124,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
+        /// <paramref cref="AlterTableRequest._value" />.
+        /// If the schema provided is nonexistent, an error will be thrown.
+        /// If <paramref cref="AlterTableRequest._value" /> is empty, then the
+        /// table or view will be placed in the user's default
+        /// schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -150,24 +159,26 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// <paramref cref="AlterTableRequest.table_name" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" />
+        /// to set the column's type and properties,
+        /// respectively.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
         ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set
+        /// the column's type and properties, respectively. Note that primary
+        /// key and/or shard key columns cannot be changed.
+        /// All unchanging column properties must be listed for the change to
+        /// take place, e.g., to add dictionary encoding to
+        /// an existing 'char4' column, both 'char4' and 'dict' must be
+        /// specified in the <paramref cref="AlterTableRequest.options" />
+        /// map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -338,21 +349,21 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
+        /// subscription. The data source can be Kafka / S3 /
         /// Azure.</description>
         ///     </item>
         ///     <item>
@@ -370,24 +381,30 @@ namespace kinetica
             /// <summary>No longer supported; action will be ignored.</summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
-            /// <summary>Creates either a <a
+            /// <summary>Creates a <a
             /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a> or <a
-            /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>, depending on the specified
-            /// <i>index_type</i>, on the column name specified in <see
-            /// cref="_value" />. If this column already has the specified
-            /// index, an error will be returned.</summary>
+            /// target="_top">column (attribute) index</a>,
+            /// <a href="../../../concepts/indexes/#chunk-skip-index"
+            /// target="_top">chunk skip index</a>, or
+            /// <a href="../../../concepts/indexes/#geospatial-index"
+            /// target="_top">geospatial index</a>
+            /// (depending on the specified <i>index_type</i>), on the column
+            /// name specified in <see cref="_value" />.
+            /// If this column already has the specified index, an error will
+            /// be returned.</summary>
             public const string CREATE_INDEX = "create_index";
 
-            /// <summary>Deletes either a <a
+            /// <summary>Deletes a <a
             /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a> or <a
-            /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>, depending on the specified
-            /// <i>index_type</i>, on the column name specified in <see
-            /// cref="_value" />. If this column does not have the specified
-            /// index, an error will be returned.</summary>
+            /// target="_top">column (attribute) index</a>,
+            /// <a href="../../../concepts/indexes/#chunk-skip-index"
+            /// target="_top">chunk skip index</a>, or
+            /// <a href="../../../concepts/indexes/#geospatial-index"
+            /// target="_top">geospatial index</a>
+            /// (depending on the specified <i>index_type</i>), on the column
+            /// name specified in <see cref="_value" />.
+            /// If this column does not have the specified index, an error will
+            /// be returned.</summary>
             public const string DELETE_INDEX = "delete_index";
 
             /// <summary>[DEPRECATED--please use <i>move_to_schema</i> and use
@@ -400,10 +417,10 @@ namespace kinetica
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
             /// <summary>Moves a table or view into a schema named <see
-            /// cref="_value" />.  If the schema provided is nonexistent, an
-            /// error will be thrown. If <see cref="_value" /> is empty, then
-            /// the table or view will be placed in the user's default
-            /// schema.</summary>
+            /// cref="_value" />.
+            /// If the schema provided is nonexistent, an error will be thrown.
+            /// If <see cref="_value" /> is empty, then the table or view will
+            /// be placed in the user's default schema.</summary>
             public const string MOVE_TO_SCHEMA = "move_to_schema";
 
             /// <summary>No longer used.  Previously set whether the given <see
@@ -424,21 +441,23 @@ namespace kinetica
             public const string TTL = "ttl";
 
             /// <summary>Adds the column specified in <see cref="_value" /> to
-            /// the table specified in <see cref="table_name" />.  Use
-            /// <i>column_type</i> and <i>column_properties</i> in <see
-            /// cref="options" /> to set the column's type and properties,
+            /// the table specified in <see cref="table_name" />.
+            /// Use <i>column_type</i> and <i>column_properties</i> in <see
+            /// cref="options" />
+            /// to set the column's type and properties,
             /// respectively.</summary>
             public const string ADD_COLUMN = "add_column";
 
             /// <summary>Changes type and properties of the column specified in
-            /// <see cref="_value" />.  Use <i>column_type</i> and
-            /// <i>column_properties</i> in <see cref="options" /> to set the
-            /// column's type and properties, respectively. Note that primary
-            /// key and/or shard key columns cannot be changed. All unchanging
-            /// column properties must be listed for the change to take place,
-            /// e.g., to add dictionary encoding to an existing 'char4' column,
-            /// both 'char4' and 'dict' must be specified in the <see
-            /// cref="options" /> map.</summary>
+            /// <see cref="_value" />.
+            /// Use <i>column_type</i> and <i>column_properties</i> in <see
+            /// cref="options" /> to set
+            /// the column's type and properties, respectively. Note that
+            /// primary key and/or shard key columns cannot be changed.
+            /// All unchanging column properties must be listed for the change
+            /// to take place, e.g., to add dictionary encoding to
+            /// an existing 'char4' column, both 'char4' and 'dict' must be
+            /// specified in the <see cref="options" /> map.</summary>
             public const string CHANGE_COLUMN = "change_column";
 
             /// <summary>No longer supported; action will be ignored.</summary>
@@ -566,17 +585,17 @@ namespace kinetica
             public const string SET_STRATEGY_DEFINITION = "set_strategy_definition";
 
             /// <summary>Permanently unsubscribe a data source that is loading
-            /// continuously as a stream. The data source can be kafka / S3 /
+            /// continuously as a stream. The data source can be Kafka / S3 /
             /// Azure.</summary>
             public const string CANCEL_DATASOURCE_SUBSCRIPTION = "cancel_datasource_subscription";
 
             /// <summary>Temporarily unsubscribe a data source that is loading
-            /// continuously as a stream. The data source can be kafka / S3 /
+            /// continuously as a stream. The data source can be Kafka / S3 /
             /// Azure.</summary>
             public const string PAUSE_DATASOURCE_SUBSCRIPTION = "pause_datasource_subscription";
 
             /// <summary>Resubscribe to a paused data source subscription. The
-            /// data source can be kafka / S3 / Azure.</summary>
+            /// data source can be Kafka / S3 / Azure.</summary>
             public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
 
             /// <summary>Change the owner resource group of the
@@ -731,8 +750,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
         ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>,
+        /// or to delete, when <paramref cref="AlterTableRequest.action" /> is
         /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
@@ -889,8 +908,9 @@ namespace kinetica
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>Type of index to create, when <see cref="action" /> is
-            /// <i>create_index</i>, or to delete, when <see cref="action" />
-            /// is <i>delete_index</i>.
+            /// <i>create_index</i>,
+            /// or to delete, when <see cref="action" /> is
+            /// <i>delete_index</i>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -934,10 +954,11 @@ namespace kinetica
 
 
         /// <summary>Table on which the operation will be performed, in
-        /// [schema_name.]table_name format, using standard <a
+        /// [schema_name.]table_name format,
+        /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// or view.  </summary>
+        /// target="_top">name resolution rules</a>.
+        /// Must be an existing table or view.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Modification operation to be applied
@@ -952,26 +973,32 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates either a <a
+        ///         <description>Creates a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column already has the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes either a <a
+        ///         <description>Deletes a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column does not have the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -986,10 +1013,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
+        /// <paramref cref="AlterTableRequest._value" />.
+        /// If the schema provided is nonexistent, an error will be thrown.
+        /// If <paramref cref="AlterTableRequest._value" /> is empty, then the
+        /// table or view will be placed in the user's default
+        /// schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1020,24 +1048,26 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// <paramref cref="AlterTableRequest.table_name" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" />
+        /// to set the column's type and properties,
+        /// respectively.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
         ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set
+        /// the column's type and properties, respectively. Note that primary
+        /// key and/or shard key columns cannot be changed.
+        /// All unchanging column properties must be listed for the change to
+        /// take place, e.g., to add dictionary encoding to
+        /// an existing 'char4' column, both 'char4' and 'dict' must be
+        /// specified in the <paramref cref="AlterTableRequest.options" />
+        /// map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1208,21 +1238,21 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
+        /// subscription. The data source can be Kafka / S3 /
         /// Azure.</description>
         ///     </item>
         ///     <item>
@@ -1235,16 +1265,18 @@ namespace kinetica
         public string action { get; set; }
 
         /// <summary>The value of the modification, depending on <paramref
-        /// cref="AlterTableRequest.action" />.  For example, if <paramref
-        /// cref="AlterTableRequest.action" /> is <i>add_column</i>, this would
-        /// be the column name; while the column's definition would be covered
-        /// by the <i>column_type</i>, <i>column_properties</i>,
-        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
-        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
-        /// number of minutes for the new TTL. If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
-        /// would be blank.  </summary>
+        /// cref="AlterTableRequest.action" />.
+        /// For example, if <paramref cref="AlterTableRequest.action" /> is
+        /// <i>add_column</i>, this would be the column name;
+        /// while the column's definition would be covered by the
+        /// <i>column_type</i>,
+        /// <i>column_properties</i>, <i>column_default_value</i>,
+        /// and <i>add_column_expression</i> in <paramref
+        /// cref="AlterTableRequest.options" />.
+        /// If <paramref cref="AlterTableRequest.action" /> is <i>ttl</i>, it
+        /// would be the number of minutes for the new TTL.
+        /// If <paramref cref="AlterTableRequest.action" /> is <i>refresh</i>,
+        /// this field would be blank.  </summary>
         public string _value { get; set; }
 
         /// <summary>Optional parameters.
@@ -1393,8 +1425,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
         ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>,
+        /// or to delete, when <paramref cref="AlterTableRequest.action" /> is
         /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
@@ -1435,10 +1467,11 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
-        /// performed, in [schema_name.]table_name format, using standard <a
+        /// performed, in [schema_name.]table_name format,
+        /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// or view.  </param>
+        /// target="_top">name resolution rules</a>.
+        /// Must be an existing table or view.  </param>
         /// <param name="action">Modification operation to be applied
         /// Supported values:
         /// <list type="bullet">
@@ -1451,26 +1484,32 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates either a <a
+        ///         <description>Creates a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column already has the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes either a <a
+        ///         <description>Deletes a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column does not have the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1485,10 +1524,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
+        /// <paramref cref="AlterTableRequest._value" />.
+        /// If the schema provided is nonexistent, an error will be thrown.
+        /// If <paramref cref="AlterTableRequest._value" /> is empty, then the
+        /// table or view will be placed in the user's default
+        /// schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1519,24 +1559,26 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// <paramref cref="AlterTableRequest.table_name" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" />
+        /// to set the column's type and properties,
+        /// respectively.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
         ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set
+        /// the column's type and properties, respectively. Note that primary
+        /// key and/or shard key columns cannot be changed.
+        /// All unchanging column properties must be listed for the change to
+        /// take place, e.g., to add dictionary encoding to
+        /// an existing 'char4' column, both 'char4' and 'dict' must be
+        /// specified in the <paramref cref="AlterTableRequest.options" />
+        /// map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1707,21 +1749,21 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
+        /// subscription. The data source can be Kafka / S3 /
         /// Azure.</description>
         ///     </item>
         ///     <item>
@@ -1732,16 +1774,18 @@ namespace kinetica
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref cref="AlterTableRequest.action" />.  For example, if
-        /// <paramref cref="AlterTableRequest.action" /> is <i>add_column</i>,
-        /// this would be the column name; while the column's definition would
-        /// be covered by the <i>column_type</i>, <i>column_properties</i>,
-        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
-        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
-        /// number of minutes for the new TTL. If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
-        /// would be blank.  </param>
+        /// <paramref cref="AlterTableRequest.action" />.
+        /// For example, if <paramref cref="AlterTableRequest.action" /> is
+        /// <i>add_column</i>, this would be the column name;
+        /// while the column's definition would be covered by the
+        /// <i>column_type</i>,
+        /// <i>column_properties</i>, <i>column_default_value</i>,
+        /// and <i>add_column_expression</i> in <paramref
+        /// cref="AlterTableRequest.options" />.
+        /// If <paramref cref="AlterTableRequest.action" /> is <i>ttl</i>, it
+        /// would be the number of minutes for the new TTL.
+        /// If <paramref cref="AlterTableRequest.action" /> is <i>refresh</i>,
+        /// this field would be blank.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1888,8 +1932,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
         ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>,
+        /// or to delete, when <paramref cref="AlterTableRequest.action" /> is
         /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">

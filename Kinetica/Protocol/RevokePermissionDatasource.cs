@@ -25,6 +25,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data
         /// source</description>
@@ -34,6 +40,9 @@ namespace kinetica
         /// />.</summary>
         public struct Permission
         {
+
+            /// <summary>Admin access on the given data source</summary>
+            public const string ADMIN = "admin";
 
             /// <summary>Connect access on the given data source</summary>
             public const string CONNECT = "connect";
@@ -47,6 +56,12 @@ namespace kinetica
         /// <summary>Permission to revoke from the user or role
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>
@@ -79,6 +94,12 @@ namespace kinetica
         /// <param name="permission">Permission to revoke from the user or role
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>

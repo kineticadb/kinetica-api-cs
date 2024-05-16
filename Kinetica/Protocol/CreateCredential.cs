@@ -71,6 +71,10 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.CONFLUENT">CONFLUENT</see></term>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="type"
         /// />.</summary>
@@ -88,6 +92,7 @@ namespace kinetica
             public const string HDFS = "hdfs";
             public const string JDBC = "jdbc";
             public const string KAFKA = "kafka";
+            public const string CONFLUENT = "confluent";
         } // end struct Type
 
 
@@ -146,6 +151,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.CONFLUENT">CONFLUENT</see></term>
         ///     </item>
         /// </list>  </summary>
         public string type { get; set; }
@@ -222,6 +231,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.CONFLUENT">CONFLUENT</see></term>
         ///     </item>
         /// </list>  </param>
         /// <param name="identity">User of the credential to be created.

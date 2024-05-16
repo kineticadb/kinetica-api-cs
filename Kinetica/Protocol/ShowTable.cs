@@ -90,6 +90,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:</term>
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise. This version will return the sizes cached at rank 0,
+        /// which may be stale if there is a multihead insert occuring.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a schema, then <i>true</i>
@@ -196,6 +217,25 @@ namespace kinetica
             /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string GET_SIZES = "get_sizes";
 
+            /// <summary>If <i>true</i> then the number of records in each
+            /// table, along with a cumulative count, will be returned; blank,
+            /// otherwise. This version will return the sizes cached at rank 0,
+            /// which may be stale if there is a multihead insert occuring.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string GET_CACHED_SIZES = "get_cached_sizes";
+
             /// <summary>If <see cref="table_name" /> is a schema, then
             /// <i>true</i> will return information about the tables and views
             /// in the schema, and <i>false</i> will return information about
@@ -289,6 +329,27 @@ namespace kinetica
         ///         <description>If <i>true</i> then the number of records in
         /// each table, along with a cumulative count, will be returned; blank,
         /// otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:</term>
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise. This version will return the sizes cached at rank 0,
+        /// which may be stale if there is a multihead insert occuring.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -411,6 +472,27 @@ namespace kinetica
         ///         <description>If <i>true</i> then the number of records in
         /// each table, along with a cumulative count, will be returned; blank,
         /// otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:</term>
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise. This version will return the sizes cached at rank 0,
+        /// which may be stale if there is a multihead insert occuring.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -638,6 +720,10 @@ namespace kinetica
             /// 'data'.</summary>
             public const string RECORD_BYTES = "record_bytes";
 
+            /// <summary>The total size in bytes of all data stored in the
+            /// table.</summary>
+            public const string TOTAL_BYTES = "total_bytes";
+
             /// <summary>[DEPRECATED--use schema_name instead]  This will now
             /// contain the name of the schema for the table.  There can only
             /// be one schema for a table.</summary>
@@ -764,9 +850,13 @@ namespace kinetica
             /// is ''.</summary>
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
-            /// <summary>Semicolon-separated list of columns that have <a
-            /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">indexes</a>. Not present for schemas.  The
+            /// <summary>Semicolon-separated list of indexes.
+            /// For <a href="../../../concepts/indexes/#column-index"
+            /// target="_top">column (attribute) indexes</a>, only the indexed
+            /// column name will be listed.
+            /// For other index types, the index type will be listed with the
+            /// colon-delimited indexed column(s) using the form:
+            /// <index_type>@<column_list>.  Not present for schemas.  The
             /// default value is ''.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
@@ -775,7 +865,7 @@ namespace kinetica
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name
-            /// to information including memory usage if if the
+            /// to information including memory usage if the
             /// <i>get_column_info</i> option is <i>true</i>.  The default
             /// value is ''.</summary>
             public const string COLUMN_INFO = "column_info";
@@ -898,15 +988,16 @@ namespace kinetica
 
         /// <summary>If <paramref cref="ShowTableRequest.table_name" /> is a
         /// table or view, then the single element of the array is <paramref
-        /// cref="ShowTableRequest.table_name" />. If <paramref
-        /// cref="ShowTableRequest.table_name" /> is a schema and
-        /// <i>show_children</i> is set to <i>true</i>, then this array is
-        /// populated with the names of all tables and views in the given
-        /// schema; if <i>show_children</i> is <i>false</i> then this array
-        /// will only include the schema name itself. If <paramref
-        /// cref="ShowTableRequest.table_name" /> is an empty string, then the
-        /// array contains the names of all tables in the user's default
-        /// schema.  </summary>
+        /// cref="ShowTableRequest.table_name" />.
+        /// If <paramref cref="ShowTableRequest.table_name" /> is a schema and
+        /// <i>show_children</i> is set to <i>true</i>,
+        /// then this array is populated with the names of all tables and views
+        /// in the given schema;
+        /// if <i>show_children</i> is <i>false</i>,
+        /// then this array will only include the schema name itself.
+        /// If <paramref cref="ShowTableRequest.table_name" /> is an empty
+        /// string, then the array contains the names of all tables in the
+        /// user's default schema.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>List of descriptions for the respective tables in <member

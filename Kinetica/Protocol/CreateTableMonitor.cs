@@ -78,7 +78,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
-        ///         <description>ID to to use for this monitor instead of a
+        ///         <description>ID to use for this monitor instead of a
         /// randomly generated one</description>
         ///     </item>
         ///     <item>
@@ -203,7 +203,7 @@ namespace kinetica
             /// subscribers.</summary>
             public const string DELETE = "delete";
 
-            /// <summary>ID to to use for this monitor instead of a randomly
+            /// <summary>ID to use for this monitor instead of a randomly
             /// generated one</summary>
             public const string MONITOR_ID = "monitor_id";
 
@@ -313,7 +313,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
-        ///         <description>ID to to use for this monitor instead of a
+        ///         <description>ID to use for this monitor instead of a
         /// randomly generated one</description>
         ///     </item>
         ///     <item>
@@ -439,7 +439,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
-        ///         <description>ID to to use for this monitor instead of a
+        ///         <description>ID to use for this monitor instead of a
         /// randomly generated one</description>
         ///     </item>
         ///     <item>

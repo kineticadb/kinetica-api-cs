@@ -25,6 +25,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
@@ -83,6 +88,9 @@ namespace kinetica
         /// />.</summary>
         public struct ObjectType
         {
+
+            /// <summary>Context</summary>
+            public const string CONTEXT = "context";
 
             /// <summary>Credential</summary>
             public const string CREDENTIAL = "credential";
@@ -259,6 +267,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
@@ -408,6 +421,11 @@ namespace kinetica
         /// <param name="object_type">The type of object being granted to
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>

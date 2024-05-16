@@ -146,6 +146,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>:</term>
+        ///         <description>If <i>true</i>, only the presence of orphaned
+        /// table directories will be checked, all persistence checks will be
+        /// skipped
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -264,6 +284,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DELETE_ORPHANED_TABLES = "delete_orphaned_tables";
+
+            /// <summary>If <i>true</i>, only the presence of orphaned table
+            /// directories will be checked, all persistence checks will be
+            /// skipped
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string VERIFY_ORPHANED_TABLES_ONLY = "verify_orphaned_tables_only";
         } // end struct Options
 
 
@@ -379,6 +417,26 @@ namespace kinetica
         /// recommended to run this while the database is offline OR set
         /// <i>concurrent_safe</i> in <paramref
         /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>:</term>
+        ///         <description>If <i>true</i>, only the presence of orphaned
+        /// table directories will be checked, all persistence checks will be
+        /// skipped
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -531,6 +589,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>:</term>
+        ///         <description>If <i>true</i>, only the presence of orphaned
+        /// table directories will be checked, all persistence checks will be
+        /// skipped
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -557,6 +635,12 @@ namespace kinetica
         /// internal state.  The default value is an empty {@link
         /// List}.</summary>
         public IList<string> error_list { get; set; } = new List<string>();
+
+        /// <summary>If <i>verify_persist</i> is <i>true</i>,
+        /// <i>verify_orphaned_tables_only</i> is <i>true</i> or
+        /// <i>delete_orphaned_tables</i> is <i>true</i>, this is the sum in
+        /// bytes of all orphaned tables found.  Otherwise, -1.  </summary>
+        public long orphaned_tables_total_size { get; set; }
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();

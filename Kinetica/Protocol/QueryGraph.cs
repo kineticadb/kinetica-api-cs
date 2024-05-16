@@ -47,7 +47,7 @@ namespace kinetica
     /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
     /// Tutorial</a>,
     /// and/or some
-    /// <a href="../../../guide-tags/graph-query" target="_top">/match/graph
+    /// <a href="../../../guide-tags/graph---query" target="_top">/match/graph
     /// examples</a>
     /// before using this endpoint.</summary>
     public class QueryGraphRequest : KineticaData
@@ -133,6 +133,34 @@ namespace kinetica
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.OUTPUT_CHARN_LENGTH">OUTPUT_CHARN_LENGTH</see>:</term>
+        ///         <description>When specified (>0 and <=256), limits the
+        /// number of char length on the output tables for string based nodes.
+        /// The default length is 64.  The default value is '64'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FIND_COMMON_LABELS">FIND_COMMON_LABELS</see>:</term>
+        ///         <description>If set to true, for many-to-many queries or
+        /// multi-level traversals, it lists the common labels between the
+        /// source and target nodes and edge labels in each path. Otherwise
+        /// (zero rings), it'll list all labels of the node(s) queried.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -209,6 +237,30 @@ namespace kinetica
             /// the corresponding graph, that has the most computational
             /// bandwidth.</summary>
             public const string SERVER_ID = "server_id";
+
+            /// <summary>When specified (>0 and <=256), limits the number of
+            /// char length on the output tables for string based nodes. The
+            /// default length is 64.  The default value is '64'.</summary>
+            public const string OUTPUT_CHARN_LENGTH = "output_charn_length";
+
+            /// <summary>If set to true, for many-to-many queries or
+            /// multi-level traversals, it lists the common labels between the
+            /// source and target nodes and edge labels in each path. Otherwise
+            /// (zero rings), it'll list all labels of the node(s) queried.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string FIND_COMMON_LABELS = "find_common_labels";
         } // end struct Options
 
 
@@ -351,6 +403,34 @@ namespace kinetica
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.OUTPUT_CHARN_LENGTH">OUTPUT_CHARN_LENGTH</see>:</term>
+        ///         <description>When specified (>0 and <=256), limits the
+        /// number of char length on the output tables for string based nodes.
+        /// The default length is 64.  The default value is '64'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FIND_COMMON_LABELS">FIND_COMMON_LABELS</see>:</term>
+        ///         <description>If set to true, for many-to-many queries or
+        /// multi-level traversals, it lists the common labels between the
+        /// source and target nodes and edge labels in each path. Otherwise
+        /// (zero rings), it'll list all labels of the node(s) queried.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -496,6 +576,34 @@ namespace kinetica
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.OUTPUT_CHARN_LENGTH">OUTPUT_CHARN_LENGTH</see>:</term>
+        ///         <description>When specified (>0 and <=256), limits the
+        /// number of char length on the output tables for string based nodes.
+        /// The default length is 64.  The default value is '64'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FIND_COMMON_LABELS">FIND_COMMON_LABELS</see>:</term>
+        ///         <description>If set to true, for many-to-many queries or
+        /// multi-level traversals, it lists the common labels between the
+        /// source and target nodes and edge labels in each path. Otherwise
+        /// (zero rings), it'll list all labels of the node(s) queried.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

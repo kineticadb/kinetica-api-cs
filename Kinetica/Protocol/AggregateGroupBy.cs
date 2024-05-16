@@ -219,6 +219,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
@@ -471,6 +478,11 @@ namespace kinetica
             /// sort by the first aggregate, then the second aggregate,
             /// etc.</summary>
             public const string VALUE = "value";
+
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its
+            /// columns.</summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>The name of a table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
@@ -735,6 +747,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1008,6 +1027,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1309,6 +1335,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

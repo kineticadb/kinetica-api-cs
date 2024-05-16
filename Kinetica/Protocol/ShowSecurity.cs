@@ -21,13 +21,83 @@ namespace kinetica
     public class ShowSecurityRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:</term>
+        ///         <description>If <i>true</i>, returns only security
+        /// information for the current user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>If <i>true</i>, returns only security information for
+            /// the current user.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowSecurityRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string SHOW_CURRENT_USER = "show_current_user";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
+
         /// <summary>A list of names of users and/or roles about which security
         /// information is requested. If none are provided, information about
         /// all users and roles will be returned.  </summary>
         public IList<string> names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:</term>
+        ///         <description>If <i>true</i>, returns only security
+        /// information for the current user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -41,8 +111,29 @@ namespace kinetica
         /// <param name="names">A list of names of users and/or roles about
         /// which security information is requested. If none are provided,
         /// information about all users and roles will be returned.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:</term>
+        ///         <description>If <i>true</i>, returns only security
+        /// information for the current user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowSecurityRequest( IList<string> names,
                                     IDictionary<string, string> options = null)

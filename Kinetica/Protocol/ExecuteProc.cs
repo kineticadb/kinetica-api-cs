@@ -76,6 +76,34 @@ namespace kinetica
         /// lines output exceeds the maximum, earlier lines are discarded.  The
         /// default value is '100'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, an instance of the proc will
+        /// run when the database is started instead of running immediately.
+        /// The <member name="run_id" /> can be retrieved using /show/proc and
+        /// used in /show/proc/status.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:</term>
+        ///         <description>Sets the alternate user name to execute this
+        /// proc instance as when <i>execute_at_startup</i> is <i>true</i>.
+        /// The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -125,6 +153,35 @@ namespace kinetica
             /// />. If the number of lines output exceeds the maximum, earlier
             /// lines are discarded.  The default value is '100'.</summary>
             public const string MAX_OUTPUT_LINES = "max_output_lines";
+
+            /// <summary>If <i>true</i>, an instance of the proc will run when
+            /// the database is started instead of running immediately. The
+            /// <member name="run_id" /> can be retrieved using <see
+            /// cref="Kinetica.showProc(string,IDictionary{string, string})"
+            /// /> and used in <see
+            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
+            /// />.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteProcRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string EXECUTE_AT_STARTUP = "execute_at_startup";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>Sets the alternate user name to execute this proc
+            /// instance as when <i>execute_at_startup</i> is <i>true</i>.  The
+            /// default value is ''.</summary>
+            public const string EXECUTE_AT_STARTUP_AS = "execute_at_startup_as";
         } // end struct Options
 
 
@@ -233,6 +290,34 @@ namespace kinetica
         /// lines output exceeds the maximum, earlier lines are discarded.  The
         /// default value is '100'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, an instance of the proc will
+        /// run when the database is started instead of running immediately.
+        /// The <member name="run_id" /> can be retrieved using /show/proc and
+        /// used in /show/proc/status.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:</term>
+        ///         <description>Sets the alternate user name to execute this
+        /// proc instance as when <i>execute_at_startup</i> is <i>true</i>.
+        /// The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -340,6 +425,34 @@ namespace kinetica
         /// stdout and stderr to return via /show/proc/status. If the number of
         /// lines output exceeds the maximum, earlier lines are discarded.  The
         /// default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, an instance of the proc will
+        /// run when the database is started instead of running immediately.
+        /// The <member name="run_id" /> can be retrieved using /show/proc and
+        /// used in /show/proc/status.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:</term>
+        ///         <description>Sets the alternate user name to execute this
+        /// proc instance as when <i>execute_at_startup</i> is <i>true</i>.
+        /// The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

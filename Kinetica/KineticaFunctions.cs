@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.9.1";
+        public const string API_VERSION = "7.1.10.0";
 
 
 
@@ -1205,6 +1205,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:</term>
+        ///         <description>If <i>true</i>, then information is also
+        /// returned from worker ranks. By default only status from the head
+        /// rank is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -1511,6 +1529,26 @@ namespace kinetica
         /// recommended to run this while the database is offline OR set
         /// <i>concurrent_safe</i> in <paramref
         /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_ORPHANED_TABLES_ONLY">VERIFY_ORPHANED_TABLES_ONLY</see>:</term>
+        ///         <description>If <i>true</i>, only the presence of orphaned
+        /// table directories will be checked, all persistence checks will be
+        /// skipped
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1876,6 +1914,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4198,7 +4243,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
+        ///         <description>Install a python package from PyPI, an
+        /// external data source or KiFS</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4222,6 +4268,13 @@ namespace kinetica
         /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
         ///         <description>Uninstalls all packages in the environment and
         /// resets it to the original state at time of creation</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.REBUILD">REBUILD</see>:</term>
+        ///         <description>Recreates the environment and re-installs all
+        /// packages, upgrades the packages if necessary based on
+        /// dependencies</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
@@ -4797,7 +4850,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a semicolon separated list of
+        /// results. Value string is a semicolon separated list of
         /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
         /// test; message_size=[bytes] where bytes is the size in bytes of the
@@ -4831,6 +4884,11 @@ namespace kinetica
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call.  The default value is
         /// '20000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4952,6 +5010,39 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the
         /// conf.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:</term>
+        ///         <description>AI API provider type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
+        ///         <description>AI API URL</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
+        ///         <description>AI API key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>AI API connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>Idle connection timeout in
+        /// seconds</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:</term>
+        ///         <description>Enable  postgres proxy keep alive.  The
+        /// default value is 'false'.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// <param name="options">Optional parameters.
@@ -5022,14 +5113,16 @@ namespace kinetica
         /// <br />
         /// External tables cannot be modified except for their refresh method.
         /// <br />
-        /// Create or delete an <a
+        /// Create or delete a <a
         /// href="../../../concepts/indexes/#column-index"
-        /// target="_top">index</a> on a
-        /// particular column. This can speed up certain operations when using
-        /// expressions
-        /// containing equality or relational operators on indexed columns.
-        /// This only
-        /// applies to tables.
+        /// target="_top">column</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial</a> index. This can speed up
+        /// certain operations when using expressions containing equality or
+        /// relational
+        /// operators on indexed columns. This only applies to tables.
         /// <br />
         /// Create or delete a <a href="../../../concepts/tables/#foreign-key"
         /// target="_top">foreign key</a>
@@ -5091,14 +5184,16 @@ namespace kinetica
         /// <br />
         /// External tables cannot be modified except for their refresh method.
         /// <br />
-        /// Create or delete an <a
+        /// Create or delete a <a
         /// href="../../../concepts/indexes/#column-index"
-        /// target="_top">index</a> on a
-        /// particular column. This can speed up certain operations when using
-        /// expressions
-        /// containing equality or relational operators on indexed columns.
-        /// This only
-        /// applies to tables.
+        /// target="_top">column</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial</a> index. This can speed up
+        /// certain operations when using expressions containing equality or
+        /// relational
+        /// operators on indexed columns. This only applies to tables.
         /// <br />
         /// Create or delete a <a href="../../../concepts/tables/#foreign-key"
         /// target="_top">foreign key</a>
@@ -5135,10 +5230,11 @@ namespace kinetica
         /// access.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
-        /// performed, in [schema_name.]table_name format, using standard <a
+        /// performed, in [schema_name.]table_name format,
+        /// using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing table
-        /// or view.  </param>
+        /// target="_top">name resolution rules</a>.
+        /// Must be an existing table or view.  </param>
         /// <param name="action">Modification operation to be applied
         /// Supported values:
         /// <list type="bullet">
@@ -5151,26 +5247,32 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates either a <a
+        ///         <description>Creates a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column already has the
-        /// specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column already has the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes either a <a
+        ///         <description>Deletes a <a
         /// href="../../../concepts/indexes/#column-index" target="_top">column
-        /// (attribute) index</a> or <a
-        /// href="../../../concepts/indexes/#chunk-skip-index"
-        /// target="_top">chunk skip index</a>, depending on the specified
-        /// <i>index_type</i>, on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column does not have
-        /// the specified index, an error will be returned.</description>
+        /// (attribute) index</a>,
+        /// <a href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, or
+        /// <a href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>
+        /// (depending on the specified <i>index_type</i>), on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// If this column does not have the specified index, an error will be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5185,10 +5287,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
-        /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is nonexistent, an error will be thrown. If <paramref
-        /// cref="AlterTableRequest._value" /> is empty, then the table or view
-        /// will be placed in the user's default schema.</description>
+        /// <paramref cref="AlterTableRequest._value" />.
+        /// If the schema provided is nonexistent, an error will be thrown.
+        /// If <paramref cref="AlterTableRequest._value" /> is empty, then the
+        /// table or view will be placed in the user's default
+        /// schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5219,24 +5322,26 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
-        /// <paramref cref="AlterTableRequest.table_name" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// <paramref cref="AlterTableRequest.table_name" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" />
+        /// to set the column's type and properties,
+        /// respectively.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
         ///         <description>Changes type and properties of the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
-        /// <i>column_type</i> and <i>column_properties</i> in <paramref
-        /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively. Note that primary key and/or shard key
-        /// columns cannot be changed. All unchanging column properties must be
-        /// listed for the change to take place, e.g., to add dictionary
-        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-        /// must be specified in the <paramref cref="AlterTableRequest.options"
-        /// /> map.</description>
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// Use <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set
+        /// the column's type and properties, respectively. Note that primary
+        /// key and/or shard key columns cannot be changed.
+        /// All unchanging column properties must be listed for the change to
+        /// take place, e.g., to add dictionary encoding to
+        /// an existing 'char4' column, both 'char4' and 'dict' must be
+        /// specified in the <paramref cref="AlterTableRequest.options" />
+        /// map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5407,21 +5512,21 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Permanently unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Temporarily unsubscribe a data source that is
-        /// loading continuously as a stream. The data source can be kafka / S3
+        /// loading continuously as a stream. The data source can be Kafka / S3
         /// / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
         ///         <description>Resubscribe to a paused data source
-        /// subscription. The data source can be kafka / S3 /
+        /// subscription. The data source can be Kafka / S3 /
         /// Azure.</description>
         ///     </item>
         ///     <item>
@@ -5432,16 +5537,18 @@ namespace kinetica
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref cref="AlterTableRequest.action" />.  For example, if
-        /// <paramref cref="AlterTableRequest.action" /> is <i>add_column</i>,
-        /// this would be the column name; while the column's definition would
-        /// be covered by the <i>column_type</i>, <i>column_properties</i>,
-        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
-        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
-        /// number of minutes for the new TTL. If <paramref
-        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
-        /// would be blank.  </param>
+        /// <paramref cref="AlterTableRequest.action" />.
+        /// For example, if <paramref cref="AlterTableRequest.action" /> is
+        /// <i>add_column</i>, this would be the column name;
+        /// while the column's definition would be covered by the
+        /// <i>column_type</i>,
+        /// <i>column_properties</i>, <i>column_default_value</i>,
+        /// and <i>add_column_expression</i> in <paramref
+        /// cref="AlterTableRequest.options" />.
+        /// If <paramref cref="AlterTableRequest.action" /> is <i>ttl</i>, it
+        /// would be the number of minutes for the new TTL.
+        /// If <paramref cref="AlterTableRequest.action" /> is <i>refresh</i>,
+        /// this field would be blank.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -5588,8 +5695,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
         ///         <description>Type of index to create, when <paramref
-        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
-        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>,
+        /// or to delete, when <paramref cref="AlterTableRequest.action" /> is
         /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
@@ -6660,6 +6767,10 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.CONFLUENT">CONFLUENT</see></term>
+        ///     </item>
         /// </list>  </param>
         /// <param name="identity">User of the credential to be created.
         /// </param>
@@ -6784,6 +6895,16 @@ namespace kinetica
         /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
         ///         <description>Customer encryption key to encrypt or decrypt
         /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:</term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:</term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7015,7 +7136,8 @@ namespace kinetica
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka' and 's3'.  </param>
+        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.
+        /// </param>
         /// <param name="user_name">Name of the remote system user; may be an
         /// empty string  </param>
         /// <param name="password">Password for the remote system user; may be
@@ -7285,6 +7407,24 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:</term>
+        ///         <description>Location of Confluent Schema registry in
+        /// '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:</term>
+        ///         <description>Confluent Schema registry Credential object
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:</term>
+        ///         <description>Confluent Schema registry port
+        /// (optional).</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -7751,6 +7891,26 @@ namespace kinetica
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -7993,6 +8153,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8729,6 +8896,13 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which this projection is a
         /// member.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -9946,6 +10120,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
@@ -9962,6 +10141,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:</term>
+        ///         <description>Comma separated list of gdal conf options, for
+        /// the specific requets: key=value.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10071,6 +10257,12 @@ namespace kinetica
         /// cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:</term>
         ///         <description>Sets the subscription lifespan (in minutes).
         /// Expired subscription will be cancelled automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.LAYER">LAYER</see>:</term>
+        ///         <description>Optional: geo files layer(s) name(s): comma
+        /// separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10188,6 +10380,21 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10601,7 +10808,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
-        ///         <description>ID to to use for this monitor instead of a
+        ///         <description>ID to use for this monitor instead of a
         /// randomly generated one</description>
         ///     </item>
         ///     <item>
@@ -11555,6 +11762,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -12980,6 +13194,34 @@ namespace kinetica
         /// lines output exceeds the maximum, earlier lines are discarded.  The
         /// default value is '100'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, an instance of the proc will
+        /// run when the database is started instead of running immediately.
+        /// The <member name="run_id" /> can be retrieved using /show/proc and
+        /// used in /show/proc/status.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:</term>
+        ///         <description>Sets the alternate user name to execute this
+        /// proc instance as when <i>execute_at_startup</i> is <i>true</i>.
+        /// The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -13755,7 +13997,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Exports records from source table to  specified target
+        /// <summary>Exports records from source table to the specified target
         /// table in an external database</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -13772,7 +14014,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Exports records from source table to  specified target
+        /// <summary>Exports records from source table to the specified target
         /// table in an external database</summary>
         /// 
         /// <param name="table_name">Name of the table from which the data will
@@ -13789,7 +14031,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ExportRecordsToTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Batch size, which determines how many rows to
-        /// export per round trip.</description>
+        /// export per round trip.  The default value is
+        /// '200000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -16585,6 +16828,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
@@ -16819,6 +17067,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data
         /// source</description>
@@ -16933,6 +17187,11 @@ namespace kinetica
         /// <param name="permission">Permission to grant to the user or role.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:</term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
@@ -17178,6 +17437,11 @@ namespace kinetica
         /// <param name="object_type">The type of object being checked
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
@@ -18513,6 +18777,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
@@ -18529,6 +18798,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:</term>
+        ///         <description>Comma separated list of gdal conf options, for
+        /// the specific requets: key=value.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18635,6 +18911,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LAYER">LAYER</see>:</term>
+        ///         <description>Optional: geo files layer(s) name(s): comma
+        /// separated.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
         /// loading of data from the source data file(s). This option applies
@@ -18724,6 +19006,21 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19514,6 +19811,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
@@ -19530,6 +19832,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:</term>
+        ///         <description>Comma separated list of gdal conf options, for
+        /// the specific requets: key=value.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19601,6 +19910,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LAYER">LAYER</see>:</term>
+        ///         <description>Optional: geo files layer(s) name(s): comma
+        /// separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19693,6 +20008,21 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -20475,6 +20805,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table
@@ -20939,6 +21288,27 @@ namespace kinetica
         /// instance(s) where a matching run tag was provided to /execute/proc.
         /// The default value is ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.CLEAR_EXECUTE_AT_STARTUP">CLEAR_EXECUTE_AT_STARTUP</see>:</term>
+        ///         <description>If <i>true</i>, kill and remove the instance
+        /// of the proc matching the auto-start run ID that was created to run
+        /// when the database is started. The auto-start run ID was returned
+        /// from /execute/proc and can be retrieved using /show/proc.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="KillProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -21082,7 +21452,7 @@ namespace kinetica
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../guide-tags/graph-match/"
+        /// <a href="../../../guide-tags/graph---match/"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -21112,7 +21482,7 @@ namespace kinetica
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../guide-tags/graph-match/"
+        /// <a href="../../../guide-tags/graph---match/"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -21207,6 +21577,11 @@ namespace kinetica
         /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
         ///         <description>Matches the graph nodes with a cluster index
         /// using Louvain clustering algorithm</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:</term>
+        ///         <description>Matches a pattern in the graph</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -21761,6 +22136,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
+        ///         <description>For the <i>match_pattern</i> solver only.
+        /// Pattern matching will be using both pattern and graph as undirected
+        /// if set to true.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -21993,7 +22388,7 @@ namespace kinetica
         /// IMPORTANT: It's highly recommended that you review the
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
-        /// concepts documentation and
+        /// concepts documentation, and
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>
         /// before using this endpoint.</summary>
@@ -22019,7 +22414,7 @@ namespace kinetica
         /// IMPORTANT: It's highly recommended that you review the
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
-        /// concepts documentation and
+        /// concepts documentation, and
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>
         /// before using this endpoint.</summary>
@@ -22286,6 +22681,34 @@ namespace kinetica
         /// The default value is <see
         /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:</term>
+        ///         <description>Multigraph choice; allowing multiple edges
+        /// with the same node pairs if set to true, otherwise, new edges with
+        /// existing same node pairs will not be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -22339,7 +22762,7 @@ namespace kinetica
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../guide-tags/graph-query"
+        /// <a href="../../../guide-tags/graph---query"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -22391,7 +22814,7 @@ namespace kinetica
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../guide-tags/graph-query"
+        /// <a href="../../../guide-tags/graph---query"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -22527,6 +22950,34 @@ namespace kinetica
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.OUTPUT_CHARN_LENGTH">OUTPUT_CHARN_LENGTH</see>:</term>
+        ///         <description>When specified (>0 and <=256), limits the
+        /// number of char length on the output tables for string based nodes.
+        /// The default length is 64.  The default value is '64'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FIND_COMMON_LABELS">FIND_COMMON_LABELS</see>:</term>
+        ///         <description>If set to true, for many-to-many queries or
+        /// multi-level traversals, it lists the common labels between the
+        /// source and target nodes and edge labels in each path. Otherwise
+        /// (zero rings), it'll list all labels of the node(s) queried.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -22730,6 +23181,11 @@ namespace kinetica
         /// <param name="object_type">The type of object being revoked
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:</term>
+        ///         <description>Context</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
@@ -22963,6 +23419,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Admin access on the given data
+        /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data
         /// source</description>
@@ -23081,6 +23543,11 @@ namespace kinetica
         /// role.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:</term>
+        ///         <description>Admin access to the proc.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
@@ -23512,7 +23979,8 @@ namespace kinetica
         /// <param name="environment_name">Name of the environment on which to
         /// retrieve information. The name must refer to a currently existing
         /// environment. If '*' or an empty value is specified, information
-        /// about all environments will be returned.  </param>
+        /// about all environments will be returned.  The default value is
+        /// ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -23545,7 +24013,7 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public ShowEnvironmentResponse showEnvironment( string environment_name,
+        public ShowEnvironmentResponse showEnvironment( string environment_name = "",
                                                         IDictionary<string, string> options = null )
         {
             return showEnvironment( new ShowEnvironmentRequest( environment_name, options ) );
@@ -24320,8 +24788,29 @@ namespace kinetica
         /// <param name="names">A list of names of users and/or roles about
         /// which security information is requested. If none are provided,
         /// information about all users and roles will be returned.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:</term>
+        ///         <description>If <i>true</i>, returns only security
+        /// information for the current user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -24666,6 +25155,27 @@ namespace kinetica
         ///         <description>If <i>true</i> then the number of records in
         /// each table, along with a cumulative count, will be returned; blank,
         /// otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:</term>
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise. This version will return the sizes cached at rank 0,
+        /// which may be stale if there is a multihead insert occuring.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -25039,7 +25549,7 @@ namespace kinetica
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../guide-tags/graph-solve"
+        /// <a href="../../../guide-tags/graph---solve"
         /// target="_top">/solve/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -25070,7 +25580,7 @@ namespace kinetica
         /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
         /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../guide-tags/graph-solve"
+        /// <a href="../../../guide-tags/graph---solve"
         /// target="_top">/solve/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -26657,6 +27167,26 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DOT">DOT</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageRequest.StyleOptions.SQUARE">SQUARE</see>.</description>
@@ -26784,6 +27314,26 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DOT">DOT</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
@@ -26835,6 +27385,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DOT">DOT</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -27419,6 +27989,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DASH">DASH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PIPE">PIPE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.PLUS">PLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUAREWITHPLUS">HOLLOWSQUAREWITHPLUS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DOT">DOT</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

@@ -224,6 +224,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -429,6 +436,11 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string FORCE_REPLICATED = "force_replicated";
+
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its
+            /// columns.</summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
         } // end struct Options
 
 
@@ -630,6 +642,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -833,6 +852,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

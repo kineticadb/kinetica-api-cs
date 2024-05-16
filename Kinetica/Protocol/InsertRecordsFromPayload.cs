@@ -715,6 +715,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
@@ -731,6 +736,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:</term>
+        ///         <description>Comma separated list of gdal conf options, for
+        /// the specific requets: key=value.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -802,6 +814,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LAYER">LAYER</see>:</term>
+        ///         <description>Optional: geo files layer(s) name(s): comma
+        /// separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -899,6 +917,21 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1425,6 +1458,11 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:</term>
+            ///         <description>Esri/GDB file format</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
             ///         <description>Json file format</description>
             ///     </item>
@@ -1450,6 +1488,9 @@ namespace kinetica
             /// etc.</summary>
             public const string DELIMITED_TEXT = "delimited_text";
 
+            /// <summary>Esri/GDB file format</summary>
+            public const string GDB = "gdb";
+
             /// <summary>Json file format</summary>
             public const string JSON = "json";
 
@@ -1458,6 +1499,11 @@ namespace kinetica
 
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
+
+            /// <summary>Comma separated list of gdal conf options, for the
+            /// specific requets: key=value.  The default value is
+            /// ''.</summary>
+            public const string GDAL_CONFIGURATION_OPTIONS = "gdal_configuration_options";
 
             /// <summary>Specifies the record collision error-suppression
             /// policy for
@@ -1541,6 +1587,10 @@ namespace kinetica
             /// ingesting any data.  The inferred type is returned in the
             /// response.</summary>
             public const string TYPE_INFERENCE_ONLY = "type_inference_only";
+
+            /// <summary>Optional: geo files layer(s) name(s): comma separated.
+            /// The default value is ''.</summary>
+            public const string LAYER = "layer";
 
             /// <summary>Scheme for distributing the extraction and loading of
             /// data from the source data file(s). This option applies only
@@ -1667,6 +1717,9 @@ namespace kinetica
             /// as primary keys, when not specified in the type.  The default
             /// value is ''.</summary>
             public const string PRIMARY_KEYS = "primary_keys";
+            public const string SCHEMA_REGISTRY_SCHEMA_ID = "schema_registry_schema_id";
+            public const string SCHEMA_REGISTRY_SCHEMA_NAME = "schema_registry_schema_name";
+            public const string SCHEMA_REGISTRY_SCHEMA_VERSION = "schema_registry_schema_version";
 
             /// <summary>Optional: comma separated list of column names, to set
             /// as primary keys, when not specified in the type.  The default
@@ -2406,6 +2459,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
@@ -2422,6 +2480,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:</term>
+        ///         <description>Comma separated list of gdal conf options, for
+        /// the specific requets: key=value.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2493,6 +2558,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LAYER">LAYER</see>:</term>
+        ///         <description>Optional: geo files layer(s) name(s): comma
+        /// separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2590,6 +2661,21 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3351,6 +3437,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
@@ -3367,6 +3458,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:</term>
+        ///         <description>Comma separated list of gdal conf options, for
+        /// the specific requets: key=value.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3438,6 +3536,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LAYER">LAYER</see>:</term>
+        ///         <description>Optional: geo files layer(s) name(s): comma
+        /// separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3530,6 +3634,21 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see

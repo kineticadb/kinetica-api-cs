@@ -40,6 +40,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:</term>
+        ///         <description>If <i>true</i>, then information is also
+        /// returned from worker ranks. By default only status from the head
+        /// rank is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -66,6 +84,22 @@ namespace kinetica
             public const string SHOW_ASYNC_JOBS = "show_async_jobs";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If <i>true</i>, then information is also returned from
+            /// worker ranks. By default only status from the head rank is
+            /// returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string SHOW_WORKER_INFO = "show_worker_info";
         } // end struct Options
 
 
@@ -90,6 +124,24 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:</term>
+        ///         <description>If <i>true</i>, then information is also
+        /// returned from worker ranks. By default only status from the head
+        /// rank is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -125,6 +177,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:</term>
+        ///         <description>If <i>true</i>, then information is also
+        /// returned from worker ranks. By default only status from the head
+        /// rank is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -152,6 +222,11 @@ namespace kinetica
         /// unspecified by user, an internally generated unique identifier for
         /// the job across clusters.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsResponse.Info.WORKER_INFO">WORKER_INFO</see>:</term>
+        ///         <description>Worker job information as json</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <member name="info"
@@ -163,6 +238,9 @@ namespace kinetica
             /// user, an internally generated unique identifier for the job
             /// across clusters.</summary>
             public const string JOB_TAG = "job_tag";
+
+            /// <summary>Worker job information as json</summary>
+            public const string WORKER_INFO = "worker_info";
         } // end struct Info
 
         public IList<long> job_id { get; set; } = new List<long>();
@@ -182,6 +260,11 @@ namespace kinetica
         ///         <description>The job tag specified by the user or if
         /// unspecified by user, an internally generated unique identifier for
         /// the job across clusters.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsResponse.Info.WORKER_INFO">WORKER_INFO</see>:</term>
+        ///         <description>Worker job information as json</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>

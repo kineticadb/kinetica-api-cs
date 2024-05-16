@@ -332,6 +332,13 @@ namespace kinetica
         ///         <description>ID of view of which this projection is a
         /// member.  The default value is ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -598,6 +605,11 @@ namespace kinetica
             /// <summary>ID of view of which this projection is a member.  The
             /// default value is ''.</summary>
             public const string VIEW_ID = "view_id";
+
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its
+            /// columns.</summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
         } // end struct Options
 
 
@@ -898,6 +910,13 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which this projection is a
         /// member.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1203,6 +1222,13 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which this projection is a
         /// member.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

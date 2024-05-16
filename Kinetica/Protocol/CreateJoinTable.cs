@@ -85,6 +85,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the join table specified in <paramref
@@ -166,6 +173,11 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string OPTIMIZE_LOOKUPS = "optimize_lookups";
+
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its
+            /// columns.</summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the join table specified in <see
@@ -280,6 +292,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -405,6 +424,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

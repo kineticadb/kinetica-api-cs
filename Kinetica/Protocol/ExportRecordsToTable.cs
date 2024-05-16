@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.exportRecordsToTable(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Exports records from source table to  specified target table in an
+    /// Exports records from source table to the specified target table in an
     /// external database</summary>
     public class ExportRecordsToTableRequest : KineticaData
     {
@@ -26,7 +26,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ExportRecordsToTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Batch size, which determines how many rows to
-        /// export per round trip.</description>
+        /// export per round trip.  The default value is
+        /// '200000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -101,7 +102,7 @@ namespace kinetica
         {
 
             /// <summary>Batch size, which determines how many rows to export
-            /// per round trip.</summary>
+            /// per round trip.  The default value is '200000'.</summary>
             public const string BATCH_SIZE = "batch_size";
 
             /// <summary>Name of an existing external data sink to which table
@@ -177,7 +178,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ExportRecordsToTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Batch size, which determines how many rows to
-        /// export per round trip.</description>
+        /// export per round trip.  The default value is
+        /// '200000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -270,7 +272,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ExportRecordsToTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Batch size, which determines how many rows to
-        /// export per round trip.</description>
+        /// export per round trip.  The default value is
+        /// '200000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

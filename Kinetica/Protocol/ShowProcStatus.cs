@@ -238,6 +238,12 @@ namespace kinetica
         ///         <description>The proc instance failed with an
         /// error.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.NONE">NONE</see>:</term>
+        ///         <description>The proc instance does not have a status, i.e.
+        /// it has not yet ran.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <member
         /// name="overall_statuses" />.</summary>
@@ -256,6 +262,10 @@ namespace kinetica
 
             /// <summary>The proc instance failed with an error.</summary>
             public const string ERROR = "error";
+
+            /// <summary>The proc instance does not have a status, i.e. it has
+            /// not yet ran.</summary>
+            public const string NONE = "none";
         } // end struct OverallStatuses
 
 
@@ -281,6 +291,10 @@ namespace kinetica
 
             /// <summary>The proc instance failed with an error.</summary>
             public const string ERROR = "error";
+
+            /// <summary>The proc instance does not have a status, i.e. it has
+            /// not yet ran.</summary>
+            public const string NONE = "none";
         } // end struct Statuses
 
 
@@ -361,6 +375,12 @@ namespace kinetica
         /// cref="ShowProcStatusResponse.OverallStatuses.ERROR">ERROR</see>:</term>
         ///         <description>The proc instance failed with an
         /// error.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.NONE">NONE</see>:</term>
+        ///         <description>The proc instance does not have a status, i.e.
+        /// it has not yet ran.</description>
         ///     </item>
         /// </list>  </summary>
         public IDictionary<string, string> overall_statuses { get; set; } = new Dictionary<string, string>();
