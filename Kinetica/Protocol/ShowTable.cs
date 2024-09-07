@@ -668,11 +668,16 @@ namespace kinetica
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
-            /// <summary>Semicolon-separated list of columns that have <a
+            /// <summary>Semicolon-separated list of indexes.</summary>
+            /// <remarks><para>For <a
             /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">indexes</a>.</summary>
-            /// <remarks><para>Not present for schemas. The default value is
-            /// ''.</para></remarks>
+            /// target="_top">column (attribute) indexes</a>, only the indexed
+            /// column name will be listed. For other index types, the index
+            /// type will be listed with the colon-delimited indexed column(s)
+            /// and the comma-delimited index option(s) using the form:
+            /// &lt;index_type&gt;@&lt;column_list&gt;@&lt;column_options&gt;.
+            /// Not present for schemas. The default value is ''.</para>
+            /// </remarks>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
             /// <summary>No longer supported.</summary>
@@ -680,7 +685,7 @@ namespace kinetica
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name
-            /// to information including memory usage if if the <see
+            /// to information including memory usage if the <see
             /// cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>
             /// option is <see cref="ShowTableRequest.Options.TRUE">TRUE</see>.
             /// </summary>
@@ -815,6 +820,11 @@ namespace kinetica
             /// has subscribed to.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string DATASOURCE_SUBSCRIPTIONS = "datasource_subscriptions";
+
+            /// <summary>Comma-separated list of null modifying column names.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string NULL_MODIFYING_COLUMNS = "null_modifying_columns";
         } // end struct AdditionalInfo
 
         /// <summary>Value of <see
@@ -833,8 +843,8 @@ namespace kinetica
         /// then this array is populated with the names of all tables and views
         /// in the given schema; if <see
         /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
-        /// is <see cref="ShowTableRequest.Options.FALSE">FALSE</see> then this
-        /// array will only include the schema name itself. If <see
+        /// is <see cref="ShowTableRequest.Options.FALSE">FALSE</see>, then
+        /// this array will only include the schema name itself. If <see
         /// cref="ShowTableRequest.table_name">table_name</see> is an empty
         /// string, then the array contains the names of all tables in the
         /// user's default schema.</para></remarks>
@@ -1138,10 +1148,16 @@ namespace kinetica
         ///         <term><see
         ///         cref="AdditionalInfo.ATTRIBUTE_INDEXES">ATTRIBUTE_INDEXES</see>:
         ///         </term>
-        ///         <description>Semicolon-separated list of columns that have
-        ///         <a href="../../../concepts/indexes/#column-index"
-        ///         target="_top">indexes</a>. Not present for schemas. The
-        ///         default value is ''.</description>
+        ///         <description>Semicolon-separated list of indexes. For <a
+        ///         href="../../../concepts/indexes/#column-index"
+        ///         target="_top">column (attribute) indexes</a>, only the
+        ///         indexed column name will be listed. For other index types,
+        ///         the index type will be listed with the colon-delimited
+        ///         indexed column(s) and the comma-delimited index option(s)
+        ///         using the form:
+        ///         &lt;index_type&gt;@&lt;column_list&gt;@&lt;column_options&gt;.
+        ///         Not present for schemas. The default value is ''.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1154,7 +1170,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="AdditionalInfo.COLUMN_INFO">COLUMN_INFO</see>:</term>
         ///         <description>JSON-encoded string representing a map of
-        ///         column name to information including memory usage if if the
+        ///         column name to information including memory usage if the
         ///         <see
         ///         cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>
         ///         option is <see
@@ -1319,6 +1335,13 @@ namespace kinetica
         ///         <description>Semicolon-separated list of datasource names
         ///         the table has subscribed to. The default value is ''.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.NULL_MODIFYING_COLUMNS">NULL_MODIFYING_COLUMNS</see>:
+        ///         </term>
+        ///         <description>Comma-separated list of null modifying column
+        ///         names. The default value is ''.</description>
         ///     </item>
         /// </list></remarks>
         public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();

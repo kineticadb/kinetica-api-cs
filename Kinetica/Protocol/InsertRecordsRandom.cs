@@ -65,8 +65,7 @@ namespace kinetica
             ///         For string columns, the minimum length of the randomly
             ///         generated strings is set to this value (default is 0).
             ///         If both minimum and maximum are provided, minimum must
-            ///         be less than or equal to max. Value needs to be within
-            ///         [0, 200].
+            ///         be less than or equal to max.
             ///         If the min is outside the accepted ranges for strings
             ///         columns and 'x' and 'y' columns for point/shape/track,
             ///         then those parameters will not be set; however, an
@@ -85,10 +84,8 @@ namespace kinetica
             ///         possible values for these columns in such cases are
             ///         180.0 and 90.0.
             ///         For string columns, the maximum length of the randomly
-            ///         generated strings is set to this value (default is
-            ///         200). If both minimum and maximum are provided, *max*
-            ///         must be greater than or equal to *min*. Value needs to
-            ///         be within [0, 200].
+            ///         generated strings. If both minimum and maximum are
+            ///         provided, *max* must be greater than or equal to *min*.
             ///         If the *max* is outside the accepted ranges for strings
             ///         columns and 'x' and 'y' columns for point/shape/track,
             ///         then those parameters will not be set; however, an
@@ -198,8 +195,7 @@ namespace kinetica
             ///         For string columns, the minimum length of the randomly
             ///         generated strings is set to this value (default is 0).
             ///         If both minimum and maximum are provided, minimum must
-            ///         be less than or equal to max. Value needs to be within
-            ///         [0, 200].
+            ///         be less than or equal to max.
             ///         If the min is outside the accepted ranges for strings
             ///         columns and 'x' and 'y' columns for point/shape/track,
             ///         then those parameters will not be set; however, an
@@ -218,10 +214,8 @@ namespace kinetica
             ///         possible values for these columns in such cases are
             ///         180.0 and 90.0.
             ///         For string columns, the maximum length of the randomly
-            ///         generated strings is set to this value (default is
-            ///         200). If both minimum and maximum are provided, *max*
-            ///         must be greater than or equal to *min*. Value needs to
-            ///         be within [0, 200].
+            ///         generated strings. If both minimum and maximum are
+            ///         provided, *max* must be greater than or equal to *min*.
             ///         If the *max* is outside the accepted ranges for strings
             ///         columns and 'x' and 'y' columns for point/shape/track,
             ///         then those parameters will not be set; however, an
@@ -349,7 +343,7 @@ namespace kinetica
         ///                 randomly generated strings is set to this value
         ///                 (default is 0). If both minimum and maximum are
         ///                 provided, minimum must be less than or equal to
-        ///                 max. Value needs to be within [0, 200].
+        ///                 max.
         ///                 If the min is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -368,10 +362,9 @@ namespace kinetica
         ///                 default minimum possible values for these columns
         ///                 in such cases are 180.0 and 90.0.
         ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 200). If both minimum and maximum are
-        ///                 provided, *max* must be greater than or equal to
-        ///                 *min*. Value needs to be within [0, 200].
+        ///                 randomly generated strings. If both minimum and
+        ///                 maximum are provided, *max* must be greater than or
+        ///                 equal to *min*.
         ///                 If the *max* is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -447,7 +440,7 @@ namespace kinetica
         ///                 randomly generated strings is set to this value
         ///                 (default is 0). If both minimum and maximum are
         ///                 provided, minimum must be less than or equal to
-        ///                 max. Value needs to be within [0, 200].
+        ///                 max.
         ///                 If the min is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -466,10 +459,9 @@ namespace kinetica
         ///                 default minimum possible values for these columns
         ///                 in such cases are 180.0 and 90.0.
         ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 200). If both minimum and maximum are
-        ///                 provided, *max* must be greater than or equal to
-        ///                 *min*. Value needs to be within [0, 200].
+        ///                 randomly generated strings. If both minimum and
+        ///                 maximum are provided, *max* must be greater than or
+        ///                 equal to *min*.
         ///                 If the *max* is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -617,7 +609,7 @@ namespace kinetica
         ///                 randomly generated strings is set to this value
         ///                 (default is 0). If both minimum and maximum are
         ///                 provided, minimum must be less than or equal to
-        ///                 max. Value needs to be within [0, 200].
+        ///                 max.
         ///                 If the min is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -636,10 +628,9 @@ namespace kinetica
         ///                 default minimum possible values for these columns
         ///                 in such cases are 180.0 and 90.0.
         ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 200). If both minimum and maximum are
-        ///                 provided, *max* must be greater than or equal to
-        ///                 *min*. Value needs to be within [0, 200].
+        ///                 randomly generated strings. If both minimum and
+        ///                 maximum are provided, *max* must be greater than or
+        ///                 equal to *min*.
         ///                 If the *max* is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -715,7 +706,7 @@ namespace kinetica
         ///                 randomly generated strings is set to this value
         ///                 (default is 0). If both minimum and maximum are
         ///                 provided, minimum must be less than or equal to
-        ///                 max. Value needs to be within [0, 200].
+        ///                 max.
         ///                 If the min is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not
@@ -734,10 +725,9 @@ namespace kinetica
         ///                 default minimum possible values for these columns
         ///                 in such cases are 180.0 and 90.0.
         ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 200). If both minimum and maximum are
-        ///                 provided, *max* must be greater than or equal to
-        ///                 *min*. Value needs to be within [0, 200].
+        ///                 randomly generated strings. If both minimum and
+        ///                 maximum are provided, *max* must be greater than or
+        ///                 equal to *min*.
         ///                 If the *max* is outside the accepted ranges for
         ///                 strings columns and 'x' and 'y' columns for
         ///                 point/shape/track, then those parameters will not

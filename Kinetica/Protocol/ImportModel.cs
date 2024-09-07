@@ -13,7 +13,16 @@ namespace kinetica
     {
         public struct Options
         {
+            public const string CREDENTIAL = "credential";
             public const string MEMORY_LIMIT = "memory_limit";
+            public const string REMOTE_MODEL_NAME = "remote_model_name";
+            public const string REMOTE_MODEL_LOCATION = "remote_model_location";
+            public const string REMOTE_MODEL_PROVIDER_TYPE = "remote_model_provider_type";
+            public const string NVIDIA = "nvidia";
+            public const string OPENAI = "openai";
+            public const string SQLGPT = "sqlgpt";
+            public const string REMOTE_MODEL_TYPE = "remote_model_type";
+            public const string EMBEDDING = "embedding";
         } // end struct Options
 
         public string model_name { get; set; }

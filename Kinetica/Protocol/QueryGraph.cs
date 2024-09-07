@@ -11,7 +11,7 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.queryGraph(QueryGraphRequest)">Kinetica.queryGraph</see>.
     /// </summary>
-    /// <remarks><para>Employs a topological query on a network graph generated
+    /// <remarks><para>Employs a topological query on a graph generated
     /// a-priori by <see
     /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     /// and returns a list of adjacent edge(s) or node(s), also known as an
@@ -27,10 +27,10 @@ namespace kinetica
     /// <para>To return the adjacency list in the response, leave <see
     /// cref="adjacency_table" /> empty.</para>
     /// <para>IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../../graph_solver/network_graph_solver/"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
-    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
-    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph-query"
+    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
+    /// & Solvers</a> concepts documentation, the <a
+    /// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph---query"
     /// target="_top">/match/graph examples</a> before using this endpoint.
     /// </para></remarks>
     public class QueryGraphRequest : KineticaData
@@ -110,6 +110,22 @@ namespace kinetica
             /// <remarks><para>The default length is 64. The default value is
             /// '64'.</para></remarks>
             public const string OUTPUT_CHARN_LENGTH = "output_charn_length";
+
+            /// <summary>If set to true, for many-to-many queries or
+            /// multi-level traversals, it lists the common labels between the
+            /// source and target nodes and edge labels in each path.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string FIND_COMMON_LABELS = "find_common_labels";
         } // end struct Options
 
         /// <summary>Name of the graph resource to query.</summary>
@@ -259,6 +275,27 @@ namespace kinetica
         ///         based nodes. The default length is 64. The default value is
         ///         '64'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.FIND_COMMON_LABELS">FIND_COMMON_LABELS</see>:
+        ///         </term>
+        ///         <description>If set to true, for many-to-many queries or
+        ///         multi-level traversals, it lists the common labels between
+        ///         the source and target nodes and edge labels in each path.
+        ///         Otherwise (zero rings), it'll list all labels of the
+        ///         node(s) queried.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -407,6 +444,27 @@ namespace kinetica
         ///         the number of char length on the output tables for string
         ///         based nodes. The default length is 64. The default value is
         ///         '64'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.FIND_COMMON_LABELS">FIND_COMMON_LABELS</see>:
+        ///         </term>
+        ///         <description>If set to true, for many-to-many queries or
+        ///         multi-level traversals, it lists the common labels between
+        ///         the source and target nodes and edge labels in each path.
+        ///         Otherwise (zero rings), it'll list all labels of the
+        ///         node(s) queried.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

@@ -15,9 +15,8 @@ namespace kinetica
     /// using an existing graph. Isolines represent curves of equal cost, with
     /// cost typically referring to the time or distance assigned as the
     /// weights of the underlying graph. See <a
-    /// href="../../../graph_solver/network_graph_solver/"
-    /// target="_top">Network Graphs & Solvers</a> for more information on
-    /// graphs.</para></remarks>
+    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
+    /// & Solvers</a> for more information on graphs.</para></remarks>
     public class VisualizeIsochroneRequest : KineticaData
     {
         /// <summary>A set of string constants for the parameter <see

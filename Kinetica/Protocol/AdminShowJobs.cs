@@ -38,6 +38,19 @@ namespace kinetica
 
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then
+            /// information is also returned from worker ranks.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></remarks>
+            public const string SHOW_WORKER_INFO = "show_worker_info";
         } // end struct Options
 
         /// <summary>Optional parameters.</summary>
@@ -61,6 +74,23 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         information is also returned from worker ranks. By default
+        ///         only status from the head rank is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -95,6 +125,23 @@ namespace kinetica
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+        ///         information is also returned from worker ranks. By default
+        ///         only status from the head rank is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list></description>
+        ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
         public AdminShowJobsRequest( IDictionary<string, string> options = null)
@@ -117,6 +164,9 @@ namespace kinetica
             /// user, an internally generated unique identifier for the job
             /// across clusters.</summary>
             public const string JOB_TAG = "job_tag";
+
+            /// <summary>Worker job information as json</summary>
+            public const string WORKER_INFO = "worker_info";
         } // end struct Info
 
         public IList<long> job_id { get; set; } = new List<long>();
@@ -131,6 +181,8 @@ namespace kinetica
 
         public IList<string> source_ip { get; set; } = new List<string>();
 
+        public IList<string> query_text { get; set; } = new List<string>();
+
         public IList<string> user_data { get; set; } = new List<string>();
 
         public IList<string> flags { get; set; } = new List<string>();
@@ -142,6 +194,11 @@ namespace kinetica
         ///         <description>The job tag specified by the user or if
         ///         unspecified by user, an internally generated unique
         ///         identifier for the job across clusters.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Info.WORKER_INFO">WORKER_INFO</see>:
+        ///         </term>
+        ///         <description>Worker job information as json</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>

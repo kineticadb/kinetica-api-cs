@@ -37,7 +37,6 @@ namespace kinetica
             /// <summary>ID of a currently registered <a
             /// href="../../../concepts/types/" target="_top">type</a>.
             /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
             public const string TYPE_ID = "type_id";
 
             /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
@@ -250,62 +249,34 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <summary>Optional number of bytes to skip when reading an avro
-            /// record.</summary>
-            public const string AVRO_HEADER_BYTES = "avro_header_bytes";
-
-            /// <summary>Optional number of avro records, if data includes only
-            /// records.</summary>
-            public const string AVRO_NUM_RECORDS = "avro_num_records";
-
-            /// <summary>Optional string representing avro schema, for insert
-            /// records in avro format, that does not include is schema.
-            /// </summary>
-            public const string AVRO_SCHEMA = "avro_schema";
-
-            /// <summary>When user provides 'avro_schema', avro data is assumed
-            /// to be schemaless, unless specified.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string AVRO_SCHEMALESS = "avro_schemaless";
-
-            /// <summary>Upsert new records when primary keys match existing
-            /// records</summary>
-            public const string TRUE = "true";
-
-            /// <summary>Reject new records when primary keys match existing
-            /// records</summary>
-            public const string FALSE = "false";
-
-            /// <summary>Optional name of a table to which records that were
-            /// rejected are written.</summary>
-            /// <remarks><para> The bad-record-table has the following columns:
+            /// <summary>Name of a table to which records that were rejected
+            /// are written.</summary>
+            /// <remarks><para>The bad-record-table has the following columns:
             /// line_number (long), line_rejected (string), error_message
-            /// (string).</para></remarks>
+            /// (string).  When <see
+            /// cref="Options.ERROR_HANDLING">ERROR_HANDLING</see> is <see
+            /// cref="Options.ABORT">ABORT</see>, bad records table is not
+            /// populated.</para></remarks>
             public const string BAD_RECORD_TABLE_NAME = "bad_record_table_name";
 
             /// <summary>A positive integer indicating the maximum number of
-            /// records that can be  written to the bad-record-table.</summary>
-            /// <remarks><para>  Default value is 10000</para></remarks>
+            /// records that can be written to the bad-record-table.</summary>
+            /// <remarks><para>The default value is '10000'.</para></remarks>
             public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
 
-            /// <summary>For subscriptions: A positive integer indicating the
+            /// <summary>For subscriptions, a positive integer indicating the
             /// maximum number of records that can be written to the
             /// bad-record-table per file/payload.</summary>
-            /// <remarks><para>Default value will be 'bad_record_table_limit'
-            /// and total size of the table per rank is limited to
-            /// 'bad_record_table_limit'</para></remarks>
+            /// <remarks><para>Default value will be <see
+            /// cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
+            /// and total size of the table per rank is limited to <see
+            /// cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
+            /// </para></remarks>
             public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
 
-            /// <summary>Internal tuning parameter--number of records per batch
-            /// when inserting data.</summary>
+            /// <summary>Number of records to insert per batch when inserting
+            /// data.</summary>
+            /// <remarks><para>The default value is '50000'.</para></remarks>
             public const string BATCH_SIZE = "batch_size";
 
             /// <summary>For each target column specified, applies the
@@ -359,17 +330,16 @@ namespace kinetica
             /// </remarks>
             public const string COLUMNS_TO_SKIP = "columns_to_skip";
 
-            /// <summary>Optional: compression type.</summary>
+            /// <summary>Source data compression type.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
             ///         <term><see cref="Options.NONE">NONE</see>:</term>
-            ///         <description>Uncompressed</description>
+            ///         <description>No compression.</description>
             ///     </item>
             ///     <item>
             ///         <term><see cref="Options.AUTO">AUTO</see>:</term>
-            ///         <description>Default. Auto detect compression type
-            ///         </description>
+            ///         <description>Auto detect compression type</description>
             ///     </item>
             ///     <item>
             ///         <term><see cref="Options.GZIP">GZIP</see>:</term>
@@ -384,11 +354,10 @@ namespace kinetica
             /// </para></remarks>
             public const string COMPRESSION_TYPE = "compression_type";
 
-            /// <summary>Uncompressed</summary>
+            /// <summary>No compression.</summary>
             public const string NONE = "none";
 
-            /// <summary>Default.</summary>
-            /// <remarks><para>Auto detect compression type</para></remarks>
+            /// <summary>Auto detect compression type</summary>
             public const string AUTO = "auto";
 
             /// <summary>gzip file compression.</summary>
@@ -566,9 +535,34 @@ namespace kinetica
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
 
+            /// <summary>Specifies how to handle nested columns.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+            ///         <description>Break up nested columns to multiple
+            ///         columns</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+            ///         <description>Treat nested columns as json columns
+            ///         instead of flattening</description>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string FLATTEN_COLUMNS = "flatten_columns";
+
+            /// <summary>Upsert new records when primary keys match existing
+            /// records</summary>
+            public const string TRUE = "true";
+
+            /// <summary>Reject new records when primary keys match existing
+            /// records</summary>
+            public const string FALSE = "false";
+
             /// <summary>Comma separated list of gdal conf options, for the
-            /// specific requets: key=value.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// specific requets: key=value</summary>
             public const string GDAL_CONFIGURATION_OPTIONS = "gdal_configuration_options";
 
             /// <summary>Specifies the record collision error-suppression
@@ -645,14 +639,20 @@ namespace kinetica
 
             /// <summary>The JDBC fetch size, which determines how many rows to
             /// fetch per round trip.</summary>
+            /// <remarks><para>The default value is '50000'.</para></remarks>
             public const string JDBC_FETCH_SIZE = "jdbc_fetch_size";
 
-            /// <summary>The group id to be used consuming data from a kakfa
-            /// topic (valid only for kafka datasource subscriptions).
+            /// <summary>Number of Kafka consumer threads per rank (valid range
+            /// 1-6).</summary>
+            /// <remarks><para>The default value is '1'.</para></remarks>
+            public const string KAFKA_CONSUMERS_PER_RANK = "kafka_consumers_per_rank";
+
+            /// <summary>The group id to be used when consuming data from a
+            /// Kafka topic (valid only for Kafka datasource subscriptions).
             /// </summary>
             public const string KAFKA_GROUP_ID = "kafka_group_id";
 
-            /// <summary>Policy to determine whether the data consumption
+            /// <summary>Policy to determine whether the Kafka data consumption
             /// starts either at earliest offset or latest offset.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
@@ -671,14 +671,33 @@ namespace kinetica
             public const string EARLIEST = "earliest";
             public const string LATEST = "latest";
 
-            /// <summary>Sets the subscription lifespan (in minutes).</summary>
+            /// <summary>Enable optimistic ingestion where Kafka topic offsets
+            /// and table data are committed independently to achieve
+            /// parallelism.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string KAFKA_OPTIMISTIC_INGEST = "kafka_optimistic_ingest";
+
+            /// <summary>Sets the Kafka subscription lifespan (in minutes).
+            /// </summary>
             /// <remarks><para>Expired subscription will be cancelled
             /// automatically.</para></remarks>
             public const string KAFKA_SUBSCRIPTION_CANCEL_AFTER = "kafka_subscription_cancel_after";
 
-            /// <summary>Optional: geo files layer(s) name(s): comma separated.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// <summary>Maximum time to collect Kafka messages before type
+            /// inferencing on the set of them.</summary>
+            public const string KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT = "kafka_type_inference_fetch_timeout";
+
+            /// <summary>Geo files layer(s) name(s): comma separated.</summary>
             public const string LAYER = "layer";
 
             /// <summary>Scheme for distributing the extraction and loading of
@@ -766,20 +785,21 @@ namespace kinetica
             /// loaded.</para></remarks>
             public const string DISTRIBUTED_LOCAL = "distributed_local";
 
-            /// <summary>For Avro local timestamp columns</summary>
+            /// <summary>Apply an offset to Avro local timestamp columns.
+            /// </summary>
             public const string LOCAL_TIME_OFFSET = "local_time_offset";
 
             /// <summary>Limit the number of records to load in this request:
-            /// If this number is larger than a batch_size, then the number of
-            /// records loaded will be limited to the next whole number of
-            /// batch_size (per working thread).</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// if this number is larger than <see
+            /// cref="Options.BATCH_SIZE">BATCH_SIZE</see>, then the number of
+            /// records loaded will be limited to the next whole number of <see
+            /// cref="Options.BATCH_SIZE">BATCH_SIZE</see> (per working
+            /// thread).</summary>
             public const string MAX_RECORDS_TO_LOAD = "max_records_to_load";
 
-            /// <summary>Optional: number of tasks for reading file per rank.
-            /// </summary>
-            /// <remarks><para>Default will be external_file_reader_num_tasks
-            /// </para></remarks>
+            /// <summary>Number of tasks for reading file per rank.</summary>
+            /// <remarks><para>Default will be system configuration parameter,
+            /// external_file_reader_num_tasks.</para></remarks>
             public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
 
             /// <summary>If <see cref="Options.TRUE">TRUE</see>, the number of
@@ -787,12 +807,12 @@ namespace kinetica
             /// </summary>
             /// <remarks><para> If zero, polling will be continuous as long as
             /// data is found.  If no data is found, the interval will steadily
-            /// increase to a maximum of 60 seconds.</para></remarks>
+            /// increase to a maximum of 60 seconds. The default value is '0'.
+            /// </para></remarks>
             public const string POLL_INTERVAL = "poll_interval";
 
-            /// <summary>Optional: comma separated list of column names, to set
-            /// as primary keys, when not specified in the type.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// <summary>Comma separated list of column names to set as primary
+            /// keys, when not specified in the type.</summary>
             public const string PRIMARY_KEYS = "primary_keys";
 
             /// <summary>Method by which the table can be refreshed from its
@@ -832,13 +852,12 @@ namespace kinetica
             /// on this table.</summary>
             public const string ON_START = "on_start";
 
-            public const string SCHEMA_REGISTRY_SCHEMA_ID = "schema_registry_schema_id";
+            /// <summary>Name of the Avro schema in the schema registry to use
+            /// when reading Avro records.</summary>
             public const string SCHEMA_REGISTRY_SCHEMA_NAME = "schema_registry_schema_name";
-            public const string SCHEMA_REGISTRY_SCHEMA_VERSION = "schema_registry_schema_version";
 
-            /// <summary>Optional: comma separated list of column names, to set
-            /// as primary keys, when not specified in the type.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// <summary>Comma separated list of column names to set as shard
+            /// keys, when not specified in the type.</summary>
             public const string SHARD_KEYS = "shard_keys";
 
             /// <summary>Skip number of lines from begining of file.</summary>
@@ -859,23 +878,32 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string SUBSCRIBE = "subscribe";
 
-            /// <summary>Optional: table_insert_mode.</summary>
+            /// <summary>Insertion scheme to use when inserting records from
+            /// multiple shapefiles.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="Options.SINGLE">SINGLE</see></term>
+            ///         <term><see cref="Options.SINGLE">SINGLE</see>:</term>
+            ///         <description>Insert all records into a single table.
+            ///         </description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            ///         cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
+            ///         cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
             ///         </term>
+            ///         <description>Insert records from each file into a new
+            ///         table corresponding to that file.</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see
             /// cref="Options.SINGLE">SINGLE</see>.</para></remarks>
             public const string TABLE_INSERT_MODE = "table_insert_mode";
 
+            /// <summary>Insert all records into a single table.</summary>
             public const string SINGLE = "single";
+
+            /// <summary>Insert records from each file into a new table
+            /// corresponding to that file.</summary>
             public const string TABLE_PER_FILE = "table_per_file";
 
             /// <summary>Specifies the character string that should be
@@ -966,14 +994,18 @@ namespace kinetica
             /// <summary>Add 'text_search' property to internally inferenced
             /// string columns.</summary>
             /// <remarks><para>Comma seperated list of column names or '*' for
-            /// all columns. To add text_search property only to string columns
-            /// of minimum size, set also the option
-            /// 'text_search_min_column_length'</para></remarks>
+            /// all columns. To add 'text_search' property only to string
+            /// columns greater than or equal to a minimum size, also set the
+            /// <see
+            /// cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
+            /// </para></remarks>
             public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
 
-            /// <summary>Set minimum column size.</summary>
-            /// <remarks><para>Used only when 'text_search_columns' has a
-            /// value.</para></remarks>
+            /// <summary>Set the minimum column size for strings to apply the
+            /// 'text_search' property to.</summary>
+            /// <remarks><para>Used only when <see
+            /// cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
+            /// has a value.</para></remarks>
             public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
 
             /// <summary>If set to <see cref="Options.TRUE">TRUE</see>,
@@ -1008,7 +1040,8 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string TRUNCATE_TABLE = "truncate_table";
 
-            /// <summary>optimize type inference for:</summary>
+            /// <summary>Optimize type inferencing for either speed or
+            /// accuracy.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -1041,19 +1074,19 @@ namespace kinetica
             /// </summary>
             public const string REMOTE_QUERY = "remote_query";
 
-            /// <summary>Name of column to be used for splitting the query into
-            /// multiple sub-queries using the data distribution of given
-            /// column.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// <summary>Name of column to be used for splitting <see
+            /// cref="Options.REMOTE_QUERY">REMOTE_QUERY</see> into multiple
+            /// sub-queries using the data distribution of given column
+            /// </summary>
             public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
 
             /// <summary>Column on subscribed remote query result that will
             /// increase for new records (e.g., TIMESTAMP).</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
             public const string REMOTE_QUERY_INCREASING_COLUMN = "remote_query_increasing_column";
 
-            /// <summary>Alias name for remote_query_filter_column.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
+            /// <summary>Alias name for <see
+            /// cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+            /// </summary>
             public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
 
             /// <summary>Specifies the record collision policy for inserting
@@ -1128,8 +1161,8 @@ namespace kinetica
         ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
         ///         </term>
         ///         <description>ID of a currently registered <a
-        ///         href="../../../concepts/types/" target="_top">type</a>. The
-        ///         default value is ''.</description>
+        ///         href="../../../concepts/types/" target="_top">type</a>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1296,7 +1329,7 @@ namespace kinetica
         ///         <description>If <see
         ///         cref="CreateTableOptions.TRUE">TRUE</see>, a new partition
         ///         will be created for values which don't fall into an
-        ///         existing partition.  Currently only supported for <a
+        ///         existing partition.  Currently, only supported for <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
         ///         target="_top">list partitions</a>.
         ///         Supported values:
@@ -1383,76 +1416,43 @@ namespace kinetica
         /// <remarks><list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:
-        ///         </term>
-        ///         <description>Optional number of bytes to skip when reading
-        ///         an avro record.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:
-        ///         </term>
-        ///         <description>Optional number of avro records, if data
-        ///         includes only records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Optional string representing avro schema, for
-        ///         insert records in avro format, that does not include is
-        ///         schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:
-        ///         </term>
-        ///         <description>When user provides 'avro_schema', avro data is
-        ///         assumed to be schemaless, unless specified. Default is
-        ///         'true' when given avro_schema. Igonred when avro_schema is
-        ///         not given.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
         ///         </term>
-        ///         <description>Optional name of a table to which records that
-        ///         were rejected are written.  The bad-record-table has the
+        ///         <description>Name of a table to which records that were
+        ///         rejected are written. The bad-record-table has the
         ///         following columns: line_number (long), line_rejected
-        ///         (string), error_message (string).</description>
+        ///         (string), error_message (string).  When <see
+        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see> is <see
+        ///         cref="Options.ABORT">ABORT</see>, bad records table is not
+        ///         populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
         ///         </term>
         ///         <description>A positive integer indicating the maximum
-        ///         number of records that can be  written to the
-        ///         bad-record-table.   Default value is 10000</description>
+        ///         number of records that can be written to the
+        ///         bad-record-table. The default value is '10000'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
         ///         </term>
-        ///         <description>For subscriptions: A positive integer
+        ///         <description>For subscriptions, a positive integer
         ///         indicating the maximum number of records that can be
         ///         written to the bad-record-table per file/payload. Default
-        ///         value will be 'bad_record_table_limit' and total size of
-        ///         the table per rank is limited to 'bad_record_table_limit'
+        ///         value will be <see
+        ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
+        ///         and total size of the table per rank is limited to <see
+        ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
         ///         </term>
-        ///         <description>Internal tuning parameter--number of records
-        ///         per batch when inserting data.</description>
+        ///         <description>Number of records to insert per batch when
+        ///         inserting data. The default value is '50000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1515,16 +1515,16 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
         ///         </term>
-        ///         <description>Optional: compression type.
+        ///         <description>Source data compression type.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Uncompressed</description>
+        ///                 <description>No compression.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
-        ///                 <description>Default. Auto detect compression type
+        ///                 <description>Auto detect compression type
         ///                 </description>
         ///             </item>
         ///             <item>
@@ -1684,11 +1684,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
+        ///         </term>
+        ///         <description>Specifies how to handle nested columns.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Break up nested columns to multiple
+        ///                 columns</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Treat nested columns as json columns
+        ///                 instead of flattening</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
         ///         </term>
         ///         <description>Comma separated list of gdal conf options, for
-        ///         the specific requets: key=value. The default value is ''.
-        ///         </description>
+        ///         the specific requets: key=value</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1771,20 +1791,28 @@ namespace kinetica
         ///         cref="Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:
         ///         </term>
         ///         <description>The JDBC fetch size, which determines how many
-        ///         rows to fetch per round trip.</description>
+        ///         rows to fetch per round trip. The default value is '50000'.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.KAFKA_CONSUMERS_PER_RANK">KAFKA_CONSUMERS_PER_RANK</see>:
+        ///         </term>
+        ///         <description>Number of Kafka consumer threads per rank
+        ///         (valid range 1-6). The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        ///         kakfa topic (valid only for kafka datasource
+        ///         <description>The group id to be used when consuming data
+        ///         from a Kafka topic (valid only for Kafka datasource
         ///         subscriptions).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:
         ///         </term>
-        ///         <description>Policy to determine whether the data
+        ///         <description>Policy to determine whether the Kafka data
         ///         consumption starts either at earliest offset or latest
         ///         offset.
         ///         Supported values:
@@ -1803,16 +1831,42 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
+        ///         cref="Options.KAFKA_OPTIMISTIC_INGEST">KAFKA_OPTIMISTIC_INGEST</see>:
         ///         </term>
-        ///         <description>Sets the subscription lifespan (in minutes).
-        ///         Expired subscription will be cancelled automatically.
+        ///         <description>Enable optimistic ingestion where Kafka topic
+        ///         offsets and table data are committed independently to
+        ///         achieve parallelism.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
+        ///         </term>
+        ///         <description>Sets the Kafka subscription lifespan (in
+        ///         minutes). Expired subscription will be cancelled
+        ///         automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT">KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Maximum time to collect Kafka messages before
+        ///         type inferencing on the set of them.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
-        ///         <description>Optional: geo files layer(s) name(s): comma
-        ///         separated. The default value is ''.</description>
+        ///         <description>Geo files layer(s) name(s): comma separated.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
@@ -1875,25 +1929,27 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
         ///         </term>
-        ///         <description>For Avro local timestamp columns</description>
+        ///         <description>Apply an offset to Avro local timestamp
+        ///         columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
         ///         </term>
         ///         <description>Limit the number of records to load in this
-        ///         request: If this number is larger than a batch_size, then
-        ///         the number of records loaded will be limited to the next
-        ///         whole number of batch_size (per working thread). The
-        ///         default value is ''.</description>
+        ///         request: if this number is larger than <see
+        ///         cref="Options.BATCH_SIZE">BATCH_SIZE</see>, then the number
+        ///         of records loaded will be limited to the next whole number
+        ///         of <see cref="Options.BATCH_SIZE">BATCH_SIZE</see> (per
+        ///         working thread).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
         ///         </term>
-        ///         <description>Optional: number of tasks for reading file per
-        ///         rank. Default will be external_file_reader_num_tasks
-        ///         </description>
+        ///         <description>Number of tasks for reading file per rank.
+        ///         Default will be system configuration parameter,
+        ///         external_file_reader_num_tasks.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1902,15 +1958,14 @@ namespace kinetica
         ///         number of seconds between attempts to load external files
         ///         into the table.  If zero, polling will be continuous as
         ///         long as data is found.  If no data is found, the interval
-        ///         will steadily increase to a maximum of 60 seconds.
-        ///         </description>
+        ///         will steadily increase to a maximum of 60 seconds. The
+        ///         default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
         ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
+        ///         <description>Comma separated list of column names to set as
+        ///         primary keys, when not specified in the type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1942,25 +1997,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>
+        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
         ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>
-        ///         </term>
+        ///         <description>Name of the Avro schema in the schema registry
+        ///         to use when reading Avro records.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:
         ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
+        ///         <description>Comma separated list of column names to set as
+        ///         shard keys, when not specified in the type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
@@ -1988,20 +2034,22 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
         ///         </term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        ///         records from multiple files: if table_per_file then insert
-        ///         from each file into a new table. Currently supported only
-        ///         for shapefiles.
+        ///         <description>Insertion scheme to use when inserting records
+        ///         from multiple shapefiles.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.SINGLE">SINGLE</see>
+        ///                 <term><see cref="Options.SINGLE">SINGLE</see>:
         ///                 </term>
+        ///                 <description>Insert all records into a single
+        ///                 table.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
+        ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
         ///                 </term>
+        ///                 <description>Insert records from each file into a
+        ///                 new table corresponding to that file.</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -2114,16 +2162,20 @@ namespace kinetica
         ///         </term>
         ///         <description>Add 'text_search' property to internally
         ///         inferenced string columns. Comma seperated list of column
-        ///         names or '*' for all columns. To add text_search property
-        ///         only to string columns of minimum size, set also the option
-        ///         'text_search_min_column_length'</description>
+        ///         names or '*' for all columns. To add 'text_search' property
+        ///         only to string columns greater than or equal to a minimum
+        ///         size, also set the <see
+        ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
         ///         </term>
-        ///         <description>Set minimum column size. Used only when
-        ///         'text_search_columns' has a value.</description>
+        ///         <description>Set the minimum column size for strings to
+        ///         apply the 'text_search' property to. Used only when <see
+        ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
+        ///         has a value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2166,7 +2218,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
         ///         </term>
-        ///         <description>optimize type inference for:
+        ///         <description>Optimize type inferencing for either speed or
+        ///         accuracy.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -2195,24 +2248,26 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
         ///         </term>
-        ///         <description>Name of column to be used for splitting the
-        ///         query into multiple sub-queries using the data distribution
-        ///         of given column. The default value is ''.</description>
+        ///         <description>Name of column to be used for splitting <see
+        ///         cref="Options.REMOTE_QUERY">REMOTE_QUERY</see> into
+        ///         multiple sub-queries using the data distribution of given
+        ///         column</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
         ///         </term>
         ///         <description>Column on subscribed remote query result that
-        ///         will increase for new records (e.g., TIMESTAMP). The
-        ///         default value is ''.</description>
+        ///         will increase for new records (e.g., TIMESTAMP).
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
         ///         </term>
-        ///         <description>Alias name for remote_query_filter_column. The
-        ///         default value is ''.</description>
+        ///         <description>Alias name for <see
+        ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2225,7 +2280,7 @@ namespace kinetica
         ///         cref="Options.TRUE">TRUE</see>, any existing table record
         ///         with primary key values that match those of a record being
         ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
+        ///         will be 'upserted'). If set to <see
         ///         cref="Options.FALSE">FALSE</see>, any existing table record
         ///         with primary key values that match those of a record being
         ///         inserted will remain unchanged, while the new record will
@@ -2303,8 +2358,8 @@ namespace kinetica
         ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
         ///         </term>
         ///         <description>ID of a currently registered <a
-        ///         href="../../../concepts/types/" target="_top">type</a>. The
-        ///         default value is ''.</description>
+        ///         href="../../../concepts/types/" target="_top">type</a>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2471,7 +2526,7 @@ namespace kinetica
         ///         <description>If <see
         ///         cref="CreateTableOptions.TRUE">TRUE</see>, a new partition
         ///         will be created for values which don't fall into an
-        ///         existing partition.  Currently only supported for <a
+        ///         existing partition.  Currently, only supported for <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
         ///         target="_top">list partitions</a>.
         ///         Supported values:
@@ -2556,76 +2611,43 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:
-        ///         </term>
-        ///         <description>Optional number of bytes to skip when reading
-        ///         an avro record.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:
-        ///         </term>
-        ///         <description>Optional number of avro records, if data
-        ///         includes only records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Optional string representing avro schema, for
-        ///         insert records in avro format, that does not include is
-        ///         schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:
-        ///         </term>
-        ///         <description>When user provides 'avro_schema', avro data is
-        ///         assumed to be schemaless, unless specified. Default is
-        ///         'true' when given avro_schema. Igonred when avro_schema is
-        ///         not given.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
         ///         </term>
-        ///         <description>Optional name of a table to which records that
-        ///         were rejected are written.  The bad-record-table has the
+        ///         <description>Name of a table to which records that were
+        ///         rejected are written. The bad-record-table has the
         ///         following columns: line_number (long), line_rejected
-        ///         (string), error_message (string).</description>
+        ///         (string), error_message (string).  When <see
+        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see> is <see
+        ///         cref="Options.ABORT">ABORT</see>, bad records table is not
+        ///         populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
         ///         </term>
         ///         <description>A positive integer indicating the maximum
-        ///         number of records that can be  written to the
-        ///         bad-record-table.   Default value is 10000</description>
+        ///         number of records that can be written to the
+        ///         bad-record-table. The default value is '10000'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
         ///         </term>
-        ///         <description>For subscriptions: A positive integer
+        ///         <description>For subscriptions, a positive integer
         ///         indicating the maximum number of records that can be
         ///         written to the bad-record-table per file/payload. Default
-        ///         value will be 'bad_record_table_limit' and total size of
-        ///         the table per rank is limited to 'bad_record_table_limit'
+        ///         value will be <see
+        ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
+        ///         and total size of the table per rank is limited to <see
+        ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
         ///         </term>
-        ///         <description>Internal tuning parameter--number of records
-        ///         per batch when inserting data.</description>
+        ///         <description>Number of records to insert per batch when
+        ///         inserting data. The default value is '50000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2688,16 +2710,16 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
         ///         </term>
-        ///         <description>Optional: compression type.
+        ///         <description>Source data compression type.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Uncompressed</description>
+        ///                 <description>No compression.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
-        ///                 <description>Default. Auto detect compression type
+        ///                 <description>Auto detect compression type
         ///                 </description>
         ///             </item>
         ///             <item>
@@ -2857,11 +2879,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
+        ///         </term>
+        ///         <description>Specifies how to handle nested columns.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Break up nested columns to multiple
+        ///                 columns</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Treat nested columns as json columns
+        ///                 instead of flattening</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
         ///         </term>
         ///         <description>Comma separated list of gdal conf options, for
-        ///         the specific requets: key=value. The default value is ''.
-        ///         </description>
+        ///         the specific requets: key=value</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2944,20 +2986,28 @@ namespace kinetica
         ///         cref="Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:
         ///         </term>
         ///         <description>The JDBC fetch size, which determines how many
-        ///         rows to fetch per round trip.</description>
+        ///         rows to fetch per round trip. The default value is '50000'.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.KAFKA_CONSUMERS_PER_RANK">KAFKA_CONSUMERS_PER_RANK</see>:
+        ///         </term>
+        ///         <description>Number of Kafka consumer threads per rank
+        ///         (valid range 1-6). The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        ///         kakfa topic (valid only for kafka datasource
+        ///         <description>The group id to be used when consuming data
+        ///         from a Kafka topic (valid only for Kafka datasource
         ///         subscriptions).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:
         ///         </term>
-        ///         <description>Policy to determine whether the data
+        ///         <description>Policy to determine whether the Kafka data
         ///         consumption starts either at earliest offset or latest
         ///         offset.
         ///         Supported values:
@@ -2976,16 +3026,42 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
+        ///         cref="Options.KAFKA_OPTIMISTIC_INGEST">KAFKA_OPTIMISTIC_INGEST</see>:
         ///         </term>
-        ///         <description>Sets the subscription lifespan (in minutes).
-        ///         Expired subscription will be cancelled automatically.
+        ///         <description>Enable optimistic ingestion where Kafka topic
+        ///         offsets and table data are committed independently to
+        ///         achieve parallelism.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
+        ///         </term>
+        ///         <description>Sets the Kafka subscription lifespan (in
+        ///         minutes). Expired subscription will be cancelled
+        ///         automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT">KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Maximum time to collect Kafka messages before
+        ///         type inferencing on the set of them.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
-        ///         <description>Optional: geo files layer(s) name(s): comma
-        ///         separated. The default value is ''.</description>
+        ///         <description>Geo files layer(s) name(s): comma separated.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
@@ -3048,25 +3124,27 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
         ///         </term>
-        ///         <description>For Avro local timestamp columns</description>
+        ///         <description>Apply an offset to Avro local timestamp
+        ///         columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
         ///         </term>
         ///         <description>Limit the number of records to load in this
-        ///         request: If this number is larger than a batch_size, then
-        ///         the number of records loaded will be limited to the next
-        ///         whole number of batch_size (per working thread). The
-        ///         default value is ''.</description>
+        ///         request: if this number is larger than <see
+        ///         cref="Options.BATCH_SIZE">BATCH_SIZE</see>, then the number
+        ///         of records loaded will be limited to the next whole number
+        ///         of <see cref="Options.BATCH_SIZE">BATCH_SIZE</see> (per
+        ///         working thread).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
         ///         </term>
-        ///         <description>Optional: number of tasks for reading file per
-        ///         rank. Default will be external_file_reader_num_tasks
-        ///         </description>
+        ///         <description>Number of tasks for reading file per rank.
+        ///         Default will be system configuration parameter,
+        ///         external_file_reader_num_tasks.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3075,15 +3153,14 @@ namespace kinetica
         ///         number of seconds between attempts to load external files
         ///         into the table.  If zero, polling will be continuous as
         ///         long as data is found.  If no data is found, the interval
-        ///         will steadily increase to a maximum of 60 seconds.
-        ///         </description>
+        ///         will steadily increase to a maximum of 60 seconds. The
+        ///         default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
         ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
+        ///         <description>Comma separated list of column names to set as
+        ///         primary keys, when not specified in the type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3115,25 +3192,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>
+        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
         ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>
-        ///         </term>
+        ///         <description>Name of the Avro schema in the schema registry
+        ///         to use when reading Avro records.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:
         ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
+        ///         <description>Comma separated list of column names to set as
+        ///         shard keys, when not specified in the type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
@@ -3161,20 +3229,22 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
         ///         </term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        ///         records from multiple files: if table_per_file then insert
-        ///         from each file into a new table. Currently supported only
-        ///         for shapefiles.
+        ///         <description>Insertion scheme to use when inserting records
+        ///         from multiple shapefiles.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.SINGLE">SINGLE</see>
+        ///                 <term><see cref="Options.SINGLE">SINGLE</see>:
         ///                 </term>
+        ///                 <description>Insert all records into a single
+        ///                 table.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
+        ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
         ///                 </term>
+        ///                 <description>Insert records from each file into a
+        ///                 new table corresponding to that file.</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -3287,16 +3357,20 @@ namespace kinetica
         ///         </term>
         ///         <description>Add 'text_search' property to internally
         ///         inferenced string columns. Comma seperated list of column
-        ///         names or '*' for all columns. To add text_search property
-        ///         only to string columns of minimum size, set also the option
-        ///         'text_search_min_column_length'</description>
+        ///         names or '*' for all columns. To add 'text_search' property
+        ///         only to string columns greater than or equal to a minimum
+        ///         size, also set the <see
+        ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
         ///         </term>
-        ///         <description>Set minimum column size. Used only when
-        ///         'text_search_columns' has a value.</description>
+        ///         <description>Set the minimum column size for strings to
+        ///         apply the 'text_search' property to. Used only when <see
+        ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
+        ///         has a value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3339,7 +3413,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
         ///         </term>
-        ///         <description>optimize type inference for:
+        ///         <description>Optimize type inferencing for either speed or
+        ///         accuracy.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -3368,24 +3443,26 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
         ///         </term>
-        ///         <description>Name of column to be used for splitting the
-        ///         query into multiple sub-queries using the data distribution
-        ///         of given column. The default value is ''.</description>
+        ///         <description>Name of column to be used for splitting <see
+        ///         cref="Options.REMOTE_QUERY">REMOTE_QUERY</see> into
+        ///         multiple sub-queries using the data distribution of given
+        ///         column</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
         ///         </term>
         ///         <description>Column on subscribed remote query result that
-        ///         will increase for new records (e.g., TIMESTAMP). The
-        ///         default value is ''.</description>
+        ///         will increase for new records (e.g., TIMESTAMP).
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
         ///         </term>
-        ///         <description>Alias name for remote_query_filter_column. The
-        ///         default value is ''.</description>
+        ///         <description>Alias name for <see
+        ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3398,7 +3475,7 @@ namespace kinetica
         ///         cref="Options.TRUE">TRUE</see>, any existing table record
         ///         with primary key values that match those of a record being
         ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
+        ///         will be 'upserted'). If set to <see
         ///         cref="Options.FALSE">FALSE</see>, any existing table record
         ///         with primary key values that match those of a record being
         ///         inserted will remain unchanged, while the new record will

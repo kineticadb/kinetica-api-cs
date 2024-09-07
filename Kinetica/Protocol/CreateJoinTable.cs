@@ -98,6 +98,11 @@ namespace kinetica
             /// <remarks><para>Defaults to the gpudb.conf file chunk size
             /// </para></remarks>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>Collect chunks with accumulated size less than
+            /// chunk_size into a single chunk.</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
+            public const string ENABLE_VIRTUAL_CHUNKING = "enable_virtual_chunking";
         } // end struct Options
 
         /// <summary>Name of the join table to be created, in
@@ -233,6 +238,14 @@ namespace kinetica
         ///         this table. Defaults to the gpudb.conf file chunk size
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_VIRTUAL_CHUNKING">ENABLE_VIRTUAL_CHUNKING</see>:
+        ///         </term>
+        ///         <description>Collect chunks with accumulated size less than
+        ///         chunk_size into a single chunk. The default value is
+        ///         'false'.</description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -366,6 +379,14 @@ namespace kinetica
         ///         <description>Maximum number of records per joined-chunk for
         ///         this table. Defaults to the gpudb.conf file chunk size
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_VIRTUAL_CHUNKING">ENABLE_VIRTUAL_CHUNKING</see>:
+        ///         </term>
+        ///         <description>Collect chunks with accumulated size less than
+        ///         chunk_size into a single chunk. The default value is
+        ///         'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

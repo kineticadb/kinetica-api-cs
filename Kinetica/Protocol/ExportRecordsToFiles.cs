@@ -213,6 +213,12 @@ namespace kinetica
 
             public const string OVERWRITE = "overwrite";
 
+            /// <summary>Max file size (in MB) to allow saving to a single
+            /// file.</summary>
+            /// <remarks><para>May be overridden by target limitations. The
+            /// default value is ''.</para></remarks>
+            public const string SINGLE_FILE_MAX_SIZE = "single_file_max_size";
+
             /// <summary>Specifies the character to write out to delimit field
             /// values and field names in the header (if present).</summary>
             /// <remarks><para> For <see
@@ -457,6 +463,14 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SINGLE_FILE_MAX_SIZE">SINGLE_FILE_MAX_SIZE</see>:
+        ///         </term>
+        ///         <description>Max file size (in MB) to allow saving to a
+        ///         single file. May be overridden by target limitations. The
+        ///         default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -718,6 +732,14 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SINGLE_FILE_MAX_SIZE">SINGLE_FILE_MAX_SIZE</see>:
+        ///         </term>
+        ///         <description>Max file size (in MB) to allow saving to a
+        ///         single file. May be overridden by target limitations. The
+        ///         default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

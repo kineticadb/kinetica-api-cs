@@ -27,13 +27,15 @@ namespace kinetica
             public const string AZURE_OAUTH = "azure_oauth";
             public const string AZURE_SAS = "azure_sas";
             public const string AZURE_STORAGE_KEY = "azure_storage_key";
+            public const string CONFLUENT = "confluent";
             public const string DOCKER = "docker";
             public const string GCS_SERVICE_ACCOUNT_ID = "gcs_service_account_id";
             public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
             public const string HDFS = "hdfs";
             public const string JDBC = "jdbc";
             public const string KAFKA = "kafka";
-            public const string CONFLUENT = "confluent";
+            public const string NVIDIA_API_KEY = "nvidia_api_key";
+            public const string OPENAI_API_KEY = "openai_api_key";
         } // end struct Type
 
         /// <summary>Name of the credential to be created.</summary>
@@ -68,6 +70,9 @@ namespace kinetica
         ///         </term>
         ///     </item>
         ///     <item>
+        ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Type.DOCKER">DOCKER</see></term>
         ///     </item>
         ///     <item>
@@ -90,7 +95,12 @@ namespace kinetica
         ///         <term><see cref="Type.KAFKA">KAFKA</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
+        ///         <term><see cref="Type.NVIDIA_API_KEY">NVIDIA_API_KEY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.OPENAI_API_KEY">OPENAI_API_KEY</see>
+        ///         </term>
         ///     </item>
         /// </list></remarks>
         public string type { get; set; }
@@ -143,6 +153,9 @@ namespace kinetica
         ///         </term>
         ///     </item>
         ///     <item>
+        ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Type.DOCKER">DOCKER</see></term>
         ///     </item>
         ///     <item>
@@ -165,7 +178,12 @@ namespace kinetica
         ///         <term><see cref="Type.KAFKA">KAFKA</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
+        ///         <term><see cref="Type.NVIDIA_API_KEY">NVIDIA_API_KEY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Type.OPENAI_API_KEY">OPENAI_API_KEY</see>
+        ///         </term>
         ///     </item>
         /// </list></param>
         /// <param name="identity">User of the credential to be created.

@@ -70,6 +70,9 @@ namespace kinetica
             /// </summary>
             public const string CONNECT = "connect";
 
+            /// <summary>Ability to create new objects of this type.</summary>
+            public const string CREATE = "create";
+
             /// <summary>Delete rows from tables.</summary>
             public const string DELETE = "delete";
 
@@ -193,6 +196,11 @@ namespace kinetica
         ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         ///         data sink.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Permission.CREATE">CREATE</see>:</term>
+        ///         <description>Ability to create new objects of this type.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
@@ -332,6 +340,11 @@ namespace kinetica
         ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         ///         data sink.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Permission.CREATE">CREATE</see>:</term>
+        ///         <description>Ability to create new objects of this type.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>

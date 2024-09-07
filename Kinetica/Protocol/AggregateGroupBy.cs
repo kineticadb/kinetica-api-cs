@@ -203,6 +203,12 @@ namespace kinetica
             /// second aggregate, etc.</para></remarks>
             public const string VALUE = "value";
 
+            /// <summary>Comma-separated list of the columns to be sorted by as
+            /// well as the sort direction, e.g., 'timestamp asc, x desc'.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string ORDER_BY = "order_by";
+
             /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
             /// target="_top">tier strategy</a> for the table and its columns.
             /// </summary>
@@ -333,6 +339,14 @@ namespace kinetica
             /// <summary>This option is used to specify the multidimensional
             /// aggregates.</summary>
             public const string CUBE = "cube";
+
+            /// <summary>Comma-separated list of the columns to be sharded on;
+            /// e.g. 'column1, column2'.</summary>
+            /// <remarks><para> The columns specified must be present in <see
+            /// cref="column_names" />.  If any alias is given for any column
+            /// name, the alias must be used, rather than the original column
+            /// name. The default value is ''.</para></remarks>
+            public const string SHARD_KEY = "shard_key";
         } // end struct Options
 
         /// <summary>Name of an existing table or view on which the operation
@@ -489,6 +503,12 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
         ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
         ///         </term>
@@ -657,6 +677,15 @@ namespace kinetica
         ///         <term><see cref="Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         ///         multidimensional aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sharded on; e.g. 'column1, column2'.  The columns specified
+        ///         must be present in <see cref="column_names" />.  If any
+        ///         alias is given for any column name, the alias must be used,
+        ///         rather than the original column name. The default value is
+        ///         ''.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -796,6 +825,12 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
         ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
         ///         </term>
@@ -964,6 +999,15 @@ namespace kinetica
         ///         <term><see cref="Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         ///         multidimensional aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sharded on; e.g. 'column1, column2'.  The columns specified
+        ///         must be present in <paramref name="column_names" />.  If
+        ///         any alias is given for any column name, the alias must be
+        ///         used, rather than the original column name. The default
+        ///         value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -1127,6 +1171,12 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
         ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
         ///         </term>
@@ -1295,6 +1345,15 @@ namespace kinetica
         ///         <term><see cref="Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         ///         multidimensional aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sharded on; e.g. 'column1, column2'.  The columns specified
+        ///         must be present in <paramref name="column_names" />.  If
+        ///         any alias is given for any column name, the alias must be
+        ///         used, rather than the original column name. The default
+        ///         value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

@@ -16,10 +16,10 @@ namespace kinetica
     /// nodes, destination nodes, and additional, optional weights and
     /// restrictions.</para>
     /// <para>IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../../graph_solver/network_graph_solver/"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
-    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
-    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph-solve"
+    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
+    /// & Solvers</a> concepts documentation, the <a
+    /// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph---solve"
     /// target="_top">/solve/graph examples</a> before using this endpoint.
     /// </para></remarks>
     public class SolveGraphRequest : KineticaData

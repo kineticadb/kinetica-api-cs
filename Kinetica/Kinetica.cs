@@ -52,13 +52,17 @@ namespace kinetica
             /// <summary>
             /// Optional: User Name for Kinetica security
             /// </summary>
-            public string Username { get; set; }
+            public string Username { get; set; } = string.Empty;
 
             /// <summary>
             /// Optional: Password for user
             /// </summary>
-            public string Password { get; set; }
+            public string Password { get; set; } = string.Empty;
 
+            /// <summary>
+            /// Optional: OauthToken for user
+            /// </summary>
+            public string OauthToken { get; set; } = string.Empty;
             /// <summary>
             /// Use Snappy
             /// </summary>
@@ -89,17 +93,22 @@ namespace kinetica
         /// <summary>
         /// Optional: User Name for Kinetica security
         /// </summary>
-        public string Username { get; private set; } = null;
+        public string? Username { get; private set; } = null;
 
         /// <summary>
         /// Optional: Password for user
         /// </summary>
-        private string Password { get; set; } = null;
+        private string? Password { get; set; } = null;
+
+        /// <summary>
+        /// Optional: OauthToken for user
+        /// </summary>
+        private string? OauthToken { get; set; } = null;
 
         /// <summary>
         /// Optional: Authorization for connections.
         /// </summary>
-        private string Authorization { get; set; } = null;
+        private string? Authorization { get; set; } = null;
 
         /// <summary>
         /// Use Snappy
@@ -112,20 +121,20 @@ namespace kinetica
         public int ThreadCount { get; set; } = 1;
 
         // private string authorization;
-        private volatile System.Collections.Concurrent.ConcurrentDictionary<string, KineticaType> knownTypes = new ConcurrentDictionary<string, KineticaType>();
+        private volatile System.Collections.Concurrent.ConcurrentDictionary<string, KineticaType> knownTypes = new();
 
         // private type label to type ID lookup table
-        private Dictionary<string, string> typeNameLookup = new Dictionary<string, string>();
+        private Dictionary<string, string> typeNameLookup = new();
 
         // private object class type to KineticaType lookup table
-        private Dictionary<Type, KineticaType> kineticaTypeLookup = new Dictionary<Type, KineticaType>();
+        private Dictionary<Type, KineticaType> kineticaTypeLookup = new();
 
         /// <summary>
         /// API Constructor
         /// </summary>
         /// <param name="url_str">URL for Kinetica Server (including "http:" and port)</param>
         /// <param name="options">Optional connection options</param>
-        public Kinetica( string url_str, Options options = null )
+        public Kinetica( string url_str, Options? options = null )
         {
             Url = url_str;
             URL = new Uri( url_str );
@@ -133,14 +142,10 @@ namespace kinetica
             {
                 Username = options.Username;
                 Password = options.Password;
+                OauthToken = options.OauthToken;
 
                 // Handle authorization
-                if ( ( Username != null && ( Username.Length > 0 ) ) || ( Password != null && ( Password.Length > 0 ) ) )
-                {
-                    Authorization = ( "Basic " +
-                                      Convert.ToBase64String( Encoding.GetEncoding( "ISO-8859-1" ).GetBytes( Username + ":" + Password ) ) );
-                }
-
+                Authorization = CreateAuthorizationHeader();
 
                 UseSnappy = options.UseSnappy;
                 ThreadCount = options.ThreadCount;
@@ -148,6 +153,20 @@ namespace kinetica
             }
         }
 
+        internal string? CreateAuthorizationHeader() {
+            string? authorization = null;
+            // Handle authorization
+            if( OauthToken != null && OauthToken.Length > 0 ) {
+                authorization = "Bearer " + OauthToken;
+            }
+            else if ( ( Username != null && ( Username.Length > 0 ) ) || ( Password != null && ( Password.Length > 0 ) ) )
+            {
+                authorization = ( "Basic " +
+                                    Convert.ToBase64String( Encoding.GetEncoding( "ISO-8859-1" ).GetBytes( Username + ":" + Password ) ) );
+            }
+
+            return authorization;
+        }
 
         /// <summary>
         /// Given a table name, add its record type to enable proper encoding of records
@@ -223,7 +242,7 @@ namespace kinetica
                                                              IList<T> records ) where T : new()
         {
             // Create a KineticaType object based on the schema string
-            KineticaType ktype = new KineticaType( "", schema_string, null );
+            KineticaType ktype = new( "", schema_string, null );
 
             // Using the KineticaType object, decode all the records from avro binary encoding
             foreach ( var bin_record in records_binary )
@@ -254,7 +273,7 @@ namespace kinetica
             for ( int i = 0; i < schema_strings.Count; ++i )
             {
                 // Create a KineticaType object based on the schema string
-                KineticaType ktype = new KineticaType( "", schema_strings[ i ], null );
+                KineticaType ktype = new( "", schema_strings[ i ], null );
 
                 // Get the binary encoded data for this list
                 IList<byte[]> records_binary = lists_records_binary[ i ];
@@ -433,7 +452,7 @@ namespace kinetica
         /// <param name="only_endpoint_given">If true, prefix the given url
         /// with <member cref="Url" /></param>
         /// <returns>RawKineticaResponse Object</returns>
-        private RawKineticaResponse SubmitRequestRaw(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding, bool only_endpoint_given = true)
+        private RawKineticaResponse? SubmitRequestRaw(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding, bool only_endpoint_given = true)
         {
             try
             {
@@ -472,7 +491,7 @@ namespace kinetica
                             }
                             else // JSON
                             {
-                                using (StreamReader reader = new StreamReader(responseStream, Encoding.UTF8))
+                                using (StreamReader reader = new(responseStream, Encoding.UTF8))
                                 {
                                     var responseString = reader.ReadToEnd();
                                     return JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
@@ -500,7 +519,7 @@ namespace kinetica
                 }
                 else // JSON
                 {
-                    using (StreamReader reader = new StreamReader(responseStream, Encoding.UTF8))
+                    using (StreamReader reader = new(responseStream, Encoding.UTF8))
                     {
                         responseString = reader.ReadToEnd();
                         serverResponse = JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
@@ -539,11 +558,10 @@ namespace kinetica
         /// </summary>
         /// <param name="typeName">The label/name of the type.</param>
         /// <returns></returns>
-        private KineticaType GetType(string typeName)
+        private KineticaType? GetType(string typeName)
         {
-            KineticaType type = null;
-            string typeId;
-            if (typeNameLookup.TryGetValue(typeName, out typeId))
+            KineticaType? type = null;
+            if (typeNameLookup.TryGetValue(typeName, out string? typeId))
             {
                 knownTypes.TryGetValue(typeId, out type);
             }
@@ -557,7 +575,7 @@ namespace kinetica
         /// </summary>
         /// <param name="objectType">The type of the object whose associated KineticaType we need.</param>
         /// <returns></returns>
-        private KineticaType lookupKineticaType( Type objectType )
+        private KineticaType? lookupKineticaType( Type objectType )
         {
             if ( !this.kineticaTypeLookup.ContainsKey( objectType ) )
                 return null; // none found
@@ -581,14 +599,14 @@ namespace kinetica
                 if ( obj is Avro.Specific.ISpecificRecord)
                 {
                     var schema = (obj as Avro.Specific.ISpecificRecord).Schema;
-                    Avro.Specific.SpecificDefaultWriter writer = new Avro.Specific.SpecificDefaultWriter(schema);
+                    Avro.Specific.SpecificDefaultWriter writer = new(schema);
                     writer.Write(schema, obj, new BinaryEncoder(ms));
                 }
                 else // Not an ISpecificRecord - this way is less efficient
                 {
                     // Get the KineticaType associated with the object to be encoded
                     Type obj_type = obj.GetType();
-                    KineticaType ktype = lookupKineticaType( obj_type );
+                    KineticaType? ktype = lookupKineticaType( obj_type );
                     if ( ktype == null )
                     {
                         throw new KineticaException( "No known KineticaType associated with the given object.  " +
@@ -645,7 +663,7 @@ namespace kinetica
         /// <param name="bytes">Binary Avro data</param>
         /// <param name="ktype">An optional KineticaType object to help in decoding the object.</param>
         /// <returns>New object</returns>
-        private T AvroDecode<T>(byte[] bytes, KineticaType ktype = null) where T : new()
+        private T AvroDecode<T>(byte[] bytes, KineticaType? ktype = null) where T : new()
         {
             // Get the schema
             var schema = KineticaData.SchemaFromType( typeof(T), ktype );
@@ -654,7 +672,7 @@ namespace kinetica
             using (var ms = new MemoryStream(bytes))
             {
                 // Create a new object to return
-                T obj = new T();
+                T obj = new();
                 if (obj is Avro.Specific.ISpecificRecord)
                 {
                     var reader = new Avro.Specific.SpecificDefaultReader(schema, schema);
@@ -664,7 +682,7 @@ namespace kinetica
                 {
                     // Not ISpecificRecord, so first read into a new GenericRecord
                     var reader = new Avro.Generic.DefaultReader(schema, schema);
-                    Avro.Generic.GenericRecord recordToReceive = new Avro.Generic.GenericRecord(schema);
+                    Avro.Generic.GenericRecord recordToReceive = new(schema);
                     reader.Read(recordToReceive, new BinaryDecoder(ms));
 
                     // Now, copy all the fields from the GenericRecord to obj

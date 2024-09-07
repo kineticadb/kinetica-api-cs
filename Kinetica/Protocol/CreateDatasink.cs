@@ -42,6 +42,24 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
+            /// <summary>Set to false for testing purposes or when necessary to
+            /// bypass TLS errors (e.g. self-signed certificates).</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
+            public const string S3_VERIFY_SSL = "s3_verify_ssl";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>When true (default), the requests URI should be
             /// specified in virtual-hosted-style format where the bucket name
             /// is part of the domain name in the URL.</summary>
@@ -57,9 +75,6 @@ namespace kinetica
             /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
             /// </para></remarks>
             public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Amazon IAM Role ARN which has required S3 permissions
             /// that can be assumed for the given S3 IAM user</summary>
@@ -254,6 +269,24 @@ namespace kinetica
         ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
         ///         bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -540,6 +573,24 @@ namespace kinetica
         ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
         ///         bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see

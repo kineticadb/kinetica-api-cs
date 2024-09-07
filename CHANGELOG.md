@@ -2,6 +2,12 @@
 
 ## Version 7.2
 
+### Version 7.2.1.0 - 2024-09-07
+
+#### Added
+-   OAuth2 authentication support
+
+
 ### Version 7.2.0.0 - 2024-02-11
 
 #### Added
@@ -11,7 +17,14 @@
 -   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
 
 
+
 ## Version 7.1
+
+### Version 7.1.10.0 - 2024-05-16
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
 
 ### Version 7.1.9.1 - 2023-09-17
 
@@ -87,7 +100,32 @@
 -   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
 
 
+
 ## Version 7.0
+
+### Version 7.0.20.0 - 2020-11-25
+
+#### Note
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
+
+### Version 7.0.19.0 - 2020-08-24
+
+#### Note
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
+
+### Version 7.0.18.0 - 2020-07-30
+
+#### Note
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
+
+### Version 7.0.17.0 - 2020-07-06
+
+#### Note
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
 
 ### Version 7.0.16.0 - 2020-05-28
 
@@ -142,7 +180,17 @@
 -   Version release
 
 
-## Version 6.2.0 - 2018-03-25
+
+## Version 6.2
+
+## Version 6.2.0.1 - 2019-06-20
+
+#### Changed
+-   Protocol classes' constructor parameters with default values
+    are defined and assigned differently (using nullable types).
+
+
+## Version 6.2.0.0 - 2018-03-25
 
 -   Added new RecordRetriever class to support multi-head record lookup by
     shard key.
@@ -154,10 +202,16 @@
     -   WorkerQueue
 
 
+
+## Version 6.1
+
 ## Version 6.1.0 - 2017-10-05
 
 -   Added support for datetime
 
+
+
+## Version 6.0
 
 ## Version 6.0.1 - 2017-06-19
 

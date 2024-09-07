@@ -76,8 +76,15 @@ namespace kinetica
 
         public struct Options
         {
+            public const string ALPHA_BLENDING = "alpha_blending";
+            public const string ANTIALIASING = "antialiasing";
+            public const string FEATHER = "feather";
+            public const string ORDER_CLASSES = "order_classes";
+            public const string SHAPE_RENDERER = "shape_renderer";
             public const string TRACK_ID_COLUMN_NAME = "track_id_column_name";
             public const string TRACK_ORDER_COLUMN_NAME = "track_order_column_name";
+            public const string TRACK_SIMPLIFICATION_THRESHOLD = "track_simplification_threshold";
+            public const string USE_POINT_RENDERER = "use_point_renderer";
         } // end struct Options
 
         public IList<string> table_names { get; set; } = new List<string>();

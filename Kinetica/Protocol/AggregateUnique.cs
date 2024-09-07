@@ -122,6 +122,12 @@ namespace kinetica
             public const string ASCENDING = "ascending";
             public const string DESCENDING = "descending";
 
+            /// <summary>Comma-separated list of the columns to be sorted by as
+            /// well as the sort direction, e.g., 'timestamp asc, x desc'.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string ORDER_BY = "order_by";
+
             /// <summary>The name of the table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
             /// href="../../../concepts/tables/#table-name-resolution"
@@ -330,6 +336,12 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
@@ -550,6 +562,12 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
@@ -794,6 +812,12 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        ///         sorted by as well as the sort direction, e.g., 'timestamp
+        ///         asc, x desc'. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:

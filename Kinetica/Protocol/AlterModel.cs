@@ -14,8 +14,13 @@ namespace kinetica
         public struct Action
         {
             public const string CONTAINER = "container";
+            public const string CREDENTIAL = "credential";
             public const string REGISTRY = "registry";
             public const string REFRESH = "refresh";
+            public const string REMOTE_MODEL_NAME = "remote_model_name";
+            public const string REMOTE_MODEL_LOCATION = "remote_model_location";
+            public const string REMOTE_MODEL_PROVIDER_TYPE = "remote_model_provider_type";
+            public const string REMOTE_MODEL_TYPE = "remote_model_type";
             public const string STOP_DEPLOYMENT = "stop_deployment";
         } // end struct Action
 

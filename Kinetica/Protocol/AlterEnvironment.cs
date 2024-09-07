@@ -22,7 +22,8 @@ namespace kinetica
         /// </remarks>
         public struct Action
         {
-            /// <summary>Install a python package</summary>
+            /// <summary>Install a python package from PyPI, an external data
+            /// source or KiFS</summary>
             public const string INSTALL_PACKAGE = "install_package";
 
             /// <summary>Install packages from a requirements file</summary>
@@ -64,7 +65,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
+        ///         <description>Install a python package from PyPI, an
+        ///         external data source or KiFS</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -147,7 +149,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
-        ///         <description>Install a python package</description>
+        ///         <description>Install a python package from PyPI, an
+        ///         external data source or KiFS</description>
         ///     </item>
         ///     <item>
         ///         <term><see

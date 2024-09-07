@@ -41,6 +41,7 @@ namespace kinetica
         public IList<string> container_list { get; set; } = new List<string>();
         public IList<string> run_function_list { get; set; } = new List<string>();
         public IList<string> deployments { get; set; } = new List<string>();
+        public IList<IDictionary<string, string>> options { get; set; } = new List<IDictionary<string, string>>();
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
     } // end class ShowModelResponse
     /// @endcond

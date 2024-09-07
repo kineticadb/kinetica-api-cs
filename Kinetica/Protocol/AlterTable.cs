@@ -20,11 +20,17 @@ namespace kinetica
     /// encoded</a> or not.</para>
     /// <para>External tables cannot be modified except for their refresh
     /// method.</para>
-    /// <para>Create or delete an <a
-    /// href="../../../concepts/indexes/#column-index" target="_top">index</a>
-    /// on a particular column. This can speed up certain operations when using
-    /// expressions containing equality or relational operators on indexed
-    /// columns. This only applies to tables.</para>
+    /// <para>Create or delete a <a
+    /// href="../../../concepts/indexes/#column-index"
+    /// target="_top">column</a>, <a
+    /// href="../../../concepts/indexes/#chunk-skip-index" target="_top">chunk
+    /// skip</a>, <a href="../../../concepts/indexes/#geospatial-index"
+    /// target="_top">geospatial</a>, <a
+    /// href="../../../concepts/indexes/#cagra-index" target="_top">CAGRA</a>,
+    /// or <a href="../../../concepts/indexes/#hnsw-index"
+    /// target="_top">HNSW</a> index. This can speed up certain operations when
+    /// using expressions containing equality or relational operators on
+    /// indexed columns. This only applies to tables.</para>
     /// <para>Create or delete a <a
     /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
     /// key</a> on a particular column.</para>
@@ -59,24 +65,43 @@ namespace kinetica
             /// <summary>No longer supported; action will be ignored.</summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
-            /// <summary>Creates either a <a
+            /// <summary>Creates a <a
             /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a> or <a
+            /// target="_top">column (attribute) index</a>, <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>, depending on the specified
-            /// <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
-            /// name specified in <see cref="_value" />.</summary>
+            /// target="_top">chunk skip index</a>, <a
+            /// href="../../../concepts/indexes/#geospatial-index"
+            /// target="_top">geospatial index</a>, <a
+            /// href="../../../concepts/indexes/#cagra-index"
+            /// target="_top">CAGRA index</a>, or <a
+            /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+            /// index</a> (depending on the specified <see
+            /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+            /// specified in <see cref="_value" />.</summary>
             /// <remarks><para>If this column already has the specified index,
             /// an error will be returned.</para></remarks>
             public const string CREATE_INDEX = "create_index";
 
-            /// <summary>Deletes either a <a
+            /// <summary>Refreshes an index identified by <see
+            /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column name
+            /// specified in <see cref="_value" />.</summary>
+            /// <remarks><para>Currently applicable only to CAGRA indices.
+            /// </para></remarks>
+            public const string REFRESH_INDEX = "refresh_index";
+
+            /// <summary>Deletes a <a
             /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a> or <a
+            /// target="_top">column (attribute) index</a>, <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>, depending on the specified
-            /// <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
-            /// name specified in <see cref="_value" />.</summary>
+            /// target="_top">chunk skip index</a>, <a
+            /// href="../../../concepts/indexes/#geospatial-index"
+            /// target="_top">geospatial index</a>, <a
+            /// href="../../../concepts/indexes/#cagra-index"
+            /// target="_top">CAGRA index</a>, or <a
+            /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+            /// index</a> (depending on the specified <see
+            /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+            /// specified in <see cref="_value" />.</summary>
             /// <remarks><para>If this column does not have the specified
             /// index, an error will be returned.</para></remarks>
             public const string DELETE_INDEX = "delete_index";
@@ -92,7 +117,7 @@ namespace kinetica
 
             /// <summary>Moves a table or view into a schema named <see
             /// cref="_value" />.</summary>
-            /// <remarks><para> If the schema provided is nonexistent, an error
+            /// <remarks><para>If the schema provided is nonexistent, an error
             /// will be thrown. If <see cref="_value" /> is empty, then the
             /// table or view will be placed in the user's default schema.
             /// </para></remarks>
@@ -105,8 +130,8 @@ namespace kinetica
             /// </para></remarks>
             public const string PROTECTED = "protected";
 
-            /// <summary>Renames a table or view within its current schema to
-            /// <see cref="_value" />.</summary>
+            /// <summary>Renames a table or view to <see cref="_value" />.
+            /// </summary>
             /// <remarks><para>Has the same naming restrictions as <a
             /// href="../../../concepts/tables/" target="_top">tables</a>.
             /// </para></remarks>
@@ -119,14 +144,14 @@ namespace kinetica
 
             /// <summary>Adds the comment specified in <see cref="_value" /> to
             /// the table specified in <see cref="table_name" />.</summary>
-            /// <remarks><para> Use <see
+            /// <remarks><para>Use <see
             /// cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the comment
             /// for a column.</para></remarks>
             public const string ADD_COMMENT = "add_comment";
 
             /// <summary>Adds the column specified in <see cref="_value" /> to
             /// the table specified in <see cref="table_name" />.</summary>
-            /// <remarks><para> Use <see
+            /// <remarks><para>Use <see
             /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
             /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
             /// <see cref="options" /> to set the column's type and properties,
@@ -135,7 +160,7 @@ namespace kinetica
 
             /// <summary>Changes type and properties of the column specified in
             /// <see cref="_value" />.</summary>
-            /// <remarks><para> Use <see
+            /// <remarks><para>Use <see
             /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
             /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
             /// <see cref="options" /> to set the column's type and properties,
@@ -281,19 +306,19 @@ namespace kinetica
 
             /// <summary>Permanently unsubscribe a data source that is loading
             /// continuously as a stream.</summary>
-            /// <remarks><para>The data source can be kafka / S3 / Azure.
+            /// <remarks><para>The data source can be Kafka / S3 / Azure.
             /// </para></remarks>
             public const string CANCEL_DATASOURCE_SUBSCRIPTION = "cancel_datasource_subscription";
 
             /// <summary>Temporarily unsubscribe a data source that is loading
             /// continuously as a stream.</summary>
-            /// <remarks><para>The data source can be kafka / S3 / Azure.
+            /// <remarks><para>The data source can be Kafka / S3 / Azure.
             /// </para></remarks>
             public const string PAUSE_DATASOURCE_SUBSCRIPTION = "pause_datasource_subscription";
 
             /// <summary>Resubscribe to a paused data source subscription.
             /// </summary>
-            /// <remarks><para>The data source can be kafka / S3 / Azure.
+            /// <remarks><para>The data source can be Kafka / S3 / Azure.
             /// </para></remarks>
             public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
 
@@ -427,8 +452,10 @@ namespace kinetica
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>Type of index to create, when <see cref="action" /> is
-            /// <see cref="Action.CREATE_INDEX">CREATE_INDEX</see>, or to
-            /// delete, when <see cref="action" /> is <see
+            /// <see cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
+            /// when <see cref="action" /> is <see
+            /// cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to delete,
+            /// when <see cref="action" /> is <see
             /// cref="Action.DELETE_INDEX">DELETE_INDEX</see>.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
@@ -449,8 +476,25 @@ namespace kinetica
             ///     <item>
             ///         <term><see cref="Options.GEOSPATIAL">GEOSPATIAL</see>:
             ///         </term>
-            ///         <description>Create or delete a geospatial index
-            ///         </description>
+            ///         <description>Create or delete a <a
+            ///         href="../../../concepts/indexes/#geospatial-index"
+            ///         target="_top">geospatial index</a></description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.CAGRA">CAGRA</see>:</term>
+            ///         <description>Create or delete a <a
+            ///         href="../../../concepts/indexes/#cagra-index"
+            ///         target="_top">CAGRA index</a> on a <a
+            ///         href="../../../vector_search/#vector-type"
+            ///         target="_top">vector column</a></description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.HNSW">HNSW</see>:</term>
+            ///         <description>Create or delete an <a
+            ///         href="../../../concepts/indexes/#hnsw-index"
+            ///         target="_top">HNSW index</a> on a <a
+            ///         href="../../../vector_search/#vector-type"
+            ///         target="_top">vector column</a></description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see
@@ -467,15 +511,36 @@ namespace kinetica
             /// target="_top">chunk skip index</a>.</summary>
             public const string CHUNK_SKIP = "chunk_skip";
 
-            /// <summary>Create or delete a geospatial index</summary>
+            /// <summary>Create or delete a <a
+            /// href="../../../concepts/indexes/#geospatial-index"
+            /// target="_top">geospatial index</a></summary>
             public const string GEOSPATIAL = "geospatial";
+
+            /// <summary>Create or delete a <a
+            /// href="../../../concepts/indexes/#cagra-index"
+            /// target="_top">CAGRA index</a> on a <a
+            /// href="../../../vector_search/#vector-type" target="_top">vector
+            /// column</a></summary>
+            public const string CAGRA = "cagra";
+
+            /// <summary>Create or delete an <a
+            /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+            /// index</a> on a <a href="../../../vector_search/#vector-type"
+            /// target="_top">vector column</a></summary>
+            public const string HNSW = "hnsw";
+
+            /// <summary>Options to use when creating an index, in the format
+            /// "key: value [, key: value [, ...]]".</summary>
+            /// <remarks><para>Valid options vary by index type.</para>
+            /// </remarks>
+            public const string INDEX_OPTIONS = "index_options";
         } // end struct Options
 
         /// <summary>Table on which the operation will be performed, in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Must be an existing table or view.</para></remarks>
+        /// <remarks><para>Must be an existing table or view.</para></remarks>
         public string table_name { get; set; }
 
         /// <summary>Modification operation to be applied.</summary>
@@ -491,28 +556,48 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
         ///         </term>
-        ///         <description>Creates either a <a
+        ///         <description>Creates a <a
         ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a> or <a
+        ///         target="_top">column (attribute) index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, depending on the
-        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
-        ///         on the column name specified in <see cref="_value" />. If
-        ///         this column already has the specified index, an error will
-        ///         be returned.</description>
+        ///         target="_top">chunk skip index</a>, <a
+        ///         href="../../../concepts/indexes/#geospatial-index"
+        ///         target="_top">geospatial index</a>, <a
+        ///         href="../../../concepts/indexes/#cagra-index"
+        ///         target="_top">CAGRA index</a>, or <a
+        ///         href="../../../concepts/indexes/#hnsw-index"
+        ///         target="_top">HNSW index</a> (depending on the specified
+        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
+        ///         column name specified in <see cref="_value" />. If this
+        ///         column already has the specified index, an error will be
+        ///         returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>:
+        ///         </term>
+        ///         <description>Refreshes an index identified by <see
+        ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
+        ///         name specified in <see cref="_value" />. Currently
+        ///         applicable only to CAGRA indices.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
         ///         </term>
-        ///         <description>Deletes either a <a
+        ///         <description>Deletes a <a
         ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a> or <a
+        ///         target="_top">column (attribute) index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, depending on the
-        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
-        ///         on the column name specified in <see cref="_value" />. If
-        ///         this column does not have the specified index, an error
-        ///         will be returned.</description>
+        ///         target="_top">chunk skip index</a>, <a
+        ///         href="../../../concepts/indexes/#geospatial-index"
+        ///         target="_top">geospatial index</a>, <a
+        ///         href="../../../concepts/indexes/#cagra-index"
+        ///         target="_top">CAGRA index</a>, or <a
+        ///         href="../../../concepts/indexes/#hnsw-index"
+        ///         target="_top">HNSW index</a> (depending on the specified
+        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
+        ///         column name specified in <see cref="_value" />. If this
+        ///         column does not have the specified index, an error will be
+        ///         returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -531,8 +616,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named <see
-        ///         cref="_value" />.  If the schema provided is nonexistent,
-        ///         an error will be thrown. If <see cref="_value" /> is empty,
+        ///         cref="_value" />. If the schema provided is nonexistent, an
+        ///         error will be thrown. If <see cref="_value" /> is empty,
         ///         then the table or view will be placed in the user's default
         ///         schema.</description>
         ///     </item>
@@ -546,10 +631,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
         ///         </term>
-        ///         <description>Renames a table or view within its current
-        ///         schema to <see cref="_value" />. Has the same naming
-        ///         restrictions as <a href="../../../concepts/tables/"
-        ///         target="_top">tables</a>.</description>
+        ///         <description>Renames a table or view to <see cref="_value"
+        ///         />. Has the same naming restrictions as <a
+        ///         href="../../../concepts/tables/" target="_top">tables</a>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Action.TTL">TTL</see>:</term>
@@ -562,7 +647,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Adds the comment specified in <see
         ///         cref="_value" /> to the table specified in <see
-        ///         cref="table_name" />.  Use <see
+        ///         cref="table_name" />. Use <see
         ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
         ///         comment for a column.</description>
         ///     </item>
@@ -571,7 +656,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Adds the column specified in <see
         ///         cref="_value" /> to the table specified in <see
-        ///         cref="table_name" />.  Use <see
+        ///         cref="table_name" />. Use <see
         ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
         ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
         ///         <see cref="options" /> to set the column's type and
@@ -581,7 +666,7 @@ namespace kinetica
         ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
         ///         </term>
         ///         <description>Changes type and properties of the column
-        ///         specified in <see cref="_value" />.  Use <see
+        ///         specified in <see cref="_value" />. Use <see
         ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
         ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
         ///         <see cref="options" /> to set the column's type and
@@ -784,7 +869,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Permanently unsubscribe a data source that is
         ///         loading continuously as a stream. The data source can be
-        ///         kafka / S3 / Azure.</description>
+        ///         Kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -792,14 +877,14 @@ namespace kinetica
         ///         </term>
         ///         <description>Temporarily unsubscribe a data source that is
         ///         loading continuously as a stream. The data source can be
-        ///         kafka / S3 / Azure.</description>
+        ///         Kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
         ///         </term>
         ///         <description>Resubscribe to a paused data source
-        ///         subscription. The data source can be kafka / S3 / Azure.
+        ///         subscription. The data source can be Kafka / S3 / Azure.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -813,7 +898,7 @@ namespace kinetica
 
         /// <summary>The value of the modification, depending on <see
         /// cref="action" />.</summary>
-        /// <remarks><para> For example, if <see cref="action" /> is <see
+        /// <remarks><para>For example, if <see cref="action" /> is <see
         /// cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be the column
         /// name; while the column's definition would be covered by the <see
         /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
@@ -821,7 +906,7 @@ namespace kinetica
         /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
         /// <see
         /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see> in
-        /// <see cref="options" />.  If <see cref="action" /> is <see
+        /// <see cref="options" />. If <see cref="action" /> is <see
         /// cref="Action.TTL">TTL</see>, it would be the number of minutes for
         /// the new TTL. If <see cref="action" /> is <see
         /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.
@@ -976,7 +1061,9 @@ namespace kinetica
         ///         </term>
         ///         <description>Type of index to create, when <see
         ///         cref="action" /> is <see
-        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>, or to
+        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
+        ///         when <see cref="action" /> is <see
+        ///         cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to
         ///         delete, when <see cref="action" /> is <see
         ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
         ///         Supported values:
@@ -999,12 +1086,36 @@ namespace kinetica
         ///             <item>
         ///                 <term><see
         ///                 cref="Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///                 <description>Create or delete a geospatial index
-        ///                 </description>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#geospatial-index"
+        ///                 target="_top">geospatial index</a></description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.CAGRA">CAGRA</see>:</term>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#cagra-index"
+        ///                 target="_top">CAGRA index</a> on a <a
+        ///                 href="../../../vector_search/#vector-type"
+        ///                 target="_top">vector column</a></description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.HNSW">HNSW</see>:</term>
+        ///                 <description>Create or delete an <a
+        ///                 href="../../../concepts/indexes/#hnsw-index"
+        ///                 target="_top">HNSW index</a> on a <a
+        ///                 href="../../../vector_search/#vector-type"
+        ///                 target="_top">vector column</a></description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.COLUMN">COLUMN</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.INDEX_OPTIONS">INDEX_OPTIONS</see>:</term>
+        ///         <description>Options to use when creating an index, in the
+        ///         format "key: value [, key: value [, ...]]". Valid options
+        ///         vary by index type.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -1020,7 +1131,7 @@ namespace kinetica
         /// <param name="table_name">Table on which the operation will be
         /// performed, in [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing table
+        /// target="_top">name resolution rules</a>. Must be an existing table
         /// or view.</param>
         /// <param name="action">Modification operation to be applied.
         /// Supported values:
@@ -1035,27 +1146,47 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
         ///         </term>
-        ///         <description>Creates either a <a
+        ///         <description>Creates a <a
         ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a> or <a
+        ///         target="_top">column (attribute) index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, depending on the
-        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
-        ///         on the column name specified in <paramref name="_value" />.
-        ///         If this column already has the specified index, an error
-        ///         will be returned.</description>
+        ///         target="_top">chunk skip index</a>, <a
+        ///         href="../../../concepts/indexes/#geospatial-index"
+        ///         target="_top">geospatial index</a>, <a
+        ///         href="../../../concepts/indexes/#cagra-index"
+        ///         target="_top">CAGRA index</a>, or <a
+        ///         href="../../../concepts/indexes/#hnsw-index"
+        ///         target="_top">HNSW index</a> (depending on the specified
+        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
+        ///         column name specified in <paramref name="_value" />. If
+        ///         this column already has the specified index, an error will
+        ///         be returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>:
+        ///         </term>
+        ///         <description>Refreshes an index identified by <see
+        ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
+        ///         name specified in <paramref name="_value" />. Currently
+        ///         applicable only to CAGRA indices.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
         ///         </term>
-        ///         <description>Deletes either a <a
+        ///         <description>Deletes a <a
         ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a> or <a
+        ///         target="_top">column (attribute) index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, depending on the
-        ///         specified <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>,
-        ///         on the column name specified in <paramref name="_value" />.
-        ///         If this column does not have the specified index, an error
+        ///         target="_top">chunk skip index</a>, <a
+        ///         href="../../../concepts/indexes/#geospatial-index"
+        ///         target="_top">geospatial index</a>, <a
+        ///         href="../../../concepts/indexes/#cagra-index"
+        ///         target="_top">CAGRA index</a>, or <a
+        ///         href="../../../concepts/indexes/#hnsw-index"
+        ///         target="_top">HNSW index</a> (depending on the specified
+        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
+        ///         column name specified in <paramref name="_value" />. If
+        ///         this column does not have the specified index, an error
         ///         will be returned.</description>
         ///     </item>
         ///     <item>
@@ -1075,7 +1206,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
-        ///         <paramref name="_value" />.  If the schema provided is
+        ///         <paramref name="_value" />. If the schema provided is
         ///         nonexistent, an error will be thrown. If <paramref
         ///         name="_value" /> is empty, then the table or view will be
         ///         placed in the user's default schema.</description>
@@ -1090,10 +1221,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
         ///         </term>
-        ///         <description>Renames a table or view within its current
-        ///         schema to <paramref name="_value" />. Has the same naming
-        ///         restrictions as <a href="../../../concepts/tables/"
-        ///         target="_top">tables</a>.</description>
+        ///         <description>Renames a table or view to <paramref
+        ///         name="_value" />. Has the same naming restrictions as <a
+        ///         href="../../../concepts/tables/" target="_top">tables</a>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Action.TTL">TTL</see>:</term>
@@ -1107,7 +1238,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Adds the comment specified in <paramref
         ///         name="_value" /> to the table specified in <paramref
-        ///         name="table_name" />.  Use <see
+        ///         name="table_name" />. Use <see
         ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
         ///         comment for a column.</description>
         ///     </item>
@@ -1116,7 +1247,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Adds the column specified in <paramref
         ///         name="_value" /> to the table specified in <paramref
-        ///         name="table_name" />.  Use <see
+        ///         name="table_name" />. Use <see
         ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
         ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
         ///         <paramref name="options" /> to set the column's type and
@@ -1126,7 +1257,7 @@ namespace kinetica
         ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
         ///         </term>
         ///         <description>Changes type and properties of the column
-        ///         specified in <paramref name="_value" />.  Use <see
+        ///         specified in <paramref name="_value" />. Use <see
         ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
         ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
         ///         <paramref name="options" /> to set the column's type and
@@ -1330,7 +1461,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Permanently unsubscribe a data source that is
         ///         loading continuously as a stream. The data source can be
-        ///         kafka / S3 / Azure.</description>
+        ///         Kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1338,14 +1469,14 @@ namespace kinetica
         ///         </term>
         ///         <description>Temporarily unsubscribe a data source that is
         ///         loading continuously as a stream. The data source can be
-        ///         kafka / S3 / Azure.</description>
+        ///         Kafka / S3 / Azure.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
         ///         </term>
         ///         <description>Resubscribe to a paused data source
-        ///         subscription. The data source can be kafka / S3 / Azure.
+        ///         subscription. The data source can be Kafka / S3 / Azure.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -1356,16 +1487,15 @@ namespace kinetica
         ///     </item>
         /// </list></param>
         /// <param name="_value">The value of the modification, depending on
-        /// <paramref name="action" />.  For example, if <paramref
-        /// name="action" /> is <see cref="Action.ADD_COLUMN">ADD_COLUMN</see>,
-        /// this would be the column name; while the column's definition would
-        /// be covered by the <see
-        /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
+        /// <paramref name="action" />. For example, if <paramref name="action"
+        /// /> is <see cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be
+        /// the column name; while the column's definition would be covered by
+        /// the <see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
         /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
         /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
         /// <see
         /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see> in
-        /// <paramref name="options" />.  If <paramref name="action" /> is <see
+        /// <paramref name="options" />. If <paramref name="action" /> is <see
         /// cref="Action.TTL">TTL</see>, it would be the number of minutes for
         /// the new TTL. If <paramref name="action" /> is <see
         /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.
@@ -1518,7 +1648,9 @@ namespace kinetica
         ///         </term>
         ///         <description>Type of index to create, when <paramref
         ///         name="action" /> is <see
-        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>, or to
+        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
+        ///         when <paramref name="action" /> is <see
+        ///         cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to
         ///         delete, when <paramref name="action" /> is <see
         ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
         ///         Supported values:
@@ -1541,12 +1673,36 @@ namespace kinetica
         ///             <item>
         ///                 <term><see
         ///                 cref="Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///                 <description>Create or delete a geospatial index
-        ///                 </description>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#geospatial-index"
+        ///                 target="_top">geospatial index</a></description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.CAGRA">CAGRA</see>:</term>
+        ///                 <description>Create or delete a <a
+        ///                 href="../../../concepts/indexes/#cagra-index"
+        ///                 target="_top">CAGRA index</a> on a <a
+        ///                 href="../../../vector_search/#vector-type"
+        ///                 target="_top">vector column</a></description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.HNSW">HNSW</see>:</term>
+        ///                 <description>Create or delete an <a
+        ///                 href="../../../concepts/indexes/#hnsw-index"
+        ///                 target="_top">HNSW index</a> on a <a
+        ///                 href="../../../vector_search/#vector-type"
+        ///                 target="_top">vector column</a></description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.COLUMN">COLUMN</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.INDEX_OPTIONS">INDEX_OPTIONS</see>:</term>
+        ///         <description>Options to use when creating an index, in the
+        ///         format "key: value [, key: value [, ...]]". Valid options
+        ///         vary by index type.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

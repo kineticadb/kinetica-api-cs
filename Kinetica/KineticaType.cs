@@ -578,7 +578,7 @@ namespace kinetica
         /// <param name="typeSchema">The string-formatted schema for the type.</param>
         /// <param name="properties">A per-column based set of properties.</param>
         /// <param name="typeID">An optional ID for this type with which to identify it in the database.</param>
-        public KineticaType(string label, string typeSchema, IDictionary<string, IList<string>> properties, string typeID = null )
+        public KineticaType(string label, string typeSchema, IDictionary<string, IList<string>> properties, string? typeID = null )
         {
             m_properties = properties;
             m_type_id = typeID;

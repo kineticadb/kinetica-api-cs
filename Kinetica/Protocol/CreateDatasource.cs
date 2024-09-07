@@ -48,8 +48,9 @@ namespace kinetica
             /// provider</summary>
             public const string WAIT_TIMEOUT = "wait_timeout";
 
-            /// <summary>Name of the Credential object to be used in data
-            /// source</summary>
+            /// <summary>Name of the <a href="../../../concepts/credentials"
+            /// target="_top">credential</a> object to be used in data source
+            /// </summary>
             public const string CREDENTIAL = "credential";
 
             /// <summary>Name of the Amazon S3 bucket to use as the data source
@@ -60,9 +61,8 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
-            /// <summary>When true (default), the requests URI should be
-            /// specified in virtual-hosted-style format where the bucket name
-            /// is part of the domain name in the URL.</summary>
+            /// <summary>Set to false for testing purposes or when necessary to
+            /// bypass TLS errors (e.g. self-signed certificates).</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -70,6 +70,26 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+            /// </para></remarks>
+            public const string S3_VERIFY_SSL = "s3_verify_ssl";
+
+            /// <summary>Whether to use virtual addressing when referencing the
+            /// Amazon S3 source.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+            ///         <description>The requests URI should be specified in
+            ///         virtual-hosted-style format where the bucket name is
+            ///         part of the domain name in the URL.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+            ///         <description>Use path-style URI for requests.
+            ///         </description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -126,7 +146,7 @@ namespace kinetica
             /// account to use as the data source</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
 
-            /// <summary>Oauth token to access given storage container
+            /// <summary>OAuth token to access given storage container
             /// </summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
@@ -213,13 +233,17 @@ namespace kinetica
             /// </para></remarks>
             public const string USE_HTTPS = "use_https";
 
-            /// <summary>Location of Confluent Schema registry in
+            /// <summary>Location of Confluent Schema Registry in
             /// '[storage_path[:storage_port]]' format.</summary>
             public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
 
-            /// <summary>Confluent Schema registry Credential object name.
-            /// </summary>
+            /// <summary>Confluent Schema Registry <a
+            /// href="../../../concepts/credentials"
+            /// target="_top">credential</a> object name.</summary>
             public const string SCHEMA_REGISTRY_CREDENTIAL = "schema_registry_credential";
+
+            /// <summary>Confluent Schema Registry port (optional).</summary>
+            public const string SCHEMA_REGISTRY_PORT = "schema_registry_port";
         } // end struct Options
 
         /// <summary>Name of the data source to be created.</summary>
@@ -277,8 +301,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
         ///         </term>
-        ///         <description>Name of the Credential object to be used in
-        ///         data source</description>
+        ///         <description>Name of the <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object to be used in data
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -293,12 +319,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
-        ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -306,6 +330,30 @@ namespace kinetica
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -398,7 +446,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
         ///         </term>
-        ///         <description>Oauth token to access given storage container
+        ///         <description>OAuth token to access given storage container
         ///         </description>
         ///     </item>
         ///     <item>
@@ -513,15 +561,23 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
         ///         </term>
-        ///         <description>Location of Confluent Schema registry in
+        ///         <description>Location of Confluent Schema Registry in
         ///         '[storage_path[:storage_port]]' format.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
         ///         </term>
-        ///         <description>Confluent Schema registry Credential object
-        ///         name.</description>
+        ///         <description>Confluent Schema Registry <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema Registry port (optional).
+        ///         </description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -579,8 +635,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
         ///         </term>
-        ///         <description>Name of the Credential object to be used in
-        ///         data source</description>
+        ///         <description>Name of the <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object to be used in data
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -595,12 +653,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
-        ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -608,6 +664,30 @@ namespace kinetica
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -700,7 +780,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
         ///         </term>
-        ///         <description>Oauth token to access given storage container
+        ///         <description>OAuth token to access given storage container
         ///         </description>
         ///     </item>
         ///     <item>
@@ -815,15 +895,23 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
         ///         </term>
-        ///         <description>Location of Confluent Schema registry in
+        ///         <description>Location of Confluent Schema Registry in
         ///         '[storage_path[:storage_port]]' format.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
         ///         </term>
-        ///         <description>Confluent Schema registry Credential object
-        ///         name.</description>
+        ///         <description>Confluent Schema Registry <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema Registry port (optional).
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

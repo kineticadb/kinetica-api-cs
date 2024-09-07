@@ -15,10 +15,10 @@ namespace kinetica
     /// latitude/longitude points to an existing underlying road network graph
     /// using a given solution type.</para>
     /// <para>IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../../graph_solver/network_graph_solver/"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
-    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
-    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph-match/"
+    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
+    /// & Solvers</a> concepts documentation, the <a
+    /// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph---match/"
     /// target="_top">/match/graph examples</a> before using this endpoint.
     /// </para></remarks>
     public class MatchGraphRequest : KineticaData
@@ -87,6 +87,9 @@ namespace kinetica
 
             /// <summary>Matches a pattern in the graph</summary>
             public const string MATCH_PATTERN = "match_pattern";
+
+            /// <summary>Creates vector node embeddings</summary>
+            public const string MATCH_EMBEDDING = "match_embedding";
         } // end struct SolveMethod
 
         /// <summary>A set of string constants for the parameter <see
@@ -408,8 +411,9 @@ namespace kinetica
             public const string NUM_CYCLES = "num_cycles";
 
             /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
-            /// only.</summary>
+            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+            /// solvers only.</summary>
             /// <remarks><para>Terminates the cluster exchanges within the
             /// first step iterations of a cycle (inner loop) unless
             /// convergence is reached. The default value is '10'.</para>
@@ -426,11 +430,13 @@ namespace kinetica
             public const string NUM_OUTPUT_CLUSTERS = "num_output_clusters";
 
             /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
-            /// only.</summary>
+            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+            /// solvers only.</summary>
             /// <remarks><para>If set (value greater than zero), it terminates
-            /// when the number of clusters goes below than this number. The
-            /// default value is '0'.</para></remarks>
+            /// when the number of clusters goes below than this number. For
+            /// embedding solver the default is 8. The default value is '0'.
+            /// </para></remarks>
             public const string MAX_NUM_CLUSTERS = "max_num_clusters";
 
             /// <summary>For the <see
@@ -584,8 +590,9 @@ namespace kinetica
             public const string CHARGING_PENALTY = "charging_penalty";
 
             /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-            /// solver only.</summary>
+            /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> and
+            /// <see cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+            /// solvers only.</summary>
             /// <remarks><para>Searches within this maximum hops for source and
             /// target node pairs to compute the Jaccard scores. The default
             /// value is '3'.</para></remarks>
@@ -616,8 +623,9 @@ namespace kinetica
             public const string PAIRED_SIMILARITY = "paired_similarity";
 
             /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> solver
-            /// only.</summary>
+            /// cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+            /// solvers only.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -630,6 +638,77 @@ namespace kinetica
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string FORCE_UNDIRECTED = "force_undirected";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+            /// only.</summary>
+            /// <remarks><para>Limits the number of dimensions in node vector
+            /// embeddings. The default value is '1000'.</para></remarks>
+            public const string MAX_VECTOR_DIMENSION = "max_vector_dimension";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+            /// solvers only.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string OPTIMIZE_EMBEDDING_WEIGHTS = "optimize_embedding_weights";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+            /// only.</summary>
+            /// <remarks><para>User specified weights per sub feature in vector
+            /// embeddings. The string contains the comma separated float
+            /// values for each sub-feature in the vector space. These values
+            /// will ONLY be used if 'optimize_embedding_weights' is false. The
+            /// default value is '1.0,1.0,1.0,1.0'.</para></remarks>
+            public const string EMBEDDING_WEIGHTS = "embedding_weights";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+            /// only.</summary>
+            /// <remarks><para>Sets the number of random nodes from the graph
+            /// for solving the weights using stochastic gradient descent. The
+            /// default value is '1000'.</para></remarks>
+            public const string OPTIMIZATION_SAMPLING_SIZE = "optimization_sampling_size";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+            /// only.</summary>
+            /// <remarks><para>When the iterations (epochs) for the convergence
+            /// of the stochastic gradient descent algorithm reaches this
+            /// number it bails out unless relative error between consecutive
+            /// iterations is below the 'optimization_error_tolerance' option.
+            /// The default value is '1000'.</para></remarks>
+            public const string OPTIMIZATION_MAX_ITERATIONS = "optimization_max_iterations";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+            /// only.</summary>
+            /// <remarks><para>When the relative error between all of the
+            /// weights' consecutive iterations falls below this threshold the
+            /// optimization cycle is interrupted unless the number of
+            /// iterations reaches the limit set by the option
+            /// 'max_optimization_iterations'. The default value is '0.001'.
+            /// </para></remarks>
+            public const string OPTIMIZATION_ERROR_TOLERANCE = "optimization_error_tolerance";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+            /// only.</summary>
+            /// <remarks><para>It is otherwise known as the learning rate,
+            /// which is the proportionality constant in fornt of the gradient
+            /// term in successive iterations. The default value is '0.3'.
+            /// </para></remarks>
+            public const string OPTIMIZATION_ITERATION_RATE = "optimization_iteration_rate";
         } // end struct Options
 
         /// <summary>Name of the underlying geospatial graph resource to match
@@ -740,6 +819,12 @@ namespace kinetica
         ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:
         ///         </term>
         ///         <description>Matches a pattern in the graph</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
+        ///         </term>
+        ///         <description>Creates vector node embeddings</description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
@@ -1148,8 +1233,10 @@ namespace kinetica
         ///         cref="Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:
         ///         </term>
         ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. Terminates the cluster exchanges within the
+        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
+        ///         <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Terminates the cluster exchanges within the
         ///         first step iterations of a cycle (inner loop) unless
         ///         convergence is reached. The default value is '10'.
         ///         </description>
@@ -1170,10 +1257,13 @@ namespace kinetica
         ///         cref="Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:
         ///         </term>
         ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. If set (value greater than zero), it
+        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
+        ///         <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. If set (value greater than zero), it
         ///         terminates when the number of clusters goes below than this
-        ///         number. The default value is '0'.</description>
+        ///         number. For embedding solver the default is 8. The default
+        ///         value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1333,7 +1423,9 @@ namespace kinetica
         ///         <term><see cref="Options.MAX_HOPS">MAX_HOPS</see>:</term>
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         solver only. Searches within this maximum hops for source
+        ///         and <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Searches within this maximum hops for source
         ///         and target node pairs to compute the Jaccard scores. The
         ///         default value is '3'.</description>
         ///     </item>
@@ -1373,9 +1465,11 @@ namespace kinetica
         ///         cref="Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:
         ///         </term>
         ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> solver
-        ///         only. Pattern matching will be using both pattern and graph
-        ///         as undirected if set to true.
+        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and
+        ///         <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Pattern matching will be using both pattern
+        ///         and graph as undirected if set to true.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1387,6 +1481,95 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MAX_VECTOR_DIMENSION">MAX_VECTOR_DIMENSION</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. Limits the number of dimensions in node vector
+        ///         embeddings. The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZE_EMBEDDING_WEIGHTS">OPTIMIZE_EMBEDDING_WEIGHTS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Solves to find the optimal weights per sub
+        ///         feature in vector emdeddings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.EMBEDDING_WEIGHTS">EMBEDDING_WEIGHTS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. User specified weights per sub feature in
+        ///         vector embeddings. The string contains the comma separated
+        ///         float values for each sub-feature in the vector space.
+        ///         These values will ONLY be used if
+        ///         'optimize_embedding_weights' is false. The default value is
+        ///         '1.0,1.0,1.0,1.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_SAMPLING_SIZE">OPTIMIZATION_SAMPLING_SIZE</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. Sets the number of random nodes from the graph
+        ///         for solving the weights using stochastic gradient descent.
+        ///         The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_MAX_ITERATIONS">OPTIMIZATION_MAX_ITERATIONS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. When the iterations (epochs) for the
+        ///         convergence of the stochastic gradient descent algorithm
+        ///         reaches this number it bails out unless relative error
+        ///         between consecutive iterations is below the
+        ///         'optimization_error_tolerance' option. The default value is
+        ///         '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_ERROR_TOLERANCE">OPTIMIZATION_ERROR_TOLERANCE</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. When the relative error between all of the
+        ///         weights' consecutive iterations falls below this threshold
+        ///         the optimization cycle is interrupted unless the number of
+        ///         iterations reaches the limit set by the option
+        ///         'max_optimization_iterations'. The default value is
+        ///         '0.001'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_ITERATION_RATE">OPTIMIZATION_ITERATION_RATE</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. It is otherwise known as the learning rate,
+        ///         which is the proportionality constant in fornt of the
+        ///         gradient term in successive iterations. The default value
+        ///         is '0.3'.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -1505,6 +1688,12 @@ namespace kinetica
         ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:
         ///         </term>
         ///         <description>Matches a pattern in the graph</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
+        ///         </term>
+        ///         <description>Creates vector node embeddings</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1907,8 +2096,10 @@ namespace kinetica
         ///         cref="Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:
         ///         </term>
         ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. Terminates the cluster exchanges within the
+        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
+        ///         <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Terminates the cluster exchanges within the
         ///         first step iterations of a cycle (inner loop) unless
         ///         convergence is reached. The default value is '10'.
         ///         </description>
@@ -1929,10 +2120,13 @@ namespace kinetica
         ///         cref="Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:
         ///         </term>
         ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. If set (value greater than zero), it
+        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
+        ///         <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. If set (value greater than zero), it
         ///         terminates when the number of clusters goes below than this
-        ///         number. The default value is '0'.</description>
+        ///         number. For embedding solver the default is 8. The default
+        ///         value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2092,7 +2286,9 @@ namespace kinetica
         ///         <term><see cref="Options.MAX_HOPS">MAX_HOPS</see>:</term>
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         solver only. Searches within this maximum hops for source
+        ///         and <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Searches within this maximum hops for source
         ///         and target node pairs to compute the Jaccard scores. The
         ///         default value is '3'.</description>
         ///     </item>
@@ -2132,9 +2328,11 @@ namespace kinetica
         ///         cref="Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:
         ///         </term>
         ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> solver
-        ///         only. Pattern matching will be using both pattern and graph
-        ///         as undirected if set to true.
+        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and
+        ///         <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Pattern matching will be using both pattern
+        ///         and graph as undirected if set to true.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -2146,6 +2344,95 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MAX_VECTOR_DIMENSION">MAX_VECTOR_DIMENSION</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. Limits the number of dimensions in node vector
+        ///         embeddings. The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZE_EMBEDDING_WEIGHTS">OPTIMIZE_EMBEDDING_WEIGHTS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solvers only. Solves to find the optimal weights per sub
+        ///         feature in vector emdeddings.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.EMBEDDING_WEIGHTS">EMBEDDING_WEIGHTS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. User specified weights per sub feature in
+        ///         vector embeddings. The string contains the comma separated
+        ///         float values for each sub-feature in the vector space.
+        ///         These values will ONLY be used if
+        ///         'optimize_embedding_weights' is false. The default value is
+        ///         '1.0,1.0,1.0,1.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_SAMPLING_SIZE">OPTIMIZATION_SAMPLING_SIZE</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. Sets the number of random nodes from the graph
+        ///         for solving the weights using stochastic gradient descent.
+        ///         The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_MAX_ITERATIONS">OPTIMIZATION_MAX_ITERATIONS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. When the iterations (epochs) for the
+        ///         convergence of the stochastic gradient descent algorithm
+        ///         reaches this number it bails out unless relative error
+        ///         between consecutive iterations is below the
+        ///         'optimization_error_tolerance' option. The default value is
+        ///         '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_ERROR_TOLERANCE">OPTIMIZATION_ERROR_TOLERANCE</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. When the relative error between all of the
+        ///         weights' consecutive iterations falls below this threshold
+        ///         the optimization cycle is interrupted unless the number of
+        ///         iterations reaches the limit set by the option
+        ///         'max_optimization_iterations'. The default value is
+        ///         '0.001'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.OPTIMIZATION_ITERATION_RATE">OPTIMIZATION_ITERATION_RATE</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+        ///         solver only. It is otherwise known as the learning rate,
+        ///         which is the proportionality constant in fornt of the
+        ///         gradient term in successive iterations. The default value
+        ///         is '0.3'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

@@ -65,8 +65,9 @@ namespace kinetica
             /// provider</summary>
             public const string WAIT_TIMEOUT = "wait_timeout";
 
-            /// <summary>Name of the Credential object to be used in data
-            /// source</summary>
+            /// <summary>Name of the <a href="../../../concepts/credentials"
+            /// target="_top">credential</a> object to be used in data source
+            /// </summary>
             public const string CREDENTIAL = "credential";
 
             /// <summary>Name of the Amazon S3 bucket to use as the data source
@@ -129,7 +130,7 @@ namespace kinetica
             /// account to use as the data source</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
 
-            /// <summary>Oauth token to access given storage container
+            /// <summary>OAuth token to access given storage container
             /// </summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
@@ -145,7 +146,7 @@ namespace kinetica
             /// authenticating the data source</summary>
             public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
 
-            /// <summary>The publicly-accessible full path URL to the kafka
+            /// <summary>The publicly-accessible full path URL to the Kafka
             /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
             public const string KAFKA_URL = "kafka_url";
 
@@ -290,8 +291,10 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:
         ///         </term>
-        ///         <description>Name of the Credential object to be used in
-        ///         data source</description>
+        ///         <description>Name of the <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object to be used in data
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -398,7 +401,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
         ///         </term>
-        ///         <description>Oauth token to access given storage container
+        ///         <description>OAuth token to access given storage container
         ///         </description>
         ///     </item>
         ///     <item>
@@ -427,7 +430,7 @@ namespace kinetica
         ///         cref="DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
         ///         </term>
         ///         <description>The publicly-accessible full path URL to the
-        ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
+        ///         Kafka broker, e.g., 'http://172.123.45.67:9300'.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -607,8 +610,10 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:
         ///         </term>
-        ///         <description>Name of the Credential object to be used in
-        ///         data source</description>
+        ///         <description>Name of the <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object to be used in data
+        ///         source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -715,7 +720,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
         ///         </term>
-        ///         <description>Oauth token to access given storage container
+        ///         <description>OAuth token to access given storage container
         ///         </description>
         ///     </item>
         ///     <item>
@@ -744,7 +749,7 @@ namespace kinetica
         ///         cref="DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
         ///         </term>
         ///         <description>The publicly-accessible full path URL to the
-        ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
+        ///         Kafka broker, e.g., 'http://172.123.45.67:9300'.
         ///         </description>
         ///     </item>
         ///     <item>

@@ -13,9 +13,9 @@ namespace kinetica
     /// </summary>
     /// <remarks><para>Rebalances an existing partitioned graph.</para>
     /// <para>IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../../graph_solver/network_graph_solver/"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
-    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
+    /// & Solvers</a> concepts documentation, the <a
+    /// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
     /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph/"
     /// target="_top">graph examples</a> before using this endpoint.</para>
     /// </remarks>

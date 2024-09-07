@@ -20,31 +20,58 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <summary>Export query metrics for the currently running job
-            /// </summary>
-            public const string JOB_ID = "job_id";
+            /// <summary>Filter for multi query export</summary>
+            public const string EXPRESSION = "expression";
+
+            /// <summary>Path to export target specified as a filename or
+            /// existing directory.</summary>
+            public const string FILEPATH = "filepath";
 
             /// <summary>Specifies which format to export the metrics.
             /// </summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="Options.JSON">JSON</see></term>
+            ///         <term><see cref="Options.JSON">JSON</see>:</term>
+            ///         <description>Generic json output</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            ///         cref="Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
+            ///         </term>
+            ///         <description>Chromium/Perfetto trace event format
+            ///         </description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see cref="Options.JSON">JSON</see>.
             /// </para></remarks>
             public const string FORMAT = "format";
 
+            /// <summary>Generic json output</summary>
             public const string JSON = "json";
+
+            /// <summary>Chromium/Perfetto trace event format</summary>
+            public const string JSON_TRACE_EVENT = "json_trace_event";
+
+            /// <summary>Export query metrics for the currently running job
+            /// </summary>
+            public const string JOB_ID = "job_id";
+
+            /// <summary>Record limit per file for multi query export</summary>
+            public const string LIMIT = "limit";
         } // end struct Options
 
         /// <summary>Optional parameters.</summary>
         /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.JOB_ID">JOB_ID</see>:</term>
-        ///         <description>Export query metrics for the currently running
-        ///         job</description>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
+        ///         <description>Filter for multi query export</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FILEPATH">FILEPATH</see>:</term>
+        ///         <description>Path to export target specified as a filename
+        ///         or existing directory.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.FORMAT">FORMAT</see>:</term>
@@ -52,10 +79,28 @@ namespace kinetica
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.JSON">JSON</see></term>
+        ///                 <term><see cref="Options.JSON">JSON</see>:</term>
+        ///                 <description>Generic json output</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
+        ///                 </term>
+        ///                 <description>Chromium/Perfetto trace event format
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.JSON">JSON</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.JOB_ID">JOB_ID</see>:</term>
+        ///         <description>Export query metrics for the currently running
+        ///         job</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>Record limit per file for multi query export
         ///         </description>
         ///     </item>
         /// </list>
@@ -72,9 +117,14 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.JOB_ID">JOB_ID</see>:</term>
-        ///         <description>Export query metrics for the currently running
-        ///         job</description>
+        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
+        ///         </term>
+        ///         <description>Filter for multi query export</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FILEPATH">FILEPATH</see>:</term>
+        ///         <description>Path to export target specified as a filename
+        ///         or existing directory.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.FORMAT">FORMAT</see>:</term>
@@ -82,10 +132,28 @@ namespace kinetica
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.JSON">JSON</see></term>
+        ///                 <term><see cref="Options.JSON">JSON</see>:</term>
+        ///                 <description>Generic json output</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
+        ///                 </term>
+        ///                 <description>Chromium/Perfetto trace event format
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.JSON">JSON</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.JOB_ID">JOB_ID</see>:</term>
+        ///         <description>Export query metrics for the currently running
+        ///         job</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>Record limit per file for multi query export
         ///         </description>
         ///     </item>
         /// </list>
@@ -106,6 +174,10 @@ namespace kinetica
         /// <remarks><para>Additional information.</para></remarks>
         public struct Info
         {
+            /// <summary>Comma separated list of filenames exported if
+            /// applicable</summary>
+            public const string EXPORTED_FILES = "exported_files";
+
             /// <summary>Exported metrics if no other destination specified
             /// </summary>
             public const string OUTPUT = "output";
@@ -113,6 +185,12 @@ namespace kinetica
 
         /// <summary>Additional information.</summary>
         /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Info.EXPORTED_FILES">EXPORTED_FILES</see>:
+        ///         </term>
+        ///         <description>Comma separated list of filenames exported if
+        ///         applicable</description>
+        ///     </item>
         ///     <item>
         ///         <term><see cref="Info.OUTPUT">OUTPUT</see>:</term>
         ///         <description>Exported metrics if no other destination

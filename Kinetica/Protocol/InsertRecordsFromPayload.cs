@@ -520,6 +520,24 @@ namespace kinetica
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
 
+            /// <summary>Specifies how to handle nested columns.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+            ///         <description>Break up nested columns to multiple
+            ///         columns</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+            ///         <description>Treat nested columns as json columns
+            ///         instead of flattening</description>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string FLATTEN_COLUMNS = "flatten_columns";
+
             /// <summary>Comma separated list of gdal conf options, for the
             /// specific requets: key=value.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
@@ -1488,6 +1506,27 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
+        ///         </term>
+        ///         <description>Specifies how to handle nested columns.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Break up nested columns to multiple
+        ///                 columns</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Treat nested columns as json columns
+        ///                 instead of flattening</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -2505,6 +2544,27 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
+        ///         </term>
+        ///         <description>Specifies how to handle nested columns.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Break up nested columns to multiple
+        ///                 columns</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Treat nested columns as json columns
+        ///                 instead of flattening</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>

@@ -26,15 +26,6 @@ namespace kinetica
         /// updated. Error if empty.</para></remarks>
         public struct PropertyUpdatesMap
         {
-            /// <summary>Set the number of OpenMP threads that will be used to
-            /// service filter & aggregation requests to the specified integer
-            /// value.</summary>
-            public const string SM_OMP_THREADS = "sm_omp_threads";
-
-            /// <summary>Set the number of kernel OpenMP threads to the
-            /// specified integer value.</summary>
-            public const string KERNEL_OMP_THREADS = "kernel_omp_threads";
-
             /// <summary>Enables concurrent kernel execution if the value is
             /// <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables it
             /// if the value is <see
@@ -98,8 +89,9 @@ namespace kinetica
             /// <summary>Flushes any changes to any tables to the persistent
             /// store.</summary>
             /// <remarks><para> These changes include updates to the vector
-            /// store, object store, and text search store, Value string is
-            /// ignored</para></remarks>
+            /// store, object store, and text search store.  Value string can
+            /// be 'true', 'false' or 'text_search' to flush the text search
+            /// store only.</para></remarks>
             public const string FLUSH_TO_DISK = "flush_to_disk";
 
             /// <summary>Clears cached results.</summary>
@@ -111,7 +103,7 @@ namespace kinetica
 
             /// <summary>Invoke the communicator test and report timing
             /// results.</summary>
-            /// <remarks><para>Value string is is a semicolon separated list of
+            /// <remarks><para>Value string is a semicolon separated list of
             /// [key]=[value] expressions.  Expressions are:
             /// num_transactions=[num] where num is the number of request reply
             /// transactions to invoke per test; message_size=[bytes] where
@@ -243,8 +235,8 @@ namespace kinetica
             /// <summary>Max file size (in MB) to allow saving to a single
             /// file.</summary>
             /// <remarks><para>May be overridden by target limitations. The
-            /// default value is '100'. The minimum allowed value is '1'. The
-            /// maximum allowed value is '200'.</para></remarks>
+            /// default value is '10000'. The minimum allowed value is '1'. The
+            /// maximum allowed value is '200000'.</para></remarks>
             public const string EGRESS_SINGLE_FILE_MAX_SIZE = "egress_single_file_max_size";
 
             /// <summary>Sets the max_concurrent_kernels value of the conf.
@@ -281,9 +273,19 @@ namespace kinetica
             /// <summary>AI API connection timeout in seconds</summary>
             public const string AI_API_CONNECTION_TIMEOUT = "ai_api_connection_timeout";
 
+            /// <summary>AI API model name</summary>
+            public const string AI_API_EMBEDDINGS_MODEL = "ai_api_embeddings_model";
+
             /// <summary>Enable or disable persisting of query metrics.
             /// </summary>
             public const string TELM_PERSIST_QUERY_METRICS = "telm_persist_query_metrics";
+
+            /// <summary>Idle connection timeout in seconds</summary>
+            public const string POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT = "postgres_proxy_idle_connection_timeout";
+
+            /// <summary>Enable  postgres proxy keep alive.</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
+            public const string POSTGRES_PROXY_KEEP_ALIVE = "postgres_proxy_keep_alive";
         } // end struct PropertyUpdatesMap
 
         /// <summary>A set of string constants for the parameter <see
@@ -328,21 +330,6 @@ namespace kinetica
         /// <summary>Map containing the properties of the system to be updated.
         /// </summary>
         /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:
-        ///         </term>
-        ///         <description>Set the number of OpenMP threads that will be
-        ///         used to service filter & aggregation requests to the
-        ///         specified integer value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:
-        ///         </term>
-        ///         <description>Set the number of kernel OpenMP threads to the
-        ///         specified integer value.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
@@ -429,8 +416,9 @@ namespace kinetica
         ///         </term>
         ///         <description>Flushes any changes to any tables to the
         ///         persistent store.  These changes include updates to the
-        ///         vector store, object store, and text search store, Value
-        ///         string is ignored</description>
+        ///         vector store, object store, and text search store.  Value
+        ///         string can be 'true', 'false' or 'text_search' to flush the
+        ///         text search store only.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -447,7 +435,7 @@ namespace kinetica
         ///         cref="PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:
         ///         </term>
         ///         <description>Invoke the communicator test and report timing
-        ///         results. Value string is is a semicolon separated list of
+        ///         results. Value string is a semicolon separated list of
         ///         [key]=[value] expressions.  Expressions are:
         ///         num_transactions=[num] where num is the number of request
         ///         reply transactions to invoke per test; message_size=[bytes]
@@ -624,8 +612,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Max file size (in MB) to allow saving to a
         ///         single file. May be overridden by target limitations. The
-        ///         default value is '100'. The minimum allowed value is '1'.
-        ///         The maximum allowed value is '200'.</description>
+        ///         default value is '10000'. The minimum allowed value is '1'.
+        ///         The maximum allowed value is '200000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -686,10 +674,30 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+        ///         </term>
+        ///         <description>AI API model name</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
         ///         </term>
         ///         <description>Enable or disable persisting of query metrics.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Idle connection timeout in seconds
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+        ///         </term>
+        ///         <description>Enable  postgres proxy keep alive. The default
+        ///         value is 'false'.</description>
         ///     </item>
         /// </list></remarks>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
@@ -747,21 +755,6 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:
-        ///         </term>
-        ///         <description>Set the number of OpenMP threads that will be
-        ///         used to service filter & aggregation requests to the
-        ///         specified integer value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:
-        ///         </term>
-        ///         <description>Set the number of kernel OpenMP threads to the
-        ///         specified integer value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
         ///         </term>
         ///         <description>Enables concurrent kernel execution if the
@@ -846,8 +839,9 @@ namespace kinetica
         ///         </term>
         ///         <description>Flushes any changes to any tables to the
         ///         persistent store.  These changes include updates to the
-        ///         vector store, object store, and text search store, Value
-        ///         string is ignored</description>
+        ///         vector store, object store, and text search store.  Value
+        ///         string can be 'true', 'false' or 'text_search' to flush the
+        ///         text search store only.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -864,7 +858,7 @@ namespace kinetica
         ///         cref="PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:
         ///         </term>
         ///         <description>Invoke the communicator test and report timing
-        ///         results. Value string is is a semicolon separated list of
+        ///         results. Value string is a semicolon separated list of
         ///         [key]=[value] expressions.  Expressions are:
         ///         num_transactions=[num] where num is the number of request
         ///         reply transactions to invoke per test; message_size=[bytes]
@@ -1041,8 +1035,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Max file size (in MB) to allow saving to a
         ///         single file. May be overridden by target limitations. The
-        ///         default value is '100'. The minimum allowed value is '1'.
-        ///         The maximum allowed value is '200'.</description>
+        ///         default value is '10000'. The minimum allowed value is '1'.
+        ///         The maximum allowed value is '200000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1103,10 +1097,30 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+        ///         </term>
+        ///         <description>AI API model name</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
         ///         </term>
         ///         <description>Enable or disable persisting of query metrics.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Idle connection timeout in seconds
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+        ///         </term>
+        ///         <description>Enable  postgres proxy keep alive. The default
+        ///         value is 'false'.</description>
         ///     </item>
         /// </list></param>
         /// <param name="options">Optional parameters.

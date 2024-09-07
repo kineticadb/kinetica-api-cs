@@ -460,6 +460,22 @@ namespace kinetica
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
 
+            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>,
+            /// truncate string values that are longer than the column's type
+            /// size.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string TRUNCATE_STRINGS = "truncate_strings";
+
             /// <summary>Specifies the record collision policy for inserting
             /// into a table with a <a
             /// href="../../../concepts/tables/#primary-keys"
@@ -1001,6 +1017,25 @@ namespace kinetica
         ///         </term>
         ///         <description>Alias name for remote_query_filter_column. The
         ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         truncate string values that are longer than the column's
+        ///         type size.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1560,6 +1595,25 @@ namespace kinetica
         ///         </term>
         ///         <description>Alias name for remote_query_filter_column. The
         ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+        ///         </term>
+        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+        ///         truncate string values that are longer than the column's
+        ///         type size.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see

@@ -41,9 +41,11 @@ namespace Example
                 Console.WriteLine( "URL: {0}", server_url );
                 Console.WriteLine();
 
-                Kinetica.Options _ServerOptions = new Kinetica.Options();
-                _ServerOptions.Username = args[1];
-                _ServerOptions.Password = args[2];
+                Kinetica.Options _ServerOptions = new Kinetica.Options
+                {
+                    Username = args[1],
+                    Password = args[2]
+                };
 
 
                 // Run the various example functions

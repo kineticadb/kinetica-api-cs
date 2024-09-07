@@ -15,6 +15,31 @@ namespace kinetica
     /// specified table(s).</para></remarks>
     public class ShowStatisticsRequest : KineticaData
     {
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
+        public struct Options
+        {
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the
+            /// table names specified in <see cref="table_names" /> does not
+            /// exist, no error is returned.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
         /// <summary>Names of tables whose metadata will be fetched, each in
         /// [schema_name.]table_name format, using standard <a
         /// href="../../../concepts/tables/#table-name-resolution"
@@ -24,8 +49,31 @@ namespace kinetica
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
+        /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
+        ///         the table names specified in <see cref="table_names" />
+        ///         does not exist, no error is returned. If <see
+        ///         cref="Options.FALSE">FALSE</see> and if the table names
+        ///         specified in <see cref="table_names" /> does not exist,
+        ///         then an error is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Constructs a ShowStatisticsRequest object with default
@@ -40,8 +88,32 @@ namespace kinetica
         /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All provided tables must
         /// exist, or an error is returned.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
+        ///         the table names specified in <paramref name="table_names"
+        ///         /> does not exist, no error is returned. If <see
+        ///         cref="Options.FALSE">FALSE</see> and if the table names
+        ///         specified in <paramref name="table_names" /> does not
+        ///         exist, then an error is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty Dictionary.</param>
         public ShowStatisticsRequest( IList<string> table_names,
                                       IDictionary<string, string> options = null)
         {

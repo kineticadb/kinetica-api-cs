@@ -136,7 +136,7 @@ namespace kinetica
     public class ShowGraphResponse : KineticaData
     {
         /// <summary>Indicates a success.</summary>
-        /// <remarks><para>This call will fails of the graph specified in the
+        /// <remarks><para>This call will fail if the graph specified in the
         /// request does not exist.</para></remarks>
         public bool result { get; set; }
 
@@ -153,11 +153,11 @@ namespace kinetica
         /// <summary>Id(s) of the graph(s).</summary>
         public IList<int> graph_server_ids { get; set; } = new List<int>();
 
-        /// <summary>Owner the graph(s) and associated solution table(s).
+        /// <summary>Owner of the graph(s) and associated solution table(s).
         /// </summary>
         public IList<string> graph_owner_user_names { get; set; } = new List<string>();
 
-        /// <summary>Owner resource groups(s) of the graph(s).</summary>
+        /// <summary>Owner of the resource groups(s) of the graph(s).</summary>
         public IList<string> graph_owner_resource_groups { get; set; } = new List<string>();
 
         /// <summary>Whether or not the edges of the graph have directions
@@ -185,7 +185,7 @@ namespace kinetica
         /// loaded on launch).</summary>
         public IList<bool> is_persisted { get; set; } = new List<bool>();
 
-        /// <summary>Indicated if the graph data data is distributed across all
+        /// <summary>Indicates if the graph data is distributed across all
         /// available servers.</summary>
         public IList<bool> is_partitioned { get; set; } = new List<bool>();
 
