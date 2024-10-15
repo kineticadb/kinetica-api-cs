@@ -88,6 +88,12 @@ namespace kinetica
             /// </summary>
             public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
 
+            /// <summary>Server side encryption type</summary>
+            public const string S3_ENCRYPTION_TYPE = "s3_encryption_type";
+
+            /// <summary>KMS key</summary>
+            public const string S3_KMS_KEY_ID = "s3_kms_key_id";
+
             /// <summary>Kerberos keytab file location for the given HDFS user.
             /// </summary>
             /// <remarks><para> This may be a KIFS file.</para></remarks>
@@ -329,6 +335,17 @@ namespace kinetica
         ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
         ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
+        ///         </term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:</term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -633,6 +650,17 @@ namespace kinetica
         ///         </term>
         ///         <description>Customer encryption key to encrypt or decrypt
         ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
+        ///         </term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:</term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see

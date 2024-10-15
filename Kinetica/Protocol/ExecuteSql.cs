@@ -1556,10 +1556,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="HasMoreRecords.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="HasMoreRecords.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool has_more_records { get; set; }
@@ -1620,10 +1620,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="HasMoreRecords.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="HasMoreRecords.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool has_more_records { get; set; }

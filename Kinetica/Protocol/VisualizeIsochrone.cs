@@ -818,14 +818,13 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="GenerateImage.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="GenerateImage.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see
-        /// cref="GenerateImage.TRUE">TRUE</see>.</para></remarks>
+        /// <para>The default value is true.</para></remarks>
         public bool generate_image { get; set; } = true;
 
         /// <summary>Name of the table to output the isochrones to, in
@@ -1621,14 +1620,13 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="GenerateImage.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="GenerateImage.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list>
-        /// The default value is <see cref="GenerateImage.TRUE">TRUE</see>.
-        /// </param>
+        /// The default value is true.</param>
         /// <param name="levels_table">Name of the table to output the
         /// isochrones to, in [schema_name.]table_name format, using standard
         /// <a href="../../../concepts/tables/#table-name-resolution"

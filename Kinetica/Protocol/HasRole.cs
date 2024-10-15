@@ -238,11 +238,11 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="HasRole.TRUE">TRUE</see>:</term>
+        ///         <term>true:</term>
         ///         <description>User has membership in the role</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="HasRole.FALSE">FALSE</see>:</term>
+        ///         <term>false:</term>
         ///         <description>User does not have membership in the role
         ///         </description>
         ///     </item>

@@ -261,6 +261,10 @@ namespace kinetica
             /// allowed value is '8192'.</para></remarks>
             public const string TPS_PER_TOM = "tps_per_tom";
 
+            /// <summary>Enable RAG.</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
+            public const string AI_ENABLE_RAG = "ai_enable_rag";
+
             /// <summary>AI API provider type</summary>
             public const string AI_API_PROVIDER = "ai_api_provider";
 
@@ -646,6 +650,13 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the conf. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+        ///         </term>
+        ///         <description>Enable RAG. The default value is 'false'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1069,6 +1080,13 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the conf. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+        ///         </term>
+        ///         <description>Enable RAG. The default value is 'false'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see

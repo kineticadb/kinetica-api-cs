@@ -12,7 +12,7 @@ namespace kinetica
     public partial class Kinetica
     {
         // Kinetica Version
-        public const string API_VERSION = "7.2.1.0";
+        public const string API_VERSION = "7.2.2.0";
 
         /// <summary>Adds a host to an existing cluster.</summary>
         /// <remarks><para>This method should be used for on-premise
@@ -528,12 +528,10 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></param>
         /// <param name="options">Optional parameters.
@@ -3869,11 +3867,86 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
+        ///         </term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
+        ///         <description>When true (default), the requests URI should
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
         ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
         ///         permissions that can be assumed for the given S3 IAM user
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
+        ///         <description>Customer encryption algorithm used encrypting
+        ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
+        ///         </term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
+        ///         </term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4252,6 +4325,59 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
+        ///         </term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 source.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>:
+        ///                 </term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>:
+        ///                 </term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
         ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
@@ -4474,6 +4600,28 @@ namespace kinetica
         ///         doesn't exist, an error will be thrown. If <see
         ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
         ///         is empty, then the user's default schema will be used.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         </term>
+        ///         <description>Location of Confluent Schema Registry in
+        ///         '[storage_path[:storage_port]]' format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
+        ///         </term>
+        ///         <description>Confluent Schema Registry <a
+        ///         href="../../../concepts/credentials"
+        ///         target="_top">credential</a> object name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema Registry port (optional).
         ///         </description>
         ///     </item>
         /// </list></param>
@@ -5331,6 +5479,13 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the conf. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+        ///         </term>
+        ///         <description>Enable RAG. The default value is 'false'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7552,6 +7707,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
+        ///         </term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
+        ///         </term>
+        ///         <description>KMS key</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="CreateDatasinkRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
         ///         </term>
         ///         <description>Kerberos keytab file location for the given
@@ -8373,18 +8540,13 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="CreateGraphRequest.DirectedGraph.TRUE">TRUE</see>
-        ///         </term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="CreateGraphRequest.DirectedGraph.FALSE">FALSE</see>
-        ///         </term>
+        ///         <term>false</term>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.DirectedGraph.TRUE">TRUE</see>.</param>
+        /// The default value is true.</param>
         /// <param name="nodes">Nodes represent fundamental topological units
         /// of a graph. Nodes must be specified using <a
         /// href="../../../graph_solver/network_graph_solver/#identifiers"
@@ -8964,6 +9126,13 @@ namespace kinetica
         ///         <description>Collect chunks with accumulated size less than
         ///         chunk_size into a single chunk. The default value is
         ///         'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateJoinTableRequest.Options.ENABLE_PK_EQUI_JOIN">ENABLE_PK_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Use equi-join to do primary key joins rather
+        ///         than using primary-key-index</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -23040,8 +23209,7 @@ namespace kinetica
         ///                 an integral value within the range [1, 500]. If
         ///                 both min and max are specified, min must be less
         ///                 than or equal to max. The minimum allowed value is
-        ///                 '1'. The maximum allowed value is '500'.
-        ///                 </description>
+        ///                 1. The maximum allowed value is 500.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
@@ -23052,8 +23220,7 @@ namespace kinetica
         ///                 an integral value within the range [1, 500]. If
         ///                 both min and max are specified, max must be greater
         ///                 than or equal to min. The minimum allowed value is
-        ///                 '1'. The maximum allowed value is '500'.
-        ///                 </description>
+        ///                 1. The maximum allowed value is 500.</description>
         ///             </item>
         ///         </list></description>
         ///     </item>
@@ -29609,19 +29776,13 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>
-        ///         </term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="VisualizeIsochroneRequest.GenerateImage.FALSE">FALSE</see>
-        ///         </term>
+        ///         <term>false</term>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>.
-        /// </param>
+        /// The default value is true.</param>
         /// <param name="levels_table">Name of the table to output the
         /// isochrones to, in [schema_name.]table_name format, using standard
         /// <a href="../../../concepts/tables/#table-name-resolution"

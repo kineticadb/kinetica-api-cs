@@ -205,14 +205,13 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="DirectedGraph.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="DirectedGraph.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see
-        /// cref="DirectedGraph.TRUE">TRUE</see>.</para></remarks>
+        /// <para>The default value is true.</para></remarks>
         public bool directed_graph { get; set; } = true;
 
         /// <summary>Nodes represent fundamental topological units of a graph.
@@ -479,14 +478,13 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="DirectedGraph.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="DirectedGraph.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list>
-        /// The default value is <see cref="DirectedGraph.TRUE">TRUE</see>.
-        /// </param>
+        /// The default value is true.</param>
         /// <param name="nodes">Nodes represent fundamental topological units
         /// of a graph. Nodes must be specified using <a
         /// href="../../../graph_solver/network_graph_solver/#identifiers"

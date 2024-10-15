@@ -215,10 +215,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="InProgress.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="InProgress.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool in_progress { get; set; }
@@ -258,10 +258,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="UserStopped.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="UserStopped.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool user_stopped { get; set; }
@@ -273,10 +273,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="DryRun.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="DryRun.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool dry_run { get; set; }
@@ -289,10 +289,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="AddRanks.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AddRanks.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool add_ranks { get; set; }
@@ -342,10 +342,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="RemoveRanks.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="RemoveRanks.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool remove_ranks { get; set; }
@@ -394,10 +394,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Rebalance.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Rebalance.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool rebalance { get; set; }
@@ -407,12 +407,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="RebalanceUnshardedData.TRUE">TRUE</see>
-        ///         </term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="RebalanceUnshardedData.FALSE">FALSE</see>
-        ///         </term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool rebalance_unsharded_data { get; set; }
@@ -459,12 +457,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="RebalanceShardedData.TRUE">TRUE</see>
-        ///         </term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="RebalanceShardedData.FALSE">FALSE</see>
-        ///         </term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool rebalance_sharded_data { get; set; }

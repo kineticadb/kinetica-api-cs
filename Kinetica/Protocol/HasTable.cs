@@ -70,10 +70,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="TableExists.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="TableExists.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool table_exists { get; set; }

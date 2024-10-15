@@ -103,6 +103,10 @@ namespace kinetica
             /// chunk_size into a single chunk.</summary>
             /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string ENABLE_VIRTUAL_CHUNKING = "enable_virtual_chunking";
+
+            /// <summary>Use equi-join to do primary key joins rather than
+            /// using primary-key-index</summary>
+            public const string ENABLE_PK_EQUI_JOIN = "enable_pk_equi_join";
         } // end struct Options
 
         /// <summary>Name of the join table to be created, in
@@ -246,6 +250,13 @@ namespace kinetica
         ///         chunk_size into a single chunk. The default value is
         ///         'false'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_PK_EQUI_JOIN">ENABLE_PK_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Use equi-join to do primary key joins rather
+        ///         than using primary-key-index</description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -387,6 +398,13 @@ namespace kinetica
         ///         <description>Collect chunks with accumulated size less than
         ///         chunk_size into a single chunk. The default value is
         ///         'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_PK_EQUI_JOIN">ENABLE_PK_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Use equi-join to do primary key joins rather
+        ///         than using primary-key-index</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

@@ -51,10 +51,10 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Offline.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Offline.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></remarks>
         public bool offline { get; set; }
@@ -90,10 +90,10 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Offline.TRUE">TRUE</see></term>
+        ///         <term>true</term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Offline.FALSE">FALSE</see></term>
+        ///         <term>false</term>
         ///     </item>
         /// </list></param>
         /// <param name="options">Optional parameters.

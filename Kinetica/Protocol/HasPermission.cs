@@ -479,12 +479,12 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="HasPermission.TRUE">TRUE</see>:</term>
+        ///         <term>true:</term>
         ///         <description>User has the effective queried permission
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="HasPermission.FALSE">FALSE</see>:</term>
+        ///         <term>false:</term>
         ///         <description>User does not have the queried permission
         ///         </description>
         ///     </item>

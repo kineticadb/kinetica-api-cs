@@ -274,8 +274,8 @@ namespace kinetica
             ///         series; default is 100 records per series. Must be an
             ///         integral value within the range [1, 500]. If both min
             ///         and max are specified, min must be less than or equal
-            ///         to max. The minimum allowed value is '1'. The maximum
-            ///         allowed value is '500'.</description>
+            ///         to max. The minimum allowed value is 1. The maximum
+            ///         allowed value is 500.</description>
             ///     </item>
             ///     <item>
             ///         <term><see cref="Options.MAX">MAX</see>:</term>
@@ -283,8 +283,8 @@ namespace kinetica
             ///         series; default is 500 records per series. Must be an
             ///         integral value within the range [1, 500]. If both min
             ///         and max are specified, max must be greater than or
-            ///         equal to min. The minimum allowed value is '1'. The
-            ///         maximum allowed value is '500'.</description>
+            ///         equal to min. The minimum allowed value is 1. The
+            ///         maximum allowed value is 500.</description>
             ///     </item>
             /// </list></remarks>
             public const string TRACK_LENGTH = "track_length";
@@ -528,8 +528,7 @@ namespace kinetica
         ///                 an integral value within the range [1, 500]. If
         ///                 both min and max are specified, min must be less
         ///                 than or equal to max. The minimum allowed value is
-        ///                 '1'. The maximum allowed value is '500'.
-        ///                 </description>
+        ///                 1. The maximum allowed value is 500.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.MAX">MAX</see>:</term>
@@ -538,8 +537,7 @@ namespace kinetica
         ///                 an integral value within the range [1, 500]. If
         ///                 both min and max are specified, max must be greater
         ///                 than or equal to min. The minimum allowed value is
-        ///                 '1'. The maximum allowed value is '500'.
-        ///                 </description>
+        ///                 1. The maximum allowed value is 500.</description>
         ///             </item>
         ///         </list></description>
         ///     </item>
@@ -794,8 +792,7 @@ namespace kinetica
         ///                 an integral value within the range [1, 500]. If
         ///                 both min and max are specified, min must be less
         ///                 than or equal to max. The minimum allowed value is
-        ///                 '1'. The maximum allowed value is '500'.
-        ///                 </description>
+        ///                 1. The maximum allowed value is 500.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.MAX">MAX</see>:</term>
@@ -804,8 +801,7 @@ namespace kinetica
         ///                 an integral value within the range [1, 500]. If
         ///                 both min and max are specified, max must be greater
         ///                 than or equal to min. The minimum allowed value is
-        ///                 '1'. The maximum allowed value is '500'.
-        ///                 </description>
+        ///                 1. The maximum allowed value is 500.</description>
         ///             </item>
         ///         </list></description>
         ///     </item>

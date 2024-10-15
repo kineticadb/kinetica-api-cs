@@ -49,9 +49,61 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
+            /// <summary>Set to false for testing purposes or when necessary to
+            /// bypass TLS errors (e.g. self-signed certificates).</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</para></remarks>
+            public const string S3_VERIFY_SSL = "s3_verify_ssl";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>When true (default), the requests URI should be
+            /// specified in virtual-hosted-style format where the bucket name
+            /// is part of the domain name in the URL.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         </term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         </term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</para></remarks>
+            public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
+
             /// <summary>Amazon IAM Role ARN which has required S3 permissions
             /// that can be assumed for the given S3 IAM user</summary>
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
+
+            /// <summary>Customer encryption algorithm used encrypting data
+            /// </summary>
+            public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
+
+            /// <summary>Customer encryption key to encrypt or decrypt data
+            /// </summary>
+            public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
+
+            /// <summary>Server side encryption type</summary>
+            public const string S3_ENCRYPTION_TYPE = "s3_encryption_type";
+
+            /// <summary>KMS key</summary>
+            public const string S3_KMS_KEY_ID = "s3_kms_key_id";
 
             /// <summary>Kerberos keytab file location for the given HDFS user.
             /// </summary>
@@ -77,9 +129,6 @@ namespace kinetica
             /// <para>The default value is <see
             /// cref="DatasinkUpdatesMap.FALSE">FALSE</see>.</para></remarks>
             public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Name of the Azure storage account to use as the data
             /// sink, this is valid only if tenant_id is specified</summary>
@@ -282,11 +331,80 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
+        ///         </term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
+        ///         <description>When true (default), the requests URI should
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
         ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
         ///         permissions that can be assumed for the given S3 IAM user
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
+        ///         <description>Customer encryption algorithm used encrypting
+        ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
+        ///         </term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
+        ///         </term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -587,11 +705,80 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
+        ///         </term>
+        ///         <description>Set to false for testing purposes or when
+        ///         necessary to bypass TLS errors (e.g. self-signed
+        ///         certificates). This value is true by default.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+        ///         </term>
+        ///         <description>When true (default), the requests URI should
+        ///         be specified in virtual-hosted-style format where the
+        ///         bucket name is part of the domain name in the URL.
+        ///         Otherwise set to false to use path-style URI for requests.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
         ///         </term>
         ///         <description>Amazon IAM Role ARN which has required S3
         ///         permissions that can be assumed for the given S3 IAM user
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+        ///         </term>
+        ///         <description>Customer encryption algorithm used encrypting
+        ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+        ///         </term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        ///         data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
+        ///         </term>
+        ///         <description>Server side encryption type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
+        ///         </term>
+        ///         <description>KMS key</description>
         ///     </item>
         ///     <item>
         ///         <term><see
