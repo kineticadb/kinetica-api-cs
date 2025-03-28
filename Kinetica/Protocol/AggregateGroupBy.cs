@@ -129,12 +129,28 @@ namespace kinetica
             /// computing the aggregate group by.</summary>
             public const string EXPRESSION = "expression";
 
+            /// <summary>evaluate the filter expression during group-by chunk
+            /// processing.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string CHUNKED_EXPRESSION_EVALUATION = "chunked_expression_evaluation";
+
             /// <summary>Filter expression to apply to the aggregated results.
             /// </summary>
             public const string HAVING = "having";
 
-            /// <summary>String indicating how the returned values should be
-            /// sorted - ascending or descending.</summary>
+            /// <summary>[DEPRECATED--use order_by instead] String indicating
+            /// how the returned values should be sorted - ascending or
+            /// descending.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -162,8 +178,8 @@ namespace kinetica
             /// descending order.</summary>
             public const string DESCENDING = "descending";
 
-            /// <summary>String determining how the results are sorted.
-            /// </summary>
+            /// <summary>[DEPRECATED--use order_by instead] String determining
+            /// how the results are sorted.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -448,6 +464,24 @@ namespace kinetica
         ///         to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         </term>
+        ///         <description>evaluate the filter expression during group-by
+        ///         chunk processing.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         ///         results.</description>
@@ -455,8 +489,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
         ///         </term>
-        ///         <description>String indicating how the returned values
-        ///         should be sorted - ascending or descending.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         indicating how the returned values should be sorted -
+        ///         ascending or descending.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -477,7 +512,8 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>String determining how the results are sorted.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         determining how the results are sorted.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -770,6 +806,24 @@ namespace kinetica
         ///         to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         </term>
+        ///         <description>evaluate the filter expression during group-by
+        ///         chunk processing.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         ///         results.</description>
@@ -777,8 +831,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
         ///         </term>
-        ///         <description>String indicating how the returned values
-        ///         should be sorted - ascending or descending.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         indicating how the returned values should be sorted -
+        ///         ascending or descending.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -799,7 +854,8 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>String determining how the results are sorted.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         determining how the results are sorted.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1116,6 +1172,24 @@ namespace kinetica
         ///         to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         </term>
+        ///         <description>evaluate the filter expression during group-by
+        ///         chunk processing.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         ///         results.</description>
@@ -1123,8 +1197,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:
         ///         </term>
-        ///         <description>String indicating how the returned values
-        ///         should be sorted - ascending or descending.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         indicating how the returned values should be sorted -
+        ///         ascending or descending.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1145,7 +1220,8 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>String determining how the results are sorted.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         determining how the results are sorted.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1399,6 +1475,9 @@ namespace kinetica
         public string json_encoded_response { get; set; }
 
         /// <summary>Total/Filtered number of records.</summary>
+        /// <remarks><para> This may be an over-estimate if a limit was applied
+        /// and there are additional records (i.e., when <see
+        /// cref="has_more_records" /> is true).</para></remarks>
         public long total_number_of_records { get; set; }
 
         /// <summary>Too many records.</summary>
@@ -1439,6 +1518,9 @@ namespace kinetica
         public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
 
         /// <summary>Total/Filtered number of records.</summary>
+        /// <remarks><para> This may be an over-estimate if a limit was applied
+        /// and there are additional records (i.e., when <see
+        /// cref="has_more_records" /> is true).</para></remarks>
         public long total_number_of_records { get; set; }
 
         /// <summary>Too many records.</summary>

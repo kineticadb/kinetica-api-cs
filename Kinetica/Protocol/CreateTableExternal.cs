@@ -863,6 +863,12 @@ namespace kinetica
             /// <summary>Skip number of lines from begining of file.</summary>
             public const string SKIP_LINES = "skip_lines";
 
+            /// <summary>Starting offsets by partition to fetch from kafka.
+            /// </summary>
+            /// <remarks><para>A comma separated list of partition:offset
+            /// pairs.</para></remarks>
+            public const string START_OFFSETS = "start_offsets";
+
             /// <summary>Continuously poll the data source to check for new
             /// data and load it into the table.</summary>
             /// <remarks><para>Supported values:</para>
@@ -2012,6 +2018,13 @@ namespace kinetica
         ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
         ///         </term>
         ///         <description>Skip number of lines from begining of file.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.START_OFFSETS">START_OFFSETS</see>:</term>
+        ///         <description>Starting offsets by partition to fetch from
+        ///         kafka. A comma separated list of partition:offset pairs.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -3207,6 +3220,13 @@ namespace kinetica
         ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
         ///         </term>
         ///         <description>Skip number of lines from begining of file.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.START_OFFSETS">START_OFFSETS</see>:</term>
+        ///         <description>Starting offsets by partition to fetch from
+        ///         kafka. A comma separated list of partition:offset pairs.
         ///         </description>
         ///     </item>
         ///     <item>

@@ -42,15 +42,19 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
-            /// <summary>Set to false for testing purposes or when necessary to
-            /// bypass TLS errors (e.g. self-signed certificates).</summary>
+            /// <summary>Whether to verify SSL connections.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+            ///         <description>Connect with SSL verification
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+            ///         <description>Connect without verifying the SSL
+            ///         connection; for testing purposes, bypassing TLS errors,
+            ///         self-signed certificates, etc.</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -60,16 +64,20 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>When true (default), the requests URI should be
-            /// specified in virtual-hosted-style format where the bucket name
-            /// is part of the domain name in the URL.</summary>
+            /// <summary>Whether to use virtual addressing when referencing the
+            /// Amazon S3 sink.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+            ///         <description>The requests URI should be specified in
+            ///         virtual-hosted-style format where the bucket name is
+            ///         part of the domain name in the URL.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+            ///         <description>Use path-style URI for requests.
+            ///         </description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -173,17 +181,24 @@ namespace kinetica
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="Options.FLAT">FLAT</see></term>
+            ///         <term><see cref="Options.FLAT">FLAT</see>:</term>
+            ///         <description>A single record is returned per message
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see cref="Options.NESTED">NESTED</see></term>
+            ///         <term><see cref="Options.NESTED">NESTED</see>:</term>
+            ///         <description>Records are returned as an array per
+            ///         message</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see cref="Options.FLAT">FLAT</see>.
             /// </para></remarks>
             public const string JSON_FORMAT = "json_format";
 
+            /// <summary>A single record is returned per message</summary>
             public const string FLAT = "flat";
+
+            /// <summary>Records are returned as an array per message</summary>
             public const string NESTED = "nested";
 
             /// <summary>When no credentials are supplied, we use anonymous
@@ -238,7 +253,7 @@ namespace kinetica
         /// <summary>Destination for the output data in format
         /// 'storage_provider_type://path[:port]'.</summary>
         /// <remarks><para> Supported storage provider types are 'azure',
-        /// 'gcs', 'hdfs', 'http', 'https', 'jdbc', 'kafka' and 's3'.</para>
+        /// 'gcs', 'hdfs', 'http', 'https', 'jdbc', 'kafka', and 's3'.</para>
         /// </remarks>
         public string destination { get; set; }
 
@@ -279,16 +294,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -298,17 +317,21 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
         ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 sink.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -472,17 +495,18 @@ namespace kinetica
         ///         </term>
         ///         <description>The desired format of JSON encoded
         ///         notifications message.
-        ///         If <see cref="Options.NESTED">NESTED</see>, records are
-        ///         returned as an array. Otherwise, only a single record per
-        ///         messages is returned.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.FLAT">FLAT</see></term>
+        ///                 <term><see cref="Options.FLAT">FLAT</see>:</term>
+        ///                 <description>A single record is returned per
+        ///                 message</description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.NESTED">NESTED</see>
+        ///                 <term><see cref="Options.NESTED">NESTED</see>:
         ///                 </term>
+        ///                 <description>Records are returned as an array per
+        ///                 message</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.FLAT">FLAT</see>.
@@ -556,7 +580,7 @@ namespace kinetica
         /// <param name="destination">Destination for the output data in format
         /// 'storage_provider_type://path[:port]'.
         /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
-        /// 'http', 'https', 'jdbc', 'kafka' and 's3'.</param>
+        /// 'http', 'https', 'jdbc', 'kafka', and 's3'.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -594,16 +618,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -613,17 +641,21 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
         ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 sink.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -788,17 +820,18 @@ namespace kinetica
         ///         </term>
         ///         <description>The desired format of JSON encoded
         ///         notifications message.
-        ///         If <see cref="Options.NESTED">NESTED</see>, records are
-        ///         returned as an array. Otherwise, only a single record per
-        ///         messages is returned.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.FLAT">FLAT</see></term>
+        ///                 <term><see cref="Options.FLAT">FLAT</see>:</term>
+        ///                 <description>A single record is returned per
+        ///                 message</description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.NESTED">NESTED</see>
+        ///                 <term><see cref="Options.NESTED">NESTED</see>:
         ///                 </term>
+        ///                 <description>Records are returned as an array per
+        ///                 message</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.FLAT">FLAT</see>.

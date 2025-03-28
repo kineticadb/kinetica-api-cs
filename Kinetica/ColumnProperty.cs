@@ -210,6 +210,12 @@ namespace kinetica
         public const string PRIMARY_KEY = "primary_key";
 
         /// <summary>This property indicates that this column will be part of
+        /// (or the entire) <a
+        /// href="../../../concepts/tables/#soft-primary-keys"
+        /// target="_top">soft primary key</a>.</summary>
+        public const string SOFT_PRIMARY_KEY = "soft_primary_key";
+
+        /// <summary>This property indicates that this column will be part of
         /// (or the entire) <a href="../../../concepts/tables/#shard-keys"
         /// target="_top">shard key</a>.</summary>
         public const string SHARD_KEY = "shard_key";
@@ -248,5 +254,10 @@ namespace kinetica
         /// <summary>For 'uuid' type, replace empty strings and invalid UUID
         /// values with randomly-generated UUIDs upon insert.</summary>
         public const string INIT_WITH_UUID = "init_with_uuid";
+
+        /// <summary>For 'date', 'time', 'datetime', or 'timestamp' column
+        /// types, always update the field with 'NOW()' upon any update.
+        /// </summary>
+        public const string UPDATE_WITH_NOW = "update_with_now";
     } // end struct ColumnProperty
 } // end namespace kinetica

@@ -273,6 +273,12 @@ namespace kinetica
 
             /// <summary>This property indicates that this column will be part
             /// of (or the entire) <a
+            /// href="../../../concepts/tables/#soft-primary-keys"
+            /// target="_top">soft primary key</a>.</summary>
+            public const string SOFT_PRIMARY_KEY = "soft_primary_key";
+
+            /// <summary>This property indicates that this column will be part
+            /// of (or the entire) <a
             /// href="../../../concepts/tables/#shard-keys" target="_top">shard
             /// key</a>.</summary>
             public const string SHARD_KEY = "shard_key";
@@ -312,6 +318,11 @@ namespace kinetica
             /// UUID values with randomly-generated UUIDs upon insert.
             /// </summary>
             public const string INIT_WITH_UUID = "init_with_uuid";
+
+            /// <summary>For 'date', 'time', 'datetime', or 'timestamp' column
+            /// types, always update the field with 'NOW()' upon any update.
+            /// </summary>
+            public const string UPDATE_WITH_NOW = "update_with_now";
         } // end struct Properties
 
         /// <summary>a JSON string describing the columns of the type to be
@@ -566,6 +577,15 @@ namespace kinetica
         ///         target="_top">primary key</a>.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Properties.SOFT_PRIMARY_KEY">SOFT_PRIMARY_KEY</see>:
+        ///         </term>
+        ///         <description>This property indicates that this column will
+        ///         be part of (or the entire) <a
+        ///         href="../../../concepts/tables/#soft-primary-keys"
+        ///         target="_top">soft primary key</a>.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Properties.SHARD_KEY">SHARD_KEY</see>:
         ///         </term>
         ///         <description>This property indicates that this column will
@@ -615,6 +635,14 @@ namespace kinetica
         ///         <description>For 'uuid' type, replace empty strings and
         ///         invalid UUID values with randomly-generated UUIDs upon
         ///         insert.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Properties.UPDATE_WITH_NOW">UPDATE_WITH_NOW</see>:
+        ///         </term>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        ///         column types, always update the field with 'NOW()' upon any
+        ///         update.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -883,6 +911,15 @@ namespace kinetica
         ///         target="_top">primary key</a>.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Properties.SOFT_PRIMARY_KEY">SOFT_PRIMARY_KEY</see>:
+        ///         </term>
+        ///         <description>This property indicates that this column will
+        ///         be part of (or the entire) <a
+        ///         href="../../../concepts/tables/#soft-primary-keys"
+        ///         target="_top">soft primary key</a>.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Properties.SHARD_KEY">SHARD_KEY</see>:
         ///         </term>
         ///         <description>This property indicates that this column will
@@ -932,6 +969,14 @@ namespace kinetica
         ///         <description>For 'uuid' type, replace empty strings and
         ///         invalid UUID values with randomly-generated UUIDs upon
         ///         insert.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Properties.UPDATE_WITH_NOW">UPDATE_WITH_NOW</see>:
+        ///         </term>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        ///         column types, always update the field with 'NOW()' upon any
+        ///         update.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

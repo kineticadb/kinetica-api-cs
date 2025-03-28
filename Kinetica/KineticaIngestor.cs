@@ -46,10 +46,10 @@ namespace kinetica
         public Int64 count_inserted;
         public Int64 count_updated;
         private KineticaType ktype;
-        private Utils.RecordKeyBuilder<T> primary_key_builder;
-        private Utils.RecordKeyBuilder<T> shard_key_builder;
-        private IList<int> routing_table;
-        private IList<Utils.WorkerQueue<T>> worker_queues;
+        private Utils.RecordKeyBuilder<T>? primaryKeyBuilder;
+        private Utils.RecordKeyBuilder<T>? shardKeyBuilder;
+        private IList<int>? routingTable;
+        private IList<Utils.WorkerQueue<T>> workerQueues;
         private Random random;
 
 
@@ -57,56 +57,47 @@ namespace kinetica
         /// 
         /// </summary>
         /// <param name="kdb"></param>
-        /// <param name="table_name"></param>
-        /// <param name="batch_size"></param>
+        /// <param name="tableName"></param>
+        /// <param name="batchSize"></param>
         /// <param name="ktype"></param>
         /// <param name="options"></param>
         /// <param name="workers"></param>
-        public KineticaIngestor( Kinetica kdb, string table_name,
-                                 int batch_size, KineticaType ktype,
-                                 Dictionary<string, string> options = null,
-                                 Utils.WorkerList workers = null )
+        public KineticaIngestor( Kinetica kdb, string tableName,
+                                 int batchSize, KineticaType ktype,
+                                 Dictionary<string, string>? options = null,
+                                 Utils.WorkerList? workers = null )
         {
             this.kineticaDB = kdb;
-            this.table_name = table_name;
+            this.table_name = tableName;
             this.ktype = ktype;
 
             // Validate and save the batch size
-            if ( batch_size < 1 )
-                throw new KineticaException( $"Batch size must be greater than one; given {batch_size}." );
-            this.batch_size = batch_size;
+            if ( batchSize < 1 )
+                throw new KineticaException( $"Batch size must be greater than one; given {batchSize}." );
+            this.batch_size = batchSize;
 
-            // Save the options (make it read-only if it exists)
-            if ( options != null )
-            {
-                this.options = options;
-                //this.options = options.ToImmutableDictionary<string, string>();
-            }
-            else
-            {
-                this.options = null;
-            }
+            this.options = options;
 
             // Set up the primary and shard key builders
             // -----------------------------------------
-            this.primary_key_builder = new Utils.RecordKeyBuilder<T>( true,  this.ktype );
-            this.shard_key_builder   = new Utils.RecordKeyBuilder<T>( false, this.ktype );
+            this.primaryKeyBuilder = new Utils.RecordKeyBuilder<T>( true,  this.ktype );
+            this.shardKeyBuilder   = new Utils.RecordKeyBuilder<T>( false, this.ktype );
 
             // Based on the Java implementation
-            if ( this.primary_key_builder.hasKey() )
+            if ( this.primaryKeyBuilder.hasKey() )
             {   // There is a primary key for the given T
                 // Now check if there is a distinct shard key
-                if ( !this.shard_key_builder.hasKey()
-                     || this.shard_key_builder.hasSameKey( this.primary_key_builder ) )
-                    this.shard_key_builder = this.primary_key_builder; // no distinct shard key
+                if ( !this.shardKeyBuilder.hasKey()
+                     || this.shardKeyBuilder.hasSameKey( this.primaryKeyBuilder ) )
+                    this.shardKeyBuilder = this.primaryKeyBuilder; // no distinct shard key
             }
             else  // there is no primary key for the given T
             {
-                this.primary_key_builder = null;
+                this.primaryKeyBuilder = null;
 
                 // Check if there is shard key for T
-                if ( !this.shard_key_builder.hasKey() )
-                    this.shard_key_builder = null;
+                if ( !this.shardKeyBuilder.hasKey() )
+                    this.shardKeyBuilder = null;
             }  // done setting up the key builders
 
 
@@ -114,12 +105,12 @@ namespace kinetica
             // -------------------------
             // Do we update records if there are matching primary keys in the
             // database already?
-            bool update_on_existing_pk = ( (options != null)
+            bool updateOnExistingPk = ( (options != null)
                                            && options.ContainsKey( InsertRecordsRequest<T>.Options.UPDATE_ON_EXISTING_PK )
                                            && options[ InsertRecordsRequest<T>.Options.UPDATE_ON_EXISTING_PK ].Equals( InsertRecordsRequest<T>.Options.TRUE ) );
             // Do T type records have a primary key?
-            bool has_primary_key = (this.primary_key_builder != null);
-            this.worker_queues = new List<Utils.WorkerQueue<T>>();
+            bool hasPrimaryKey = (this.primaryKeyBuilder != null);
+            this.workerQueues = [];
             try
             {
                 // If no workers are given, try to get them from Kinetica
@@ -133,32 +124,30 @@ namespace kinetica
                 if ( ( workers != null ) && ( workers.Count > 0 ) )
                 {
                     // Add worker queues per worker
-                    foreach ( System.Uri worker_url in workers )
+                    foreach ( System.Uri workerUrl in workers )
                     {
-                        string insert_records_worker_url_str = (worker_url.ToString() + "insert/records");
+                        string insert_records_worker_url_str = $"{workerUrl}insert/records";
                         System.Uri url = new System.Uri( insert_records_worker_url_str );
-                        Utils.WorkerQueue<T> worker_queue = new Utils.WorkerQueue<T>( url, batch_size,
-                                                                                      has_primary_key,
-                                                                                      update_on_existing_pk );
-                        this.worker_queues.Add( worker_queue );
+                        Utils.WorkerQueue<T> worker_queue = new( url, batchSize, hasPrimaryKey, updateOnExistingPk );
+                        this.workerQueues.Add( worker_queue );
                     }
 
                     // Get the worker rank information from Kinetica
-                    this.routing_table = kdb.adminShowShards().rank;
+                    this.routingTable = kdb.adminShowShards().rank;
                     // Check that enough worker URLs are specified
-                    for ( int i = 0; i < routing_table.Count; ++i )
+                    for ( int i = 0; i < routingTable.Count; ++i )
                     {
-                        if ( this.routing_table[i] > this.worker_queues.Count )
+                        if ( this.routingTable[i] > this.workerQueues.Count )
                             throw new KineticaException( "Not enough worker URLs specified." );
                     }
                 }
                 else // multihead-ingest is NOT turned on; use the regular Kinetica IP address
                 {
-                    string insert_records_url_str = ( kdb.URL.ToString() + "insert/records" );
-                    System.Uri url = new System.Uri( insert_records_url_str );
-                    Utils.WorkerQueue<T> worker_queue = new Utils.WorkerQueue<T>( url, batch_size, has_primary_key, update_on_existing_pk );
-                    this.worker_queues.Add( worker_queue );
-                    this.routing_table = null;
+                    string insertRecordsUrlStr = $"{kdb.URL}insert/records";
+                    System.Uri url = new( insertRecordsUrlStr );
+                    Utils.WorkerQueue<T> worker_queue = new( url, batchSize, hasPrimaryKey, updateOnExistingPk );
+                    this.workerQueues.Add( worker_queue );
+                    this.routingTable = null;
                 }
             }
             catch ( Exception ex )
@@ -167,7 +156,7 @@ namespace kinetica
             }
 
             // Create the random number generator
-            this.random = new Random( (int) DateTime.Now.Ticks );
+            this.random = new( (int) DateTime.Now.Ticks );
         }   // end constructor KineticaIngestor
 
 
@@ -204,12 +193,12 @@ namespace kinetica
         /// <exception cref="InsertException{T}" />
         public void flush()
         {
-            foreach ( Utils.WorkerQueue<T> worker_queue in this.worker_queues )
+            foreach ( Utils.WorkerQueue<T> workerQueue in this.workerQueues )
             {
                 // Flush the queue
-                IList<T> queue = worker_queue.flush();
+                IList<T> queue = workerQueue.flush();
                 // Actually insert the records
-                flush( queue, worker_queue.url );
+                flush( queue, workerQueue.url );
             }
         }  // end public flush
 
@@ -230,13 +219,11 @@ namespace kinetica
                 // Create the /insert/records request and response objects
                 // -------------------------------------------------------
                 // Encode the records into binary
-                IList<byte[]> encoded_queue = new List<byte[]>();
-                foreach ( var record in queue ) encoded_queue.Add( this.kineticaDB.AvroEncode( record ) );
-                RawInsertRecordsRequest request = new RawInsertRecordsRequest( this.table_name, encoded_queue, this.options);
+                List<byte[]> encodedQueue = [];
+                foreach ( var record in queue ) encodedQueue.Add( this.kineticaDB.AvroEncode( record ) );
+                RawInsertRecordsRequest request = new RawInsertRecordsRequest( this.table_name, encodedQueue, this.options);
 
-                InsertRecordsResponse response = new InsertRecordsResponse();
-
-                // Make the /insert/records call
+                InsertRecordsResponse response = new();
 
                 if ( url == null )
                 {
@@ -272,42 +259,42 @@ namespace kinetica
         public void insert( T record )
         {
             // Create the record keys
-            Utils.RecordKey primary_key = null;  // used to check for uniqueness
-            Utils.RecordKey shard_key = null;    // used to find which worker to send this record to
+            Utils.RecordKey? primaryKey = null;  // used to check for uniqueness
+            Utils.RecordKey? shardKey = null;    // used to find which worker to send this record to
 
             // Build the primary key, if any
-            if ( this.primary_key_builder != null )
-                primary_key = this.primary_key_builder.build( record );
+            if ( this.primaryKeyBuilder != null )
+                primaryKey = this.primaryKeyBuilder.build( record );
 
             // Build the shard/routing key, if any
-            if ( this.shard_key_builder != null )
-                shard_key = this.shard_key_builder.build( record );
+            if ( this.shardKeyBuilder != null )
+                shardKey = this.shardKeyBuilder.build( record );
 
             // Find out which worker to send the record to; then add the record
             // to the approrpriate worker's record queue
-            Utils.WorkerQueue<T> worker_queue;
-            if ( this.routing_table == null )
+            Utils.WorkerQueue<T> workerQueue;
+            if ( this.routingTable == null )
             {   // no information regarding multiple workers, so get the first/only one
-                worker_queue = this.worker_queues[0];
+                workerQueue = this.workerQueues[0];
             }
-            else if ( shard_key == null )
+            else if ( shardKey == null )
             {   // there is no shard/routing key, so get a random worker
-                worker_queue = this.worker_queues[ random.Next( this.worker_queues.Count ) ];
+                workerQueue = this.workerQueues[ random.Next( this.workerQueues.Count ) ];
             }
             else
             {   // Get the worker based on the sharding/routing key
-                int worker_index = shard_key.route( this.routing_table );
-                worker_queue = this.worker_queues[worker_index];
+                int worker_index = shardKey.route( this.routingTable );
+                workerQueue = this.workerQueues[worker_index];
             }
 
             // Insert the record into the queue
-            IList<T> queue = worker_queue.insert( record, primary_key );
+            IList<T> queue = workerQueue.insert( record, primaryKey );
 
             // If inserting the queue resulted in flushing the queue, then flush it
             // properly
             if ( queue != null )
             {
-                this.flush( queue, worker_queue.url );
+                this.flush( queue, workerQueue.url );
             }
         }  // end insert( record )
 

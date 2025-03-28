@@ -47,6 +47,23 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
+            /// <summary>Include view dependencies in the output.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string DEPENDENCIES = "dependencies";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>If <see cref="Options.TRUE">TRUE</see> then the table
             /// sizes will wait for read lock before returning.</summary>
             /// <remarks><para>Supported values:</para>
@@ -62,8 +79,21 @@ namespace kinetica
             /// </para></remarks>
             public const string FORCE_SYNCHRONOUS = "force_synchronous";
 
-            public const string TRUE = "true";
-            public const string FALSE = "false";
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> then the number
+            /// of records in each table, along with a cumulative count, will
+            /// be returned; blank, otherwise.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string GET_CACHED_SIZES = "get_cached_sizes";
 
             /// <summary>If <see cref="Options.TRUE">TRUE</see> then the number
             /// of records in each table, along with a cumulative count, will
@@ -81,9 +111,9 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string GET_SIZES = "get_sizes";
 
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> then the number
-            /// of records in each table, along with a cumulative count, will
-            /// be returned; blank, otherwise.</summary>
+            /// <summary>If <see cref="Options.FALSE">FALSE</see> will return
+            /// an error if the provided <see cref="table_name" /> does not
+            /// exist.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -95,7 +125,7 @@ namespace kinetica
             /// </list>
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string GET_CACHED_SIZES = "get_cached_sizes";
+            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
             /// <summary>If <see cref="table_name" /> is a schema, then <see
             /// cref="Options.TRUE">TRUE</see> will return information about
@@ -114,22 +144,6 @@ namespace kinetica
             /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
             /// </para></remarks>
             public const string SHOW_CHILDREN = "show_children";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see> will return
-            /// an error if the provided <see cref="table_name" /> does not
-            /// exist.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
             /// <summary>If <see cref="Options.TRUE">TRUE</see> then column
             /// info (memory usage, etc) will be returned.</summary>
@@ -158,6 +172,22 @@ namespace kinetica
         /// <summary>Optional parameters.</summary>
         /// <remarks><list type="bullet">
         ///     <item>
+        ///         <term><see cref="Options.DEPENDENCIES">DEPENDENCIES</see>:
+        ///         </term>
+        ///         <description>Include view dependencies in the output.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
         ///         cref="Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
         ///         </term>
@@ -173,6 +203,27 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         the number of records in each table, along with a
+        ///         cumulative count, will be returned; blank, otherwise. This
+        ///         version will return the sizes cached at rank 0, which may
+        ///         be stale if there is a multihead insert occuring.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -194,13 +245,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
         ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         the number of records in each table, along with a
-        ///         cumulative count, will be returned; blank, otherwise. This
-        ///         version will return the sizes cached at rank 0, which may
-        ///         be stale if there is a multihead insert occuring.
+        ///         <description>If <see cref="Options.FALSE">FALSE</see> will
+        ///         return an error if the provided <see cref="table_name" />
+        ///         does not exist. If <see cref="Options.TRUE">TRUE</see> then
+        ///         it will return an empty result.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -241,26 +291,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-        ///         return an error if the provided <see cref="table_name" />
-        ///         does not exist. If <see cref="Options.TRUE">TRUE</see> then
-        ///         it will return an empty result.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> then
@@ -296,6 +326,22 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term><see cref="Options.DEPENDENCIES">DEPENDENCIES</see>:
+        ///         </term>
+        ///         <description>Include view dependencies in the output.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see
         ///         cref="Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
         ///         </term>
@@ -311,6 +357,27 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         the number of records in each table, along with a
+        ///         cumulative count, will be returned; blank, otherwise. This
+        ///         version will return the sizes cached at rank 0, which may
+        ///         be stale if there is a multihead insert occuring.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -332,13 +399,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
         ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         the number of records in each table, along with a
-        ///         cumulative count, will be returned; blank, otherwise. This
-        ///         version will return the sizes cached at rank 0, which may
-        ///         be stale if there is a multihead insert occuring.
+        ///         <description>If <see cref="Options.FALSE">FALSE</see> will
+        ///         return an error if the provided <paramref name="table_name"
+        ///         /> does not exist. If <see cref="Options.TRUE">TRUE</see>
+        ///         then it will return an empty result.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -375,26 +441,6 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-        ///         return an error if the provided <paramref name="table_name"
-        ///         /> does not exist. If <see cref="Options.TRUE">TRUE</see>
-        ///         then it will return an empty result.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>

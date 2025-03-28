@@ -277,8 +277,82 @@ namespace kinetica
             /// </summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
-            /// <summary>&lt;DEVELOPER&gt;</summary>
-            public const string IS_VIRTUAL_UNION = "is_virtual_union";
+            /// <summary>Set startup data loading scheme for the table.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+            ///         <description>Load as much vector data as possible into
+            ///         memory before accepting requests.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+            ///         <description>Load the necessary vector data at start,
+            ///         and load the remainder lazily.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+            ///         </term>
+            ///         <description>Load vector data as requests use it.
+            ///         </description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+            ///         <description>Load vector data using the
+            ///         system-configured default.</description>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.SYSTEM">SYSTEM</see>.</para></remarks>
+            public const string LOAD_VECTORS_POLICY = "load_vectors_policy";
+
+            /// <summary>Generate as much primary key index data as possible
+            /// before accepting requests.</summary>
+            public const string ALWAYS = "always";
+
+            /// <summary>Generate the necessary primary key index data at
+            /// start, and load the remainder lazily.</summary>
+            public const string LAZY = "lazy";
+
+            /// <summary>Generate primary key index data as requests use it.
+            /// </summary>
+            public const string ON_DEMAND = "on_demand";
+
+            /// <summary>Generate primary key index data using the
+            /// system-configured default.</summary>
+            public const string SYSTEM = "system";
+
+            /// <summary>Set startup primary-key index generation scheme for
+            /// the table.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+            ///         <description>Generate as much primary key index data as
+            ///         possible before accepting requests.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+            ///         <description>Generate the necessary primary key index
+            ///         data at start, and load the remainder lazily.
+            ///         </description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+            ///         </term>
+            ///         <description>Generate primary key index data as
+            ///         requests use it.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+            ///         <description>Generate primary key index data using the
+            ///         system-configured default.</description>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.SYSTEM">SYSTEM</see>.</para></remarks>
+            public const string BUILD_PK_INDEX_POLICY = "build_pk_index_policy";
         } // end struct Options
 
         /// <summary>Name of the table to be created, in
@@ -599,9 +673,75 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:
+        ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
         ///         </term>
-        ///         <description>&lt;DEVELOPER&gt;</description>
+        ///         <description>Set startup data loading scheme for the table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Load as much vector data as possible
+        ///                 into memory before accepting requests.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///                 <description>Load the necessary vector data at
+        ///                 start, and load the remainder lazily.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///                 <description>Load vector data as requests use it.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Load vector data using the
+        ///                 system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup primary-key index generation
+        ///         scheme for the table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Generate as much primary key index
+        ///                 data as possible before accepting requests.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///                 <description>Generate the necessary primary key
+        ///                 index data at start, and load the remainder lazily.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///                 <description>Generate primary key index data as
+        ///                 requests use it.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Generate primary key index data using
+        ///                 the system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -929,9 +1069,75 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:
+        ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
         ///         </term>
-        ///         <description>&lt;DEVELOPER&gt;</description>
+        ///         <description>Set startup data loading scheme for the table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Load as much vector data as possible
+        ///                 into memory before accepting requests.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///                 <description>Load the necessary vector data at
+        ///                 start, and load the remainder lazily.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///                 <description>Load vector data as requests use it.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Load vector data using the
+        ///                 system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup primary-key index generation
+        ///         scheme for the table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Generate as much primary key index
+        ///                 data as possible before accepting requests.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///                 <description>Generate the necessary primary key
+        ///                 index data at start, and load the remainder lazily.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///                 <description>Generate primary key index data as
+        ///                 requests use it.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Generate primary key index data using
+        ///                 the system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

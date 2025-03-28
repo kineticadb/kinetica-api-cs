@@ -23,6 +23,8 @@ namespace kinetica
     /// <para>Create or delete a <a
     /// href="../../../concepts/indexes/#column-index"
     /// target="_top">column</a>, <a
+    /// href="../../../concepts/indexes/#low-cardinality-index"
+    /// target="_top">low-cardinality index</a>, <a
     /// href="../../../concepts/indexes/#chunk-skip-index" target="_top">chunk
     /// skip</a>, <a href="../../../concepts/indexes/#geospatial-index"
     /// target="_top">geospatial</a>, <a
@@ -68,6 +70,8 @@ namespace kinetica
             /// <summary>Creates a <a
             /// href="../../../concepts/indexes/#column-index"
             /// target="_top">column (attribute) index</a>, <a
+            /// href="../../../concepts/indexes/#low-cardinality-index"
+            /// target="_top">low-cardinality index</a>, <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
             /// target="_top">chunk skip index</a>, <a
             /// href="../../../concepts/indexes/#geospatial-index"
@@ -92,6 +96,8 @@ namespace kinetica
             /// <summary>Deletes a <a
             /// href="../../../concepts/indexes/#column-index"
             /// target="_top">column (attribute) index</a>, <a
+            /// href="../../../concepts/indexes/#low-cardinality-index"
+            /// target="_top">low-cardinality index</a>, <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
             /// target="_top">chunk skip index</a>, <a
             /// href="../../../concepts/indexes/#geospatial-index"
@@ -325,6 +331,25 @@ namespace kinetica
             /// <summary>Change the owner resource group of the table.
             /// </summary>
             public const string CHANGE_OWNER = "change_owner";
+
+            /// <summary>Set startup data loading scheme for the table; see
+            /// description of 'load_vectors_policy' in <see
+            /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+            /// for possible values for <see cref="_value" /></summary>
+            public const string SET_LOAD_VECTORS_POLICY = "set_load_vectors_policy";
+
+            /// <summary>Set startup primary key generation scheme for the
+            /// table; see description of 'build_pk_index_policy' in <see
+            /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+            /// for possible values for <see cref="_value" /></summary>
+            public const string SET_BUILD_PK_INDEX_POLICY = "set_build_pk_index_policy";
+
+            /// <summary>Set startup rebuilding scheme for the materialized
+            /// view; see description of 'build_materialized_view_policy' in
+            /// <see
+            /// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
+            /// for possible values for <see cref="_value" /></summary>
+            public const string SET_BUILD_MATERIALIZED_VIEW_POLICY = "set_build_materialized_view_policy";
         } // end struct Action
 
         /// <summary>A set of string constants for the parameter <see
@@ -467,6 +492,15 @@ namespace kinetica
             ///         </description>
             ///     </item>
             ///     <item>
+            ///         <term><see
+            ///         cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+            ///         </term>
+            ///         <description>Create a <a
+            ///         href="../../../concepts/indexes/#low-cardinality-index"
+            ///         target="_top">low-cardinality column (attribute)
+            ///         index</a>.</description>
+            ///     </item>
+            ///     <item>
             ///         <term><see cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:
             ///         </term>
             ///         <description>Create or delete a <a
@@ -505,6 +539,12 @@ namespace kinetica
             /// href="../../../concepts/indexes/#column-index"
             /// target="_top">column (attribute) index</a>.</summary>
             public const string COLUMN = "column";
+
+            /// <summary>Create a <a
+            /// href="../../../concepts/indexes/#low-cardinality-index"
+            /// target="_top">low-cardinality column (attribute) index</a>.
+            /// </summary>
+            public const string LOW_CARDINALITY = "low_cardinality";
 
             /// <summary>Create or delete a <a
             /// href="../../../concepts/indexes/#chunk-skip-index"
@@ -559,6 +599,8 @@ namespace kinetica
         ///         <description>Creates a <a
         ///         href="../../../concepts/indexes/#column-index"
         ///         target="_top">column (attribute) index</a>, <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
         ///         target="_top">chunk skip index</a>, <a
         ///         href="../../../concepts/indexes/#geospatial-index"
@@ -586,6 +628,8 @@ namespace kinetica
         ///         <description>Deletes a <a
         ///         href="../../../concepts/indexes/#column-index"
         ///         target="_top">column (attribute) index</a>, <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
         ///         target="_top">chunk skip index</a>, <a
         ///         href="../../../concepts/indexes/#geospatial-index"
@@ -893,6 +937,35 @@ namespace kinetica
         ///         <description>Change the owner resource group of the table.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup data loading scheme for the table;
+        ///         see description of 'load_vectors_policy' in <see
+        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        ///         for possible values for <see cref="_value" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup primary key generation scheme for
+        ///         the table; see description of 'build_pk_index_policy' in
+        ///         <see
+        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        ///         for possible values for <see cref="_value" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup rebuilding scheme for the
+        ///         materialized view; see description of
+        ///         'build_materialized_view_policy' in <see
+        ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
+        ///         for possible values for <see cref="_value" /></description>
+        ///     </item>
         /// </list></remarks>
         public string action { get; set; }
 
@@ -1078,6 +1151,15 @@ namespace kinetica
         ///             </item>
         ///             <item>
         ///                 <term><see
+        ///                 cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+        ///                 </term>
+        ///                 <description>Create a <a
+        ///                 href="../../../concepts/indexes/#low-cardinality-index"
+        ///                 target="_top">low-cardinality column (attribute)
+        ///                 index</a>.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
         ///                 cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
         ///                 <description>Create or delete a <a
         ///                 href="../../../concepts/indexes/#chunk-skip-index"
@@ -1149,6 +1231,8 @@ namespace kinetica
         ///         <description>Creates a <a
         ///         href="../../../concepts/indexes/#column-index"
         ///         target="_top">column (attribute) index</a>, <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
         ///         target="_top">chunk skip index</a>, <a
         ///         href="../../../concepts/indexes/#geospatial-index"
@@ -1176,6 +1260,8 @@ namespace kinetica
         ///         <description>Deletes a <a
         ///         href="../../../concepts/indexes/#column-index"
         ///         target="_top">column (attribute) index</a>, <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
         ///         target="_top">chunk skip index</a>, <a
         ///         href="../../../concepts/indexes/#geospatial-index"
@@ -1485,6 +1571,38 @@ namespace kinetica
         ///         <description>Change the owner resource group of the table.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup data loading scheme for the table;
+        ///         see description of 'load_vectors_policy' in <see
+        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        ///         for possible values for <paramref name="_value" />
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup primary key generation scheme for
+        ///         the table; see description of 'build_pk_index_policy' in
+        ///         <see
+        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        ///         for possible values for <paramref name="_value" />
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup rebuilding scheme for the
+        ///         materialized view; see description of
+        ///         'build_materialized_view_policy' in <see
+        ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
+        ///         for possible values for <paramref name="_value" />
+        ///         </description>
+        ///     </item>
         /// </list></param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref name="action" />. For example, if <paramref name="action"
@@ -1662,6 +1780,15 @@ namespace kinetica
         ///                 href="../../../concepts/indexes/#column-index"
         ///                 target="_top">column (attribute) index</a>.
         ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+        ///                 </term>
+        ///                 <description>Create a <a
+        ///                 href="../../../concepts/indexes/#low-cardinality-index"
+        ///                 target="_top">low-cardinality column (attribute)
+        ///                 index</a>.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see

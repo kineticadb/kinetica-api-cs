@@ -20,8 +20,22 @@ namespace kinetica
         /// </para></remarks>
         public struct Action
         {
+            /// <summary>Is the user allowed to login.</summary>
+            public const string SET_ACTIVATED = "set_activated";
+
+            /// <summary>User may login</summary>
+            public const string TRUE = "true";
+
+            /// <summary>User may not login</summary>
+            public const string FALSE = "false";
+
             /// <summary>Sets the comment for an internal user.</summary>
             public const string SET_COMMENT = "set_comment";
+
+            /// <summary>Set the default_schema for an internal user.</summary>
+            /// <remarks><para>An empty string means the user will have no
+            /// default schema.</para></remarks>
+            public const string SET_DEFAULT_SCHEMA = "set_default_schema";
 
             /// <summary>Sets the password of the user.</summary>
             /// <remarks><para>The user must be an internal user.</para>
@@ -34,11 +48,6 @@ namespace kinetica
             /// empty string assigns the user to the default resource group.
             /// </para></remarks>
             public const string SET_RESOURCE_GROUP = "set_resource_group";
-
-            /// <summary>Set the default_schema for an internal user.</summary>
-            /// <remarks><para>An empty string means the user will have no
-            /// default schema.</para></remarks>
-            public const string SET_DEFAULT_SCHEMA = "set_default_schema";
         } // end struct Action
 
         /// <summary>Name of the user to be altered.</summary>
@@ -50,9 +59,30 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
+        ///         <term><see cref="Action.SET_ACTIVATED">SET_ACTIVATED</see>:
+        ///         </term>
+        ///         <description>Is the user allowed to login.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.TRUE">TRUE</see>:</term>
+        ///         <description>User may login</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.FALSE">FALSE</see>:</term>
+        ///         <description>User may not login</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:
         ///         </term>
         ///         <description>Sets the comment for an internal user.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Set the default_schema for an internal user.
+        ///         An empty string means the user will have no default schema.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -68,14 +98,6 @@ namespace kinetica
         ///         <description>Sets the resource group for an internal user.
         ///         The resource group must exist, otherwise, an empty string
         ///         assigns the user to the default resource group.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Set the default_schema for an internal user.
-        ///         An empty string means the user will have no default schema.
         ///         </description>
         ///     </item>
         /// </list></remarks>
@@ -104,9 +126,30 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
+        ///         <term><see cref="Action.SET_ACTIVATED">SET_ACTIVATED</see>:
+        ///         </term>
+        ///         <description>Is the user allowed to login.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.TRUE">TRUE</see>:</term>
+        ///         <description>User may login</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Action.FALSE">FALSE</see>:</term>
+        ///         <description>User may not login</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:
         ///         </term>
         ///         <description>Sets the comment for an internal user.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Set the default_schema for an internal user.
+        ///         An empty string means the user will have no default schema.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -122,14 +165,6 @@ namespace kinetica
         ///         <description>Sets the resource group for an internal user.
         ///         The resource group must exist, otherwise, an empty string
         ///         assigns the user to the default resource group.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Set the default_schema for an internal user.
-        ///         An empty string means the user will have no default schema.
         ///         </description>
         ///     </item>
         /// </list></param>

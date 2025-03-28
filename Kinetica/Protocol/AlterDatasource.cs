@@ -25,8 +25,9 @@ namespace kinetica
             /// <summary>Location of the remote storage in
             /// 'storage_provider_type://[storage_path[:storage_port]]' format.
             /// </summary>
-            /// <remarks><para> Supported storage provider types are
-            /// 'azure','gcs','hdfs','kafka' and 's3'.</para></remarks>
+            /// <remarks><para> Supported storage provider types are 'azure',
+            /// 'gcs', 'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.</para>
+            /// </remarks>
             public const string LOCATION = "location";
 
             /// <summary>Name of the remote system user; may be an empty string
@@ -78,17 +79,21 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
-            /// <summary>Set to false for testing purposes or when necessary to
-            /// bypass TLS errors (e.g. self-signed certificates).</summary>
+            /// <summary>Whether to verify SSL connections.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>
+            ///         <term><see cref="DatasourceUpdatesMap.TRUE">TRUE</see>:
             ///         </term>
+            ///         <description>Connect with SSL verification
+            ///         </description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///         cref="DatasourceUpdatesMap.FALSE">FALSE</see>:</term>
+            ///         <description>Connect without verifying the SSL
+            ///         connection; for testing purposes, bypassing TLS errors,
+            ///         self-signed certificates, etc.</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see
@@ -185,6 +190,13 @@ namespace kinetica
             /// authenticating the data source</summary>
             public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
 
+            /// <summary>JDBC driver jar file location.</summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
+            public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
+
+            /// <summary>Name of the JDBC driver class</summary>
+            public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
+
             /// <summary>The publicly-accessible full path URL to the Kafka
             /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
             public const string KAFKA_URL = "kafka_url";
@@ -192,13 +204,6 @@ namespace kinetica
             /// <summary>Name of the Kafka topic to use as the data source
             /// </summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
-
-            /// <summary>JDBC driver jar file location.</summary>
-            /// <remarks><para> This may be a KIFS file.</para></remarks>
-            public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
-
-            /// <summary>Name of the JDBC driver class</summary>
-            public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
 
             /// <summary>Create an anonymous connection to the storage
             /// provider--DEPRECATED: this is now the default.</summary>
@@ -286,8 +291,9 @@ namespace kinetica
         ///         <description>Location of the remote storage in
         ///         'storage_provider_type://[storage_path[:storage_port]]'
         ///         format.
-        ///         Supported storage provider types are
-        ///         'azure','gcs','hdfs','kafka' and 's3'.</description>
+        ///         Supported storage provider types are 'azure', 'gcs',
+        ///         'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -365,19 +371,23 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasourceUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -527,6 +537,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        ///         KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
         ///         </term>
         ///         <description>The publicly-accessible full path URL to the
@@ -539,19 +562,6 @@ namespace kinetica
         ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
         ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
-        ///         </term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        ///         KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -676,8 +686,9 @@ namespace kinetica
         ///         <description>Location of the remote storage in
         ///         'storage_provider_type://[storage_path[:storage_port]]'
         ///         format.
-        ///         Supported storage provider types are
-        ///         'azure','gcs','hdfs','kafka' and 's3'.</description>
+        ///         Supported storage provider types are 'azure', 'gcs',
+        ///         'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -755,19 +766,23 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasourceUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///                 cref="DatasourceUpdatesMap.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 cref="DatasourceUpdatesMap.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -917,6 +932,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        ///         KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
         ///         </term>
         ///         <description>The publicly-accessible full path URL to the
@@ -929,19 +957,6 @@ namespace kinetica
         ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
         ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
-        ///         </term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        ///         KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see

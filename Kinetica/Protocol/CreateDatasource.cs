@@ -61,15 +61,19 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
-            /// <summary>Set to false for testing purposes or when necessary to
-            /// bypass TLS errors (e.g. self-signed certificates).</summary>
+            /// <summary>Whether to verify SSL connections.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+            ///         <description>Connect with SSL verification
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+            ///         <description>Connect without verifying the SSL
+            ///         connection; for testing purposes, bypassing TLS errors,
+            ///         self-signed certificates, etc.</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -252,8 +256,8 @@ namespace kinetica
         /// <summary>Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// </summary>
-        /// <remarks><para> Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.</para>
+        /// <remarks><para> Supported storage provider types are 'azure',
+        /// 'gcs', 'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.</para>
         /// </remarks>
         public string location { get; set; }
 
@@ -320,16 +324,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.
@@ -593,8 +601,8 @@ namespace kinetica
         /// <param name="name">Name of the data source to be created.</param>
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.</param>
+        /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
+        /// 'jdbc', 'kafka', 'confluent', and 's3'.</param>
         /// <param name="user_name">Name of the remote system user; may be an
         /// empty string</param>
         /// <param name="password">Password for the remote system user; may be
@@ -654,16 +662,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.TRUE">TRUE</see>.

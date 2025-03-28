@@ -1567,8 +1567,7 @@ namespace kinetica
         /// <summary>Name of the table that has the result records of the
         /// query.</summary>
         /// <remarks><para>Valid, when <see cref="has_more_records" /> is <see
-        /// cref="HasMoreRecords.TRUE">TRUE</see> (Subject to
-        /// config.paging_tables_enabled)</para></remarks>
+        /// cref="HasMoreRecords.TRUE">TRUE</see></para></remarks>
         public string paging_table { get; set; }
 
         /// <summary>Additional information.</summary>
@@ -1631,8 +1630,7 @@ namespace kinetica
         /// <summary>Name of the table that has the result records of the
         /// query.</summary>
         /// <remarks><para>Valid, when <see cref="has_more_records" /> is <see
-        /// cref="HasMoreRecords.TRUE">TRUE</see> (Subject to
-        /// config.paging_tables_enabled)</para></remarks>
+        /// cref="HasMoreRecords.TRUE">TRUE</see></para></remarks>
         public string paging_table { get; set; }
 
         /// <summary>Additional information.</summary>

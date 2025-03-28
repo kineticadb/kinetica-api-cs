@@ -54,6 +54,25 @@ namespace kinetica
 
             /// <summary>Manually invokes wal replay on the table</summary>
             public const string REPLAY_WAL = "replay_wal";
+
+            /// <summary>If <see cref="Options.FALSE">FALSE</see> only table
+            /// chunk data already known to be corrupted will be repaired.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string VERIFY_ALL = "verify_all";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
         /// <summary>List of tables to query.</summary>
@@ -89,6 +108,25 @@ namespace kinetica
         ///                 table</description>
         ///             </item>
         ///         </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.FALSE">FALSE</see> only
+        ///         table chunk data already known to be corrupted will be
+        ///         repaired. Otherwise the database will perform a full table
+        ///         scan to check for correctness.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -132,6 +170,25 @@ namespace kinetica
         ///                 table</description>
         ///             </item>
         ///         </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.FALSE">FALSE</see> only
+        ///         table chunk data already known to be corrupted will be
+        ///         repaired. Otherwise the database will perform a full table
+        ///         scan to check for correctness.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

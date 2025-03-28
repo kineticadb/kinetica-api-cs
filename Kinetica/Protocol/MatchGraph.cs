@@ -90,6 +90,10 @@ namespace kinetica
 
             /// <summary>Creates vector node embeddings</summary>
             public const string MATCH_EMBEDDING = "match_embedding";
+
+            /// <summary>Solves for isochrones for a set of input sources
+            /// </summary>
+            public const string MATCH_ISOCHRONE = "match_isochrone";
         } // end struct SolveMethod
 
         /// <summary>A set of string constants for the parameter <see
@@ -709,6 +713,14 @@ namespace kinetica
             /// term in successive iterations. The default value is '0.3'.
             /// </para></remarks>
             public const string OPTIMIZATION_ITERATION_RATE = "optimization_iteration_rate";
+
+            /// <summary>For the <see
+            /// cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see> solver
+            /// only.</summary>
+            /// <remarks><para>Sets the maximal reachability limmit for
+            /// computing isochrones. Zero means no limit. The default value is
+            /// '0.0'.</para></remarks>
+            public const string MAX_RADIUS = "max_radius";
         } // end struct Options
 
         /// <summary>Name of the underlying geospatial graph resource to match
@@ -825,6 +837,13 @@ namespace kinetica
         ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
         ///         </term>
         ///         <description>Creates vector node embeddings</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
+        ///         </term>
+        ///         <description>Solves for isochrones for a set of input
+        ///         sources</description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
@@ -1571,6 +1590,15 @@ namespace kinetica
         ///         gradient term in successive iterations. The default value
         ///         is '0.3'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.MAX_RADIUS">MAX_RADIUS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
+        ///         solver only. Sets the maximal reachability limmit for
+        ///         computing isochrones. Zero means no limit. The default
+        ///         value is '0.0'.</description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1694,6 +1722,13 @@ namespace kinetica
         ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
         ///         </term>
         ///         <description>Creates vector node embeddings</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
+        ///         </term>
+        ///         <description>Solves for isochrones for a set of input
+        ///         sources</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2433,6 +2468,15 @@ namespace kinetica
         ///         which is the proportionality constant in fornt of the
         ///         gradient term in successive iterations. The default value
         ///         is '0.3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.MAX_RADIUS">MAX_RADIUS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
+        ///         solver only. Sets the maximal reachability limmit for
+        ///         computing isochrones. Zero means no limit. The default
+        ///         value is '0.0'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

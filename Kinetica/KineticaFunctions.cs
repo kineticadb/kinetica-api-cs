@@ -1118,6 +1118,32 @@ namespace kinetica
         ///             </item>
         ///         </list></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdminRepairTableRequest.Options.VERIFY_ALL">VERIFY_ALL</see>:
+        ///         </term>
+        ///         <description>If <see
+        ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>
+        ///         only table chunk data already known to be corrupted will be
+        ///         repaired. Otherwise the database will perform a full table
+        ///         scan to check for correctness.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AdminRepairTableRequest.Options.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
         /// <returns>Response object containing the result of the operation.
@@ -1916,6 +1942,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="AggregateGroupByRequest.Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         </term>
+        ///         <description>evaluate the filter expression during group-by
+        ///         chunk processing.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AggregateGroupByRequest.Options.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:
         ///         </term>
         ///         <description>Filter expression to apply to the aggregated
@@ -1925,8 +1974,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:
         ///         </term>
-        ///         <description>String indicating how the returned values
-        ///         should be sorted - ascending or descending.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         indicating how the returned values should be sorted -
+        ///         ascending or descending.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1952,7 +2002,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:
         ///         </term>
-        ///         <description>String determining how the results are sorted.
+        ///         <description>[DEPRECATED--use order_by instead] String
+        ///         determining how the results are sorted.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -3825,8 +3876,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Destination for the output data in format
         ///         'destination_type://path[:port]'.
-        ///         Supported destination types are 'http', 'https' and
-        ///         'kafka'.</description>
+        ///         Supported destination types are 'azure', 'gcs', 'hdfs',
+        ///         'http', 'https', 'jdbc', 'kafka', and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3869,20 +3920,24 @@ namespace kinetica
         ///         <term><see
         ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>:
         ///                 </term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -3893,21 +3948,25 @@ namespace kinetica
         ///         <term><see
         ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
         ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 sink.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>:
         ///                 </term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -4044,6 +4103,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        ///         KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
         ///         </term>
         ///         <description>The publicly-accessible full path URL to the
@@ -4148,21 +4220,21 @@ namespace kinetica
         ///         </term>
         ///         <description>The desired format of JSON encoded
         ///         notifications message.
-        ///         If <see
-        ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see>,
-        ///         records are returned as an array. Otherwise, only a single
-        ///         record per messages is returned.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>:
         ///                 </term>
+        ///                 <description>A single record is returned per
+        ///                 message</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see>
+        ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see>:
         ///                 </term>
+        ///                 <description>Records are returned as an array per
+        ///                 message</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -4246,8 +4318,9 @@ namespace kinetica
         ///         <description>Location of the remote storage in
         ///         'storage_provider_type://[storage_path[:storage_port]]'
         ///         format.
-        ///         Supported storage provider types are
-        ///         'azure','gcs','hdfs','kafka' and 's3'.</description>
+        ///         Supported storage provider types are 'azure', 'gcs',
+        ///         'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.
+        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4327,20 +4400,24 @@ namespace kinetica
         ///         <term><see
         ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>
+        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>:
         ///                 </term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>
+        ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -4494,6 +4571,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        ///         KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:
         ///         </term>
         ///         <description>The publicly-accessible full path URL to the
@@ -4506,19 +4596,6 @@ namespace kinetica
         ///         </term>
         ///         <description>Name of the Kafka topic to use as the data
         ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
-        ///         </term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        ///         KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5387,6 +5464,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Enable the one_step compound-equi-join
+        ///         algorithm. The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
         ///         </term>
         ///         <description>Maximum number of records to be ingested in a
@@ -5539,6 +5623,14 @@ namespace kinetica
         ///         <description>Enable  postgres proxy keep alive. The default
         ///         value is 'false'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
+        ///         <description>The default maximum capacity to apply when
+        ///         creating a KiFS directory (bytes). The minimum allowed
+        ///         value is '-1'.</description>
+        ///     </item>
         /// </list></param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -5615,6 +5707,8 @@ namespace kinetica
         /// <para>Create or delete a <a
         /// href="../../../concepts/indexes/#column-index"
         /// target="_top">column</a>, <a
+        /// href="../../../concepts/indexes/#low-cardinality-index"
+        /// target="_top">low-cardinality index</a>, <a
         /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip</a>, <a
         /// href="../../../concepts/indexes/#geospatial-index"
@@ -5675,6 +5769,8 @@ namespace kinetica
         /// <para>Create or delete a <a
         /// href="../../../concepts/indexes/#column-index"
         /// target="_top">column</a>, <a
+        /// href="../../../concepts/indexes/#low-cardinality-index"
+        /// target="_top">low-cardinality index</a>, <a
         /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip</a>, <a
         /// href="../../../concepts/indexes/#geospatial-index"
@@ -5733,6 +5829,8 @@ namespace kinetica
         ///         <description>Creates a <a
         ///         href="../../../concepts/indexes/#column-index"
         ///         target="_top">column (attribute) index</a>, <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
         ///         target="_top">chunk skip index</a>, <a
         ///         href="../../../concepts/indexes/#geospatial-index"
@@ -5763,6 +5861,8 @@ namespace kinetica
         ///         <description>Deletes a <a
         ///         href="../../../concepts/indexes/#column-index"
         ///         target="_top">column (attribute) index</a>, <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality index</a>, <a
         ///         href="../../../concepts/indexes/#chunk-skip-index"
         ///         target="_top">chunk skip index</a>, <a
         ///         href="../../../concepts/indexes/#geospatial-index"
@@ -6088,6 +6188,38 @@ namespace kinetica
         ///         <description>Change the owner resource group of the table.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterTableRequest.Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup data loading scheme for the table;
+        ///         see description of 'load_vectors_policy' in <see
+        ///         cref="createTable(string,string,IDictionary{string,string})">createTable</see>
+        ///         for possible values for <paramref name="_value" />
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterTableRequest.Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup primary key generation scheme for
+        ///         the table; see description of 'build_pk_index_policy' in
+        ///         <see
+        ///         cref="createTable(string,string,IDictionary{string,string})">createTable</see>
+        ///         for possible values for <paramref name="_value" />
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterTableRequest.Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup rebuilding scheme for the
+        ///         materialized view; see description of
+        ///         'build_materialized_view_policy' in <see
+        ///         cref="createMaterializedView(string,IDictionary{string,string})">createMaterializedView</see>
+        ///         for possible values for <paramref name="_value" />
+        ///         </description>
+        ///     </item>
         /// </list></param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref name="action" />. For example, if <paramref name="action"
@@ -6294,6 +6426,15 @@ namespace kinetica
         ///                 href="../../../concepts/indexes/#column-index"
         ///                 target="_top">column (attribute) index</a>.
         ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="AlterTableRequest.Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+        ///                 </term>
+        ///                 <description>Create a <a
+        ///                 href="../../../concepts/indexes/#low-cardinality-index"
+        ///                 target="_top">low-cardinality column (attribute)
+        ///                 index</a>.</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
@@ -6660,9 +6801,33 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        ///         cref="AlterUserRequest.Action.SET_ACTIVATED">SET_ACTIVATED</see>:
+        ///         </term>
+        ///         <description>Is the user allowed to login.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="AlterUserRequest.Action.TRUE">TRUE</see>:
+        ///         </term>
+        ///         <description>User may login</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterUserRequest.Action.FALSE">FALSE</see>:</term>
+        ///         <description>User may not login</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="AlterUserRequest.Action.SET_COMMENT">SET_COMMENT</see>:
         ///         </term>
         ///         <description>Sets the comment for an internal user.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Set the default_schema for an internal user.
+        ///         An empty string means the user will have no default schema.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -6679,14 +6844,6 @@ namespace kinetica
         ///         <description>Sets the resource group for an internal user.
         ///         The resource group must exist, otherwise, an empty string
         ///         assigns the user to the default resource group.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Set the default_schema for an internal user.
-        ///         An empty string means the user will have no default schema.
         ///         </description>
         ///     </item>
         /// </list></param>
@@ -7594,7 +7751,7 @@ namespace kinetica
         /// <param name="destination">Destination for the output data in format
         /// 'storage_provider_type://path[:port]'.
         /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
-        /// 'http', 'https', 'jdbc', 'kafka' and 's3'.</param>
+        /// 'http', 'https', 'jdbc', 'kafka', and 's3'.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -7638,20 +7795,24 @@ namespace kinetica
         ///         <term><see
         ///         cref="CreateDatasinkRequest.Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>
+        ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>:
         ///                 </term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>
+        ///                 cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -7662,21 +7823,25 @@ namespace kinetica
         ///         <term><see
         ///         cref="CreateDatasinkRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
         ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 sink.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>
+        ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>:
         ///                 </term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>
+        ///                 cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -7851,21 +8016,21 @@ namespace kinetica
         ///         </term>
         ///         <description>The desired format of JSON encoded
         ///         notifications message.
-        ///         If <see
-        ///         cref="CreateDatasinkRequest.Options.NESTED">NESTED</see>,
-        ///         records are returned as an array. Otherwise, only a single
-        ///         record per messages is returned.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>
+        ///                 cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>:
         ///                 </term>
+        ///                 <description>A single record is returned per
+        ///                 message</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasinkRequest.Options.NESTED">NESTED</see>
+        ///                 cref="CreateDatasinkRequest.Options.NESTED">NESTED</see>:
         ///                 </term>
+        ///                 <description>Records are returned as an array per
+        ///                 message</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -7977,8 +8142,8 @@ namespace kinetica
         /// <param name="name">Name of the data source to be created.</param>
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are
-        /// 'azure','gcs','hdfs','jdbc','kafka', 'confluent' and 's3'.</param>
+        /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
+        /// 'jdbc', 'kafka', 'confluent', and 's3'.</param>
         /// <param name="user_name">Name of the remote system user; may be an
         /// empty string</param>
         /// <param name="password">Password for the remote system user; may be
@@ -8049,20 +8214,24 @@ namespace kinetica
         ///         <term><see
         ///         cref="CreateDatasourceRequest.Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>
+        ///                 cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>:
         ///                 </term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>
+        ///                 cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>:
         ///                 </term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -9211,6 +9380,47 @@ namespace kinetica
         ///         cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:
         ///         </term>
         ///         <description>User name to use to run the refresh job
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateMaterializedViewRequest.Options.BUILD_MATERIALIZED_VIEW_POLICY">BUILD_MATERIALIZED_VIEW_POLICY</see>:
+        ///         </term>
+        ///         <description>Sets startup materialized view rebuild scheme.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateMaterializedViewRequest.Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Rebuild as many materialized views as
+        ///                 possible before accepting requests.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateMaterializedViewRequest.Options.LAZY">LAZY</see>:
+        ///                 </term>
+        ///                 <description>Rebuild the necessary materialized
+        ///                 views at start, and load the remainder lazily.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateMaterializedViewRequest.Options.ON_DEMAND">ON_DEMAND</see>:
+        ///                 </term>
+        ///                 <description>Rebuild materialized views as requests
+        ///                 use them.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateMaterializedViewRequest.Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Rebuild materialized views using the
+        ///                 system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="CreateMaterializedViewRequest.Options.SYSTEM">SYSTEM</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -10618,9 +10828,87 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:
+        ///         cref="CreateTableRequest.Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
         ///         </term>
-        ///         <description>&lt;DEVELOPER&gt;</description>
+        ///         <description>Set startup data loading scheme for the table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Load as much vector data as possible
+        ///                 into memory before accepting requests.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.LAZY">LAZY</see>:
+        ///                 </term>
+        ///                 <description>Load the necessary vector data at
+        ///                 start, and load the remainder lazily.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
+        ///                 </term>
+        ///                 <description>Load vector data as requests use it.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Load vector data using the
+        ///                 system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+        ///         </term>
+        ///         <description>Set startup primary-key index generation
+        ///         scheme for the table.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Generate as much primary key index
+        ///                 data as possible before accepting requests.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.LAZY">LAZY</see>:
+        ///                 </term>
+        ///                 <description>Generate the necessary primary key
+        ///                 index data at start, and load the remainder lazily.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
+        ///                 </term>
+        ///                 <description>Generate primary key index data as
+        ///                 requests use it.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Generate primary key index data using
+        ///                 the system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -11657,6 +11945,14 @@ namespace kinetica
         ///         cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:
         ///         </term>
         ///         <description>Skip number of lines from begining of file.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.START_OFFSETS">START_OFFSETS</see>:
+        ///         </term>
+        ///         <description>Starting offsets by partition to fetch from
+        ///         kafka. A comma separated list of partition:offset pairs.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -12796,6 +13092,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="CreateTypeRequest.Properties.SOFT_PRIMARY_KEY">SOFT_PRIMARY_KEY</see>:
+        ///         </term>
+        ///         <description>This property indicates that this column will
+        ///         be part of (or the entire) <a
+        ///         href="../../../concepts/tables/#soft-primary-keys"
+        ///         target="_top">soft primary key</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:
         ///         </term>
         ///         <description>This property indicates that this column will
@@ -12848,6 +13153,14 @@ namespace kinetica
         ///         <description>For 'uuid' type, replace empty strings and
         ///         invalid UUID values with randomly-generated UUIDs upon
         ///         insert.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTypeRequest.Properties.UPDATE_WITH_NOW">UPDATE_WITH_NOW</see>:
+        ///         </term>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        ///         column types, always update the field with 'NOW()' upon any
+        ///         update.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -13235,16 +13548,26 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+        ///         cref="CreateUserExternalRequest.Options.ACTIVATED">ACTIVATED</see>:
         ///         </term>
-        ///         <description>Name of an existing resource group to
-        ///         associate with this user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Default schema to associate with this user
+        ///         <description>Is the user allowed to login.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>:
+        ///                 </term>
+        ///                 <description>User may login</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateUserExternalRequest.Options.FALSE">FALSE</see>:
+        ///                 </term>
+        ///                 <description>User may not login</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -13273,6 +13596,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Default schema to associate with this user
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="CreateUserExternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
         ///         </term>
         ///         <description>The maximum capacity to apply to the created
@@ -13282,6 +13612,13 @@ namespace kinetica
         ///         cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.
         ///         Set to -1 to indicate no upper limit. If empty, the system
         ///         default limit is applied.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+        ///         </term>
+        ///         <description>Name of an existing resource group to
+        ///         associate with this user</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -13320,16 +13657,26 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+        ///         cref="CreateUserInternalRequest.Options.ACTIVATED">ACTIVATED</see>:
         ///         </term>
-        ///         <description>Name of an existing resource group to
-        ///         associate with this user</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Default schema to associate with this user
+        ///         <description>Is the user allowed to login.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>:
+        ///                 </term>
+        ///                 <description>User may login</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>:
+        ///                 </term>
+        ///                 <description>User may not login</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -13358,6 +13705,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
+        ///         </term>
+        ///         <description>Default schema to associate with this user
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
         ///         </term>
         ///         <description>The maximum capacity to apply to the created
@@ -13367,6 +13721,13 @@ namespace kinetica
         ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
         ///         Set to -1 to indicate no upper limit. If empty, the system
         ///         default limit is applied.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+        ///         </term>
+        ///         <description>Name of an existing resource group to
+        ///         associate with this user</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -18063,6 +18424,14 @@ namespace kinetica
         ///         cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="GetRecordsByColumnRequest.Options.ROUTE_TO_TOM">ROUTE_TO_TOM</see>:
+        ///         </term>
+        ///         <description>For multihead record retrieval without shard
+        ///         key expression - specifies from which tom to retrieve data.
+        ///         </description>
+        ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
         /// <returns>Response object containing the result of the operation.
@@ -18497,6 +18866,29 @@ namespace kinetica
         ///         <description>Optional filter expression to apply to this
         ///         grant.  Only rows that match the filter will be affected.
         ///         The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="GrantPermissionRequest.Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
+        ///         </term>
+        ///         <description>Allow the recipient to grant the same
+        ///         permission (or subset) to others.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="GrantPermissionRequest.Options.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="GrantPermissionRequest.Options.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="GrantPermissionRequest.Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -20699,6 +21091,14 @@ namespace kinetica
         ///         cref="InsertRecordsFromFilesRequest.Options.SKIP_LINES">SKIP_LINES</see>:
         ///         </term>
         ///         <description>Skip number of lines from begining of file.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="InsertRecordsFromFilesRequest.Options.START_OFFSETS">START_OFFSETS</see>:
+        ///         </term>
+        ///         <description>Starting offsets by partition to fetch from
+        ///         kafka. A comma separated list of partition:offset pairs.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -23666,6 +24066,13 @@ namespace kinetica
         ///         </term>
         ///         <description>Creates vector node embeddings</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="MatchGraphRequest.SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
+        ///         </term>
+        ///         <description>Solves for isochrones for a set of input
+        ///         sources</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -24493,6 +24900,16 @@ namespace kinetica
         ///         which is the proportionality constant in fornt of the
         ///         gradient term in successive iterations. The default value
         ///         is '0.3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="MatchGraphRequest.Options.MAX_RADIUS">MAX_RADIUS</see>:
+        ///         </term>
+        ///         <description>For the <see
+        ///         cref="MatchGraphRequest.SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
+        ///         solver only. Sets the maximal reachability limmit for
+        ///         computing isochrones. Zero means no limit. The default
+        ///         value is '0.0'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
@@ -27306,6 +27723,28 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        ///         cref="ShowTableRequest.Options.DEPENDENCIES">DEPENDENCIES</see>:
+        ///         </term>
+        ///         <description>Include view dependencies in the output.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
         ///         </term>
         ///         <description>If <see
@@ -27326,6 +27765,33 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="ShowTableRequest.Options.TRUE">TRUE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+        ///         </term>
+        ///         <description>If <see
+        ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the
+        ///         number of records in each table, along with a cumulative
+        ///         count, will be returned; blank, otherwise. This version
+        ///         will return the sizes cached at rank 0, which may be stale
+        ///         if there is a multihead insert occuring.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///                 </term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+        ///                 </term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -27355,14 +27821,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+        ///         cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
         ///         </term>
         ///         <description>If <see
-        ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the
-        ///         number of records in each table, along with a cumulative
-        ///         count, will be returned; blank, otherwise. This version
-        ///         will return the sizes cached at rank 0, which may be stale
-        ///         if there is a multihead insert occuring.
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see> will
+        ///         return an error if the provided <paramref name="table_name"
+        ///         /> does not exist. If <see
+        ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then it
+        ///         will return an empty result.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -27413,33 +27879,6 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see
         ///         cref="ShowTableRequest.Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see> will
-        ///         return an error if the provided <paramref name="table_name"
-        ///         /> does not exist. If <see
-        ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then it
-        ///         will return an empty result.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
         ///     <item>

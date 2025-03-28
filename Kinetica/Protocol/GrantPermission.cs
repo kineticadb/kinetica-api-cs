@@ -111,6 +111,24 @@ namespace kinetica
             /// <remarks><para> Only rows that match the filter will be
             /// affected. The default value is ''.</para></remarks>
             public const string FILTER_EXPRESSION = "filter_expression";
+
+            /// <summary>Allow the recipient to grant the same permission (or
+            /// subset) to others.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string WITH_GRANT_OPTION = "with_grant_option";
+
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
         /// <summary>Name of the user or role for which the permission is being
@@ -253,6 +271,24 @@ namespace kinetica
         ///         grant.  Only rows that match the filter will be affected.
         ///         The default value is ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
+        ///         </term>
+        ///         <description>Allow the recipient to grant the same
+        ///         permission (or subset) to others.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -394,6 +430,24 @@ namespace kinetica
         ///         <description>Optional filter expression to apply to this
         ///         grant.  Only rows that match the filter will be affected.
         ///         The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
+        ///         </term>
+        ///         <description>Allow the recipient to grant the same
+        ///         permission (or subset) to others.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

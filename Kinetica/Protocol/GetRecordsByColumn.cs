@@ -111,6 +111,11 @@ namespace kinetica
 
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>For multihead record retrieval without shard key
+            /// expression - specifies from which tom to retrieve data.
+            /// </summary>
+            public const string ROUTE_TO_TOM = "route_to_tom";
         } // end struct Options
 
         /// <summary>Name of the table or view on which this operation will be
@@ -228,6 +233,13 @@ namespace kinetica
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ROUTE_TO_TOM">ROUTE_TO_TOM</see>:
+        ///         </term>
+        ///         <description>For multihead record retrieval without shard
+        ///         key expression - specifies from which tom to retrieve data.
+        ///         </description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -327,6 +339,13 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ROUTE_TO_TOM">ROUTE_TO_TOM</see>:
+        ///         </term>
+        ///         <description>For multihead record retrieval without shard
+        ///         key expression - specifies from which tom to retrieve data.
         ///         </description>
         ///     </item>
         /// </list>
@@ -450,6 +469,13 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ROUTE_TO_TOM">ROUTE_TO_TOM</see>:
+        ///         </term>
+        ///         <description>For multihead record retrieval without shard
+        ///         key expression - specifies from which tom to retrieve data.
         ///         </description>
         ///     </item>
         /// </list>

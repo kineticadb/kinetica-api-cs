@@ -32,14 +32,14 @@ namespace kinetica
             /// <param name="name"></param>
             /// <param name="type"></param>
             /// <param name="properties"></param>
-            public Column(string name, ColumnType type, IList<string> properties = null)
+            public Column(string name, ColumnType type, IList<string>? properties = null)
             {
                 m_name = name;
                 m_type = type;
                 m_isNullable = false;
-                m_properties = properties ?? new List<string>();
+                m_properties = properties ?? [];
 
-                initialize();
+                Initialize();
             }
 
             /// <summary>
@@ -93,7 +93,7 @@ namespace kinetica
                 }
             }  // end getTypeString()
 
-            private void initialize()
+            private void Initialize()
             {
                 if (string.IsNullOrEmpty(m_name))
                 {
@@ -111,7 +111,7 @@ namespace kinetica
                         break;
 
                     default:
-                        throw new ArgumentException("Column " + m_name + " must be of type BYTES, DOUBLE, FLOAT, INT, LONG or STRING.");
+                        throw new ArgumentException($"Column {m_name} must be of type BYTES, DOUBLE, FLOAT, INT, LONG or STRING.");
                 }
 
                 foreach (var it in m_properties)
@@ -130,23 +130,23 @@ namespace kinetica
 
             public override string ToString()
             {
-                return $"{m_name} ({m_type.ToString()})";
+                return $"{m_name} ({m_type})";
             }
         }  // end class Column
 
         private class TypeData
         {
-            public string label;
+            public string? label;
             public IList<Column> columns = new List<Column>();
             public Dictionary<string, int> columnMap = new Dictionary<string, int>();
-            public string schemaString = null;
-            public Schema schema = null;
-            public Type sourceType = null;
+            public string? schemaString = null;
+            public Schema? schema = null;
+            public Type? sourceType = null;
         }
 
         private TypeData m_data = new TypeData();
         private IDictionary<string, IList<string>> m_properties = new Dictionary<string, IList<string>>();
-        private string m_type_id = null;
+        private string? m_typeId = null;
 
         /// <summary>
         /// Create a KineticaType object based on an existing table in the database.
@@ -161,22 +161,22 @@ namespace kinetica
 
             if (typeIdCount == 0)
             {
-                throw new KineticaException("Table " + tableName + " does not exist.");
+                throw new KineticaException($"Table {tableName} does not exist.");
             }
 
-            string typeID = response.type_ids[0];
+            string typeId = response.type_ids[0];
             if (typeIdCount > 1)
             {
                 for (int i = 1; i < typeIdCount; ++i)
                 {
-                    if (response.type_ids[i] != typeID)
+                    if (response.type_ids[i] != typeId)
                     {
-                        throw new KineticaException("Table " + tableName + " is not homogeneous.");
+                        throw new KineticaException("Table {tableName} is not homogeneous.");
                     }
                 }
             }
 
-            return new KineticaType(response.type_labels[0], response.type_schemas[0], response.properties[0], typeID );
+            return new KineticaType(response.type_labels[0], response.type_schemas[0], response.properties[0], typeId );
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace kinetica
 
             if (response.type_ids.Count < 1)
             {
-                throw new KineticaException("Type " + typeId + " does not exist.");
+                throw new KineticaException($"Type {typeId} does not exist.");
             }
 
             return new KineticaType(response.labels[0], response.type_schemas[0], response.properties[0]);
@@ -201,22 +201,22 @@ namespace kinetica
         /// <summary>
         /// Create a KineticaType object based on information provided in a dynamic schema.
         /// </summary>
-        /// <param name="dynamic_table_schema_string">The dynamic schema string.</param>
-        /// <param name="column_headers">List of column names.</param>
-        /// <param name="column_types">List of column types.</param>
+        /// <param name="dynamicTableSchemaString">The dynamic schema string.</param>
+        /// <param name="columnHeaders">List of column names.</param>
+        /// <param name="columnTypes">List of column types.</param>
         /// <returns></returns>
-        public static KineticaType fromDynamicSchema( string dynamic_table_schema_string,
-                                                      Object[] column_headers, Object[] column_types )
+        public static KineticaType fromDynamicSchema( string dynamicTableSchemaString,
+                                                      Object[] columnHeaders, Object[] columnTypes )
         {
             // Make sure that the lists of column names and types are of the same length
-            if ( column_headers.Length != column_types.Length )
-                throw new KineticaException( "List of column names and types are not of the same length." );
+            if ( columnHeaders.Length != columnTypes.Length )
+                throw new KineticaException($"List of column names ({columnHeaders.Length}) and types ({columnTypes.Length}) are not of the same length." );
 
             // Parse the schema string so that we can later check if a given column is nullable
-            JObject dynamic_schema_json;
+            JObject dynamicSchemaJson;
             try
             {
-                dynamic_schema_json = JObject.Parse( dynamic_table_schema_string );
+                dynamicSchemaJson = JObject.Parse( dynamicTableSchemaString );
             }
             catch ( Exception ex )
             {
@@ -226,57 +226,65 @@ namespace kinetica
             // Create a delegate for checking if a field/column is nullable
             // ------------------------------------------------------------
             // The first parameter is the column name, the second is the JSON object
-            var is_column_nulllable = new Func<string, JObject, bool>( (column_name, schema_json) => {
+            var isColumnNullable = new Func<string, JObject, bool>( (columnName, schemaJson) => {
                 // Find the appropriate field
-                bool found_field = false;
-                foreach ( var field in schema_json["fields"] )
+                bool foundField = false;
+                JToken? fieldList = schemaJson["fields"];
+                if (fieldList != null)
                 {
-                    if ( (string)field[ "name" ] == column_name )
+                    foreach (var field in fieldList)
                     {
-                        found_field = true; // found it!
-                        // Get the type and see if it's a nullable type
-                        // (each field is an array of the column type; so need
-                        // to extract the type element first)
-                        var type_element = field["type"]["items"];
-                        if ( type_element is JValue ) // not an array, so can't be nullable
-                            return false;
-                        // If the type is an array and the second value is 'null', then it's a nullable
-                        if ( (type_element is JArray) && ((string)((JArray)type_element)[ 1 ] == "null") )
-                            return true;
-                        return false;
-                    } // end if
-                }  // end foreach
-                if ( !found_field )
-                    throw new KineticaException( $"Could not find the field named '{column_name}'" );
+                        if ((string?)field["name"] == columnName)
+                        {
+                            foundField = true; // found it!
+                            // Get the type and see if it's a nullable type
+                            // (each field is an array of the column type; so need
+                            // to extract the type element first)
+                            JToken? fieldType = field["type"];
+                            if (fieldType != null)
+                            {
+                                var typeElement = fieldType["items"];
+                                if (typeElement == null || typeElement is JValue) // not an array, so can't be nullable
+                                    return false;
+                                // If the type is an array and the second value is 'null', then it's a nullable
+                                if ((typeElement is JArray) && ((string)(typeElement as JArray)[1] == "null"))
+                                    return true;
+                                return false;
+                            }
+                        } // end if
+                    }  // end foreach
+                }
+                if ( !foundField )
+                    throw new KineticaException( $"Could not find the field named '{columnName}'" );
                 return false; // shouldn't ever get here
             } );
 
             // Create appropriate columns and column properties
             // ------------------------------------------------
-            IList<Column> columns = new List<Column>();
-            IDictionary<string, IList<string>> column_properties = new Dictionary<string, IList<string>>();
-            for ( int i = 0; i < column_headers.Length; ++i )
+            List<Column> columns = [];
+            Dictionary<string, IList<string>> columnProperties = [];
+            for ( int i = 0; i < columnHeaders.Length; ++i )
             {
                 // Get the column's name
-                string column_name = column_headers[ i ].ToString();
+                string column_name = (string)columnHeaders[i];
 
                 // Get the column's type in string format, which might be a property and not a primitive type
                 // (if so, then we'll have to infer the primitive type and save the property)
-                string column_type_string = column_types[ i ].ToString();
+                string columnTypeString = (string)columnTypes[i];
 
                 // Need to create a list for the properties of the column (we'll
                 // extract at most one from the column type)
-                IList<string> column_property = new List<string>();
+                List<string> columnProperty = [];
 
                 // We need to also infer the primitive type for this column
-                Column.ColumnType column_type = Column.ColumnType.DEFAULT;
+                Column.ColumnType columnType;
 
                 // Infer the type and property from the given 'type'
-                switch ( column_type_string )
+                switch ( columnTypeString )
                 {
                     // Primitive type string (and all properties based on it)
                     case "string":
-                        column_type = Column.ColumnType.STRING;
+                        columnType = Column.ColumnType.STRING;
                         break;
 
                     // All properties allowed for the primitive string type
@@ -294,68 +302,68 @@ namespace kinetica
                     case ColumnProperty.DECIMAL: 
                     case ColumnProperty.IPV4:
                     case ColumnProperty.TIME:
-                        column_type = Column.ColumnType.STRING;
-                        column_property.Add( column_type_string );
+                        columnType = Column.ColumnType.STRING;
+                        columnProperty.Add( columnTypeString );
                         break;
 
                     // Primitive type integer
                     case "int":
-                        column_type = Column.ColumnType.INT;
+                        columnType = Column.ColumnType.INT;
                         break;
 
                     // Properties allowed for the primitive integer type
                     case ColumnProperty.INT8:
                     case ColumnProperty.INT16:
-                        column_type = Column.ColumnType.INT;
-                        column_property.Add( column_type_string );
+                        columnType = Column.ColumnType.INT;
+                        columnProperty.Add( columnTypeString );
                         break;
 
                     // Primitive type long
                     case "long":
-                        column_type = Column.ColumnType.LONG;
+                        columnType = Column.ColumnType.LONG;
                         break;
 
                     // Properties allowed for the long type
                     case ColumnProperty.TIMESTAMP:
-                        column_type = Column.ColumnType.LONG;
-                        column_property.Add( column_type_string );
+                        columnType = Column.ColumnType.LONG;
+                        columnProperty.Add( columnTypeString );
                         break;
 
                     // Primitive type float
                     case "float":
-                        column_type = Column.ColumnType.FLOAT;
+                        columnType = Column.ColumnType.FLOAT;
                         break;
 
                     // Primitive type double
                     case "double":
-                        column_type = Column.ColumnType.DOUBLE;
+                        columnType = Column.ColumnType.DOUBLE;
                         break;
 
                     // Primitive type bytes
                     case "bytes":
-                        column_type = Column.ColumnType.BYTES;
+                        columnType = Column.ColumnType.BYTES;
                         break;
 
                     default:
-                        throw new KineticaException( "Unknown data type/property: " + column_type_string );
+                        throw new KineticaException($"Unknown data type/property: {columnTypeString}");
                 }  // end switch
 
                 // Check if the column is nullable (where the column name is "column_#" as returned by Kinetica)
-                if ( is_column_nulllable( $"column_{i + 1}", dynamic_schema_json ) )
-                    column_property.Add( ColumnProperty.NULLABLE );
+                if ( isColumnNullable( $"column_{i + 1}", dynamicSchemaJson ) )
+                    columnProperty.Add( ColumnProperty.NULLABLE );
 
                 // Now that we have the name, the type and potentially a property for the column,
                 // create a Column type and add it to the list
-                Column column = new Column( column_name, column_type, column_property );
+                Column column = new Column( column_name, columnType, columnProperty );
                 columns.Add( column );
 
                 // Also, save the column property in the column name->property map
-                column_properties.Add( column_name, column_property );
+                columnProperties.Add( column_name, columnProperty );
             }  // end looping over column headers and types
 
 
             // Create and return the KineticaType object based on the columns and properties
-            return new KineticaType( "", columns, column_properties );
+            return new KineticaType( "", columns, columnProperties );
         }  // end fromDynamicSchema()
 
 
@@ -394,81 +402,81 @@ namespace kinetica
         {
             // Get the fields in order (******skipping properties inherited from base classes******)
             // (fields only from this type, i.e. do not include any inherited fields), and public types only
-            System.Reflection.PropertyInfo[] type_properties = recordClass.GetProperties( System.Reflection.BindingFlags.DeclaredOnly |
+            System.Reflection.PropertyInfo[] typeProperties = recordClass.GetProperties( System.Reflection.BindingFlags.DeclaredOnly |
                                                                                           System.Reflection.BindingFlags.Instance |
                                                                                           System.Reflection.BindingFlags.Public );
-            Array.Sort( type_properties, delegate ( System.Reflection.PropertyInfo p1, System.Reflection.PropertyInfo p2 )
-                                         { return p1.MetadataToken.CompareTo( p2.MetadataToken ); } );
+
+            Array.Sort( typeProperties, (p1, p2) => p1.MetadataToken.CompareTo( p2.MetadataToken ) );
 
             // Need to have a list of columns
-            List<Column> columns = new List<Column>();
-            List<string> column_names = new List<string>();
+            List<Column> columns = [];
+            List<string> columnNames = [];
 
             // Per property, check that it is one of: int, long, float, double, string, bytes
-            foreach ( var property in type_properties )
+            foreach ( var typeProperty in typeProperties )
             {
-                string            column_name = "";
-                Column.ColumnType column_type = Column.ColumnType.DEFAULT;
-                IList<string>     column_properties = null;
-                bool              is_column_nullable = false;
+                string            columnName = "";
+                Column.ColumnType columnType = Column.ColumnType.DEFAULT;
+                IList<string>?    columnProperties = null;
+                bool              isColumnNullable = false;
 
                 // Get the column name
-                column_name = property.Name;
+                columnName = typeProperty.Name;
 
-                Type prop_type = property.PropertyType;
+                Type? propertyType = typeProperty.PropertyType;
 
                 // Check if the field is nullable (declared as T? or Nullable<T>)
-                if ( property.PropertyType.IsGenericType &&
-                          ( property.PropertyType.GetGenericTypeDefinition() == typeof( Nullable<> ) ) )
+                if ( typeProperty.PropertyType.IsGenericType &&
+                          ( typeProperty.PropertyType.GetGenericTypeDefinition() == typeof( Nullable<> ) ) )
                 {   // the field is a nullable field
-                    is_column_nullable = true;
+                    isColumnNullable = true;
                     // Change the property type to be the underlying type
-                    prop_type = Nullable.GetUnderlyingType( prop_type );
+                    propertyType = Nullable.GetUnderlyingType(propertyType);
                 }
 
                 // Check the column data type (must be one of int, long, float, double, string, and bytes)
-                if ( prop_type == typeof( System.String ) )
+                if ( propertyType == typeof( System.String ) )
                 {
-                    column_type = Column.ColumnType.STRING;
+                    columnType = Column.ColumnType.STRING;
                 }
-                else if ( prop_type == typeof( System.Int32 ) )
+                else if ( propertyType == typeof( System.Int32 ) )
                 {
-                    column_type = Column.ColumnType.INT;
+                    columnType = Column.ColumnType.INT;
                 }
-                else if ( prop_type == typeof( System.Int64 ) )
+                else if ( propertyType == typeof( System.Int64 ) )
                 {
-                    column_type = Column.ColumnType.LONG;
+                    columnType = Column.ColumnType.LONG;
                 }
-                else if ( prop_type == typeof( float ) )
+                else if ( propertyType == typeof( float ) )
                 {
-                    column_type = Column.ColumnType.FLOAT;
+                    columnType = Column.ColumnType.FLOAT;
                 }
-                else if ( prop_type == typeof( double ) )
+                else if ( propertyType == typeof( double ) )
                 {
-                    column_type = Column.ColumnType.DOUBLE;
+                    columnType = Column.ColumnType.DOUBLE;
                 }
-                else if ( prop_type == typeof( byte ) )
+                else if ( propertyType == typeof( byte ) )
                 {
-                    column_type = Column.ColumnType.BYTES;
+                    columnType = Column.ColumnType.BYTES;
                 }
                 else
-                    throw new KineticaException( "Unsupported data type for " + prop_type.Name +
-                                              ": " + prop_type +
+                    throw new KineticaException( "Unsupported data type for " + propertyType?.Name +
+                                              ": " + propertyType +
                                               " (must be one of int, long, float, double, string, and byte)" );
 
                 // Extract the given column's properties, if any
                 if ( properties != null )
                 {
                     // This column has properties given
-                    properties.TryGetValue( column_name, out column_properties );
+                    properties.TryGetValue( columnName, out columnProperties );
                 }
 
                 // Keep a list of the column names for checking the properties
-                column_names.Add( column_name );
+                columnNames.Add( columnName );
 
                 // Create the column
-                Column column = new Column( column_name, column_type, column_properties );
-                if ( is_column_nullable ) // Set the appropriate nullable flag for the column
+                Column column = new( columnName, columnType, columnProperties );
+                if ( isColumnNullable ) // Set the appropriate nullable flag for the column
                     column.setIsNullable( true );
 
                 // Save the column
@@ -476,17 +484,18 @@ namespace kinetica
             }  // end looping over all members of the class type
 
             // Check for extraneous properties
-            if ( properties != null )
+            if (properties != null)
             {
-                IEnumerable<string> property_keys = properties.Keys;
-                var unknown_columns = property_keys.Where( e => !column_names.Contains( e ) );
+                IEnumerable<string> propertyKeys = properties.Keys;
+                var unknownColumns = propertyKeys.Where(e => !columnNames.Contains(e));
                 // Check if any property is provided for wrong/non-existing columns
-                if ( unknown_columns.Any() )
-                    throw new KineticaException( "Properties specified for unknown columns." );
+                if (unknownColumns.Any())
+                    throw new KineticaException("Properties specified for unknown columns.");
             }
+            else properties = new Dictionary<string, IList<string>>();
 
             // Create the kinetica type
-            KineticaType kType = new KineticaType( label, columns, properties );
+            KineticaType kType = new(label, columns, properties);
 
             // Save the class information in the type
             kType.saveSourceType( recordClass );
@@ -536,7 +545,7 @@ namespace kinetica
         {
             m_data.columns = columns;
             initialize();
-            createSchema();  // create the schema from columns
+            CreateSchema();  // create the schema from columns
         }
 
         /// <summary>
@@ -568,7 +577,7 @@ namespace kinetica
         {
             m_data.schemaString = typeSchema;
             createSchemaFromString( typeSchema );
-            createSchema();
+            CreateSchema();
         }
 
         /// <summary>
@@ -577,15 +586,15 @@ namespace kinetica
         /// <param name="label">The label for the type.</param>
         /// <param name="typeSchema">The string-formatted schema for the type.</param>
         /// <param name="properties">A per-column based set of properties.</param>
-        /// <param name="typeID">An optional ID for this type with which to identify it in the database.</param>
-        public KineticaType(string label, string typeSchema, IDictionary<string, IList<string>> properties, string? typeID = null )
+        /// <param name="typeId">An optional ID for this type with which to identify it in the database.</param>
+        public KineticaType(string label, string typeSchema, IDictionary<string, IList<string>> properties, string? typeId = null )
         {
             m_properties = properties;
-            m_type_id = typeID;
+            m_typeId = typeId;
             m_data.label = label;
             m_data.schemaString = typeSchema;
             createSchemaFromString(typeSchema, properties);
-            createSchema();
+            CreateSchema();
         }
 
         public string getLabel() { return m_data.label; }
@@ -597,7 +606,7 @@ namespace kinetica
         public bool hasColumn(string name) { return m_data.columnMap.ContainsKey(name); }
         public Schema getSchema() { return m_data.schema; }
         public string getSchemaString() { return m_data.schemaString; }
-        public string getTypeID() { return m_type_id;  }
+        public string getTypeID() { return m_typeId;  }
 
         /// <summary>
         /// Saves the given type as this KineticaType's source type.
@@ -653,7 +662,7 @@ namespace kinetica
 
                 m_data.columnMap[columnName] = i;
             }
-        }  // end initialize()
+        }  // end Initialize()
 
 
         /// <summary>
@@ -696,7 +705,7 @@ namespace kinetica
                 //}
 
                 // Do NOT use ToString 'cause it includes the double quotes (turns it into a JSON representation)
-                var fieldName = (string) field["name"];
+                string? fieldName = (string?)field["name"];
                 if (string.IsNullOrEmpty(fieldName))
                 {
                     throw new ArgumentException("Schema has unnamed field.");
@@ -714,7 +723,7 @@ namespace kinetica
                 }
 
                 // Flag for nullability
-                bool is_column_nullable = false;
+                bool isColumnNullable = false;
 
                 if (fieldType.HasValues) // If it has children
                 {
@@ -731,7 +740,7 @@ namespace kinetica
                             {
                                 if (fieldTypeElementString == "null" || fieldTypeElementString == "\"null\"")
                                 {
-                                    is_column_nullable = true;
+                                    isColumnNullable = true;
                                     valid = true;
                                 }
                                 else //if (fieldType->empty())
@@ -747,11 +756,6 @@ namespace kinetica
                             throw new ArgumentException("Field {fieldName} has invalid type.");
                         }
                     }
-
-                    //if (fieldType->empty())
-                    //{
-                    //    throw new ArgumentException("Field " + *fieldName + " has invalid type.");
-                    //}
                 }
 
                 Column.ColumnType columnType;
@@ -785,18 +789,17 @@ namespace kinetica
                     throw new ArgumentException("Field {fieldName} must be of type bytes, double, float, int, long or string.");
                 }
 
-                IList<string> columnProperties = null;
-                if (null != properties) properties.TryGetValue(fieldName, out columnProperties);
+                IList<string>? columnProperties = null;
+                properties?.TryGetValue(fieldName, out columnProperties);
                 // Check the column properties for nullability
                 if ( ( null != columnProperties ) &&
                      ( columnProperties.Contains( ColumnProperty.NULLABLE ) ) )
-                    is_column_nullable = true;
+                    isColumnNullable = true;
 
                 // Create the column to be added
-                Column column = new Column( fieldName, columnType, columnProperties );
+                Column column = new( fieldName, columnType, columnProperties );
 
-                // Set the "nullability"
-                column.setIsNullable( is_column_nullable );
+                column.setIsNullable( isColumnNullable );
 
                 m_data.columns.Add( column );
 
@@ -807,7 +810,7 @@ namespace kinetica
         /// <summary>
         /// Create an avro schema from either the columns or the schema string.
         /// </summary>
-        private void createSchema()
+        private void CreateSchema()
         {
             // First, check if the schema has already been created
             if (m_data.schema != null)
@@ -834,48 +837,48 @@ namespace kinetica
             // and then create the schema and the schema string off it
             // --------------------------------------------------------------------------
             // Create the json string for the type
-            string schema_string = "";
+            string schemaString = "";
             // Create the json string opening with empty fields (with a generic 'type_name' (because the
             // server always replaces the name with this string anyway) )
-            string schema_opening = "{'type':'record','name':'type_name','fields':[";
+            string schemaOpening = "{'type':'record','name':'type_name','fields':[";
             // Create the json string closing
-            string schema_closing = "]}";
+            string schemaClosing = "]}";
 
-            schema_string += schema_opening;
+            schemaString += schemaOpening;
 
             // Create the json substrings for the columns
             foreach (var column in m_data.columns)
             {
                 // Add the name
-                string field_name = ("'name':'" + column.getName() + "'");
+                string fieldName = ("'name':'" + column.getName() + "'");
 
                 // Add the type
-                string field_type = "";
+                string fieldType = "";
                 if (column.isNullable())
                 {  // the column is nullable, so we need a union
-                    field_type = ("['" + column.getTypeString() + "','null']");
+                    fieldType = ("['" + column.getTypeString() + "','null']");
                 }
                 else  // regular type, no union needed
                 {
-                    field_type = ( "'" + column.getTypeString() + "'" );
+                    fieldType = ( "'" + column.getTypeString() + "'" );
                 }
-                field_type = ("'type':" + field_type);
+                fieldType = ("'type':" + fieldType);
 
                 // Put the field together
-                string field = ("{" + field_name + "," + field_type + "},");
-                schema_string += field;
+                string field = ("{" + fieldName + "," + fieldType + "},");
+                schemaString += field;
             }  // end looping over the fields
 
             // Trim the trailing comma from the fields
             char[] comma = { ',' };
-            schema_string = schema_string.TrimEnd(comma);
+            schemaString = schemaString.TrimEnd(comma);
             // Add the ending of the json string
-            schema_string += schema_closing;
+            schemaString += schemaClosing;
 
             // Create the RecordSchema from the JSON string
             try
             {
-                m_data.schema = RecordSchema.Parse(schema_string);
+                m_data.schema = RecordSchema.Parse(schemaString);
             }
             catch (Exception ex)
             {
@@ -885,6 +888,6 @@ namespace kinetica
             // Save the schema string
             m_data.schemaString = m_data.schema.ToString();
             return;
-        }  // end createSchema()
+        }  // end CreateSchema()
     }  // end class KineticaType
 }  // end namespace kinetica

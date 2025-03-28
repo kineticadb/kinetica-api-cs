@@ -79,7 +79,28 @@ namespace kinetica
         public static RecordSchema SchemaFromType( System.Type t, KineticaType ktype = null )
         {
             string jsonType = AvroType( t, ktype );
+            // using JsonDocument doc = JsonDocument.Parse(jsonType);
+            // string v = JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
+            // Console.WriteLine(t.ToString() + "::::" + v);
             return Avro.Schema.Parse( jsonType ) as RecordSchema;
+        }
+
+        private static bool IsNullable(Type type)
+        {
+            if (type == null) return false;
+
+            // 1. Check for Nullable<T> (works for value types like int?, double?)
+            if (Nullable.GetUnderlyingType(type) != null)
+                return true;
+
+            // 2. Check for nullable reference types (C# 8+ feature)
+            if (!type.IsValueType)
+            {
+                var attributes = type.CustomAttributes;
+                return attributes.Any(attr => attr.AttributeType.FullName == "System.Runtime.CompilerServices.NullableAttribute");
+            }
+
+            return false;
         }
 
 
@@ -132,7 +153,7 @@ namespace kinetica
                             return $"{{ \"type\":\"map\", \"values\":{AvroType( genericParams[1], ktype )}}}";
                         }
                     }
-                    break;
+                        break;
 
                 // Ignore the "Schema" property inherited from KineticaData
                 case "Schema": break;

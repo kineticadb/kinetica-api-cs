@@ -186,6 +186,11 @@ namespace kinetica
             /// <remarks><para>The default value is 'true'.</para></remarks>
             public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
 
+            /// <summary>Enable the one_step compound-equi-join algorithm.
+            /// </summary>
+            /// <remarks><para>The default value is 'true'.</para></remarks>
+            public const string ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN = "enable_one_step_compound_equi_join";
+
             /// <summary>Maximum number of records to be ingested in a single
             /// batch.</summary>
             /// <remarks><para>The default value is '1000'. The minimum allowed
@@ -290,6 +295,12 @@ namespace kinetica
             /// <summary>Enable  postgres proxy keep alive.</summary>
             /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string POSTGRES_PROXY_KEEP_ALIVE = "postgres_proxy_keep_alive";
+
+            /// <summary>The default maximum capacity to apply when creating a
+            /// KiFS directory (bytes).</summary>
+            /// <remarks><para>The minimum allowed value is '-1'.</para>
+            /// </remarks>
+            public const string KIFS_DIRECTORY_DATA_LIMIT = "kifs_directory_data_limit";
         } // end struct PropertyUpdatesMap
 
         /// <summary>A set of string constants for the parameter <see
@@ -559,6 +570,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Enable the one_step compound-equi-join
+        ///         algorithm. The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
         ///         </term>
         ///         <description>Maximum number of records to be ingested in a
@@ -709,6 +727,14 @@ namespace kinetica
         ///         </term>
         ///         <description>Enable  postgres proxy keep alive. The default
         ///         value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
+        ///         <description>The default maximum capacity to apply when
+        ///         creating a KiFS directory (bytes). The minimum allowed
+        ///         value is '-1'.</description>
         ///     </item>
         /// </list></remarks>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
@@ -989,6 +1015,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+        ///         </term>
+        ///         <description>Enable the one_step compound-equi-join
+        ///         algorithm. The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
         ///         </term>
         ///         <description>Maximum number of records to be ingested in a
@@ -1139,6 +1172,14 @@ namespace kinetica
         ///         </term>
         ///         <description>Enable  postgres proxy keep alive. The default
         ///         value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+        ///         </term>
+        ///         <description>The default maximum capacity to apply when
+        ///         creating a KiFS directory (bytes). The minimum allowed
+        ///         value is '-1'.</description>
         ///     </item>
         /// </list></param>
         /// <param name="options">Optional parameters.

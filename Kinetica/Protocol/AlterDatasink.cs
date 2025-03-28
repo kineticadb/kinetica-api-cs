@@ -24,8 +24,9 @@ namespace kinetica
         {
             /// <summary>Destination for the output data in format
             /// 'destination_type://path[:port]'.</summary>
-            /// <remarks><para> Supported destination types are 'http', 'https'
-            /// and 'kafka'.</para></remarks>
+            /// <remarks><para> Supported destination types are 'azure', 'gcs',
+            /// 'hdfs', 'http', 'https', 'jdbc', 'kafka', and 's3'.</para>
+            /// </remarks>
             public const string DESTINATION = "destination";
 
             /// <summary>Timeout in seconds for connecting to this sink
@@ -49,17 +50,21 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
-            /// <summary>Set to false for testing purposes or when necessary to
-            /// bypass TLS errors (e.g. self-signed certificates).</summary>
+            /// <summary>Whether to verify SSL connections.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>:
             ///         </term>
+            ///         <description>Connect with SSL verification
+            ///         </description>
             ///     </item>
             ///     <item>
-            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>:
             ///         </term>
+            ///         <description>Connect without verifying the SSL
+            ///         connection; for testing purposes, bypassing TLS errors,
+            ///         self-signed certificates, etc.</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see
@@ -69,18 +74,22 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>When true (default), the requests URI should be
-            /// specified in virtual-hosted-style format where the bucket name
-            /// is part of the domain name in the URL.</summary>
+            /// <summary>Whether to use virtual addressing when referencing the
+            /// Amazon S3 sink.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>
+            ///         <term><see cref="DatasinkUpdatesMap.TRUE">TRUE</see>:
             ///         </term>
+            ///         <description>The requests URI should be specified in
+            ///         virtual-hosted-style format where the bucket name is
+            ///         part of the domain name in the URL.</description>
             ///     </item>
             ///     <item>
-            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>
+            ///         <term><see cref="DatasinkUpdatesMap.FALSE">FALSE</see>:
             ///         </term>
+            ///         <description>Use path-style URI for requests.
+            ///         </description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see
@@ -161,6 +170,13 @@ namespace kinetica
             /// authenticating the data sink</summary>
             public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
 
+            /// <summary>JDBC driver jar file location.</summary>
+            /// <remarks><para> This may be a KIFS file.</para></remarks>
+            public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
+
+            /// <summary>Name of the JDBC driver class</summary>
+            public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
+
             /// <summary>The publicly-accessible full path URL to the kafka
             /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
             public const string KAFKA_URL = "kafka_url";
@@ -235,19 +251,26 @@ namespace kinetica
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
-            ///         <term><see cref="DatasinkUpdatesMap.FLAT">FLAT</see>
+            ///         <term><see cref="DatasinkUpdatesMap.FLAT">FLAT</see>:
             ///         </term>
+            ///         <description>A single record is returned per message
+            ///         </description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            ///         cref="DatasinkUpdatesMap.NESTED">NESTED</see></term>
+            ///         cref="DatasinkUpdatesMap.NESTED">NESTED</see>:</term>
+            ///         <description>Records are returned as an array per
+            ///         message</description>
             ///     </item>
             /// </list>
             /// <para>The default value is <see
             /// cref="DatasinkUpdatesMap.FLAT">FLAT</see>.</para></remarks>
             public const string JSON_FORMAT = "json_format";
 
+            /// <summary>A single record is returned per message</summary>
             public const string FLAT = "flat";
+
+            /// <summary>Records are returned as an array per message</summary>
             public const string NESTED = "nested";
 
             /// <summary>Bypass validation of connection to this data sink.
@@ -290,8 +313,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Destination for the output data in format
         ///         'destination_type://path[:port]'.
-        ///         Supported destination types are 'http', 'https' and
-        ///         'kafka'.</description>
+        ///         Supported destination types are 'azure', 'gcs', 'hdfs',
+        ///         'http', 'https', 'jdbc', 'kafka', and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -333,18 +356,22 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasinkUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see>:</term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -354,19 +381,23 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasinkUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
         ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 sink.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see>:</term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see>:</term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -499,6 +530,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="DatasinkUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        ///         KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
         ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
@@ -591,19 +635,20 @@ namespace kinetica
         ///         </term>
         ///         <description>The desired format of JSON encoded
         ///         notifications message.
-        ///         If <see cref="DatasinkUpdatesMap.NESTED">NESTED</see>,
-        ///         records are returned as an array. Otherwise, only a single
-        ///         record per messages is returned.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///                 cref="DatasinkUpdatesMap.FLAT">FLAT</see>:</term>
+        ///                 <description>A single record is returned per
+        ///                 message</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.NESTED">NESTED</see>
+        ///                 cref="DatasinkUpdatesMap.NESTED">NESTED</see>:
         ///                 </term>
+        ///                 <description>Records are returned as an array per
+        ///                 message</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -664,8 +709,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Destination for the output data in format
         ///         'destination_type://path[:port]'.
-        ///         Supported destination types are 'http', 'https' and
-        ///         'kafka'.</description>
+        ///         Supported destination types are 'azure', 'gcs', 'hdfs',
+        ///         'http', 'https', 'jdbc', 'kafka', and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -707,18 +752,22 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasinkUpdatesMap.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
         ///         </term>
-        ///         <description>Set to false for testing purposes or when
-        ///         necessary to bypass TLS errors (e.g. self-signed
-        ///         certificates). This value is true by default.
+        ///         <description>Whether to verify SSL connections.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see>:</term>
+        ///                 <description>Connect with SSL verification
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see>:</term>
+        ///                 <description>Connect without verifying the SSL
+        ///                 connection; for testing purposes, bypassing TLS
+        ///                 errors, self-signed certificates, etc.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -728,19 +777,23 @@ namespace kinetica
         ///         <term><see
         ///         cref="DatasinkUpdatesMap.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
         ///         </term>
-        ///         <description>When true (default), the requests URI should
-        ///         be specified in virtual-hosted-style format where the
-        ///         bucket name is part of the domain name in the URL.
-        ///         Otherwise set to false to use path-style URI for requests.
+        ///         <description>Whether to use virtual addressing when
+        ///         referencing the Amazon S3 sink.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///                 cref="DatasinkUpdatesMap.TRUE">TRUE</see>:</term>
+        ///                 <description>The requests URI should be specified
+        ///                 in virtual-hosted-style format where the bucket
+        ///                 name is part of the domain name in the URL.
+        ///                 </description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///                 cref="DatasinkUpdatesMap.FALSE">FALSE</see>:</term>
+        ///                 <description>Use path-style URI for requests.
+        ///                 </description>
         ///             </item>
         ///         </list>
         ///         The default value is <see
@@ -873,6 +926,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="DatasinkUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+        ///         </term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        ///         KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasinkUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
         ///         kafka broker, e.g., 'http://172.123.45.67:9300'.
@@ -965,19 +1031,20 @@ namespace kinetica
         ///         </term>
         ///         <description>The desired format of JSON encoded
         ///         notifications message.
-        ///         If <see cref="DatasinkUpdatesMap.NESTED">NESTED</see>,
-        ///         records are returned as an array. Otherwise, only a single
-        ///         record per messages is returned.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///                 cref="DatasinkUpdatesMap.FLAT">FLAT</see>:</term>
+        ///                 <description>A single record is returned per
+        ///                 message</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
-        ///                 cref="DatasinkUpdatesMap.NESTED">NESTED</see>
+        ///                 cref="DatasinkUpdatesMap.NESTED">NESTED</see>:
         ///                 </term>
+        ///                 <description>Records are returned as an array per
+        ///                 message</description>
         ///             </item>
         ///         </list>
         ///         The default value is <see

@@ -41,6 +41,52 @@ namespace kinetica
             /// <summary>User name to use to run the refresh job</summary>
             public const string EXECUTE_AS = "execute_as";
 
+            /// <summary>Sets startup materialized view rebuild scheme.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+            ///         <description>Rebuild as many materialized views as
+            ///         possible before accepting requests.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+            ///         <description>Rebuild the necessary materialized views
+            ///         at start, and load the remainder lazily.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+            ///         </term>
+            ///         <description>Rebuild materialized views as requests use
+            ///         them.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+            ///         <description>Rebuild materialized views using the
+            ///         system-configured default.</description>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.SYSTEM">SYSTEM</see>.</para></remarks>
+            public const string BUILD_MATERIALIZED_VIEW_POLICY = "build_materialized_view_policy";
+
+            /// <summary>Rebuild as many materialized views as possible before
+            /// accepting requests.</summary>
+            public const string ALWAYS = "always";
+
+            /// <summary>Rebuild the necessary materialized views at start, and
+            /// load the remainder lazily.</summary>
+            public const string LAZY = "lazy";
+
+            /// <summary>Rebuild materialized views as requests use them.
+            /// </summary>
+            public const string ON_DEMAND = "on_demand";
+
+            /// <summary>Rebuild materialized views using the system-configured
+            /// default.</summary>
+            public const string SYSTEM = "system";
+
             /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
             /// materialized view specified in <see cref="table_name" /> will
             /// be persisted and will not expire unless a <see
@@ -181,6 +227,41 @@ namespace kinetica
         ///         </term>
         ///         <description>User name to use to run the refresh job
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.BUILD_MATERIALIZED_VIEW_POLICY">BUILD_MATERIALIZED_VIEW_POLICY</see>:
+        ///         </term>
+        ///         <description>Sets startup materialized view rebuild scheme.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Rebuild as many materialized views as
+        ///                 possible before accepting requests.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///                 <description>Rebuild the necessary materialized
+        ///                 views at start, and load the remainder lazily.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///                 <description>Rebuild materialized views as requests
+        ///                 use them.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Rebuild materialized views using the
+        ///                 system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
@@ -324,6 +405,41 @@ namespace kinetica
         ///         </term>
         ///         <description>User name to use to run the refresh job
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.BUILD_MATERIALIZED_VIEW_POLICY">BUILD_MATERIALIZED_VIEW_POLICY</see>:
+        ///         </term>
+        ///         <description>Sets startup materialized view rebuild scheme.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
+        ///                 </term>
+        ///                 <description>Rebuild as many materialized views as
+        ///                 possible before accepting requests.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///                 <description>Rebuild the necessary materialized
+        ///                 views at start, and load the remainder lazily.
+        ///                 </description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see
+        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///                 <description>Rebuild materialized views as requests
+        ///                 use them.</description>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
+        ///                 </term>
+        ///                 <description>Rebuild materialized views using the
+        ///                 system-configured default.</description>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see
+        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
