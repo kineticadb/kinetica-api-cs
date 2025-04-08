@@ -127,7 +127,7 @@ namespace kinetica
                     foreach ( System.Uri workerUrl in workers )
                     {
                         string insert_records_worker_url_str = $"{workerUrl}insert/records";
-                        System.Uri url = new System.Uri( insert_records_worker_url_str );
+                        System.Uri url = new( insert_records_worker_url_str );
                         Utils.WorkerQueue<T> worker_queue = new( url, batchSize, hasPrimaryKey, updateOnExistingPk );
                         this.workerQueues.Add( worker_queue );
                     }
@@ -221,7 +221,7 @@ namespace kinetica
                 // Encode the records into binary
                 List<byte[]> encodedQueue = [];
                 foreach ( var record in queue ) encodedQueue.Add( this.kineticaDB.AvroEncode( record ) );
-                RawInsertRecordsRequest request = new RawInsertRecordsRequest( this.table_name, encodedQueue, this.options);
+                RawInsertRecordsRequest request = new( this.table_name, encodedQueue, this.options);
 
                 InsertRecordsResponse response = new();
 

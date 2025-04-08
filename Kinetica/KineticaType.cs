@@ -74,23 +74,16 @@ namespace kinetica
             /// <returns></returns>
             public string getTypeString()
             {
-                switch (m_type)
+                return m_type switch
                 {
-                    case ColumnType.BYTES:
-                        return "bytes";
-                    case ColumnType.DOUBLE:
-                        return "double";
-                    case ColumnType.FLOAT:
-                        return "float";
-                    case ColumnType.INT:
-                        return "int";
-                    case ColumnType.LONG:
-                        return "long";
-                    case ColumnType.STRING:
-                        return "string";
-                    default:
-                        throw new KineticaException( "Unsupported column type: " + m_type );
-                }
+                    ColumnType.BYTES => "bytes",
+                    ColumnType.DOUBLE => "double",
+                    ColumnType.FLOAT => "float",
+                    ColumnType.INT => "int",
+                    ColumnType.LONG => "long",
+                    ColumnType.STRING => "string",
+                    _ => throw new KineticaException("Unsupported column type: " + m_type),
+                };
             }  // end getTypeString()
 
             private void Initialize()
@@ -137,14 +130,14 @@ namespace kinetica
         private class TypeData
         {
             public string? label;
-            public IList<Column> columns = new List<Column>();
-            public Dictionary<string, int> columnMap = new Dictionary<string, int>();
+            public IList<Column> columns = [];
+            public Dictionary<string, int> columnMap = [];
             public string? schemaString = null;
             public Schema? schema = null;
             public Type? sourceType = null;
         }
 
-        private TypeData m_data = new TypeData();
+        private TypeData m_data = new();
         private IDictionary<string, IList<string>> m_properties = new Dictionary<string, IList<string>>();
         private string? m_typeId = null;
 
@@ -354,7 +347,7 @@ namespace kinetica
 
                 // Now that we have the name, the type and potentially a property for the column,
                 // create a Column type and add it to the list
-                Column column = new Column( column_name, columnType, columnProperty );
+                Column column = new( column_name, columnType, columnProperty );
                 columns.Add( column );
 
                 // Also, save the column property in the column name->property map
@@ -398,7 +391,7 @@ namespace kinetica
         /// <param name="label">Any label for the type.</param>
         /// <param name="properties">Properties for the columns.</param>
         /// <returns></returns>
-        public static KineticaType fromClass( Type recordClass, string label, IDictionary<string, IList<string>> properties = null )
+        public static KineticaType fromClass( Type recordClass, string label, IDictionary<string, IList<string>>? properties = null )
         {
             // Get the fields in order (******skipping properties inherited from base classes******)
             // (fields only from this type, i.e. do not include any inherited fields), and public types only
@@ -465,11 +458,7 @@ namespace kinetica
                                               " (must be one of int, long, float, double, string, and byte)" );
 
                 // Extract the given column's properties, if any
-                if ( properties != null )
-                {
-                    // This column has properties given
-                    properties.TryGetValue( columnName, out columnProperties );
-                }
+                properties?.TryGetValue(columnName, out columnProperties);
 
                 // Keep a list of the column names for checking the properties
                 columnNames.Add( columnName );
@@ -544,7 +533,7 @@ namespace kinetica
         public KineticaType(IList<Column> columns)
         {
             m_data.columns = columns;
-            initialize();
+            Initialize();
             CreateSchema();  // create the schema from columns
         }
 
@@ -576,7 +565,7 @@ namespace kinetica
         public KineticaType(string typeSchema)
         {
             m_data.schemaString = typeSchema;
-            createSchemaFromString( typeSchema );
+            CreateSchemaFromString( typeSchema );
             CreateSchema();
         }
 
@@ -593,7 +582,7 @@ namespace kinetica
             m_typeId = typeId;
             m_data.label = label;
             m_data.schemaString = typeSchema;
-            createSchemaFromString(typeSchema, properties);
+            CreateSchemaFromString(typeSchema, properties);
             CreateSchema();
         }
 
@@ -605,6 +594,7 @@ namespace kinetica
         public int getColumnIndex(string name) { return m_data.columnMap[name]; }
         public bool hasColumn(string name) { return m_data.columnMap.ContainsKey(name); }
         public Schema getSchema() { return m_data.schema; }
+        public Type? getSourceType() { return m_data.sourceType;}
         public string getSchemaString() { return m_data.schemaString; }
         public string getTypeID() { return m_typeId;  }
 
@@ -642,7 +632,7 @@ namespace kinetica
         /// Initializes the type based on the columns.  Verifies that the columns
         /// are valid.
         /// </summary>
-        private void initialize()
+        private void Initialize()
         {
             int columnCount = m_data.columns.Count;
 
@@ -670,7 +660,7 @@ namespace kinetica
         /// </summary>
         /// <param name="typeSchema">The schema in a string format.</param>
         /// <param name="properties">Properties for the columns.</param>
-        private void createSchemaFromString( string typeSchema,
+        private void CreateSchemaFromString( string typeSchema,
                                              IDictionary<string, IList<string>> properties = null)
         {
             // Create the avro schema from the string and save it
@@ -805,7 +795,7 @@ namespace kinetica
 
                 m_data.columnMap[fieldName] = m_data.columns.Count - 1;
             }
-        }  // end createSchemaFromString()
+        }  // end CreateSchemaFromString()
 
         /// <summary>
         /// Create an avro schema from either the columns or the schema string.
@@ -870,7 +860,7 @@ namespace kinetica
             }  // end looping over the fields
 
             // Trim the trailing comma from the fields
-            char[] comma = { ',' };
+            char[] comma = [','];
             schemaString = schemaString.TrimEnd(comma);
             // Add the ending of the json string
             schemaString += schemaClosing;

@@ -41,6 +41,23 @@ namespace kinetica
     /// tables with no primary key.</para></remarks>
     public class RawUpdateRecordsRequest : KineticaData
     {
+
+        private const string Schema_ = @"
+        {
+            ""type"": ""record"",
+            ""name"": ""RawUpdateRecordsRequest"",
+            ""namespace"": ""kinetica"",
+            ""fields"": [
+                { ""name"": ""table_name"", ""type"": ""string"" },
+                { ""name"": ""expressions"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
+                { ""name"": ""new_values_maps"", ""type"": { ""type"": ""array"", ""items"": { ""type"": ""map"", ""values"": [""string"", ""null""]  } } },
+                { ""name"": ""records_to_insert"", ""type"": { ""type"": ""array"", ""items"": ""bytes"" } },
+                { ""name"": ""records_to_insert_str"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
+                { ""name"": ""record_encoding"", ""type"": ""string"" },
+                { ""name"": ""options"", ""type"": { ""type"": ""map"", ""values"": ""string"" } }
+            ]
+        }";
+
         /// <summary>A set of string constants for the parameter <see
         /// cref="record_encoding" />.</summary>
         /// <remarks><para>Identifies which of <see cref="records_to_insert" />

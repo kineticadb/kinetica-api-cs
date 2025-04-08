@@ -29,6 +29,21 @@ namespace kinetica
     /// of inserted records.</para></remarks>
     public class RawInsertRecordsRequest : KineticaData
     {
+
+        private const string Schema_ = @"
+        {
+            ""type"": ""record"",
+            ""name"": ""RawInsertRecordsRequest"",
+            ""namespace"": ""kinetica"",
+            ""fields"": [
+                { ""name"": ""table_name"", ""type"": ""string"" },
+                { ""name"": ""list"", ""type"": { ""type"": ""array"", ""items"": ""bytes"" } },
+                { ""name"": ""list_str"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
+                { ""name"": ""list_encoding"", ""type"": ""string"" },
+                { ""name"": ""options"", ""type"": { ""type"": ""map"", ""values"": ""string"" } }
+            ]
+        }";
+
         /// <summary>A set of string constants for the parameter <see
         /// cref="list_encoding" />.</summary>
         /// <remarks><para>The encoding of the records to be inserted.</para>

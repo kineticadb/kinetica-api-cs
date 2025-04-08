@@ -7,10 +7,10 @@ namespace kinetica.Utils
     internal sealed class WorkerQueue<T>
     {
         public System.Uri url { get; private set; }
-        private int capacity;
-        private bool has_primary_key;
-        private bool update_on_existing_pk;
-        private IList<T> queue;
+        private readonly int capacity;
+        private readonly bool has_primary_key;
+        private readonly bool update_on_existing_pk;
+        private List<T> queue;
         private Dictionary<RecordKey, int> primary_key_map;
 
 
@@ -23,7 +23,7 @@ namespace kinetica.Utils
             this.url = url;
             this.capacity = 1;
 
-            queue = new List<T>();
+            queue = [];
         }  // end constructor WorkerQueue<T>
 
 
@@ -40,7 +40,7 @@ namespace kinetica.Utils
             this.url = url;
             this.capacity = capacity;
 
-            queue = new List<T>();
+            queue = [];
 
         }  // end constructor WorkerQueue<T>
 
@@ -67,7 +67,7 @@ namespace kinetica.Utils
         /// <param name="record">The record to insert into the queue.</param>
         /// <param name="key">A primary key, if any.</param>
         /// <returns>The list of records (if the queue is full), or null.</returns>
-        public IList<T> insert(T record, RecordKey key)
+        public IList<T>? insert(T record, RecordKey key)
         {
             queue.Add(record);
             // If the queue is full, then flush and return the 'old' queue

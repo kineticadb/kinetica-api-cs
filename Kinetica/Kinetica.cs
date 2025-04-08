@@ -124,10 +124,10 @@ namespace kinetica
         private volatile System.Collections.Concurrent.ConcurrentDictionary<string, KineticaType> knownTypes = new();
 
         // private type label to type ID lookup table
-        private Dictionary<string, string> typeNameLookup = new();
+        private Dictionary<string, string> typeNameLookup = [];
 
         // private object class type to KineticaType lookup table
-        private Dictionary<Type, KineticaType> kineticaTypeLookup = new();
+        private Dictionary<Type, KineticaType> kineticaTypeLookup = [];
 
         /// <summary>
         /// API Constructor
@@ -200,9 +200,10 @@ namespace kinetica
         /// </summary>
         /// <param name="objectType">The type of the object.</param>
         /// <param name="kineticaType">The associated KinetiaType object.</param>
-        public void SetKineticaSourceClassToTypeMapping( Type objectType, KineticaType kineticaType )
+        public void SetKineticaSourceClassToTypeMapping( Type? objectType, KineticaType kineticaType )
         {
-            this.kineticaTypeLookup.Add( objectType, kineticaType );
+            if ( objectType != null )
+                this.kineticaTypeLookup.Add( objectType, kineticaType );
             return;
         }  // end SetKineticaSourceClassToTypeMapping
 
@@ -242,7 +243,7 @@ namespace kinetica
                                                              IList<T> records ) where T : new()
         {
             // Create a KineticaType object based on the schema string
-            KineticaType ktype = new( "", schema_string, null );
+            KineticaType ktype = new("", schema_string, null);
 
             // Using the KineticaType object, decode all the records from avro binary encoding
             foreach ( var bin_record in records_binary )
@@ -279,7 +280,7 @@ namespace kinetica
                 IList<byte[]> records_binary = lists_records_binary[ i ];
 
                 // Create a container to put the decoded records
-                IList<T> records = new List<T>();
+                IList<T> records = [];
 
                 // The inner list actually contains the binary data
                 foreach ( var bin_record in records_binary )
@@ -348,7 +349,7 @@ namespace kinetica
                 IList<byte[]> records_binary = lists_records_binary[ i ];
 
                 // Create a container to put the decoded records
-                IList<T> records = new List<T>();
+                IList<T> records = [];
 
                 // The inner list actually contains the binary data
                 foreach ( var bin_record in records_binary )
@@ -575,13 +576,13 @@ namespace kinetica
         /// </summary>
         /// <param name="objectType">The type of the object whose associated KineticaType we need.</param>
         /// <returns></returns>
-        private KineticaType? lookupKineticaType( Type objectType )
+        private KineticaType? LookupKineticaType( Type objectType )
         {
-            if ( !this.kineticaTypeLookup.ContainsKey( objectType ) )
+            if (!kineticaTypeLookup.TryGetValue(objectType, out KineticaType? value))
                 return null; // none found
 
-            return this.kineticaTypeLookup[ objectType ];
-        }  // lookupKineticaType()
+            return value;
+        }  // LookupKineticaType()
 
 
         /// <summary>
@@ -606,7 +607,7 @@ namespace kinetica
                 {
                     // Get the KineticaType associated with the object to be encoded
                     Type obj_type = obj.GetType();
-                    KineticaType? ktype = lookupKineticaType( obj_type );
+                    KineticaType? ktype = LookupKineticaType( obj_type );
                     if ( ktype == null )
                     {
                         throw new KineticaException( "No known KineticaType associated with the given object.  " +
@@ -694,9 +695,8 @@ namespace kinetica
 
                         if (property == null) continue;
 
-                        object val;
                         // Try to get the property
-                        if (recordToReceive.TryGetValue(field.Name, out val))
+                        if (recordToReceive.TryGetValue(field.Name, out object val))
                         {
                             // If successful, write the property to obj
                             property.SetValue(obj, val);
@@ -721,7 +721,7 @@ namespace kinetica
             // T obj = new T(); // Activator.CreateInstance<T>();
             var schema = KineticaData.SchemaFromType( typeof(T), null );
             var reader = new Avro.Specific.SpecificReader<T>(schema, schema);
-            return reader.Read(default(T), new BinaryDecoder(stream));
+            return reader.Read(default, new BinaryDecoder(stream));
         }
         /*
         private T AvroDecode<T>(string str) where T : new()

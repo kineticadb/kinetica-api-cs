@@ -68,6 +68,19 @@ namespace kinetica
             m_properties[fieldPos].SetValue(this, fieldValue);
         }
 
+       private static string? GetEmbeddedSchema( Type t) {
+            string? schema = null;
+            // Get the FieldInfo for "m_schema"
+            FieldInfo? field = t.GetField("Schema_", BindingFlags.NonPublic | BindingFlags.Static);
+
+            if (field != null)
+            {
+                // Get the value of const 'Schema_' from the class
+                schema = (string)field.GetValue(null);
+            }
+
+            return schema;
+        }
 
 
         /// <summary>
@@ -76,13 +89,14 @@ namespace kinetica
         /// <param name="t">System.Type to be processed.</param>
         /// <param name="ktype">KineticaType to be processed;</param>
         /// <returns></returns>
-        public static RecordSchema SchemaFromType( System.Type t, KineticaType ktype = null )
+        public static RecordSchema? SchemaFromType( System.Type t, KineticaType? ktype = null )
         {
-            string jsonType = AvroType( t, ktype );
+            string? jsonType = GetEmbeddedSchema(t);
+            jsonType ??= AvroType( t, ktype );
             // using JsonDocument doc = JsonDocument.Parse(jsonType);
             // string v = JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
             // Console.WriteLine(t.ToString() + "::::" + v);
-            return Avro.Schema.Parse( jsonType ) as RecordSchema;
+            return Schema.Parse(jsonType) as RecordSchema;
         }
 
         private static bool IsNullable(Type type)
@@ -111,9 +125,9 @@ namespace kinetica
         /// <param name="ktype">A KineticaType object that describes the whole type
         /// to which <paramref name="t"/> belongs. </param>
         /// <returns>JSON-formatted String</returns>
-        private static string AvroType( System.Type t, KineticaType ktype )
+        private static string AvroType( System.Type? t, KineticaType? ktype )
         {
-            if ( t == null )
+            if ( t == null)
                 throw new KineticaException( "Null type passed to AvroType()" );
 
             switch ( t.Name)
@@ -129,7 +143,7 @@ namespace kinetica
                 case "String[][]": return $"{{ \"type\":\"array\", \"items\":{{ \"type\":\"array\", \"items\":\"string\"}}}}";
 
                 // For a nullable object, return the avro type of the underlying type (e.g. double)
-                case "Nullable`1": return AvroType( Nullable.GetUnderlyingType( t ), ktype );
+                case "Nullable`1": return AvroType(Nullable.GetUnderlyingType(t), ktype);
 
                 case "List`1":
                 case "IList`1":
@@ -203,7 +217,7 @@ namespace kinetica
                         }
 
                         // Trim the trailing comma from the fields
-                        char[] comma = { ',' };
+                        char[] comma = [','];
                         fields = fields.TrimEnd( comma );
 
                         // Put together the avro fields with the name to create a record type

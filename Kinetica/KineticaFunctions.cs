@@ -12,7 +12,7 @@ namespace kinetica
     public partial class Kinetica
     {
         // Kinetica Version
-        public const string API_VERSION = "7.2.2.0";
+        public const string API_VERSION = "7.2.2.2";
 
         /// <summary>Adds a host to an existing cluster.</summary>
         /// <remarks><para>This method should be used for on-premise

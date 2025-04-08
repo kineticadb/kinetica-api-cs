@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using JDBC.NET.Data;
-using Avro;
+﻿using JDBC.NET.Data;
 using kinetica;
-using System.Collections;
 using System.Data.Common;
 using System.Data;
 using NetTopologySuite.Geometries;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Example
 {
