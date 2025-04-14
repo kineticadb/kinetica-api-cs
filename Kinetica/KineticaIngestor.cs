@@ -126,7 +126,9 @@ namespace kinetica
                     // Add worker queues per worker
                     foreach ( System.Uri workerUrl in workers )
                     {
-                        string insert_records_worker_url_str = $"{workerUrl}insert/records";
+                        string strWorkerUrl = workerUrl.ToString();
+                        strWorkerUrl = strWorkerUrl.EndsWith('/') ? strWorkerUrl[..^1] : strWorkerUrl;
+                        string insert_records_worker_url_str = $"{strWorkerUrl}/insert/records";
                         System.Uri url = new( insert_records_worker_url_str );
                         Utils.WorkerQueue<T> worker_queue = new( url, batchSize, hasPrimaryKey, updateOnExistingPk );
                         this.workerQueues.Add( worker_queue );
@@ -143,7 +145,9 @@ namespace kinetica
                 }
                 else // multihead-ingest is NOT turned on; use the regular Kinetica IP address
                 {
-                    string insertRecordsUrlStr = $"{kdb.URL}insert/records";
+                    string strWorkerUrl = kdb.URL.ToString();
+                    strWorkerUrl = strWorkerUrl.EndsWith('/') ? strWorkerUrl[..^1] : strWorkerUrl;
+                    string insertRecordsUrlStr = $"{strWorkerUrl}/insert/records";
                     System.Uri url = new( insertRecordsUrlStr );
                     Utils.WorkerQueue<T> worker_queue = new( url, batchSize, hasPrimaryKey, updateOnExistingPk );
                     this.workerQueues.Add( worker_queue );

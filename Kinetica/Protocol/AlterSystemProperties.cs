@@ -266,6 +266,14 @@ namespace kinetica
             /// allowed value is '8192'.</para></remarks>
             public const string TPS_PER_TOM = "tps_per_tom";
 
+            /// <summary>Size of the worker rank background thread pool.
+            /// </summary>
+            /// <remarks><para>This includes background operations such as
+            /// watermark evictions catalog table updates. The minimum allowed
+            /// value is '1'. The maximum allowed value is '8192'.</para>
+            /// </remarks>
+            public const string BACKGROUND_WORKER_THREADS = "background_worker_threads";
+
             /// <summary>Enable RAG.</summary>
             /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string AI_ENABLE_RAG = "ai_enable_rag";
@@ -668,6 +676,15 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the conf. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+        ///         </term>
+        ///         <description>Size of the worker rank background thread
+        ///         pool. This includes background operations such as watermark
+        ///         evictions catalog table updates. The minimum allowed value
+        ///         is '1'. The maximum allowed value is '8192'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1113,6 +1130,15 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the conf. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+        ///         </term>
+        ///         <description>Size of the worker rank background thread
+        ///         pool. This includes background operations such as watermark
+        ///         evictions catalog table updates. The minimum allowed value
+        ///         is '1'. The maximum allowed value is '8192'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

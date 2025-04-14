@@ -12,7 +12,7 @@ namespace kinetica
     public partial class Kinetica
     {
         // Kinetica Version
-        public const string API_VERSION = "7.2.2.2";
+        public const string API_VERSION = "7.2.2.3";
 
         /// <summary>Adds a host to an existing cluster.</summary>
         /// <remarks><para>This method should be used for on-premise
@@ -5563,6 +5563,15 @@ namespace kinetica
         ///         <description>Sets the tps_per_tom value of the conf. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+        ///         </term>
+        ///         <description>Size of the worker rank background thread
+        ///         pool. This includes background operations such as watermark
+        ///         evictions catalog table updates. The minimum allowed value
+        ///         is '1'. The maximum allowed value is '8192'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

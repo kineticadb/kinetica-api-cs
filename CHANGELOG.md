@@ -2,6 +2,15 @@
 
 ## Version 7.2
 
+### Version 7.2.2.3 - 2025-04-14
+
+#### Fixed
+-   Issue with URL handling in bulk ingestor
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
+
 ### Version 7.2.2.2 - 2025-04-08
 
 #### Fixed
