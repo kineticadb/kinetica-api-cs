@@ -11,10 +11,37 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
     /// </summary>
-    /// <remarks><para>Creates a new table. If a new table is being created,
-    /// the type of the table is given by <see cref="type_id" />, which must be
-    /// the ID of a currently registered type (i.e. one created via <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>).</para>
+    /// <remarks><para>Creates a new table with the given type (definition of
+    /// columns).  The type is specified in <see cref="type_id" /> as either a
+    /// numerical type ID (as returned by <see
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+    /// or as a list of columns, each specified as a list of the column name,
+    /// data type, and any column attributes.</para>
+    /// <para>Example of a type definition with some parameters:</para>
+    /// <code>
+    ///     [
+    ///         ["id", "int8", "primary_key"],
+    ///         ["dept_id", "int8", "primary_key", "shard_key"],
+    ///         ["manager_id", "int8", "nullable"],
+    ///         ["first_name", "char32"],
+    ///         ["last_name", "char64"],
+    ///         ["salary", "decimal"],
+    ///         ["hire_date", "date"]
+    ///     ]
+    /// </code>
+    /// <para>Each column definition consists of the column name (which should
+    /// meet the standard <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">column naming criteria</a>), the column's <a
+    /// href="../../../concepts/types/#types-chart" target="_top">specific
+    /// type</a> (int, long, float, double, string, bytes, or any of the
+    /// properties map values from <see
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>),
+    /// and any <a href="../../../concepts/types/#types-data-handling"
+    /// target="_top">data handling</a>, <a
+    /// href="../../../concepts/types/#types-data-keys" target="_top">data
+    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
+    /// target="_top">data replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -91,20 +118,6 @@ namespace kinetica
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string IS_COLLECTION = "is_collection";
-
-            /// <summary>No longer supported; value will be ignored.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
 
             /// <summary>Affects the <a
             /// href="../../../concepts/tables/#distribution"
@@ -277,6 +290,12 @@ namespace kinetica
             /// </summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for this table's columns.
+            /// </summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
             /// <summary>Set startup data loading scheme for the table.
             /// </summary>
             /// <remarks><para>Supported values:</para>
@@ -367,9 +386,10 @@ namespace kinetica
         /// </para></remarks>
         public string table_name { get; set; }
 
-        /// <summary>ID of a currently registered type.</summary>
-        /// <remarks><para>All objects added to the newly created table will be
-        /// of this type.</para></remarks>
+        /// <summary>The type for the table, specified as either an existing
+        /// table's numerical type ID (as returned by <see
+        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+        /// or a type definition (as described above).</summary>
         public string type_id { get; set; }
 
         /// <summary>Optional parameters.</summary>
@@ -438,23 +458,6 @@ namespace kinetica
         ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
         ///         to create a schema instead]  Indicates whether to create a
         ///         schema instead of a table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:
-        ///         </term>
-        ///         <description>No longer supported; value will be ignored.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -644,11 +647,9 @@ namespace kinetica
         ///         <description>Indicates whether the table is a <a
         ///         href="../../../concepts/tables_memory_only/"
         ///         target="_top">memory-only table</a>. A result table cannot
-        ///         contain columns with store_only or text_search <a
+        ///         contain columns with text_search <a
         ///         href="../../../concepts/types/#data-handling"
-        ///         target="_top">data-handling</a> or that are <a
-        ///         href="../../../concepts/types/#primitive-types"
-        ///         target="_top">non-charN strings</a>, and it will not be
+        ///         target="_top">data-handling</a>, and it will not be
         ///         retained if the server is restarted.
         ///         Supported values:
         ///         <list type="bullet">
@@ -669,6 +670,15 @@ namespace kinetica
         ///         <description>The <a
         ///         href="../../../rm/concepts/#tier-strategies"
         ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
         ///         columns.</description>
         ///     </item>
         ///     <item>
@@ -764,9 +774,10 @@ namespace kinetica
         /// using the <see
         /// cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see> option.
         /// </param>
-        /// <param name="type_id">ID of a currently registered type. All
-        /// objects added to the newly created table will be of this type.
-        /// </param>
+        /// <param name="type_id">The type for the table, specified as either
+        /// an existing table's numerical type ID (as returned by <see
+        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+        /// or a type definition (as described above).</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -834,23 +845,6 @@ namespace kinetica
         ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
         ///         to create a schema instead]  Indicates whether to create a
         ///         schema instead of a table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:
-        ///         </term>
-        ///         <description>No longer supported; value will be ignored.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1040,11 +1034,9 @@ namespace kinetica
         ///         <description>Indicates whether the table is a <a
         ///         href="../../../concepts/tables_memory_only/"
         ///         target="_top">memory-only table</a>. A result table cannot
-        ///         contain columns with store_only or text_search <a
+        ///         contain columns with text_search <a
         ///         href="../../../concepts/types/#data-handling"
-        ///         target="_top">data-handling</a> or that are <a
-        ///         href="../../../concepts/types/#primitive-types"
-        ///         target="_top">non-charN strings</a>, and it will not be
+        ///         target="_top">data-handling</a>, and it will not be
         ///         retained if the server is restarted.
         ///         Supported values:
         ///         <list type="bullet">
@@ -1065,6 +1057,15 @@ namespace kinetica
         ///         <description>The <a
         ///         href="../../../rm/concepts/#tier-strategies"
         ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
         ///         columns.</description>
         ///     </item>
         ///     <item>

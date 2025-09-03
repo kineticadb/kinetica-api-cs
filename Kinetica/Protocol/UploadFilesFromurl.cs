@@ -18,7 +18,7 @@ namespace kinetica
     /// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
     /// The user must have write permission on the directory. Nested
     /// directories are permitted in file name paths. Directories are
-    /// deliniated with the directory separator of '/'.  For example, given the
+    /// delineated with the directory separator of '/'.  For example, given the
     /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'

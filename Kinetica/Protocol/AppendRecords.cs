@@ -107,6 +107,16 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
+            /// <summary>The record with higher value for the column resolves
+            /// the primary-key insert conflict.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string PK_CONFLICT_PREDICATE_HIGHER = "pk_conflict_predicate_higher";
+
+            /// <summary>The record with lower value for the column resolves
+            /// the primary-key insert conflict.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
+
             /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, it
             /// allows inserting longer strings into smaller charN string
             /// columns by truncating the longer strings to fit.</summary>
@@ -263,6 +273,22 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+        ///         </term>
+        ///         <description>The record with higher value for the column
+        ///         resolves the primary-key insert conflict. The default value
+        ///         is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+        ///         </term>
+        ///         <description>The record with lower value for the column
+        ///         resolves the primary-key insert conflict. The default value
+        ///         is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -427,6 +453,22 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+        ///         </term>
+        ///         <description>The record with higher value for the column
+        ///         resolves the primary-key insert conflict. The default value
+        ///         is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+        ///         </term>
+        ///         <description>The record with lower value for the column
+        ///         resolves the primary-key insert conflict. The default value
+        ///         is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

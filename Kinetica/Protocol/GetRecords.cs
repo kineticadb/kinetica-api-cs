@@ -34,6 +34,7 @@ namespace kinetica
             public const string BINARY = "binary";
             public const string JSON = "json";
             public const string GEOJSON = "geojson";
+            public const string ARROW = "arrow";
         } // end struct Encoding
 
         /// <summary>A set of string constants for the parameter <see
@@ -131,6 +132,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Encoding.GEOJSON">GEOJSON</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Encoding.ARROW">ARROW</see></term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
@@ -329,6 +333,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Encoding.GEOJSON">GEOJSON</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Encoding.ARROW">ARROW</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see cref="Encoding.BINARY">BINARY</see>.

@@ -129,8 +129,8 @@ namespace kinetica
             /// computing the aggregate group by.</summary>
             public const string EXPRESSION = "expression";
 
-            /// <summary>evaluate the filter expression during group-by chunk
-            /// processing.</summary>
+            /// <summary>evaluate the group-by during last JoinedSet filter
+            /// plan step.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -142,7 +142,7 @@ namespace kinetica
             /// </list>
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string CHUNKED_EXPRESSION_EVALUATION = "chunked_expression_evaluation";
+            public const string PIPELINED_EXPRESSION_EVALUATION = "pipelined_expression_evaluation";
 
             /// <summary>Filter expression to apply to the aggregated results.
             /// </summary>
@@ -230,6 +230,12 @@ namespace kinetica
             /// </summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for the result table's
+            /// columns.</summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
             /// <summary>The name of a table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
             /// href="../../../concepts/tables/#table-name-resolution"
@@ -292,6 +298,21 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> then set a soft
+            /// primary key for the result table.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string RESULT_TABLE_GENERATE_SOFT_PK = "result_table_generate_soft_pk";
+
             /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the table specified in <see
             /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
@@ -341,11 +362,11 @@ namespace kinetica
 
             /// <summary>Customize the grouping attribute sets to compute the
             /// aggregates.</summary>
-            /// <remarks><para>These sets can include ROLLUP or CUBE
-            /// operartors. The attribute sets should be enclosed in
-            /// paranthesis and can include composite attributes. All
-            /// attributes specified in the grouping sets must present in the
-            /// groupby attributes.</para></remarks>
+            /// <remarks><para>These sets can include ROLLUP or CUBE operators.
+            /// The attribute sets should be enclosed in parentheses and can
+            /// include composite attributes. All attributes specified in the
+            /// grouping sets must present in the group-by attributes.</para>
+            /// </remarks>
             public const string GROUPING_SETS = "grouping_sets";
 
             /// <summary>This option is used to specify the multilevel
@@ -465,10 +486,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         cref="Options.PIPELINED_EXPRESSION_EVALUATION">PIPELINED_EXPRESSION_EVALUATION</see>:
         ///         </term>
-        ///         <description>evaluate the filter expression during group-by
-        ///         chunk processing.
+        ///         <description>evaluate the group-by during last JoinedSet
+        ///         filter plan step.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -554,6 +575,15 @@ namespace kinetica
         ///         columns.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
         ///         </term>
         ///         <description>The name of a table used to store the results,
@@ -634,6 +664,26 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.RESULT_TABLE_GENERATE_SOFT_PK">RESULT_TABLE_GENERATE_SOFT_PK</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         set a soft primary key for the result table. Must be used
+        ///         in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
         ///         target="_top">TTL</a> of the table specified in <see
@@ -699,10 +749,10 @@ namespace kinetica
         ///         cref="Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
         ///         <description>Customize the grouping attribute sets to
         ///         compute the aggregates. These sets can include ROLLUP or
-        ///         CUBE operartors. The attribute sets should be enclosed in
-        ///         paranthesis and can include composite attributes. All
+        ///         CUBE operators. The attribute sets should be enclosed in
+        ///         parentheses and can include composite attributes. All
         ///         attributes specified in the grouping sets must present in
-        ///         the groupby attributes.</description>
+        ///         the group-by attributes.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.ROLLUP">ROLLUP</see>:</term>
@@ -807,10 +857,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         cref="Options.PIPELINED_EXPRESSION_EVALUATION">PIPELINED_EXPRESSION_EVALUATION</see>:
         ///         </term>
-        ///         <description>evaluate the filter expression during group-by
-        ///         chunk processing.
+        ///         <description>evaluate the group-by during last JoinedSet
+        ///         filter plan step.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -896,6 +946,15 @@ namespace kinetica
         ///         columns.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
         ///         </term>
         ///         <description>The name of a table used to store the results,
@@ -976,6 +1035,26 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.RESULT_TABLE_GENERATE_SOFT_PK">RESULT_TABLE_GENERATE_SOFT_PK</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         set a soft primary key for the result table. Must be used
+        ///         in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
         ///         target="_top">TTL</a> of the table specified in <see
@@ -1041,10 +1120,10 @@ namespace kinetica
         ///         cref="Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
         ///         <description>Customize the grouping attribute sets to
         ///         compute the aggregates. These sets can include ROLLUP or
-        ///         CUBE operartors. The attribute sets should be enclosed in
-        ///         paranthesis and can include composite attributes. All
+        ///         CUBE operators. The attribute sets should be enclosed in
+        ///         parentheses and can include composite attributes. All
         ///         attributes specified in the grouping sets must present in
-        ///         the groupby attributes.</description>
+        ///         the group-by attributes.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.ROLLUP">ROLLUP</see>:</term>
@@ -1173,10 +1252,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.CHUNKED_EXPRESSION_EVALUATION">CHUNKED_EXPRESSION_EVALUATION</see>:
+        ///         cref="Options.PIPELINED_EXPRESSION_EVALUATION">PIPELINED_EXPRESSION_EVALUATION</see>:
         ///         </term>
-        ///         <description>evaluate the filter expression during group-by
-        ///         chunk processing.
+        ///         <description>evaluate the group-by during last JoinedSet
+        ///         filter plan step.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1262,6 +1341,15 @@ namespace kinetica
         ///         columns.</description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
         ///         </term>
         ///         <description>The name of a table used to store the results,
@@ -1342,6 +1430,26 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.RESULT_TABLE_GENERATE_SOFT_PK">RESULT_TABLE_GENERATE_SOFT_PK</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         set a soft primary key for the result table. Must be used
+        ///         in combination with the <see
+        ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../../concepts/ttl/"
         ///         target="_top">TTL</a> of the table specified in <see
@@ -1407,10 +1515,10 @@ namespace kinetica
         ///         cref="Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
         ///         <description>Customize the grouping attribute sets to
         ///         compute the aggregates. These sets can include ROLLUP or
-        ///         CUBE operartors. The attribute sets should be enclosed in
-        ///         paranthesis and can include composite attributes. All
+        ///         CUBE operators. The attribute sets should be enclosed in
+        ///         parentheses and can include composite attributes. All
         ///         attributes specified in the grouping sets must present in
-        ///         the groupby attributes.</description>
+        ///         the group-by attributes.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.ROLLUP">ROLLUP</see>:</term>

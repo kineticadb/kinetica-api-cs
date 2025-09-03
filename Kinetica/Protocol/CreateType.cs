@@ -11,16 +11,39 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
     /// </summary>
-    /// <remarks><para>Creates a new type describing the layout of a table. The
-    /// type definition is a JSON string describing the fields (i.e. columns)
-    /// of the type. Each field consists of a name and a data type. Supported
-    /// data types are: double, float, int, long, string, and bytes. In
-    /// addition, one or more properties can be specified for each column which
-    /// customize the memory usage and query availability of that column.  Note
-    /// that some properties are mutually exclusive--i.e. they cannot be
-    /// specified for any given column simultaneously.  One example of mutually
-    /// exclusive properties are <see cref="Properties.DATA">DATA</see> and
-    /// <see cref="Properties.STORE_ONLY">STORE_ONLY</see>.</para>
+    /// <remarks><para>Creates a new type describing the columns of a table.
+    /// The type definition is specified as a list of columns, each specified
+    /// as a list of the column name, data type, and any column
+    /// attributes.</para>
+    /// <para>Example of a type definition with some parameters:</para>
+    /// <code>
+    ///     [
+    ///         ["id", "int8", "primary_key"],
+    ///         ["dept_id", "int8", "primary_key", "shard_key"],
+    ///         ["manager_id", "int8", "nullable"],
+    ///         ["first_name", "char32"],
+    ///         ["last_name", "char64"],
+    ///         ["salary", "decimal"],
+    ///         ["hire_date", "date"]
+    ///     ]
+    /// </code>
+    /// <para>Each column definition consists of the column name (which should
+    /// meet the standard <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">column naming criteria</a>), the column's <a
+    /// href="../../../concepts/types/#types-chart" target="_top">specific
+    /// type</a> (int, long, float, double, string, bytes, or any of the
+    /// possible values for <see cref="properties" />), and any <a
+    /// href="../../../concepts/types/#types-data-handling" target="_top">data
+    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
+    /// target="_top">data key</a>, or <a
+    /// href="../../../concepts/types/#types-data-replace" target="_top">data
+    /// replacement</a> properties.</para>
+    /// <para>Note that some properties are mutually exclusive--i.e. they
+    /// cannot be specified for any given column simultaneously.  One example
+    /// of mutually exclusive properties are <see
+    /// cref="Properties.PRIMARY_KEY">PRIMARY_KEY</see> and <see
+    /// cref="Properties.NULLABLE">NULLABLE</see>.</para>
     /// <para>A single <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a> and/or single <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
@@ -32,33 +55,16 @@ namespace kinetica
     /// data into a table with a primary key, depending on the parameters in
     /// the request, incoming objects with primary key values that match
     /// existing objects will either overwrite (i.e. update) the existing
-    /// object or will be skipped and not added into the set.</para>
-    /// <para>Example of a type definition with some of the parameters:</para>
-    /// <code>
-    ///     {"type":"record",
-    ///     "name":"point",
-    ///     "fields":[{"name":"msg_id","type":"string"},
-    ///             {"name":"x","type":"double"},
-    ///             {"name":"y","type":"double"},
-    ///             {"name":"TIMESTAMP","type":"double"},
-    ///             {"name":"source","type":"string"},
-    ///             {"name":"group_id","type":"string"},
-    ///             {"name":"OBJECT_ID","type":"string"}]
-    ///     }
-    /// </code>
-    /// <para>Properties:</para>
-    /// <code>
-    ///     {"group_id":["store_only"],
-    ///     "msg_id":["store_only","text_search"]
-    ///     }
-    /// </code></remarks>
+    /// object or will be skipped and not added into the set.</para></remarks>
     public class CreateTypeRequest : KineticaData
     {
         /// <summary>A set of string constants for the parameter <see
         /// cref="properties" />.</summary>
-        /// <remarks><para>Each key-value pair specifies the properties to use
-        /// for a given column where the key is the column name.  All keys used
-        /// must be relevant column names for the given table.  Specifying any
+        /// <remarks><para>[DEPRECATED--please use these property values in the
+        /// <see cref="type_definition" /> directly, as described at the top,
+        /// instead]  Each key-value pair specifies the properties to use for a
+        /// given column where the key is the column name.  All keys used must
+        /// be relevant column names for the given table.  Specifying any
         /// property overrides the default properties for that column (which is
         /// based on the column's data type).</para></remarks>
         public struct Properties
@@ -71,37 +77,8 @@ namespace kinetica
             /// <remarks><para>Enables full text search--see <a
             /// href="../../../concepts/full_text_search/" target="_top">Full
             /// Text Search</a> for details and applicable string column types.
-            /// Can be set independently of <see
-            /// cref="Properties.DATA">DATA</see> and <see
-            /// cref="Properties.STORE_ONLY">STORE_ONLY</see>.</para></remarks>
+            /// </para></remarks>
             public const string TEXT_SEARCH = "text_search";
-
-            /// <summary>Persist the column value but do not make it available
-            /// to queries (e.g. <see
-            /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)-i.e.
-            /// it is mutually exclusive to the <see
-            /// cref="Properties.DATA">DATA</see> property.</summary>
-            /// <remarks><para>Any 'bytes' type column must have a <see
-            /// cref="Properties.STORE_ONLY">STORE_ONLY</see> property. This
-            /// property reduces system memory usage.</para></remarks>
-            public const string STORE_ONLY = "store_only";
-
-            /// <summary>Works in conjunction with the <see
-            /// cref="Properties.DATA">DATA</see> property for string columns.
-            /// </summary>
-            /// <remarks><para>This property reduces system disk usage by
-            /// disabling reverse string lookups. Queries like <see
-            /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>,
-            /// <see
-            /// cref="Kinetica.filterByList(FilterByListRequest)">Kinetica.filterByList</see>,
-            /// and <see
-            /// cref="Kinetica.filterByValue(FilterByValueRequest)">Kinetica.filterByValue</see>
-            /// work as usual but <see
-            /// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>
-            /// and <see
-            /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>
-            /// are not allowed on columns with this property.</para></remarks>
-            public const string DISK_OPTIMIZED = "disk_optimized";
 
             /// <summary>Valid only for 'long' columns.</summary>
             /// <remarks><para>Indicates that this field represents a timestamp
@@ -288,16 +265,25 @@ namespace kinetica
             /// <remarks><para> However, setting this property is insufficient
             /// for making the column nullable.  The user must declare the type
             /// of the column as a union between its regular type and 'null' in
-            /// the avro schema for the record type in <see
+            /// the Avro schema for the record type in <see
             /// cref="type_definition" />.  For example, if a column is of type
             /// integer and is nullable, then the entry for the column in the
-            /// avro schema must be: ['int', 'null'].</para>
+            /// Avro schema must be: ['int', 'null'].</para>
             /// <para>The C++, C#, Java, and Python APIs have built-in
-            /// convenience for bypassing setting the avro schema by hand.  For
+            /// convenience for bypassing setting the Avro schema by hand.  For
             /// those languages, one can use this property as usual and not
-            /// have to worry about the avro schema for the record.</para>
+            /// have to worry about the Avro schema for the record.</para>
             /// </remarks>
             public const string NULLABLE = "nullable";
+
+            /// <summary>This property indicates that this column should be <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compressed</a> with the given codec and optional
+            /// level; e.g., 'compress(snappy)' for Snappy compression and
+            /// 'compress(zstd(7))' for zstd level 7 compression.</summary>
+            /// <remarks><para> This property is primarily used in order to
+            /// save disk space.</para></remarks>
+            public const string COMPRESS = "compress";
 
             /// <summary>This property indicates that this column should be <a
             /// href="../../../concepts/dictionary_encoding/"
@@ -325,8 +311,20 @@ namespace kinetica
             public const string UPDATE_WITH_NOW = "update_with_now";
         } // end struct Properties
 
+        /// <summary>A set of string constants for the parameter <see
+        /// cref="options" />.</summary>
+        /// <remarks><para>Optional parameters.</para></remarks>
+        public struct Options
+        {
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for this type's columns.
+            /// </summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+        } // end struct Options
+
         /// <summary>a JSON string describing the columns of the type to be
-        /// registered.</summary>
+        /// registered, as described above.</summary>
         public string type_definition { get; set; }
 
         /// <summary>A user-defined description string which can be used to
@@ -334,7 +332,9 @@ namespace kinetica
         /// schemas.</summary>
         public string label { get; set; }
 
-        /// <summary>Each key-value pair specifies the properties to use for a
+        /// <summary>[DEPRECATED--please use these property values in the <see
+        /// cref="type_definition" /> directly, as described at the top,
+        /// instead]  Each key-value pair specifies the properties to use for a
         /// given column where the key is the column name.</summary>
         /// <remarks><para>Valid values are:</para>
         /// <list type="bullet">
@@ -351,42 +351,7 @@ namespace kinetica
         ///         Enables full text search--see <a
         ///         href="../../../concepts/full_text_search/"
         ///         target="_top">Full Text Search</a> for details and
-        ///         applicable string column types. Can be set independently of
-        ///         <see cref="Properties.DATA">DATA</see> and <see
-        ///         cref="Properties.STORE_ONLY">STORE_ONLY</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Properties.STORE_ONLY">STORE_ONLY</see>:
-        ///         </term>
-        ///         <description>Persist the column value but do not make it
-        ///         available to queries (e.g. <see
-        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)-i.e.
-        ///         it is mutually exclusive to the <see
-        ///         cref="Properties.DATA">DATA</see> property. Any 'bytes'
-        ///         type column must have a <see
-        ///         cref="Properties.STORE_ONLY">STORE_ONLY</see> property.
-        ///         This property reduces system memory usage.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:
-        ///         </term>
-        ///         <description>Works in conjunction with the <see
-        ///         cref="Properties.DATA">DATA</see> property for string
-        ///         columns. This property reduces system disk usage by
-        ///         disabling reverse string lookups. Queries like <see
-        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>,
-        ///         <see
-        ///         cref="Kinetica.filterByList(FilterByListRequest)">Kinetica.filterByList</see>,
-        ///         and <see
-        ///         cref="Kinetica.filterByValue(FilterByValueRequest)">Kinetica.filterByValue</see>
-        ///         work as usual but <see
-        ///         cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>
-        ///         and <see
-        ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>
-        ///         are not allowed on columns with this property.
-        ///         </description>
+        ///         applicable string column types.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Properties.TIMESTAMP">TIMESTAMP</see>:
@@ -600,15 +565,26 @@ namespace kinetica
         ///         nullable.  However, setting this property is insufficient
         ///         for making the column nullable.  The user must declare the
         ///         type of the column as a union between its regular type and
-        ///         'null' in the avro schema for the record type in <see
+        ///         'null' in the Avro schema for the record type in <see
         ///         cref="type_definition" />.  For example, if a column is of
         ///         type integer and is nullable, then the entry for the column
-        ///         in the avro schema must be: ['int', 'null'].
+        ///         in the Avro schema must be: ['int', 'null'].
         ///         The C++, C#, Java, and Python APIs have built-in
-        ///         convenience for bypassing setting the avro schema by hand.
+        ///         convenience for bypassing setting the Avro schema by hand.
         ///         For those languages, one can use this property as usual and
-        ///         not have to worry about the avro schema for the record.
+        ///         not have to worry about the Avro schema for the record.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Properties.COMPRESS">COMPRESS</see>:
+        ///         </term>
+        ///         <description>This property indicates that this column
+        ///         should be <a href="../../../concepts/column_compression/"
+        ///         target="_top">compressed</a> with the given codec and
+        ///         optional level; e.g., 'compress(snappy)' for Snappy
+        ///         compression and 'compress(zstd(7))' for zstd level 7
+        ///         compression.  This property is primarily used in order to
+        ///         save disk space.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Properties.DICT">DICT</see>:</term>
@@ -649,8 +625,18 @@ namespace kinetica
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
+        /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this type's
+        ///         columns.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Constructs a CreateTypeRequest object with default
@@ -661,11 +647,13 @@ namespace kinetica
         /// parameters.</summary>
         ///
         /// <param name="type_definition">a JSON string describing the columns
-        /// of the type to be registered.</param>
+        /// of the type to be registered, as described above.</param>
         /// <param name="label">A user-defined description string which can be
         /// used to differentiate between tables and types with otherwise
         /// identical schemas.</param>
-        /// <param name="properties">Each key-value pair specifies the
+        /// <param name="properties">[DEPRECATED--please use these property
+        /// values in the <paramref name="type_definition" /> directly, as
+        /// described at the top, instead]  Each key-value pair specifies the
         /// properties to use for a given column where the key is the column
         /// name.  All keys used must be relevant column names for the given
         /// table.  Specifying any property overrides the default properties
@@ -685,42 +673,7 @@ namespace kinetica
         ///         Enables full text search--see <a
         ///         href="../../../concepts/full_text_search/"
         ///         target="_top">Full Text Search</a> for details and
-        ///         applicable string column types. Can be set independently of
-        ///         <see cref="Properties.DATA">DATA</see> and <see
-        ///         cref="Properties.STORE_ONLY">STORE_ONLY</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Properties.STORE_ONLY">STORE_ONLY</see>:
-        ///         </term>
-        ///         <description>Persist the column value but do not make it
-        ///         available to queries (e.g. <see
-        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)-i.e.
-        ///         it is mutually exclusive to the <see
-        ///         cref="Properties.DATA">DATA</see> property. Any 'bytes'
-        ///         type column must have a <see
-        ///         cref="Properties.STORE_ONLY">STORE_ONLY</see> property.
-        ///         This property reduces system memory usage.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:
-        ///         </term>
-        ///         <description>Works in conjunction with the <see
-        ///         cref="Properties.DATA">DATA</see> property for string
-        ///         columns. This property reduces system disk usage by
-        ///         disabling reverse string lookups. Queries like <see
-        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>,
-        ///         <see
-        ///         cref="Kinetica.filterByList(FilterByListRequest)">Kinetica.filterByList</see>,
-        ///         and <see
-        ///         cref="Kinetica.filterByValue(FilterByValueRequest)">Kinetica.filterByValue</see>
-        ///         work as usual but <see
-        ///         cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>
-        ///         and <see
-        ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>
-        ///         are not allowed on columns with this property.
-        ///         </description>
+        ///         applicable string column types.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Properties.TIMESTAMP">TIMESTAMP</see>:
@@ -934,15 +887,26 @@ namespace kinetica
         ///         nullable.  However, setting this property is insufficient
         ///         for making the column nullable.  The user must declare the
         ///         type of the column as a union between its regular type and
-        ///         'null' in the avro schema for the record type in <paramref
+        ///         'null' in the Avro schema for the record type in <paramref
         ///         name="type_definition" />.  For example, if a column is of
         ///         type integer and is nullable, then the entry for the column
-        ///         in the avro schema must be: ['int', 'null'].
+        ///         in the Avro schema must be: ['int', 'null'].
         ///         The C++, C#, Java, and Python APIs have built-in
-        ///         convenience for bypassing setting the avro schema by hand.
+        ///         convenience for bypassing setting the Avro schema by hand.
         ///         For those languages, one can use this property as usual and
-        ///         not have to worry about the avro schema for the record.
+        ///         not have to worry about the Avro schema for the record.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Properties.COMPRESS">COMPRESS</see>:
+        ///         </term>
+        ///         <description>This property indicates that this column
+        ///         should be <a href="../../../concepts/column_compression/"
+        ///         target="_top">compressed</a> with the given codec and
+        ///         optional level; e.g., 'compress(snappy)' for Snappy
+        ///         compression and 'compress(zstd(7))' for zstd level 7
+        ///         compression.  This property is primarily used in order to
+        ///         save disk space.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Properties.DICT">DICT</see>:</term>
@@ -980,8 +944,19 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this type's
+        ///         columns.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty Dictionary.</param>
         public CreateTypeRequest( string type_definition,
                                   string label,
                                   IDictionary<string, IList<string>> properties = null,

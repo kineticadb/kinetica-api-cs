@@ -16,35 +16,9 @@ namespace kinetica
         /// <summary>Valid only for select 'string' columns.</summary>
         /// <remarks><para>Enables full text search--see <a
         /// href="../../../concepts/full_text_search/" target="_top">Full Text
-        /// Search</a> for details and applicable string column types. Can be
-        /// set independently of <see cref="DATA" /> and <see cref="STORE_ONLY"
-        /// />.</para></remarks>
+        /// Search</a> for details and applicable string column types.</para>
+        /// </remarks>
         public const string TEXT_SEARCH = "text_search";
-
-        /// <summary>Persist the column value but do not make it available to
-        /// queries (e.g. <see
-        /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)-i.e.
-        /// it is mutually exclusive to the <see cref="DATA" /> property.
-        /// </summary>
-        /// <remarks><para>Any 'bytes' type column must have a <see
-        /// cref="STORE_ONLY" /> property. This property reduces system memory
-        /// usage.</para></remarks>
-        public const string STORE_ONLY = "store_only";
-
-        /// <summary>Works in conjunction with the <see cref="DATA" /> property
-        /// for string columns.</summary>
-        /// <remarks><para>This property reduces system disk usage by disabling
-        /// reverse string lookups. Queries like <see
-        /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>, <see
-        /// cref="Kinetica.filterByList(FilterByListRequest)">Kinetica.filterByList</see>,
-        /// and <see
-        /// cref="Kinetica.filterByValue(FilterByValueRequest)">Kinetica.filterByValue</see>
-        /// work as usual but <see
-        /// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>
-        /// and <see
-        /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>
-        /// are not allowed on columns with this property.</para></remarks>
-        public const string DISK_OPTIMIZED = "disk_optimized";
 
         /// <summary>Valid only for 'long' columns.</summary>
         /// <remarks><para>Indicates that this field represents a timestamp and
@@ -224,17 +198,26 @@ namespace kinetica
         /// </summary>
         /// <remarks><para> However, setting this property is insufficient for
         /// making the column nullable.  The user must declare the type of the
-        /// column as a union between its regular type and 'null' in the avro
+        /// column as a union between its regular type and 'null' in the Avro
         /// schema for the record type in <see
         /// cref="CreateTypeRequest.type_definition">type_definition</see>.
         /// For example, if a column is of type integer and is nullable, then
-        /// the entry for the column in the avro schema must be: ['int',
+        /// the entry for the column in the Avro schema must be: ['int',
         /// 'null'].</para>
         /// <para>The C++, C#, Java, and Python APIs have built-in convenience
-        /// for bypassing setting the avro schema by hand.  For those
+        /// for bypassing setting the Avro schema by hand.  For those
         /// languages, one can use this property as usual and not have to worry
-        /// about the avro schema for the record.</para></remarks>
+        /// about the Avro schema for the record.</para></remarks>
         public const string NULLABLE = "nullable";
+
+        /// <summary>This property indicates that this column should be <a
+        /// href="../../../concepts/column_compression/"
+        /// target="_top">compressed</a> with the given codec and optional
+        /// level; e.g., 'compress(snappy)' for Snappy compression and
+        /// 'compress(zstd(7))' for zstd level 7 compression.</summary>
+        /// <remarks><para> This property is primarily used in order to save
+        /// disk space.</para></remarks>
+        public const string COMPRESS = "compress";
 
         /// <summary>This property indicates that this column should be <a
         /// href="../../../concepts/dictionary_encoding/"

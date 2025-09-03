@@ -188,13 +188,14 @@ namespace kinetica
 
         /// <summary>
         /// Ensures that all queued records are inserted into Kinetica.  If an error
-        /// occurs while inserting the records from any queue, the recoreds will no
+        /// occurs while inserting the records from any queue, the records will no
         /// longer be in that queue nor in Kinetica; catch <see cref="InsertException{T}" />
         /// to get the list of records that were being inserted if needed (for example,
         /// to retry).  Other queues may also still contain unflushed records if this
         /// occurs.
         /// </summary>
-        /// <exception cref="InsertException{T}" />
+        /// <exception cref="InsertException{T}">If the flushed records fail to insert
+        /// </exception>
         public void flush()
         {
             foreach ( Utils.WorkerQueue<T> workerQueue in this.workerQueues )
@@ -252,14 +253,15 @@ namespace kinetica
 
         /// <summary>
         /// Queues a record for insertion into Kinetica.  If the queue reaches
-        /// the <member cref="batch_size" />, all records in the queue will be
+        /// the configured batch size, all records in the queue will be
         /// inserted into Kinetica before the method returns.  If an error occurs
         /// while inserting the records, the records will no longer be in the queue
         /// nor in Kinetica; catch <see cref="InsertException{T}"/>  to get the list
         /// of records that were being inserted if needed (for example, to retry).
         /// </summary>
         /// <param name="record">The record to insert.</param>
-        /// <exception cref="InsertException{T}" />
+        /// <exception cref="InsertException{T}">If the record cannot be inserted
+        /// </exception>
         public void insert( T record )
         {
             // Create the record keys
@@ -275,7 +277,7 @@ namespace kinetica
                 shardKey = this.shardKeyBuilder.build( record );
 
             // Find out which worker to send the record to; then add the record
-            // to the approrpriate worker's record queue
+            // to the appropriate worker's record queue
             Utils.WorkerQueue<T> workerQueue;
             if ( this.routingTable == null )
             {   // no information regarding multiple workers, so get the first/only one
@@ -305,10 +307,10 @@ namespace kinetica
 
 
         /// <summary>
-        /// Queues a list of records for insertion into Kientica.  If any queue
-        /// reaches the <member cref="batch_size"/>, all records in that queue
+        /// Queues a list of records for insertion into Kinetica.  If any queue
+        /// reaches the configured batch size, all records in that queue
         /// will be inserted into Kinetica before the method returns.  If an
-        /// error occurs while inserting the queued records,  the records will
+        /// error occurs while inserting the queued records, the records will
         /// no longer be in that queue nor in Kinetica; catch <see cref="InsertException{T}"/> 
         /// to get the list of records that were being inserted (including any
         /// from the queue in question and any remaining in the list not yet
@@ -316,7 +318,8 @@ namespace kinetica
         /// the number of records, multiple calls to Kinetica may occur.
         /// </summary>
         /// <param name="records">The records to insert.</param>
-        /// <exception cref="InsertException{T}"/>
+        /// <exception cref="InsertException{T}"/>If the records cannot be
+        /// inserted</exception>
         public void insert( IList<T> records)
         {
             // Insert one record at a time

@@ -104,6 +104,32 @@ namespace kinetica
             /// <remarks><para>The default value is 'false'.</para></remarks>
             public const string ENABLE_VIRTUAL_CHUNKING = "enable_virtual_chunking";
 
+            /// <summary>Maximum number of records per virtual-chunk.</summary>
+            /// <remarks><para>When set, enables virtual chunking. Defaults to
+            /// chunk_size if virtual chunking otherwise enabled.</para>
+            /// </remarks>
+            public const string MAX_VIRTUAL_CHUNK_SIZE = "max_virtual_chunk_size";
+
+            /// <summary>Minimum number of records per virtual-chunk.</summary>
+            /// <remarks><para>When set, enables virtual chunking. Defaults to
+            /// chunk_size if virtual chunking otherwise enabled.</para>
+            /// </remarks>
+            public const string MIN_VIRTUAL_CHUNK_SIZE = "min_virtual_chunk_size";
+
+            /// <summary>Allow using the lazy result store to cache computation
+            /// of one side of a multichunk equi-join.</summary>
+            /// <remarks><para> Reduces computation but also reduces
+            /// parallelism to the number of chunks on the other side of the
+            /// equi-join</para></remarks>
+            public const string ENABLE_EQUI_JOIN_LAZY_RESULT_STORE = "enable_equi_join_lazy_result_store";
+
+            /// <summary>Allow using the lazy result store to cache computation
+            /// of one side of a multichunk predicate-equi-join.</summary>
+            /// <remarks><para>Reduces computation but also reduces parallelism
+            /// to the number of chunks on the other side of the equi-join
+            /// </para></remarks>
+            public const string ENABLE_PREDICATE_EQUI_JOIN_LAZY_RESULT_STORE = "enable_predicate_equi_join_lazy_result_store";
+
             /// <summary>Use equi-join to do primary key joins rather than
             /// using primary-key-index</summary>
             public const string ENABLE_PK_EQUI_JOIN = "enable_pk_equi_join";
@@ -249,6 +275,41 @@ namespace kinetica
         ///         <description>Collect chunks with accumulated size less than
         ///         chunk_size into a single chunk. The default value is
         ///         'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MAX_VIRTUAL_CHUNK_SIZE">MAX_VIRTUAL_CHUNK_SIZE</see>:
+        ///         </term>
+        ///         <description>Maximum number of records per virtual-chunk.
+        ///         When set, enables virtual chunking. Defaults to chunk_size
+        ///         if virtual chunking otherwise enabled.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MIN_VIRTUAL_CHUNK_SIZE">MIN_VIRTUAL_CHUNK_SIZE</see>:
+        ///         </term>
+        ///         <description>Minimum number of records per virtual-chunk.
+        ///         When set, enables virtual chunking. Defaults to chunk_size
+        ///         if virtual chunking otherwise enabled.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_EQUI_JOIN_LAZY_RESULT_STORE">ENABLE_EQUI_JOIN_LAZY_RESULT_STORE</see>:
+        ///         </term>
+        ///         <description>Allow using the lazy result store to cache
+        ///         computation of one side of a multichunk equi-join.  Reduces
+        ///         computation but also reduces parallelism to the number of
+        ///         chunks on the other side of the equi-join</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_PREDICATE_EQUI_JOIN_LAZY_RESULT_STORE">ENABLE_PREDICATE_EQUI_JOIN_LAZY_RESULT_STORE</see>:
+        ///         </term>
+        ///         <description>Allow using the lazy result store to cache
+        ///         computation of one side of a multichunk
+        ///         predicate-equi-join. Reduces computation but also reduces
+        ///         parallelism to the number of chunks on the other side of
+        ///         the equi-join</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -398,6 +459,41 @@ namespace kinetica
         ///         <description>Collect chunks with accumulated size less than
         ///         chunk_size into a single chunk. The default value is
         ///         'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MAX_VIRTUAL_CHUNK_SIZE">MAX_VIRTUAL_CHUNK_SIZE</see>:
+        ///         </term>
+        ///         <description>Maximum number of records per virtual-chunk.
+        ///         When set, enables virtual chunking. Defaults to chunk_size
+        ///         if virtual chunking otherwise enabled.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MIN_VIRTUAL_CHUNK_SIZE">MIN_VIRTUAL_CHUNK_SIZE</see>:
+        ///         </term>
+        ///         <description>Minimum number of records per virtual-chunk.
+        ///         When set, enables virtual chunking. Defaults to chunk_size
+        ///         if virtual chunking otherwise enabled.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_EQUI_JOIN_LAZY_RESULT_STORE">ENABLE_EQUI_JOIN_LAZY_RESULT_STORE</see>:
+        ///         </term>
+        ///         <description>Allow using the lazy result store to cache
+        ///         computation of one side of a multichunk equi-join.  Reduces
+        ///         computation but also reduces parallelism to the number of
+        ///         chunks on the other side of the equi-join</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.ENABLE_PREDICATE_EQUI_JOIN_LAZY_RESULT_STORE">ENABLE_PREDICATE_EQUI_JOIN_LAZY_RESULT_STORE</see>:
+        ///         </term>
+        ///         <description>Allow using the lazy result store to cache
+        ///         computation of one side of a multichunk
+        ///         predicate-equi-join. Reduces computation but also reduces
+        ///         parallelism to the number of chunks on the other side of
+        ///         the equi-join</description>
         ///     </item>
         ///     <item>
         ///         <term><see

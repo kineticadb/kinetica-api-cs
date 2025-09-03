@@ -265,14 +265,22 @@ namespace kinetica
             /// </remarks>
             public const string SCHEMA_NAME = "schema_name";
 
-            /// <summary>Location of Confluent Schema Registry in
-            /// '[storage_path[:storage_port]]' format.</summary>
-            public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
+            /// <summary>Confluent Schema registry connection timeout (in Secs)
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
+
+            /// <summary>Confluent Schema registry connection timeout (in Secs)
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
 
             /// <summary>Confluent Schema Registry <a
             /// href="../../../concepts/credentials"
             /// target="_top">credential</a> object name.</summary>
             public const string SCHEMA_REGISTRY_CREDENTIAL = "schema_registry_credential";
+
+            /// <summary>Location of Confluent Schema Registry in
+            /// '[storage_path[:storage_port]]' format.</summary>
+            public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
 
             /// <summary>Confluent Schema Registry port (optional).</summary>
             public const string SCHEMA_REGISTRY_PORT = "schema_registry_port";
@@ -642,10 +650,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
         ///         </term>
-        ///         <description>Location of Confluent Schema Registry in
-        ///         '[storage_path[:storage_port]]' format.</description>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -654,6 +669,13 @@ namespace kinetica
         ///         <description>Confluent Schema Registry <a
         ///         href="../../../concepts/credentials"
         ///         target="_top">credential</a> object name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         </term>
+        ///         <description>Location of Confluent Schema Registry in
+        ///         '[storage_path[:storage_port]]' format.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1037,10 +1059,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
         ///         </term>
-        ///         <description>Location of Confluent Schema Registry in
-        ///         '[storage_path[:storage_port]]' format.</description>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1049,6 +1078,13 @@ namespace kinetica
         ///         <description>Confluent Schema Registry <a
         ///         href="../../../concepts/credentials"
         ///         target="_top">credential</a> object name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="DatasourceUpdatesMap.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+        ///         </term>
+        ///         <description>Location of Confluent Schema Registry in
+        ///         '[storage_path[:storage_port]]' format.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

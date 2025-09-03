@@ -27,36 +27,12 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <summary>A comma-delimited list of table names from <see
-            /// cref="input_table_names" /> from which input data will be
-            /// cached for use in subsequent calls to <see
-            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-            /// with the <see
-            /// cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see> option.
-            /// </summary>
-            /// <remarks><para>Cached input data will be retained until the
-            /// proc status is cleared with the <see
-            /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">clear_complete</see>
-            /// option of <see
-            /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-            /// and all proc instances using the cached data have completed.
-            /// The default value is ''.</para></remarks>
+            /// <summary>No longer supported; option will be ignored.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string CACHE_INPUT = "cache_input";
 
-            /// <summary>A comma-delimited list of run IDs (as returned from
-            /// prior calls to <see
-            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
-            /// of running or completed proc instances from which input data
-            /// cached using the <see
-            /// cref="Options.CACHE_INPUT">CACHE_INPUT</see> option will be
-            /// used.</summary>
-            /// <remarks><para>Cached input data will not be used for any
-            /// tables specified in <see cref="input_table_names" />, but data
-            /// from all other tables cached for the specified run IDs will be
-            /// passed to the proc. If the same table was cached for multiple
-            /// specified run IDs, the cached data from the first run ID
-            /// specified in the list that includes that table will be used.
-            /// The default value is ''.</para></remarks>
+            /// <summary>No longer supported; option will be ignored.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
             public const string USE_CACHED_INPUT = "use_cached_input";
 
             /// <summary>A string that, if not empty, can be used in subsequent
@@ -167,37 +143,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.CACHE_INPUT">CACHE_INPUT</see>:
         ///         </term>
-        ///         <description>A comma-delimited list of table names from
-        ///         <see cref="input_table_names" /> from which input data will
-        ///         be cached for use in subsequent calls to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        ///         with the <see
-        ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>
-        ///         option. Cached input data will be retained until the proc
-        ///         status is cleared with the <see
-        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">clear_complete</see>
-        ///         option of <see
-        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-        ///         and all proc instances using the cached data have
-        ///         completed. The default value is ''.</description>
+        ///         <description>No longer supported; option will be ignored.
+        ///         The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:
         ///         </term>
-        ///         <description>A comma-delimited list of run IDs (as returned
-        ///         from prior calls to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
-        ///         of running or completed proc instances from which input
-        ///         data cached using the <see
-        ///         cref="Options.CACHE_INPUT">CACHE_INPUT</see> option will be
-        ///         used. Cached input data will not be used for any tables
-        ///         specified in <see cref="input_table_names" />, but data
-        ///         from all other tables cached for the specified run IDs will
-        ///         be passed to the proc. If the same table was cached for
-        ///         multiple specified run IDs, the cached data from the first
-        ///         run ID specified in the list that includes that table will
-        ///         be used. The default value is ''.</description>
+        ///         <description>No longer supported; option will be ignored.
+        ///         The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
@@ -310,37 +264,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.CACHE_INPUT">CACHE_INPUT</see>:
         ///         </term>
-        ///         <description>A comma-delimited list of table names from
-        ///         <paramref name="input_table_names" /> from which input data
-        ///         will be cached for use in subsequent calls to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        ///         with the <see
-        ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>
-        ///         option. Cached input data will be retained until the proc
-        ///         status is cleared with the <see
-        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">clear_complete</see>
-        ///         option of <see
-        ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-        ///         and all proc instances using the cached data have
-        ///         completed. The default value is ''.</description>
+        ///         <description>No longer supported; option will be ignored.
+        ///         The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:
         ///         </term>
-        ///         <description>A comma-delimited list of run IDs (as returned
-        ///         from prior calls to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
-        ///         of running or completed proc instances from which input
-        ///         data cached using the <see
-        ///         cref="Options.CACHE_INPUT">CACHE_INPUT</see> option will be
-        ///         used. Cached input data will not be used for any tables
-        ///         specified in <paramref name="input_table_names" />, but
-        ///         data from all other tables cached for the specified run IDs
-        ///         will be passed to the proc. If the same table was cached
-        ///         for multiple specified run IDs, the cached data from the
-        ///         first run ID specified in the list that includes that table
-        ///         will be used. The default value is ''.</description>
+        ///         <description>No longer supported; option will be ignored.
+        ///         The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>

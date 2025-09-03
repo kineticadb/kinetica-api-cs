@@ -140,6 +140,12 @@ namespace kinetica
             /// </remarks>
             public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
 
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for the result table's
+            /// columns.</summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
             /// <summary>The number of records to keep.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string LIMIT = "limit";
@@ -345,6 +351,15 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep. The default
         ///         value is ''.</description>
@@ -537,6 +552,15 @@ namespace kinetica
         ///         used in combination with the <see
         ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
@@ -757,6 +781,15 @@ namespace kinetica
         ///         used in combination with the <see
         ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>

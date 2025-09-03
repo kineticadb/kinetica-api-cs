@@ -64,9 +64,6 @@ namespace kinetica
         /// </remarks>
         public struct Action
         {
-            /// <summary>No longer supported; action will be ignored.</summary>
-            public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
-
             /// <summary>Creates a <a
             /// href="../../../concepts/indexes/#column-index"
             /// target="_top">column (attribute) index</a>, <a
@@ -177,9 +174,6 @@ namespace kinetica
             /// must be specified in the <see cref="options" /> map.</para>
             /// </remarks>
             public const string CHANGE_COLUMN = "change_column";
-
-            /// <summary>No longer supported; action will be ignored.</summary>
-            public const string SET_COLUMN_COMPRESSION = "set_column_compression";
 
             /// <summary>Deletes the column specified in <see cref="_value" />
             /// from the table specified in <see cref="table_name" />.
@@ -368,39 +362,14 @@ namespace kinetica
             public const string COLUMN_DEFAULT_VALUE = "column_default_value";
 
             /// <summary>When adding or changing a column, set the column
-            /// properties (strings, separated by a comma: data, store_only,
-            /// text_search, char8, int8 etc).</summary>
+            /// properties (strings, separated by a comma: data, text_search,
+            /// char8, int8 etc).</summary>
             public const string COLUMN_PROPERTIES = "column_properties";
 
             /// <summary>When adding or changing a column, set the column type
             /// (strings, separated by a comma: int, double, string, null etc).
             /// </summary>
             public const string COLUMN_TYPE = "column_type";
-
-            /// <summary>No longer supported; option will be ignored.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.NONE">NONE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SNAPPY">SNAPPY</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.LZ4">LZ4</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.LZ4HC">LZ4HC</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.SNAPPY">SNAPPY</see>.</para></remarks>
-            public const string COMPRESSION_TYPE = "compression_type";
-
-            public const string NONE = "none";
-            public const string SNAPPY = "snappy";
-            public const string LZ4 = "lz4";
-            public const string LZ4HC = "lz4hc";
 
             /// <summary>[DEPRECATED--please use <see
             /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
@@ -587,13 +556,6 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:
-        ///         </term>
-        ///         <description>No longer supported; action will be ignored.
-        ///         </description>
-        ///     </item>
-        ///     <item>
         ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
         ///         </term>
         ///         <description>Creates a <a
@@ -720,13 +682,6 @@ namespace kinetica
         ///         e.g., to add dictionary encoding to an existing 'char4'
         ///         column, both 'char4' and 'dict' must be specified in the
         ///         <see cref="options" /> map.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:
-        ///         </term>
-        ///         <description>No longer supported; action will be ignored.
-        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
@@ -1013,7 +968,7 @@ namespace kinetica
         ///         </term>
         ///         <description>When adding or changing a column, set the
         ///         column properties (strings, separated by a comma: data,
-        ///         store_only, text_search, char8, int8 etc).</description>
+        ///         text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:
@@ -1021,30 +976,6 @@ namespace kinetica
         ///         <description>When adding or changing a column, set the
         ///         column type (strings, separated by a comma: int, double,
         ///         string, null etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
-        ///         </term>
-        ///         <description>No longer supported; option will be ignored.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SNAPPY">SNAPPY</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LZ4">LZ4</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LZ4HC">LZ4HC</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SNAPPY">SNAPPY</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1219,13 +1150,6 @@ namespace kinetica
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:
-        ///         </term>
-        ///         <description>No longer supported; action will be ignored.
-        ///         </description>
-        ///     </item>
-        ///     <item>
         ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
         ///         </term>
         ///         <description>Creates a <a
@@ -1353,13 +1277,6 @@ namespace kinetica
         ///         e.g., to add dictionary encoding to an existing 'char4'
         ///         column, both 'char4' and 'dict' must be specified in the
         ///         <paramref name="options" /> map.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:
-        ///         </term>
-        ///         <description>No longer supported; action will be ignored.
-        ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
@@ -1645,7 +1562,7 @@ namespace kinetica
         ///         </term>
         ///         <description>When adding or changing a column, set the
         ///         column properties (strings, separated by a comma: data,
-        ///         store_only, text_search, char8, int8 etc).</description>
+        ///         text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:
@@ -1653,30 +1570,6 @@ namespace kinetica
         ///         <description>When adding or changing a column, set the
         ///         column type (strings, separated by a comma: int, double,
         ///         string, null etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
-        ///         </term>
-        ///         <description>No longer supported; option will be ignored.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SNAPPY">SNAPPY</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LZ4">LZ4</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LZ4HC">LZ4HC</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SNAPPY">SNAPPY</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

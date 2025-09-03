@@ -39,8 +39,8 @@ namespace kinetica
             ///     <item>
             ///         <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
             ///         </term>
-            ///         <description>Manually invokes wal replay on the table
-            ///         </description>
+            ///         <description>Manually invokes write-ahead log (WAL)
+            ///         replay on the table</description>
             ///     </item>
             /// </list></remarks>
             public const string REPAIR_POLICY = "repair_policy";
@@ -52,7 +52,8 @@ namespace kinetica
             /// </summary>
             public const string SHRINK_COLUMNS = "shrink_columns";
 
-            /// <summary>Manually invokes wal replay on the table</summary>
+            /// <summary>Manually invokes write-ahead log (WAL) replay on the
+            /// table</summary>
             public const string REPLAY_WAL = "replay_wal";
 
             /// <summary>If <see cref="Options.FALSE">FALSE</see> only table
@@ -104,8 +105,8 @@ namespace kinetica
         ///             <item>
         ///                 <term><see
         ///                 cref="Options.REPLAY_WAL">REPLAY_WAL</see>:</term>
-        ///                 <description>Manually invokes wal replay on the
-        ///                 table</description>
+        ///                 <description>Manually invokes write-ahead log (WAL)
+        ///                 replay on the table</description>
         ///             </item>
         ///         </list></description>
         ///     </item>
@@ -166,8 +167,8 @@ namespace kinetica
         ///             <item>
         ///                 <term><see
         ///                 cref="Options.REPLAY_WAL">REPLAY_WAL</see>:</term>
-        ///                 <description>Manually invokes wal replay on the
-        ///                 table</description>
+        ///                 <description>Manually invokes write-ahead log (WAL)
+        ///                 replay on the table</description>
         ///             </item>
         ///         </list></description>
         ///     </item>

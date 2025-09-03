@@ -35,20 +35,6 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string REMOVE_JOB_ON_COMPLETE = "remove_job_on_complete";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
             /// <summary>Tag to use for submitted job.</summary>
             /// <remarks><para>The same tag could be used on backup cluster to
             /// retrieve response for the job. Tags can use letter, numbers,
@@ -102,20 +88,6 @@ namespace kinetica
 
         /// <summary>Optional parameters.</summary>
         /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:
-        ///         </term>
-        ///         <description>Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
         ///     <item>
         ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
         ///         <description>Tag to use for submitted job. The same tag
@@ -172,20 +144,6 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:
-        ///         </term>
-        ///         <description>Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
         ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
         ///         <description>Tag to use for submitted job. The same tag
         ///         could be used on backup cluster to retrieve response for
@@ -219,9 +177,12 @@ namespace kinetica
         public struct Info
         {
             /// <summary>The job tag specified by the user or if unspecified by
-            /// user, a unique identifier generated internally for the job
-            /// across clusters.</summary>
+            /// user, a unique identifier generated internally.</summary>
             public const string JOB_TAG = "job_tag";
+
+            /// <summary>A unique identifier for this job generated for use in
+            /// tracing telemetry data</summary>
+            public const string QUERY_ID = "query_id";
         } // end struct Info
 
         /// <summary>An identifier for the job created by this call.</summary>
@@ -233,7 +194,12 @@ namespace kinetica
         ///         <term><see cref="Info.JOB_TAG">JOB_TAG</see>:</term>
         ///         <description>The job tag specified by the user or if
         ///         unspecified by user, a unique identifier generated
-        ///         internally for the job across clusters.</description>
+        ///         internally.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Info.QUERY_ID">QUERY_ID</see>:</term>
+        ///         <description>A unique identifier for this job generated for
+        ///         use in tracing telemetry data</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>

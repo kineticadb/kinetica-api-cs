@@ -30,7 +30,7 @@ namespace kinetica
             /// </summary>
             public const string DATASINK_NAME = "datasink_name";
 
-            /// <summary>Executes the statement per each jdbc session before
+            /// <summary>Executes the statement per each JDBC session before
             /// doing actual load.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string JDBC_SESSION_INIT_STATEMENT = "jdbc_session_init_statement";
@@ -46,7 +46,7 @@ namespace kinetica
             /// cannot be specified. The default value is ''.</para></remarks>
             public const string REMOTE_TABLE = "remote_table";
 
-            /// <summary>Wraps parametrized variables with st_geomfromtext or
+            /// <summary>Wraps parameterized variables with st_geomfromtext or
             /// st_geomfromwkb based on source column type.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
@@ -111,7 +111,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
         ///         </term>
-        ///         <description>Executes the statement per each jdbc session
+        ///         <description>Executes the statement per each JDBC session
         ///         before doing actual load. The default value is ''.
         ///         </description>
         ///     </item>
@@ -133,7 +133,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
         ///         </term>
-        ///         <description>Wraps parametrized variables with
+        ///         <description>Wraps parameterized variables with
         ///         st_geomfromtext or st_geomfromwkb based on source column
         ///         type.
         ///         Supported values:
@@ -205,7 +205,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
         ///         </term>
-        ///         <description>Executes the statement per each jdbc session
+        ///         <description>Executes the statement per each JDBC session
         ///         before doing actual load. The default value is ''.
         ///         </description>
         ///     </item>
@@ -227,7 +227,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
         ///         </term>
-        ///         <description>Wraps parametrized variables with
+        ///         <description>Wraps parameterized variables with
         ///         st_geomfromtext or st_geomfromwkb based on source column
         ///         type.
         ///         Supported values:

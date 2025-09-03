@@ -27,7 +27,7 @@ namespace kinetica
         public struct Options
         {
             /// <summary>If a non-empty value is specified, the original graph
-            /// will be kept (non-default behaviour) and a new balanced graph
+            /// will be kept (non-default behavior) and a new balanced graph
             /// will be created under this given name.</summary>
             /// <remarks><para> When the value is empty (default), the
             /// generated 'balanced' graph will replace the original
@@ -36,7 +36,7 @@ namespace kinetica
             public const string NEW_GRAPH_NAME = "new_graph_name";
 
             /// <summary>The distributed shortest path solve is run from this
-            /// source node to all the nodes in the graph to create balaced
+            /// source node to all the nodes in the graph to create balanced
             /// partitions using the iso-distance levels of the solution.
             /// </summary>
             /// <remarks><para> The source node is selected by the rebalance
@@ -44,9 +44,6 @@ namespace kinetica
             /// empty string). Otherwise, the user specified node is used as
             /// the source. The default value is ''.</para></remarks>
             public const string SOURCE_NODE = "source_node";
-
-            /// <summary>The default value is ''.</summary>
-            public const string SQL_REQUEST_AVRO_JSON = "sql_request_avro_json";
         } // end struct Options
 
         /// <summary>Name of the graph resource to rebalance.</summary>
@@ -58,7 +55,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:</term>
         ///         <description>If a non-empty value is specified, the
-        ///         original graph will be kept (non-default behaviour) and a
+        ///         original graph will be kept (non-default behavior) and a
         ///         new balanced graph will be created under this given name.
         ///         When the value is empty (default), the generated 'balanced'
         ///         graph will replace the original 'unbalanced' graph under
@@ -69,17 +66,11 @@ namespace kinetica
         ///         </term>
         ///         <description>The distributed shortest path solve is run
         ///         from this source node to all the nodes in the graph to
-        ///         create balaced partitions using the iso-distance levels of
+        ///         create balanced partitions using the iso-distance levels of
         ///         the solution.  The source node is selected by the rebalance
         ///         algorithm automatically (default case when the value is an
         ///         empty string). Otherwise, the user specified node is used
         ///         as the source. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:
-        ///         </term>
-        ///         <description>The default value is ''.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -100,7 +91,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:</term>
         ///         <description>If a non-empty value is specified, the
-        ///         original graph will be kept (non-default behaviour) and a
+        ///         original graph will be kept (non-default behavior) and a
         ///         new balanced graph will be created under this given name.
         ///         When the value is empty (default), the generated 'balanced'
         ///         graph will replace the original 'unbalanced' graph under
@@ -111,17 +102,11 @@ namespace kinetica
         ///         </term>
         ///         <description>The distributed shortest path solve is run
         ///         from this source node to all the nodes in the graph to
-        ///         create balaced partitions using the iso-distance levels of
+        ///         create balanced partitions using the iso-distance levels of
         ///         the solution.  The source node is selected by the rebalance
         ///         algorithm automatically (default case when the value is an
         ///         empty string). Otherwise, the user specified node is used
         ///         as the source. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:
-        ///         </term>
-        ///         <description>The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

@@ -234,6 +234,12 @@ namespace kinetica
             /// target="_top">tier strategy</a> for the table and its columns.
             /// </summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
+
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for this table's columns.
+            /// </summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
         } // end struct CreateTableOptions
 
         /// <summary>A set of string constants for the parameter <see
@@ -241,40 +247,6 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <summary>Optional number of bytes to skip when reading an avro
-            /// record.</summary>
-            public const string AVRO_HEADER_BYTES = "avro_header_bytes";
-
-            /// <summary>Optional number of avro records, if data includes only
-            /// records.</summary>
-            public const string AVRO_NUM_RECORDS = "avro_num_records";
-
-            /// <summary>Optional string representing avro schema, for insert
-            /// records in avro format, that does not include is schema.
-            /// </summary>
-            public const string AVRO_SCHEMA = "avro_schema";
-
-            /// <summary>When user provides 'avro_schema', avro data is assumed
-            /// to be schemaless, unless specified.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string AVRO_SCHEMALESS = "avro_schemaless";
-
-            /// <summary>Upsert new records when primary keys match existing
-            /// records</summary>
-            public const string TRUE = "true";
-
-            /// <summary>Reject new records when primary keys match existing
-            /// records</summary>
-            public const string FALSE = "false";
-
             /// <summary>Optional name of a table to which records that were
             /// rejected are written.</summary>
             /// <remarks><para> The bad-record-table has the following columns:
@@ -538,8 +510,16 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string FLATTEN_COLUMNS = "flatten_columns";
 
+            /// <summary>Upsert new records when primary keys match existing
+            /// records</summary>
+            public const string TRUE = "true";
+
+            /// <summary>Reject new records when primary keys match existing
+            /// records</summary>
+            public const string FALSE = "false";
+
             /// <summary>Comma separated list of gdal conf options, for the
-            /// specific requets: key=value.</summary>
+            /// specific requests: key=value.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string GDAL_CONFIGURATION_OPTIONS = "gdal_configuration_options";
 
@@ -734,16 +714,33 @@ namespace kinetica
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string PRIMARY_KEYS = "primary_keys";
 
-            public const string SCHEMA_REGISTRY_SCHEMA_ID = "schema_registry_schema_id";
+            /// <summary>Confluent Schema registry connection timeout (in Secs)
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
+
+            /// <summary>Confluent Schema registry connection timeout (in Secs)
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
+
+            /// <summary>Max records to skip due to SR connection failures,
+            /// before failing</summary>
+            public const string SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES = "schema_registry_max_consecutive_connection_failures";
+
+            /// <summary>Max records to skip due to schema related errors,
+            /// before failing</summary>
+            public const string MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE = "max_consecutive_invalid_schema_failure";
+
+            /// <summary>Name of the Avro schema in the schema registry to use
+            /// when reading Avro records.</summary>
             public const string SCHEMA_REGISTRY_SCHEMA_NAME = "schema_registry_schema_name";
-            public const string SCHEMA_REGISTRY_SCHEMA_VERSION = "schema_registry_schema_version";
 
             /// <summary>Optional: comma separated list of column names, to set
             /// as primary keys, when not specified in the type.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string SHARD_KEYS = "shard_keys";
 
-            /// <summary>Skip number of lines from begining of file.</summary>
+            /// <summary>Skip a number of lines from the beginning of the file.
+            /// </summary>
             public const string SKIP_LINES = "skip_lines";
 
             /// <summary>Continuously poll the data source to check for new
@@ -867,7 +864,7 @@ namespace kinetica
 
             /// <summary>Add 'text_search' property to internally inferenced
             /// string columns.</summary>
-            /// <remarks><para>Comma seperated list of column names or '*' for
+            /// <remarks><para>Comma separated list of column names or '*' for
             /// all columns. To add text_search property only to string columns
             /// of minimum size, set also the option
             /// 'text_search_min_column_length'</para></remarks>
@@ -909,6 +906,9 @@ namespace kinetica
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string TRUNCATE_TABLE = "truncate_table";
+
+            /// <summary>The default value is ''.</summary>
+            public const string TYPE_INFERENCE_MAX_RECORDS_READ = "type_inference_max_records_read";
 
             /// <summary>optimize type inference for:</summary>
             /// <remarks><para>Supported values:</para>
@@ -1237,51 +1237,21 @@ namespace kinetica
         ///         target="_top">tier strategy</a> for the table and its
         ///         columns.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
+        ///         columns.</description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> create_table_options { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Optional parameters.</summary>
         /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:
-        ///         </term>
-        ///         <description>Optional number of bytes to skip when reading
-        ///         an avro record.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:
-        ///         </term>
-        ///         <description>Optional number of avro records, if data
-        ///         includes only records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Optional string representing avro schema, for
-        ///         insert records in avro format, that does not include is
-        ///         schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:
-        ///         </term>
-        ///         <description>When user provides 'avro_schema', avro data is
-        ///         assumed to be schemaless, unless specified. Default is
-        ///         'true' when given avro_schema. Igonred when avro_schema is
-        ///         not given.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
@@ -1534,7 +1504,7 @@ namespace kinetica
         ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
         ///         </term>
         ///         <description>Comma separated list of gdal conf options, for
-        ///         the specific requets: key=value. The default value is ''.
+        ///         the specific requests: key=value. The default value is ''.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -1718,18 +1688,38 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
         ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
         ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>
+        ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
         ///         </term>
+        ///         <description>Max records to skip due to SR connection
+        ///         failures, before failing</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
+        ///         </term>
+        ///         <description>Max records to skip due to schema related
+        ///         errors, before failing</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the Avro schema in the schema registry
+        ///         to use when reading Avro records.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:
@@ -1741,8 +1731,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
         ///         </term>
-        ///         <description>Skip number of lines from begining of file.
-        ///         </description>
+        ///         <description>Skip a number of lines from the beginning of
+        ///         the file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
@@ -1889,7 +1879,7 @@ namespace kinetica
         ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
         ///         </term>
         ///         <description>Add 'text_search' property to internally
-        ///         inferenced string columns. Comma seperated list of column
+        ///         inferenced string columns. Comma separated list of column
         ///         names or '*' for all columns. To add text_search property
         ///         only to string columns of minimum size, set also the option
         ///         'text_search_min_column_length'</description>
@@ -1937,6 +1927,12 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>:
+        ///         </term>
+        ///         <description>The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2277,49 +2273,19 @@ namespace kinetica
         ///         target="_top">tier strategy</a> for the table and its
         ///         columns.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
+        ///         columns.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:
-        ///         </term>
-        ///         <description>Optional number of bytes to skip when reading
-        ///         an avro record.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:
-        ///         </term>
-        ///         <description>Optional number of avro records, if data
-        ///         includes only records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:
-        ///         </term>
-        ///         <description>Optional string representing avro schema, for
-        ///         insert records in avro format, that does not include is
-        ///         schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:
-        ///         </term>
-        ///         <description>When user provides 'avro_schema', avro data is
-        ///         assumed to be schemaless, unless specified. Default is
-        ///         'true' when given avro_schema. Igonred when avro_schema is
-        ///         not given.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
@@ -2572,7 +2538,7 @@ namespace kinetica
         ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
         ///         </term>
         ///         <description>Comma separated list of gdal conf options, for
-        ///         the specific requets: key=value. The default value is ''.
+        ///         the specific requests: key=value. The default value is ''.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -2756,18 +2722,38 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_ID">SCHEMA_REGISTRY_SCHEMA_ID</see>
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
         ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
         ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_VERSION">SCHEMA_REGISTRY_SCHEMA_VERSION</see>
+        ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
         ///         </term>
+        ///         <description>Max records to skip due to SR connection
+        ///         failures, before failing</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
+        ///         </term>
+        ///         <description>Max records to skip due to schema related
+        ///         errors, before failing</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
+        ///         </term>
+        ///         <description>Name of the Avro schema in the schema registry
+        ///         to use when reading Avro records.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:
@@ -2779,8 +2765,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
         ///         </term>
-        ///         <description>Skip number of lines from begining of file.
-        ///         </description>
+        ///         <description>Skip a number of lines from the beginning of
+        ///         the file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
@@ -2927,7 +2913,7 @@ namespace kinetica
         ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
         ///         </term>
         ///         <description>Add 'text_search' property to internally
-        ///         inferenced string columns. Comma seperated list of column
+        ///         inferenced string columns. Comma separated list of column
         ///         names or '*' for all columns. To add text_search property
         ///         only to string columns of minimum size, set also the option
         ///         'text_search_min_column_length'</description>
@@ -2975,6 +2961,12 @@ namespace kinetica
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>:
+        ///         </term>
+        ///         <description>The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

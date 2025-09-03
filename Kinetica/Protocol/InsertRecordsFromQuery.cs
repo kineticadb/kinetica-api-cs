@@ -222,6 +222,12 @@ namespace kinetica
             /// target="_top">tier strategy</a> for the table and its columns.
             /// </summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
+
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for this table's columns.
+            /// </summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
         } // end struct CreateTableOptions
 
         /// <summary>A set of string constants for the parameter <see
@@ -755,6 +761,15 @@ namespace kinetica
         ///         <description>The <a
         ///         href="../../../rm/concepts/#tier-strategies"
         ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
         ///         columns.</description>
         ///     </item>
         /// </list>
@@ -1335,6 +1350,15 @@ namespace kinetica
         ///         <description>The <a
         ///         href="../../../rm/concepts/#tier-strategies"
         ///         target="_top">tier strategy</a> for the table and its
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
         ///         columns.</description>
         ///     </item>
         /// </list>

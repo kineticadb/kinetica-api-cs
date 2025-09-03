@@ -21,29 +21,41 @@ namespace kinetica
         /// respective attribute group limits.  The only valid attribute limit
         /// that can be set is max_memory (in bytes) for the VRAM & RAM
         /// tiers.</para>
-        /// <para>For instance, to set max VRAM capacity to 1GB and max RAM
-        /// capacity to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// <para>For instance, to set max VRAM capacity to 1GB per rank per
+        /// GPU and max RAM capacity to 10GB per rank, use:
+        /// {'VRAM':{'max_memory':'1000000000'},
         /// 'RAM':{'max_memory':'10000000000'}}</para></remarks>
         public struct TierAttributes
         {
-            /// <summary>Maximum amount of memory usable in the given tier at
-            /// one time for this group.</summary>
+            /// <summary>Maximum amount of memory usable at one time, per rank,
+            /// per GPU, for the VRAM tier; or maximum amount of memory usable
+            /// at one time, per rank, for the RAM tier.</summary>
             public const string MAX_MEMORY = "max_memory";
         } // end struct TierAttributes
 
         /// <summary>A set of string constants for the parameter <see
         /// cref="ranking" />.</summary>
         /// <remarks><para>Indicates the relative ranking among existing
-        /// resource groups where this new resource group will be placed.  When
-        /// using <see cref="Ranking.BEFORE">BEFORE</see> or <see
-        /// cref="Ranking.AFTER">AFTER</see>, specify which resource group this
-        /// one will be inserted before or after in <see
-        /// cref="adjoining_resource_group" />.</para></remarks>
+        /// resource groups where this new resource group will be placed.
+        /// </para></remarks>
         public struct Ranking
         {
+            /// <summary>Make this resource group the new first one in the
+            /// ordering</summary>
             public const string FIRST = "first";
+
+            /// <summary>Make this resource group the new last one in the
+            /// ordering</summary>
             public const string LAST = "last";
+
+            /// <summary>Place this resource group before the one specified by
+            /// <see cref="adjoining_resource_group" /> in the ordering
+            /// </summary>
             public const string BEFORE = "before";
+
+            /// <summary>Place this resource group after the one specified by
+            /// <see cref="adjoining_resource_group" /> in the ordering
+            /// </summary>
             public const string AFTER = "after";
         } // end struct Ranking
 
@@ -53,15 +65,15 @@ namespace kinetica
         public struct Options
         {
             /// <summary>Maximum number of simultaneous threads that will be
-            /// used to execute a request for this group.</summary>
+            /// used to execute a request, per rank, for this group.</summary>
             /// <remarks><para>The minimum allowed value is '4'.</para>
             /// </remarks>
             public const string MAX_CPU_CONCURRENCY = "max_cpu_concurrency";
 
-            /// <summary>Maximum amount of cumulative ram usage regardless of
-            /// tier status for this group.</summary>
-            /// <remarks><para>The minimum allowed value is '-1'.</para>
-            /// </remarks>
+            /// <summary>Maximum amount of data, per rank, in bytes, that can
+            /// be used by all database objects within this group.</summary>
+            /// <remarks><para> Set to -1 to indicate no upper limit. The
+            /// minimum allowed value is '-1'.</para></remarks>
             public const string MAX_DATA = "max_data";
 
             /// <summary>Maximum priority of a scheduled task for this group.
@@ -89,8 +101,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         ///         cref="TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:</term>
-        ///         <description>Maximum amount of memory usable in the given
-        ///         tier at one time for this group.</description>
+        ///         <description>Maximum amount of memory usable at one time,
+        ///         per rank, per GPU, for the VRAM tier; or maximum amount of
+        ///         memory usable at one time, per rank, for the RAM tier.
+        ///         </description>
         ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -101,16 +115,26 @@ namespace kinetica
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Ranking.FIRST">FIRST</see></term>
+        ///         <term><see cref="Ranking.FIRST">FIRST</see>:</term>
+        ///         <description>Make this resource group the new first one in
+        ///         the ordering</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.LAST">LAST</see></term>
+        ///         <term><see cref="Ranking.LAST">LAST</see>:</term>
+        ///         <description>Make this resource group the new last one in
+        ///         the ordering</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.BEFORE">BEFORE</see></term>
+        ///         <term><see cref="Ranking.BEFORE">BEFORE</see>:</term>
+        ///         <description>Place this resource group before the one
+        ///         specified by <see cref="adjoining_resource_group" /> in the
+        ///         ordering</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.AFTER">AFTER</see></term>
+        ///         <term><see cref="Ranking.AFTER">AFTER</see>:</term>
+        ///         <description>Place this resource group after the one
+        ///         specified by <see cref="adjoining_resource_group" /> in the
+        ///         ordering</description>
         ///     </item>
         /// </list></remarks>
         public string ranking { get; set; }
@@ -130,14 +154,15 @@ namespace kinetica
         ///         cref="Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:
         ///         </term>
         ///         <description>Maximum number of simultaneous threads that
-        ///         will be used to execute a request for this group. The
-        ///         minimum allowed value is '4'.</description>
+        ///         will be used to execute a request, per rank, for this
+        ///         group. The minimum allowed value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.MAX_DATA">MAX_DATA</see>:</term>
-        ///         <description>Maximum amount of cumulative ram usage
-        ///         regardless of tier status for this group. The minimum
-        ///         allowed value is '-1'.</description>
+        ///         <description>Maximum amount of data, per rank, in bytes,
+        ///         that can be used by all database objects within this group.
+        ///         Set to -1 to indicate no upper limit. The minimum allowed
+        ///         value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -173,37 +198,46 @@ namespace kinetica
         /// and their respective attribute group limits.  The only valid
         /// attribute limit that can be set is max_memory (in bytes) for the
         /// VRAM & RAM tiers.
-        /// For instance, to set max VRAM capacity to 1GB and max RAM capacity
-        /// to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// For instance, to set max VRAM capacity to 1GB per rank per GPU and
+        /// max RAM capacity to 10GB per rank, use:
+        /// {'VRAM':{'max_memory':'1000000000'},
         /// 'RAM':{'max_memory':'10000000000'}}.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         ///         cref="TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:</term>
-        ///         <description>Maximum amount of memory usable in the given
-        ///         tier at one time for this group.</description>
+        ///         <description>Maximum amount of memory usable at one time,
+        ///         per rank, per GPU, for the VRAM tier; or maximum amount of
+        ///         memory usable at one time, per rank, for the RAM tier.
+        ///         </description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
         /// <param name="ranking">Indicates the relative ranking among existing
-        /// resource groups where this new resource group will be placed.  When
-        /// using <see cref="Ranking.BEFORE">BEFORE</see> or <see
-        /// cref="Ranking.AFTER">AFTER</see>, specify which resource group this
-        /// one will be inserted before or after in <paramref
-        /// name="adjoining_resource_group" />.
+        /// resource groups where this new resource group will be placed.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Ranking.FIRST">FIRST</see></term>
+        ///         <term><see cref="Ranking.FIRST">FIRST</see>:</term>
+        ///         <description>Make this resource group the new first one in
+        ///         the ordering</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.LAST">LAST</see></term>
+        ///         <term><see cref="Ranking.LAST">LAST</see>:</term>
+        ///         <description>Make this resource group the new last one in
+        ///         the ordering</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.BEFORE">BEFORE</see></term>
+        ///         <term><see cref="Ranking.BEFORE">BEFORE</see>:</term>
+        ///         <description>Place this resource group before the one
+        ///         specified by <paramref name="adjoining_resource_group" />
+        ///         in the ordering</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.AFTER">AFTER</see></term>
+        ///         <term><see cref="Ranking.AFTER">AFTER</see>:</term>
+        ///         <description>Place this resource group after the one
+        ///         specified by <paramref name="adjoining_resource_group" />
+        ///         in the ordering</description>
         ///     </item>
         /// </list></param>
         /// <param name="adjoining_resource_group">If <paramref name="ranking"
@@ -218,14 +252,15 @@ namespace kinetica
         ///         cref="Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:
         ///         </term>
         ///         <description>Maximum number of simultaneous threads that
-        ///         will be used to execute a request for this group. The
-        ///         minimum allowed value is '4'.</description>
+        ///         will be used to execute a request, per rank, for this
+        ///         group. The minimum allowed value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.MAX_DATA">MAX_DATA</see>:</term>
-        ///         <description>Maximum amount of cumulative ram usage
-        ///         regardless of tier status for this group. The minimum
-        ///         allowed value is '-1'.</description>
+        ///         <description>Maximum amount of data, per rank, in bytes,
+        ///         that can be used by all database objects within this group.
+        ///         Set to -1 to indicate no upper limit. The minimum allowed
+        ///         value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

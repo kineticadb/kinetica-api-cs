@@ -121,7 +121,8 @@ namespace kinetica
 
             /// <summary>If <see cref="Options.TRUE">TRUE</see>, only the
             /// presence of orphaned table directories will be checked, all
-            /// persistence checks will be skipped.</summary>
+            /// persistence and table consistency checks will be skipped.
+            /// </summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -134,6 +135,20 @@ namespace kinetica
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string VERIFY_ORPHANED_TABLES_ONLY = "verify_orphaned_tables_only";
+
+            /// <summary>Comma-separated list of table names to include when
+            /// verifying table consistency on wokers.</summary>
+            /// <remarks><para>Cannot be used simultaneously with <see
+            /// cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>.</para>
+            /// </remarks>
+            public const string TABLE_INCLUDES = "table_includes";
+
+            /// <summary>Comma-separated list of table names to exclude when
+            /// verifying table consistency on wokers.</summary>
+            /// <remarks><para>Cannot be used simultaneously with <see
+            /// cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>.</para>
+            /// </remarks>
+            public const string TABLE_EXCLUDES = "table_excludes";
         } // end struct Options
 
         /// <summary>Optional parameters.</summary>
@@ -239,11 +254,9 @@ namespace kinetica
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see>,
         ///         orphaned table directories found on workers for which there
-        ///         is no corresponding metadata will be deleted. Must set <see
-        ///         cref="Options.VERIFY_PERSIST">VERIFY_PERSIST</see> in <see
-        ///         cref="options" /> to <see cref="Options.TRUE">TRUE</see>.
-        ///         It is recommended to run this while the database is offline
-        ///         OR set <see
+        ///         is no corresponding metadata will be deleted. It is
+        ///         recommended to run this while the database is offline OR
+        ///         set <see
         ///         cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see> in
         ///         <see cref="options" /> to <see
         ///         cref="Options.TRUE">TRUE</see>.
@@ -265,7 +278,8 @@ namespace kinetica
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see>, only
         ///         the presence of orphaned table directories will be checked,
-        ///         all persistence checks will be skipped.
+        ///         all persistence and table consistency checks will be
+        ///         skipped.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -276,6 +290,24 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
+        ///         <description>Comma-separated list of table names to include
+        ///         when verifying table consistency on wokers. Cannot be used
+        ///         simultaneously with <see
+        ///         cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
+        ///         <description>Comma-separated list of table names to exclude
+        ///         when verifying table consistency on wokers. Cannot be used
+        ///         simultaneously with <see
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>.
         ///         </description>
         ///     </item>
         /// </list>
@@ -392,11 +424,9 @@ namespace kinetica
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see>,
         ///         orphaned table directories found on workers for which there
-        ///         is no corresponding metadata will be deleted. Must set <see
-        ///         cref="Options.VERIFY_PERSIST">VERIFY_PERSIST</see> in
-        ///         <paramref name="options" /> to <see
-        ///         cref="Options.TRUE">TRUE</see>. It is recommended to run
-        ///         this while the database is offline OR set <see
+        ///         is no corresponding metadata will be deleted. It is
+        ///         recommended to run this while the database is offline OR
+        ///         set <see
         ///         cref="Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see> in
         ///         <paramref name="options" /> to <see
         ///         cref="Options.TRUE">TRUE</see>.
@@ -418,7 +448,8 @@ namespace kinetica
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see>, only
         ///         the presence of orphaned table directories will be checked,
-        ///         all persistence checks will be skipped.
+        ///         all persistence and table consistency checks will be
+        ///         skipped.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -429,6 +460,24 @@ namespace kinetica
         ///             </item>
         ///         </list>
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
+        ///         <description>Comma-separated list of table names to include
+        ///         when verifying table consistency on wokers. Cannot be used
+        ///         simultaneously with <see
+        ///         cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
+        ///         <description>Comma-separated list of table names to exclude
+        ///         when verifying table consistency on wokers. Cannot be used
+        ///         simultaneously with <see
+        ///         cref="Options.TABLE_INCLUDES">TABLE_INCLUDES</see>.
         ///         </description>
         ///     </item>
         /// </list>

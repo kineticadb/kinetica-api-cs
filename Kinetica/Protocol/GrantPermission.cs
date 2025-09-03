@@ -85,6 +85,9 @@ namespace kinetica
             /// <summary>Ability to read, list and use the object.</summary>
             public const string READ = "read";
 
+            /// <summary>Ability to send system alerts.</summary>
+            public const string SEND_ALERT = "send_alert";
+
             /// <summary>Update access to the table.</summary>
             public const string UPDATE = "update";
 
@@ -237,6 +240,11 @@ namespace kinetica
         ///         <term><see cref="Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the object.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Permission.SEND_ALERT">SEND_ALERT</see>:
+        ///         </term>
+        ///         <description>Ability to send system alerts.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
@@ -399,6 +407,11 @@ namespace kinetica
         ///         <term><see cref="Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the object.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Permission.SEND_ALERT">SEND_ALERT</see>:
+        ///         </term>
+        ///         <description>Ability to send system alerts.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>

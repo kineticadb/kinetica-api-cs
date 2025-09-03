@@ -79,6 +79,22 @@ namespace kinetica
             /// </para></remarks>
             public const string FORCE_SYNCHRONOUS = "force_synchronous";
 
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> then data about
+            /// the last read, write, alter and create will be returned.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string GET_ACCESS_DATA = "get_access_data";
+
             /// <summary>If <see cref="Options.TRUE">TRUE</see> then the number
             /// of records in each table, along with a cumulative count, will
             /// be returned; blank, otherwise.</summary>
@@ -111,6 +127,21 @@ namespace kinetica
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string GET_SIZES = "get_sizes";
 
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> then the
+            /// response will not populate the additional_info field.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string SKIP_ADDITIONAL_INFO = "skip_additional_info";
+
             /// <summary>If <see cref="Options.FALSE">FALSE</see> will return
             /// an error if the provided <see cref="table_name" /> does not
             /// exist.</summary>
@@ -126,6 +157,22 @@ namespace kinetica
             /// <para>The default value is <see
             /// cref="Options.FALSE">FALSE</see>.</para></remarks>
             public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
+
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> then the table
+            /// list will not include tables from SYS_TEMP and other system
+            /// temporary schemas.</summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string SKIP_TEMP_SCHEMAS = "skip_temp_schemas";
 
             /// <summary>If <see cref="table_name" /> is a schema, then <see
             /// cref="Options.TRUE">TRUE</see> will return information about
@@ -207,13 +254,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="Options.GET_ACCESS_DATA">GET_ACCESS_DATA</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         data about the last read, write, alter and create will be
+        ///         returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> then
         ///         the number of records in each table, along with a
         ///         cumulative count, will be returned; blank, otherwise. This
         ///         version will return the sizes cached at rank 0, which may
-        ///         be stale if there is a multihead insert occuring.
+        ///         be stale if there is a multihead insert occurring.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -245,12 +311,50 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="Options.SKIP_ADDITIONAL_INFO">SKIP_ADDITIONAL_INFO</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         the response will not populate the additional_info field.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
         ///         </term>
         ///         <description>If <see cref="Options.FALSE">FALSE</see> will
         ///         return an error if the provided <see cref="table_name" />
         ///         does not exist. If <see cref="Options.TRUE">TRUE</see> then
         ///         it will return an empty result.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SKIP_TEMP_SCHEMAS">SKIP_TEMP_SCHEMAS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         the table list will not include tables from SYS_TEMP and
+        ///         other system temporary schemas.  This is the default
+        ///         behavior for non-admin users.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -361,13 +465,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="Options.GET_ACCESS_DATA">GET_ACCESS_DATA</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         data about the last read, write, alter and create will be
+        ///         returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> then
         ///         the number of records in each table, along with a
         ///         cumulative count, will be returned; blank, otherwise. This
         ///         version will return the sizes cached at rank 0, which may
-        ///         be stale if there is a multihead insert occuring.
+        ///         be stale if there is a multihead insert occurring.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -399,12 +522,50 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        ///         cref="Options.SKIP_ADDITIONAL_INFO">SKIP_ADDITIONAL_INFO</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         the response will not populate the additional_info field.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
         ///         </term>
         ///         <description>If <see cref="Options.FALSE">FALSE</see> will
         ///         return an error if the provided <paramref name="table_name"
         ///         /> does not exist. If <see cref="Options.TRUE">TRUE</see>
         ///         then it will return an empty result.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SKIP_TEMP_SCHEMAS">SKIP_TEMP_SCHEMAS</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
+        ///         the table list will not include tables from SYS_TEMP and
+        ///         other system temporary schemas.  This is the default
+        ///         behavior for non-admin users.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -726,10 +887,6 @@ namespace kinetica
             /// </remarks>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
-            /// <summary>No longer supported.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string COMPRESSED_COLUMNS = "compressed_columns";
-
             /// <summary>JSON-encoded string representing a map of column name
             /// to information including memory usage if the <see
             /// cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>
@@ -812,7 +969,7 @@ namespace kinetica
             public const string REFRESH_METHOD = "refresh_method";
 
             /// <summary>For materialized view with periodic refresh_method the
-            /// current intial datetime string that periodic refreshes began.
+            /// initial datetime string that periodic refreshes began.
             /// </summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string REFRESH_START_TIME = "refresh_start_time";
@@ -827,7 +984,7 @@ namespace kinetica
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string REFRESH_PERIOD = "refresh_period";
 
-            /// <summary>For materialized view the a datatime string indicating
+            /// <summary>For materialized view the datetime string indicating
             /// the last time the view was refreshed.</summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string LAST_REFRESH_TIME = "last_refresh_time";
@@ -871,6 +1028,60 @@ namespace kinetica
             /// </summary>
             /// <remarks><para>The default value is ''.</para></remarks>
             public const string NULL_MODIFYING_COLUMNS = "null_modifying_columns";
+
+            /// <summary>Default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for the table.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
+            /// <summary>User that created this table or view.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string CREATED_BY = "created_by";
+
+            /// <summary>Time (UTC) when this table or view was created.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string CREATED_TIME = "created_time";
+
+            /// <summary>User that last read this table or view.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string LAST_READ_BY = "last_read_by";
+
+            /// <summary>Time (UTC) when this table or view was last read.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string LAST_READ_TIME = "last_read_time";
+
+            /// <summary>Count of times this table or view was read.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string READ_COUNT = "read_count";
+
+            /// <summary>User that last wrote to this table.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string LAST_WRITE_BY = "last_write_by";
+
+            /// <summary>Time (UTC) when this table was last written.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string LAST_WRITE_TIME = "last_write_time";
+
+            /// <summary>Count of times this table was written.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string WRITE_COUNT = "write_count";
+
+            /// <summary>User that last altered this table or view.</summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string LAST_ALTER_BY = "last_alter_by";
+
+            /// <summary>Time (UTC) when this table or view was last altered.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string LAST_ALTER_TIME = "last_alter_time";
+
+            /// <summary>Count of times this table or view was altered.
+            /// </summary>
+            /// <remarks><para>The default value is ''.</para></remarks>
+            public const string ALTER_COUNT = "alter_count";
         } // end struct AdditionalInfo
 
         /// <summary>Value of <see
@@ -956,7 +1167,7 @@ namespace kinetica
         /// </list></remarks>
         public IList<IList<string>> table_descriptions { get; set; } = new List<IList<string>>();
 
-        /// <summary>Type ids of the respective tables in <see
+        /// <summary>Type IDs of the respective tables in <see
         /// cref="table_names" />.</summary>
         public IList<string> type_ids { get; set; } = new List<string>();
 
@@ -1207,13 +1418,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="AdditionalInfo.COMPRESSED_COLUMNS">COMPRESSED_COLUMNS</see>:
-        ///         </term>
-        ///         <description>No longer supported. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="AdditionalInfo.COLUMN_INFO">COLUMN_INFO</see>:</term>
         ///         <description>JSON-encoded string representing a map of
         ///         column name to information including memory usage if the
@@ -1299,9 +1503,8 @@ namespace kinetica
         ///         cref="AdditionalInfo.REFRESH_START_TIME">REFRESH_START_TIME</see>:
         ///         </term>
         ///         <description>For materialized view with periodic
-        ///         refresh_method the current intial datetime string that
-        ///         periodic refreshes began. The default value is ''.
-        ///         </description>
+        ///         refresh_method the initial datetime string that periodic
+        ///         refreshes began. The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1322,7 +1525,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="AdditionalInfo.LAST_REFRESH_TIME">LAST_REFRESH_TIME</see>:
         ///         </term>
-        ///         <description>For materialized view the a datatime string
+        ///         <description>For materialized view the datetime string
         ///         indicating the last time the view was refreshed. The
         ///         default value is ''.</description>
         ///     </item>
@@ -1388,6 +1591,88 @@ namespace kinetica
         ///         </term>
         ///         <description>Comma-separated list of null modifying column
         ///         names. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>Default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the table. The
+        ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.CREATED_BY">CREATED_BY</see>:</term>
+        ///         <description>User that created this table or view. The
+        ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.CREATED_TIME">CREATED_TIME</see>:
+        ///         </term>
+        ///         <description>Time (UTC) when this table or view was
+        ///         created. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.LAST_READ_BY">LAST_READ_BY</see>:
+        ///         </term>
+        ///         <description>User that last read this table or view. The
+        ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.LAST_READ_TIME">LAST_READ_TIME</see>:
+        ///         </term>
+        ///         <description>Time (UTC) when this table or view was last
+        ///         read. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.READ_COUNT">READ_COUNT</see>:</term>
+        ///         <description>Count of times this table or view was read.
+        ///         The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.LAST_WRITE_BY">LAST_WRITE_BY</see>:
+        ///         </term>
+        ///         <description>User that last wrote to this table. The
+        ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.LAST_WRITE_TIME">LAST_WRITE_TIME</see>:
+        ///         </term>
+        ///         <description>Time (UTC) when this table was last written.
+        ///         The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.WRITE_COUNT">WRITE_COUNT</see>:</term>
+        ///         <description>Count of times this table was written. The
+        ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.LAST_ALTER_BY">LAST_ALTER_BY</see>:
+        ///         </term>
+        ///         <description>User that last altered this table or view. The
+        ///         default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.LAST_ALTER_TIME">LAST_ALTER_TIME</see>:
+        ///         </term>
+        ///         <description>Time (UTC) when this table or view was last
+        ///         altered. The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AdditionalInfo.ALTER_COUNT">ALTER_COUNT</see>:</term>
+        ///         <description>Count of times this table or view was altered.
+        ///         The default value is ''.</description>
         ///     </item>
         /// </list></remarks>
         public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();

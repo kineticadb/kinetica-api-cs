@@ -41,6 +41,22 @@ namespace kinetica
 
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If <see cref="Options.TRUE">TRUE</see> only return the
+            /// names of the installed environments and omit package listing.
+            /// </summary>
+            /// <remarks><para>Supported values:</para>
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see cref="Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see cref="Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// <para>The default value is <see
+            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
+            public const string SHOW_NAMES_ONLY = "show_names_only";
         } // end struct Options
 
         /// <summary>Name of the environment on which to retrieve information.
@@ -63,6 +79,25 @@ namespace kinetica
         ///         cref="Options.FALSE">FALSE</see> and if the environment
         ///         specified in <see cref="environment_name" /> does not
         ///         exist, then an error is returned.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SHOW_NAMES_ONLY">SHOW_NAMES_ONLY</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> only
+        ///         return the names of the installed environments and omit
+        ///         package listing.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -116,6 +151,25 @@ namespace kinetica
         ///         The default value is <see cref="Options.FALSE">FALSE</see>.
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SHOW_NAMES_ONLY">SHOW_NAMES_ONLY</see>:
+        ///         </term>
+        ///         <description>If <see cref="Options.TRUE">TRUE</see> only
+        ///         return the names of the installed environments and omit
+        ///         package listing.
+        ///         Supported values:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+        ///             </item>
+        ///             <item>
+        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+        ///             </item>
+        ///         </list>
+        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         </description>
+        ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>
         public ShowEnvironmentRequest( string environment_name = null,
@@ -131,7 +185,7 @@ namespace kinetica
     /// </summary>
     public class ShowEnvironmentResponse : KineticaData
     {
-        /// <summary>A list of all credential names.</summary>
+        /// <summary>A list of all environment names.</summary>
         public IList<string> environment_names { get; set; } = new List<string>();
 
         /// <summary>Information about the installed packages in the respective

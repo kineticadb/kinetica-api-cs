@@ -316,7 +316,7 @@ namespace kinetica
         ///         specified in <see cref="new_values_maps" /> taking its
         ///         place; "insert collisions" will result in the collided-into
         ///         record being updated with the values in <see
-        ///         cref="records_to_insert" />/<see
+        ///         cref="records_to_insert" /> / <see
         ///         cref="records_to_insert_str" /> (if given).
         ///         If set to <see cref="Options.FALSE">FALSE</see>, the
         ///         existing collided-into record will remain unchanged, while
@@ -547,7 +547,7 @@ namespace kinetica
         ///         specified in <paramref name="new_values_maps" /> taking its
         ///         place; "insert collisions" will result in the collided-into
         ///         record being updated with the values in <paramref
-        ///         name="records_to_insert" />/<paramref
+        ///         name="records_to_insert" /> / <paramref
         ///         name="records_to_insert_str" /> (if given).
         ///         If set to <see cref="Options.FALSE">FALSE</see>, the
         ///         existing collided-into record will remain unchanged, while
@@ -805,7 +805,7 @@ namespace kinetica
         ///         specified in <paramref name="new_values_maps" /> taking its
         ///         place; "insert collisions" will result in the collided-into
         ///         record being updated with the values in <paramref
-        ///         name="records_to_insert" />/<paramref
+        ///         name="records_to_insert" /> / <paramref
         ///         name="records_to_insert_str" /> (if given).
         ///         If set to <see cref="Options.FALSE">FALSE</see>, the
         ///         existing collided-into record will remain unchanged, while
@@ -1224,8 +1224,8 @@ namespace kinetica
         ///         into being removed and the record updated with values
         ///         specified in <see cref="new_values_maps" /> taking its
         ///         place; "insert collisions" will result in the collided-into
-        ///         record being updated with the values in <see cref="data"
-        ///         />/<c>records_to_insert_str</c> (if given).
+        ///         record being updated with the values in <see cref="data" />
+        ///         / <c>records_to_insert_str</c> (if given).
         ///         If set to <see cref="Options.FALSE">FALSE</see>, the
         ///         existing collided-into record will remain unchanged, while
         ///         the update will be rejected and the error handled as
@@ -1455,7 +1455,7 @@ namespace kinetica
         ///         specified in <paramref name="new_values_maps" /> taking its
         ///         place; "insert collisions" will result in the collided-into
         ///         record being updated with the values in <paramref
-        ///         name="data" />/<c>records_to_insert_str</c> (if given).
+        ///         name="data" /> / <c>records_to_insert_str</c> (if given).
         ///         If set to <see cref="Options.FALSE">FALSE</see>, the
         ///         existing collided-into record will remain unchanged, while
         ///         the update will be rejected and the error handled as

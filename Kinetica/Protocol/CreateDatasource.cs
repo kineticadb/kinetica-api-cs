@@ -248,6 +248,14 @@ namespace kinetica
 
             /// <summary>Confluent Schema Registry port (optional).</summary>
             public const string SCHEMA_REGISTRY_PORT = "schema_registry_port";
+
+            /// <summary>Confluent Schema registry connection timeout (in Secs)
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
+
+            /// <summary>Confluent Schema registry connection timeout (in Secs)
+            /// </summary>
+            public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
         } // end struct Options
 
         /// <summary>Name of the data source to be created.</summary>
@@ -587,6 +595,20 @@ namespace kinetica
         ///         <description>Confluent Schema Registry port (optional).
         ///         </description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -924,6 +946,20 @@ namespace kinetica
         ///         </term>
         ///         <description>Confluent Schema Registry port (optional).
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Confluent Schema registry connection timeout
+        ///         (in Secs)</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

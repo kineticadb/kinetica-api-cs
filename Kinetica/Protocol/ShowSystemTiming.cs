@@ -12,7 +12,7 @@ namespace kinetica
     /// cref="Kinetica.showSystemTiming(ShowSystemTimingRequest)">Kinetica.showSystemTiming</see>.
     /// </summary>
     /// <remarks><para>Returns the last 100 database requests along with the
-    /// request timing and internal job id. The admin tool uses it to present
+    /// request timing and internal job ID. The admin tool uses it to present
     /// request timing information to the user.</para></remarks>
     public class ShowSystemTimingRequest : KineticaData
     {
@@ -48,7 +48,7 @@ namespace kinetica
         /// <summary>List of time (in ms) of the recent requests.</summary>
         public IList<float> time_in_ms { get; set; } = new List<float>();
 
-        /// <summary>List of the internal job ids for the recent requests.
+        /// <summary>List of the internal job IDs for the recent requests.
         /// </summary>
         public IList<string> jobIds { get; set; } = new List<string>();
 

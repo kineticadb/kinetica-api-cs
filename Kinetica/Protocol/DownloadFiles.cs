@@ -51,7 +51,7 @@ namespace kinetica
         /// <summary>An array of the file names to download from KiFS.
         /// </summary>
         /// <remarks><para>File paths may contain wildcard characters after the
-        /// KiFS directory delimeter.</para>
+        /// KiFS directory delimiter.</para>
         /// <para>Accepted wildcard characters are asterisk (*) to represent
         /// any string of zero or more characters, and question mark (?) to
         /// indicate a single character.</para></remarks>
@@ -111,7 +111,7 @@ namespace kinetica
         ///
         /// <param name="file_names">An array of the file names to download
         /// from KiFS. File paths may contain wildcard characters after the
-        /// KiFS directory delimeter.
+        /// KiFS directory delimiter.
         /// Accepted wildcard characters are asterisk (*) to represent any
         /// string of zero or more characters, and question mark (?) to
         /// indicate a single character.</param>

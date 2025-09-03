@@ -23,13 +23,14 @@ namespace kinetica
         public struct Permission
         {
             /// <summary>For files in the directory, access to list files,
-            /// download files, or use files in server side functions</summary>
+            /// download files, or use files in server side functions.
+            /// </summary>
             public const string DIRECTORY_READ = "directory_read";
 
             /// <summary>Access to upload files to, or delete files from, the
             /// directory.</summary>
             /// <remarks><para>A user or role with write access automatically
-            /// has read acceess</para></remarks>
+            /// has read access.</para></remarks>
             public const string DIRECTORY_WRITE = "directory_write";
         } // end struct Permission
 
@@ -47,7 +48,7 @@ namespace kinetica
         ///         </term>
         ///         <description>For files in the directory, access to list
         ///         files, download files, or use files in server side
-        ///         functions</description>
+        ///         functions.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -55,7 +56,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Access to upload files to, or delete files
         ///         from, the directory. A user or role with write access
-        ///         automatically has read acceess</description>
+        ///         automatically has read access.</description>
         ///     </item>
         /// </list></remarks>
         public string permission { get; set; }
@@ -89,7 +90,7 @@ namespace kinetica
         ///         </term>
         ///         <description>For files in the directory, access to list
         ///         files, download files, or use files in server side
-        ///         functions</description>
+        ///         functions.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -97,7 +98,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Access to upload files to, or delete files
         ///         from, the directory. A user or role with write access
-        ///         automatically has read acceess</description>
+        ///         automatically has read access.</description>
         ///     </item>
         /// </list></param>
         /// <param name="directory_name">Name of the KiFS directory to which

@@ -11,8 +11,8 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.
     /// </summary>
-    /// <remarks><para>Requests table wal properties.
-    /// Returns information about the requested table wal entries.</para>
+    /// <remarks><para>Requests table write-ahead log (WAL) properties.
+    /// Returns information about the requested table WAL entries.</para>
     /// </remarks>
     public class ShowWalRequest : KineticaData
     {
@@ -22,7 +22,7 @@ namespace kinetica
         public struct Options
         {
             /// <summary>If <see cref="Options.TRUE">TRUE</see> include a map
-            /// of the wal settings for the requested tables.</summary>
+            /// of the WAL settings for the requested tables.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -50,7 +50,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:</term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         a map of the wal settings for the requested tables.
+        ///         a map of the WAL settings for the requested tables.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -82,7 +82,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:</term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         a map of the wal settings for the requested tables.
+        ///         a map of the WAL settings for the requested tables.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -113,16 +113,16 @@ namespace kinetica
         /// <summary>List of returned tables.</summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>List of current wal usage.</summary>
+        /// <summary>List of current WAL usage.</summary>
         public IList<IList<long>> sizes { get; set; } = new List<IList<long>>();
 
-        /// <summary>List of wal capacities.</summary>
+        /// <summary>List of WAL capacities.</summary>
         public IList<long> capacities { get; set; } = new List<long>();
 
         /// <summary>List of number of uncommitted entries.</summary>
         public IList<IList<long>> uncommitted { get; set; } = new List<IList<long>>();
 
-        /// <summary>List of table wal settings.</summary>
+        /// <summary>List of table WAL settings.</summary>
         public IList<IDictionary<string, string>> settings { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Additional information.</summary>

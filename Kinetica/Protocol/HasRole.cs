@@ -56,7 +56,7 @@ namespace kinetica
             public const string ONLY_DIRECT = "only_direct";
         } // end struct Options
 
-        /// <summary>Name of the user for which role membersih is being
+        /// <summary>Name of the user for which role membership is being
         /// checked.</summary>
         /// <remarks><para>Must be an existing user. If blank, will use the
         /// current user. The default value is ''.</para></remarks>
@@ -120,7 +120,7 @@ namespace kinetica
         /// <summary>Constructs a HasRoleRequest object with the specified
         /// parameters.</summary>
         ///
-        /// <param name="principal">Name of the user for which role membersih
+        /// <param name="principal">Name of the user for which role membership
         /// is being checked. Must be an existing user. If blank, will use the
         /// current user. The default value is ''.</param>
         /// <param name="role">Name of role to check for membership.</param>

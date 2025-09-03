@@ -34,6 +34,9 @@ namespace kinetica
 
             /// <summary>Read-only access to all tables.</summary>
             public const string SYSTEM_READ = "system_read";
+
+            /// <summary>Send system alerts.</summary>
+            public const string SYSTEM_SEND_ALERT = "system_send_alert";
         } // end struct Permission
 
         /// <summary>Name of the user or role from which the permission will be
@@ -67,6 +70,12 @@ namespace kinetica
         ///         <term><see cref="Permission.SYSTEM_READ">SYSTEM_READ</see>:
         ///         </term>
         ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
+        ///         </term>
+        ///         <description>Send system alerts.</description>
         ///     </item>
         /// </list></remarks>
         public string permission { get; set; }
@@ -113,6 +122,12 @@ namespace kinetica
         ///         <term><see cref="Permission.SYSTEM_READ">SYSTEM_READ</see>:
         ///         </term>
         ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
+        ///         </term>
+        ///         <description>Send system alerts.</description>
         ///     </item>
         /// </list></param>
         /// <param name="options">Optional parameters. The default value is an

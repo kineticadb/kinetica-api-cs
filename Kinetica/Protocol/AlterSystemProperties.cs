@@ -48,7 +48,7 @@ namespace kinetica
 
             /// <summary>Sets the maximum number of simultaneous threads
             /// allocated to a given request, on each rank.</summary>
-            /// <remarks><para>Note that thread allocation may also be limted
+            /// <remarks><para>Note that thread allocation may also be limited
             /// by resource group limits and/or system load.</para></remarks>
             public const string SUBTASK_CONCURRENCY_LIMIT = "subtask_concurrency_limit";
 
@@ -64,15 +64,6 @@ namespace kinetica
             /// in a chunk to be used for all new tables.</summary>
             public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
 
-            /// <summary>Attempts to evict columns from memory to the
-            /// persistent store.</summary>
-            /// <remarks><para> Value string is a semicolon separated list of
-            /// entries, each entry being a table name optionally followed by a
-            /// comma and a comma separated list of column names to attempt to
-            /// evict.  An empty value string will attempt to evict all tables
-            /// and columns.</para></remarks>
-            public const string EVICT_COLUMNS = "evict_columns";
-
             /// <summary>Sets the execution_mode for kernel executions to the
             /// specified string value.</summary>
             /// <remarks><para>Possible values are host, device, default
@@ -85,45 +76,6 @@ namespace kinetica
             /// <remarks><para> Path must exist on the head node</para>
             /// </remarks>
             public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
-
-            /// <summary>Flushes any changes to any tables to the persistent
-            /// store.</summary>
-            /// <remarks><para> These changes include updates to the vector
-            /// store, object store, and text search store.  Value string can
-            /// be 'true', 'false' or 'text_search' to flush the text search
-            /// store only.</para></remarks>
-            public const string FLUSH_TO_DISK = "flush_to_disk";
-
-            /// <summary>Clears cached results.</summary>
-            /// <remarks><para> Useful to allow repeated timing of endpoints.
-            /// Value string is the name of the table for which to clear the
-            /// cached results, or an empty string to clear the cached results
-            /// for all tables.</para></remarks>
-            public const string CLEAR_CACHE = "clear_cache";
-
-            /// <summary>Invoke the communicator test and report timing
-            /// results.</summary>
-            /// <remarks><para>Value string is a semicolon separated list of
-            /// [key]=[value] expressions.  Expressions are:
-            /// num_transactions=[num] where num is the number of request reply
-            /// transactions to invoke per test; message_size=[bytes] where
-            /// bytes is the size in bytes of the messages to send;
-            /// check_values=[enabled] where if enabled is true the value of
-            /// the messages received are verified.</para></remarks>
-            public const string COMMUNICATOR_TEST = "communicator_test";
-
-            /// <summary>Invoke the network speed test and report timing
-            /// results.</summary>
-            /// <remarks><para>Value string is a semicolon-separated list of
-            /// [key]=[value] expressions.  Valid expressions are:
-            /// seconds=[time] where time is the time in seconds to run the
-            /// test; data_size=[bytes] where bytes is the size in bytes of the
-            /// block to be transferred; threads=[number of threads];
-            /// to_ranks=[space-separated list of ranks] where the list of
-            /// ranks is the ranks that rank 0 will send data to and get data
-            /// from. If to_ranks is unspecified then all worker ranks are
-            /// used.</para></remarks>
-            public const string NETWORK_SPEED = "network_speed";
 
             /// <summary>Number of minutes after which filtering (e.g., <see
             /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
@@ -141,9 +93,6 @@ namespace kinetica
             /// allowed value is '0'. The maximum allowed value is '1000000'.
             /// </para></remarks>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
-
-            /// <summary>&lt;DEVELOPER&gt;</summary>
-            public const string MAX_GRBC_BATCH_SIZE = "max_grbc_batch_size";
 
             /// <summary>Enable or disable auditing.</summary>
             public const string ENABLE_AUDIT = "enable_audit";
@@ -176,11 +125,6 @@ namespace kinetica
             /// allowed value is '0'. The maximum allowed value is
             /// '2147483647'.</para></remarks>
             public const string SHADOW_FILTER_SIZE = "shadow_filter_size";
-
-            /// <summary>compress vector on set_compression (instead of waiting
-            /// for background thread).</summary>
-            /// <remarks><para>The default value is 'false'.</para></remarks>
-            public const string SYNCHRONOUS_COMPRESSION = "synchronous_compression";
 
             /// <summary>Enable overlapped-equi-join filter.</summary>
             /// <remarks><para>The default value is 'true'.</para></remarks>
@@ -256,14 +200,20 @@ namespace kinetica
             /// </remarks>
             public const string SYSTEM_METADATA_RETENTION_PERIOD = "system_metadata_retention_period";
 
-            /// <summary>Sets the tcs_per_tom value of the conf.</summary>
-            /// <remarks><para>The minimum allowed value is '2'. The maximum
-            /// allowed value is '8192'.</para></remarks>
+            /// <summary>Size of the worker rank data calculation thread pool.
+            /// </summary>
+            /// <remarks><para> This is primarily used for computation-based
+            /// operations such as aggregates and record retrieval. The minimum
+            /// allowed value is '2'. The maximum allowed value is '8192'.
+            /// </para></remarks>
             public const string TCS_PER_TOM = "tcs_per_tom";
 
-            /// <summary>Sets the tps_per_tom value of the conf.</summary>
-            /// <remarks><para>The minimum allowed value is '2'. The maximum
-            /// allowed value is '8192'.</para></remarks>
+            /// <summary>Size of the worker rank data processing thread pool.
+            /// </summary>
+            /// <remarks><para> This includes operations such as inserts,
+            /// updates, & deletes on table data.  Multi-head inserts are not
+            /// affected by this limit. The minimum allowed value is '2'. The
+            /// maximum allowed value is '8192'.</para></remarks>
             public const string TPS_PER_TOM = "tps_per_tom";
 
             /// <summary>Size of the worker rank background thread pool.
@@ -273,6 +223,17 @@ namespace kinetica
             /// value is '1'. The maximum allowed value is '8192'.</para>
             /// </remarks>
             public const string BACKGROUND_WORKER_THREADS = "background_worker_threads";
+
+            /// <summary>Outputs various job-related information to the rank
+            /// logs.</summary>
+            /// <remarks><para>Used for troubleshooting.</para></remarks>
+            public const string LOG_DEBUG_JOB_INFO = "log_debug_job_info";
+
+            /// <summary>Log a stack trace for any thread that runs longer than
+            /// a defined threshold.</summary>
+            /// <remarks><para>Used for troubleshooting. The default value is
+            /// 'true'.</para></remarks>
+            public const string ENABLE_THREAD_HANG_LOGGING = "enable_thread_hang_logging";
 
             /// <summary>Enable RAG.</summary>
             /// <remarks><para>The default value is 'false'.</para></remarks>
@@ -309,6 +270,26 @@ namespace kinetica
             /// <remarks><para>The minimum allowed value is '-1'.</para>
             /// </remarks>
             public const string KIFS_DIRECTORY_DATA_LIMIT = "kifs_directory_data_limit";
+
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression algorithm</a> applied to any column
+            /// without a column-level or table-level default compression
+            /// specified at the time it was created</summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
+            /// <summary>Time interval in seconds after which the database will
+            /// apply optimizations/transformations to persisted data, such as
+            /// compression.</summary>
+            /// <remarks><para>The minimum allowed value is '0'.</para>
+            /// </remarks>
+            public const string DISK_AUTO_OPTIMIZE_TIMEOUT = "disk_auto_optimize_timeout";
+
+            /// <summary>Initializes HA replay from the given timestamp (as
+            /// milliseconds since unix epoch).</summary>
+            /// <remarks><para>The minimum allowed value is '-1'.</para>
+            /// </remarks>
+            public const string HA_CONSUMER_REPLAY_OFFSET = "ha_consumer_replay_offset";
         } // end struct PropertyUpdatesMap
 
         /// <summary>A set of string constants for the parameter <see
@@ -379,8 +360,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Sets the maximum number of simultaneous
         ///         threads allocated to a given request, on each rank. Note
-        ///         that thread allocation may also be limted by resource group
-        ///         limits and/or system load.</description>
+        ///         that thread allocation may also be limited by resource
+        ///         group limits and/or system load.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -407,17 +388,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:
-        ///         </term>
-        ///         <description>Attempts to evict columns from memory to the
-        ///         persistent store.  Value string is a semicolon separated
-        ///         list of entries, each entry being a table name optionally
-        ///         followed by a comma and a comma separated list of column
-        ///         names to attempt to evict.  An empty value string will
-        ///         attempt to evict all tables and columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
         ///         </term>
         ///         <description>Sets the execution_mode for kernel executions
@@ -432,54 +402,6 @@ namespace kinetica
         ///         <description>Sets the root directory path where external
         ///         table data files are accessed from.  Path must exist on the
         ///         head node</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
-        ///         </term>
-        ///         <description>Flushes any changes to any tables to the
-        ///         persistent store.  These changes include updates to the
-        ///         vector store, object store, and text search store.  Value
-        ///         string can be 'true', 'false' or 'text_search' to flush the
-        ///         text search store only.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:
-        ///         </term>
-        ///         <description>Clears cached results.  Useful to allow
-        ///         repeated timing of endpoints.  Value string is the name of
-        ///         the table for which to clear the cached results, or an
-        ///         empty string to clear the cached results for all tables.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:
-        ///         </term>
-        ///         <description>Invoke the communicator test and report timing
-        ///         results. Value string is a semicolon separated list of
-        ///         [key]=[value] expressions.  Expressions are:
-        ///         num_transactions=[num] where num is the number of request
-        ///         reply transactions to invoke per test; message_size=[bytes]
-        ///         where bytes is the size in bytes of the messages to send;
-        ///         check_values=[enabled] where if enabled is true the value
-        ///         of the messages received are verified.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:
-        ///         </term>
-        ///         <description>Invoke the network speed test and report
-        ///         timing results. Value string is a semicolon-separated list
-        ///         of [key]=[value] expressions.  Valid expressions are:
-        ///         seconds=[time] where time is the time in seconds to run the
-        ///         test; data_size=[bytes] where bytes is the size in bytes of
-        ///         the block to be transferred; threads=[number of threads];
-        ///         to_ranks=[space-separated list of ranks] where the list of
-        ///         ranks is the ranks that rank 0 will send data to and get
-        ///         data from. If to_ranks is unspecified then all worker ranks
-        ///         are used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -502,12 +424,6 @@ namespace kinetica
         ///         will serve for a given data retrieval call. The default
         ///         value is '20000'. The minimum allowed value is '0'. The
         ///         maximum allowed value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>&lt;DEVELOPER&gt;</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -560,14 +476,6 @@ namespace kinetica
         ///         bytes. The default value is '10000000'. The minimum allowed
         ///         value is '0'. The maximum allowed value is '2147483647'.
         ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:
-        ///         </term>
-        ///         <description>compress vector on set_compression (instead of
-        ///         waiting for background thread). The default value is
-        ///         'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -665,7 +573,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
         ///         </term>
-        ///         <description>Sets the tcs_per_tom value of the conf. The
+        ///         <description>Size of the worker rank data calculation
+        ///         thread pool.  This is primarily used for computation-based
+        ///         operations such as aggregates and record retrieval. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
         ///     </item>
@@ -673,9 +583,11 @@ namespace kinetica
         ///         <term><see
         ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
         ///         </term>
-        ///         <description>Sets the tps_per_tom value of the conf. The
-        ///         minimum allowed value is '2'. The maximum allowed value is
-        ///         '8192'.</description>
+        ///         <description>Size of the worker rank data processing thread
+        ///         pool.  This includes operations such as inserts, updates, &
+        ///         deletes on table data.  Multi-head inserts are not affected
+        ///         by this limit. The minimum allowed value is '2'. The
+        ///         maximum allowed value is '8192'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -685,6 +597,21 @@ namespace kinetica
         ///         pool. This includes background operations such as watermark
         ///         evictions catalog table updates. The minimum allowed value
         ///         is '1'. The maximum allowed value is '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
+        ///         </term>
+        ///         <description>Outputs various job-related information to the
+        ///         rank logs. Used for troubleshooting.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
+        ///         </term>
+        ///         <description>Log a stack trace for any thread that runs
+        ///         longer than a defined threshold. Used for troubleshooting.
+        ///         The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -751,6 +678,34 @@ namespace kinetica
         ///         </term>
         ///         <description>The default maximum capacity to apply when
         ///         creating a KiFS directory (bytes). The minimum allowed
+        ///         value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression algorithm</a> applied to any
+        ///         column without a column-level or table-level default
+        ///         compression specified at the time it was created
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Time interval in seconds after which the
+        ///         database will apply optimizations/transformations to
+        ///         persisted data, such as compression. The minimum allowed
+        ///         value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
+        ///         </term>
+        ///         <description>Initializes HA replay from the given timestamp
+        ///         (as milliseconds since unix epoch). The minimum allowed
         ///         value is '-1'.</description>
         ///     </item>
         /// </list></remarks>
@@ -833,8 +788,8 @@ namespace kinetica
         ///         </term>
         ///         <description>Sets the maximum number of simultaneous
         ///         threads allocated to a given request, on each rank. Note
-        ///         that thread allocation may also be limted by resource group
-        ///         limits and/or system load.</description>
+        ///         that thread allocation may also be limited by resource
+        ///         group limits and/or system load.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -861,17 +816,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:
-        ///         </term>
-        ///         <description>Attempts to evict columns from memory to the
-        ///         persistent store.  Value string is a semicolon separated
-        ///         list of entries, each entry being a table name optionally
-        ///         followed by a comma and a comma separated list of column
-        ///         names to attempt to evict.  An empty value string will
-        ///         attempt to evict all tables and columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
         ///         </term>
         ///         <description>Sets the execution_mode for kernel executions
@@ -886,54 +830,6 @@ namespace kinetica
         ///         <description>Sets the root directory path where external
         ///         table data files are accessed from.  Path must exist on the
         ///         head node</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
-        ///         </term>
-        ///         <description>Flushes any changes to any tables to the
-        ///         persistent store.  These changes include updates to the
-        ///         vector store, object store, and text search store.  Value
-        ///         string can be 'true', 'false' or 'text_search' to flush the
-        ///         text search store only.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:
-        ///         </term>
-        ///         <description>Clears cached results.  Useful to allow
-        ///         repeated timing of endpoints.  Value string is the name of
-        ///         the table for which to clear the cached results, or an
-        ///         empty string to clear the cached results for all tables.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:
-        ///         </term>
-        ///         <description>Invoke the communicator test and report timing
-        ///         results. Value string is a semicolon separated list of
-        ///         [key]=[value] expressions.  Expressions are:
-        ///         num_transactions=[num] where num is the number of request
-        ///         reply transactions to invoke per test; message_size=[bytes]
-        ///         where bytes is the size in bytes of the messages to send;
-        ///         check_values=[enabled] where if enabled is true the value
-        ///         of the messages received are verified.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:
-        ///         </term>
-        ///         <description>Invoke the network speed test and report
-        ///         timing results. Value string is a semicolon-separated list
-        ///         of [key]=[value] expressions.  Valid expressions are:
-        ///         seconds=[time] where time is the time in seconds to run the
-        ///         test; data_size=[bytes] where bytes is the size in bytes of
-        ///         the block to be transferred; threads=[number of threads];
-        ///         to_ranks=[space-separated list of ranks] where the list of
-        ///         ranks is the ranks that rank 0 will send data to and get
-        ///         data from. If to_ranks is unspecified then all worker ranks
-        ///         are used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -956,12 +852,6 @@ namespace kinetica
         ///         will serve for a given data retrieval call. The default
         ///         value is '20000'. The minimum allowed value is '0'. The
         ///         maximum allowed value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.MAX_GRBC_BATCH_SIZE">MAX_GRBC_BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>&lt;DEVELOPER&gt;</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1014,14 +904,6 @@ namespace kinetica
         ///         bytes. The default value is '10000000'. The minimum allowed
         ///         value is '0'. The maximum allowed value is '2147483647'.
         ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:
-        ///         </term>
-        ///         <description>compress vector on set_compression (instead of
-        ///         waiting for background thread). The default value is
-        ///         'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1119,7 +1001,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
         ///         </term>
-        ///         <description>Sets the tcs_per_tom value of the conf. The
+        ///         <description>Size of the worker rank data calculation
+        ///         thread pool.  This is primarily used for computation-based
+        ///         operations such as aggregates and record retrieval. The
         ///         minimum allowed value is '2'. The maximum allowed value is
         ///         '8192'.</description>
         ///     </item>
@@ -1127,9 +1011,11 @@ namespace kinetica
         ///         <term><see
         ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
         ///         </term>
-        ///         <description>Sets the tps_per_tom value of the conf. The
-        ///         minimum allowed value is '2'. The maximum allowed value is
-        ///         '8192'.</description>
+        ///         <description>Size of the worker rank data processing thread
+        ///         pool.  This includes operations such as inserts, updates, &
+        ///         deletes on table data.  Multi-head inserts are not affected
+        ///         by this limit. The minimum allowed value is '2'. The
+        ///         maximum allowed value is '8192'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1139,6 +1025,21 @@ namespace kinetica
         ///         pool. This includes background operations such as watermark
         ///         evictions catalog table updates. The minimum allowed value
         ///         is '1'. The maximum allowed value is '8192'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
+        ///         </term>
+        ///         <description>Outputs various job-related information to the
+        ///         rank logs. Used for troubleshooting.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
+        ///         </term>
+        ///         <description>Log a stack trace for any thread that runs
+        ///         longer than a defined threshold. Used for troubleshooting.
+        ///         The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1205,6 +1106,34 @@ namespace kinetica
         ///         </term>
         ///         <description>The default maximum capacity to apply when
         ///         creating a KiFS directory (bytes). The minimum allowed
+        ///         value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression algorithm</a> applied to any
+        ///         column without a column-level or table-level default
+        ///         compression specified at the time it was created
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
+        ///         </term>
+        ///         <description>Time interval in seconds after which the
+        ///         database will apply optimizations/transformations to
+        ///         persisted data, such as compression. The minimum allowed
+        ///         value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
+        ///         </term>
+        ///         <description>Initializes HA replay from the given timestamp
+        ///         (as milliseconds since unix epoch). The minimum allowed
         ///         value is '-1'.</description>
         ///     </item>
         /// </list></param>

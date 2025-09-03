@@ -20,7 +20,7 @@ namespace kinetica
         /// <summary>File paths to show.</summary>
         /// <remarks><para>Each path can be a KiFS directory name, or a full
         /// path to a KiFS file. File paths may contain wildcard characters
-        /// after the KiFS directory delimeter.</para>
+        /// after the KiFS directory delimiter.</para>
         /// <para>Accepted wildcard characters are asterisk (*) to represent
         /// any string of zero or more characters, and question mark (?) to
         /// indicate a single character.</para></remarks>
@@ -40,7 +40,7 @@ namespace kinetica
         ///
         /// <param name="paths">File paths to show. Each path can be a KiFS
         /// directory name, or a full path to a KiFS file. File paths may
-        /// contain wildcard characters after the KiFS directory delimeter.
+        /// contain wildcard characters after the KiFS directory delimiter.
         /// Accepted wildcard characters are asterisk (*) to represent any
         /// string of zero or more characters, and question mark (?) to
         /// indicate a single character.</param>

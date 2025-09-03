@@ -11,8 +11,8 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.alterWal(AlterWalRequest)">Kinetica.alterWal</see>.
     /// </summary>
-    /// <remarks><para>Alters table wal settings.
-    /// Returns information about the requested table wal modifications.</para>
+    /// <remarks><para>Alters table write-ahead log (WAL) settings.
+    /// Returns information about the requested table WAL modifications.</para>
     /// </remarks>
     public class AlterWalRequest : KineticaData
     {
@@ -24,7 +24,7 @@ namespace kinetica
             /// <summary>Maximum size of an individual segment file</summary>
             public const string MAX_SEGMENT_SIZE = "max_segment_size";
 
-            /// <summary>Approximate number of segment files to split the wal
+            /// <summary>Approximate number of segment files to split the WAL
             /// across.</summary>
             /// <remarks><para>Must be at least two.</para></remarks>
             public const string SEGMENT_COUNT = "segment_count";
@@ -34,12 +34,12 @@ namespace kinetica
             /// <list type="bullet">
             ///     <item>
             ///         <term><see cref="Options.NONE">NONE</see>:</term>
-            ///         <description>Disables the wal</description>
+            ///         <description>Disables the WAL</description>
             ///     </item>
             ///     <item>
             ///         <term><see cref="Options.BACKGROUND">BACKGROUND</see>:
             ///         </term>
-            ///         <description>Wal entries are periodically written
+            ///         <description>WAL entries are periodically written
             ///         instead of immediately after each operation
             ///         </description>
             ///     </item>
@@ -56,10 +56,10 @@ namespace kinetica
             /// </list></remarks>
             public const string SYNC_POLICY = "sync_policy";
 
-            /// <summary>Disables the wal</summary>
+            /// <summary>Disables the WAL</summary>
             public const string NONE = "none";
 
-            /// <summary>Wal entries are periodically written instead of
+            /// <summary>WAL entries are periodically written instead of
             /// immediately after each operation</summary>
             public const string BACKGROUND = "background";
 
@@ -70,7 +70,7 @@ namespace kinetica
             /// <summary>Protects entries in the event of an OS crash</summary>
             public const string FSYNC = "fsync";
 
-            /// <summary>Specifies how frequently wal entries are written with
+            /// <summary>Specifies how frequently WAL entries are written with
             /// background sync.</summary>
             /// <remarks><para>This is a global setting and can only be used
             /// with the system {options.table_names} specifier '*'.</para>
@@ -96,7 +96,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>If <see cref="Options.TRUE">TRUE</see> tables with
-            /// unique wal settings will be overridden when applying a system
+            /// unique WAL settings will be overridden when applying a system
             /// level change.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
@@ -112,7 +112,7 @@ namespace kinetica
             public const string OVERRIDE_NON_DEFAULT = "override_non_default";
 
             /// <summary>If <see cref="Options.TRUE">TRUE</see> tables with
-            /// unique wal settings will be reverted to the current global
+            /// unique WAL settings will be reverted to the current global
             /// settings.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
@@ -163,7 +163,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SEGMENT_COUNT">SEGMENT_COUNT</see>:</term>
         ///         <description>Approximate number of segment files to split
-        ///         the wal across. Must be at least two.</description>
+        ///         the WAL across. Must be at least two.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SYNC_POLICY">SYNC_POLICY</see>:
@@ -173,12 +173,12 @@ namespace kinetica
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Disables the wal</description>
+        ///                 <description>Disables the WAL</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
         ///                 cref="Options.BACKGROUND">BACKGROUND</see>:</term>
-        ///                 <description>Wal entries are periodically written
+        ///                 <description>WAL entries are periodically written
         ///                 instead of immediately after each operation
         ///                 </description>
         ///             </item>
@@ -198,7 +198,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.FLUSH_FREQUENCY">FLUSH_FREQUENCY</see>:
         ///         </term>
-        ///         <description>Specifies how frequently wal entries are
+        ///         <description>Specifies how frequently WAL entries are
         ///         written with background sync. This is a global setting and
         ///         can only be used with the system {options.table_names}
         ///         specifier '*'.</description>
@@ -224,7 +224,7 @@ namespace kinetica
         ///         cref="Options.OVERRIDE_NON_DEFAULT">OVERRIDE_NON_DEFAULT</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> tables
-        ///         with unique wal settings will be overridden when applying a
+        ///         with unique WAL settings will be overridden when applying a
         ///         system level change.
         ///         Supported values:
         ///         <list type="bullet">
@@ -243,7 +243,7 @@ namespace kinetica
         ///         cref="Options.RESTORE_SYSTEM_SETTINGS">RESTORE_SYSTEM_SETTINGS</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> tables
-        ///         with unique wal settings will be reverted to the current
+        ///         with unique WAL settings will be reverted to the current
         ///         global settings. Cannot be used in conjunction with any
         ///         other option.
         ///         Supported values:
@@ -303,7 +303,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SEGMENT_COUNT">SEGMENT_COUNT</see>:</term>
         ///         <description>Approximate number of segment files to split
-        ///         the wal across. Must be at least two.</description>
+        ///         the WAL across. Must be at least two.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.SYNC_POLICY">SYNC_POLICY</see>:
@@ -313,12 +313,12 @@ namespace kinetica
         ///         <list type="bullet">
         ///             <item>
         ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Disables the wal</description>
+        ///                 <description>Disables the WAL</description>
         ///             </item>
         ///             <item>
         ///                 <term><see
         ///                 cref="Options.BACKGROUND">BACKGROUND</see>:</term>
-        ///                 <description>Wal entries are periodically written
+        ///                 <description>WAL entries are periodically written
         ///                 instead of immediately after each operation
         ///                 </description>
         ///             </item>
@@ -338,7 +338,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.FLUSH_FREQUENCY">FLUSH_FREQUENCY</see>:
         ///         </term>
-        ///         <description>Specifies how frequently wal entries are
+        ///         <description>Specifies how frequently WAL entries are
         ///         written with background sync. This is a global setting and
         ///         can only be used with the system {options.table_names}
         ///         specifier '*'.</description>
@@ -364,7 +364,7 @@ namespace kinetica
         ///         cref="Options.OVERRIDE_NON_DEFAULT">OVERRIDE_NON_DEFAULT</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> tables
-        ///         with unique wal settings will be overridden when applying a
+        ///         with unique WAL settings will be overridden when applying a
         ///         system level change.
         ///         Supported values:
         ///         <list type="bullet">
@@ -383,7 +383,7 @@ namespace kinetica
         ///         cref="Options.RESTORE_SYSTEM_SETTINGS">RESTORE_SYSTEM_SETTINGS</see>:
         ///         </term>
         ///         <description>If <see cref="Options.TRUE">TRUE</see> tables
-        ///         with unique wal settings will be reverted to the current
+        ///         with unique WAL settings will be reverted to the current
         ///         global settings. Cannot be used in conjunction with any
         ///         other option.
         ///         Supported values:

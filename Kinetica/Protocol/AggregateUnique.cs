@@ -213,6 +213,12 @@ namespace kinetica
             /// </remarks>
             public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
 
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for the result table's
+            /// columns.</summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
             /// <summary>ID of view of which the result table will be a member.
             /// </summary>
             /// <remarks><para>The default value is ''.</para></remarks>
@@ -457,6 +463,15 @@ namespace kinetica
         ///         </description>
         ///     </item>
         ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
         ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
         ///         member. The default value is ''.</description>
@@ -681,6 +696,15 @@ namespace kinetica
         ///         used in combination with the <see
         ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
@@ -931,6 +955,15 @@ namespace kinetica
         ///         used in combination with the <see
         ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
         ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for the result table's
+        ///         columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>

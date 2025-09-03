@@ -12,8 +12,8 @@ namespace kinetica
     /// cref="Kinetica.solveGraph(SolveGraphRequest)">Kinetica.solveGraph</see>.
     /// </summary>
     /// <remarks><para>Solves an existing graph for a type of problem (e.g.,
-    /// shortest path, page rank, travelling salesman, etc.) using source
-    /// nodes, destination nodes, and additional, optional weights and
+    /// shortest path, page rank, traveling salesman, etc.) using source nodes,
+    /// destination nodes, and additional, optional weights and
     /// restrictions.</para>
     /// <para>IMPORTANT: It's highly recommended that you review the <a
     /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
@@ -59,7 +59,7 @@ namespace kinetica
             /// for a round-trip starting from the given source and visiting
             /// each given destination node once then returning to the source.
             /// </summary>
-            /// <remarks><para>Also known as the travelling salesman problem.
+            /// <remarks><para>Also known as the traveling salesman problem.
             /// </para></remarks>
             public const string MULTIPLE_ROUTING = "MULTIPLE_ROUTING";
 
@@ -76,7 +76,7 @@ namespace kinetica
             /// <summary>Solves for paths that would give costs between max and
             /// min solution radia - Make sure to limit by the
             /// 'max_solution_targets' option.</summary>
-            /// <remarks><para>Min cost shoudl be &gt;= shortest_path cost.
+            /// <remarks><para>Min cost should be &gt;= shortest_path cost.
             /// </para></remarks>
             public const string ALLPATHS = "ALLPATHS";
 
@@ -142,32 +142,32 @@ namespace kinetica
             /// </remarks>
             public const string UNIFORM_WEIGHTS = "uniform_weights";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as 'left turn' if the 'add_turn' option parameter of
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as 'left turn' if the 'add_turn' option parameter of
             /// the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
             /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string LEFT_TURN_PENALTY = "left_turn_penalty";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as' right turn' if the 'add_turn' option parameter of
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as' right turn' if the 'add_turn' option parameter of
             /// the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
             /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as 'intersection' if the 'add_turn' option parameter
-            /// of the <see
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as 'intersection' if the 'add_turn' option parameter of
+            /// the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
             /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string INTERSECTION_PENALTY = "intersection_penalty";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
             /// parameter of the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
@@ -193,7 +193,7 @@ namespace kinetica
             /// solver. The default value is '2000000'.</para></remarks>
             public const string MAX_NUM_COMBINATIONS = "max_num_combinations";
 
-            /// <summary>If true then concatenated edge ids will be added as
+            /// <summary>If true then concatenated edge IDs will be added as
             /// the EDGE path column of the solution table for each source and
             /// target pair in shortest path solves.</summary>
             /// <remarks><para>Supported values:</para>
@@ -243,15 +243,15 @@ namespace kinetica
             public const string SERVER_ID = "server_id";
 
             /// <summary>For <see cref="SolverType.PAGE_RANK">PAGE_RANK</see>
-            /// solvers only; Maximum percent relative threshold on the
-            /// pagerank scores of each node between consecutive iterations to
+            /// solvers only; Maximum percent relative threshold on the page
+            /// rank scores of each node between consecutive iterations to
             /// satisfy convergence.</summary>
             /// <remarks><para>Default value is 1 (one) percent. The default
             /// value is '1.0'.</para></remarks>
             public const string CONVERGENCE_LIMIT = "convergence_limit";
 
             /// <summary>For <see cref="SolverType.PAGE_RANK">PAGE_RANK</see>
-            /// solvers only; Maximum number of pagerank iterations for
+            /// solvers only; Maximum number of page rank iterations for
             /// satisfying convergence.</summary>
             /// <remarks><para>Default value is 100. The default value is
             /// '100'.</para></remarks>
@@ -402,7 +402,7 @@ namespace kinetica
         ///         <description>Solves for finding the minimum cost cumulative
         ///         path for a round-trip starting from the given source and
         ///         visiting each given destination node once then returning to
-        ///         the source. Also known as the travelling salesman problem.
+        ///         the source. Also known as the traveling salesman problem.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -427,7 +427,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Solves for paths that would give costs between
         ///         max and min solution radia - Make sure to limit by the
-        ///         'max_solution_targets' option. Min cost shoudl be &gt;=
+        ///         'max_solution_targets' option. Min cost should be &gt;=
         ///         shortest_path cost.</description>
         ///     </item>
         ///     <item>
@@ -537,8 +537,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'left turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'left turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -548,8 +548,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as' right turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as' right turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -559,8 +559,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'intersection' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'intersection' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -570,9 +570,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'sharp turn' or 'u-turn' if the
-        ///         'add_turn' option parameter of the <see
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'sharp turn' or 'u-turn' if the 'add_turn'
+        ///         option parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
         ///         </description>
@@ -604,7 +604,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:
         ///         </term>
-        ///         <description>If true then concatenated edge ids will be
+        ///         <description>If true then concatenated edge IDs will be
         ///         added as the EDGE path column of the solution table for
         ///         each source and target pair in shortest path solves.
         ///         Supported values:
@@ -653,7 +653,7 @@ namespace kinetica
         ///         </term>
         ///         <description>For <see
         ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-        ///         Maximum percent relative threshold on the pagerank scores
+        ///         Maximum percent relative threshold on the page rank scores
         ///         of each node between consecutive iterations to satisfy
         ///         convergence. Default value is 1 (one) percent. The default
         ///         value is '1.0'.</description>
@@ -663,7 +663,7 @@ namespace kinetica
         ///         cref="Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:</term>
         ///         <description>For <see
         ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-        ///         Maximum number of pagerank iterations for satisfying
+        ///         Maximum number of page rank iterations for satisfying
         ///         convergence. Default value is 100. The default value is
         ///         '100'.</description>
         ///     </item>
@@ -819,7 +819,7 @@ namespace kinetica
         ///         <description>Solves for finding the minimum cost cumulative
         ///         path for a round-trip starting from the given source and
         ///         visiting each given destination node once then returning to
-        ///         the source. Also known as the travelling salesman problem.
+        ///         the source. Also known as the traveling salesman problem.
         ///         </description>
         ///     </item>
         ///     <item>
@@ -844,7 +844,7 @@ namespace kinetica
         ///         </term>
         ///         <description>Solves for paths that would give costs between
         ///         max and min solution radia - Make sure to limit by the
-        ///         'max_solution_targets' option. Min cost shoudl be &gt;=
+        ///         'max_solution_targets' option. Min cost should be &gt;=
         ///         shortest_path cost.</description>
         ///     </item>
         ///     <item>
@@ -942,8 +942,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'left turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'left turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -953,8 +953,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as' right turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as' right turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -964,8 +964,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'intersection' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'intersection' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -975,9 +975,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'sharp turn' or 'u-turn' if the
-        ///         'add_turn' option parameter of the <see
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'sharp turn' or 'u-turn' if the 'add_turn'
+        ///         option parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
         ///         </description>
@@ -1009,7 +1009,7 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:
         ///         </term>
-        ///         <description>If true then concatenated edge ids will be
+        ///         <description>If true then concatenated edge IDs will be
         ///         added as the EDGE path column of the solution table for
         ///         each source and target pair in shortest path solves.
         ///         Supported values:
@@ -1058,7 +1058,7 @@ namespace kinetica
         ///         </term>
         ///         <description>For <see
         ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-        ///         Maximum percent relative threshold on the pagerank scores
+        ///         Maximum percent relative threshold on the page rank scores
         ///         of each node between consecutive iterations to satisfy
         ///         convergence. Default value is 1 (one) percent. The default
         ///         value is '1.0'.</description>
@@ -1068,7 +1068,7 @@ namespace kinetica
         ///         cref="Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:</term>
         ///         <description>For <see
         ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-        ///         Maximum number of pagerank iterations for satisfying
+        ///         Maximum number of page rank iterations for satisfying
         ///         convergence. Default value is 100. The default value is
         ///         '100'.</description>
         ///     </item>
@@ -1167,7 +1167,7 @@ namespace kinetica
         /// <summary>Indicates a successful solution on all servers.</summary>
         public bool result { get; set; }
 
-        /// <summary>Cost or Pagerank (based on solver type) for each
+        /// <summary>Cost or page rank (based on solver type) for each
         /// destination node requested.</summary>
         /// <remarks><para>Only populated if 'export_solve_results' option is
         /// set to true.</para></remarks>

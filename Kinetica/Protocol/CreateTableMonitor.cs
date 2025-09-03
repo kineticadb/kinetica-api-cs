@@ -106,6 +106,32 @@ namespace kinetica
             /// </summary>
             public const string EXPRESSION = "expression";
 
+            /// <summary>A comma-separated list of tables (optionally with
+            /// aliases) to include in the join.</summary>
+            /// <remarks><para>The monitored table <see cref="table_name" />
+            /// must be included, representing only the newly inserted rows
+            /// (deltas) since the last notification. Other tables can be any
+            /// existing tables or views. Aliases can be used with the
+            /// 'table_name as alias' syntax.</para></remarks>
+            public const string JOIN_TABLE_NAMES = "join_table_names";
+
+            /// <summary>A comma-separated list of columns or expressions to
+            /// include from the joined tables.</summary>
+            /// <remarks><para>Column references can use table names or aliases
+            /// defined in 'join_table_names'. Each column can optionally be
+            /// aliased using 'as'. The selected columns will also appear in
+            /// the notification output.</para></remarks>
+            public const string JOIN_COLUMN_NAMES = "join_column_names";
+
+            /// <summary>Optional filter or join expressions to apply when
+            /// combining the tables.</summary>
+            /// <remarks><para>Expressions are standard SQL-style conditions
+            /// and can reference any table or alias listed in
+            /// 'join_table_names'. This corresponds to the WHERE clause of the
+            /// underlying join, and can include conditions to filter the delta
+            /// rows.</para></remarks>
+            public const string JOIN_EXPRESSIONS = "join_expressions";
+
             /// <summary>Method controlling when the table monitor reports
             /// changes to the <see cref="table_name" />.</summary>
             /// <remarks><para>Supported values:</para>
@@ -231,6 +257,40 @@ namespace kinetica
         ///         </term>
         ///         <description>Filter expression to limit records for
         ///         notification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.JOIN_TABLE_NAMES">JOIN_TABLE_NAMES</see>:
+        ///         </term>
+        ///         <description>A comma-separated list of tables (optionally
+        ///         with aliases) to include in the join. The monitored table
+        ///         <see cref="table_name" /> must be included, representing
+        ///         only the newly inserted rows (deltas) since the last
+        ///         notification. Other tables can be any existing tables or
+        ///         views. Aliases can be used with the 'table_name as alias'
+        ///         syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.JOIN_COLUMN_NAMES">JOIN_COLUMN_NAMES</see>:
+        ///         </term>
+        ///         <description>A comma-separated list of columns or
+        ///         expressions to include from the joined tables. Column
+        ///         references can use table names or aliases defined in
+        ///         'join_table_names'. Each column can optionally be aliased
+        ///         using 'as'. The selected columns will also appear in the
+        ///         notification output.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.JOIN_EXPRESSIONS">JOIN_EXPRESSIONS</see>:
+        ///         </term>
+        ///         <description>Optional filter or join expressions to apply
+        ///         when combining the tables. Expressions are standard
+        ///         SQL-style conditions and can reference any table or alias
+        ///         listed in 'join_table_names'. This corresponds to the WHERE
+        ///         clause of the underlying join, and can include conditions
+        ///         to filter the delta rows.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -365,6 +425,40 @@ namespace kinetica
         ///         </term>
         ///         <description>Filter expression to limit records for
         ///         notification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.JOIN_TABLE_NAMES">JOIN_TABLE_NAMES</see>:
+        ///         </term>
+        ///         <description>A comma-separated list of tables (optionally
+        ///         with aliases) to include in the join. The monitored table
+        ///         <paramref name="table_name" /> must be included,
+        ///         representing only the newly inserted rows (deltas) since
+        ///         the last notification. Other tables can be any existing
+        ///         tables or views. Aliases can be used with the 'table_name
+        ///         as alias' syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.JOIN_COLUMN_NAMES">JOIN_COLUMN_NAMES</see>:
+        ///         </term>
+        ///         <description>A comma-separated list of columns or
+        ///         expressions to include from the joined tables. Column
+        ///         references can use table names or aliases defined in
+        ///         'join_table_names'. Each column can optionally be aliased
+        ///         using 'as'. The selected columns will also appear in the
+        ///         notification output.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.JOIN_EXPRESSIONS">JOIN_EXPRESSIONS</see>:
+        ///         </term>
+        ///         <description>Optional filter or join expressions to apply
+        ///         when combining the tables. Expressions are standard
+        ///         SQL-style conditions and can reference any table or alias
+        ///         listed in 'join_table_names'. This corresponds to the WHERE
+        ///         clause of the underlying join, and can include conditions
+        ///         to filter the delta rows.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

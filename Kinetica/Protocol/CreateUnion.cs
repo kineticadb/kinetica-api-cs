@@ -74,8 +74,8 @@ namespace kinetica
             /// </remarks>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>If <see cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>,
-            /// then this operation will merge the provided views.</summary>
+            /// <summary>The mode describes what rows of the tables being
+            /// unioned will be retained.</summary>
             /// <remarks><para>Supported values:</para>
             /// <list type="bullet">
             ///     <item>
@@ -126,20 +126,6 @@ namespace kinetica
             ///         that appear in both of the specified tables (only works
             ///         on 2 tables).</description>
             ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
-            ///         <description>Merge two or more views (or views of
-            ///         views) of the same base data set into a new view. If
-            ///         this mode is selected <see cref="input_column_names" />
-            ///         AND <see cref="output_column_names" /> must be empty.
-            ///         The resulting view would match the results of a SQL OR
-            ///         operation, e.g., if filter 1 creates a view using the
-            ///         expression 'x = 20' and filter 2 creates a view using
-            ///         the expression 'x &lt;= 10', then the merge views
-            ///         operation creates a new view using the expression 'x =
-            ///         20 OR x &lt;= 10'.</description>
-            ///     </item>
             /// </list>
             /// <para>The default value is <see
             /// cref="Options.UNION_ALL">UNION_ALL</see>.</para></remarks>
@@ -176,17 +162,10 @@ namespace kinetica
             /// </summary>
             public const string INTERSECT_ALL = "intersect_all";
 
-            /// <summary>Merge two or more views (or views of views) of the
-            /// same base data set into a new view.</summary>
-            /// <remarks><para>If this mode is selected <see
-            /// cref="input_column_names" /> AND <see
-            /// cref="output_column_names" /> must be empty. The resulting view
-            /// would match the results of a SQL OR operation, e.g., if filter
-            /// 1 creates a view using the expression 'x = 20' and filter 2
-            /// creates a view using the expression 'x &lt;= 10', then the
-            /// merge views operation creates a new view using the expression
-            /// 'x = 20 OR x &lt;= 10'.</para></remarks>
-            public const string MERGE_VIEWS = "merge_views";
+            /// <summary>When true use 128 bit hash for union-distinct, except,
+            /// except_all, intersect and intersect_all modes.</summary>
+            /// <remarks><para>Otherwise use 64 bit hash.</para></remarks>
+            public const string LONG_HASH = "long_hash";
 
             /// <summary>Indicates the number of records per chunk to be used
             /// for this output table.</summary>
@@ -253,6 +232,18 @@ namespace kinetica
             /// target="_top">tier strategy</a> for the table and its columns.
             /// </summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
+
+            /// <summary>The default <a
+            /// href="../../../concepts/column_compression/"
+            /// target="_top">compression codec</a> for this table's columns.
+            /// </summary>
+            public const string COMPRESSION_CODEC = "compression_codec";
+
+            /// <summary>Return a count of 0 for the union table response to
+            /// avoid the cost of counting; optimization needed for many chunk
+            /// virtual_union's.</summary>
+            /// <remarks><para>The default value is 'false'.</para></remarks>
+            public const string NO_COUNT = "no_count";
         } // end struct Options
 
         /// <summary>Name of the table to be created, in
@@ -321,11 +312,8 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.MODE">MODE</see>:</term>
-        ///         <description>If <see
-        ///         cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>, then this
-        ///         operation will merge the provided views. All <see
-        ///         cref="table_names" /> must be views from the same
-        ///         underlying base table.
+        ///         <description>The mode describes what rows of the tables
+        ///         being unioned will be retained.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -378,25 +366,15 @@ namespace kinetica
         ///                 that appear in both of the specified tables (only
         ///                 works on 2 tables).</description>
         ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>:
-        ///                 </term>
-        ///                 <description>Merge two or more views (or views of
-        ///                 views) of the same base data set into a new view.
-        ///                 If this mode is selected <see
-        ///                 cref="input_column_names" /> AND <see
-        ///                 cref="output_column_names" /> must be empty. The
-        ///                 resulting view would match the results of a SQL OR
-        ///                 operation, e.g., if filter 1 creates a view using
-        ///                 the expression 'x = 20' and filter 2 creates a view
-        ///                 using the expression 'x &lt;= 10', then the merge
-        ///                 views operation creates a new view using the
-        ///                 expression 'x = 20 OR x &lt;= 10'.</description>
-        ///             </item>
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.UNION_ALL">UNION_ALL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LONG_HASH">LONG_HASH</see>:</term>
+        ///         <description>When true use 128 bit hash for union-distinct,
+        ///         except, except_all, intersect and intersect_all modes.
+        ///         Otherwise use 64 bit hash.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
@@ -488,6 +466,22 @@ namespace kinetica
         ///         target="_top">tier strategy</a> for the table and its
         ///         columns.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description>Return a count of 0 for the union table
+        ///         response to avoid the cost of counting; optimization needed
+        ///         for many chunk virtual_union's. The default value is
+        ///         'false'.</description>
+        ///     </item>
         /// </list>
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -557,11 +551,8 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.MODE">MODE</see>:</term>
-        ///         <description>If <see
-        ///         cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>, then this
-        ///         operation will merge the provided views. All <paramref
-        ///         name="table_names" /> must be views from the same
-        ///         underlying base table.
+        ///         <description>The mode describes what rows of the tables
+        ///         being unioned will be retained.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -614,25 +605,15 @@ namespace kinetica
         ///                 that appear in both of the specified tables (only
         ///                 works on 2 tables).</description>
         ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.MERGE_VIEWS">MERGE_VIEWS</see>:
-        ///                 </term>
-        ///                 <description>Merge two or more views (or views of
-        ///                 views) of the same base data set into a new view.
-        ///                 If this mode is selected <paramref
-        ///                 name="input_column_names" /> AND <paramref
-        ///                 name="output_column_names" /> must be empty. The
-        ///                 resulting view would match the results of a SQL OR
-        ///                 operation, e.g., if filter 1 creates a view using
-        ///                 the expression 'x = 20' and filter 2 creates a view
-        ///                 using the expression 'x &lt;= 10', then the merge
-        ///                 views operation creates a new view using the
-        ///                 expression 'x = 20 OR x &lt;= 10'.</description>
-        ///             </item>
         ///         </list>
         ///         The default value is <see
         ///         cref="Options.UNION_ALL">UNION_ALL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LONG_HASH">LONG_HASH</see>:</term>
+        ///         <description>When true use 128 bit hash for union-distinct,
+        ///         except, except_all, intersect and intersect_all modes.
+        ///         Otherwise use 64 bit hash.</description>
         ///     </item>
         ///     <item>
         ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
@@ -723,6 +704,22 @@ namespace kinetica
         ///         href="../../../rm/concepts/#tier-strategies"
         ///         target="_top">tier strategy</a> for the table and its
         ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+        ///         </term>
+        ///         <description>The default <a
+        ///         href="../../../concepts/column_compression/"
+        ///         target="_top">compression codec</a> for this table's
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description>Return a count of 0 for the union table
+        ///         response to avoid the cost of counting; optimization needed
+        ///         for many chunk virtual_union's. The default value is
+        ///         'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty Dictionary.</param>

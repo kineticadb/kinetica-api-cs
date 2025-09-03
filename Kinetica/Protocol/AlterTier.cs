@@ -11,7 +11,7 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
     /// </summary>
-    /// <remarks><para>Alters properties of an exisiting <a
+    /// <remarks><para>Alters properties of an existing <a
     /// href="../../../rm/concepts/#storage-tiers" target="_top">tier</a> to
     /// facilitate <a href="../../../rm/concepts/" target="_top">resource
     /// management</a>.</para>
@@ -28,8 +28,8 @@ namespace kinetica
         /// <remarks><para>Optional parameters.</para></remarks>
         public struct Options
         {
-            /// <summary>Maximum size in bytes this tier may hold at once.
-            /// </summary>
+            /// <summary>Maximum size in bytes this tier may hold at once, per
+            /// rank.</summary>
             public const string CAPACITY = "capacity";
 
             /// <summary>Threshold of usage of this tier's resource that once
@@ -80,8 +80,8 @@ namespace kinetica
         } // end struct Options
 
         /// <summary>Name of the tier to be altered.</summary>
-        /// <remarks><para>Must be an existing tier group name.</para>
-        /// </remarks>
+        /// <remarks><para>Must be an existing tier group name:  vram, ram,
+        /// disk[n], persist, cold[n].</para></remarks>
         public string name { get; set; }
 
         /// <summary>Optional parameters.</summary>
@@ -89,7 +89,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see cref="Options.CAPACITY">CAPACITY</see>:</term>
         ///         <description>Maximum size in bytes this tier may hold at
-        ///         once.</description>
+        ///         once, per rank.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -153,13 +153,14 @@ namespace kinetica
         /// parameters.</summary>
         ///
         /// <param name="name">Name of the tier to be altered. Must be an
-        /// existing tier group name.</param>
+        /// existing tier group name:  vram, ram, disk[n], persist, cold[n].
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="Options.CAPACITY">CAPACITY</see>:</term>
         ///         <description>Maximum size in bytes this tier may hold at
-        ///         once.</description>
+        ///         once, per rank.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

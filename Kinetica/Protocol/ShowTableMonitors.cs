@@ -109,6 +109,15 @@ namespace kinetica
         /// </summary>
         public IList<string> filter_expressions { get; set; } = new List<string>();
 
+        /// <summary>List of join_table_names.</summary>
+        public IList<string> join_table_names { get; set; } = new List<string>();
+
+        /// <summary>List of join_column_names</summary>
+        public IList<string> join_column_names { get; set; } = new List<string>();
+
+        /// <summary>List of join expressions.</summary>
+        public IList<string> join_expressions { get; set; } = new List<string>();
+
         /// <summary>List of refresh methods used on the respective tables in
         /// <see cref="table_names" />.</summary>
         public IList<string> refresh_method { get; set; } = new List<string>();

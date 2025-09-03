@@ -12,20 +12,20 @@ using System.Text;
 ///
 /// This is the client-side C# application programming interface (API) for Kinetica.
 ///
-/// </br>
+/// <br/>
 ///
 /// The source code can be found <a href="https://github.com/kineticadb/kinetica-api-cs" target="_top">here</a>.
 ///
-/// </br>
+/// <br/>
 ///
 /// There are two projects here: Kinetica and Example.
-/// </br>
+/// <br/>
 ///
 /// The Kinetica project contains the main client source code in the kinetica namespace.
 /// The <see cref="kinetica.Kinetica">Kinetica</see> class implements the interface for the API.  The Protocol
 /// subdirectory contains classes for each endpoint of the database server.
 ///
-/// </br>
+/// <br/>
 ///
 /// The Example project contains a short example <see cref="Example.Example">here</see>.  The user
 /// needs to specify the hostname of a database server (e.g. "127.0.0.1:9191") in the property

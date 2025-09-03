@@ -14,7 +14,7 @@ namespace kinetica
     /// <remarks><para>Uploads one or more files to <a
     /// href="../../../tools/kifs/" target="_top">KiFS</a>. There are two
     /// methods for uploading files: load files in their entirety, or load
-    /// files in parts. The latter is recommeded for files of approximately 60
+    /// files in parts. The latter is recommended for files of approximately 60
     /// MB or larger.</para>
     /// <para>To upload files in their entirety, populate <see
     /// cref="file_names" /> with the file names to upload into on KiFS, and
@@ -60,7 +60,7 @@ namespace kinetica
     /// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
     /// The user must have write permission on the directory. Nested
     /// directories are permitted in file name paths. Directories are
-    /// deliniated with the directory separator of '/'.  For example, given the
+    /// delineated with the directory separator of '/'.  For example, given the
     /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'

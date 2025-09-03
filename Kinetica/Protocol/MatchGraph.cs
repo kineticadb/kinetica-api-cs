@@ -184,32 +184,32 @@ namespace kinetica
             /// </para></remarks>
             public const string MAX_SUPPLY_COMBINATIONS = "max_supply_combinations";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as 'left turn' if the 'add_turn' option parameter of
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as 'left turn' if the 'add_turn' option parameter of
             /// the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
             /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string LEFT_TURN_PENALTY = "left_turn_penalty";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as' right turn' if the 'add_turn' option parameter of
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as' right turn' if the 'add_turn' option parameter of
             /// the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
             /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as 'intersection' if the 'add_turn' option parameter
-            /// of the <see
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as 'intersection' if the 'add_turn' option parameter of
+            /// the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
             /// <remarks><para>The default value is '0.0'.</para></remarks>
             public const string INTERSECTION_PENALTY = "intersection_penalty";
 
-            /// <summary>This will add an additonal weight over the edges
-            /// labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+            /// <summary>This will add an additional weight over the edges
+            /// labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
             /// parameter of the <see
             /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
             /// was invoked at graph creation.</summary>
@@ -244,7 +244,7 @@ namespace kinetica
             /// cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
             /// solvers only.</summary>
             /// <remarks><para>If this constraint is greater than zero
-            /// (default) then the trucks/rides will skip travelling from one
+            /// (default) then the trucks/rides will skip traveling from one
             /// demand/pick location to another if the cost between them is
             /// greater than this number (distance or time). Zero (default)
             /// value means no check is performed. The default value is '0.0'.
@@ -372,11 +372,11 @@ namespace kinetica
             ///     <item>
             ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
             ///         <description>Sets only one visit per demand location by
-            ///         a salesman (tsm mode)</description>
+            ///         a salesman (TSM mode)</description>
             ///     </item>
             ///     <item>
             ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>No preset limit (usual msdo mode)
+            ///         <description>No preset limit (usual MSDO mode)
             ///         </description>
             ///     </item>
             /// </list>
@@ -709,7 +709,7 @@ namespace kinetica
             /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
             /// only.</summary>
             /// <remarks><para>It is otherwise known as the learning rate,
-            /// which is the proportionality constant in fornt of the gradient
+            /// which is the proportionality constant in front of the gradient
             /// term in successive iterations. The default value is '0.3'.
             /// </para></remarks>
             public const string OPTIMIZATION_ITERATION_RATE = "optimization_iteration_rate";
@@ -717,7 +717,7 @@ namespace kinetica
             /// <summary>For the <see
             /// cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see> solver
             /// only.</summary>
-            /// <remarks><para>Sets the maximal reachability limmit for
+            /// <remarks><para>Sets the maximal reachability limit for
             /// computing isochrones. Zero means no limit. The default value is
             /// '0.0'.</para></remarks>
             public const string MAX_RADIUS = "max_radius";
@@ -971,8 +971,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'left turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'left turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -982,8 +982,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as' right turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as' right turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -993,8 +993,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'intersection' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'intersection' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -1004,9 +1004,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'sharp turn' or 'u-turn' if the
-        ///         'add_turn' option parameter of the <see
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'sharp turn' or 'u-turn' if the 'add_turn'
+        ///         option parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
         ///         </description>
@@ -1045,7 +1045,7 @@ namespace kinetica
         ///         and <see
         ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
         ///         solvers only. If this constraint is greater than zero
-        ///         (default) then the trucks/rides will skip travelling from
+        ///         (default) then the trucks/rides will skip traveling from
         ///         one demand/pick location to another if the cost between
         ///         them is greater than this number (distance or time). Zero
         ///         (default) value means no check is performed. The default
@@ -1060,7 +1060,7 @@ namespace kinetica
         ///         only. When true (non-default), the paths per sequence
         ///         combination is checked for folding over patterns and can
         ///         significantly increase the execution time depending on the
-        ///         chain width and the number of gps samples.
+        ///         chain width and the number of GPS samples.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1165,7 +1165,7 @@ namespace kinetica
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         ///         solver only. If specified (true), supply side actors are
-        ///         permuted for the demand combinations during msdo
+        ///         permuted for the demand combinations during MSDO
         ///         optimization - note that this option increases optimization
         ///         time significantly - use of 'max_combinations' option is
         ///         recommended to prevent prohibitively long runs.
@@ -1200,11 +1200,11 @@ namespace kinetica
         ///             <item>
         ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
         ///                 <description>Sets only one visit per demand
-        ///                 location by a salesman (tsm mode)</description>
+        ///                 location by a salesman (TSM mode)</description>
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>No preset limit (usual msdo mode)
+        ///                 <description>No preset limit (usual MSDO mode)
         ///                 </description>
         ///             </item>
         ///         </list>
@@ -1517,7 +1517,7 @@ namespace kinetica
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
         ///         solvers only. Solves to find the optimal weights per sub
-        ///         feature in vector emdeddings.
+        ///         feature in vector embeddings.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -1586,7 +1586,7 @@ namespace kinetica
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
         ///         solver only. It is otherwise known as the learning rate,
-        ///         which is the proportionality constant in fornt of the
+        ///         which is the proportionality constant in front of the
         ///         gradient term in successive iterations. The default value
         ///         is '0.3'.</description>
         ///     </item>
@@ -1595,7 +1595,7 @@ namespace kinetica
         ///         </term>
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
-        ///         solver only. Sets the maximal reachability limmit for
+        ///         solver only. Sets the maximal reachability limit for
         ///         computing isochrones. Zero means no limit. The default
         ///         value is '0.0'.</description>
         ///     </item>
@@ -1850,8 +1850,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'left turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'left turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -1861,8 +1861,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as' right turn' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as' right turn' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -1872,8 +1872,8 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'intersection' if the 'add_turn' option
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'intersection' if the 'add_turn' option
         ///         parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
@@ -1883,9 +1883,9 @@ namespace kinetica
         ///         <term><see
         ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
         ///         </term>
-        ///         <description>This will add an additonal weight over the
-        ///         edges labelled as 'sharp turn' or 'u-turn' if the
-        ///         'add_turn' option parameter of the <see
+        ///         <description>This will add an additional weight over the
+        ///         edges labeled as 'sharp turn' or 'u-turn' if the 'add_turn'
+        ///         option parameter of the <see
         ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
         ///         was invoked at graph creation. The default value is '0.0'.
         ///         </description>
@@ -1924,7 +1924,7 @@ namespace kinetica
         ///         and <see
         ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
         ///         solvers only. If this constraint is greater than zero
-        ///         (default) then the trucks/rides will skip travelling from
+        ///         (default) then the trucks/rides will skip traveling from
         ///         one demand/pick location to another if the cost between
         ///         them is greater than this number (distance or time). Zero
         ///         (default) value means no check is performed. The default
@@ -1939,7 +1939,7 @@ namespace kinetica
         ///         only. When true (non-default), the paths per sequence
         ///         combination is checked for folding over patterns and can
         ///         significantly increase the execution time depending on the
-        ///         chain width and the number of gps samples.
+        ///         chain width and the number of GPS samples.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -2044,7 +2044,7 @@ namespace kinetica
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         ///         solver only. If specified (true), supply side actors are
-        ///         permuted for the demand combinations during msdo
+        ///         permuted for the demand combinations during MSDO
         ///         optimization - note that this option increases optimization
         ///         time significantly - use of 'max_combinations' option is
         ///         recommended to prevent prohibitively long runs.
@@ -2079,11 +2079,11 @@ namespace kinetica
         ///             <item>
         ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
         ///                 <description>Sets only one visit per demand
-        ///                 location by a salesman (tsm mode)</description>
+        ///                 location by a salesman (TSM mode)</description>
         ///             </item>
         ///             <item>
         ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>No preset limit (usual msdo mode)
+        ///                 <description>No preset limit (usual MSDO mode)
         ///                 </description>
         ///             </item>
         ///         </list>
@@ -2396,7 +2396,7 @@ namespace kinetica
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
         ///         solvers only. Solves to find the optimal weights per sub
-        ///         feature in vector emdeddings.
+        ///         feature in vector embeddings.
         ///         Supported values:
         ///         <list type="bullet">
         ///             <item>
@@ -2465,7 +2465,7 @@ namespace kinetica
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
         ///         solver only. It is otherwise known as the learning rate,
-        ///         which is the proportionality constant in fornt of the
+        ///         which is the proportionality constant in front of the
         ///         gradient term in successive iterations. The default value
         ///         is '0.3'.</description>
         ///     </item>
@@ -2474,7 +2474,7 @@ namespace kinetica
         ///         </term>
         ///         <description>For the <see
         ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
-        ///         solver only. Sets the maximal reachability limmit for
+        ///         solver only. Sets the maximal reachability limit for
         ///         computing isochrones. Zero means no limit. The default
         ///         value is '0.0'.</description>
         ///     </item>
