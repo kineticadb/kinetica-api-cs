@@ -6,104 +6,103 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class VisualizeGetFeatureInfoRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class VisualizeGetFeatureInfoRequest : KineticaData
+    public struct Projection
     {
-        public struct Projection
-        {
-            public const string PLATE_CARREE = "plate_carree";
-            public const string WEB_MERCATOR = "web_mercator";
-        } // end struct Projection
+        public const string PLATE_CARREE = "plate_carree";
+        public const string WEB_MERCATOR = "web_mercator";
+    } // end struct Projection
 
-        public struct Encoding
-        {
-            public const string BINARY = "binary";
-            public const string JSON = "json";
-            public const string GEOJSON = "geojson";
-            public const string HTML = "html";
-        } // end struct Encoding
-
-        public struct Options
-        {
-            public const string AUTO_COLUMN_SELECTION = "auto_column_selection";
-            public const string FALSE = "false";
-            public const string TRUE = "true";
-        } // end struct Options
-
-        public IList<string> table_names { get; set; } = new List<string>();
-        public IList<string> x_column_names { get; set; } = new List<string>();
-        public IList<string> y_column_names { get; set; } = new List<string>();
-        public IList<string> geometry_column_names { get; set; } = new List<string>();
-        public IList<IList<string>> query_column_names { get; set; } = new List<IList<string>>();
-        public string projection { get; set; }
-        public double min_x { get; set; }
-        public double max_x { get; set; }
-        public double min_y { get; set; }
-        public double max_y { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public int x { get; set; }
-        public int y { get; set; }
-        public int radius { get; set; }
-        public long limit { get; set; }
-        public string encoding { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        public VisualizeGetFeatureInfoRequest() { }
-
-        public VisualizeGetFeatureInfoRequest( IList<string> table_names,
-                                               IList<string> x_column_names,
-                                               IList<string> y_column_names,
-                                               IList<string> geometry_column_names,
-                                               IList<IList<string>> query_column_names,
-                                               string projection,
-                                               double min_x,
-                                               double max_x,
-                                               double min_y,
-                                               double max_y,
-                                               int width,
-                                               int height,
-                                               int x,
-                                               int y,
-                                               int radius,
-                                               long limit,
-                                               string encoding,
-                                               IDictionary<string, string> options = null)
-        {
-            this.table_names = table_names ?? new List<string>();
-            this.x_column_names = x_column_names ?? new List<string>();
-            this.y_column_names = y_column_names ?? new List<string>();
-            this.geometry_column_names = geometry_column_names ?? new List<string>();
-            this.query_column_names = query_column_names ?? new List<IList<string>>();
-            this.projection = projection ?? "";
-            this.min_x = min_x;
-            this.max_x = max_x;
-            this.min_y = min_y;
-            this.max_y = max_y;
-            this.width = width;
-            this.height = height;
-            this.x = x;
-            this.y = y;
-            this.radius = radius;
-            this.limit = limit;
-            this.encoding = encoding ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class VisualizeGetFeatureInfoRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class VisualizeGetFeatureInfoResponse : KineticaData
+    public struct Encoding
     {
-        public IList<string> table_names { get; set; } = new List<string>();
-        public IList<string> type_schemas { get; set; } = new List<string>();
-        public IList<byte[]> records_binary { get; set; } = new List<byte[]>();
-        public IList<string> records_json { get; set; } = new List<string>();
-        public string geojson_encoded_response { get; set; }
-        public string text_encoded_response { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class VisualizeGetFeatureInfoResponse
-    /// @endcond
-} // end namespace kinetica
+        public const string BINARY = "binary";
+        public const string JSON = "json";
+        public const string GEOJSON = "geojson";
+        public const string HTML = "html";
+    } // end struct Encoding
+
+    public struct Options
+    {
+        public const string AUTO_COLUMN_SELECTION = "auto_column_selection";
+        public const string FALSE = "false";
+        public const string TRUE = "true";
+    } // end struct Options
+
+    public IList<string> table_names { get; set; } = new List<string>();
+    public IList<string> x_column_names { get; set; } = new List<string>();
+    public IList<string> y_column_names { get; set; } = new List<string>();
+    public IList<string> geometry_column_names { get; set; } = new List<string>();
+    public IList<IList<string>> query_column_names { get; set; } = new List<IList<string>>();
+    public string projection { get; set; }
+    public double min_x { get; set; }
+    public double max_x { get; set; }
+    public double min_y { get; set; }
+    public double max_y { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
+    public int radius { get; set; }
+    public long limit { get; set; }
+    public string encoding { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public VisualizeGetFeatureInfoRequest() { }
+
+    public VisualizeGetFeatureInfoRequest( IList<string> table_names,
+                                           IList<string> x_column_names,
+                                           IList<string> y_column_names,
+                                           IList<string> geometry_column_names,
+                                           IList<IList<string>> query_column_names,
+                                           string projection,
+                                           double min_x,
+                                           double max_x,
+                                           double min_y,
+                                           double max_y,
+                                           int width,
+                                           int height,
+                                           int x,
+                                           int y,
+                                           int radius,
+                                           long limit,
+                                           string encoding,
+                                           IDictionary<string, string> options = null)
+    {
+        this.table_names = table_names ?? new List<string>();
+        this.x_column_names = x_column_names ?? new List<string>();
+        this.y_column_names = y_column_names ?? new List<string>();
+        this.geometry_column_names = geometry_column_names ?? new List<string>();
+        this.query_column_names = query_column_names ?? new List<IList<string>>();
+        this.projection = projection ?? "";
+        this.min_x = min_x;
+        this.max_x = max_x;
+        this.min_y = min_y;
+        this.max_y = max_y;
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.limit = limit;
+        this.encoding = encoding ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class VisualizeGetFeatureInfoRequest
+/// @endcond
+
+/// @cond NO_DOCS
+public class VisualizeGetFeatureInfoResponse : KineticaData
+{
+    public IList<string> table_names { get; set; } = new List<string>();
+    public IList<string> type_schemas { get; set; } = new List<string>();
+    public IList<byte[]> records_binary { get; set; } = new List<byte[]>();
+    public IList<string> records_json { get; set; } = new List<string>();
+    public string geojson_encoded_response { get; set; }
+    public string text_encoded_response { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class VisualizeGetFeatureInfoResponse
+/// @endcond

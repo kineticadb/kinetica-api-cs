@@ -6,36 +6,35 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class CreateStateTableRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class CreateStateTableRequest : KineticaData
+    public string table_name { get; set; }
+    public string input_table_name { get; set; }
+    public string init_table_name { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public CreateStateTableRequest() { }
+
+    public CreateStateTableRequest( string table_name,
+                                    string input_table_name,
+                                    string init_table_name,
+                                    IDictionary<string, string> options = null)
     {
-        public string table_name { get; set; }
-        public string input_table_name { get; set; }
-        public string init_table_name { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.table_name = table_name ?? "";
+        this.input_table_name = input_table_name ?? "";
+        this.init_table_name = init_table_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateStateTableRequest
+/// @endcond
 
-        public CreateStateTableRequest() { }
-
-        public CreateStateTableRequest( string table_name,
-                                        string input_table_name,
-                                        string init_table_name,
-                                        IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.input_table_name = input_table_name ?? "";
-            this.init_table_name = init_table_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateStateTableRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class CreateStateTableResponse : KineticaData
-    {
-        public string table_name { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateStateTableResponse
-    /// @endcond
-} // end namespace kinetica
+/// @cond NO_DOCS
+public class CreateStateTableResponse : KineticaData
+{
+    public string table_name { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateStateTableResponse
+/// @endcond

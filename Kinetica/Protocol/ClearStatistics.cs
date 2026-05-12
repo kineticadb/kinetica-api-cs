@@ -6,78 +6,75 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
+/// </summary>
+/// <remarks><para>Clears statistics (cardinality, mean value, etc.) for a
+/// column in a specified table.</para></remarks>
+public class ClearStatisticsRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
-    /// </summary>
-    /// <remarks><para>Clears statistics (cardinality, mean value, etc.) for a
-    /// column in a specified table.</para></remarks>
-    public class ClearStatisticsRequest : KineticaData
+    /// <summary>Name of a table, in [schema_name.]table_name format, using
+    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para>Must be an existing table. The default value is ''.
+    /// </para></remarks>
+    public string table_name { get; set; } = "";
+
+    /// <summary>Name of the column in <see cref="table_name" /> for which to
+    /// clear statistics.</summary>
+    /// <remarks><para>The column must be from an existing table. An empty
+    /// string clears statistics for all columns in the table. The default
+    /// value is ''.</para></remarks>
+    public string column_name { get; set; } = "";
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a ClearStatisticsRequest object with default
+    /// parameters.</summary>
+    public ClearStatisticsRequest() { }
+
+    /// <summary>Constructs a ClearStatisticsRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of a table, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>. Must be an existing table. The
+    /// default value is ''.</param>
+    /// <param name="column_name">Name of the column in <paramref
+    /// name="table_name" /> for which to clear statistics. The column must be
+    /// from an existing table. An empty string clears statistics for all
+    /// columns in the table. The default value is ''.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public ClearStatisticsRequest( string table_name = null,
+                                   string column_name = null,
+                                   IDictionary<string, string> options = null)
     {
-        /// <summary>Name of a table, in [schema_name.]table_name format, using
-        /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para>Must be an existing table. The default value is ''.
-        /// </para></remarks>
-        public string table_name { get; set; } = "";
+        this.table_name = table_name ?? "";
+        this.column_name = column_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ClearStatisticsRequest
 
-        /// <summary>Name of the column in <see cref="table_name" /> for which
-        /// to clear statistics.</summary>
-        /// <remarks><para>The column must be from an existing table. An empty
-        /// string clears statistics for all columns in the table. The default
-        /// value is ''.</para></remarks>
-        public string column_name { get; set; } = "";
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
+/// </summary>
+public class ClearStatisticsResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="ClearStatisticsRequest.table_name">table_name</see>.</summary>
+    public string table_name { get; set; }
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    /// <summary>Value of <see
+    /// cref="ClearStatisticsRequest.column_name">column_name</see>.</summary>
+    public string column_name { get; set; }
 
-        /// <summary>Constructs a ClearStatisticsRequest object with default
-        /// parameters.</summary>
-        public ClearStatisticsRequest() { }
-
-        /// <summary>Constructs a ClearStatisticsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of a table, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>. Must be an existing table.
-        /// The default value is ''.</param>
-        /// <param name="column_name">Name of the column in <paramref
-        /// name="table_name" /> for which to clear statistics. The column must
-        /// be from an existing table. An empty string clears statistics for
-        /// all columns in the table. The default value is ''.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public ClearStatisticsRequest( string table_name = null,
-                                       string column_name = null,
-                                       IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.column_name = column_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ClearStatisticsRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
-    /// </summary>
-    public class ClearStatisticsResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="ClearStatisticsRequest.table_name">table_name</see>.
-        /// </summary>
-        public string table_name { get; set; }
-
-        /// <summary>Value of <see
-        /// cref="ClearStatisticsRequest.column_name">column_name</see>.
-        /// </summary>
-        public string column_name { get; set; }
-
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ClearStatisticsResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ClearStatisticsResponse

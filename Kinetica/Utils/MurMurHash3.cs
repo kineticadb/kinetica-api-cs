@@ -7,11 +7,10 @@ The MurmurHash3 algorithm was created by Austin Appleby and put into the public 
 using System;
 
 
-namespace kinetica
-{
+namespace kinetica;
 
-    /// <summary>
-    /// Usage:
+/// <summary>
+/// Usage:
     /// <code>
     ///    MurMurHash3.LongPair murmur = new MurMurHash3.LongPair();
     ///    System.Text.Encoding encoding = new System.Text.UTF8Encoding();
@@ -159,5 +158,3 @@ namespace kinetica
         }  // end murmurhash3_x64_128
 
     }  // end class MurMurHash3
-
-}  // end namespace kinetica

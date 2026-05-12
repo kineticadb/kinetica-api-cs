@@ -6,149 +6,147 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.clearTable(ClearTableRequest)">Kinetica.clearTable</see>.
+/// </summary>
+/// <remarks><para>Clears (drops) one or all tables in the database cluster.
+/// The operation is synchronous meaning that the table will be cleared before
+/// the function returns. The response payload returns the status of the
+/// operation along with the name of the table that was cleared.</para>
+/// </remarks>
+public class ClearTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.clearTable(ClearTableRequest)">Kinetica.clearTable</see>.
-    /// </summary>
-    /// <remarks><para>Clears (drops) one or all tables in the database
-    /// cluster. The operation is synchronous meaning that the table will be
-    /// cleared before the function returns. The response payload returns the
-    /// status of the operation along with the name of the table that was
-    /// cleared.</para></remarks>
-    public class ClearTableRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the
-            /// table specified in <see cref="table_name" /> does not exist no
-            /// error is returned.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Name of the table to be cleared, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para>Must be an existing table. Empty string clears all
-        /// available tables, though this behavior is be prevented by default
-        /// via gpudb.conf parameter 'disable_clear_all'. The default value is
-        /// ''.</para></remarks>
-        public string table_name { get; set; } = "";
-
-        /// <summary>No longer used.</summary>
-        /// <remarks><para>User can pass an empty string. The default value is
-        /// ''.</para></remarks>
-        public string authorization { get; set; } = "";
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
-        ///         the table specified in <see cref="table_name" /> does not
-        ///         exist no error is returned. If <see
-        ///         cref="Options.FALSE">FALSE</see> and if the table specified
-        ///         in <see cref="table_name" /> does not exist then an error
-        ///         is returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a ClearTableRequest object with default
-        /// parameters.</summary>
-        public ClearTableRequest() { }
-
-        /// <summary>Constructs a ClearTableRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table to be cleared, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>. Must be an existing table.
-        /// Empty string clears all available tables, though this behavior is
-        /// be prevented by default via gpudb.conf parameter
-        /// 'disable_clear_all'. The default value is ''.</param>
-        /// <param name="authorization">No longer used. User can pass an empty
-        /// string. The default value is ''.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the table
+        /// specified in <see cref="table_name" /> does not exist no error is
+        /// returned.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
-        ///         the table specified in <paramref name="table_name" /> does
-        ///         not exist no error is returned. If <see
-        ///         cref="Options.FALSE">FALSE</see> and if the table specified
-        ///         in <paramref name="table_name" /> does not exist then an
-        ///         error is returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ClearTableRequest( string table_name = null,
-                                  string authorization = null,
-                                  IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.authorization = authorization ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ClearTableRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.clearTable(ClearTableRequest)">Kinetica.clearTable</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Name of the table to be cleared, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para>Must be an existing table. Empty string clears all
+    /// available tables, though this behavior is be prevented by default via
+    /// gpudb.conf parameter 'disable_clear_all'. The default value is ''.
+    /// </para></remarks>
+    public string table_name { get; set; } = "";
+
+    /// <summary>No longer used.</summary>
+    /// <remarks><para>User can pass an empty string. The default value is ''.
+    /// </para></remarks>
+    public string authorization { get; set; } = "";
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
+    ///         table specified in <see cref="table_name" /> does not exist no
+    ///         error is returned. If <see cref="Options.FALSE">FALSE</see> and
+    ///         if the table specified in <see cref="table_name" /> does not
+    ///         exist then an error is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a ClearTableRequest object with default parameters.
     /// </summary>
-    public class ClearTableResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="ClearTableRequest.table_name">table_name</see> for a given
-        /// table, or 'ALL CLEARED' in case of clearing all tables.</summary>
-        public string table_name { get; set; }
+    public ClearTableRequest() { }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ClearTableResponse
-} // end namespace kinetica
+    /// <summary>Constructs a ClearTableRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table to be cleared, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>. Must be an existing table.
+    /// Empty string clears all available tables, though this behavior is be
+    /// prevented by default via gpudb.conf parameter 'disable_clear_all'. The
+    /// default value is ''.</param>
+    /// <param name="authorization">No longer used. User can pass an empty
+    /// string. The default value is ''.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
+    ///         table specified in <paramref name="table_name" /> does not
+    ///         exist no error is returned. If <see
+    ///         cref="Options.FALSE">FALSE</see> and if the table specified in
+    ///         <paramref name="table_name" /> does not exist then an error is
+    ///         returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ClearTableRequest( string table_name = null,
+                              string authorization = null,
+                              IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.authorization = authorization ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ClearTableRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.clearTable(ClearTableRequest)">Kinetica.clearTable</see>.
+/// </summary>
+public class ClearTableResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="ClearTableRequest.table_name">table_name</see> for a given table,
+    /// or 'ALL CLEARED' in case of clearing all tables.</summary>
+    public string table_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ClearTableResponse

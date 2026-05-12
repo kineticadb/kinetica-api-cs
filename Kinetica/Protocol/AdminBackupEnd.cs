@@ -6,42 +6,41 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
+/// </summary>
+/// <remarks><para>Restores the system to normal operating mode after a backup
+/// has completed, allowing any queries that were blocked to complete.</para>
+/// </remarks>
+public class AdminBackupEndRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
-    /// </summary>
-    /// <remarks><para>Restores the system to normal operating mode after a
-    /// backup has completed, allowing any queries that were blocked to
-    /// complete.</para></remarks>
-    public class AdminBackupEndRequest : KineticaData
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AdminBackupEndRequest object with default
+    /// parameters.</summary>
+    public AdminBackupEndRequest() { }
+
+    /// <summary>Constructs an AdminBackupEndRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public AdminBackupEndRequest( IDictionary<string, string> options = null)
     {
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AdminBackupEndRequest
 
-        /// <summary>Constructs an AdminBackupEndRequest object with default
-        /// parameters.</summary>
-        public AdminBackupEndRequest() { }
-
-        /// <summary>Constructs an AdminBackupEndRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public AdminBackupEndRequest( IDictionary<string, string> options = null)
-        {
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AdminBackupEndRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
-    /// </summary>
-    public class AdminBackupEndResponse : KineticaData
-    {
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AdminBackupEndResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
+/// </summary>
+public class AdminBackupEndResponse : KineticaData
+{
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AdminBackupEndResponse

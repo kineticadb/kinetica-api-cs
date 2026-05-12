@@ -6,74 +6,102 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
+/// </summary>
+/// <remarks><para>Calculates and returns the minimum and maximum values of a
+/// particular column in a table.</para></remarks>
+public class AggregateMinMaxRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
+    /// <summary>Name of the table on which the operation will be performed.
     /// </summary>
-    /// <remarks><para>Calculates and returns the minimum and maximum values of
-    /// a particular column in a table.</para></remarks>
-    public class AggregateMinMaxRequest : KineticaData
+    /// <remarks><para>Must be an existing table, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>Name of a column or an expression of one or more column on
+    /// which the min-max will be calculated.</summary>
+    public string column_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AggregateMinMaxRequest object with default
+    /// parameters.</summary>
+    public AggregateMinMaxRequest() { }
+
+    /// <summary>Constructs an AggregateMinMaxRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table on which the operation will
+    /// be performed. Must be an existing table, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="column_name">Name of a column or an expression of one or
+    /// more column on which the min-max will be calculated.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public AggregateMinMaxRequest( string table_name,
+                                   string column_name,
+                                   IDictionary<string, string> options = null)
     {
-        /// <summary>Name of the table on which the operation will be
-        /// performed.</summary>
-        /// <remarks><para>Must be an existing table, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</para></remarks>
-        public string table_name { get; set; }
+        this.table_name = table_name ?? "";
+        this.column_name = column_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AggregateMinMaxRequest
 
-        /// <summary>Name of a column or an expression of one or more column on
-        /// which the min-max will be calculated.</summary>
-        public string column_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an AggregateMinMaxRequest object with default
-        /// parameters.</summary>
-        public AggregateMinMaxRequest() { }
-
-        /// <summary>Constructs an AggregateMinMaxRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="column_name">Name of a column or an expression of one
-        /// or more column on which the min-max will be calculated.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public AggregateMinMaxRequest( string table_name,
-                                       string column_name,
-                                       IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.column_name = column_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AggregateMinMaxRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
-    /// </summary>
-    public class AggregateMinMaxResponse : KineticaData
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
+/// </summary>
+public class AggregateMinMaxResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
     {
-        /// <summary>Minimum value of the <see
-        /// cref="AggregateMinMaxRequest.column_name">column_name</see>.
-        /// </summary>
-        public double min { get; set; }
+        /// <summary>The minimum value of <see
+        /// cref="AggregateMinMaxRequest.column_name">column_name</see>, stored
+        /// as a byte vector.</summary>
+        public const string MIN_STRING = "min_string";
 
-        /// <summary>Maximum value of the <see
-        /// cref="AggregateMinMaxRequest.column_name">column_name</see>.
-        /// </summary>
-        public double max { get; set; }
+        /// <summary>The maximum value of <see
+        /// cref="AggregateMinMaxRequest.column_name">column_name</see>, stored
+        /// as a byte vector</summary>
+        public const string MAX_STRING = "max_string";
+    } // end struct Info
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AggregateMinMaxResponse
-} // end namespace kinetica
+    /// <summary>Minimum value of the <see
+    /// cref="AggregateMinMaxRequest.column_name">column_name</see>.</summary>
+    public double min { get; set; }
+
+    /// <summary>Maximum value of the <see
+    /// cref="AggregateMinMaxRequest.column_name">column_name</see>.</summary>
+    public double max { get; set; }
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Info.MIN_STRING">MIN_STRING</see>:</term>
+    ///         <description>The minimum value of <see
+    ///         cref="AggregateMinMaxRequest.column_name">column_name</see>,
+    ///         stored as a byte vector.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Info.MAX_STRING">MAX_STRING</see>:</term>
+    ///         <description>The maximum value of <see
+    ///         cref="AggregateMinMaxRequest.column_name">column_name</see>,
+    ///         stored as a byte vector</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AggregateMinMaxResponse

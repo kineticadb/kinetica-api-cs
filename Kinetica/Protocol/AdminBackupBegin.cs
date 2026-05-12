@@ -6,46 +6,44 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.adminBackupBegin(AdminBackupBeginRequest)">Kinetica.adminBackupBegin</see>.
+/// </summary>
+/// <remarks><para>Prepares the system for a backup by closing all open file
+/// handles after allowing current active jobs to complete. When the database
+/// is in backup mode, queries that result in a disk write operation will be
+/// blocked until backup mode has been completed by using <see
+/// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
+/// </para></remarks>
+public class AdminBackupBeginRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminBackupBegin(AdminBackupBeginRequest)">Kinetica.adminBackupBegin</see>.
-    /// </summary>
-    /// <remarks><para>Prepares the system for a backup by closing all open
-    /// file handles after allowing current active jobs to complete. When the
-    /// database is in backup mode, queries that result in a disk write
-    /// operation will be blocked until backup mode has been completed by using
-    /// <see
-    /// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
-    /// </para></remarks>
-    public class AdminBackupBeginRequest : KineticaData
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AdminBackupBeginRequest object with default
+    /// parameters.</summary>
+    public AdminBackupBeginRequest() { }
+
+    /// <summary>Constructs an AdminBackupBeginRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public AdminBackupBeginRequest( IDictionary<string, string> options = null)
     {
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AdminBackupBeginRequest
 
-        /// <summary>Constructs an AdminBackupBeginRequest object with default
-        /// parameters.</summary>
-        public AdminBackupBeginRequest() { }
-
-        /// <summary>Constructs an AdminBackupBeginRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public AdminBackupBeginRequest( IDictionary<string, string> options = null)
-        {
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AdminBackupBeginRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminBackupBegin(AdminBackupBeginRequest)">Kinetica.adminBackupBegin</see>.
-    /// </summary>
-    public class AdminBackupBeginResponse : KineticaData
-    {
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AdminBackupBeginResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.adminBackupBegin(AdminBackupBeginRequest)">Kinetica.adminBackupBegin</see>.
+/// </summary>
+public class AdminBackupBeginResponse : KineticaData
+{
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AdminBackupBeginResponse

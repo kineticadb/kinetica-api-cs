@@ -6,49 +6,48 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class CreateContainerRegistryRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class CreateContainerRegistryRequest : KineticaData
+    public struct Options
     {
-        public struct Options
-        {
-            public const string USER_NAME = "user_name";
-            public const string PASSWORD = "password";
-            public const string EMAIL = "email";
-        } // end struct Options
+        public const string USER_NAME = "user_name";
+        public const string PASSWORD = "password";
+        public const string EMAIL = "email";
+    } // end struct Options
 
-        public string registry_name { get; set; }
-        public string uri { get; set; }
-        public string credential { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    public string registry_name { get; set; }
+    public string uri { get; set; }
+    public string credential { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        public CreateContainerRegistryRequest() { }
+    public CreateContainerRegistryRequest() { }
 
-        public CreateContainerRegistryRequest( string registry_name,
-                                               string uri,
-                                               string credential,
-                                               IDictionary<string, string> options = null)
-        {
-            this.registry_name = registry_name ?? "";
-            this.uri = uri ?? "";
-            this.credential = credential ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateContainerRegistryRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class CreateContainerRegistryResponse : KineticaData
+    public CreateContainerRegistryRequest( string registry_name,
+                                           string uri,
+                                           string credential,
+                                           IDictionary<string, string> options = null)
     {
-        public struct Info
-        {
-            public const string KML_RESPONSE = "kml_response";
-        } // end struct Info
+        this.registry_name = registry_name ?? "";
+        this.uri = uri ?? "";
+        this.credential = credential ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateContainerRegistryRequest
+/// @endcond
 
-        public string registry_name { get; set; }
-        public int entity_id { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateContainerRegistryResponse
-    /// @endcond
-} // end namespace kinetica
+/// @cond NO_DOCS
+public class CreateContainerRegistryResponse : KineticaData
+{
+    public struct Info
+    {
+        public const string KML_RESPONSE = "kml_response";
+    } // end struct Info
+
+    public string registry_name { get; set; }
+    public int entity_id { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateContainerRegistryResponse
+/// @endcond

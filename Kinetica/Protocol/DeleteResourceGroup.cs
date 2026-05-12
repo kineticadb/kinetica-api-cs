@@ -6,114 +6,112 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
+/// </summary>
+/// <remarks><para>Deletes a resource group.</para></remarks>
+public class DeleteResourceGroupRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
-    /// </summary>
-    /// <remarks><para>Deletes a resource group.</para></remarks>
-    public class DeleteResourceGroupRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, delete any
-            /// existing entities owned by this group.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string CASCADE_DELETE = "cascade_delete";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Name of the resource group to be deleted.</summary>
-        public string name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CASCADE_DELETE">CASCADE_DELETE</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, delete
-        ///         any existing entities owned by this group. Otherwise this
-        ///         request will return an error of any such entities exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a DeleteResourceGroupRequest object with
-        /// default parameters.</summary>
-        public DeleteResourceGroupRequest() { }
-
-        /// <summary>Constructs a DeleteResourceGroupRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="name">Name of the resource group to be deleted.
-        /// </param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, delete any
+        /// existing entities owned by this group.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.CASCADE_DELETE">CASCADE_DELETE</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, delete
-        ///         any existing entities owned by this group. Otherwise this
-        ///         request will return an error of any such entities exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public DeleteResourceGroupRequest( string name,
-                                           IDictionary<string, string> options = null)
-        {
-            this.name = name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DeleteResourceGroupRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string CASCADE_DELETE = "cascade_delete";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
-    /// </summary>
-    public class DeleteResourceGroupResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Name of the resource group to be deleted.</summary>
+    public string name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.CASCADE_DELETE">CASCADE_DELETE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, delete any
+    ///         existing entities owned by this group. Otherwise this request
+    ///         will return an error of any such entities exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a DeleteResourceGroupRequest object with default
+    /// parameters.</summary>
+    public DeleteResourceGroupRequest() { }
+
+    /// <summary>Constructs a DeleteResourceGroupRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="name">Name of the resource group to be deleted.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.CASCADE_DELETE">CASCADE_DELETE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, delete any
+    ///         existing entities owned by this group. Otherwise this request
+    ///         will return an error of any such entities exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public DeleteResourceGroupRequest( string name,
+                                       IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="DeleteResourceGroupRequest.name">name</see>.</summary>
-        public string name { get; set; }
+        this.name = name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DeleteResourceGroupRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DeleteResourceGroupResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
+/// </summary>
+public class DeleteResourceGroupResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="DeleteResourceGroupRequest.name">name</see>.</summary>
+    public string name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DeleteResourceGroupResponse

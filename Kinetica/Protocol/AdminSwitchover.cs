@@ -6,148 +6,145 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
+/// </summary>
+/// <remarks><para>Manually switch over one or more processes to another host.
+/// Individual ranks or entire hosts may be moved to another host.</para>
+/// </remarks>
+public class AdminSwitchoverRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
-    /// </summary>
-    /// <remarks><para>Manually switch over one or more processes to another
-    /// host. Individual ranks or entire hosts may be moved to another host.
-    /// </para></remarks>
-    public class AdminSwitchoverRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, only
-            /// validation checks will be performed.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DRY_RUN = "dry_run";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Indicates the process identifier to switch over to another
-        /// host.</summary>
-        /// <remarks><para>Options are 'hostN' and 'rankN' where 'N'
-        /// corresponds to the number associated with a host or rank in the <a
-        /// href="../../../config/#config-main-network"
-        /// target="_top">Network</a> section of the gpudb.conf file; e.g.,
-        /// 'host[N].address' or 'rank[N].host'. If 'hostN' is provided, all
-        /// processes on that host will be moved to another host. Each entry in
-        /// this array will be switched over to the corresponding host entry at
-        /// the same index in <see cref="destinations" />.</para></remarks>
-        public IList<string> processes { get; set; } = new List<string>();
-
-        /// <summary>Indicates to which host to switch over each corresponding
-        /// process given in <see cref="processes" />.</summary>
-        /// <remarks><para>Each index must be specified as 'hostN' where 'N'
-        /// corresponds to the number associated with a host or rank in the <a
-        /// href="../../../config/#config-main-network"
-        /// target="_top">Network</a> section of the gpudb.conf file; e.g.,
-        /// 'host[N].address'. Each entry in this array will receive the
-        /// corresponding process entry at the same index in <see
-        /// cref="processes" />.</para></remarks>
-        public IList<string> destinations { get; set; } = new List<string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         only validation checks will be performed. Nothing is
-        ///         switched over.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an AdminSwitchoverRequest object with default
-        /// parameters.</summary>
-        public AdminSwitchoverRequest() { }
-
-        /// <summary>Constructs an AdminSwitchoverRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="processes">Indicates the process identifier to switch
-        /// over to another host. Options are 'hostN' and 'rankN' where 'N'
-        /// corresponds to the number associated with a host or rank in the <a
-        /// href="../../../config/#config-main-network"
-        /// target="_top">Network</a> section of the gpudb.conf file; e.g.,
-        /// 'host[N].address' or 'rank[N].host'. If 'hostN' is provided, all
-        /// processes on that host will be moved to another host. Each entry in
-        /// this array will be switched over to the corresponding host entry at
-        /// the same index in <paramref name="destinations" />.</param>
-        /// <param name="destinations">Indicates to which host to switch over
-        /// each corresponding process given in <paramref name="processes" />.
-        /// Each index must be specified as 'hostN' where 'N' corresponds to
-        /// the number associated with a host or rank in the <a
-        /// href="../../../config/#config-main-network"
-        /// target="_top">Network</a> section of the gpudb.conf file; e.g.,
-        /// 'host[N].address'. Each entry in this array will receive the
-        /// corresponding process entry at the same index in <paramref
-        /// name="processes" />.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, only
+        /// validation checks will be performed.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         only validation checks will be performed. Nothing is
-        ///         switched over.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AdminSwitchoverRequest( IList<string> processes,
-                                       IList<string> destinations,
-                                       IDictionary<string, string> options = null)
-        {
-            this.processes = processes ?? new List<string>();
-            this.destinations = destinations ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AdminSwitchoverRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DRY_RUN = "dry_run";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
-    /// </summary>
-    public class AdminSwitchoverResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Indicates the process identifier to switch over to another
+    /// host.</summary>
+    /// <remarks><para>Options are 'hostN' and 'rankN' where 'N' corresponds to
+    /// the number associated with a host or rank in the <a
+    /// href="../../../config/#config-main-network" target="_top">Network</a>
+    /// section of the gpudb.conf file; e.g., 'host[N].address' or
+    /// 'rank[N].host'. If 'hostN' is provided, all processes on that host will
+    /// be moved to another host. Each entry in this array will be switched
+    /// over to the corresponding host entry at the same index in <see
+    /// cref="destinations" />.</para></remarks>
+    public IList<string> processes { get; set; } = new List<string>();
+
+    /// <summary>Indicates to which host to switch over each corresponding
+    /// process given in <see cref="processes" />.</summary>
+    /// <remarks><para>Each index must be specified as 'hostN' where 'N'
+    /// corresponds to the number associated with a host or rank in the <a
+    /// href="../../../config/#config-main-network" target="_top">Network</a>
+    /// section of the gpudb.conf file; e.g., 'host[N].address'. Each entry in
+    /// this array will receive the corresponding process entry at the same
+    /// index in <see cref="processes" />.</para></remarks>
+    public IList<string> destinations { get; set; } = new List<string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         only validation checks will be performed. Nothing is switched
+    ///         over.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AdminSwitchoverRequest object with default
+    /// parameters.</summary>
+    public AdminSwitchoverRequest() { }
+
+    /// <summary>Constructs an AdminSwitchoverRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="processes">Indicates the process identifier to switch over
+    /// to another host. Options are 'hostN' and 'rankN' where 'N' corresponds
+    /// to the number associated with a host or rank in the <a
+    /// href="../../../config/#config-main-network" target="_top">Network</a>
+    /// section of the gpudb.conf file; e.g., 'host[N].address' or
+    /// 'rank[N].host'. If 'hostN' is provided, all processes on that host will
+    /// be moved to another host. Each entry in this array will be switched
+    /// over to the corresponding host entry at the same index in <paramref
+    /// name="destinations" />.</param>
+    /// <param name="destinations">Indicates to which host to switch over each
+    /// corresponding process given in <paramref name="processes" />. Each
+    /// index must be specified as 'hostN' where 'N' corresponds to the number
+    /// associated with a host or rank in the <a
+    /// href="../../../config/#config-main-network" target="_top">Network</a>
+    /// section of the gpudb.conf file; e.g., 'host[N].address'. Each entry in
+    /// this array will receive the corresponding process entry at the same
+    /// index in <paramref name="processes" />.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         only validation checks will be performed. Nothing is switched
+    ///         over.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AdminSwitchoverRequest( IList<string> processes,
+                                   IList<string> destinations,
+                                   IDictionary<string, string> options = null)
     {
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AdminSwitchoverResponse
-} // end namespace kinetica
+        this.processes = processes ?? new List<string>();
+        this.destinations = destinations ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AdminSwitchoverRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
+/// </summary>
+public class AdminSwitchoverResponse : KineticaData
+{
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AdminSwitchoverResponse

@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 
 
-namespace kinetica
-{
-    /// <summary>
-    /// Manages the insertion into GPUdb of large numbers of records in bulk,
+namespace kinetica;
+
+/// <summary>
+/// Manages the insertion into GPUdb of large numbers of records in bulk,
     /// with automatic batch management and support for multi-head ingest.
     /// Use the <see cref="insert(record)"/> and <see cref="insert(List)"/>
     /// methods to queue records for insertion, and the <see cref="flush"/>
     /// method to ensure that all queued records have been inserted.
     /// </summary>
     /// <typeparam name="T">The type of object being inserted.</typeparam>
+    /// <remarks>
+    /// This class is obsolete. Use <see cref="BulkInserter{T}"/> instead, which provides
+    /// better performance, async support, and is consistent with the Rust API.
+    /// </remarks>
+    [Obsolete("Use BulkInserter<T> instead. KineticaIngestor will be removed in a future version.")]
     public class KineticaIngestor<T>
     {
         [Serializable]
-        public class InsertException<T> : KineticaException
+        public class InsertException : KineticaException
         {
             public Uri url { get; private set; }
             public IList<T> records { get; private set; }
-            private string message;
 
             public InsertException( string msg ) : base( msg ) { }
 
             internal InsertException( Uri url_, IList<T> records_, string msg ) : base ( msg )
             {
-                this.message = msg;
                 this.url = url_;
                 this.records = records_;
             }
 
-            public override string ToString() { return "InsertException: " + message; }
+            public override string ToString() { return "InsertException: " + Message; }
         }  // end class InsertException
 
 
@@ -124,8 +127,11 @@ namespace kinetica
                 if ( ( workers != null ) && ( workers.Count > 0 ) )
                 {
                     // Add worker queues per worker
-                    foreach ( System.Uri workerUrl in workers )
+                    foreach ( var workerUrl in workers )
                     {
+                        // Skip removed ranks (null URLs)
+                        if ( workerUrl == null ) continue;
+
                         string strWorkerUrl = workerUrl.ToString();
                         strWorkerUrl = strWorkerUrl.EndsWith('/') ? strWorkerUrl[..^1] : strWorkerUrl;
                         string insert_records_worker_url_str = $"{strWorkerUrl}/insert/records";
@@ -236,7 +242,8 @@ namespace kinetica
                 }
                 else
                 {
-                    response = this.kineticaDB.SubmitRequest<InsertRecordsResponse>( url, request );
+                    // Use SubmitRequestRaw for direct URL calls (no HA failover - handled by ingestor)
+                    response = this.kineticaDB.SubmitRequestRaw<InsertRecordsResponse>( url, request );
                 }
 
                 // Save the counts of inserted and updated records
@@ -245,7 +252,7 @@ namespace kinetica
             }
             catch ( Exception ex )
             {
-                throw new InsertException<T>( url, queue, ex.Message );
+                throw new InsertException( url, queue, ex.Message );
             }
         }  // end private flush()
 
@@ -329,7 +336,7 @@ namespace kinetica
                 {
                     this.insert( records[ i ] );
                 }
-                catch ( InsertException<T> ex )
+                catch ( InsertException ex )
                 {
                     // Add the remaining records to the insertion exception
                     // record queue
@@ -340,8 +347,8 @@ namespace kinetica
                         queue.Add( records[ j ] );
                     }
 
-                    // Rethrow
-                    throw ex;
+                    // Rethrow (preserving stack trace)
+                    throw;
                 }  // end try-catch
             }  // end outer for loop
         }  // end insert( records )
@@ -351,6 +358,3 @@ namespace kinetica
     }  // end class KineticaIngestor<T>
 
 
-
-
-}  // end namespace kinetica

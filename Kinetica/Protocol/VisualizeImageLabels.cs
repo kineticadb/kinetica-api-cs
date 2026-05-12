@@ -6,118 +6,117 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class VisualizeImageLabelsRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class VisualizeImageLabelsRequest : KineticaData
+    public struct Projection
     {
-        public struct Projection
-        {
-            public const string EPSG_4326 = "EPSG:4326";
-            public const string PLATE_CARREE = "PLATE_CARREE";
-            public const string _900913 = "900913";
-            public const string EPSG_900913 = "EPSG:900913";
-            public const string _102100 = "102100";
-            public const string EPSG_102100 = "EPSG:102100";
-            public const string _3857 = "3857";
-            public const string EPSG_3857 = "EPSG:3857";
-            public const string WEB_MERCATOR = "WEB_MERCATOR";
-        } // end struct Projection
+        public const string EPSG_4326 = "EPSG:4326";
+        public const string PLATE_CARREE = "PLATE_CARREE";
+        public const string _900913 = "900913";
+        public const string EPSG_900913 = "EPSG:900913";
+        public const string _102100 = "102100";
+        public const string EPSG_102100 = "EPSG:102100";
+        public const string _3857 = "3857";
+        public const string EPSG_3857 = "EPSG:3857";
+        public const string WEB_MERCATOR = "WEB_MERCATOR";
+    } // end struct Projection
 
-        public string table_name { get; set; }
-        public string x_column_name { get; set; }
-        public string y_column_name { get; set; }
-        public string x_offset { get; set; } = "";
-        public string y_offset { get; set; } = "";
-        public string text_string { get; set; }
-        public string font { get; set; } = "";
-        public string text_color { get; set; } = "";
-        public string text_angle { get; set; } = "";
-        public string text_scale { get; set; } = "";
-        public string draw_box { get; set; } = "";
-        public string draw_leader { get; set; } = "";
-        public string line_width { get; set; } = "";
-        public string line_color { get; set; } = "";
-        public string fill_color { get; set; } = "";
-        public string leader_x_column_name { get; set; } = "";
-        public string leader_y_column_name { get; set; } = "";
-        public string filter { get; set; } = "";
-        public double min_x { get; set; }
-        public double max_x { get; set; }
-        public double min_y { get; set; }
-        public double max_y { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public string projection { get; set; } = Projection.PLATE_CARREE;
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    public string table_name { get; set; }
+    public string x_column_name { get; set; }
+    public string y_column_name { get; set; }
+    public string x_offset { get; set; } = "";
+    public string y_offset { get; set; } = "";
+    public string text_string { get; set; }
+    public string font { get; set; } = "";
+    public string text_color { get; set; } = "";
+    public string text_angle { get; set; } = "";
+    public string text_scale { get; set; } = "";
+    public string draw_box { get; set; } = "";
+    public string draw_leader { get; set; } = "";
+    public string line_width { get; set; } = "";
+    public string line_color { get; set; } = "";
+    public string fill_color { get; set; } = "";
+    public string leader_x_column_name { get; set; } = "";
+    public string leader_y_column_name { get; set; } = "";
+    public string filter { get; set; } = "";
+    public double min_x { get; set; }
+    public double max_x { get; set; }
+    public double min_y { get; set; }
+    public double max_y { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
+    public string projection { get; set; } = Projection.PLATE_CARREE;
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        public VisualizeImageLabelsRequest() { }
+    public VisualizeImageLabelsRequest() { }
 
-        public VisualizeImageLabelsRequest( string table_name,
-                                            string x_column_name,
-                                            string y_column_name,
-                                            string x_offset,
-                                            string y_offset,
-                                            string text_string,
-                                            string font,
-                                            string text_color,
-                                            string text_angle,
-                                            string text_scale,
-                                            string draw_box,
-                                            string draw_leader,
-                                            string line_width,
-                                            string line_color,
-                                            string fill_color,
-                                            string leader_x_column_name,
-                                            string leader_y_column_name,
-                                            string filter,
-                                            double min_x,
-                                            double max_x,
-                                            double min_y,
-                                            double max_y,
-                                            int width,
-                                            int height,
-                                            string projection = null,
-                                            IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.x_column_name = x_column_name ?? "";
-            this.y_column_name = y_column_name ?? "";
-            this.x_offset = x_offset ?? "";
-            this.y_offset = y_offset ?? "";
-            this.text_string = text_string ?? "";
-            this.font = font ?? "";
-            this.text_color = text_color ?? "";
-            this.text_angle = text_angle ?? "";
-            this.text_scale = text_scale ?? "";
-            this.draw_box = draw_box ?? "";
-            this.draw_leader = draw_leader ?? "";
-            this.line_width = line_width ?? "";
-            this.line_color = line_color ?? "";
-            this.fill_color = fill_color ?? "";
-            this.leader_x_column_name = leader_x_column_name ?? "";
-            this.leader_y_column_name = leader_y_column_name ?? "";
-            this.filter = filter ?? "";
-            this.min_x = min_x;
-            this.max_x = max_x;
-            this.min_y = min_y;
-            this.max_y = max_y;
-            this.width = width;
-            this.height = height;
-            this.projection = projection ?? Projection.PLATE_CARREE;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class VisualizeImageLabelsRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class VisualizeImageLabelsResponse : KineticaData
+    public VisualizeImageLabelsRequest( string table_name,
+                                        string x_column_name,
+                                        string y_column_name,
+                                        string x_offset,
+                                        string y_offset,
+                                        string text_string,
+                                        string font,
+                                        string text_color,
+                                        string text_angle,
+                                        string text_scale,
+                                        string draw_box,
+                                        string draw_leader,
+                                        string line_width,
+                                        string line_color,
+                                        string fill_color,
+                                        string leader_x_column_name,
+                                        string leader_y_column_name,
+                                        string filter,
+                                        double min_x,
+                                        double max_x,
+                                        double min_y,
+                                        double max_y,
+                                        int width,
+                                        int height,
+                                        string projection = null,
+                                        IDictionary<string, string> options = null)
     {
-        public double width { get; set; }
-        public double height { get; set; }
-        public long bg_color { get; set; }
-        public byte[] image_data { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class VisualizeImageLabelsResponse
-    /// @endcond
-} // end namespace kinetica
+        this.table_name = table_name ?? "";
+        this.x_column_name = x_column_name ?? "";
+        this.y_column_name = y_column_name ?? "";
+        this.x_offset = x_offset ?? "";
+        this.y_offset = y_offset ?? "";
+        this.text_string = text_string ?? "";
+        this.font = font ?? "";
+        this.text_color = text_color ?? "";
+        this.text_angle = text_angle ?? "";
+        this.text_scale = text_scale ?? "";
+        this.draw_box = draw_box ?? "";
+        this.draw_leader = draw_leader ?? "";
+        this.line_width = line_width ?? "";
+        this.line_color = line_color ?? "";
+        this.fill_color = fill_color ?? "";
+        this.leader_x_column_name = leader_x_column_name ?? "";
+        this.leader_y_column_name = leader_y_column_name ?? "";
+        this.filter = filter ?? "";
+        this.min_x = min_x;
+        this.max_x = max_x;
+        this.min_y = min_y;
+        this.max_y = max_y;
+        this.width = width;
+        this.height = height;
+        this.projection = projection ?? Projection.PLATE_CARREE;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class VisualizeImageLabelsRequest
+/// @endcond
+
+/// @cond NO_DOCS
+public class VisualizeImageLabelsResponse : KineticaData
+{
+    public double width { get; set; }
+    public double height { get; set; }
+    public long bg_color { get; set; }
+    public byte[] image_data { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class VisualizeImageLabelsResponse
+/// @endcond

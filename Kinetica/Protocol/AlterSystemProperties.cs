@@ -6,1194 +6,1141 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
+/// </summary>
+/// <remarks><para>The <see
+/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>
+/// endpoint is primarily used to simplify the testing of the system and is not
+/// expected to be used during normal execution.  Commands are given through
+/// the <see cref="property_updates_map" /> whose keys are commands and values
+/// are strings representing integer values (for example '8000') or boolean
+/// values ('true' or 'false').</para></remarks>
+public class AlterSystemPropertiesRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
-    /// </summary>
-    /// <remarks><para>The <see
-    /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>
-    /// endpoint is primarily used to simplify the testing of the system and is
-    /// not expected to be used during normal execution.  Commands are given
-    /// through the <see cref="property_updates_map" /> whose keys are commands
-    /// and values are strings representing integer values (for example '8000')
-    /// or boolean values ('true' or 'false').</para></remarks>
-    public class AlterSystemPropertiesRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="property_updates_map" />.</summary>
+    /// <remarks><para>Map containing the properties of the system to be
+    /// updated. Error if empty.</para></remarks>
+    public struct PropertyUpdatesMap
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="property_updates_map" />.</summary>
-        /// <remarks><para>Map containing the properties of the system to be
-        /// updated. Error if empty.</para></remarks>
-        public struct PropertyUpdatesMap
-        {
-            /// <summary>Enables concurrent kernel execution if the value is
-            /// <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables it
-            /// if the value is <see
-            /// cref="PropertyUpdatesMap.FALSE">FALSE</see>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            /// </list></remarks>
-            public const string CONCURRENT_KERNEL_EXECUTION = "concurrent_kernel_execution";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Sets the maximum number of simultaneous threads
-            /// allocated to a given request, on each rank.</summary>
-            /// <remarks><para>Note that thread allocation may also be limited
-            /// by resource group limits and/or system load.</para></remarks>
-            public const string SUBTASK_CONCURRENCY_LIMIT = "subtask_concurrency_limit";
-
-            /// <summary>Sets the number of records per chunk to be used for
-            /// all new tables.</summary>
-            public const string CHUNK_SIZE = "chunk_size";
-
-            /// <summary>Sets the target maximum data size for each column in a
-            /// chunk to be used for all new tables.</summary>
-            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
-
-            /// <summary>Indicates the target maximum data size for all columns
-            /// in a chunk to be used for all new tables.</summary>
-            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
-
-            /// <summary>Sets the execution_mode for kernel executions to the
-            /// specified string value.</summary>
-            /// <remarks><para>Possible values are host, device, default
-            /// (engine decides) or an integer value that indicates max chunk
-            /// size to exec on host</para></remarks>
-            public const string EXECUTION_MODE = "execution_mode";
-
-            /// <summary>Sets the root directory path where external table data
-            /// files are accessed from.</summary>
-            /// <remarks><para> Path must exist on the head node</para>
-            /// </remarks>
-            public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
-
-            /// <summary>Number of minutes after which filtering (e.g., <see
-            /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
-            /// and aggregating (e.g., <see
-            /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
-            /// queries will timeout.</summary>
-            /// <remarks><para>The default value is '20'. The minimum allowed
-            /// value is '0'. The maximum allowed value is '1440'.</para>
-            /// </remarks>
-            public const string REQUEST_TIMEOUT = "request_timeout";
-
-            /// <summary>The maximum number of records the database will serve
-            /// for a given data retrieval call.</summary>
-            /// <remarks><para>The default value is '20000'. The minimum
-            /// allowed value is '0'. The maximum allowed value is '1000000'.
-            /// </para></remarks>
-            public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
-
-            /// <summary>Enable or disable auditing.</summary>
-            public const string ENABLE_AUDIT = "enable_audit";
-
-            /// <summary>Enable or disable auditing of request headers.
-            /// </summary>
-            public const string AUDIT_HEADERS = "audit_headers";
-
-            /// <summary>Enable or disable auditing of request bodies.
-            /// </summary>
-            public const string AUDIT_BODY = "audit_body";
-
-            /// <summary>Enable or disable auditing of request data.</summary>
-            public const string AUDIT_DATA = "audit_data";
-
-            /// <summary>Enable or disable auditing of response information.
-            /// </summary>
-            public const string AUDIT_RESPONSE = "audit_response";
-
-            /// <summary>Size of the shadow aggregate chunk cache in bytes.
-            /// </summary>
-            /// <remarks><para>The default value is '10000000'. The minimum
-            /// allowed value is '0'. The maximum allowed value is
-            /// '2147483647'.</para></remarks>
-            public const string SHADOW_AGG_SIZE = "shadow_agg_size";
-
-            /// <summary>Size of the shadow filter chunk cache in bytes.
-            /// </summary>
-            /// <remarks><para>The default value is '10000000'. The minimum
-            /// allowed value is '0'. The maximum allowed value is
-            /// '2147483647'.</para></remarks>
-            public const string SHADOW_FILTER_SIZE = "shadow_filter_size";
-
-            /// <summary>Enable overlapped-equi-join filter.</summary>
-            /// <remarks><para>The default value is 'true'.</para></remarks>
-            public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
-
-            /// <summary>Enable the one_step compound-equi-join algorithm.
-            /// </summary>
-            /// <remarks><para>The default value is 'true'.</para></remarks>
-            public const string ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN = "enable_one_step_compound_equi_join";
-
-            /// <summary>Maximum number of records to be ingested in a single
-            /// batch.</summary>
-            /// <remarks><para>The default value is '1000'. The minimum allowed
-            /// value is '1'. The maximum allowed value is '10000000'.</para>
-            /// </remarks>
-            public const string KAFKA_BATCH_SIZE = "kafka_batch_size";
-
-            /// <summary>Maximum time (milliseconds) for each poll to get
-            /// records from kafka.</summary>
-            /// <remarks><para>The default value is '0'. The minimum allowed
-            /// value is '0'. The maximum allowed value is '1000'.</para>
-            /// </remarks>
-            public const string KAFKA_POLL_TIMEOUT = "kafka_poll_timeout";
-
-            /// <summary>Maximum time (seconds) to buffer records received from
-            /// kafka before ingestion.</summary>
-            /// <remarks><para>The default value is '30'. The minimum allowed
-            /// value is '1'. The maximum allowed value is '120'.</para>
-            /// </remarks>
-            public const string KAFKA_WAIT_TIME = "kafka_wait_time";
-
-            /// <summary>Parquet file compression type.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            ///         cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</para></remarks>
-            public const string EGRESS_PARQUET_COMPRESSION = "egress_parquet_compression";
-
-            public const string UNCOMPRESSED = "uncompressed";
-            public const string SNAPPY = "snappy";
-            public const string GZIP = "gzip";
-
-            /// <summary>Max file size (in MB) to allow saving to a single
-            /// file.</summary>
-            /// <remarks><para>May be overridden by target limitations. The
-            /// default value is '10000'. The minimum allowed value is '1'. The
-            /// maximum allowed value is '200000'.</para></remarks>
-            public const string EGRESS_SINGLE_FILE_MAX_SIZE = "egress_single_file_max_size";
-
-            /// <summary>Sets the max_concurrent_kernels value of the conf.
-            /// </summary>
-            /// <remarks><para>The minimum allowed value is '0'. The maximum
-            /// allowed value is '256'.</para></remarks>
-            public const string MAX_CONCURRENT_KERNELS = "max_concurrent_kernels";
-
-            /// <summary>Sets the system_metadata.retention_period value of the
-            /// conf.</summary>
-            /// <remarks><para>The minimum allowed value is '1'.</para>
-            /// </remarks>
-            public const string SYSTEM_METADATA_RETENTION_PERIOD = "system_metadata_retention_period";
-
-            /// <summary>Size of the worker rank data calculation thread pool.
-            /// </summary>
-            /// <remarks><para> This is primarily used for computation-based
-            /// operations such as aggregates and record retrieval. The minimum
-            /// allowed value is '2'. The maximum allowed value is '8192'.
-            /// </para></remarks>
-            public const string TCS_PER_TOM = "tcs_per_tom";
-
-            /// <summary>Size of the worker rank data processing thread pool.
-            /// </summary>
-            /// <remarks><para> This includes operations such as inserts,
-            /// updates, & deletes on table data.  Multi-head inserts are not
-            /// affected by this limit. The minimum allowed value is '2'. The
-            /// maximum allowed value is '8192'.</para></remarks>
-            public const string TPS_PER_TOM = "tps_per_tom";
-
-            /// <summary>Size of the worker rank background thread pool.
-            /// </summary>
-            /// <remarks><para>This includes background operations such as
-            /// watermark evictions catalog table updates. The minimum allowed
-            /// value is '1'. The maximum allowed value is '8192'.</para>
-            /// </remarks>
-            public const string BACKGROUND_WORKER_THREADS = "background_worker_threads";
-
-            /// <summary>Outputs various job-related information to the rank
-            /// logs.</summary>
-            /// <remarks><para>Used for troubleshooting.</para></remarks>
-            public const string LOG_DEBUG_JOB_INFO = "log_debug_job_info";
-
-            /// <summary>Log a stack trace for any thread that runs longer than
-            /// a defined threshold.</summary>
-            /// <remarks><para>Used for troubleshooting. The default value is
-            /// 'true'.</para></remarks>
-            public const string ENABLE_THREAD_HANG_LOGGING = "enable_thread_hang_logging";
-
-            /// <summary>Enable RAG.</summary>
-            /// <remarks><para>The default value is 'false'.</para></remarks>
-            public const string AI_ENABLE_RAG = "ai_enable_rag";
-
-            /// <summary>AI API provider type</summary>
-            public const string AI_API_PROVIDER = "ai_api_provider";
-
-            /// <summary>AI API URL</summary>
-            public const string AI_API_URL = "ai_api_url";
-
-            /// <summary>AI API key</summary>
-            public const string AI_API_KEY = "ai_api_key";
-
-            /// <summary>AI API connection timeout in seconds</summary>
-            public const string AI_API_CONNECTION_TIMEOUT = "ai_api_connection_timeout";
-
-            /// <summary>AI API model name</summary>
-            public const string AI_API_EMBEDDINGS_MODEL = "ai_api_embeddings_model";
-
-            /// <summary>Enable or disable persisting of query metrics.
-            /// </summary>
-            public const string TELM_PERSIST_QUERY_METRICS = "telm_persist_query_metrics";
-
-            /// <summary>Idle connection timeout in seconds</summary>
-            public const string POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT = "postgres_proxy_idle_connection_timeout";
-
-            /// <summary>Enable  postgres proxy keep alive.</summary>
-            /// <remarks><para>The default value is 'false'.</para></remarks>
-            public const string POSTGRES_PROXY_KEEP_ALIVE = "postgres_proxy_keep_alive";
-
-            /// <summary>The default maximum capacity to apply when creating a
-            /// KiFS directory (bytes).</summary>
-            /// <remarks><para>The minimum allowed value is '-1'.</para>
-            /// </remarks>
-            public const string KIFS_DIRECTORY_DATA_LIMIT = "kifs_directory_data_limit";
-
-            /// <summary>The default <a
-            /// href="../../../concepts/column_compression/"
-            /// target="_top">compression algorithm</a> applied to any column
-            /// without a column-level or table-level default compression
-            /// specified at the time it was created</summary>
-            public const string COMPRESSION_CODEC = "compression_codec";
-
-            /// <summary>Time interval in seconds after which the database will
-            /// apply optimizations/transformations to persisted data, such as
-            /// compression.</summary>
-            /// <remarks><para>The minimum allowed value is '0'.</para>
-            /// </remarks>
-            public const string DISK_AUTO_OPTIMIZE_TIMEOUT = "disk_auto_optimize_timeout";
-
-            /// <summary>Initializes HA replay from the given timestamp (as
-            /// milliseconds since unix epoch).</summary>
-            /// <remarks><para>The minimum allowed value is '-1'.</para>
-            /// </remarks>
-            public const string HA_CONSUMER_REPLAY_OFFSET = "ha_consumer_replay_offset";
-        } // end struct PropertyUpdatesMap
-
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> and
-            /// evict_columns is specified, the given objects will be evicted
-            /// to cold storage (if such a tier exists).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string EVICT_TO_COLD = "evict_to_cold";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> the system
-            /// configuration will be written to disk upon successful
-            /// application of this request.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PERSIST = "persist";
-        } // end struct Options
-
-        /// <summary>Map containing the properties of the system to be updated.
+        /// <summary>Enables concurrent kernel execution if the value is <see
+        /// cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables it if the
+        /// value is <see cref="PropertyUpdatesMap.FALSE">FALSE</see>.
         /// </summary>
-        /// <remarks><list type="bullet">
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
-        ///         </term>
-        ///         <description>Enables concurrent kernel execution if the
-        ///         value is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and
-        ///         disables it if the value is <see
-        ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
+        ///         <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+        ///         <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
         ///         </term>
-        ///         <description>Sets the maximum number of simultaneous
-        ///         threads allocated to a given request, on each rank. Note
-        ///         that thread allocation may also be limited by resource
-        ///         group limits and/or system load.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:
-        ///         </term>
-        ///         <description>Sets the number of records per chunk to be
-        ///         used for all new tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Sets the target maximum data size for each
-        ///         column in a chunk to be used for all new tables.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for all
-        ///         columns in a chunk to be used for all new tables.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
-        ///         </term>
-        ///         <description>Sets the execution_mode for kernel executions
-        ///         to the specified string value. Possible values are host,
-        ///         device, default (engine decides) or an integer value that
-        ///         indicates max chunk size to exec on host</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
-        ///         </term>
-        ///         <description>Sets the root directory path where external
-        ///         table data files are accessed from.  Path must exist on the
-        ///         head node</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Number of minutes after which filtering (e.g.,
-        ///         <see
-        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
-        ///         and aggregating (e.g., <see
-        ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
-        ///         queries will timeout. The default value is '20'. The
-        ///         minimum allowed value is '0'. The maximum allowed value is
-        ///         '1440'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
-        ///         </term>
-        ///         <description>The maximum number of records the database
-        ///         will serve for a given data retrieval call. The default
-        ///         value is '20000'. The minimum allowed value is '0'. The
-        ///         maximum allowed value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of request headers.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of request bodies.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of request data.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of response
-        ///         information.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
-        ///         </term>
-        ///         <description>Size of the shadow aggregate chunk cache in
-        ///         bytes. The default value is '10000000'. The minimum allowed
-        ///         value is '0'. The maximum allowed value is '2147483647'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
-        ///         </term>
-        ///         <description>Size of the shadow filter chunk cache in
-        ///         bytes. The default value is '10000000'. The minimum allowed
-        ///         value is '0'. The maximum allowed value is '2147483647'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
-        ///         </term>
-        ///         <description>Enable overlapped-equi-join filter. The
-        ///         default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
-        ///         </term>
-        ///         <description>Enable the one_step compound-equi-join
-        ///         algorithm. The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>Maximum number of records to be ingested in a
-        ///         single batch. The default value is '1000'. The minimum
-        ///         allowed value is '1'. The maximum allowed value is
-        ///         '10000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Maximum time (milliseconds) for each poll to
-        ///         get records from kafka. The default value is '0'. The
-        ///         minimum allowed value is '0'. The maximum allowed value is
-        ///         '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
-        ///         </term>
-        ///         <description>Maximum time (seconds) to buffer records
-        ///         received from kafka before ingestion. The default value is
-        ///         '30'. The minimum allowed value is '1'. The maximum allowed
-        ///         value is '120'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
-        ///         </term>
-        ///         <description>Parquet file compression type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.GZIP">GZIP</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
-        ///         </term>
-        ///         <description>Max file size (in MB) to allow saving to a
-        ///         single file. May be overridden by target limitations. The
-        ///         default value is '10000'. The minimum allowed value is '1'.
-        ///         The maximum allowed value is '200000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
-        ///         </term>
-        ///         <description>Sets the max_concurrent_kernels value of the
-        ///         conf. The minimum allowed value is '0'. The maximum allowed
-        ///         value is '256'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
-        ///         </term>
-        ///         <description>Sets the system_metadata.retention_period
-        ///         value of the conf. The minimum allowed value is '1'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
-        ///         </term>
-        ///         <description>Size of the worker rank data calculation
-        ///         thread pool.  This is primarily used for computation-based
-        ///         operations such as aggregates and record retrieval. The
-        ///         minimum allowed value is '2'. The maximum allowed value is
-        ///         '8192'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
-        ///         </term>
-        ///         <description>Size of the worker rank data processing thread
-        ///         pool.  This includes operations such as inserts, updates, &
-        ///         deletes on table data.  Multi-head inserts are not affected
-        ///         by this limit. The minimum allowed value is '2'. The
-        ///         maximum allowed value is '8192'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
-        ///         </term>
-        ///         <description>Size of the worker rank background thread
-        ///         pool. This includes background operations such as watermark
-        ///         evictions catalog table updates. The minimum allowed value
-        ///         is '1'. The maximum allowed value is '8192'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
-        ///         </term>
-        ///         <description>Outputs various job-related information to the
-        ///         rank logs. Used for troubleshooting.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
-        ///         </term>
-        ///         <description>Log a stack trace for any thread that runs
-        ///         longer than a defined threshold. Used for troubleshooting.
-        ///         The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
-        ///         </term>
-        ///         <description>Enable RAG. The default value is 'false'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
-        ///         </term>
-        ///         <description>AI API provider type</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
-        ///         </term>
-        ///         <description>AI API URL</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
-        ///         </term>
-        ///         <description>AI API key</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>AI API connection timeout in seconds
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
-        ///         </term>
-        ///         <description>AI API model name</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
-        ///         </term>
-        ///         <description>Enable or disable persisting of query metrics.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Idle connection timeout in seconds
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
-        ///         </term>
-        ///         <description>Enable  postgres proxy keep alive. The default
-        ///         value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
-        ///         </term>
-        ///         <description>The default maximum capacity to apply when
-        ///         creating a KiFS directory (bytes). The minimum allowed
-        ///         value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
-        ///         </term>
-        ///         <description>The default <a
-        ///         href="../../../concepts/column_compression/"
-        ///         target="_top">compression algorithm</a> applied to any
-        ///         column without a column-level or table-level default
-        ///         compression specified at the time it was created
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Time interval in seconds after which the
-        ///         database will apply optimizations/transformations to
-        ///         persisted data, such as compression. The minimum allowed
-        ///         value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
-        ///         </term>
-        ///         <description>Initializes HA replay from the given timestamp
-        ///         (as milliseconds since unix epoch). The minimum allowed
-        ///         value is '-1'.</description>
         ///     </item>
         /// </list></remarks>
-        public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
+        public const string CONCURRENT_KERNEL_EXECUTION = "concurrent_kernel_execution";
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and
-        ///         evict_columns is specified, the given objects will be
-        ///         evicted to cold storage (if such a tier exists).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> the
-        ///         system configuration will be written to disk upon
-        ///         successful application of this request. This will commit
-        ///         the changes from this request and any additional in-memory
-        ///         modifications.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Constructs an AlterSystemPropertiesRequest object with
-        /// default parameters.</summary>
-        public AlterSystemPropertiesRequest() { }
+        /// <summary>Sets the maximum number of simultaneous threads allocated
+        /// to a given request, on each rank.</summary>
+        /// <remarks><para>Note that thread allocation may also be limited by
+        /// resource group limits and/or system load.</para></remarks>
+        public const string SUBTASK_CONCURRENCY_LIMIT = "subtask_concurrency_limit";
 
-        /// <summary>Constructs an AlterSystemPropertiesRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="property_updates_map">Map containing the properties of
-        /// the system to be updated. Error if empty.
+        /// <summary>Sets the number of records per chunk to be used for all
+        /// new tables.</summary>
+        public const string CHUNK_SIZE = "chunk_size";
+
+        /// <summary>Sets the target maximum data size for each column in a
+        /// chunk to be used for all new tables.</summary>
+        public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+        /// <summary>Indicates the target maximum data size for all columns in
+        /// a chunk to be used for all new tables.</summary>
+        public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
+        /// <summary>Sets the execution_mode for kernel executions to the
+        /// specified string value.</summary>
+        /// <remarks><para>Possible values are host, device, default (engine
+        /// decides) or an integer value that indicates max chunk size to exec
+        /// on host</para></remarks>
+        public const string EXECUTION_MODE = "execution_mode";
+
+        /// <summary>Sets the root directory path where external table data
+        /// files are accessed from.</summary>
+        /// <remarks><para> Path must exist on the head node</para></remarks>
+        public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
+
+        /// <summary>Number of minutes after which filtering (e.g., <see
+        /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>) and
+        /// aggregating (e.g., <see
+        /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+        /// queries will timeout.</summary>
+        /// <remarks><para>The default value is '20'. The minimum allowed value
+        /// is '0'. The maximum allowed value is '1440'.</para></remarks>
+        public const string REQUEST_TIMEOUT = "request_timeout";
+
+        /// <summary>The maximum number of records the database will serve for
+        /// a given data retrieval call.</summary>
+        /// <remarks><para>The default value is '20000'. The minimum allowed
+        /// value is '0'. The maximum allowed value is '1000000'.</para>
+        /// </remarks>
+        public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
+
+        /// <summary>Enable or disable auditing.</summary>
+        public const string ENABLE_AUDIT = "enable_audit";
+
+        /// <summary>Enable or disable auditing of request headers.</summary>
+        public const string AUDIT_HEADERS = "audit_headers";
+
+        /// <summary>Enable or disable auditing of request bodies.</summary>
+        public const string AUDIT_BODY = "audit_body";
+
+        /// <summary>Enable or disable auditing of request data.</summary>
+        public const string AUDIT_DATA = "audit_data";
+
+        /// <summary>Enable or disable auditing of response information.
+        /// </summary>
+        public const string AUDIT_RESPONSE = "audit_response";
+
+        /// <summary>Size of the shadow aggregate chunk cache in bytes.
+        /// </summary>
+        /// <remarks><para>The default value is '10000000'. The minimum allowed
+        /// value is '0'. The maximum allowed value is '2147483647'.</para>
+        /// </remarks>
+        public const string SHADOW_AGG_SIZE = "shadow_agg_size";
+
+        /// <summary>Size of the shadow filter chunk cache in bytes.</summary>
+        /// <remarks><para>The default value is '10000000'. The minimum allowed
+        /// value is '0'. The maximum allowed value is '2147483647'.</para>
+        /// </remarks>
+        public const string SHADOW_FILTER_SIZE = "shadow_filter_size";
+
+        /// <summary>Enable overlapped-equi-join filter.</summary>
+        /// <remarks><para>The default value is 'true'.</para></remarks>
+        public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
+
+        /// <summary>Enable the one_step compound-equi-join algorithm.
+        /// </summary>
+        /// <remarks><para>The default value is 'true'.</para></remarks>
+        public const string ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN = "enable_one_step_compound_equi_join";
+
+        /// <summary>Maximum number of records to be ingested in a single
+        /// batch.</summary>
+        /// <remarks><para>The default value is '1000'. The minimum allowed
+        /// value is '1'. The maximum allowed value is '10000000'.</para>
+        /// </remarks>
+        public const string KAFKA_BATCH_SIZE = "kafka_batch_size";
+
+        /// <summary>Maximum time (milliseconds) for each poll to get records
+        /// from kafka.</summary>
+        /// <remarks><para>The default value is '0'. The minimum allowed value
+        /// is '0'. The maximum allowed value is '1000'.</para></remarks>
+        public const string KAFKA_POLL_TIMEOUT = "kafka_poll_timeout";
+
+        /// <summary>Maximum time (seconds) to buffer records received from
+        /// kafka before ingestion.</summary>
+        /// <remarks><para>The default value is '30'. The minimum allowed value
+        /// is '1'. The maximum allowed value is '120'.</para></remarks>
+        public const string KAFKA_WAIT_TIME = "kafka_wait_time";
+
+        /// <summary>Parquet file compression type.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+        ///         cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
         ///         </term>
-        ///         <description>Enables concurrent kernel execution if the
-        ///         value is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and
-        ///         disables it if the value is <see
-        ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+        ///         <term><see cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>
         ///         </term>
-        ///         <description>Sets the maximum number of simultaneous
-        ///         threads allocated to a given request, on each rank. Note
-        ///         that thread allocation may also be limited by resource
-        ///         group limits and/or system load.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:
-        ///         </term>
-        ///         <description>Sets the number of records per chunk to be
-        ///         used for all new tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Sets the target maximum data size for each
-        ///         column in a chunk to be used for all new tables.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for all
-        ///         columns in a chunk to be used for all new tables.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
-        ///         </term>
-        ///         <description>Sets the execution_mode for kernel executions
-        ///         to the specified string value. Possible values are host,
-        ///         device, default (engine decides) or an integer value that
-        ///         indicates max chunk size to exec on host</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
-        ///         </term>
-        ///         <description>Sets the root directory path where external
-        ///         table data files are accessed from.  Path must exist on the
-        ///         head node</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Number of minutes after which filtering (e.g.,
-        ///         <see
-        ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
-        ///         and aggregating (e.g., <see
-        ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
-        ///         queries will timeout. The default value is '20'. The
-        ///         minimum allowed value is '0'. The maximum allowed value is
-        ///         '1440'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
-        ///         </term>
-        ///         <description>The maximum number of records the database
-        ///         will serve for a given data retrieval call. The default
-        ///         value is '20000'. The minimum allowed value is '0'. The
-        ///         maximum allowed value is '1000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of request headers.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of request bodies.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of request data.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
-        ///         </term>
-        ///         <description>Enable or disable auditing of response
-        ///         information.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
-        ///         </term>
-        ///         <description>Size of the shadow aggregate chunk cache in
-        ///         bytes. The default value is '10000000'. The minimum allowed
-        ///         value is '0'. The maximum allowed value is '2147483647'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
-        ///         </term>
-        ///         <description>Size of the shadow filter chunk cache in
-        ///         bytes. The default value is '10000000'. The minimum allowed
-        ///         value is '0'. The maximum allowed value is '2147483647'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
-        ///         </term>
-        ///         <description>Enable overlapped-equi-join filter. The
-        ///         default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
-        ///         </term>
-        ///         <description>Enable the one_step compound-equi-join
-        ///         algorithm. The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>Maximum number of records to be ingested in a
-        ///         single batch. The default value is '1000'. The minimum
-        ///         allowed value is '1'. The maximum allowed value is
-        ///         '10000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Maximum time (milliseconds) for each poll to
-        ///         get records from kafka. The default value is '0'. The
-        ///         minimum allowed value is '0'. The maximum allowed value is
-        ///         '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
-        ///         </term>
-        ///         <description>Maximum time (seconds) to buffer records
-        ///         received from kafka before ingestion. The default value is
-        ///         '30'. The minimum allowed value is '1'. The maximum allowed
-        ///         value is '120'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
-        ///         </term>
-        ///         <description>Parquet file compression type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="PropertyUpdatesMap.GZIP">GZIP</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
-        ///         </term>
-        ///         <description>Max file size (in MB) to allow saving to a
-        ///         single file. May be overridden by target limitations. The
-        ///         default value is '10000'. The minimum allowed value is '1'.
-        ///         The maximum allowed value is '200000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
-        ///         </term>
-        ///         <description>Sets the max_concurrent_kernels value of the
-        ///         conf. The minimum allowed value is '0'. The maximum allowed
-        ///         value is '256'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
-        ///         </term>
-        ///         <description>Sets the system_metadata.retention_period
-        ///         value of the conf. The minimum allowed value is '1'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
-        ///         </term>
-        ///         <description>Size of the worker rank data calculation
-        ///         thread pool.  This is primarily used for computation-based
-        ///         operations such as aggregates and record retrieval. The
-        ///         minimum allowed value is '2'. The maximum allowed value is
-        ///         '8192'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
-        ///         </term>
-        ///         <description>Size of the worker rank data processing thread
-        ///         pool.  This includes operations such as inserts, updates, &
-        ///         deletes on table data.  Multi-head inserts are not affected
-        ///         by this limit. The minimum allowed value is '2'. The
-        ///         maximum allowed value is '8192'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
-        ///         </term>
-        ///         <description>Size of the worker rank background thread
-        ///         pool. This includes background operations such as watermark
-        ///         evictions catalog table updates. The minimum allowed value
-        ///         is '1'. The maximum allowed value is '8192'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
-        ///         </term>
-        ///         <description>Outputs various job-related information to the
-        ///         rank logs. Used for troubleshooting.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
-        ///         </term>
-        ///         <description>Log a stack trace for any thread that runs
-        ///         longer than a defined threshold. Used for troubleshooting.
-        ///         The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
-        ///         </term>
-        ///         <description>Enable RAG. The default value is 'false'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
-        ///         </term>
-        ///         <description>AI API provider type</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
-        ///         </term>
-        ///         <description>AI API URL</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
-        ///         </term>
-        ///         <description>AI API key</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>AI API connection timeout in seconds
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
-        ///         </term>
-        ///         <description>AI API model name</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
-        ///         </term>
-        ///         <description>Enable or disable persisting of query metrics.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Idle connection timeout in seconds
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
-        ///         </term>
-        ///         <description>Enable  postgres proxy keep alive. The default
-        ///         value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
-        ///         </term>
-        ///         <description>The default maximum capacity to apply when
-        ///         creating a KiFS directory (bytes). The minimum allowed
-        ///         value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
-        ///         </term>
-        ///         <description>The default <a
-        ///         href="../../../concepts/column_compression/"
-        ///         target="_top">compression algorithm</a> applied to any
-        ///         column without a column-level or table-level default
-        ///         compression specified at the time it was created
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Time interval in seconds after which the
-        ///         database will apply optimizations/transformations to
-        ///         persisted data, such as compression. The minimum allowed
-        ///         value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
-        ///         </term>
-        ///         <description>Initializes HA replay from the given timestamp
-        ///         (as milliseconds since unix epoch). The minimum allowed
-        ///         value is '-1'.</description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and
-        ///         evict_columns is specified, the given objects will be
-        ///         evicted to cold storage (if such a tier exists).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> the
-        ///         system configuration will be written to disk upon
-        ///         successful application of this request. This will commit
-        ///         the changes from this request and any additional in-memory
-        ///         modifications.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
+        ///         <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AlterSystemPropertiesRequest( IDictionary<string, string> property_updates_map,
-                                             IDictionary<string, string> options = null)
-        {
-            this.property_updates_map = property_updates_map ?? new Dictionary<string, string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterSystemPropertiesRequest
+        /// <para>The default value is <see
+        /// cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</para></remarks>
+        public const string EGRESS_PARQUET_COMPRESSION = "egress_parquet_compression";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
-    /// </summary>
-    public class AlterSystemPropertiesResponse : KineticaData
+        public const string UNCOMPRESSED = "uncompressed";
+        public const string SNAPPY = "snappy";
+        public const string GZIP = "gzip";
+
+        /// <summary>Max file size (in MB) to allow saving to a single file.
+        /// </summary>
+        /// <remarks><para>May be overridden by target limitations. The default
+        /// value is '10000'. The minimum allowed value is '1'. The maximum
+        /// allowed value is '200000'.</para></remarks>
+        public const string EGRESS_SINGLE_FILE_MAX_SIZE = "egress_single_file_max_size";
+
+        /// <summary>Sets the max_concurrent_kernels value of the conf.
+        /// </summary>
+        /// <remarks><para>The minimum allowed value is '0'. The maximum
+        /// allowed value is '256'.</para></remarks>
+        public const string MAX_CONCURRENT_KERNELS = "max_concurrent_kernels";
+
+        /// <summary>Sets the system_metadata.retention_period value of the
+        /// conf.</summary>
+        /// <remarks><para>The minimum allowed value is '1'.</para></remarks>
+        public const string SYSTEM_METADATA_RETENTION_PERIOD = "system_metadata_retention_period";
+
+        /// <summary>Size of the worker rank data calculation thread pool.
+        /// </summary>
+        /// <remarks><para> This is primarily used for computation-based
+        /// operations such as aggregates and record retrieval. The minimum
+        /// allowed value is '2'. The maximum allowed value is '8192'.</para>
+        /// </remarks>
+        public const string TCS_PER_TOM = "tcs_per_tom";
+
+        /// <summary>Size of the worker rank data processing thread pool.
+        /// </summary>
+        /// <remarks><para> This includes operations such as inserts, updates,
+        /// and deletes on table data.  Multi-head inserts are not affected by
+        /// this limit. The minimum allowed value is '2'. The maximum allowed
+        /// value is '8192'.</para></remarks>
+        public const string TPS_PER_TOM = "tps_per_tom";
+
+        /// <summary>Size of the worker rank background thread pool.</summary>
+        /// <remarks><para>This includes background operations such as
+        /// watermark evictions catalog table updates. The minimum allowed
+        /// value is '1'. The maximum allowed value is '8192'.</para></remarks>
+        public const string BACKGROUND_WORKER_THREADS = "background_worker_threads";
+
+        /// <summary>Outputs various job-related information to the rank logs.
+        /// </summary>
+        /// <remarks><para>Used for troubleshooting.</para></remarks>
+        public const string LOG_DEBUG_JOB_INFO = "log_debug_job_info";
+
+        /// <summary>Log a stack trace for any thread that runs longer than a
+        /// defined threshold.</summary>
+        /// <remarks><para>Used for troubleshooting. The default value is
+        /// 'true'.</para></remarks>
+        public const string ENABLE_THREAD_HANG_LOGGING = "enable_thread_hang_logging";
+
+        /// <summary>Enable RAG.</summary>
+        /// <remarks><para>The default value is 'false'.</para></remarks>
+        public const string AI_ENABLE_RAG = "ai_enable_rag";
+
+        /// <summary>AI API provider type</summary>
+        public const string AI_API_PROVIDER = "ai_api_provider";
+
+        /// <summary>AI API URL</summary>
+        public const string AI_API_URL = "ai_api_url";
+
+        /// <summary>AI API key</summary>
+        public const string AI_API_KEY = "ai_api_key";
+
+        /// <summary>AI API connection timeout in seconds</summary>
+        public const string AI_API_CONNECTION_TIMEOUT = "ai_api_connection_timeout";
+
+        /// <summary>AI API model name</summary>
+        public const string AI_API_EMBEDDINGS_MODEL = "ai_api_embeddings_model";
+
+        /// <summary>Enable or disable persisting of query metrics.</summary>
+        public const string TELM_PERSIST_QUERY_METRICS = "telm_persist_query_metrics";
+
+        /// <summary>Idle connection timeout in seconds</summary>
+        public const string POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT = "postgres_proxy_idle_connection_timeout";
+
+        /// <summary>Enable  postgres proxy keep alive.</summary>
+        /// <remarks><para>The default value is 'false'.</para></remarks>
+        public const string POSTGRES_PROXY_KEEP_ALIVE = "postgres_proxy_keep_alive";
+
+        /// <summary>The default maximum capacity to apply when creating a KiFS
+        /// directory (bytes).</summary>
+        /// <remarks><para>The minimum allowed value is '-1'.</para></remarks>
+        public const string KIFS_DIRECTORY_DATA_LIMIT = "kifs_directory_data_limit";
+
+        /// <summary>The default <a
+        /// href="../../../concepts/column_compression/"
+        /// target="_top">compression algorithm</a> applied to any column
+        /// without a column-level or table-level default compression specified
+        /// at the time it was created</summary>
+        public const string COMPRESSION_CODEC = "compression_codec";
+
+        /// <summary>Time interval in seconds after which the database will
+        /// apply optimizations/transformations to persisted data, such as
+        /// compression.</summary>
+        /// <remarks><para>The minimum allowed value is '0'.</para></remarks>
+        public const string DISK_AUTO_OPTIMIZE_TIMEOUT = "disk_auto_optimize_timeout";
+
+        /// <summary>Initializes HA replay from the given timestamp (as
+        /// milliseconds since unix epoch).</summary>
+        /// <remarks><para>The minimum allowed value is '-1'.</para></remarks>
+        public const string HA_CONSUMER_REPLAY_OFFSET = "ha_consumer_replay_offset";
+    } // end struct PropertyUpdatesMap
+
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>Map of values updated; for speed tests, a map of values
-        /// measured to the measurement</summary>
-        public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> and evict_columns
+        /// is specified, the given objects will be evicted to cold storage (if
+        /// such a tier exists).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></remarks>
+        public const string EVICT_TO_COLD = "evict_to_cold";
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterSystemPropertiesResponse
-} // end namespace kinetica
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> the system
+        /// configuration will be written to disk upon successful application
+        /// of this request.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PERSIST = "persist";
+    } // end struct Options
+
+    /// <summary>Map containing the properties of the system to be updated.
+    /// </summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+    ///         </term>
+    ///         <description>Enables concurrent kernel execution if the value
+    ///         is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables
+    ///         it if the value is <see
+    ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+    ///         </term>
+    ///         <description>Sets the maximum number of simultaneous threads
+    ///         allocated to a given request, on each rank. Note that thread
+    ///         allocation may also be limited by resource group limits and/or
+    ///         system load.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <description>Sets the number of records per chunk to be used
+    ///         for all new tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Sets the target maximum data size for each column
+    ///         in a chunk to be used for all new tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for all
+    ///         columns in a chunk to be used for all new tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
+    ///         </term>
+    ///         <description>Sets the execution_mode for kernel executions to
+    ///         the specified string value. Possible values are host, device,
+    ///         default (engine decides) or an integer value that indicates max
+    ///         chunk size to exec on host</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
+    ///         </term>
+    ///         <description>Sets the root directory path where external table
+    ///         data files are accessed from.  Path must exist on the head node
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Number of minutes after which filtering (e.g.,
+    ///         <see
+    ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+    ///         and aggregating (e.g., <see
+    ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+    ///         queries will timeout. The default value is '20'. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '1440'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
+    ///         </term>
+    ///         <description>The maximum number of records the database will
+    ///         serve for a given data retrieval call. The default value is
+    ///         '20000'. The minimum allowed value is '0'. The maximum allowed
+    ///         value is '1000000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
+    ///         </term>
+    ///         <description>Enable or disable auditing.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
+    ///         </term>
+    ///         <description>Enable or disable auditing of request headers.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+    ///         <description>Enable or disable auditing of request bodies.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+    ///         <description>Enable or disable auditing of request data.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
+    ///         </term>
+    ///         <description>Enable or disable auditing of response
+    ///         information.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
+    ///         </term>
+    ///         <description>Size of the shadow aggregate chunk cache in bytes.
+    ///         The default value is '10000000'. The minimum allowed value is
+    ///         '0'. The maximum allowed value is '2147483647'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
+    ///         </term>
+    ///         <description>Size of the shadow filter chunk cache in bytes.
+    ///         The default value is '10000000'. The minimum allowed value is
+    ///         '0'. The maximum allowed value is '2147483647'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
+    ///         </term>
+    ///         <description>Enable overlapped-equi-join filter. The default
+    ///         value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+    ///         </term>
+    ///         <description>Enable the one_step compound-equi-join algorithm.
+    ///         The default value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of records to be ingested in a
+    ///         single batch. The default value is '1000'. The minimum allowed
+    ///         value is '1'. The maximum allowed value is '10000000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Maximum time (milliseconds) for each poll to get
+    ///         records from kafka. The default value is '0'. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '1000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
+    ///         </term>
+    ///         <description>Maximum time (seconds) to buffer records received
+    ///         from kafka before ingestion. The default value is '30'. The
+    ///         minimum allowed value is '1'. The maximum allowed value is
+    ///         '120'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
+    ///         </term>
+    ///         <description>Parquet file compression type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
+    ///         </term>
+    ///         <description>Max file size (in MB) to allow saving to a single
+    ///         file. May be overridden by target limitations. The default
+    ///         value is '10000'. The minimum allowed value is '1'. The maximum
+    ///         allowed value is '200000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
+    ///         </term>
+    ///         <description>Sets the max_concurrent_kernels value of the conf.
+    ///         The minimum allowed value is '0'. The maximum allowed value is
+    ///         '256'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
+    ///         </term>
+    ///         <description>Sets the system_metadata.retention_period value of
+    ///         the conf. The minimum allowed value is '1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+    ///         <description>Size of the worker rank data calculation thread
+    ///         pool.  This is primarily used for computation-based operations
+    ///         such as aggregates and record retrieval. The minimum allowed
+    ///         value is '2'. The maximum allowed value is '8192'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+    ///         <description>Size of the worker rank data processing thread
+    ///         pool.  This includes operations such as inserts, updates, and
+    ///         deletes on table data.  Multi-head inserts are not affected by
+    ///         this limit. The minimum allowed value is '2'. The maximum
+    ///         allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+    ///         </term>
+    ///         <description>Size of the worker rank background thread pool.
+    ///         This includes background operations such as watermark evictions
+    ///         catalog table updates. The minimum allowed value is '1'. The
+    ///         maximum allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
+    ///         </term>
+    ///         <description>Outputs various job-related information to the
+    ///         rank logs. Used for troubleshooting.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
+    ///         </term>
+    ///         <description>Log a stack trace for any thread that runs longer
+    ///         than a defined threshold. Used for troubleshooting. The default
+    ///         value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+    ///         </term>
+    ///         <description>Enable RAG. The default value is 'false'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
+    ///         </term>
+    ///         <description>AI API provider type</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
+    ///         <description>AI API URL</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
+    ///         <description>AI API key</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>AI API connection timeout in seconds</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+    ///         </term>
+    ///         <description>AI API model name</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
+    ///         </term>
+    ///         <description>Enable or disable persisting of query metrics.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Idle connection timeout in seconds</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+    ///         </term>
+    ///         <description>Enable  postgres proxy keep alive. The default
+    ///         value is 'false'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+    ///         </term>
+    ///         <description>The default maximum capacity to apply when
+    ///         creating a KiFS directory (bytes). The minimum allowed value is
+    ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         </term>
+    ///         <description>The default <a
+    ///         href="../../../concepts/column_compression/"
+    ///         target="_top">compression algorithm</a> applied to any column
+    ///         without a column-level or table-level default compression
+    ///         specified at the time it was created</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Time interval in seconds after which the database
+    ///         will apply optimizations/transformations to persisted data,
+    ///         such as compression. The minimum allowed value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
+    ///         </term>
+    ///         <description>Initializes HA replay from the given timestamp (as
+    ///         milliseconds since unix epoch). The minimum allowed value is
+    ///         '-1'.</description>
+    ///     </item>
+    /// </list></remarks>
+    public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and
+    ///         evict_columns is specified, the given objects will be evicted
+    ///         to cold storage (if such a tier exists).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> the system
+    ///         configuration will be written to disk upon successful
+    ///         application of this request. This will commit the changes from
+    ///         this request and any additional in-memory modifications.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AlterSystemPropertiesRequest object with default
+    /// parameters.</summary>
+    public AlterSystemPropertiesRequest() { }
+
+    /// <summary>Constructs an AlterSystemPropertiesRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="property_updates_map">Map containing the properties of the
+    /// system to be updated. Error if empty.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+    ///         </term>
+    ///         <description>Enables concurrent kernel execution if the value
+    ///         is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables
+    ///         it if the value is <see
+    ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+    ///         </term>
+    ///         <description>Sets the maximum number of simultaneous threads
+    ///         allocated to a given request, on each rank. Note that thread
+    ///         allocation may also be limited by resource group limits and/or
+    ///         system load.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <description>Sets the number of records per chunk to be used
+    ///         for all new tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Sets the target maximum data size for each column
+    ///         in a chunk to be used for all new tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for all
+    ///         columns in a chunk to be used for all new tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
+    ///         </term>
+    ///         <description>Sets the execution_mode for kernel executions to
+    ///         the specified string value. Possible values are host, device,
+    ///         default (engine decides) or an integer value that indicates max
+    ///         chunk size to exec on host</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
+    ///         </term>
+    ///         <description>Sets the root directory path where external table
+    ///         data files are accessed from.  Path must exist on the head node
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Number of minutes after which filtering (e.g.,
+    ///         <see
+    ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+    ///         and aggregating (e.g., <see
+    ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+    ///         queries will timeout. The default value is '20'. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '1440'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
+    ///         </term>
+    ///         <description>The maximum number of records the database will
+    ///         serve for a given data retrieval call. The default value is
+    ///         '20000'. The minimum allowed value is '0'. The maximum allowed
+    ///         value is '1000000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
+    ///         </term>
+    ///         <description>Enable or disable auditing.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
+    ///         </term>
+    ///         <description>Enable or disable auditing of request headers.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+    ///         <description>Enable or disable auditing of request bodies.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+    ///         <description>Enable or disable auditing of request data.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
+    ///         </term>
+    ///         <description>Enable or disable auditing of response
+    ///         information.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
+    ///         </term>
+    ///         <description>Size of the shadow aggregate chunk cache in bytes.
+    ///         The default value is '10000000'. The minimum allowed value is
+    ///         '0'. The maximum allowed value is '2147483647'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
+    ///         </term>
+    ///         <description>Size of the shadow filter chunk cache in bytes.
+    ///         The default value is '10000000'. The minimum allowed value is
+    ///         '0'. The maximum allowed value is '2147483647'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
+    ///         </term>
+    ///         <description>Enable overlapped-equi-join filter. The default
+    ///         value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+    ///         </term>
+    ///         <description>Enable the one_step compound-equi-join algorithm.
+    ///         The default value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of records to be ingested in a
+    ///         single batch. The default value is '1000'. The minimum allowed
+    ///         value is '1'. The maximum allowed value is '10000000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Maximum time (milliseconds) for each poll to get
+    ///         records from kafka. The default value is '0'. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '1000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
+    ///         </term>
+    ///         <description>Maximum time (seconds) to buffer records received
+    ///         from kafka before ingestion. The default value is '30'. The
+    ///         minimum allowed value is '1'. The maximum allowed value is
+    ///         '120'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
+    ///         </term>
+    ///         <description>Parquet file compression type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
+    ///         </term>
+    ///         <description>Max file size (in MB) to allow saving to a single
+    ///         file. May be overridden by target limitations. The default
+    ///         value is '10000'. The minimum allowed value is '1'. The maximum
+    ///         allowed value is '200000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
+    ///         </term>
+    ///         <description>Sets the max_concurrent_kernels value of the conf.
+    ///         The minimum allowed value is '0'. The maximum allowed value is
+    ///         '256'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
+    ///         </term>
+    ///         <description>Sets the system_metadata.retention_period value of
+    ///         the conf. The minimum allowed value is '1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+    ///         <description>Size of the worker rank data calculation thread
+    ///         pool.  This is primarily used for computation-based operations
+    ///         such as aggregates and record retrieval. The minimum allowed
+    ///         value is '2'. The maximum allowed value is '8192'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+    ///         <description>Size of the worker rank data processing thread
+    ///         pool.  This includes operations such as inserts, updates, and
+    ///         deletes on table data.  Multi-head inserts are not affected by
+    ///         this limit. The minimum allowed value is '2'. The maximum
+    ///         allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+    ///         </term>
+    ///         <description>Size of the worker rank background thread pool.
+    ///         This includes background operations such as watermark evictions
+    ///         catalog table updates. The minimum allowed value is '1'. The
+    ///         maximum allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
+    ///         </term>
+    ///         <description>Outputs various job-related information to the
+    ///         rank logs. Used for troubleshooting.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
+    ///         </term>
+    ///         <description>Log a stack trace for any thread that runs longer
+    ///         than a defined threshold. Used for troubleshooting. The default
+    ///         value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+    ///         </term>
+    ///         <description>Enable RAG. The default value is 'false'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
+    ///         </term>
+    ///         <description>AI API provider type</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
+    ///         <description>AI API URL</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
+    ///         <description>AI API key</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>AI API connection timeout in seconds</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+    ///         </term>
+    ///         <description>AI API model name</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
+    ///         </term>
+    ///         <description>Enable or disable persisting of query metrics.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Idle connection timeout in seconds</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+    ///         </term>
+    ///         <description>Enable  postgres proxy keep alive. The default
+    ///         value is 'false'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+    ///         </term>
+    ///         <description>The default maximum capacity to apply when
+    ///         creating a KiFS directory (bytes). The minimum allowed value is
+    ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         </term>
+    ///         <description>The default <a
+    ///         href="../../../concepts/column_compression/"
+    ///         target="_top">compression algorithm</a> applied to any column
+    ///         without a column-level or table-level default compression
+    ///         specified at the time it was created</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Time interval in seconds after which the database
+    ///         will apply optimizations/transformations to persisted data,
+    ///         such as compression. The minimum allowed value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
+    ///         </term>
+    ///         <description>Initializes HA replay from the given timestamp (as
+    ///         milliseconds since unix epoch). The minimum allowed value is
+    ///         '-1'.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and
+    ///         evict_columns is specified, the given objects will be evicted
+    ///         to cold storage (if such a tier exists).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> the system
+    ///         configuration will be written to disk upon successful
+    ///         application of this request. This will commit the changes from
+    ///         this request and any additional in-memory modifications.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AlterSystemPropertiesRequest( IDictionary<string, string> property_updates_map,
+                                         IDictionary<string, string> options = null)
+    {
+        this.property_updates_map = property_updates_map ?? new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterSystemPropertiesRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
+/// </summary>
+public class AlterSystemPropertiesResponse : KineticaData
+{
+    /// <summary>Map of values updated; for speed tests, a map of values
+    /// measured to the measurement</summary>
+    public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterSystemPropertiesResponse

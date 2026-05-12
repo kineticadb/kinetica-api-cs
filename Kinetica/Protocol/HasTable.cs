@@ -6,79 +6,78 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+/// </summary>
+/// <remarks><para>Checks for the existence of a table with the given name.
+/// </para></remarks>
+public class HasTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+    /// <summary>Name of the table to check for existence, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    public string table_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a HasTableRequest object with default parameters.
     /// </summary>
-    /// <remarks><para>Checks for the existence of a table with the given name.
-    /// </para></remarks>
-    public class HasTableRequest : KineticaData
+    public HasTableRequest() { }
+
+    /// <summary>Constructs a HasTableRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table to check for existence, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public HasTableRequest( string table_name,
+                            IDictionary<string, string> options = null)
     {
-        /// <summary>Name of the table to check for existence, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        public string table_name { get; set; }
+        this.table_name = table_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class HasTableRequest
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a HasTableRequest object with default
-        /// parameters.</summary>
-        public HasTableRequest() { }
-
-        /// <summary>Constructs a HasTableRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table to check for existence,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public HasTableRequest( string table_name,
-                                IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class HasTableRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
-    /// </summary>
-    public class HasTableResponse : KineticaData
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+/// </summary>
+public class HasTableResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="table_exists" />.</summary>
+    /// <remarks><para>Indicates whether the table exists or not.</para>
+    /// </remarks>
+    public struct TableExists
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="table_exists" />.</summary>
-        /// <remarks><para>Indicates whether the table exists or not.</para>
-        /// </remarks>
-        public struct TableExists
-        {
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct TableExists
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct TableExists
 
-        /// <summary>Value of <see
-        /// cref="HasTableRequest.table_name">table_name</see></summary>
-        public string table_name { get; set; }
+    /// <summary>Value of <see
+    /// cref="HasTableRequest.table_name">table_name</see></summary>
+    public string table_name { get; set; }
 
-        /// <summary>Indicates whether the table exists or not.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term>true</term>
-        ///     </item>
-        ///     <item>
-        ///         <term>false</term>
-        ///     </item>
-        /// </list></remarks>
-        public bool table_exists { get; set; }
+    /// <summary>Indicates whether the table exists or not.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list></remarks>
+    public bool table_exists { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class HasTableResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class HasTableResponse

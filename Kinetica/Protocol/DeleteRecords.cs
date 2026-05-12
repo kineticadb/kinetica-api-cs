@@ -6,213 +6,210 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.
+/// </summary>
+/// <remarks><para>Deletes record(s) matching the provided criteria from the
+/// given table. The record selection criteria can either be one or more  <see
+/// cref="expressions" /> (matching multiple records), a single record
+/// identified by <see cref="Options.RECORD_ID">RECORD_ID</see> options, or all
+/// records when using <see
+/// cref="Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>.  Note that the
+/// three selection criteria are mutually exclusive.  This operation cannot be
+/// run on a view.  The operation is synchronous meaning that a response will
+/// not be available until the request is completely processed and all the
+/// matching records are deleted.</para></remarks>
+public class DeleteRecordsRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.
-    /// </summary>
-    /// <remarks><para>Deletes record(s) matching the provided criteria from
-    /// the given table. The record selection criteria can either be one or
-    /// more  <see cref="expressions" /> (matching multiple records), a single
-    /// record identified by <see cref="Options.RECORD_ID">RECORD_ID</see>
-    /// options, or all records when using <see
-    /// cref="Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>.  Note that
-    /// the three selection criteria are mutually exclusive.  This operation
-    /// cannot be run on a view.  The operation is synchronous meaning that a
-    /// response will not be available until the request is completely
-    /// processed and all the matching records are deleted.</para></remarks>
-    public class DeleteRecordsRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>An optional global expression to reduce the search
-            /// space of the <see cref="expressions" />.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string GLOBAL_EXPRESSION = "global_expression";
+        /// <summary>An optional global expression to reduce the search space
+        /// of the <see cref="expressions" />.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string GLOBAL_EXPRESSION = "global_expression";
 
-            /// <summary>A record ID identifying a single record, obtained at
-            /// the time of <see
-            /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">insertion
-            /// of the record</see> or by calling <see
-            /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>
-            /// with the *return_record_ids* option.</summary>
-            /// <remarks><para>This option cannot be used to delete records
-            /// from <a href="../../../concepts/tables/#replication"
-            /// target="_top">replicated</a> tables.</para></remarks>
-            public const string RECORD_ID = "record_id";
+        /// <summary>A record ID identifying a single record, obtained at the
+        /// time of <see
+        /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">insertion
+        /// of the record</see> or by calling <see
+        /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>
+        /// with the *return_record_ids* option.</summary>
+        /// <remarks><para>This option cannot be used to delete records from <a
+        /// href="../../../concepts/tables/#replication"
+        /// target="_top">replicated</a> tables.</para></remarks>
+        public const string RECORD_ID = "record_id";
 
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all
-            /// records in the table will be deleted.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DELETE_ALL_RECORDS = "delete_all_records";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Name of the table from which to delete records, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para>Must contain the name of an existing table; not
-        /// applicable to views.</para></remarks>
-        public string table_name { get; set; }
-
-        /// <summary>A list of the actual predicates, one for each select;
-        /// format should follow the guidelines provided <a
-        /// href="../../../concepts/expressions/" target="_top">here</a>.
-        /// </summary>
-        /// <remarks><para>Specifying one or more <see cref="expressions" /> is
-        /// mutually exclusive to specifying <see
-        /// cref="Options.RECORD_ID">RECORD_ID</see> in the <see cref="options"
-        /// />.</para></remarks>
-        public IList<string> expressions { get; set; } = new List<string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
-        ///         </term>
-        ///         <description>An optional global expression to reduce the
-        ///         search space of the <see cref="expressions" />. The default
-        ///         value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record ID identifying a single record,
-        ///         obtained at the time of <see
-        ///         cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">insertion
-        ///         of the record</see> or by calling <see
-        ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>
-        ///         with the *return_record_ids* option. This option cannot be
-        ///         used to delete records from <a
-        ///         href="../../../concepts/tables/#replication"
-        ///         target="_top">replicated</a> tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all records in the table will be deleted. If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, then the option is
-        ///         effectively ignored.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a DeleteRecordsRequest object with default
-        /// parameters.</summary>
-        public DeleteRecordsRequest() { }
-
-        /// <summary>Constructs a DeleteRecordsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table from which to delete
-        /// records, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>. Must contain the name of
-        /// an existing table; not applicable to views.</param>
-        /// <param name="expressions">A list of the actual predicates, one for
-        /// each select; format should follow the guidelines provided <a
-        /// href="../../../concepts/expressions/" target="_top">here</a>.
-        /// Specifying one or more <paramref name="expressions" /> is mutually
-        /// exclusive to specifying <see
-        /// cref="Options.RECORD_ID">RECORD_ID</see> in the <paramref
-        /// name="options" />.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all records
+        /// in the table will be deleted.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
-        ///         </term>
-        ///         <description>An optional global expression to reduce the
-        ///         search space of the <paramref name="expressions" />. The
-        ///         default value is ''.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record ID identifying a single record,
-        ///         obtained at the time of <see
-        ///         cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">insertion
-        ///         of the record</see> or by calling <see
-        ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>
-        ///         with the *return_record_ids* option. This option cannot be
-        ///         used to delete records from <a
-        ///         href="../../../concepts/tables/#replication"
-        ///         target="_top">replicated</a> tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all records in the table will be deleted. If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, then the option is
-        ///         effectively ignored.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public DeleteRecordsRequest( string table_name,
-                                     IList<string> expressions,
-                                     IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.expressions = expressions ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DeleteRecordsRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DELETE_ALL_RECORDS = "delete_all_records";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.
-    /// </summary>
-    public class DeleteRecordsResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Name of the table from which to delete records, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para>Must contain the name of an existing table; not
+    /// applicable to views.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>A list of the actual predicates, one for each select; format
+    /// should follow the guidelines provided <a
+    /// href="../../../concepts/expressions/" target="_top">here</a>.</summary>
+    /// <remarks><para>Specifying one or more <see cref="expressions" /> is
+    /// mutually exclusive to specifying <see
+    /// cref="Options.RECORD_ID">RECORD_ID</see> in the <see cref="options" />.
+    /// </para></remarks>
+    public IList<string> expressions { get; set; } = new List<string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         </term>
+    ///         <description>An optional global expression to reduce the search
+    ///         space of the <see cref="expressions" />. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <description>A record ID identifying a single record, obtained
+    ///         at the time of <see
+    ///         cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">insertion
+    ///         of the record</see> or by calling <see
+    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>
+    ///         with the *return_record_ids* option. This option cannot be used
+    ///         to delete records from <a
+    ///         href="../../../concepts/tables/#replication"
+    ///         target="_top">replicated</a> tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         records in the table will be deleted. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, then the option is
+    ///         effectively ignored.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a DeleteRecordsRequest object with default
+    /// parameters.</summary>
+    public DeleteRecordsRequest() { }
+
+    /// <summary>Constructs a DeleteRecordsRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table from which to delete
+    /// records, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>. Must contain the name of an
+    /// existing table; not applicable to views.</param>
+    /// <param name="expressions">A list of the actual predicates, one for each
+    /// select; format should follow the guidelines provided <a
+    /// href="../../../concepts/expressions/" target="_top">here</a>.
+    /// Specifying one or more <paramref name="expressions" /> is mutually
+    /// exclusive to specifying <see cref="Options.RECORD_ID">RECORD_ID</see>
+    /// in the <paramref name="options" />.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         </term>
+    ///         <description>An optional global expression to reduce the search
+    ///         space of the <paramref name="expressions" />. The default value
+    ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <description>A record ID identifying a single record, obtained
+    ///         at the time of <see
+    ///         cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">insertion
+    ///         of the record</see> or by calling <see
+    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>
+    ///         with the *return_record_ids* option. This option cannot be used
+    ///         to delete records from <a
+    ///         href="../../../concepts/tables/#replication"
+    ///         target="_top">replicated</a> tables.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         records in the table will be deleted. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, then the option is
+    ///         effectively ignored.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public DeleteRecordsRequest( string table_name,
+                                 IList<string> expressions,
+                                 IDictionary<string, string> options = null)
     {
-        /// <summary>Total number of records deleted across all expressions.
-        /// </summary>
-        public long count_deleted { get; set; }
+        this.table_name = table_name ?? "";
+        this.expressions = expressions ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DeleteRecordsRequest
 
-        /// <summary>Total number of records deleted per expression.</summary>
-        public IList<long> counts_deleted { get; set; } = new List<long>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.
+/// </summary>
+public class DeleteRecordsResponse : KineticaData
+{
+    /// <summary>Total number of records deleted across all expressions.
+    /// </summary>
+    public long count_deleted { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DeleteRecordsResponse
-} // end namespace kinetica
+    /// <summary>Total number of records deleted per expression.</summary>
+    public IList<long> counts_deleted { get; set; } = new List<long>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DeleteRecordsResponse

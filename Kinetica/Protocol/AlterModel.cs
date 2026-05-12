@@ -6,51 +6,50 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class AlterModelRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class AlterModelRequest : KineticaData
+    public struct Action
     {
-        public struct Action
-        {
-            public const string CONTAINER = "container";
-            public const string CREDENTIAL = "credential";
-            public const string REGISTRY = "registry";
-            public const string REFRESH = "refresh";
-            public const string REMOTE_MODEL_NAME = "remote_model_name";
-            public const string REMOTE_MODEL_LOCATION = "remote_model_location";
-            public const string REMOTE_MODEL_PROVIDER_TYPE = "remote_model_provider_type";
-            public const string REMOTE_MODEL_TYPE = "remote_model_type";
-            public const string STOP_DEPLOYMENT = "stop_deployment";
-        } // end struct Action
+        public const string CONTAINER = "container";
+        public const string CREDENTIAL = "credential";
+        public const string REGISTRY = "registry";
+        public const string REFRESH = "refresh";
+        public const string REMOTE_MODEL_NAME = "remote_model_name";
+        public const string REMOTE_MODEL_LOCATION = "remote_model_location";
+        public const string REMOTE_MODEL_PROVIDER_TYPE = "remote_model_provider_type";
+        public const string REMOTE_MODEL_TYPE = "remote_model_type";
+        public const string STOP_DEPLOYMENT = "stop_deployment";
+    } // end struct Action
 
-        public string model_name { get; set; }
-        public string action { get; set; }
-        public string _value { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    public string model_name { get; set; }
+    public string action { get; set; }
+    public string _value { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        public AlterModelRequest() { }
+    public AlterModelRequest() { }
 
-        public AlterModelRequest( string model_name,
-                                  string action,
-                                  string _value,
-                                  IDictionary<string, string> options = null)
-        {
-            this.model_name = model_name ?? "";
-            this.action = action ?? "";
-            this._value = _value ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterModelRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class AlterModelResponse : KineticaData
+    public AlterModelRequest( string model_name,
+                              string action,
+                              string _value,
+                              IDictionary<string, string> options = null)
     {
-        public string model_name { get; set; }
-        public string action { get; set; }
-        public string _value { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterModelResponse
-    /// @endcond
-} // end namespace kinetica
+        this.model_name = model_name ?? "";
+        this.action = action ?? "";
+        this._value = _value ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterModelRequest
+/// @endcond
+
+/// @cond NO_DOCS
+public class AlterModelResponse : KineticaData
+{
+    public string model_name { get; set; }
+    public string action { get; set; }
+    public string _value { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterModelResponse
+/// @endcond

@@ -1,12 +1,10 @@
 ﻿using Avro.IO;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using Snappier;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
+using kinetica.Utils;
 
 /// \mainpage Introduction
 ///
@@ -32,13 +30,14 @@ using System.Text;
 /// to properly run it.
 ///
 
-namespace kinetica
-{
-    /// <summary>
-    /// API to talk to Kinetica Database
-    /// </summary>
-    public partial class Kinetica
+namespace kinetica;
+
+/// <summary>
+/// API to talk to Kinetica Database
+/// </summary>
+public partial class Kinetica : IDisposable
     {
+        private bool _disposed = false;
         /// <summary>
         /// No Limit
         /// </summary>
@@ -63,8 +62,9 @@ namespace kinetica
             /// Optional: OauthToken for user
             /// </summary>
             public string OauthToken { get; set; } = string.Empty;
+
             /// <summary>
-            /// Use Snappy
+            /// Use Snappy compression for requests
             /// </summary>
             public bool UseSnappy { get; set; } = false;
 
@@ -72,6 +72,67 @@ namespace kinetica
             /// Thread Count
             /// </summary>
             public int ThreadCount { get; set; } = 1;
+
+            /// <summary>
+            /// Whether to disable failover upon failures
+            /// </summary>
+            public bool DisableFailover { get; set; } = false;
+
+            /// <summary>
+            /// Whether to disable automatic discovery of clusters and worker ranks
+            /// </summary>
+            public bool DisableAutoDiscovery { get; set; } = false;
+
+            /// <summary>
+            /// Order in which to failover to backup clusters
+            /// </summary>
+            public HAFailoverOrder HAFailoverOrder { get; set; } = HAFailoverOrder.Random;
+
+            /// <summary>
+            /// Request timeout in milliseconds (0 = infinite)
+            /// </summary>
+            public int Timeout { get; set; } = 0;
+
+            /// <summary>
+            /// Host manager port number
+            /// </summary>
+            public int HostManagerPort { get; set; } = HAFailoverManager.DefaultHostManagerPort;
+
+            /// <summary>
+            /// Optional: Regex pattern to filter URLs by hostname/IP
+            /// </summary>
+            public string? HostnameRegex { get; set; } = null;
+
+            /// <summary>
+            /// URL of the primary cluster in the HA environment
+            /// </summary>
+            public string PrimaryUrl { get; set; } = string.Empty;
+
+            /// <summary>
+            /// Initial connection attempt timeout in milliseconds.
+            /// If the initial connection fails, the client will retry with exponential backoff
+            /// until this timeout is reached.
+            /// Default: 0 (no retry, fail immediately)
+            /// </summary>
+            public int InitialConnectionAttemptTimeout { get; set; } = 0;
+
+            /// <summary>
+            /// Server connection timeout in milliseconds.
+            /// Used for individual connection attempts during initialization.
+            /// Default: 60000 (60 seconds)
+            /// </summary>
+            public int ServerConnectionTimeout { get; set; } = 60000;
+
+            /// <summary>
+            /// Maximum lifetime of pooled HTTP connections. Lower values improve DNS refresh
+            /// frequency but increase connection churn. Default: 2 minutes.
+            /// </summary>
+            public TimeSpan PooledConnectionLifetime { get; set; } = TimeSpan.FromMinutes(2);
+
+            /// <summary>
+            /// Idle timeout for pooled HTTP connections. Default: 2 minutes.
+            /// </summary>
+            public TimeSpan PooledConnectionIdleTimeout { get; set; } = TimeSpan.FromMinutes(2);
         }
 
         /// <summary>
@@ -120,14 +181,119 @@ namespace kinetica
         /// </summary>
         public int ThreadCount { get; set; } = 1;
 
+        /// <summary>
+        /// HA Failover Manager for managing cluster failover
+        /// </summary>
+        private HAFailoverManager? _haFailoverManager = null;
+
+        /// <summary>
+        /// Gets the HA failover manager instance.
+        /// </summary>
+        public HAFailoverManager? HAManager => _haFailoverManager;
+
+        /// <summary>
+        /// Gets the number of times the client has switched to a different cluster.
+        /// </summary>
+        public int NumClusterSwitches => _haFailoverManager?.NumClusterSwitches ?? 0;
+
+        /// <summary>
+        /// Gets the list of all cluster addresses in the HA ring.
+        /// </summary>
+        public IList<ClusterAddressInfo> GetHARingInfo()
+        {
+            return _haFailoverManager?.GetHostAddresses() ?? new List<ClusterAddressInfo>();
+        }
+
+        /// <summary>
+        /// Gets the current active cluster information.
+        /// </summary>
+        public ClusterAddressInfo? GetCurrentClusterInfo()
+        {
+            return _haFailoverManager?.GetClusterInfo();
+        }
+
         // private string authorization;
         private volatile System.Collections.Concurrent.ConcurrentDictionary<string, KineticaType> knownTypes = new();
 
         // private type label to type ID lookup table
         private Dictionary<string, string> typeNameLookup = [];
 
+        /// <summary>
+        /// HTTP transport layer for making requests (thread-safe, reusable)
+        /// </summary>
+        private readonly IHttpTransport _transport;
+
         // private object class type to KineticaType lookup table
         private Dictionary<Type, KineticaType> kineticaTypeLookup = [];
+
+        /// <summary>
+        /// Internal constructor for testing that accepts a custom HTTP transport.
+        /// </summary>
+        /// <param name="url_str">URL for Kinetica Server</param>
+        /// <param name="transport">Custom HTTP transport implementation</param>
+        /// <param name="options">Optional connection options</param>
+        internal Kinetica(string url_str, IHttpTransport transport, Options? options = null)
+            : this(new List<string> { url_str }, transport, options)
+        {
+        }
+
+        /// <summary>
+        /// Internal constructor for testing with multiple URLs and custom HTTP transport.
+        /// </summary>
+        /// <param name="urls">List of URLs for Kinetica Servers</param>
+        /// <param name="transport">Custom HTTP transport implementation</param>
+        /// <param name="options">Optional connection options</param>
+        internal Kinetica(IList<string> urls, IHttpTransport transport, Options? options = null)
+        {
+            if (urls == null || urls.Count == 0)
+                throw new KineticaException("At least one URL must be provided");
+
+            // Use the first URL as the primary
+            Url = urls[0].TrimEnd('/');
+            URL = new Uri(Url);
+
+            // Use the provided transport (for testing)
+            _transport = transport;
+
+            // Initialize other properties from options
+            if (options != null)
+            {
+                Username = options.Username;
+                Password = options.Password;
+                OauthToken = options.OauthToken;
+                UseSnappy = options.UseSnappy;
+                ThreadCount = options.ThreadCount;
+
+                // Create authorization header
+                Authorization = CreateAuthorizationHeader();
+
+                // Initialize HA failover manager if multiple URLs or options require it
+                if (urls.Count > 1 || !options.DisableFailover)
+                {
+                    _haFailoverManager = new HAFailoverManager
+                    {
+                        DisableFailover = options.DisableFailover,
+                        DisableAutoDiscovery = options.DisableAutoDiscovery,
+                        HostManagerPort = options.HostManagerPort,
+                        FailoverOrder = options.HAFailoverOrder
+                    };
+
+                    if (!string.IsNullOrEmpty(options.HostnameRegex))
+                    {
+                        _haFailoverManager.HostnameRegex = new System.Text.RegularExpressions.Regex(options.HostnameRegex);
+                    }
+
+                    var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
+                    _haFailoverManager.Initialize(uriList, this);
+                }
+            }
+            else
+            {
+                _haFailoverManager = new HAFailoverManager { DisableAutoDiscovery = true };
+                var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
+                _haFailoverManager.Initialize(uriList, null);
+            }
+        }
 
         /// <summary>
         /// API Constructor
@@ -135,9 +301,34 @@ namespace kinetica
         /// <param name="url_str">URL for Kinetica Server (including "http:" and port)</param>
         /// <param name="options">Optional connection options</param>
         public Kinetica( string url_str, Options? options = null )
+            : this(new List<string> { url_str }, options)
         {
-            Url = url_str;
-            URL = new Uri( url_str );
+        }
+
+        /// <summary>
+        /// API Constructor with multiple URLs for HA failover support.
+        /// </summary>
+        /// <param name="urls">List of URLs for Kinetica Servers (including "http:" and port)</param>
+        /// <param name="options">Optional connection options</param>
+        public Kinetica( IList<string> urls, Options? options = null )
+        {
+            if (urls == null || urls.Count == 0)
+                throw new KineticaException("At least one URL must be provided");
+
+            // Use the first URL as the primary
+            Url = urls[0].TrimEnd('/');
+            URL = new Uri(Url);
+
+            // Initialize HTTP transport layer
+            var timeout = options?.Timeout > 0
+                ? TimeSpan.FromMilliseconds(options.Timeout)
+                : TimeSpan.FromSeconds(30); // Default timeout
+
+            _transport = new HttpClientTransport(
+                timeout,
+                options?.PooledConnectionLifetime,
+                options?.PooledConnectionIdleTimeout);
+
             if ( null != options ) // If caller specified options
             {
                 Username = options.Username;
@@ -149,7 +340,228 @@ namespace kinetica
 
                 UseSnappy = options.UseSnappy;
                 ThreadCount = options.ThreadCount;
-                // TODO: executor?
+
+                // Initialize HA failover manager if there are multiple URLs or HA options are set
+                if (urls.Count > 1 || !options.DisableAutoDiscovery)
+                {
+                    _haFailoverManager = new HAFailoverManager
+                    {
+                        DisableFailover = options.DisableFailover,
+                        DisableAutoDiscovery = options.DisableAutoDiscovery,
+                        HostManagerPort = options.HostManagerPort,
+                        FailoverOrder = options.HAFailoverOrder
+                    };
+
+                    if (!string.IsNullOrEmpty(options.HostnameRegex))
+                    {
+                        _haFailoverManager.HostnameRegex = new System.Text.RegularExpressions.Regex(options.HostnameRegex);
+                    }
+
+                    // Convert string URLs to Uri objects
+                    var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
+
+                    // Initialize with retry logic and exponential backoff (matching Rust implementation)
+                    InitializeWithRetry(uriList, options);
+
+                    // Update the URL to the current active cluster
+                    var currentUrl = _haFailoverManager.GetUrl();
+                    if (currentUrl != null)
+                    {
+                        Url = currentUrl.ToString().TrimEnd('/');
+                        URL = currentUrl;
+                    }
+                }
+            }
+            else
+            {
+                // No options provided, initialize with a single URL
+                _haFailoverManager = new HAFailoverManager
+                {
+                    DisableAutoDiscovery = true
+                };
+                var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
+                _haFailoverManager.Initialize(uriList, null);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the HA failover manager with retry logic and exponential backoff.
+        /// Matches the Rust implementation's process_urls() initialization pattern.
+        /// </summary>
+        /// <param name="uriList">List of URLs to initialize with</param>
+        /// <param name="options">Connection options</param>
+        private void InitializeWithRetry(IList<Uri> uriList, Options options)
+        {
+            if (_haFailoverManager == null)
+                throw new InvalidOperationException("HAFailoverManager not initialized");
+
+            var startTime = DateTime.UtcNow;
+            int attemptNumber = 0;
+            int baseTimeoutMs = options.ServerConnectionTimeout > 0 ? options.ServerConnectionTimeout : 60000;
+            int maxTotalTimeMs = options.InitialConnectionAttemptTimeout;
+            Exception? lastException = null;
+
+            while (true)
+            {
+                attemptNumber++;
+                int currentTimeout = baseTimeoutMs * (1 << Math.Min(attemptNumber - 1, 5)); // Exponential backoff, cap at 32x
+
+                try
+                {
+                    // Try to initialize with auto-discovery
+                    _haFailoverManager.Initialize(uriList, this);
+                    return; // Success
+                }
+                catch (Exception ex)
+                {
+                    lastException = ex;
+
+                    // Check if this is a non-retriable error (like hostname regex mismatch or authorization failure)
+                    if (IsNonRetriableInitializationError(ex))
+                    {
+                        // Fall back to initialization without auto-discovery
+                        try
+                        {
+                            _haFailoverManager.DisableAutoDiscovery = true;
+                            _haFailoverManager.Initialize(uriList, null);
+                            return;
+                        }
+                        catch
+                        {
+                            throw new KineticaException($"Failed to initialize connection: {ex.Message}", ex);
+                        }
+                    }
+
+                    // Check if we've exceeded the total timeout
+                    var elapsed = (DateTime.UtcNow - startTime).TotalMilliseconds;
+                    if (maxTotalTimeMs <= 0 || elapsed >= maxTotalTimeMs)
+                    {
+                        // No more retries - fall back to initialization without auto-discovery
+                        try
+                        {
+                            _haFailoverManager.DisableAutoDiscovery = true;
+                            _haFailoverManager.Initialize(uriList, null);
+                            return;
+                        }
+                        catch
+                        {
+                            throw new KineticaException($"Failed to initialize connection after {attemptNumber} attempts: {ex.Message}", ex);
+                        }
+                    }
+
+                    // Wait before retrying (exponential backoff)
+                    int waitTime = Math.Min(currentTimeout, (int)(maxTotalTimeMs - elapsed));
+                    if (waitTime > 0)
+                    {
+                        Thread.Sleep(Math.Min(waitTime, 5000)); // Cap wait at 5 seconds per attempt
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if an initialization error is non-retriable.
+        /// </summary>
+        private static bool IsNonRetriableInitializationError(Exception ex)
+        {
+            // Hostname regex failures won't change with retries
+            if (ex.Message.Contains("hostname", StringComparison.OrdinalIgnoreCase) &&
+                ex.Message.Contains("regex", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            // Authorization failures won't change with retries
+            if (ex.Message.Contains("Unauthorized", StringComparison.OrdinalIgnoreCase) ||
+                ex.Message.Contains("401", StringComparison.OrdinalIgnoreCase) ||
+                ex.Message.Contains("credentials", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the current worker URLs for multi-head operations.
+        /// Used by BulkInserter and RecordRetriever to get updated worker URLs after a failover.
+        /// </summary>
+        /// <returns>List of worker rank URLs, or null if multi-head is not enabled</returns>
+        public IList<Uri>? GetCurrentWorkerUrls()
+        {
+            var clusterInfo = _haFailoverManager?.GetClusterInfo();
+            if (clusterInfo?.WorkerRankUrls != null && clusterInfo.WorkerRankUrls.Count > 0)
+            {
+                return clusterInfo.WorkerRankUrls;
+            }
+
+            // Try to get fresh worker URLs from the server
+            try
+            {
+                var workers = new WorkerList(this);
+                if (workers.Count > 0)
+                {
+                    return workers.ToList();
+                }
+            }
+            catch
+            {
+                // Fall back to cached URLs or null
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the current routing table for multi-head operations.
+        /// Used by BulkInserter and RecordRetriever to get updated routing after a failover.
+        /// </summary>
+        /// <returns>The current routing table, or null if unavailable</returns>
+        public IList<int>? GetCurrentRoutingTable()
+        {
+            try
+            {
+                return adminShowShards().rank;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Refreshes cluster information after a failover.
+        /// Called by BulkInserter and RecordRetriever after a cluster switch.
+        /// </summary>
+        /// <returns>True if the refresh was successful, false otherwise</returns>
+        public bool RefreshClusterInfo()
+        {
+            if (_haFailoverManager == null)
+                return false;
+
+            try
+            {
+                // Get fresh system properties to update cluster info
+                var clusterInfo = _haFailoverManager.GetClusterInfo();
+                if (clusterInfo == null)
+                    return false;
+
+                // Update system properties from the server
+                var systemProps = showSystemProperties().property_map;
+                clusterInfo.SystemProperties = systemProps;
+
+                // Update worker URLs if multi-head is enabled
+                var workers = new WorkerList(this);
+                if (workers.Count > 0)
+                {
+                    clusterInfo.WorkerRankUrls = workers.ToList();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -166,6 +578,36 @@ namespace kinetica
             }
 
             return authorization;
+        }
+
+        /// <summary>
+        /// Disposes the Kinetica client and releases HTTP resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposes managed and unmanaged resources.
+        /// </summary>
+        /// <param name="disposing">True if disposing managed resources</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed resources
+                    if (_transport is IDisposable disposable)
+                    {
+                        disposable.Dispose();
+                    }
+                }
+
+                _disposed = true;
+            }
         }
 
         /// <summary>
@@ -203,7 +645,7 @@ namespace kinetica
         public void SetKineticaSourceClassToTypeMapping( Type? objectType, KineticaType kineticaType )
         {
             if ( objectType != null )
-                this.kineticaTypeLookup.Add( objectType, kineticaType );
+                this.kineticaTypeLookup[objectType] = kineticaType;
             return;
         }  // end SetKineticaSourceClassToTypeMapping
 
@@ -363,73 +805,204 @@ namespace kinetica
             }
         }  // DecodeRawBinaryDataUsingTypeIDs
 
+        #region Request Submission API (Matches Rust gpudb.rs design)
 
         /// <summary>
-        /// Send request object to Kinetica server, and get response
+        /// Submit a request to a Kinetica endpoint with HA failover support.
+        /// This is the primary method for all API calls.
+        ///
+        /// Matches Rust gpudb.rs submit_request() - public with HA failover.
         /// </summary>
         /// <typeparam name="TResponse">Kinetica Response Object Type</typeparam>
-        /// <param name="url">The specific URL to send the request to</param>
-        /// <param name="request">Kinetica Request Object</param>
-        /// <param name="enableCompression">Use Compression</param>
-        /// <param name="avroEncoding">Use Avro Encoding</param>
-        /// <returns>Response Object</returns>
-        internal TResponse SubmitRequest<TResponse>( Uri url, object request, bool enableCompression = false, bool avroEncoding = true ) where TResponse : new()
-        {
-            // Get the bytes to send, encoded in the requested way
-            byte[] requestBytes;
-            if ( avroEncoding )
-            {
-                requestBytes = AvroEncode( request );
-            }
-            else // JSON
-            {
-                string str = JsonConvert.SerializeObject(request);
-                requestBytes = Encoding.UTF8.GetBytes( str );
-            }
-
-            // Send request, and receive response
-            RawKineticaResponse kineticaResponse = SubmitRequestRaw( url.ToString(), requestBytes, enableCompression, avroEncoding, false);
-
-            // Decode response payload
-            if ( avroEncoding )
-            {
-                return AvroDecode<TResponse>( kineticaResponse.data );
-            }
-            else // JSON
-            {
-                kineticaResponse.data_str = kineticaResponse.data_str.Replace( "\\U", "\\u" );
-                return JsonConvert.DeserializeObject<TResponse>( kineticaResponse.data_str );
-            }
-        }  // end SubmitRequest( URL )
-
-
-        /// <summary>
-        /// Send request object to Kinetica server, and get response
-        /// </summary>
-        /// <typeparam name="TResponse">Kinetica Response Object Type</typeparam>
-        /// <param name="endpoint">Kinetica Endpoint to call</param>
+        /// <param name="endpoint">Kinetica Endpoint to call (e.g., "/show/table")</param>
         /// <param name="request">Kinetica Request Object</param>
         /// <param name="enableCompression">Use Compression</param>
         /// <param name="avroEncoding">Use Avro Encoding</param>
         /// <returns>Response Object</returns>
         private TResponse SubmitRequest<TResponse>(string endpoint, object request, bool enableCompression = false, bool avroEncoding = true) where TResponse : new()
         {
-            // Get the bytes to send, encoded in the requested way
-            byte[] requestBytes;
-            if (avroEncoding)
+            // Encode the request
+            byte[] requestBytes = avroEncoding
+                ? AvroEncode(request)
+                : Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(request));
+
+            // If HA failover is not available, just submit the request directly
+            if (_haFailoverManager == null || _haFailoverManager.HARingSize <= 1)
             {
-                requestBytes = AvroEncode(request);
-            }
-            else // JSON
-            {
-                string str = JsonConvert.SerializeObject(request);
-                requestBytes = Encoding.UTF8.GetBytes(str);
+                string fullUrl = Url + endpoint;
+                RawKineticaResponse kineticaResponse = SubmitRequestToUrlInternal(fullUrl, requestBytes, enableCompression, avroEncoding);
+                return DecodeResponse<TResponse>(kineticaResponse, avroEncoding);
             }
 
-            // Send request, and receive response
-            RawKineticaResponse kineticaResponse = SubmitRequestRaw(endpoint, requestBytes, enableCompression, avroEncoding);
+            // HA failover is available - attempt with failover logic
+            var currentUrl = _haFailoverManager.GetUrl();
+            if (currentUrl == null)
+            {
+                throw new KineticaException("No URL available");
+            }
 
-            // Decode response payload
+            var originalUrl = currentUrl;
+            int currentSwitchCount = _haFailoverManager.NumClusterSwitches;
+
+            while (true)
+            {
+                try
+                {
+                    // Build the full URL with the endpoint
+                    string fullUrl = currentUrl.ToString().TrimEnd('/') + endpoint;
+                    RawKineticaResponse kineticaResponse = SubmitRequestToUrlInternal(fullUrl, requestBytes, enableCompression, avroEncoding);
+                    return DecodeResponse<TResponse>(kineticaResponse, avroEncoding);
+                }
+                catch (Exception ex) when (IsConnectionError(ex))
+                {
+                    // This is a connection error - attempt failover
+                    try
+                    {
+                        currentUrl = _haFailoverManager.SwitchUrl(originalUrl, currentSwitchCount, IsKineticaRunning);
+                        // Update the main URL reference
+                        Url = currentUrl.ToString().TrimEnd('/');
+                        URL = currentUrl;
+                    }
+                    catch (KineticaException)
+                    {
+                        // Failover failed - re-throw the original exception
+                        throw new KineticaException($"Connection failed and HA failover unsuccessful: {ex.Message}", ex);
+                    }
+                }
+                catch (KineticaException)
+                {
+                    // API error from server - don't failover, just rethrow
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Submit a request asynchronously to a Kinetica endpoint with HA failover support.
+        /// This is the async version of SubmitRequest for non-blocking API calls.
+        ///
+        /// Matches Rust gpudb.rs submit_request() - public with HA failover.
+        /// </summary>
+        /// <typeparam name="TResponse">Kinetica Response Object Type</typeparam>
+        /// <param name="endpoint">Kinetica Endpoint to call (e.g., "/show/table")</param>
+        /// <param name="request">Kinetica Request Object</param>
+        /// <param name="enableCompression">Use Compression</param>
+        /// <param name="avroEncoding">Use Avro Encoding</param>
+        /// <param name="cancellationToken">Cancellation token to cancel the request</param>
+        /// <returns>Task that returns the Response Object</returns>
+        private async System.Threading.Tasks.Task<TResponse> SubmitRequestAsync<TResponse>(
+            string endpoint,
+            object request,
+            bool enableCompression = false,
+            bool avroEncoding = true,
+            System.Threading.CancellationToken cancellationToken = default)
+            where TResponse : new()
+        {
+            // Encode the request
+            byte[] requestBytes = avroEncoding
+                ? AvroEncode(request)
+                : Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(request));
+
+            // If HA failover is not available, just submit the request directly
+            if (_haFailoverManager == null || _haFailoverManager.HARingSize <= 1)
+            {
+                string fullUrl = Url + endpoint;
+                RawKineticaResponse kineticaResponse = await SubmitRequestToUrlInternalAsync(
+                    fullUrl, requestBytes, enableCompression, avroEncoding, cancellationToken);
+                return DecodeResponse<TResponse>(kineticaResponse, avroEncoding);
+            }
+
+            // HA failover is available - attempt with failover logic
+            var currentUrl = _haFailoverManager.GetUrl();
+            if (currentUrl == null)
+            {
+                throw new KineticaException("No URL available");
+            }
+
+            var originalUrl = currentUrl;
+            int currentSwitchCount = _haFailoverManager.NumClusterSwitches;
+
+            while (true)
+            {
+                try
+                {
+                    // Build the full URL with the endpoint
+                    string fullUrl = currentUrl.ToString().TrimEnd('/') + endpoint;
+                    RawKineticaResponse kineticaResponse = await SubmitRequestToUrlInternalAsync(
+                        fullUrl, requestBytes, enableCompression, avroEncoding, cancellationToken);
+                    return DecodeResponse<TResponse>(kineticaResponse, avroEncoding);
+                }
+                catch (Exception ex) when (IsConnectionError(ex))
+                {
+                    // This is a connection error - attempt failover
+                    try
+                    {
+                        currentUrl = _haFailoverManager.SwitchUrl(originalUrl, currentSwitchCount, IsKineticaRunning);
+                        // Update the main URL reference
+                        Url = currentUrl.ToString().TrimEnd('/');
+                        URL = currentUrl;
+                    }
+                    catch (KineticaException)
+                    {
+                        // Failover failed - re-throw the original exception
+                        throw new KineticaException($"Connection failed and HA failover unsuccessful: {ex.Message}", ex);
+                    }
+                }
+                catch (KineticaException)
+                {
+                    // API error from server - don't failover, just rethrow
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Submit a request directly to a specific URL without HA failover.
+        /// Used for worker URLs in multi-head ingest, or when you have a specific URL to target.
+        ///
+        /// Matches Rust gpudb.rs submit_request_raw() - public without HA failover.
+        /// </summary>
+        /// <typeparam name="TResponse">Kinetica Response Object Type</typeparam>
+        /// <param name="url">Full URL to submit the request to</param>
+        /// <param name="request">Kinetica Request Object</param>
+        /// <param name="enableCompression">Use Compression</param>
+        /// <param name="avroEncoding">Use Avro Encoding</param>
+        /// <returns>Response Object</returns>
+        public TResponse SubmitRequestRaw<TResponse>(Uri url, object request, bool enableCompression = false, bool avroEncoding = true) where TResponse : new()
+        {
+            // Encode the request
+            byte[] requestBytes = avroEncoding
+                ? AvroEncode(request)
+                : Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(request));
+
+            RawKineticaResponse kineticaResponse = SubmitRequestToUrlInternal(url.ToString(), requestBytes, enableCompression, avroEncoding);
+            return DecodeResponse<TResponse>(kineticaResponse, avroEncoding);
+        }
+
+        /// <summary>
+        /// Submit pre-encoded request bytes directly to a specific URL without HA failover.
+        /// Returns the raw Kinetica response wrapper (status, message, data) for error checking.
+        /// This is the lowest-level method for maximum performance (used by BulkInserter).
+        ///
+        /// Matches Rust gpudb.rs submit_request_raw() with pre-encoded bytes.
+        /// </summary>
+        /// <param name="url">Full URL to submit to.</param>
+        /// <param name="requestBytes">Pre-encoded Avro request bytes.</param>
+        /// <returns>Raw response wrapper containing status, message, and data bytes.</returns>
+        public RawKineticaResponse SubmitRequestRawBytes(Uri url, byte[] requestBytes)
+        {
+            return SubmitRequestToUrlInternal(url.ToString(), requestBytes, UseSnappy, true);
+        }
+
+        #endregion
+
+        #region Internal HTTP Helpers
+
+        /// <summary>
+        /// Decode a RawKineticaResponse into the expected response type.
+        /// </summary>
+        private TResponse DecodeResponse<TResponse>(RawKineticaResponse kineticaResponse, bool avroEncoding) where TResponse : new()
+        {
             if (avroEncoding)
             {
                 return AvroDecode<TResponse>(kineticaResponse.data);
@@ -439,103 +1012,297 @@ namespace kinetica
                 kineticaResponse.data_str = kineticaResponse.data_str.Replace("\\U", "\\u");
                 return JsonConvert.DeserializeObject<TResponse>(kineticaResponse.data_str);
             }
-        }  // end SubmitRequest( endpoint )
-
-
+        }
 
         /// <summary>
-        /// Send encoded request to Kinetica server, and get Kinetica Response
+        /// Checks if Kinetica is running at the given URL.
         /// </summary>
-        /// <param name="url">Kinetica Endpoint to call (with or without the full host path)</param>
-        /// <param name="requestBytes">Binary data to send</param>
-        /// <param name="enableCompression">Are we using compression?</param>
-        /// <param name="avroEncoding">Use Avro encoding</param>
-        /// <param name="only_endpoint_given">If true, prefix the given url
-        /// with <member cref="Url" /></param>
-        /// <returns>RawKineticaResponse Object</returns>
-        private RawKineticaResponse? SubmitRequestRaw(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding, bool only_endpoint_given = true)
+        /// <param name="url">The URL to check</param>
+        /// <returns>True if Kinetica is running, false otherwise</returns>
+        public bool IsKineticaRunning(Uri url)
         {
             try
             {
-                if ( only_endpoint_given )
-                    url = (Url + url);
-                var request = (HttpWebRequest)WebRequest.Create( url );
-                request.Method = "POST";
-                //request.UseDefaultCredentials = true;
-                request.ContentType = avroEncoding ? "application/octet-stream" : "application/json";
-                request.ContentLength = requestBytes.Length;
+                // Simple GET request to check if server is running
+                // We can't use the transport layer here as it only supports POST
+                // So we'll create a temporary HttpClient for this check
+                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+                using var response = client.GetAsync(url).Result;
 
-                // Handle the authorization
-                if ( this.Authorization != null )
+                if (response.IsSuccessStatusCode)
                 {
-                    request.Headers.Add( "Authorization", Authorization );
+                    string responseText = response.Content.ReadAsStringAsync().Result;
+                    return responseText.Contains("Kinetica is running!");
                 }
-
-
-                // Write the binary request data
-                using ( var dataStream = request.GetRequestStream())
-                {
-                    dataStream.Write(requestBytes, 0, requestBytes.Length);
-                }
-
-                // Send to the server and await a response
-                using (var response = (HttpWebResponse)request.GetResponse())
-                {
-                    // Parse the response
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        using (var responseStream = response.GetResponseStream())
-                        {
-                            if (avroEncoding)
-                            {
-                                return AvroDecode<RawKineticaResponse>(responseStream);
-                            }
-                            else // JSON
-                            {
-                                using (StreamReader reader = new(responseStream, Encoding.UTF8))
-                                {
-                                    var responseString = reader.ReadToEnd();
-                                    return JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
-                                }
-                            }
-                        }
-                    }
-                }
+                return false;
             }
-            catch (System.Net.WebException ex)
+            catch
             {
-                // Skip trying parsing the message if not a protocol error
-                if ( ex.Status != WebExceptionStatus.ProtocolError )
-                    throw new KineticaException( ex.ToString(), ex );
+                return false;
+            }
+        }
 
-                // Get the error message from the server response
-                var response = ex.Response;
-                var responseStream = response.GetResponseStream();
-                string responseString;
-                RawKineticaResponse serverResponse;
-                // Decode the response packet
+        /// <summary>
+        /// Internal method to submit encoded request bytes to a URL and receive a raw response.
+        /// This is the lowest-level HTTP method - all other submit methods call this.
+        /// </summary>
+        /// <param name="url">Full URL to submit to</param>
+        /// <param name="requestBytes">Binary data to send</param>
+        /// <param name="enableCompression">Are we using compression (Snappy)?</param>
+        /// <param name="avroEncoding">Use Avro encoding</param>
+        /// <returns>RawKineticaResponse Object</returns>
+        private RawKineticaResponse SubmitRequestToUrlInternal(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding)
+        {
+            try
+            {
+                // Apply Snappy compression if enabled
+                byte[] bodyBytes;
+                string contentType;
+
+                if (enableCompression && avroEncoding)
+                {
+                    // Compress using Snappier (pure managed Snappy implementation)
+                    bodyBytes = Snappy.CompressToArray(requestBytes);
+                    contentType = "application/x-snappy";
+                }
+                else
+                {
+                    bodyBytes = requestBytes;
+                    contentType = avroEncoding ? "application/octet-stream" : "application/json";
+                }
+
+                // Use the HTTP transport layer to send the request
+                var responseBytes = _transport.Post(
+                    url,
+                    bodyBytes,
+                    contentType,
+                    Authorization,
+                    System.Threading.CancellationToken.None);
+
+                // Decode the response
                 if (avroEncoding)
                 {
-                    serverResponse = AvroDecode<RawKineticaResponse>(responseStream);
+                    return AvroDecode<RawKineticaResponse>(responseBytes);
                 }
                 else // JSON
                 {
-                    using (StreamReader reader = new(responseStream, Encoding.UTF8))
+                    var responseString = Encoding.UTF8.GetString(responseBytes);
+                    responseString = responseString.Replace("\\U", "\\u");
+                    return JsonConvert.DeserializeObject<RawKineticaResponse>(responseString)
+                           ?? throw new KineticaException("Failed to deserialize response");
+                }
+            }
+            catch (KineticaTransportException tex)
+            {
+                // HTTP transport returned a non-2xx status code
+                // The server may have encoded an error message in the response body
+                try
+                {
+                    RawKineticaResponse? serverResponse;
+                    if (avroEncoding)
                     {
-                        responseString = reader.ReadToEnd();
+                        serverResponse = AvroDecode<RawKineticaResponse>(tex.Body);
+                    }
+                    else // JSON
+                    {
+                        var responseString = Encoding.UTF8.GetString(tex.Body);
                         serverResponse = JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
                     }
+
+                    throw new KineticaException(
+                        serverResponse?.message ?? $"Server returned HTTP {tex.StatusCode}",
+                        tex.StatusCode,
+                        tex);
                 }
-                // Throw the error message found within the response packet
-                throw new KineticaException( serverResponse.message );
+                catch (KineticaException)
+                {
+                    throw;
+                }
+                catch
+                {
+                    // Could not decode error response - throw with status code
+                    throw new KineticaException($"Server returned HTTP {tex.StatusCode}", tex.StatusCode, tex);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new KineticaException(ex.ToString(), ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new KineticaException("Request timed out: " + ex.ToString(), ex);
+            }
+            catch (OperationCanceledException ex)
+            {
+                throw new KineticaException("Request cancelled: " + ex.ToString(), ex);
+            }
+            catch (KineticaException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
                 throw new KineticaException(ex.ToString(), ex);
             }
-
-            return null;
         }
+
+        /// <summary>
+        /// Internal async method to submit encoded request bytes to a URL and receive a raw response.
+        /// This is the async version of SubmitRequestToUrlInternal for future async API support.
+        /// </summary>
+        /// <param name="url">Full URL to submit to</param>
+        /// <param name="requestBytes">Binary data to send</param>
+        /// <param name="enableCompression">Are we using compression (Snappy)?</param>
+        /// <param name="avroEncoding">Use Avro encoding</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Task that returns RawKineticaResponse Object</returns>
+        private async Task<RawKineticaResponse> SubmitRequestToUrlInternalAsync(
+            string url,
+            byte[] requestBytes,
+            bool enableCompression,
+            bool avroEncoding,
+            System.Threading.CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                // Apply Snappy compression if enabled
+                byte[] bodyBytes;
+                string contentType;
+
+                if (enableCompression && avroEncoding)
+                {
+                    // Compress using Snappier (pure managed Snappy implementation)
+                    bodyBytes = Snappy.CompressToArray(requestBytes);
+                    contentType = "application/x-snappy";
+                }
+                else
+                {
+                    bodyBytes = requestBytes;
+                    contentType = avroEncoding ? "application/octet-stream" : "application/json";
+                }
+
+                // Use the HTTP transport layer to send the request asynchronously
+                var responseBytes = await _transport
+                    .PostAsync(url, bodyBytes, contentType, Authorization, cancellationToken)
+                    .ConfigureAwait(false);
+
+                // Decode the response
+                if (avroEncoding)
+                {
+                    return AvroDecode<RawKineticaResponse>(responseBytes);
+                }
+                else // JSON
+                {
+                    var responseString = Encoding.UTF8.GetString(responseBytes);
+                    responseString = responseString.Replace("\\U", "\\u");
+                    return JsonConvert.DeserializeObject<RawKineticaResponse>(responseString)
+                           ?? throw new KineticaException("Failed to deserialize response");
+                }
+            }
+            catch (KineticaTransportException tex)
+            {
+                // HTTP transport returned a non-2xx status code
+                // The server may have encoded an error message in the response body
+                try
+                {
+                    RawKineticaResponse? serverResponse;
+                    if (avroEncoding)
+                    {
+                        serverResponse = AvroDecode<RawKineticaResponse>(tex.Body);
+                    }
+                    else // JSON
+                    {
+                        var responseString = Encoding.UTF8.GetString(tex.Body);
+                        serverResponse = JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
+                    }
+
+                    throw new KineticaException(
+                        serverResponse?.message ?? $"Server returned HTTP {tex.StatusCode}",
+                        tex.StatusCode,
+                        tex);
+                }
+                catch (KineticaException)
+                {
+                    throw;
+                }
+                catch
+                {
+                    // Could not decode error response - throw with status code
+                    throw new KineticaException($"Server returned HTTP {tex.StatusCode}", tex.StatusCode, tex);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new KineticaException(ex.ToString(), ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new KineticaException("Request timed out: " + ex.ToString(), ex);
+            }
+            catch (OperationCanceledException ex)
+            {
+                throw new KineticaException("Request cancelled: " + ex.ToString(), ex);
+            }
+            catch (KineticaException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new KineticaException(ex.ToString(), ex);
+            }
+        }
+
+        /// <summary>
+        /// Checks if an exception is a connection error that warrants HA failover.
+        /// API errors (from server) should not trigger failover.
+        /// Connection errors (network issues) should trigger failover.
+        /// </summary>
+        public static bool IsConnectionError(Exception ex)
+        {
+            return ex is System.Net.WebException webEx && webEx.Status != WebExceptionStatus.ProtocolError ||
+                   ex is System.Net.Sockets.SocketException ||
+                   ex is IOException ||
+                   ex is System.Net.Http.HttpRequestException ||
+                   ex is TaskCanceledException ||
+                   (ex is KineticaException kex && kex.Message.Contains("connection", StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// Forces a failover to the next cluster in the HA ring.
+        /// Returns the new head node URL if successful, null otherwise.
+        /// </summary>
+        /// <param name="currentUrl">The current URL that failed.</param>
+        /// <param name="currentSwitchCount">The current cluster switch count.</param>
+        /// <returns>The new URL after failover, or null if failover failed.</returns>
+        internal Uri? ForceHAFailover(Uri currentUrl, int currentSwitchCount)
+        {
+            if (_haFailoverManager == null || _haFailoverManager.HARingSize <= 1)
+            {
+                return null;
+            }
+
+            try
+            {
+                var newUrl = _haFailoverManager.SwitchUrl(currentUrl, currentSwitchCount, IsKineticaRunning);
+                Url = newUrl.ToString().TrimEnd('/');
+                URL = newUrl;
+                return newUrl;
+            }
+            catch (KineticaException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the HA ring size.
+        /// </summary>
+        public int HARingSize => _haFailoverManager?.HARingSize ?? 1;
+
+        #endregion
+
+        #region Type Registration and Encoding
 
         private void SetDecoderIfMissing(string typeId, string label, string schemaString, IDictionary<string, IList<string>> properties)
         {
@@ -664,7 +1431,7 @@ namespace kinetica
         /// <param name="bytes">Binary Avro data</param>
         /// <param name="ktype">An optional KineticaType object to help in decoding the object.</param>
         /// <returns>New object</returns>
-        private T AvroDecode<T>(byte[] bytes, KineticaType? ktype = null) where T : new()
+        internal T AvroDecode<T>(byte[] bytes, KineticaType? ktype = null) where T : new()
         {
             // Get the schema
             var schema = KineticaData.SchemaFromType( typeof(T), ktype );
@@ -716,20 +1483,15 @@ namespace kinetica
         /// <typeparam name="T">Type of expected object</typeparam>
         /// <param name="stream">Stream to read for object data</param>
         /// <returns>New object</returns>
-        private T AvroDecode<T>(Stream stream) where T : Avro.Specific.ISpecificRecord, new()
+        internal T AvroDecode<T>(Stream stream) where T : Avro.Specific.ISpecificRecord, new()
         {
             // T obj = new T(); // Activator.CreateInstance<T>();
             var schema = KineticaData.SchemaFromType( typeof(T), null );
             var reader = new Avro.Specific.SpecificReader<T>(schema, schema);
             return reader.Read(default, new BinaryDecoder(stream));
         }
-        /*
-        private T AvroDecode<T>(string str) where T : new()
-        {
-            return AvroDecode<T>(Encoding.UTF8.GetBytes(str));
-        }
-        */
+
+        #endregion
     }  // end class Kinetica
-}  // end namespace kinetica
 
 

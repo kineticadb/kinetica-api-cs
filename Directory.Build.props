@@ -1,0 +1,32 @@
+<Project>
+  <PropertyGroup>
+    <!-- ========== Common Target Framework ========== -->
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+
+    <!-- ========== Version Information ========== -->
+    <Version>7.2.3.1</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <InformationalVersion>$(Version)+apache-avro-$(AvroVersion)</InformationalVersion>
+
+    <!-- ========== Company/Product Info ========== -->
+    <Company>Kinetica</Company>
+    <Product>Kinetica C# API</Product>
+    <Copyright>Copyright © Kinetica 2026</Copyright>
+
+    <!-- ========== Platform Detection (for J2NET Runtime) ========== -->
+    <OSPlatform Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">OSX</OSPlatform>
+    <OSPlatform Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">Linux</OSPlatform>
+    <OSPlatform Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">Windows</OSPlatform>
+    <OSArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)</OSArchitecture>
+  </PropertyGroup>
+
+  <!-- ========== Nullable Reference Type Warnings Suppression ========== -->
+  <!-- Many auto-generated files and third-party code triggers these -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CS8600;CS8601;CS8602;CS8604;CS8618;CS8625;CS8603;CS8632;CS8765</NoWarn>
+  </PropertyGroup>
+</Project>

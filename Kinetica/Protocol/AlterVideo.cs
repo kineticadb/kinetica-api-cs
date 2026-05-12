@@ -6,74 +6,73 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
+/// </summary>
+/// <remarks><para>Alters a video.</para></remarks>
+public class AlterVideoRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
-    /// </summary>
-    /// <remarks><para>Alters a video.</para></remarks>
-    public class AlterVideoRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the video.</summary>
-            public const string TTL = "ttl";
-        } // end struct Options
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the video.</summary>
+        public const string TTL = "ttl";
+    } // end struct Options
 
-        /// <summary>Fully-qualified <a href="../../../tools/kifs/"
-        /// target="_top">KiFS</a> path to the video to be altered.</summary>
-        public string path { get; set; }
+    /// <summary>Fully-qualified <a href="../../../tools/kifs/"
+    /// target="_top">KiFS</a> path to the video to be altered.</summary>
+    public string path { get; set; }
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the video.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the video.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Constructs an AlterVideoRequest object with default
-        /// parameters.</summary>
-        public AlterVideoRequest() { }
+    /// <summary>Constructs an AlterVideoRequest object with default
+    /// parameters.</summary>
+    public AlterVideoRequest() { }
 
-        /// <summary>Constructs an AlterVideoRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="path">Fully-qualified <a href="../../../tools/kifs/"
-        /// target="_top">KiFS</a> path to the video to be altered.</param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the video.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AlterVideoRequest( string path,
-                                  IDictionary<string, string> options = null)
-        {
-            this.path = path ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterVideoRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
-    /// </summary>
-    public class AlterVideoResponse : KineticaData
+    /// <summary>Constructs an AlterVideoRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="path">Fully-qualified <a href="../../../tools/kifs/"
+    /// target="_top">KiFS</a> path to the video to be altered.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the video.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AlterVideoRequest( string path,
+                              IDictionary<string, string> options = null)
     {
-        /// <summary>Fully qualified KIFS path to the video file.</summary>
-        public string path { get; set; }
+        this.path = path ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterVideoRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterVideoResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
+/// </summary>
+public class AlterVideoResponse : KineticaData
+{
+    /// <summary>Fully qualified KIFS path to the video file.</summary>
+    public string path { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterVideoResponse

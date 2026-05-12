@@ -6,78 +6,77 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
+/// </summary>
+/// <remarks><para>Checks for the existence of a schema with the given name.
+/// </para></remarks>
+public class HasSchemaRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
+    /// <summary>Name of the schema to check for existence, in root, using
+    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    public string schema_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a HasSchemaRequest object with default parameters.
     /// </summary>
-    /// <remarks><para>Checks for the existence of a schema with the given
-    /// name.</para></remarks>
-    public class HasSchemaRequest : KineticaData
+    public HasSchemaRequest() { }
+
+    /// <summary>Constructs a HasSchemaRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="schema_name">Name of the schema to check for existence, in
+    /// root, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public HasSchemaRequest( string schema_name,
+                             IDictionary<string, string> options = null)
     {
-        /// <summary>Name of the schema to check for existence, in root, using
-        /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        public string schema_name { get; set; }
+        this.schema_name = schema_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class HasSchemaRequest
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a HasSchemaRequest object with default
-        /// parameters.</summary>
-        public HasSchemaRequest() { }
-
-        /// <summary>Constructs a HasSchemaRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="schema_name">Name of the schema to check for
-        /// existence, in root, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public HasSchemaRequest( string schema_name,
-                                 IDictionary<string, string> options = null)
-        {
-            this.schema_name = schema_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class HasSchemaRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
-    /// </summary>
-    public class HasSchemaResponse : KineticaData
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
+/// </summary>
+public class HasSchemaResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="schema_exists" />.</summary>
+    /// <remarks><para>Indicates whether the schema exists or not.</para>
+    /// </remarks>
+    public struct SchemaExists
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="schema_exists" />.</summary>
-        /// <remarks><para>Indicates whether the schema exists or not.</para>
-        /// </remarks>
-        public struct SchemaExists
-        {
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct SchemaExists
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct SchemaExists
 
-        /// <summary>Value of <see
-        /// cref="HasSchemaRequest.schema_name">schema_name</see></summary>
-        public string schema_name { get; set; }
+    /// <summary>Value of <see
+    /// cref="HasSchemaRequest.schema_name">schema_name</see></summary>
+    public string schema_name { get; set; }
 
-        /// <summary>Indicates whether the schema exists or not.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term>true</term>
-        ///     </item>
-        ///     <item>
-        ///         <term>false</term>
-        ///     </item>
-        /// </list></remarks>
-        public bool schema_exists { get; set; }
+    /// <summary>Indicates whether the schema exists or not.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list></remarks>
+    public bool schema_exists { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class HasSchemaResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class HasSchemaResponse

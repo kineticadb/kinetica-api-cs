@@ -6,122 +6,118 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+/// </summary>
+/// <remarks><para>Revokes a proc-level permission from a user or role.</para>
+/// </remarks>
+public class RevokePermissionProcRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
-    /// </summary>
-    /// <remarks><para>Revokes a proc-level permission from a user or role.
-    /// </para></remarks>
-    public class RevokePermissionProcRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="permission" />.</summary>
+    /// <remarks><para>Permission to revoke from the user or role.</para>
+    /// </remarks>
+    public struct Permission
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="permission" />.</summary>
-        /// <remarks><para>Permission to revoke from the user or role.</para>
-        /// </remarks>
-        public struct Permission
-        {
-            /// <summary>Admin access to the proc.</summary>
-            public const string PROC_ADMIN = "proc_admin";
+        /// <summary>Admin access to the proc.</summary>
+        public const string PROC_ADMIN = "proc_admin";
 
-            /// <summary>Execute access to the proc.</summary>
-            public const string PROC_EXECUTE = "proc_execute";
-        } // end struct Permission
+        /// <summary>Execute access to the proc.</summary>
+        public const string PROC_EXECUTE = "proc_execute";
+    } // end struct Permission
 
-        /// <summary>Name of the user or role from which the permission will be
-        /// revoked.</summary>
-        /// <remarks><para>Must be an existing user or role.</para></remarks>
-        public string name { get; set; }
+    /// <summary>Name of the user or role from which the permission will be
+    /// revoked.</summary>
+    /// <remarks><para>Must be an existing user or role.</para></remarks>
+    public string name { get; set; }
 
-        /// <summary>Permission to revoke from the user or role.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
-        ///         </term>
-        ///         <description>Admin access to the proc.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
-        ///         <description>Execute access to the proc.</description>
-        ///     </item>
-        /// </list></remarks>
-        public string permission { get; set; }
+    /// <summary>Permission to revoke from the user or role.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+    ///         </term>
+    ///         <description>Admin access to the proc.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
+    ///         </term>
+    ///         <description>Execute access to the proc.</description>
+    ///     </item>
+    /// </list></remarks>
+    public string permission { get; set; }
 
-        /// <summary>Name of the proc to which the permission grants access.
-        /// </summary>
-        /// <remarks><para>Must be an existing proc, or an empty string if the
-        /// permission grants access to all procs.</para></remarks>
-        public string proc_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a RevokePermissionProcRequest object with
-        /// default parameters.</summary>
-        public RevokePermissionProcRequest() { }
-
-        /// <summary>Constructs a RevokePermissionProcRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="name">Name of the user or role from which the
-        /// permission will be revoked. Must be an existing user or role.
-        /// </param>
-        /// <param name="permission">Permission to revoke from the user or
-        /// role.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
-        ///         </term>
-        ///         <description>Admin access to the proc.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
-        ///         <description>Execute access to the proc.</description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="proc_name">Name of the proc to which the permission
-        /// grants access. Must be an existing proc, or an empty string if the
-        /// permission grants access to all procs.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public RevokePermissionProcRequest( string name,
-                                            string permission,
-                                            string proc_name,
-                                            IDictionary<string, string> options = null)
-        {
-            this.name = name ?? "";
-            this.permission = permission ?? "";
-            this.proc_name = proc_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class RevokePermissionProcRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+    /// <summary>Name of the proc to which the permission grants access.
     /// </summary>
-    public class RevokePermissionProcResponse : KineticaData
+    /// <remarks><para>Must be an existing proc, or an empty string if the
+    /// permission grants access to all procs.</para></remarks>
+    public string proc_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a RevokePermissionProcRequest object with default
+    /// parameters.</summary>
+    public RevokePermissionProcRequest() { }
+
+    /// <summary>Constructs a RevokePermissionProcRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="name">Name of the user or role from which the permission
+    /// will be revoked. Must be an existing user or role.</param>
+    /// <param name="permission">Permission to revoke from the user or role.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+    ///         </term>
+    ///         <description>Admin access to the proc.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
+    ///         </term>
+    ///         <description>Execute access to the proc.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="proc_name">Name of the proc to which the permission grants
+    /// access. Must be an existing proc, or an empty string if the permission
+    /// grants access to all procs.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public RevokePermissionProcRequest( string name,
+                                        string permission,
+                                        string proc_name,
+                                        IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="RevokePermissionProcRequest.name">name</see>.</summary>
-        public string name { get; set; }
+        this.name = name ?? "";
+        this.permission = permission ?? "";
+        this.proc_name = proc_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class RevokePermissionProcRequest
 
-        /// <summary>Value of <see
-        /// cref="RevokePermissionProcRequest.permission">permission</see>.
-        /// </summary>
-        public string permission { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+/// </summary>
+public class RevokePermissionProcResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="RevokePermissionProcRequest.name">name</see>.</summary>
+    public string name { get; set; }
 
-        /// <summary>Value of <see
-        /// cref="RevokePermissionProcRequest.proc_name">proc_name</see>.
-        /// </summary>
-        public string proc_name { get; set; }
+    /// <summary>Value of <see
+    /// cref="RevokePermissionProcRequest.permission">permission</see>.
+    /// </summary>
+    public string permission { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RevokePermissionProcResponse
-} // end namespace kinetica
+    /// <summary>Value of <see
+    /// cref="RevokePermissionProcRequest.proc_name">proc_name</see>.</summary>
+    public string proc_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RevokePermissionProcResponse

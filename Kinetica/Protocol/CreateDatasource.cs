@@ -6,987 +6,962 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+/// </summary>
+/// <remarks><para>Creates a <a href="../../../concepts/data_sources/"
+/// target="_top">data source</a>, which contains the location and connection
+/// information for a data store that is external to the database.</para>
+/// </remarks>
+public class CreateDatasourceRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
-    /// </summary>
-    /// <remarks><para>Creates a <a href="../../../concepts/data_sources/"
-    /// target="_top">data source</a>, which contains the location and
-    /// connection information for a data store that is external to the
-    /// database.</para></remarks>
-    public class CreateDatasourceRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Bypass validation of connection to remote source.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string SKIP_VALIDATION = "skip_validation";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Timeout in seconds for connecting to this storage
-            /// provider</summary>
-            public const string CONNECTION_TIMEOUT = "connection_timeout";
-
-            /// <summary>Timeout in seconds for reading from this storage
-            /// provider</summary>
-            public const string WAIT_TIMEOUT = "wait_timeout";
-
-            /// <summary>Name of the <a href="../../../concepts/credentials"
-            /// target="_top">credential</a> object to be used in data source
-            /// </summary>
-            public const string CREDENTIAL = "credential";
-
-            /// <summary>Name of the Amazon S3 bucket to use as the data source
-            /// </summary>
-            public const string S3_BUCKET_NAME = "s3_bucket_name";
-
-            /// <summary>Name of the Amazon S3 region where the given bucket is
-            /// located</summary>
-            public const string S3_REGION = "s3_region";
-
-            /// <summary>Whether to verify SSL connections.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Connect with SSL verification
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Connect without verifying the SSL
-            ///         connection; for testing purposes, bypassing TLS errors,
-            ///         self-signed certificates, etc.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string S3_VERIFY_SSL = "s3_verify_ssl";
-
-            /// <summary>Whether to use virtual addressing when referencing the
-            /// Amazon S3 source.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>The requests URI should be specified in
-            ///         virtual-hosted-style format where the bucket name is
-            ///         part of the domain name in the URL.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Use path-style URI for requests.
-            ///         </description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
-
-            /// <summary>Amazon IAM Role ARN which has required S3 permissions
-            /// that can be assumed for the given S3 IAM user</summary>
-            public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
-
-            /// <summary>Customer encryption algorithm used encrypting data
-            /// </summary>
-            public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
-
-            /// <summary>Customer encryption key to encrypt or decrypt data
-            /// </summary>
-            public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
-
-            /// <summary>Kerberos keytab file location for the given HDFS user.
-            /// </summary>
-            /// <remarks><para> This may be a KIFS file.</para></remarks>
-            public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
-
-            /// <summary>Delegation token for the given HDFS user</summary>
-            public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
-
-            /// <summary>Use kerberos authentication for the given HDFS
-            /// cluster.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
-
-            /// <summary>Name of the Azure storage account to use as the data
-            /// source, this is valid only if tenant_id is specified</summary>
-            public const string AZURE_STORAGE_ACCOUNT_NAME = "azure_storage_account_name";
-
-            /// <summary>Name of the Azure storage container to use as the data
-            /// source</summary>
-            public const string AZURE_CONTAINER_NAME = "azure_container_name";
-
-            /// <summary>Active Directory tenant ID (or directory ID)</summary>
-            public const string AZURE_TENANT_ID = "azure_tenant_id";
-
-            /// <summary>Shared access signature token for Azure storage
-            /// account to use as the data source</summary>
-            public const string AZURE_SAS_TOKEN = "azure_sas_token";
-
-            /// <summary>OAuth token to access given storage container
-            /// </summary>
-            public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
-
-            /// <summary>Name of the Google Cloud Storage bucket to use as the
-            /// data source</summary>
-            public const string GCS_BUCKET_NAME = "gcs_bucket_name";
-
-            /// <summary>Name of the Google Cloud project to use as the data
-            /// source</summary>
-            public const string GCS_PROJECT_ID = "gcs_project_id";
-
-            /// <summary>Google Cloud service account keys to use for
-            /// authenticating the data source</summary>
-            public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
-
-            /// <summary>To load from Azure/GCS/S3 as a stream continuously.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_STREAM = "is_stream";
-
-            /// <summary>Name of the Kafka topic to use as the data source
-            /// </summary>
-            public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
-
-            /// <summary>JDBC driver jar file location.</summary>
-            /// <remarks><para> This may be a KIFS file.</para></remarks>
-            public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
-
-            /// <summary>Name of the JDBC driver class</summary>
-            public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
-
-            /// <summary>Use anonymous connection to storage
-            /// provider--DEPRECATED: this is now the default.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string ANONYMOUS = "anonymous";
-
-            /// <summary>When no credentials are supplied, we use anonymous
-            /// access by default.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
-
-            /// <summary>Use https to connect to datasource if true, otherwise
-            /// use http.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string USE_HTTPS = "use_https";
-
-            /// <summary>Location of Confluent Schema Registry in
-            /// '[storage_path[:storage_port]]' format.</summary>
-            public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
-
-            /// <summary>Confluent Schema Registry <a
-            /// href="../../../concepts/credentials"
-            /// target="_top">credential</a> object name.</summary>
-            public const string SCHEMA_REGISTRY_CREDENTIAL = "schema_registry_credential";
-
-            /// <summary>Confluent Schema Registry port (optional).</summary>
-            public const string SCHEMA_REGISTRY_PORT = "schema_registry_port";
-
-            /// <summary>Confluent Schema registry connection timeout (in Secs)
-            /// </summary>
-            public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
-
-            /// <summary>Confluent Schema registry connection timeout (in Secs)
-            /// </summary>
-            public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
-        } // end struct Options
-
-        /// <summary>Name of the data source to be created.</summary>
-        public string name { get; set; }
-
-        /// <summary>Location of the remote storage in
-        /// 'storage_provider_type://[storage_path[:storage_port]]' format.
+        /// <summary>Bypass validation of connection to remote source.
         /// </summary>
-        /// <remarks><para> Supported storage provider types are 'azure',
-        /// 'gcs', 'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.</para>
-        /// </remarks>
-        public string location { get; set; }
-
-        /// <summary>Name of the remote system user; may be an empty string
-        /// </summary>
-        public string user_name { get; set; }
-
-        /// <summary>Password for the remote system user; may be an empty
-        /// string</summary>
-        public string password { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
-        ///         </term>
-        ///         <description>Bypass validation of connection to remote
-        ///         source.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Timeout in seconds for connecting to this
-        ///         storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Timeout in seconds for reading from this
-        ///         storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
-        ///         </term>
-        ///         <description>Name of the <a
-        ///         href="../../../concepts/credentials"
-        ///         target="_top">credential</a> object to be used in data
-        ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Amazon S3 bucket to use as the
-        ///         data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
-        ///         <description>Name of the Amazon S3 region where the given
-        ///         bucket is located</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
-        ///         <description>Whether to verify SSL connections.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Connect with SSL verification
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Connect without verifying the SSL
-        ///                 connection; for testing purposes, bypassing TLS
-        ///                 errors, self-signed certificates, etc.
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
-        ///         </term>
-        ///         <description>Whether to use virtual addressing when
-        ///         referencing the Amazon S3 source.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>The requests URI should be specified
-        ///                 in virtual-hosted-style format where the bucket
-        ///                 name is part of the domain name in the URL.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Use path-style URI for requests.
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
-        ///         </term>
-        ///         <description>Amazon IAM Role ARN which has required S3
-        ///         permissions that can be assumed for the given S3 IAM user
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
-        ///         </term>
-        ///         <description>Customer encryption algorithm used encrypting
-        ///         data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
-        ///         </term>
-        ///         <description>Customer encryption key to encrypt or decrypt
-        ///         data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
-        ///         </term>
-        ///         <description>Kerberos keytab file location for the given
-        ///         HDFS user.  This may be a KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
-        ///         </term>
-        ///         <description>Delegation token for the given HDFS user
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
-        ///         </term>
-        ///         <description>Use kerberos authentication for the given HDFS
-        ///         cluster.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Azure storage account to use as
-        ///         the data source, this is valid only if tenant_id is
-        ///         specified</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Azure storage container to use as
-        ///         the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
-        ///         </term>
-        ///         <description>Active Directory tenant ID (or directory ID)
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
-        ///         </term>
-        ///         <description>Shared access signature token for Azure
-        ///         storage account to use as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
-        ///         </term>
-        ///         <description>OAuth token to access given storage container
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Google Cloud Storage bucket to use
-        ///         as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
-        ///         <description>Name of the Google Cloud project to use as the
-        ///         data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
-        ///         </term>
-        ///         <description>Google Cloud service account keys to use for
-        ///         authenticating the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.IS_STREAM">IS_STREAM</see>:</term>
-        ///         <description>To load from Azure/GCS/S3 as a stream
-        ///         continuously.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Kafka topic to use as the data
-        ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
-        ///         </term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        ///         KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the JDBC driver class</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage
-        ///         provider--DEPRECATED: this is now the default.  Specify
-        ///         use_managed_credentials for non-anonymous connection.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
-        ///         </term>
-        ///         <description>When no credentials are supplied, we use
-        ///         anonymous access by default.  If this is set, we will use
-        ///         cloud provider user settings.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
-        ///         <description>Use https to connect to datasource if true,
-        ///         otherwise use http.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
-        ///         </term>
-        ///         <description>Location of Confluent Schema Registry in
-        ///         '[storage_path[:storage_port]]' format.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
-        ///         </term>
-        ///         <description>Confluent Schema Registry <a
-        ///         href="../../../concepts/credentials"
-        ///         target="_top">credential</a> object name.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
-        ///         </term>
-        ///         <description>Confluent Schema Registry port (optional).
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateDatasourceRequest object with default
-        /// parameters.</summary>
-        public CreateDatasourceRequest() { }
-
-        /// <summary>Constructs a CreateDatasourceRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="name">Name of the data source to be created.</param>
-        /// <param name="location">Location of the remote storage in
-        /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
-        /// 'jdbc', 'kafka', 'confluent', and 's3'.</param>
-        /// <param name="user_name">Name of the remote system user; may be an
-        /// empty string</param>
-        /// <param name="password">Password for the remote system user; may be
-        /// an empty string</param>
-        /// <param name="options">Optional parameters.
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
-        ///         </term>
-        ///         <description>Bypass validation of connection to remote
-        ///         source.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Timeout in seconds for connecting to this
-        ///         storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Timeout in seconds for reading from this
-        ///         storage provider</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:
-        ///         </term>
-        ///         <description>Name of the <a
-        ///         href="../../../concepts/credentials"
-        ///         target="_top">credential</a> object to be used in data
-        ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
-        ///         <description>Name of the Amazon S3 bucket to use as the
-        ///         data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
-        ///         <description>Name of the Amazon S3 region where the given
-        ///         bucket is located</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:</term>
-        ///         <description>Whether to verify SSL connections.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Connect with SSL verification
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Connect without verifying the SSL
-        ///                 connection; for testing purposes, bypassing TLS
-        ///                 errors, self-signed certificates, etc.
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
-        ///         </term>
-        ///         <description>Whether to use virtual addressing when
-        ///         referencing the Amazon S3 source.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>The requests URI should be specified
-        ///                 in virtual-hosted-style format where the bucket
-        ///                 name is part of the domain name in the URL.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Use path-style URI for requests.
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
-        ///         </term>
-        ///         <description>Amazon IAM Role ARN which has required S3
-        ///         permissions that can be assumed for the given S3 IAM user
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
-        ///         </term>
-        ///         <description>Customer encryption algorithm used encrypting
-        ///         data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
-        ///         </term>
-        ///         <description>Customer encryption key to encrypt or decrypt
-        ///         data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
-        ///         </term>
-        ///         <description>Kerberos keytab file location for the given
-        ///         HDFS user.  This may be a KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
-        ///         </term>
-        ///         <description>Delegation token for the given HDFS user
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
-        ///         </term>
-        ///         <description>Use kerberos authentication for the given HDFS
-        ///         cluster.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Azure storage account to use as
-        ///         the data source, this is valid only if tenant_id is
-        ///         specified</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Azure storage container to use as
-        ///         the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
-        ///         </term>
-        ///         <description>Active Directory tenant ID (or directory ID)
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
-        ///         </term>
-        ///         <description>Shared access signature token for Azure
-        ///         storage account to use as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
-        ///         </term>
-        ///         <description>OAuth token to access given storage container
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Google Cloud Storage bucket to use
-        ///         as the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
-        ///         <description>Name of the Google Cloud project to use as the
-        ///         data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
-        ///         </term>
-        ///         <description>Google Cloud service account keys to use for
-        ///         authenticating the data source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.IS_STREAM">IS_STREAM</see>:</term>
-        ///         <description>To load from Azure/GCS/S3 as a stream
-        ///         continuously.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Kafka topic to use as the data
-        ///         source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
-        ///         </term>
-        ///         <description>JDBC driver jar file location.  This may be a
-        ///         KIFS file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the JDBC driver class</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage
-        ///         provider--DEPRECATED: this is now the default.  Specify
-        ///         use_managed_credentials for non-anonymous connection.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
-        ///         </term>
-        ///         <description>When no credentials are supplied, we use
-        ///         anonymous access by default.  If this is set, we will use
-        ///         cloud provider user settings.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
-        ///         <description>Use https to connect to datasource if true,
-        ///         otherwise use http.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
-        ///         </term>
-        ///         <description>Location of Confluent Schema Registry in
-        ///         '[storage_path[:storage_port]]' format.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
-        ///         </term>
-        ///         <description>Confluent Schema Registry <a
-        ///         href="../../../concepts/credentials"
-        ///         target="_top">credential</a> object name.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
-        ///         </term>
-        ///         <description>Confluent Schema Registry port (optional).
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateDatasourceRequest( string name,
-                                        string location,
-                                        string user_name,
-                                        string password,
-                                        IDictionary<string, string> options = null)
-        {
-            this.name = name ?? "";
-            this.location = location ?? "";
-            this.user_name = user_name ?? "";
-            this.password = password ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateDatasourceRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string SKIP_VALIDATION = "skip_validation";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>Timeout in seconds for connecting to this storage provider
+        /// </summary>
+        public const string CONNECTION_TIMEOUT = "connection_timeout";
+
+        /// <summary>Timeout in seconds for reading from this storage provider
+        /// </summary>
+        public const string WAIT_TIMEOUT = "wait_timeout";
+
+        /// <summary>Name of the <a href="../../../concepts/credentials"
+        /// target="_top">credential</a> object to be used in data source
+        /// </summary>
+        public const string CREDENTIAL = "credential";
+
+        /// <summary>Name of the Amazon S3 bucket to use as the data source
+        /// </summary>
+        public const string S3_BUCKET_NAME = "s3_bucket_name";
+
+        /// <summary>Name of the Amazon S3 region where the given bucket is
+        /// located</summary>
+        public const string S3_REGION = "s3_region";
+
+        /// <summary>Whether to verify SSL connections.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Connect with SSL verification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Connect without verifying the SSL connection;
+        ///         for testing purposes, bypassing TLS errors, self-signed
+        ///         certificates, etc.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string S3_VERIFY_SSL = "s3_verify_ssl";
+
+        /// <summary>Whether to use virtual addressing when referencing the
+        /// Amazon S3 source.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>The requests URI should be specified in
+        ///         virtual-hosted-style format where the bucket name is part
+        ///         of the domain name in the URL.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Use path-style URI for requests.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
+
+        /// <summary>Amazon IAM Role ARN which has required S3 permissions that
+        /// can be assumed for the given S3 IAM user</summary>
+        public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
+
+        /// <summary>Customer encryption algorithm used encrypting data
+        /// </summary>
+        public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
+
+        /// <summary>Customer encryption key to encrypt or decrypt data
+        /// </summary>
+        public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
+
+        /// <summary>Kerberos keytab file location for the given HDFS user.
+        /// </summary>
+        /// <remarks><para> This may be a KIFS file.</para></remarks>
+        public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
+
+        /// <summary>Delegation token for the given HDFS user</summary>
+        public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
+
+        /// <summary>Use kerberos authentication for the given HDFS cluster.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
+
+        /// <summary>Name of the Azure storage account to use as the data
+        /// source, this is valid only if tenant_id is specified</summary>
+        public const string AZURE_STORAGE_ACCOUNT_NAME = "azure_storage_account_name";
+
+        /// <summary>Name of the Azure storage container to use as the data
+        /// source</summary>
+        public const string AZURE_CONTAINER_NAME = "azure_container_name";
+
+        /// <summary>Active Directory tenant ID (or directory ID)</summary>
+        public const string AZURE_TENANT_ID = "azure_tenant_id";
+
+        /// <summary>Shared access signature token for Azure storage account to
+        /// use as the data source</summary>
+        public const string AZURE_SAS_TOKEN = "azure_sas_token";
+
+        /// <summary>OAuth token to access given storage container</summary>
+        public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
+
+        /// <summary>Name of the Google Cloud Storage bucket to use as the data
+        /// source</summary>
+        public const string GCS_BUCKET_NAME = "gcs_bucket_name";
+
+        /// <summary>Name of the Google Cloud project to use as the data source
+        /// </summary>
+        public const string GCS_PROJECT_ID = "gcs_project_id";
+
+        /// <summary>Google Cloud service account keys to use for
+        /// authenticating the data source</summary>
+        public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
+
+        /// <summary>To load from Azure/GCS/S3 as a stream continuously.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_STREAM = "is_stream";
+
+        /// <summary>Name of the Kafka topic to use as the data source
+        /// </summary>
+        public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+        /// <summary>JDBC driver jar file location.</summary>
+        /// <remarks><para> This may be a KIFS file.</para></remarks>
+        public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
+
+        /// <summary>Name of the JDBC driver class</summary>
+        public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
+
+        /// <summary>Use anonymous connection to storage provider--DEPRECATED:
+        /// this is now the default.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string ANONYMOUS = "anonymous";
+
+        /// <summary>When no credentials are supplied, we use anonymous access
+        /// by default.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
+
+        /// <summary>Use https to connect to datasource if true, otherwise use
+        /// http.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string USE_HTTPS = "use_https";
+
+        /// <summary>Location of Confluent Schema Registry in
+        /// '[storage_path[:storage_port]]' format.</summary>
+        public const string SCHEMA_REGISTRY_LOCATION = "schema_registry_location";
+
+        /// <summary>Confluent Schema Registry <a
+        /// href="../../../concepts/credentials" target="_top">credential</a>
+        /// object name.</summary>
+        public const string SCHEMA_REGISTRY_CREDENTIAL = "schema_registry_credential";
+
+        /// <summary>Confluent Schema Registry port (optional).</summary>
+        public const string SCHEMA_REGISTRY_PORT = "schema_registry_port";
+
+        /// <summary>Confluent Schema registry connection timeout (in Secs)
+        /// </summary>
+        public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
+
+        /// <summary>Confluent Schema registry connection timeout (in Secs)
+        /// </summary>
+        public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
+    } // end struct Options
+
+    /// <summary>Name of the data source to be created.</summary>
+    public string name { get; set; }
+
+    /// <summary>Location of the remote storage in
+    /// 'storage_provider_type://[storage_path[:storage_port]]' format.
     /// </summary>
-    public class CreateDatasourceResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="CreateDatasourceRequest.name">name</see>.</summary>
-        public string name { get; set; }
+    /// <remarks><para> Supported storage provider types are 'azure', 'gcs',
+    /// 'hdfs', 'jdbc', 'kafka', 'confluent', and 's3'.</para></remarks>
+    public string location { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateDatasourceResponse
-} // end namespace kinetica
+    /// <summary>Name of the remote system user; may be an empty string
+    /// </summary>
+    public string user_name { get; set; }
+
+    /// <summary>Password for the remote system user; may be an empty string
+    /// </summary>
+    public string password { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+    ///         <description>Bypass validation of connection to remote source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Timeout in seconds for connecting to this storage
+    ///         provider</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Timeout in seconds for reading from this storage
+    ///         provider</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:</term>
+    ///         <description>Name of the <a
+    ///         href="../../../concepts/credentials"
+    ///         target="_top">credential</a> object to be used in data source
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Amazon S3 bucket to use as the data
+    ///         source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
+    ///         <description>Name of the Amazon S3 region where the given
+    ///         bucket is located</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
+    ///         </term>
+    ///         <description>Whether to verify SSL connections.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Connect with SSL verification
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Connect without verifying the SSL
+    ///                 connection; for testing purposes, bypassing TLS errors,
+    ///                 self-signed certificates, etc.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Amazon S3 source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+    ///         <description>Amazon IAM Role ARN which has required S3
+    ///         permissions that can be assumed for the given S3 IAM user
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+    ///         </term>
+    ///         <description>Customer encryption algorithm used encrypting data
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+    ///         </term>
+    ///         <description>Customer encryption key to encrypt or decrypt data
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+    ///         </term>
+    ///         <description>Kerberos keytab file location for the given HDFS
+    ///         user.  This may be a KIFS file.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+    ///         </term>
+    ///         <description>Delegation token for the given HDFS user
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+    ///         </term>
+    ///         <description>Use kerberos authentication for the given HDFS
+    ///         cluster.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Azure storage account to use as the
+    ///         data source, this is valid only if tenant_id is specified
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Azure storage container to use as the
+    ///         data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+    ///         <description>Shared access signature token for Azure storage
+    ///         account to use as the data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+    ///         </term>
+    ///         <description>OAuth token to access given storage container
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+    ///         <description>Name of the Google Cloud Storage bucket to use as
+    ///         the data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
+    ///         </term>
+    ///         <description>Name of the Google Cloud project to use as the
+    ///         data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+    ///         </term>
+    ///         <description>Google Cloud service account keys to use for
+    ///         authenticating the data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_STREAM">IS_STREAM</see>:</term>
+    ///         <description>To load from Azure/GCS/S3 as a stream
+    ///         continuously.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+    ///         <description>Name of the Kafka topic to use as the data source
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+    ///         </term>
+    ///         <description>JDBC driver jar file location.  This may be a KIFS
+    ///         file.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the JDBC driver class</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ANONYMOUS">ANONYMOUS</see>:</term>
+    ///         <description>Use anonymous connection to storage
+    ///         provider--DEPRECATED: this is now the default.  Specify
+    ///         use_managed_credentials for non-anonymous connection.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+    ///         </term>
+    ///         <description>When no credentials are supplied, we use anonymous
+    ///         access by default.  If this is set, we will use cloud provider
+    ///         user settings.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
+    ///         <description>Use https to connect to datasource if true,
+    ///         otherwise use http.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+    ///         </term>
+    ///         <description>Location of Confluent Schema Registry in
+    ///         '[storage_path[:storage_port]]' format.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
+    ///         </term>
+    ///         <description>Confluent Schema Registry <a
+    ///         href="../../../concepts/credentials"
+    ///         target="_top">credential</a> object name.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
+    ///         </term>
+    ///         <description>Confluent Schema Registry port (optional).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateDatasourceRequest object with default
+    /// parameters.</summary>
+    public CreateDatasourceRequest() { }
+
+    /// <summary>Constructs a CreateDatasourceRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="name">Name of the data source to be created.</param>
+    /// <param name="location">Location of the remote storage in
+    /// 'storage_provider_type://[storage_path[:storage_port]]' format.
+    /// Supported storage provider types are 'azure', 'gcs', 'hdfs', 'jdbc',
+    /// 'kafka', 'confluent', and 's3'.</param>
+    /// <param name="user_name">Name of the remote system user; may be an empty
+    /// string</param>
+    /// <param name="password">Password for the remote system user; may be an
+    /// empty string</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+    ///         <description>Bypass validation of connection to remote source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Timeout in seconds for connecting to this storage
+    ///         provider</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Timeout in seconds for reading from this storage
+    ///         provider</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CREDENTIAL">CREDENTIAL</see>:</term>
+    ///         <description>Name of the <a
+    ///         href="../../../concepts/credentials"
+    ///         target="_top">credential</a> object to be used in data source
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Amazon S3 bucket to use as the data
+    ///         source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.S3_REGION">S3_REGION</see>:</term>
+    ///         <description>Name of the Amazon S3 region where the given
+    ///         bucket is located</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.S3_VERIFY_SSL">S3_VERIFY_SSL</see>:
+    ///         </term>
+    ///         <description>Whether to verify SSL connections.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Connect with SSL verification
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Connect without verifying the SSL
+    ///                 connection; for testing purposes, bypassing TLS errors,
+    ///                 self-signed certificates, etc.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Amazon S3 source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+    ///         <description>Amazon IAM Role ARN which has required S3
+    ///         permissions that can be assumed for the given S3 IAM user
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
+    ///         </term>
+    ///         <description>Customer encryption algorithm used encrypting data
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
+    ///         </term>
+    ///         <description>Customer encryption key to encrypt or decrypt data
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:
+    ///         </term>
+    ///         <description>Kerberos keytab file location for the given HDFS
+    ///         user.  This may be a KIFS file.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
+    ///         </term>
+    ///         <description>Delegation token for the given HDFS user
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:
+    ///         </term>
+    ///         <description>Use kerberos authentication for the given HDFS
+    ///         cluster.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Azure storage account to use as the
+    ///         data source, this is valid only if tenant_id is specified
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Azure storage container to use as the
+    ///         data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+    ///         <description>Shared access signature token for Azure storage
+    ///         account to use as the data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
+    ///         </term>
+    ///         <description>OAuth token to access given storage container
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+    ///         <description>Name of the Google Cloud Storage bucket to use as
+    ///         the data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
+    ///         </term>
+    ///         <description>Name of the Google Cloud project to use as the
+    ///         data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
+    ///         </term>
+    ///         <description>Google Cloud service account keys to use for
+    ///         authenticating the data source</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_STREAM">IS_STREAM</see>:</term>
+    ///         <description>To load from Azure/GCS/S3 as a stream
+    ///         continuously.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+    ///         <description>Name of the Kafka topic to use as the data source
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
+    ///         </term>
+    ///         <description>JDBC driver jar file location.  This may be a KIFS
+    ///         file.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the JDBC driver class</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ANONYMOUS">ANONYMOUS</see>:</term>
+    ///         <description>Use anonymous connection to storage
+    ///         provider--DEPRECATED: this is now the default.  Specify
+    ///         use_managed_credentials for non-anonymous connection.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:
+    ///         </term>
+    ///         <description>When no credentials are supplied, we use anonymous
+    ///         access by default.  If this is set, we will use cloud provider
+    ///         user settings.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.USE_HTTPS">USE_HTTPS</see>:</term>
+    ///         <description>Use https to connect to datasource if true,
+    ///         otherwise use http.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_LOCATION">SCHEMA_REGISTRY_LOCATION</see>:
+    ///         </term>
+    ///         <description>Location of Confluent Schema Registry in
+    ///         '[storage_path[:storage_port]]' format.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CREDENTIAL">SCHEMA_REGISTRY_CREDENTIAL</see>:
+    ///         </term>
+    ///         <description>Confluent Schema Registry <a
+    ///         href="../../../concepts/credentials"
+    ///         target="_top">credential</a> object name.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_PORT">SCHEMA_REGISTRY_PORT</see>:
+    ///         </term>
+    ///         <description>Confluent Schema Registry port (optional).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateDatasourceRequest( string name,
+                                    string location,
+                                    string user_name,
+                                    string password,
+                                    IDictionary<string, string> options = null)
+    {
+        this.name = name ?? "";
+        this.location = location ?? "";
+        this.user_name = user_name ?? "";
+        this.password = password ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateDatasourceRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+/// </summary>
+public class CreateDatasourceResponse : KineticaData
+{
+    /// <summary>Value of <see cref="CreateDatasourceRequest.name">name</see>.
+    /// </summary>
+    public string name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateDatasourceResponse

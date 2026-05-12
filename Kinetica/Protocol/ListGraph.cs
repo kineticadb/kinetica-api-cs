@@ -6,33 +6,32 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class ListGraphRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class ListGraphRequest : KineticaData
+    public string graph_name { get; set; } = "";
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public ListGraphRequest() { }
+
+    public ListGraphRequest( string graph_name = null,
+                             IDictionary<string, string> options = null)
     {
-        public string graph_name { get; set; } = "";
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.graph_name = graph_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ListGraphRequest
+/// @endcond
 
-        public ListGraphRequest() { }
-
-        public ListGraphRequest( string graph_name = null,
-                                 IDictionary<string, string> options = null)
-        {
-            this.graph_name = graph_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ListGraphRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class ListGraphResponse : KineticaData
-    {
-        public bool result { get; set; }
-        public IList<string> graph_names { get; set; } = new List<string>();
-        public IList<long> num_nodes { get; set; } = new List<long>();
-        public IList<long> num_edges { get; set; } = new List<long>();
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ListGraphResponse
-    /// @endcond
-} // end namespace kinetica
+/// @cond NO_DOCS
+public class ListGraphResponse : KineticaData
+{
+    public bool result { get; set; }
+    public IList<string> graph_names { get; set; } = new List<string>();
+    public IList<long> num_nodes { get; set; } = new List<long>();
+    public IList<long> num_edges { get; set; } = new List<long>();
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ListGraphResponse
+/// @endcond

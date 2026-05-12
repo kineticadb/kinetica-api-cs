@@ -6,213 +6,232 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
+/// </summary>
+/// <remarks><para>Manually repair a corrupted table.
+/// Returns information about affected tables.</para></remarks>
+public class AdminRepairTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
-    /// </summary>
-    /// <remarks><para>Manually repair a corrupted table.
-    /// Returns information about affected tables.</para></remarks>
-    public class AdminRepairTableRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Corrective action to take.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
-            ///         </term>
-            ///         <description>Deletes any corrupted chunks</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
-            ///         </term>
-            ///         <description>Shrinks corrupted chunks to the shortest
-            ///         column</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
-            ///         </term>
-            ///         <description>Manually invokes write-ahead log (WAL)
-            ///         replay on the table</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string REPAIR_POLICY = "repair_policy";
-
-            /// <summary>Deletes any corrupted chunks</summary>
-            public const string DELETE_CHUNKS = "delete_chunks";
-
-            /// <summary>Shrinks corrupted chunks to the shortest column
-            /// </summary>
-            public const string SHRINK_COLUMNS = "shrink_columns";
-
-            /// <summary>Manually invokes write-ahead log (WAL) replay on the
-            /// table</summary>
-            public const string REPLAY_WAL = "replay_wal";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see> only table
-            /// chunk data already known to be corrupted will be repaired.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string VERIFY_ALL = "verify_all";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>List of tables to query.</summary>
-        /// <remarks><para>An asterisk returns all tables.</para></remarks>
-        public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.REPAIR_POLICY">REPAIR_POLICY</see>:</term>
-        ///         <description>Corrective action to take.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
-        ///                 </term>
-        ///                 <description>Deletes any corrupted chunks
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
-        ///                 </term>
-        ///                 <description>Shrinks corrupted chunks to the
-        ///                 shortest column</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.REPLAY_WAL">REPLAY_WAL</see>:</term>
-        ///                 <description>Manually invokes write-ahead log (WAL)
-        ///                 replay on the table</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see> only
-        ///         table chunk data already known to be corrupted will be
-        ///         repaired. Otherwise the database will perform a full table
-        ///         scan to check for correctness.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an AdminRepairTableRequest object with default
-        /// parameters.</summary>
-        public AdminRepairTableRequest() { }
-
-        /// <summary>Constructs an AdminRepairTableRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_names">List of tables to query. An asterisk
-        /// returns all tables.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>Corrective action to take.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.REPAIR_POLICY">REPAIR_POLICY</see>:</term>
-        ///         <description>Corrective action to take.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
-        ///                 </term>
-        ///                 <description>Deletes any corrupted chunks
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
-        ///                 </term>
-        ///                 <description>Shrinks corrupted chunks to the
-        ///                 shortest column</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.REPLAY_WAL">REPLAY_WAL</see>:</term>
-        ///                 <description>Manually invokes write-ahead log (WAL)
-        ///                 replay on the table</description>
-        ///             </item>
-        ///         </list></description>
+        ///         cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:</term>
+        ///         <description>Deletes any corrupted chunks</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:
+        ///         <term><see
+        ///         cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:</term>
+        ///         <description>Shrinks corrupted chunks to the shortest
+        ///         column</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
         ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see> only
-        ///         table chunk data already known to be corrupted will be
-        ///         repaired. Otherwise the database will perform a full table
-        ///         scan to check for correctness.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <description>Manually invokes write-ahead log (WAL) replay
+        ///         on the table</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ALTER_TABLE">ALTER_TABLE</see>:
+        ///         </term>
+        ///         <description>Reset columns modification after incomplete
+        ///         alter column.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string REPAIR_POLICY = "repair_policy";
+
+        /// <summary>Deletes any corrupted chunks</summary>
+        public const string DELETE_CHUNKS = "delete_chunks";
+
+        /// <summary>Shrinks corrupted chunks to the shortest column</summary>
+        public const string SHRINK_COLUMNS = "shrink_columns";
+
+        /// <summary>Manually invokes write-ahead log (WAL) replay on the table
+        /// </summary>
+        public const string REPLAY_WAL = "replay_wal";
+
+        /// <summary>Reset columns modification after incomplete alter column.
+        /// </summary>
+        public const string ALTER_TABLE = "alter_table";
+
+        /// <summary>If <see cref="Options.FALSE">FALSE</see> only table chunk
+        /// data already known to be corrupted will be repaired.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AdminRepairTableRequest( IList<string> table_names,
-                                        IDictionary<string, string> options = null)
-        {
-            this.table_names = table_names ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AdminRepairTableRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string VERIFY_ALL = "verify_all";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
-    /// </summary>
-    public class AdminRepairTableResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>List of tables to query.</summary>
+    /// <remarks><para>An asterisk returns all tables.</para></remarks>
+    public IList<string> table_names { get; set; } = new List<string>();
+
+    /// <summary>internal: type_id per table.</summary>
+    public IDictionary<string, string> table_types { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.REPAIR_POLICY">REPAIR_POLICY</see>:
+    ///         </term>
+    ///         <description>Corrective action to take.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
+    ///                 </term>
+    ///                 <description>Deletes any corrupted chunks</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
+    ///                 </term>
+    ///                 <description>Shrinks corrupted chunks to the shortest
+    ///                 column</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
+    ///                 </term>
+    ///                 <description>Manually invokes write-ahead log (WAL)
+    ///                 replay on the table</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.ALTER_TABLE">ALTER_TABLE</see>:</term>
+    ///                 <description>Reset columns modification after
+    ///                 incomplete alter column.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see> only
+    ///         table chunk data already known to be corrupted will be
+    ///         repaired. Otherwise the database will perform a full table scan
+    ///         to check for correctness.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AdminRepairTableRequest object with default
+    /// parameters.</summary>
+    public AdminRepairTableRequest() { }
+
+    /// <summary>Constructs an AdminRepairTableRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_names">List of tables to query. An asterisk returns
+    /// all tables.</param>
+    /// <param name="table_types">internal: type_id per table.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.REPAIR_POLICY">REPAIR_POLICY</see>:
+    ///         </term>
+    ///         <description>Corrective action to take.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
+    ///                 </term>
+    ///                 <description>Deletes any corrupted chunks</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
+    ///                 </term>
+    ///                 <description>Shrinks corrupted chunks to the shortest
+    ///                 column</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
+    ///                 </term>
+    ///                 <description>Manually invokes write-ahead log (WAL)
+    ///                 replay on the table</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.ALTER_TABLE">ALTER_TABLE</see>:</term>
+    ///                 <description>Reset columns modification after
+    ///                 incomplete alter column.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see> only
+    ///         table chunk data already known to be corrupted will be
+    ///         repaired. Otherwise the database will perform a full table scan
+    ///         to check for correctness.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AdminRepairTableRequest( IList<string> table_names,
+                                    IDictionary<string, string> table_types,
+                                    IDictionary<string, string> options = null)
     {
-        /// <summary>List of repaired tables.</summary>
-        public IList<string> table_names { get; set; } = new List<string>();
+        this.table_names = table_names ?? new List<string>();
+        this.table_types = table_types ?? new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AdminRepairTableRequest
 
-        /// <summary>List of repair status by table.</summary>
-        public IList<string> repair_status { get; set; } = new List<string>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
+/// </summary>
+public class AdminRepairTableResponse : KineticaData
+{
+    /// <summary>List of repaired tables.</summary>
+    public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AdminRepairTableResponse
-} // end namespace kinetica
+    /// <summary>List of repair status by table.</summary>
+    public IList<string> repair_status { get; set; } = new List<string>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AdminRepairTableResponse

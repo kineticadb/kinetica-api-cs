@@ -6,1770 +6,1705 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
+/// </summary>
+/// <remarks><para>Apply various modifications to a table or view.  The
+/// available modifications include the following:</para>
+/// <para>Manage a table's columns--a column can be added, removed, or have its
+/// <a href="../../../concepts/types/" target="_top">type and properties</a>
+/// modified, including whether it is <a
+/// href="../../../concepts/dictionary_encoding/" target="_top">dictionary
+/// encoded</a> or not.</para>
+/// <para>External tables cannot be modified except for their refresh
+/// method.</para>
+/// <para>Create or delete a <a href="../../../concepts/indexes/#column-index"
+/// target="_top">column</a>, <a
+/// href="../../../concepts/indexes/#low-cardinality-index"
+/// target="_top">low-cardinality index</a>, <a
+/// href="../../../concepts/indexes/#chunk-skip-index" target="_top">chunk
+/// skip</a>, <a href="../../../concepts/indexes/#geospatial-index"
+/// target="_top">geospatial</a>, <a
+/// href="../../../concepts/indexes/#cagra-index" target="_top">CAGRA</a>, or
+/// <a href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW</a>
+/// index. This can speed up certain operations when using expressions
+/// containing equality or relational operators on indexed columns. This only
+/// applies to tables.</para>
+/// <para>Create or delete a <a href="../../../concepts/tables/#foreign-key"
+/// target="_top">foreign key</a> on a particular column.</para>
+/// <para>Manage a <a href="../../../concepts/tables/#partitioning-by-range"
+/// target="_top">range-partitioned</a> or a <a
+/// href="../../../concepts/tables/#partitioning-by-list-manual"
+/// target="_top">manual list-partitioned</a> table's partitions.</para>
+/// <para>Set (or reset) the <a href="../../../rm/concepts/#tier-strategies"
+/// target="_top">tier strategy</a> of a table or view.</para>
+/// <para>Refresh and manage the refresh mode of a <a
+/// href="../../../concepts/materialized_views/" target="_top">materialized
+/// view</a> or an <a href="../../../concepts/external_tables/"
+/// target="_top">external table</a>.</para>
+/// <para>Set the <a href="../../../concepts/ttl/" target="_top">time-to-live
+/// (TTL)</a>. This can be applied to tables or views.</para>
+/// <para>Set the global access mode (i.e. locking) for a table. This setting
+/// trumps any role-based access controls that may be in place; e.g., a user
+/// with write access to a table marked read-only will not be able to insert
+/// records into it. The mode can be set to read-only, write-only, read/write,
+/// and no access.</para></remarks>
+public class AlterTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
-    /// </summary>
-    /// <remarks><para>Apply various modifications to a table or view.  The
-    /// available modifications include the following:</para>
-    /// <para>Manage a table's columns--a column can be added, removed, or have
-    /// its <a href="../../../concepts/types/" target="_top">type and
-    /// properties</a> modified, including whether it is <a
-    /// href="../../../concepts/dictionary_encoding/" target="_top">dictionary
-    /// encoded</a> or not.</para>
-    /// <para>External tables cannot be modified except for their refresh
-    /// method.</para>
-    /// <para>Create or delete a <a
-    /// href="../../../concepts/indexes/#column-index"
-    /// target="_top">column</a>, <a
-    /// href="../../../concepts/indexes/#low-cardinality-index"
-    /// target="_top">low-cardinality index</a>, <a
-    /// href="../../../concepts/indexes/#chunk-skip-index" target="_top">chunk
-    /// skip</a>, <a href="../../../concepts/indexes/#geospatial-index"
-    /// target="_top">geospatial</a>, <a
-    /// href="../../../concepts/indexes/#cagra-index" target="_top">CAGRA</a>,
-    /// or <a href="../../../concepts/indexes/#hnsw-index"
-    /// target="_top">HNSW</a> index. This can speed up certain operations when
-    /// using expressions containing equality or relational operators on
-    /// indexed columns. This only applies to tables.</para>
-    /// <para>Create or delete a <a
-    /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
-    /// key</a> on a particular column.</para>
-    /// <para>Manage a <a
-    /// href="../../../concepts/tables/#partitioning-by-range"
-    /// target="_top">range-partitioned</a> or a <a
-    /// href="../../../concepts/tables/#partitioning-by-list-manual"
-    /// target="_top">manual list-partitioned</a> table's partitions.</para>
-    /// <para>Set (or reset) the <a
-    /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-    /// strategy</a> of a table or view.</para>
-    /// <para>Refresh and manage the refresh mode of a <a
-    /// href="../../../concepts/materialized_views/" target="_top">materialized
-    /// view</a> or an <a href="../../../concepts/external_tables/"
-    /// target="_top">external table</a>.</para>
-    /// <para>Set the <a href="../../../concepts/ttl/"
-    /// target="_top">time-to-live (TTL)</a>. This can be applied to tables or
-    /// views.</para>
-    /// <para>Set the global access mode (i.e. locking) for a table. This
-    /// setting trumps any role-based access controls that may be in place;
-    /// e.g., a user with write access to a table marked read-only will not be
-    /// able to insert records into it. The mode can be set to read-only,
-    /// write-only, read/write, and no access.</para></remarks>
-    public class AlterTableRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see cref="action"
+    /// />.</summary>
+    /// <remarks><para>Modification operation to be applied</para></remarks>
+    public struct Action
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="action" />.</summary>
-        /// <remarks><para>Modification operation to be applied</para>
+        /// <summary>Creates a <a
+        /// href="../../../concepts/indexes/#column-index" target="_top">column
+        /// (attribute) index</a>, <a
+        /// href="../../../concepts/indexes/#low-cardinality-index"
+        /// target="_top">low-cardinality index</a>, <a
+        /// href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, <a
+        /// href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>, <a
+        /// href="../../../concepts/indexes/#cagra-index" target="_top">CAGRA
+        /// index</a>, or <a href="../../../concepts/indexes/#hnsw-index"
+        /// target="_top">HNSW index</a> (depending on the specified <see
+        /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+        /// specified in <see cref="_value" />.</summary>
+        /// <remarks><para>If this column already has the specified index, an
+        /// error will be returned.</para></remarks>
+        public const string CREATE_INDEX = "create_index";
+
+        /// <summary>Refreshes an index identified by <see
+        /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column name
+        /// specified in <see cref="_value" />.</summary>
+        /// <remarks><para>Currently applicable only to CAGRA indices.</para>
         /// </remarks>
-        public struct Action
-        {
-            /// <summary>Creates a <a
-            /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a>, <a
-            /// href="../../../concepts/indexes/#low-cardinality-index"
-            /// target="_top">low-cardinality index</a>, <a
-            /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>, <a
-            /// href="../../../concepts/indexes/#geospatial-index"
-            /// target="_top">geospatial index</a>, <a
-            /// href="../../../concepts/indexes/#cagra-index"
-            /// target="_top">CAGRA index</a>, or <a
-            /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
-            /// index</a> (depending on the specified <see
-            /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
-            /// specified in <see cref="_value" />.</summary>
-            /// <remarks><para>If this column already has the specified index,
-            /// an error will be returned.</para></remarks>
-            public const string CREATE_INDEX = "create_index";
+        public const string REFRESH_INDEX = "refresh_index";
 
-            /// <summary>Refreshes an index identified by <see
-            /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column name
-            /// specified in <see cref="_value" />.</summary>
-            /// <remarks><para>Currently applicable only to CAGRA indices.
-            /// </para></remarks>
-            public const string REFRESH_INDEX = "refresh_index";
+        /// <summary>Deletes a <a
+        /// href="../../../concepts/indexes/#column-index" target="_top">column
+        /// (attribute) index</a>, <a
+        /// href="../../../concepts/indexes/#low-cardinality-index"
+        /// target="_top">low-cardinality index</a>, <a
+        /// href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, <a
+        /// href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a>, <a
+        /// href="../../../concepts/indexes/#cagra-index" target="_top">CAGRA
+        /// index</a>, or <a href="../../../concepts/indexes/#hnsw-index"
+        /// target="_top">HNSW index</a> (depending on the specified <see
+        /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+        /// specified in <see cref="_value" />.</summary>
+        /// <remarks><para>If this column does not have the specified index, an
+        /// error will be returned.</para></remarks>
+        public const string DELETE_INDEX = "delete_index";
 
-            /// <summary>Deletes a <a
-            /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a>, <a
-            /// href="../../../concepts/indexes/#low-cardinality-index"
-            /// target="_top">low-cardinality index</a>, <a
-            /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>, <a
-            /// href="../../../concepts/indexes/#geospatial-index"
-            /// target="_top">geospatial index</a>, <a
-            /// href="../../../concepts/indexes/#cagra-index"
-            /// target="_top">CAGRA index</a>, or <a
-            /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
-            /// index</a> (depending on the specified <see
-            /// cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
-            /// specified in <see cref="_value" />.</summary>
-            /// <remarks><para>If this column does not have the specified
-            /// index, an error will be returned.</para></remarks>
-            public const string DELETE_INDEX = "delete_index";
+        /// <summary>[DEPRECATED--please use <see
+        /// cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Moves a table or view into a
+        /// schema named <see cref="_value" />.</summary>
+        /// <remarks><para> If the schema provided is non-existent, it will be
+        /// automatically created.</para></remarks>
+        public const string MOVE_TO_COLLECTION = "move_to_collection";
 
-            /// <summary>[DEPRECATED--please use <see
-            /// cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use <see
-            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-            /// to create the schema if non-existent]  Moves a table or view
-            /// into a schema named <see cref="_value" />.</summary>
-            /// <remarks><para> If the schema provided is non-existent, it will
-            /// be automatically created.</para></remarks>
-            public const string MOVE_TO_COLLECTION = "move_to_collection";
+        /// <summary>Moves a table or view into a schema named <see
+        /// cref="_value" />.</summary>
+        /// <remarks><para>If the schema provided is nonexistent, an error will
+        /// be thrown. If <see cref="_value" /> is empty, then the table or
+        /// view will be placed in the user's default schema.</para></remarks>
+        public const string MOVE_TO_SCHEMA = "move_to_schema";
 
-            /// <summary>Moves a table or view into a schema named <see
-            /// cref="_value" />.</summary>
-            /// <remarks><para>If the schema provided is nonexistent, an error
-            /// will be thrown. If <see cref="_value" /> is empty, then the
-            /// table or view will be placed in the user's default schema.
-            /// </para></remarks>
-            public const string MOVE_TO_SCHEMA = "move_to_schema";
+        /// <summary>No longer used.</summary>
+        /// <remarks><para> Previously set whether the given <see
+        /// cref="table_name" /> should be protected or not. The <see
+        /// cref="_value" /> would have been either 'true' or 'false'.</para>
+        /// </remarks>
+        public const string PROTECTED = "protected";
 
-            /// <summary>No longer used.</summary>
-            /// <remarks><para> Previously set whether the given <see
-            /// cref="table_name" /> should be protected or not. The <see
-            /// cref="_value" /> would have been either 'true' or 'false'.
-            /// </para></remarks>
-            public const string PROTECTED = "protected";
+        /// <summary>Renames a table or view to <see cref="_value" />.
+        /// </summary>
+        /// <remarks><para>Has the same naming restrictions as <a
+        /// href="../../../concepts/tables/" target="_top">tables</a>.</para>
+        /// </remarks>
+        public const string RENAME_TABLE = "rename_table";
 
-            /// <summary>Renames a table or view to <see cref="_value" />.
-            /// </summary>
-            /// <remarks><para>Has the same naming restrictions as <a
-            /// href="../../../concepts/tables/" target="_top">tables</a>.
-            /// </para></remarks>
-            public const string RENAME_TABLE = "rename_table";
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">time-to-live</a> in minutes of the table or view
+        /// specified in <see cref="table_name" />.</summary>
+        public const string TTL = "ttl";
 
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">time-to-live</a> in minutes of the table or view
-            /// specified in <see cref="table_name" />.</summary>
-            public const string TTL = "ttl";
+        /// <summary>Adds the comment specified in <see cref="_value" /> to the
+        /// table specified in <see cref="table_name" />.</summary>
+        /// <remarks><para>Use <see
+        /// cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the comment for
+        /// a column.</para></remarks>
+        public const string ADD_COMMENT = "add_comment";
 
-            /// <summary>Adds the comment specified in <see cref="_value" /> to
-            /// the table specified in <see cref="table_name" />.</summary>
-            /// <remarks><para>Use <see
-            /// cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the comment
-            /// for a column.</para></remarks>
-            public const string ADD_COMMENT = "add_comment";
+        /// <summary>Adds the column specified in <see cref="_value" /> to the
+        /// table specified in <see cref="table_name" />.</summary>
+        /// <remarks><para>Use <see
+        /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+        /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in <see
+        /// cref="options" /> to set the column's type and properties,
+        /// respectively.</para></remarks>
+        public const string ADD_COLUMN = "add_column";
 
-            /// <summary>Adds the column specified in <see cref="_value" /> to
-            /// the table specified in <see cref="table_name" />.</summary>
-            /// <remarks><para>Use <see
-            /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
-            /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
-            /// <see cref="options" /> to set the column's type and properties,
-            /// respectively.</para></remarks>
-            public const string ADD_COLUMN = "add_column";
+        /// <summary>Changes type and properties of the column specified in
+        /// <see cref="_value" />.</summary>
+        /// <remarks><para>Use <see
+        /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+        /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in <see
+        /// cref="options" /> to set the column's type and properties,
+        /// respectively. Note that primary key and/or shard key columns cannot
+        /// be changed. All unchanging column properties must be listed for the
+        /// change to take place, e.g., to add dictionary encoding to an
+        /// existing 'char4' column, both 'char4' and 'dict' must be specified
+        /// in the <see cref="options" /> map.</para></remarks>
+        public const string CHANGE_COLUMN = "change_column";
 
-            /// <summary>Changes type and properties of the column specified in
-            /// <see cref="_value" />.</summary>
-            /// <remarks><para>Use <see
-            /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
-            /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
-            /// <see cref="options" /> to set the column's type and properties,
-            /// respectively. Note that primary key and/or shard key columns
-            /// cannot be changed. All unchanging column properties must be
-            /// listed for the change to take place, e.g., to add dictionary
-            /// encoding to an existing 'char4' column, both 'char4' and 'dict'
-            /// must be specified in the <see cref="options" /> map.</para>
-            /// </remarks>
-            public const string CHANGE_COLUMN = "change_column";
+        /// <summary>Deletes the column specified in <see cref="_value" /> from
+        /// the table specified in <see cref="table_name" />.</summary>
+        public const string DELETE_COLUMN = "delete_column";
 
-            /// <summary>Deletes the column specified in <see cref="_value" />
-            /// from the table specified in <see cref="table_name" />.
-            /// </summary>
-            public const string DELETE_COLUMN = "delete_column";
+        /// <summary>Creates a <a href="../../../concepts/tables/#foreign-key"
+        /// target="_top">foreign key</a> specified in <see cref="_value" />
+        /// using the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</summary>
+        public const string CREATE_FOREIGN_KEY = "create_foreign_key";
 
-            /// <summary>Creates a <a
-            /// href="../../../concepts/tables/#foreign-key"
-            /// target="_top">foreign key</a> specified in <see cref="_value"
-            /// /> using the format '(source_column_name [, ...]) references
-            /// target_table_name(primary_key_column_name [, ...]) [as
-            /// foreign_key_name]'.</summary>
-            public const string CREATE_FOREIGN_KEY = "create_foreign_key";
+        /// <summary>Deletes a <a href="../../../concepts/tables/#foreign-key"
+        /// target="_top">foreign key</a>.</summary>
+        /// <remarks><para> The <see cref="_value" /> should be the
+        /// foreign_key_name specified when creating the key or the complete
+        /// string used to define it.</para></remarks>
+        public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
-            /// <summary>Deletes a <a
-            /// href="../../../concepts/tables/#foreign-key"
-            /// target="_top">foreign key</a>.</summary>
-            /// <remarks><para> The <see cref="_value" /> should be the
-            /// foreign_key_name specified when creating the key or the
-            /// complete string used to define it.</para></remarks>
-            public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
+        /// <summary>Adds the partition specified in <see cref="_value" />, to
+        /// either a <a href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../../concepts/tables/#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</summary>
+        public const string ADD_PARTITION = "add_partition";
 
-            /// <summary>Adds the partition specified in <see cref="_value" />,
-            /// to either a <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range-partitioned</a> or <a
-            /// href="../../../concepts/tables/#partitioning-by-list-manual"
-            /// target="_top">manual list-partitioned</a> table.</summary>
-            public const string ADD_PARTITION = "add_partition";
+        /// <summary>Removes the partition specified in <see cref="_value" />
+        /// (and relocates all of its data to the default partition) from
+        /// either a <a href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../../concepts/tables/#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</summary>
+        public const string REMOVE_PARTITION = "remove_partition";
 
-            /// <summary>Removes the partition specified in <see cref="_value"
-            /// /> (and relocates all of its data to the default partition)
-            /// from either a <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range-partitioned</a> or <a
-            /// href="../../../concepts/tables/#partitioning-by-list-manual"
-            /// target="_top">manual list-partitioned</a> table.</summary>
-            public const string REMOVE_PARTITION = "remove_partition";
+        /// <summary>Deletes the partition specified in <see cref="_value" />
+        /// (and all of its data) from either a <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../../concepts/tables/#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</summary>
+        public const string DELETE_PARTITION = "delete_partition";
 
-            /// <summary>Deletes the partition specified in <see cref="_value"
-            /// /> (and all of its data) from either a <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range-partitioned</a> or <a
-            /// href="../../../concepts/tables/#partitioning-by-list-manual"
-            /// target="_top">manual list-partitioned</a> table.</summary>
-            public const string DELETE_PARTITION = "delete_partition";
+        /// <summary>Sets the global access mode (i.e. locking) for the table
+        /// specified in <see cref="table_name" />.</summary>
+        /// <remarks><para>Specify the access mode in <see cref="_value" />.
+        /// Valid modes are 'no_access', 'read_only', 'write_only' and
+        /// 'read_write'.</para></remarks>
+        public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
 
-            /// <summary>Sets the global access mode (i.e. locking) for the
-            /// table specified in <see cref="table_name" />.</summary>
-            /// <remarks><para>Specify the access mode in <see cref="_value"
-            /// />. Valid modes are 'no_access', 'read_only', 'write_only' and
-            /// 'read_write'.</para></remarks>
-            public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
+        /// <summary>For a <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a>, replays all the table creation
+        /// commands required to create the view.</summary>
+        /// <remarks><para> For an <a href="../../../concepts/external_tables/"
+        /// target="_top">external table</a>, reloads all data in the table
+        /// from its associated source files or <a
+        /// href="../../../concepts/data_sources/" target="_top">data
+        /// source</a>.</para></remarks>
+        public const string REFRESH = "refresh";
 
-            /// <summary>For a <a href="../../../concepts/materialized_views/"
-            /// target="_top">materialized view</a>, replays all the table
-            /// creation commands required to create the view.</summary>
-            /// <remarks><para> For an <a
-            /// href="../../../concepts/external_tables/"
-            /// target="_top">external table</a>, reloads all data in the table
-            /// from its associated source files or <a
-            /// href="../../../concepts/data_sources/" target="_top">data
-            /// source</a>.</para></remarks>
-            public const string REFRESH = "refresh";
+        /// <summary>For a <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a>, sets the method by which the
+        /// view is refreshed to the method specified in <see cref="_value" />
+        /// - one of 'manual', 'periodic', or 'on_change'.</summary>
+        /// <remarks><para> For an <a href="../../../concepts/external_tables/"
+        /// target="_top">external table</a>, sets the method by which the
+        /// table is refreshed to the method specified in <see cref="_value" />
+        /// - either 'manual' or 'on_start'.</para></remarks>
+        public const string SET_REFRESH_METHOD = "set_refresh_method";
 
-            /// <summary>For a <a href="../../../concepts/materialized_views/"
-            /// target="_top">materialized view</a>, sets the method by which
-            /// the view is refreshed to the method specified in <see
-            /// cref="_value" /> - one of 'manual', 'periodic', or 'on_change'.
-            /// </summary>
-            /// <remarks><para> For an <a
-            /// href="../../../concepts/external_tables/"
-            /// target="_top">external table</a>, sets the method by which the
-            /// table is refreshed to the method specified in <see
-            /// cref="_value" /> - either 'manual' or 'on_start'.</para>
-            /// </remarks>
-            public const string SET_REFRESH_METHOD = "set_refresh_method";
+        /// <summary>Sets the time to start periodic refreshes of this <a
+        /// href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</summary>
+        /// <remarks><para> Subsequent refreshes occur at the specified time +
+        /// N * the refresh period.</para></remarks>
+        public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
 
-            /// <summary>Sets the time to start periodic refreshes of this <a
-            /// href="../../../concepts/materialized_views/"
-            /// target="_top">materialized view</a> to the datetime string
-            /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
-            /// HH:MM:SS'.</summary>
-            /// <remarks><para> Subsequent refreshes occur at the specified
-            /// time + N * the refresh period.</para></remarks>
-            public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
+        /// <summary>Sets the time to stop periodic refreshes of this <a
+        /// href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</summary>
+        public const string SET_REFRESH_STOP_TIME = "set_refresh_stop_time";
 
-            /// <summary>Sets the time to stop periodic refreshes of this <a
-            /// href="../../../concepts/materialized_views/"
-            /// target="_top">materialized view</a> to the datetime string
-            /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
-            /// HH:MM:SS'.</summary>
-            public const string SET_REFRESH_STOP_TIME = "set_refresh_stop_time";
+        /// <summary>Sets the time interval in seconds at which to refresh this
+        /// <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the value specified in <see
+        /// cref="_value" />.</summary>
+        /// <remarks><para> Also, sets the refresh method to periodic if not
+        /// already set.</para></remarks>
+        public const string SET_REFRESH_PERIOD = "set_refresh_period";
 
-            /// <summary>Sets the time interval in seconds at which to refresh
-            /// this <a href="../../../concepts/materialized_views/"
-            /// target="_top">materialized view</a> to the value specified in
-            /// <see cref="_value" />.</summary>
-            /// <remarks><para> Also, sets the refresh method to periodic if
-            /// not already set.</para></remarks>
-            public const string SET_REFRESH_PERIOD = "set_refresh_period";
+        /// <summary>Sets the future time-offset(in seconds) for the view
+        /// refresh to stop.</summary>
+        public const string SET_REFRESH_SPAN = "set_refresh_span";
 
-            /// <summary>Sets the future time-offset(in seconds) for the view
-            /// refresh to stop.</summary>
-            public const string SET_REFRESH_SPAN = "set_refresh_span";
+        /// <summary>Sets the user name to refresh this <a
+        /// href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the value specified in <see
+        /// cref="_value" />.</summary>
+        public const string SET_REFRESH_EXECUTE_AS = "set_refresh_execute_as";
 
-            /// <summary>Sets the user name to refresh this <a
-            /// href="../../../concepts/materialized_views/"
-            /// target="_top">materialized view</a> to the value specified in
-            /// <see cref="_value" />.</summary>
-            public const string SET_REFRESH_EXECUTE_AS = "set_refresh_execute_as";
+        /// <summary>Removes <a href="../../../concepts/full_text_search/"
+        /// target="_top">text search</a> attribute from all columns.</summary>
+        public const string REMOVE_TEXT_SEARCH_ATTRIBUTES = "remove_text_search_attributes";
 
-            /// <summary>Removes <a href="../../../concepts/full_text_search/"
-            /// target="_top">text search</a> attribute from all columns.
-            /// </summary>
-            public const string REMOVE_TEXT_SEARCH_ATTRIBUTES = "remove_text_search_attributes";
+        /// <summary>Removes the shard key property from all columns, so that
+        /// the table will be considered randomly sharded.</summary>
+        /// <remarks><para> The data is not moved.  The <see cref="_value" />
+        /// is ignored.</para></remarks>
+        public const string REMOVE_SHARD_KEYS = "remove_shard_keys";
 
-            /// <summary>Removes the shard key property from all columns, so
-            /// that the table will be considered randomly sharded.</summary>
-            /// <remarks><para> The data is not moved.  The <see cref="_value"
-            /// /> is ignored.</para></remarks>
-            public const string REMOVE_SHARD_KEYS = "remove_shard_keys";
+        /// <summary>Sets the <a href="../../../rm/concepts/#tier-strategies"
+        /// target="_top">tier strategy</a> for the table and its columns to
+        /// the one specified in <see cref="_value" />, replacing the existing
+        /// tier strategy in its entirety.</summary>
+        public const string SET_STRATEGY_DEFINITION = "set_strategy_definition";
 
-            /// <summary>Sets the <a
-            /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-            /// strategy</a> for the table and its columns to the one specified
-            /// in <see cref="_value" />, replacing the existing tier strategy
-            /// in its entirety.</summary>
-            public const string SET_STRATEGY_DEFINITION = "set_strategy_definition";
+        /// <summary>Permanently unsubscribe a data source that is loading
+        /// continuously as a stream.</summary>
+        /// <remarks><para>The data source can be Kafka / S3 / Azure / GCS.
+        /// </para></remarks>
+        public const string CANCEL_DATASOURCE_SUBSCRIPTION = "cancel_datasource_subscription";
 
-            /// <summary>Permanently unsubscribe a data source that is loading
-            /// continuously as a stream.</summary>
-            /// <remarks><para>The data source can be Kafka / S3 / Azure.
-            /// </para></remarks>
-            public const string CANCEL_DATASOURCE_SUBSCRIPTION = "cancel_datasource_subscription";
+        /// <summary>Permanently delete a cancelled data source subscription.
+        /// </summary>
+        public const string DROP_DATASOURCE_SUBSCRIPTION = "drop_datasource_subscription";
 
-            /// <summary>Temporarily unsubscribe a data source that is loading
-            /// continuously as a stream.</summary>
-            /// <remarks><para>The data source can be Kafka / S3 / Azure.
-            /// </para></remarks>
-            public const string PAUSE_DATASOURCE_SUBSCRIPTION = "pause_datasource_subscription";
+        /// <summary>Temporarily unsubscribe a data source that is loading
+        /// continuously as a stream.</summary>
+        /// <remarks><para>The data source can be Kafka / S3 / Azure / GCS.
+        /// </para></remarks>
+        public const string PAUSE_DATASOURCE_SUBSCRIPTION = "pause_datasource_subscription";
 
-            /// <summary>Resubscribe to a paused data source subscription.
-            /// </summary>
-            /// <remarks><para>The data source can be Kafka / S3 / Azure.
-            /// </para></remarks>
-            public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
+        /// <summary>Resubscribe to a paused data source subscription.
+        /// </summary>
+        /// <remarks><para>The data source can be Kafka / S3 / Azure / GCS.
+        /// </para></remarks>
+        public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
 
-            /// <summary>Change the owner resource group of the table.
-            /// </summary>
-            public const string CHANGE_OWNER = "change_owner";
+        /// <summary>Change the owner resource group of the table.</summary>
+        public const string CHANGE_OWNER = "change_owner";
 
-            /// <summary>Set startup data loading scheme for the table; see
-            /// description of 'load_vectors_policy' in <see
-            /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-            /// for possible values for <see cref="_value" /></summary>
-            public const string SET_LOAD_VECTORS_POLICY = "set_load_vectors_policy";
+        /// <summary>Set startup data loading scheme for the table; see
+        /// description of 'load_vectors_policy' in <see
+        /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        /// for possible values for <see cref="_value" /></summary>
+        public const string SET_LOAD_VECTORS_POLICY = "set_load_vectors_policy";
 
-            /// <summary>Set startup primary key generation scheme for the
-            /// table; see description of 'build_pk_index_policy' in <see
-            /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-            /// for possible values for <see cref="_value" /></summary>
-            public const string SET_BUILD_PK_INDEX_POLICY = "set_build_pk_index_policy";
+        /// <summary>Set startup primary key generation scheme for the table;
+        /// see description of 'build_pk_index_policy' in <see
+        /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        /// for possible values for <see cref="_value" /></summary>
+        public const string SET_BUILD_PK_INDEX_POLICY = "set_build_pk_index_policy";
 
-            /// <summary>Set startup rebuilding scheme for the materialized
-            /// view; see description of 'build_materialized_view_policy' in
-            /// <see
-            /// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
-            /// for possible values for <see cref="_value" /></summary>
-            public const string SET_BUILD_MATERIALIZED_VIEW_POLICY = "set_build_materialized_view_policy";
-        } // end struct Action
+        /// <summary>Set startup rebuilding scheme for the materialized view;
+        /// see description of 'build_materialized_view_policy' in <see
+        /// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
+        /// for possible values for <see cref="_value" /></summary>
+        public const string SET_BUILD_MATERIALIZED_VIEW_POLICY = "set_build_materialized_view_policy";
+    } // end struct Action
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            public const string ACTION = "action";
-            public const string COLUMN_NAME = "column_name";
-            public const string TABLE_NAME = "table_name";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        public const string ACTION = "action";
+        public const string COLUMN_NAME = "column_name";
+        public const string TABLE_NAME = "table_name";
 
-            /// <summary>When adding a column, set a default value for existing
-            /// records.</summary>
-            /// <remarks><para> For nullable columns, the default value will be
-            /// null, regardless of data type.</para></remarks>
-            public const string COLUMN_DEFAULT_VALUE = "column_default_value";
+        /// <summary>When adding a column, set a default value for existing
+        /// records.</summary>
+        /// <remarks><para> For nullable columns, the default value will be
+        /// null, regardless of data type.</para></remarks>
+        public const string COLUMN_DEFAULT_VALUE = "column_default_value";
 
-            /// <summary>When adding or changing a column, set the column
-            /// properties (strings, separated by a comma: data, text_search,
-            /// char8, int8 etc).</summary>
-            public const string COLUMN_PROPERTIES = "column_properties";
+        /// <summary>When adding or changing a column, set the column
+        /// properties (strings, separated by a comma: data, text_search,
+        /// char8, int8 etc).</summary>
+        public const string COLUMN_PROPERTIES = "column_properties";
 
-            /// <summary>When adding or changing a column, set the column type
-            /// (strings, separated by a comma: int, double, string, null etc).
-            /// </summary>
-            public const string COLUMN_TYPE = "column_type";
+        /// <summary>When adding or changing a column, set the column type
+        /// (strings, separated by a comma: int, double, string, null etc).
+        /// </summary>
+        public const string COLUMN_TYPE = "column_type";
 
-            /// <summary>[DEPRECATED--please use <see
-            /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
-            /// instead.]</summary>
-            public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
+        /// <summary>[DEPRECATED--please use <see
+        /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+        /// instead.]</summary>
+        public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
 
-            /// <summary>When changing a column, specify new column name.
-            /// </summary>
-            public const string RENAME_COLUMN = "rename_column";
+        /// <summary>When changing a column, specify new column name.</summary>
+        public const string RENAME_COLUMN = "rename_column";
 
-            /// <summary>When changing a column, validate the change before
-            /// applying it (or not).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Validate all values. A value too large (or
-            ///         too long) for the new type will prevent any change.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>When a value is too large or long, it will
-            ///         be truncated.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
-
-            /// <summary>Reset the expiration countdown timer to the table's
-            /// configured TTL.</summary>
-            public const string TRUE = "true";
-
-            /// <summary>Don't reset the timer; expiration countdown will
-            /// continue from where it is, as if the table had not been
-            /// accessed.</summary>
-            public const string FALSE = "false";
-
-            /// <summary>Indicates whether the <a href="../../../concepts/ttl/"
-            /// target="_top">time-to-live</a> (TTL) expiration countdown timer
-            /// should be reset to the table's TTL.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Reset the expiration countdown timer to
-            ///         the table's configured TTL.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Don't reset the timer; expiration
-            ///         countdown will continue from where it is, as if the
-            ///         table had not been accessed.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string UPDATE_LAST_ACCESS_TIME = "update_last_access_time";
-
-            /// <summary>When adding a column, an optional expression to use
-            /// for the new column's values.</summary>
-            /// <remarks><para>Any valid expression may be used, including one
-            /// containing references to existing columns in the same table.
-            /// </para></remarks>
-            public const string ADD_COLUMN_EXPRESSION = "add_column_expression";
-
-            /// <summary>Optional parameter for specifying the <a
-            /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-            /// strategy</a> for the table and its columns when <see
-            /// cref="action" /> is <see
-            /// cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
-            /// replacing the existing tier strategy in its entirety.</summary>
-            public const string STRATEGY_DEFINITION = "strategy_definition";
-
-            /// <summary>Type of index to create, when <see cref="action" /> is
-            /// <see cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
-            /// when <see cref="action" /> is <see
-            /// cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to delete,
-            /// when <see cref="action" /> is <see
-            /// cref="Action.DELETE_INDEX">DELETE_INDEX</see>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.COLUMN">COLUMN</see>:</term>
-            ///         <description>Create or delete a <a
-            ///         href="../../../concepts/indexes/#column-index"
-            ///         target="_top">column (attribute) index</a>.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
-            ///         </term>
-            ///         <description>Create a <a
-            ///         href="../../../concepts/indexes/#low-cardinality-index"
-            ///         target="_top">low-cardinality column (attribute)
-            ///         index</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:
-            ///         </term>
-            ///         <description>Create or delete a <a
-            ///         href="../../../concepts/indexes/#chunk-skip-index"
-            ///         target="_top">chunk skip index</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.GEOSPATIAL">GEOSPATIAL</see>:
-            ///         </term>
-            ///         <description>Create or delete a <a
-            ///         href="../../../concepts/indexes/#geospatial-index"
-            ///         target="_top">geospatial index</a></description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.CAGRA">CAGRA</see>:</term>
-            ///         <description>Create or delete a <a
-            ///         href="../../../concepts/indexes/#cagra-index"
-            ///         target="_top">CAGRA index</a> on a <a
-            ///         href="../../../vector_search/#vector-type"
-            ///         target="_top">vector column</a></description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.HNSW">HNSW</see>:</term>
-            ///         <description>Create or delete an <a
-            ///         href="../../../concepts/indexes/#hnsw-index"
-            ///         target="_top">HNSW index</a> on a <a
-            ///         href="../../../vector_search/#vector-type"
-            ///         target="_top">vector column</a></description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.COLUMN">COLUMN</see>.</para></remarks>
-            public const string INDEX_TYPE = "index_type";
-
-            /// <summary>Create or delete a <a
-            /// href="../../../concepts/indexes/#column-index"
-            /// target="_top">column (attribute) index</a>.</summary>
-            public const string COLUMN = "column";
-
-            /// <summary>Create a <a
-            /// href="../../../concepts/indexes/#low-cardinality-index"
-            /// target="_top">low-cardinality column (attribute) index</a>.
-            /// </summary>
-            public const string LOW_CARDINALITY = "low_cardinality";
-
-            /// <summary>Create or delete a <a
-            /// href="../../../concepts/indexes/#chunk-skip-index"
-            /// target="_top">chunk skip index</a>.</summary>
-            public const string CHUNK_SKIP = "chunk_skip";
-
-            /// <summary>Create or delete a <a
-            /// href="../../../concepts/indexes/#geospatial-index"
-            /// target="_top">geospatial index</a></summary>
-            public const string GEOSPATIAL = "geospatial";
-
-            /// <summary>Create or delete a <a
-            /// href="../../../concepts/indexes/#cagra-index"
-            /// target="_top">CAGRA index</a> on a <a
-            /// href="../../../vector_search/#vector-type" target="_top">vector
-            /// column</a></summary>
-            public const string CAGRA = "cagra";
-
-            /// <summary>Create or delete an <a
-            /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
-            /// index</a> on a <a href="../../../vector_search/#vector-type"
-            /// target="_top">vector column</a></summary>
-            public const string HNSW = "hnsw";
-
-            /// <summary>Options to use when creating an index, in the format
-            /// "key: value [, key: value [, ...]]".</summary>
-            /// <remarks><para>Valid options vary by index type.</para>
-            /// </remarks>
-            public const string INDEX_OPTIONS = "index_options";
-        } // end struct Options
-
-        /// <summary>Table on which the operation will be performed, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para>Must be an existing table or view.</para></remarks>
-        public string table_name { get; set; }
-
-        /// <summary>Modification operation to be applied.</summary>
+        /// <summary>When changing a column, validate the change before
+        /// applying it (or not).</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
-        ///         </term>
-        ///         <description>Creates a <a
-        ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a>, <a
-        ///         href="../../../concepts/indexes/#low-cardinality-index"
-        ///         target="_top">low-cardinality index</a>, <a
-        ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, <a
-        ///         href="../../../concepts/indexes/#geospatial-index"
-        ///         target="_top">geospatial index</a>, <a
-        ///         href="../../../concepts/indexes/#cagra-index"
-        ///         target="_top">CAGRA index</a>, or <a
-        ///         href="../../../concepts/indexes/#hnsw-index"
-        ///         target="_top">HNSW index</a> (depending on the specified
-        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
-        ///         column name specified in <see cref="_value" />. If this
-        ///         column already has the specified index, an error will be
-        ///         returned.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>:
-        ///         </term>
-        ///         <description>Refreshes an index identified by <see
-        ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
-        ///         name specified in <see cref="_value" />. Currently
-        ///         applicable only to CAGRA indices.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
-        ///         </term>
-        ///         <description>Deletes a <a
-        ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a>, <a
-        ///         href="../../../concepts/indexes/#low-cardinality-index"
-        ///         target="_top">low-cardinality index</a>, <a
-        ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, <a
-        ///         href="../../../concepts/indexes/#geospatial-index"
-        ///         target="_top">geospatial index</a>, <a
-        ///         href="../../../concepts/indexes/#cagra-index"
-        ///         target="_top">CAGRA index</a>, or <a
-        ///         href="../../../concepts/indexes/#hnsw-index"
-        ///         target="_top">HNSW index</a> (depending on the specified
-        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
-        ///         column name specified in <see cref="_value" />. If this
-        ///         column does not have the specified index, an error will be
-        ///         returned.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:
-        ///         </term>
-        ///         <description>[DEPRECATED--please use <see
-        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use
-        ///         <see
-        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        ///         to create the schema if non-existent]  Moves a table or
-        ///         view into a schema named <see cref="_value" />.  If the
-        ///         schema provided is non-existent, it will be automatically
-        ///         created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
-        ///         <description>Moves a table or view into a schema named <see
-        ///         cref="_value" />. If the schema provided is nonexistent, an
-        ///         error will be thrown. If <see cref="_value" /> is empty,
-        ///         then the table or view will be placed in the user's default
-        ///         schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.PROTECTED">PROTECTED</see>:</term>
-        ///         <description>No longer used.  Previously set whether the
-        ///         given <see cref="table_name" /> should be protected or not.
-        ///         The <see cref="_value" /> would have been either 'true' or
-        ///         'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
-        ///         </term>
-        ///         <description>Renames a table or view to <see cref="_value"
-        ///         />. Has the same naming restrictions as <a
-        ///         href="../../../concepts/tables/" target="_top">tables</a>.
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Validate all values. A value too large (or too
+        ///         long) for the new type will prevent any change.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">time-to-live</a> in minutes of the table or
-        ///         view specified in <see cref="table_name" />.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>When a value is too large or long, it will be
+        ///         truncated.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:
-        ///         </term>
-        ///         <description>Adds the comment specified in <see
-        ///         cref="_value" /> to the table specified in <see
-        ///         cref="table_name" />. Use <see
-        ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
-        ///         comment for a column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.ADD_COLUMN">ADD_COLUMN</see>:
-        ///         </term>
-        ///         <description>Adds the column specified in <see
-        ///         cref="_value" /> to the table specified in <see
-        ///         cref="table_name" />. Use <see
-        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
-        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
-        ///         <see cref="options" /> to set the column's type and
-        ///         properties, respectively.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>Changes type and properties of the column
-        ///         specified in <see cref="_value" />. Use <see
-        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
-        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
-        ///         <see cref="options" /> to set the column's type and
-        ///         properties, respectively. Note that primary key and/or
-        ///         shard key columns cannot be changed. All unchanging column
-        ///         properties must be listed for the change to take place,
-        ///         e.g., to add dictionary encoding to an existing 'char4'
-        ///         column, both 'char4' and 'dict' must be specified in the
-        ///         <see cref="options" /> map.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
-        ///         </term>
-        ///         <description>Deletes the column specified in <see
-        ///         cref="_value" /> from the table specified in <see
-        ///         cref="table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:
-        ///         </term>
-        ///         <description>Creates a <a
-        ///         href="../../../concepts/tables/#foreign-key"
-        ///         target="_top">foreign key</a> specified in <see
-        ///         cref="_value" /> using the format '(source_column_name [,
-        ///         ...]) references target_table_name(primary_key_column_name
-        ///         [, ...]) [as foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:
-        ///         </term>
-        ///         <description>Deletes a <a
-        ///         href="../../../concepts/tables/#foreign-key"
-        ///         target="_top">foreign key</a>.  The <see cref="_value" />
-        ///         should be the foreign_key_name specified when creating the
-        ///         key or the complete string used to define it.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.ADD_PARTITION">ADD_PARTITION</see>:
-        ///         </term>
-        ///         <description>Adds the partition specified in <see
-        ///         cref="_value" />, to either a <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range-partitioned</a> or <a
-        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list-partitioned</a> table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:
-        ///         </term>
-        ///         <description>Removes the partition specified in <see
-        ///         cref="_value" /> (and relocates all of its data to the
-        ///         default partition) from either a <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range-partitioned</a> or <a
-        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list-partitioned</a> table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.DELETE_PARTITION">DELETE_PARTITION</see>:
-        ///         </term>
-        ///         <description>Deletes the partition specified in <see
-        ///         cref="_value" /> (and all of its data) from either a <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range-partitioned</a> or <a
-        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list-partitioned</a> table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:
-        ///         </term>
-        ///         <description>Sets the global access mode (i.e. locking) for
-        ///         the table specified in <see cref="table_name" />. Specify
-        ///         the access mode in <see cref="_value" />. Valid modes are
-        ///         'no_access', 'read_only', 'write_only' and 'read_write'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>For a <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a>, replays all the table
-        ///         creation commands required to create the view.  For an <a
-        ///         href="../../../concepts/external_tables/"
-        ///         target="_top">external table</a>, reloads all data in the
-        ///         table from its associated source files or <a
-        ///         href="../../../concepts/data_sources/" target="_top">data
-        ///         source</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:
-        ///         </term>
-        ///         <description>For a <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a>, sets the method by
-        ///         which the view is refreshed to the method specified in <see
-        ///         cref="_value" /> - one of 'manual', 'periodic', or
-        ///         'on_change'.  For an <a
-        ///         href="../../../concepts/external_tables/"
-        ///         target="_top">external table</a>, sets the method by which
-        ///         the table is refreshed to the method specified in <see
-        ///         cref="_value" /> - either 'manual' or 'on_start'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:
-        ///         </term>
-        ///         <description>Sets the time to start periodic refreshes of
-        ///         this <a href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the datetime string
-        ///         specified in <see cref="_value" /> with format 'YYYY-MM-DD
-        ///         HH:MM:SS'.  Subsequent refreshes occur at the specified
-        ///         time + N * the refresh period.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:
-        ///         </term>
-        ///         <description>Sets the time to stop periodic refreshes of
-        ///         this <a href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the datetime string
-        ///         specified in <see cref="_value" /> with format 'YYYY-MM-DD
-        ///         HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:
-        ///         </term>
-        ///         <description>Sets the time interval in seconds at which to
-        ///         refresh this <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the value specified
-        ///         in <see cref="_value" />.  Also, sets the refresh method to
-        ///         periodic if not already set.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:
-        ///         </term>
-        ///         <description>Sets the future time-offset(in seconds) for
-        ///         the view refresh to stop.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:
-        ///         </term>
-        ///         <description>Sets the user name to refresh this <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the value specified
-        ///         in <see cref="_value" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:
-        ///         </term>
-        ///         <description>Removes <a
-        ///         href="../../../concepts/full_text_search/"
-        ///         target="_top">text search</a> attribute from all columns.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:
-        ///         </term>
-        ///         <description>Removes the shard key property from all
-        ///         columns, so that the table will be considered randomly
-        ///         sharded.  The data is not moved.  The <see cref="_value" />
-        ///         is ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>Sets the <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns to the one specified in <see cref="_value" />,
-        ///         replacing the existing tier strategy in its entirety.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:
-        ///         </term>
-        ///         <description>Permanently unsubscribe a data source that is
-        ///         loading continuously as a stream. The data source can be
-        ///         Kafka / S3 / Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:
-        ///         </term>
-        ///         <description>Temporarily unsubscribe a data source that is
-        ///         loading continuously as a stream. The data source can be
-        ///         Kafka / S3 / Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
-        ///         </term>
-        ///         <description>Resubscribe to a paused data source
-        ///         subscription. The data source can be Kafka / S3 / Azure.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.CHANGE_OWNER">CHANGE_OWNER</see>:
-        ///         </term>
-        ///         <description>Change the owner resource group of the table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup data loading scheme for the table;
-        ///         see description of 'load_vectors_policy' in <see
-        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-        ///         for possible values for <see cref="_value" /></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup primary key generation scheme for
-        ///         the table; see description of 'build_pk_index_policy' in
-        ///         <see
-        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-        ///         for possible values for <see cref="_value" /></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup rebuilding scheme for the
-        ///         materialized view; see description of
-        ///         'build_materialized_view_policy' in <see
-        ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
-        ///         for possible values for <see cref="_value" /></description>
-        ///     </item>
-        /// </list></remarks>
-        public string action { get; set; }
-
-        /// <summary>The value of the modification, depending on <see
-        /// cref="action" />.</summary>
-        /// <remarks><para>For example, if <see cref="action" /> is <see
-        /// cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be the column
-        /// name; while the column's definition would be covered by the <see
-        /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
-        /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
-        /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
-        /// <see
-        /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see> in
-        /// <see cref="options" />. If <see cref="action" /> is <see
-        /// cref="Action.TTL">TTL</see>, it would be the number of minutes for
-        /// the new TTL. If <see cref="action" /> is <see
-        /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
         /// </para></remarks>
-        public string _value { get; set; }
+        public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.ACTION">ACTION</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.COLUMN_NAME">COLUMN_NAME</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TABLE_NAME">TABLE_NAME</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
-        ///         </term>
-        ///         <description>When adding a column, set a default value for
-        ///         existing records.  For nullable columns, the default value
-        ///         will be null, regardless of data type.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:
-        ///         </term>
-        ///         <description>When adding or changing a column, set the
-        ///         column properties (strings, separated by a comma: data,
-        ///         text_search, char8, int8 etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:
-        ///         </term>
-        ///         <description>When adding or changing a column, set the
-        ///         column type (strings, separated by a comma: int, double,
-        ///         string, null etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
-        ///         </term>
-        ///         <description>[DEPRECATED--please use <see
-        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
-        ///         instead.]</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
-        ///         <description>When changing a column, specify new column
-        ///         name.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>When changing a column, validate the change
-        ///         before applying it (or not).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Validate all values. A value too large
-        ///                 (or too long) for the new type will prevent any
-        ///                 change.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>When a value is too large or long, it
-        ///                 will be truncated.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:
-        ///         </term>
-        ///         <description>Indicates whether the <a
-        ///         href="../../../concepts/ttl/"
-        ///         target="_top">time-to-live</a> (TTL) expiration countdown
-        ///         timer should be reset to the table's TTL.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Reset the expiration countdown timer
-        ///                 to the table's configured TTL.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Don't reset the timer; expiration
-        ///                 countdown will continue from where it is, as if the
-        ///                 table had not been accessed.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
-        ///         </term>
-        ///         <description>When adding a column, an optional expression
-        ///         to use for the new column's values. Any valid expression
-        ///         may be used, including one containing references to
-        ///         existing columns in the same table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>Optional parameter for specifying the <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns when <see cref="action" /> is <see
-        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
-        ///         replacing the existing tier strategy in its entirety.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.INDEX_TYPE">INDEX_TYPE</see>:
-        ///         </term>
-        ///         <description>Type of index to create, when <see
-        ///         cref="action" /> is <see
-        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
-        ///         when <see cref="action" /> is <see
-        ///         cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to
-        ///         delete, when <see cref="action" /> is <see
-        ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.COLUMN">COLUMN</see>:
-        ///                 </term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#column-index"
-        ///                 target="_top">column (attribute) index</a>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
-        ///                 </term>
-        ///                 <description>Create a <a
-        ///                 href="../../../concepts/indexes/#low-cardinality-index"
-        ///                 target="_top">low-cardinality column (attribute)
-        ///                 index</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#chunk-skip-index"
-        ///                 target="_top">chunk skip index</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#geospatial-index"
-        ///                 target="_top">geospatial index</a></description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.CAGRA">CAGRA</see>:</term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#cagra-index"
-        ///                 target="_top">CAGRA index</a> on a <a
-        ///                 href="../../../vector_search/#vector-type"
-        ///                 target="_top">vector column</a></description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.HNSW">HNSW</see>:</term>
-        ///                 <description>Create or delete an <a
-        ///                 href="../../../concepts/indexes/#hnsw-index"
-        ///                 target="_top">HNSW index</a> on a <a
-        ///                 href="../../../vector_search/#vector-type"
-        ///                 target="_top">vector column</a></description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.COLUMN">COLUMN</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INDEX_OPTIONS">INDEX_OPTIONS</see>:</term>
-        ///         <description>Options to use when creating an index, in the
-        ///         format "key: value [, key: value [, ...]]". Valid options
-        ///         vary by index type.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        /// <summary>Reset the expiration countdown timer to the table's
+        /// configured TTL.</summary>
+        public const string TRUE = "true";
 
-        /// <summary>Constructs an AlterTableRequest object with default
-        /// parameters.</summary>
-        public AlterTableRequest() { }
+        /// <summary>Don't reset the timer; expiration countdown will continue
+        /// from where it is, as if the table had not been accessed.</summary>
+        public const string FALSE = "false";
 
-        /// <summary>Constructs an AlterTableRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="table_name">Table on which the operation will be
-        /// performed, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>. Must be an existing table
-        /// or view.</param>
-        /// <param name="action">Modification operation to be applied.
-        /// Supported values:
+        /// <summary>Indicates whether the <a href="../../../concepts/ttl/"
+        /// target="_top">time-to-live</a> (TTL) expiration countdown timer
+        /// should be reset to the table's TTL.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
-        ///         </term>
-        ///         <description>Creates a <a
-        ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a>, <a
-        ///         href="../../../concepts/indexes/#low-cardinality-index"
-        ///         target="_top">low-cardinality index</a>, <a
-        ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, <a
-        ///         href="../../../concepts/indexes/#geospatial-index"
-        ///         target="_top">geospatial index</a>, <a
-        ///         href="../../../concepts/indexes/#cagra-index"
-        ///         target="_top">CAGRA index</a>, or <a
-        ///         href="../../../concepts/indexes/#hnsw-index"
-        ///         target="_top">HNSW index</a> (depending on the specified
-        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
-        ///         column name specified in <paramref name="_value" />. If
-        ///         this column already has the specified index, an error will
-        ///         be returned.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Reset the expiration countdown timer to the
+        ///         table's configured TTL.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>:
-        ///         </term>
-        ///         <description>Refreshes an index identified by <see
-        ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column
-        ///         name specified in <paramref name="_value" />. Currently
-        ///         applicable only to CAGRA indices.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
-        ///         </term>
-        ///         <description>Deletes a <a
-        ///         href="../../../concepts/indexes/#column-index"
-        ///         target="_top">column (attribute) index</a>, <a
-        ///         href="../../../concepts/indexes/#low-cardinality-index"
-        ///         target="_top">low-cardinality index</a>, <a
-        ///         href="../../../concepts/indexes/#chunk-skip-index"
-        ///         target="_top">chunk skip index</a>, <a
-        ///         href="../../../concepts/indexes/#geospatial-index"
-        ///         target="_top">geospatial index</a>, <a
-        ///         href="../../../concepts/indexes/#cagra-index"
-        ///         target="_top">CAGRA index</a>, or <a
-        ///         href="../../../concepts/indexes/#hnsw-index"
-        ///         target="_top">HNSW index</a> (depending on the specified
-        ///         <see cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the
-        ///         column name specified in <paramref name="_value" />. If
-        ///         this column does not have the specified index, an error
-        ///         will be returned.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:
-        ///         </term>
-        ///         <description>[DEPRECATED--please use <see
-        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use
-        ///         <see
-        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        ///         to create the schema if non-existent]  Moves a table or
-        ///         view into a schema named <paramref name="_value" />.  If
-        ///         the schema provided is non-existent, it will be
-        ///         automatically created.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
-        ///         <description>Moves a table or view into a schema named
-        ///         <paramref name="_value" />. If the schema provided is
-        ///         nonexistent, an error will be thrown. If <paramref
-        ///         name="_value" /> is empty, then the table or view will be
-        ///         placed in the user's default schema.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.PROTECTED">PROTECTED</see>:</term>
-        ///         <description>No longer used.  Previously set whether the
-        ///         given <paramref name="table_name" /> should be protected or
-        ///         not. The <paramref name="_value" /> would have been either
-        ///         'true' or 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
-        ///         </term>
-        ///         <description>Renames a table or view to <paramref
-        ///         name="_value" />. Has the same naming restrictions as <a
-        ///         href="../../../concepts/tables/" target="_top">tables</a>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">time-to-live</a> in minutes of the table or
-        ///         view specified in <paramref name="table_name" />.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:
-        ///         </term>
-        ///         <description>Adds the comment specified in <paramref
-        ///         name="_value" /> to the table specified in <paramref
-        ///         name="table_name" />. Use <see
-        ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
-        ///         comment for a column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.ADD_COLUMN">ADD_COLUMN</see>:
-        ///         </term>
-        ///         <description>Adds the column specified in <paramref
-        ///         name="_value" /> to the table specified in <paramref
-        ///         name="table_name" />. Use <see
-        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
-        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
-        ///         <paramref name="options" /> to set the column's type and
-        ///         properties, respectively.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>Changes type and properties of the column
-        ///         specified in <paramref name="_value" />. Use <see
-        ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
-        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
-        ///         <paramref name="options" /> to set the column's type and
-        ///         properties, respectively. Note that primary key and/or
-        ///         shard key columns cannot be changed. All unchanging column
-        ///         properties must be listed for the change to take place,
-        ///         e.g., to add dictionary encoding to an existing 'char4'
-        ///         column, both 'char4' and 'dict' must be specified in the
-        ///         <paramref name="options" /> map.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
-        ///         </term>
-        ///         <description>Deletes the column specified in <paramref
-        ///         name="_value" /> from the table specified in <paramref
-        ///         name="table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:
-        ///         </term>
-        ///         <description>Creates a <a
-        ///         href="../../../concepts/tables/#foreign-key"
-        ///         target="_top">foreign key</a> specified in <paramref
-        ///         name="_value" /> using the format '(source_column_name [,
-        ///         ...]) references target_table_name(primary_key_column_name
-        ///         [, ...]) [as foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:
-        ///         </term>
-        ///         <description>Deletes a <a
-        ///         href="../../../concepts/tables/#foreign-key"
-        ///         target="_top">foreign key</a>.  The <paramref name="_value"
-        ///         /> should be the foreign_key_name specified when creating
-        ///         the key or the complete string used to define it.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.ADD_PARTITION">ADD_PARTITION</see>:
-        ///         </term>
-        ///         <description>Adds the partition specified in <paramref
-        ///         name="_value" />, to either a <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range-partitioned</a> or <a
-        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list-partitioned</a> table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:
-        ///         </term>
-        ///         <description>Removes the partition specified in <paramref
-        ///         name="_value" /> (and relocates all of its data to the
-        ///         default partition) from either a <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range-partitioned</a> or <a
-        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list-partitioned</a> table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.DELETE_PARTITION">DELETE_PARTITION</see>:
-        ///         </term>
-        ///         <description>Deletes the partition specified in <paramref
-        ///         name="_value" /> (and all of its data) from either a <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range-partitioned</a> or <a
-        ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list-partitioned</a> table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:
-        ///         </term>
-        ///         <description>Sets the global access mode (i.e. locking) for
-        ///         the table specified in <paramref name="table_name" />.
-        ///         Specify the access mode in <paramref name="_value" />.
-        ///         Valid modes are 'no_access', 'read_only', 'write_only' and
-        ///         'read_write'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>For a <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a>, replays all the table
-        ///         creation commands required to create the view.  For an <a
-        ///         href="../../../concepts/external_tables/"
-        ///         target="_top">external table</a>, reloads all data in the
-        ///         table from its associated source files or <a
-        ///         href="../../../concepts/data_sources/" target="_top">data
-        ///         source</a>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:
-        ///         </term>
-        ///         <description>For a <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a>, sets the method by
-        ///         which the view is refreshed to the method specified in
-        ///         <paramref name="_value" /> - one of 'manual', 'periodic',
-        ///         or 'on_change'.  For an <a
-        ///         href="../../../concepts/external_tables/"
-        ///         target="_top">external table</a>, sets the method by which
-        ///         the table is refreshed to the method specified in <paramref
-        ///         name="_value" /> - either 'manual' or 'on_start'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:
-        ///         </term>
-        ///         <description>Sets the time to start periodic refreshes of
-        ///         this <a href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the datetime string
-        ///         specified in <paramref name="_value" /> with format
-        ///         'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
-        ///         specified time + N * the refresh period.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:
-        ///         </term>
-        ///         <description>Sets the time to stop periodic refreshes of
-        ///         this <a href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the datetime string
-        ///         specified in <paramref name="_value" /> with format
-        ///         'YYYY-MM-DD HH:MM:SS'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:
-        ///         </term>
-        ///         <description>Sets the time interval in seconds at which to
-        ///         refresh this <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the value specified
-        ///         in <paramref name="_value" />.  Also, sets the refresh
-        ///         method to periodic if not already set.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:
-        ///         </term>
-        ///         <description>Sets the future time-offset(in seconds) for
-        ///         the view refresh to stop.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:
-        ///         </term>
-        ///         <description>Sets the user name to refresh this <a
-        ///         href="../../../concepts/materialized_views/"
-        ///         target="_top">materialized view</a> to the value specified
-        ///         in <paramref name="_value" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:
-        ///         </term>
-        ///         <description>Removes <a
-        ///         href="../../../concepts/full_text_search/"
-        ///         target="_top">text search</a> attribute from all columns.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:
-        ///         </term>
-        ///         <description>Removes the shard key property from all
-        ///         columns, so that the table will be considered randomly
-        ///         sharded.  The data is not moved.  The <paramref
-        ///         name="_value" /> is ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>Sets the <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns to the one specified in <paramref name="_value" />,
-        ///         replacing the existing tier strategy in its entirety.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:
-        ///         </term>
-        ///         <description>Permanently unsubscribe a data source that is
-        ///         loading continuously as a stream. The data source can be
-        ///         Kafka / S3 / Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:
-        ///         </term>
-        ///         <description>Temporarily unsubscribe a data source that is
-        ///         loading continuously as a stream. The data source can be
-        ///         Kafka / S3 / Azure.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
-        ///         </term>
-        ///         <description>Resubscribe to a paused data source
-        ///         subscription. The data source can be Kafka / S3 / Azure.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.CHANGE_OWNER">CHANGE_OWNER</see>:
-        ///         </term>
-        ///         <description>Change the owner resource group of the table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup data loading scheme for the table;
-        ///         see description of 'load_vectors_policy' in <see
-        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-        ///         for possible values for <paramref name="_value" />
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup primary key generation scheme for
-        ///         the table; see description of 'build_pk_index_policy' in
-        ///         <see
-        ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-        ///         for possible values for <paramref name="_value" />
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup rebuilding scheme for the
-        ///         materialized view; see description of
-        ///         'build_materialized_view_policy' in <see
-        ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
-        ///         for possible values for <paramref name="_value" />
-        ///         </description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="_value">The value of the modification, depending on
-        /// <paramref name="action" />. For example, if <paramref name="action"
-        /// /> is <see cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be
-        /// the column name; while the column's definition would be covered by
-        /// the <see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
-        /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
-        /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
-        /// <see
-        /// cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see> in
-        /// <paramref name="options" />. If <paramref name="action" /> is <see
-        /// cref="Action.TTL">TTL</see>, it would be the number of minutes for
-        /// the new TTL. If <paramref name="action" /> is <see
-        /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.
-        /// </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.ACTION">ACTION</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.COLUMN_NAME">COLUMN_NAME</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TABLE_NAME">TABLE_NAME</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
-        ///         </term>
-        ///         <description>When adding a column, set a default value for
-        ///         existing records.  For nullable columns, the default value
-        ///         will be null, regardless of data type.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:
-        ///         </term>
-        ///         <description>When adding or changing a column, set the
-        ///         column properties (strings, separated by a comma: data,
-        ///         text_search, char8, int8 etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:
-        ///         </term>
-        ///         <description>When adding or changing a column, set the
-        ///         column type (strings, separated by a comma: int, double,
-        ///         string, null etc).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
-        ///         </term>
-        ///         <description>[DEPRECATED--please use <see
-        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
-        ///         instead.]</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
-        ///         <description>When changing a column, specify new column
-        ///         name.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>When changing a column, validate the change
-        ///         before applying it (or not).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Validate all values. A value too large
-        ///                 (or too long) for the new type will prevent any
-        ///                 change.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>When a value is too large or long, it
-        ///                 will be truncated.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:
-        ///         </term>
-        ///         <description>Indicates whether the <a
-        ///         href="../../../concepts/ttl/"
-        ///         target="_top">time-to-live</a> (TTL) expiration countdown
-        ///         timer should be reset to the table's TTL.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Reset the expiration countdown timer
-        ///                 to the table's configured TTL.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Don't reset the timer; expiration
-        ///                 countdown will continue from where it is, as if the
-        ///                 table had not been accessed.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
-        ///         </term>
-        ///         <description>When adding a column, an optional expression
-        ///         to use for the new column's values. Any valid expression
-        ///         may be used, including one containing references to
-        ///         existing columns in the same table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>Optional parameter for specifying the <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns when <paramref name="action" /> is <see
-        ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
-        ///         replacing the existing tier strategy in its entirety.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.INDEX_TYPE">INDEX_TYPE</see>:
-        ///         </term>
-        ///         <description>Type of index to create, when <paramref
-        ///         name="action" /> is <see
-        ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
-        ///         when <paramref name="action" /> is <see
-        ///         cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to
-        ///         delete, when <paramref name="action" /> is <see
-        ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.COLUMN">COLUMN</see>:
-        ///                 </term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#column-index"
-        ///                 target="_top">column (attribute) index</a>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
-        ///                 </term>
-        ///                 <description>Create a <a
-        ///                 href="../../../concepts/indexes/#low-cardinality-index"
-        ///                 target="_top">low-cardinality column (attribute)
-        ///                 index</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#chunk-skip-index"
-        ///                 target="_top">chunk skip index</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#geospatial-index"
-        ///                 target="_top">geospatial index</a></description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.CAGRA">CAGRA</see>:</term>
-        ///                 <description>Create or delete a <a
-        ///                 href="../../../concepts/indexes/#cagra-index"
-        ///                 target="_top">CAGRA index</a> on a <a
-        ///                 href="../../../vector_search/#vector-type"
-        ///                 target="_top">vector column</a></description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.HNSW">HNSW</see>:</term>
-        ///                 <description>Create or delete an <a
-        ///                 href="../../../concepts/indexes/#hnsw-index"
-        ///                 target="_top">HNSW index</a> on a <a
-        ///                 href="../../../vector_search/#vector-type"
-        ///                 target="_top">vector column</a></description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.COLUMN">COLUMN</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INDEX_OPTIONS">INDEX_OPTIONS</see>:</term>
-        ///         <description>Options to use when creating an index, in the
-        ///         format "key: value [, key: value [, ...]]". Valid options
-        ///         vary by index type.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Don't reset the timer; expiration countdown
+        ///         will continue from where it is, as if the table had not
+        ///         been accessed.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AlterTableRequest( string table_name,
-                                  string action,
-                                  string _value,
-                                  IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.action = action ?? "";
-            this._value = _value ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterTableRequest
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string UPDATE_LAST_ACCESS_TIME = "update_last_access_time";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
-    /// </summary>
-    public class AlterTableResponse : KineticaData
-    {
-        /// <summary>Table on which the operation was performed.</summary>
-        public string table_name { get; set; }
+        /// <summary>When adding a column, an optional expression to use for
+        /// the new column's values.</summary>
+        /// <remarks><para>Any valid expression may be used, including one
+        /// containing references to existing columns in the same table.</para>
+        /// </remarks>
+        public const string ADD_COLUMN_EXPRESSION = "add_column_expression";
 
-        /// <summary>Modification operation that was performed.</summary>
-        public string action { get; set; }
+        /// <summary>Optional parameter for specifying the <a
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns when <see cref="action"
+        /// /> is <see
+        /// cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
+        /// replacing the existing tier strategy in its entirety.</summary>
+        public const string STRATEGY_DEFINITION = "strategy_definition";
 
-        /// <summary>The value of the modification that was performed.
+        /// <summary>Type of index to create, when <see cref="action" /> is
+        /// <see cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh,
+        /// when <see cref="action" /> is <see
+        /// cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to delete, when
+        /// <see cref="action" /> is <see
+        /// cref="Action.DELETE_INDEX">DELETE_INDEX</see>.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.COLUMN">COLUMN</see>:</term>
+        ///         <description>Create or delete a <a
+        ///         href="../../../concepts/indexes/#column-index"
+        ///         target="_top">column (attribute) index</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+        ///         </term>
+        ///         <description>Create a <a
+        ///         href="../../../concepts/indexes/#low-cardinality-index"
+        ///         target="_top">low-cardinality column (attribute) index</a>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:
+        ///         </term>
+        ///         <description>Create or delete a <a
+        ///         href="../../../concepts/indexes/#chunk-skip-index"
+        ///         target="_top">chunk skip index</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.GEOSPATIAL">GEOSPATIAL</see>:
+        ///         </term>
+        ///         <description>Create or delete a <a
+        ///         href="../../../concepts/indexes/#geospatial-index"
+        ///         target="_top">geospatial index</a></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.CAGRA">CAGRA</see>:</term>
+        ///         <description>Create or delete a <a
+        ///         href="../../../concepts/indexes/#cagra-index"
+        ///         target="_top">CAGRA index</a> on a <a
+        ///         href="../../../vector_search/#vector-type"
+        ///         target="_top">vector column</a></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.HNSW">HNSW</see>:</term>
+        ///         <description>Create or delete an <a
+        ///         href="../../../concepts/indexes/#hnsw-index"
+        ///         target="_top">HNSW index</a> on a <a
+        ///         href="../../../vector_search/#vector-type"
+        ///         target="_top">vector column</a></description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.COLUMN">COLUMN</see>.
+        /// </para></remarks>
+        public const string INDEX_TYPE = "index_type";
+
+        /// <summary>Create or delete a <a
+        /// href="../../../concepts/indexes/#column-index" target="_top">column
+        /// (attribute) index</a>.</summary>
+        public const string COLUMN = "column";
+
+        /// <summary>Create a <a
+        /// href="../../../concepts/indexes/#low-cardinality-index"
+        /// target="_top">low-cardinality column (attribute) index</a>.
         /// </summary>
-        public string _value { get; set; }
+        public const string LOW_CARDINALITY = "low_cardinality";
 
-        /// <summary>return the type_id (when changing a table, a new type may
-        /// be created)</summary>
-        public string type_id { get; set; }
+        /// <summary>Create or delete a <a
+        /// href="../../../concepts/indexes/#chunk-skip-index"
+        /// target="_top">chunk skip index</a>.</summary>
+        public const string CHUNK_SKIP = "chunk_skip";
 
-        /// <summary>return the type_definition  (when changing a table, a new
-        /// type may be created)</summary>
-        public string type_definition { get; set; }
+        /// <summary>Create or delete a <a
+        /// href="../../../concepts/indexes/#geospatial-index"
+        /// target="_top">geospatial index</a></summary>
+        public const string GEOSPATIAL = "geospatial";
 
-        /// <summary>return the type properties  (when changing a table, a new
-        /// type may be created)</summary>
-        public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
+        /// <summary>Create or delete a <a
+        /// href="../../../concepts/indexes/#cagra-index" target="_top">CAGRA
+        /// index</a> on a <a href="../../../vector_search/#vector-type"
+        /// target="_top">vector column</a></summary>
+        public const string CAGRA = "cagra";
 
-        /// <summary>return the type label  (when changing a table, a new type
-        /// may be created)</summary>
-        public string label { get; set; }
+        /// <summary>Create or delete an <a
+        /// href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+        /// index</a> on a <a href="../../../vector_search/#vector-type"
+        /// target="_top">vector column</a></summary>
+        public const string HNSW = "hnsw";
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterTableResponse
-} // end namespace kinetica
+        /// <summary>Options to use when creating an index, in the format "key:
+        /// value [, key: value [, ...]]".</summary>
+        /// <remarks><para>Valid options vary by index type.</para></remarks>
+        public const string INDEX_OPTIONS = "index_options";
+    } // end struct Options
+
+    /// <summary>Table on which the operation will be performed, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para>Must be an existing table or view.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>Modification operation to be applied.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
+    ///         </term>
+    ///         <description>Creates a <a
+    ///         href="../../../concepts/indexes/#column-index"
+    ///         target="_top">column (attribute) index</a>, <a
+    ///         href="../../../concepts/indexes/#low-cardinality-index"
+    ///         target="_top">low-cardinality index</a>, <a
+    ///         href="../../../concepts/indexes/#chunk-skip-index"
+    ///         target="_top">chunk skip index</a>, <a
+    ///         href="../../../concepts/indexes/#geospatial-index"
+    ///         target="_top">geospatial index</a>, <a
+    ///         href="../../../concepts/indexes/#cagra-index"
+    ///         target="_top">CAGRA index</a>, or <a
+    ///         href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+    ///         index</a> (depending on the specified <see
+    ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+    ///         specified in <see cref="_value" />. If this column already has
+    ///         the specified index, an error will be returned.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>:
+    ///         </term>
+    ///         <description>Refreshes an index identified by <see
+    ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column name
+    ///         specified in <see cref="_value" />. Currently applicable only
+    ///         to CAGRA indices.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
+    ///         </term>
+    ///         <description>Deletes a <a
+    ///         href="../../../concepts/indexes/#column-index"
+    ///         target="_top">column (attribute) index</a>, <a
+    ///         href="../../../concepts/indexes/#low-cardinality-index"
+    ///         target="_top">low-cardinality index</a>, <a
+    ///         href="../../../concepts/indexes/#chunk-skip-index"
+    ///         target="_top">chunk skip index</a>, <a
+    ///         href="../../../concepts/indexes/#geospatial-index"
+    ///         target="_top">geospatial index</a>, <a
+    ///         href="../../../concepts/indexes/#cagra-index"
+    ///         target="_top">CAGRA index</a>, or <a
+    ///         href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+    ///         index</a> (depending on the specified <see
+    ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+    ///         specified in <see cref="_value" />. If this column does not
+    ///         have the specified index, an error will be returned.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:
+    ///         </term>
+    ///         <description>[DEPRECATED--please use <see
+    ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Moves a table or view
+    ///         into a schema named <see cref="_value" />.  If the schema
+    ///         provided is non-existent, it will be automatically created.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:
+    ///         </term>
+    ///         <description>Moves a table or view into a schema named <see
+    ///         cref="_value" />. If the schema provided is nonexistent, an
+    ///         error will be thrown. If <see cref="_value" /> is empty, then
+    ///         the table or view will be placed in the user's default schema.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.PROTECTED">PROTECTED</see>:</term>
+    ///         <description>No longer used.  Previously set whether the given
+    ///         <see cref="table_name" /> should be protected or not. The <see
+    ///         cref="_value" /> would have been either 'true' or 'false'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
+    ///         </term>
+    ///         <description>Renames a table or view to <see cref="_value" />.
+    ///         Has the same naming restrictions as <a
+    ///         href="../../../concepts/tables/" target="_top">tables</a>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">time-to-live</a> in minutes of the table or view
+    ///         specified in <see cref="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:</term>
+    ///         <description>Adds the comment specified in <see cref="_value"
+    ///         /> to the table specified in <see cref="table_name" />. Use
+    ///         <see cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the
+    ///         comment for a column.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+    ///         <description>Adds the column specified in <see cref="_value" />
+    ///         to the table specified in <see cref="table_name" />. Use <see
+    ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+    ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+    ///         <see cref="options" /> to set the column's type and properties,
+    ///         respectively.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>Changes type and properties of the column
+    ///         specified in <see cref="_value" />. Use <see
+    ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+    ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+    ///         <see cref="options" /> to set the column's type and properties,
+    ///         respectively. Note that primary key and/or shard key columns
+    ///         cannot be changed. All unchanging column properties must be
+    ///         listed for the change to take place, e.g., to add dictionary
+    ///         encoding to an existing 'char4' column, both 'char4' and 'dict'
+    ///         must be specified in the <see cref="options" /> map.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
+    ///         </term>
+    ///         <description>Deletes the column specified in <see cref="_value"
+    ///         /> from the table specified in <see cref="table_name" />.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:
+    ///         </term>
+    ///         <description>Creates a <a
+    ///         href="../../../concepts/tables/#foreign-key"
+    ///         target="_top">foreign key</a> specified in <see cref="_value"
+    ///         /> using the format '(source_column_name [, ...]) references
+    ///         target_table_name(primary_key_column_name [, ...]) [as
+    ///         foreign_key_name]'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:
+    ///         </term>
+    ///         <description>Deletes a <a
+    ///         href="../../../concepts/tables/#foreign-key"
+    ///         target="_top">foreign key</a>.  The <see cref="_value" />
+    ///         should be the foreign_key_name specified when creating the key
+    ///         or the complete string used to define it.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.ADD_PARTITION">ADD_PARTITION</see>:
+    ///         </term>
+    ///         <description>Adds the partition specified in <see cref="_value"
+    ///         />, to either a <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range-partitioned</a> or <a
+    ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+    ///         target="_top">manual list-partitioned</a> table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+    ///         <description>Removes the partition specified in <see
+    ///         cref="_value" /> (and relocates all of its data to the default
+    ///         partition) from either a <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range-partitioned</a> or <a
+    ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+    ///         target="_top">manual list-partitioned</a> table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+    ///         <description>Deletes the partition specified in <see
+    ///         cref="_value" /> (and all of its data) from either a <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range-partitioned</a> or <a
+    ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+    ///         target="_top">manual list-partitioned</a> table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:
+    ///         </term>
+    ///         <description>Sets the global access mode (i.e. locking) for the
+    ///         table specified in <see cref="table_name" />. Specify the
+    ///         access mode in <see cref="_value" />. Valid modes are
+    ///         'no_access', 'read_only', 'write_only' and 'read_write'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.REFRESH">REFRESH</see>:</term>
+    ///         <description>For a <a
+    ///         href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a>, replays all the table
+    ///         creation commands required to create the view.  For an <a
+    ///         href="../../../concepts/external_tables/"
+    ///         target="_top">external table</a>, reloads all data in the table
+    ///         from its associated source files or <a
+    ///         href="../../../concepts/data_sources/" target="_top">data
+    ///         source</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:
+    ///         </term>
+    ///         <description>For a <a
+    ///         href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a>, sets the method by which
+    ///         the view is refreshed to the method specified in <see
+    ///         cref="_value" /> - one of 'manual', 'periodic', or 'on_change'.
+    ///         For an <a href="../../../concepts/external_tables/"
+    ///         target="_top">external table</a>, sets the method by which the
+    ///         table is refreshed to the method specified in <see
+    ///         cref="_value" /> - either 'manual' or 'on_start'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:
+    ///         </term>
+    ///         <description>Sets the time to start periodic refreshes of this
+    ///         <a href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the datetime string
+    ///         specified in <see cref="_value" /> with format 'YYYY-MM-DD
+    ///         HH:MM:SS'.  Subsequent refreshes occur at the specified time +
+    ///         N * the refresh period.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:
+    ///         </term>
+    ///         <description>Sets the time to stop periodic refreshes of this
+    ///         <a href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the datetime string
+    ///         specified in <see cref="_value" /> with format 'YYYY-MM-DD
+    ///         HH:MM:SS'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:
+    ///         </term>
+    ///         <description>Sets the time interval in seconds at which to
+    ///         refresh this <a href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the value specified in
+    ///         <see cref="_value" />.  Also, sets the refresh method to
+    ///         periodic if not already set.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+    ///         <description>Sets the future time-offset(in seconds) for the
+    ///         view refresh to stop.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:
+    ///         </term>
+    ///         <description>Sets the user name to refresh this <a
+    ///         href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the value specified in
+    ///         <see cref="_value" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:
+    ///         </term>
+    ///         <description>Removes <a
+    ///         href="../../../concepts/full_text_search/" target="_top">text
+    ///         search</a> attribute from all columns.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+    ///         <description>Removes the shard key property from all columns,
+    ///         so that the table will be considered randomly sharded.  The
+    ///         data is not moved.  The <see cref="_value" /> is ignored.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>Sets the <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns to the one specified
+    ///         in <see cref="_value" />, replacing the existing tier strategy
+    ///         in its entirety.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Permanently unsubscribe a data source that is
+    ///         loading continuously as a stream. The data source can be Kafka
+    ///         / S3 / Azure / GCS.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.DROP_DATASOURCE_SUBSCRIPTION">DROP_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Permanently delete a cancelled data source
+    ///         subscription.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Temporarily unsubscribe a data source that is
+    ///         loading continuously as a stream. The data source can be Kafka
+    ///         / S3 / Azure / GCS.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Resubscribe to a paused data source subscription.
+    ///         The data source can be Kafka / S3 / Azure / GCS.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.CHANGE_OWNER">CHANGE_OWNER</see>:
+    ///         </term>
+    ///         <description>Change the owner resource group of the table.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup data loading scheme for the table; see
+    ///         description of 'load_vectors_policy' in <see
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <see cref="_value" /></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup primary key generation scheme for the
+    ///         table; see description of 'build_pk_index_policy' in <see
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <see cref="_value" /></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup rebuilding scheme for the materialized
+    ///         view; see description of 'build_materialized_view_policy' in
+    ///         <see
+    ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
+    ///         for possible values for <see cref="_value" /></description>
+    ///     </item>
+    /// </list></remarks>
+    public string action { get; set; }
+
+    /// <summary>The value of the modification, depending on <see cref="action"
+    /// />.</summary>
+    /// <remarks><para>For example, if <see cref="action" /> is <see
+    /// cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be the column
+    /// name; while the column's definition would be covered by the <see
+    /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
+    /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
+    /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
+    /// <see cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+    /// in <see cref="options" />. If <see cref="action" /> is <see
+    /// cref="Action.TTL">TTL</see>, it would be the number of minutes for the
+    /// new TTL. If <see cref="action" /> is <see
+    /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.</para>
+    /// </remarks>
+    public string _value { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.ACTION">ACTION</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COLUMN_NAME">COLUMN_NAME</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TABLE_NAME">TABLE_NAME</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
+    ///         </term>
+    ///         <description>When adding a column, set a default value for
+    ///         existing records.  For nullable columns, the default value will
+    ///         be null, regardless of data type.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:
+    ///         </term>
+    ///         <description>When adding or changing a column, set the column
+    ///         properties (strings, separated by a comma: data, text_search,
+    ///         char8, int8 etc).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+    ///         <description>When adding or changing a column, set the column
+    ///         type (strings, separated by a comma: int, double, string, null
+    ///         etc).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
+    ///         </term>
+    ///         <description>[DEPRECATED--please use <see
+    ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+    ///         instead.]</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RENAME_COLUMN">RENAME_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column, specify new column name.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column, validate the change before
+    ///         applying it (or not).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Validate all values. A value too large (or
+    ///                 too long) for the new type will prevent any change.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>When a value is too large or long, it will
+    ///                 be truncated.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:
+    ///         </term>
+    ///         <description>Indicates whether the <a
+    ///         href="../../../concepts/ttl/" target="_top">time-to-live</a>
+    ///         (TTL) expiration countdown timer should be reset to the table's
+    ///         TTL.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Reset the expiration countdown timer to
+    ///                 the table's configured TTL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Don't reset the timer; expiration
+    ///                 countdown will continue from where it is, as if the
+    ///                 table had not been accessed.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
+    ///         </term>
+    ///         <description>When adding a column, an optional expression to
+    ///         use for the new column's values. Any valid expression may be
+    ///         used, including one containing references to existing columns
+    ///         in the same table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>Optional parameter for specifying the <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns when <see
+    ///         cref="action" /> is <see
+    ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
+    ///         replacing the existing tier strategy in its entirety.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+    ///         <description>Type of index to create, when <see cref="action"
+    ///         /> is <see cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to
+    ///         refresh, when <see cref="action" /> is <see
+    ///         cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to delete,
+    ///         when <see cref="action" /> is <see
+    ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.COLUMN">COLUMN</see>:</term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#column-index"
+    ///                 target="_top">column (attribute) index</a>.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+    ///                 </term>
+    ///                 <description>Create a <a
+    ///                 href="../../../concepts/indexes/#low-cardinality-index"
+    ///                 target="_top">low-cardinality column (attribute)
+    ///                 index</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:
+    ///                 </term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#chunk-skip-index"
+    ///                 target="_top">chunk skip index</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.GEOSPATIAL">GEOSPATIAL</see>:
+    ///                 </term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#geospatial-index"
+    ///                 target="_top">geospatial index</a></description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.CAGRA">CAGRA</see>:</term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#cagra-index"
+    ///                 target="_top">CAGRA index</a> on a <a
+    ///                 href="../../../vector_search/#vector-type"
+    ///                 target="_top">vector column</a></description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.HNSW">HNSW</see>:</term>
+    ///                 <description>Create or delete an <a
+    ///                 href="../../../concepts/indexes/#hnsw-index"
+    ///                 target="_top">HNSW index</a> on a <a
+    ///                 href="../../../vector_search/#vector-type"
+    ///                 target="_top">vector column</a></description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.COLUMN">COLUMN</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INDEX_OPTIONS">INDEX_OPTIONS</see>:
+    ///         </term>
+    ///         <description>Options to use when creating an index, in the
+    ///         format "key: value [, key: value [, ...]]". Valid options vary
+    ///         by index type.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AlterTableRequest object with default
+    /// parameters.</summary>
+    public AlterTableRequest() { }
+
+    /// <summary>Constructs an AlterTableRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Table on which the operation will be
+    /// performed, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>. Must be an existing table or
+    /// view.</param>
+    /// <param name="action">Modification operation to be applied.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Action.CREATE_INDEX">CREATE_INDEX</see>:
+    ///         </term>
+    ///         <description>Creates a <a
+    ///         href="../../../concepts/indexes/#column-index"
+    ///         target="_top">column (attribute) index</a>, <a
+    ///         href="../../../concepts/indexes/#low-cardinality-index"
+    ///         target="_top">low-cardinality index</a>, <a
+    ///         href="../../../concepts/indexes/#chunk-skip-index"
+    ///         target="_top">chunk skip index</a>, <a
+    ///         href="../../../concepts/indexes/#geospatial-index"
+    ///         target="_top">geospatial index</a>, <a
+    ///         href="../../../concepts/indexes/#cagra-index"
+    ///         target="_top">CAGRA index</a>, or <a
+    ///         href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+    ///         index</a> (depending on the specified <see
+    ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+    ///         specified in <paramref name="_value" />. If this column already
+    ///         has the specified index, an error will be returned.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>:
+    ///         </term>
+    ///         <description>Refreshes an index identified by <see
+    ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>, on the column name
+    ///         specified in <paramref name="_value" />. Currently applicable
+    ///         only to CAGRA indices.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.DELETE_INDEX">DELETE_INDEX</see>:
+    ///         </term>
+    ///         <description>Deletes a <a
+    ///         href="../../../concepts/indexes/#column-index"
+    ///         target="_top">column (attribute) index</a>, <a
+    ///         href="../../../concepts/indexes/#low-cardinality-index"
+    ///         target="_top">low-cardinality index</a>, <a
+    ///         href="../../../concepts/indexes/#chunk-skip-index"
+    ///         target="_top">chunk skip index</a>, <a
+    ///         href="../../../concepts/indexes/#geospatial-index"
+    ///         target="_top">geospatial index</a>, <a
+    ///         href="../../../concepts/indexes/#cagra-index"
+    ///         target="_top">CAGRA index</a>, or <a
+    ///         href="../../../concepts/indexes/#hnsw-index" target="_top">HNSW
+    ///         index</a> (depending on the specified <see
+    ///         cref="Options.INDEX_TYPE">INDEX_TYPE</see>), on the column name
+    ///         specified in <paramref name="_value" />. If this column does
+    ///         not have the specified index, an error will be returned.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:
+    ///         </term>
+    ///         <description>[DEPRECATED--please use <see
+    ///         cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see> and use <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Moves a table or view
+    ///         into a schema named <paramref name="_value" />.  If the schema
+    ///         provided is non-existent, it will be automatically created.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:
+    ///         </term>
+    ///         <description>Moves a table or view into a schema named
+    ///         <paramref name="_value" />. If the schema provided is
+    ///         nonexistent, an error will be thrown. If <paramref
+    ///         name="_value" /> is empty, then the table or view will be
+    ///         placed in the user's default schema.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.PROTECTED">PROTECTED</see>:</term>
+    ///         <description>No longer used.  Previously set whether the given
+    ///         <paramref name="table_name" /> should be protected or not. The
+    ///         <paramref name="_value" /> would have been either 'true' or
+    ///         'false'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.RENAME_TABLE">RENAME_TABLE</see>:
+    ///         </term>
+    ///         <description>Renames a table or view to <paramref name="_value"
+    ///         />. Has the same naming restrictions as <a
+    ///         href="../../../concepts/tables/" target="_top">tables</a>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">time-to-live</a> in minutes of the table or view
+    ///         specified in <paramref name="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.ADD_COMMENT">ADD_COMMENT</see>:</term>
+    ///         <description>Adds the comment specified in <paramref
+    ///         name="_value" /> to the table specified in <paramref
+    ///         name="table_name" />. Use <see
+    ///         cref="Options.COLUMN_NAME">COLUMN_NAME</see> to set the comment
+    ///         for a column.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+    ///         <description>Adds the column specified in <paramref
+    ///         name="_value" /> to the table specified in <paramref
+    ///         name="table_name" />. Use <see
+    ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+    ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+    ///         <paramref name="options" /> to set the column's type and
+    ///         properties, respectively.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>Changes type and properties of the column
+    ///         specified in <paramref name="_value" />. Use <see
+    ///         cref="Options.COLUMN_TYPE">COLUMN_TYPE</see> and <see
+    ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see> in
+    ///         <paramref name="options" /> to set the column's type and
+    ///         properties, respectively. Note that primary key and/or shard
+    ///         key columns cannot be changed. All unchanging column properties
+    ///         must be listed for the change to take place, e.g., to add
+    ///         dictionary encoding to an existing 'char4' column, both 'char4'
+    ///         and 'dict' must be specified in the <paramref name="options" />
+    ///         map.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.DELETE_COLUMN">DELETE_COLUMN</see>:
+    ///         </term>
+    ///         <description>Deletes the column specified in <paramref
+    ///         name="_value" /> from the table specified in <paramref
+    ///         name="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:
+    ///         </term>
+    ///         <description>Creates a <a
+    ///         href="../../../concepts/tables/#foreign-key"
+    ///         target="_top">foreign key</a> specified in <paramref
+    ///         name="_value" /> using the format '(source_column_name [, ...])
+    ///         references target_table_name(primary_key_column_name [, ...])
+    ///         [as foreign_key_name]'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:
+    ///         </term>
+    ///         <description>Deletes a <a
+    ///         href="../../../concepts/tables/#foreign-key"
+    ///         target="_top">foreign key</a>.  The <paramref name="_value" />
+    ///         should be the foreign_key_name specified when creating the key
+    ///         or the complete string used to define it.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.ADD_PARTITION">ADD_PARTITION</see>:
+    ///         </term>
+    ///         <description>Adds the partition specified in <paramref
+    ///         name="_value" />, to either a <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range-partitioned</a> or <a
+    ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+    ///         target="_top">manual list-partitioned</a> table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+    ///         <description>Removes the partition specified in <paramref
+    ///         name="_value" /> (and relocates all of its data to the default
+    ///         partition) from either a <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range-partitioned</a> or <a
+    ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+    ///         target="_top">manual list-partitioned</a> table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+    ///         <description>Deletes the partition specified in <paramref
+    ///         name="_value" /> (and all of its data) from either a <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range-partitioned</a> or <a
+    ///         href="../../../concepts/tables/#partitioning-by-list-manual"
+    ///         target="_top">manual list-partitioned</a> table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:
+    ///         </term>
+    ///         <description>Sets the global access mode (i.e. locking) for the
+    ///         table specified in <paramref name="table_name" />. Specify the
+    ///         access mode in <paramref name="_value" />. Valid modes are
+    ///         'no_access', 'read_only', 'write_only' and 'read_write'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.REFRESH">REFRESH</see>:</term>
+    ///         <description>For a <a
+    ///         href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a>, replays all the table
+    ///         creation commands required to create the view.  For an <a
+    ///         href="../../../concepts/external_tables/"
+    ///         target="_top">external table</a>, reloads all data in the table
+    ///         from its associated source files or <a
+    ///         href="../../../concepts/data_sources/" target="_top">data
+    ///         source</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:
+    ///         </term>
+    ///         <description>For a <a
+    ///         href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a>, sets the method by which
+    ///         the view is refreshed to the method specified in <paramref
+    ///         name="_value" /> - one of 'manual', 'periodic', or 'on_change'.
+    ///         For an <a href="../../../concepts/external_tables/"
+    ///         target="_top">external table</a>, sets the method by which the
+    ///         table is refreshed to the method specified in <paramref
+    ///         name="_value" /> - either 'manual' or 'on_start'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:
+    ///         </term>
+    ///         <description>Sets the time to start periodic refreshes of this
+    ///         <a href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the datetime string
+    ///         specified in <paramref name="_value" /> with format 'YYYY-MM-DD
+    ///         HH:MM:SS'.  Subsequent refreshes occur at the specified time +
+    ///         N * the refresh period.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:
+    ///         </term>
+    ///         <description>Sets the time to stop periodic refreshes of this
+    ///         <a href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the datetime string
+    ///         specified in <paramref name="_value" /> with format 'YYYY-MM-DD
+    ///         HH:MM:SS'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:
+    ///         </term>
+    ///         <description>Sets the time interval in seconds at which to
+    ///         refresh this <a href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the value specified in
+    ///         <paramref name="_value" />.  Also, sets the refresh method to
+    ///         periodic if not already set.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+    ///         <description>Sets the future time-offset(in seconds) for the
+    ///         view refresh to stop.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:
+    ///         </term>
+    ///         <description>Sets the user name to refresh this <a
+    ///         href="../../../concepts/materialized_views/"
+    ///         target="_top">materialized view</a> to the value specified in
+    ///         <paramref name="_value" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:
+    ///         </term>
+    ///         <description>Removes <a
+    ///         href="../../../concepts/full_text_search/" target="_top">text
+    ///         search</a> attribute from all columns.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+    ///         <description>Removes the shard key property from all columns,
+    ///         so that the table will be considered randomly sharded.  The
+    ///         data is not moved.  The <paramref name="_value" /> is ignored.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>Sets the <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns to the one specified
+    ///         in <paramref name="_value" />, replacing the existing tier
+    ///         strategy in its entirety.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Permanently unsubscribe a data source that is
+    ///         loading continuously as a stream. The data source can be Kafka
+    ///         / S3 / Azure / GCS.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.DROP_DATASOURCE_SUBSCRIPTION">DROP_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Permanently delete a cancelled data source
+    ///         subscription.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Temporarily unsubscribe a data source that is
+    ///         loading continuously as a stream. The data source can be Kafka
+    ///         / S3 / Azure / GCS.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:
+    ///         </term>
+    ///         <description>Resubscribe to a paused data source subscription.
+    ///         The data source can be Kafka / S3 / Azure / GCS.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.CHANGE_OWNER">CHANGE_OWNER</see>:
+    ///         </term>
+    ///         <description>Change the owner resource group of the table.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_LOAD_VECTORS_POLICY">SET_LOAD_VECTORS_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup data loading scheme for the table; see
+    ///         description of 'load_vectors_policy' in <see
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <paramref name="_value" />
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_BUILD_PK_INDEX_POLICY">SET_BUILD_PK_INDEX_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup primary key generation scheme for the
+    ///         table; see description of 'build_pk_index_policy' in <see
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <paramref name="_value" />
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_BUILD_MATERIALIZED_VIEW_POLICY">SET_BUILD_MATERIALIZED_VIEW_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup rebuilding scheme for the materialized
+    ///         view; see description of 'build_materialized_view_policy' in
+    ///         <see
+    ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
+    ///         for possible values for <paramref name="_value" />
+    ///         </description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="_value">The value of the modification, depending on
+    /// <paramref name="action" />. For example, if <paramref name="action" />
+    /// is <see cref="Action.ADD_COLUMN">ADD_COLUMN</see>, this would be the
+    /// column name; while the column's definition would be covered by the <see
+    /// cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>, <see
+    /// cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>, <see
+    /// cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>, and
+    /// <see cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+    /// in <paramref name="options" />. If <paramref name="action" /> is <see
+    /// cref="Action.TTL">TTL</see>, it would be the number of minutes for the
+    /// new TTL. If <paramref name="action" /> is <see
+    /// cref="Action.REFRESH">REFRESH</see>, this field would be blank.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.ACTION">ACTION</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COLUMN_NAME">COLUMN_NAME</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TABLE_NAME">TABLE_NAME</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
+    ///         </term>
+    ///         <description>When adding a column, set a default value for
+    ///         existing records.  For nullable columns, the default value will
+    ///         be null, regardless of data type.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:
+    ///         </term>
+    ///         <description>When adding or changing a column, set the column
+    ///         properties (strings, separated by a comma: data, text_search,
+    ///         char8, int8 etc).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+    ///         <description>When adding or changing a column, set the column
+    ///         type (strings, separated by a comma: int, double, string, null
+    ///         etc).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
+    ///         </term>
+    ///         <description>[DEPRECATED--please use <see
+    ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
+    ///         instead.]</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RENAME_COLUMN">RENAME_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column, specify new column name.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column, validate the change before
+    ///         applying it (or not).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Validate all values. A value too large (or
+    ///                 too long) for the new type will prevent any change.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>When a value is too large or long, it will
+    ///                 be truncated.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:
+    ///         </term>
+    ///         <description>Indicates whether the <a
+    ///         href="../../../concepts/ttl/" target="_top">time-to-live</a>
+    ///         (TTL) expiration countdown timer should be reset to the table's
+    ///         TTL.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Reset the expiration countdown timer to
+    ///                 the table's configured TTL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Don't reset the timer; expiration
+    ///                 countdown will continue from where it is, as if the
+    ///                 table had not been accessed.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
+    ///         </term>
+    ///         <description>When adding a column, an optional expression to
+    ///         use for the new column's values. Any valid expression may be
+    ///         used, including one containing references to existing columns
+    ///         in the same table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>Optional parameter for specifying the <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns when <paramref
+    ///         name="action" /> is <see
+    ///         cref="Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>,
+    ///         replacing the existing tier strategy in its entirety.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+    ///         <description>Type of index to create, when <paramref
+    ///         name="action" /> is <see
+    ///         cref="Action.CREATE_INDEX">CREATE_INDEX</see>; to refresh, when
+    ///         <paramref name="action" /> is <see
+    ///         cref="Action.REFRESH_INDEX">REFRESH_INDEX</see>; or to delete,
+    ///         when <paramref name="action" /> is <see
+    ///         cref="Action.DELETE_INDEX">DELETE_INDEX</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.COLUMN">COLUMN</see>:</term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#column-index"
+    ///                 target="_top">column (attribute) index</a>.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.LOW_CARDINALITY">LOW_CARDINALITY</see>:
+    ///                 </term>
+    ///                 <description>Create a <a
+    ///                 href="../../../concepts/indexes/#low-cardinality-index"
+    ///                 target="_top">low-cardinality column (attribute)
+    ///                 index</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.CHUNK_SKIP">CHUNK_SKIP</see>:
+    ///                 </term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#chunk-skip-index"
+    ///                 target="_top">chunk skip index</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.GEOSPATIAL">GEOSPATIAL</see>:
+    ///                 </term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#geospatial-index"
+    ///                 target="_top">geospatial index</a></description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.CAGRA">CAGRA</see>:</term>
+    ///                 <description>Create or delete a <a
+    ///                 href="../../../concepts/indexes/#cagra-index"
+    ///                 target="_top">CAGRA index</a> on a <a
+    ///                 href="../../../vector_search/#vector-type"
+    ///                 target="_top">vector column</a></description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.HNSW">HNSW</see>:</term>
+    ///                 <description>Create or delete an <a
+    ///                 href="../../../concepts/indexes/#hnsw-index"
+    ///                 target="_top">HNSW index</a> on a <a
+    ///                 href="../../../vector_search/#vector-type"
+    ///                 target="_top">vector column</a></description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.COLUMN">COLUMN</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INDEX_OPTIONS">INDEX_OPTIONS</see>:
+    ///         </term>
+    ///         <description>Options to use when creating an index, in the
+    ///         format "key: value [, key: value [, ...]]". Valid options vary
+    ///         by index type.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AlterTableRequest( string table_name,
+                              string action,
+                              string _value,
+                              IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.action = action ?? "";
+        this._value = _value ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterTableRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
+/// </summary>
+public class AlterTableResponse : KineticaData
+{
+    /// <summary>Table on which the operation was performed.</summary>
+    public string table_name { get; set; }
+
+    /// <summary>Modification operation that was performed.</summary>
+    public string action { get; set; }
+
+    /// <summary>The value of the modification that was performed.</summary>
+    public string _value { get; set; }
+
+    /// <summary>return the type_id (when changing a table, a new type may be
+    /// created)</summary>
+    public string type_id { get; set; }
+
+    /// <summary>return the type_definition  (when changing a table, a new type
+    /// may be created)</summary>
+    public string type_definition { get; set; }
+
+    /// <summary>return the type properties  (when changing a table, a new type
+    /// may be created)</summary>
+    public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
+
+    /// <summary>return the type label  (when changing a table, a new type may
+    /// be created)</summary>
+    public string label { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterTableResponse

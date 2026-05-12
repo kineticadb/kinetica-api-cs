@@ -6,755 +6,734 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>.
+/// </summary>
+/// <remarks><para>Creates a new graph network using given nodes, edges,
+/// weights, and restrictions.</para>
+/// <para>IMPORTANT: It's highly recommended that you review the <a
+/// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs and
+/// Solvers</a> concepts documentation, the <a
+/// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+/// Tutorial</a>, and/or some <a href="../../../guide-tags/graph/"
+/// target="_top">graph examples</a> before using this endpoint.</para>
+/// </remarks>
+public class CreateGraphRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>.
-    /// </summary>
-    /// <remarks><para>Creates a new graph network using given nodes, edges,
-    /// weights, and restrictions.</para>
-    /// <para>IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
-    /// & Solvers</a> concepts documentation, the <a
-    /// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
-    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph/"
-    /// target="_top">graph examples</a> before using this endpoint.</para>
-    /// </remarks>
-    public class CreateGraphRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="directed_graph" />.</summary>
+    /// <remarks><para>If set to <see cref="DirectedGraph.TRUE">TRUE</see>, the
+    /// graph will be directed. If set to <see
+    /// cref="DirectedGraph.FALSE">FALSE</see>, the graph will not be directed.
+    /// Consult <a
+    /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
+    /// target="_top">Directed Graphs</a> for more details.</para></remarks>
+    public struct DirectedGraph
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="directed_graph" />.</summary>
-        /// <remarks><para>If set to <see cref="DirectedGraph.TRUE">TRUE</see>,
-        /// the graph will be directed. If set to <see
-        /// cref="DirectedGraph.FALSE">FALSE</see>, the graph will not be
-        /// directed. Consult <a
-        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
-        /// target="_top">Directed Graphs</a> for more details.</para>
-        /// </remarks>
-        public struct DirectedGraph
-        {
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct DirectedGraph
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct DirectedGraph
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If node geospatial positions are input (e.g.,
-            /// WKTPOINT, X, Y), determines the minimum separation allowed
-            /// between unique nodes.</summary>
-            /// <remarks><para>If nodes are within the tolerance of each other,
-            /// they will be merged as a single node. The default value is
-            /// '1.0E-5'.</para></remarks>
-            public const string MERGE_TOLERANCE = "merge_tolerance";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>If node geospatial positions are input (e.g., WKTPOINT, X,
+        /// Y), determines the minimum separation allowed between unique nodes.
+        /// </summary>
+        /// <remarks><para>If nodes are within the tolerance of each other,
+        /// they will be merged as a single node. The default value is
+        /// '1.0E-5'.</para></remarks>
+        public const string MERGE_TOLERANCE = "merge_tolerance";
 
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see> and the
-            /// graph (using <see cref="graph_name" />) already exists, the
-            /// graph is deleted and recreated.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RECREATE = "recreate";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the
-            /// graph will be saved in the persist directory (see the <a
-            /// href="../../../config/#config-main-persistence"
-            /// target="_top">config reference</a> for more information).
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string SAVE_PERSIST = "save_persist";
-
-            /// <summary>Adds a table monitor to every table used in the
-            /// creation of the graph; this table monitor will trigger the
-            /// graph to update dynamically upon inserts to the source
-            /// table(s).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string ADD_TABLE_MONITOR = "add_table_monitor";
-
-            /// <summary>If specified, the created graph is also created as a
-            /// table with the given name, in [schema_name.]table_name format,
-            /// using standard <a
-            /// href="../../../concepts/tables/#table-name-resolution"
-            /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../../concepts/tables/#table-naming-criteria"
-            /// target="_top">table naming criteria</a>.</summary>
-            /// <remarks><para> The table will have the following identifier
-            /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
-            /// blank, no table is created. The default value is ''.</para>
-            /// </remarks>
-            public const string GRAPH_TABLE = "graph_table";
-
-            /// <summary>Adds dummy 'pillowed' edges around intersection nodes
-            /// where there are more than three edges so that additional weight
-            /// penalties can be imposed by the solve endpoints.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string ADD_TURNS = "add_turns";
-
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_PARTITIONED = "is_partitioned";
-
-            /// <summary>Indicates which graph server(s) to send the request
-            /// to.</summary>
-            /// <remarks><para>Default is to send to the server with the most
-            /// available memory.</para></remarks>
-            public const string SERVER_ID = "server_id";
-
-            /// <summary>Use an range tree structure to accelerate and improve
-            /// the accuracy of snapping, especially to edges.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string USE_RTREE = "use_rtree";
-
-            /// <summary>If provided the label string will be split according
-            /// to this delimiter and each sub-string will be applied as a
-            /// separate label onto the specified edge.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string LABEL_DELIMITER = "label_delimiter";
-
-            /// <summary>Multigraph choice; allowing multiple edges with the
-            /// same node pairs if set to true, otherwise, new edges with
-            /// existing same node pairs will not be inserted.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string ALLOW_MULTIPLE_EDGES = "allow_multiple_edges";
-
-            /// <summary>If table exists (should be generated by the
-            /// match/graph match_embedding solver), the vector embeddings for
-            /// the newly inserted nodes will be appended into this table.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string EMBEDDING_TABLE = "embedding_table";
-        } // end struct Options
-
-        /// <summary>Name of the graph resource to generate.</summary>
-        public string graph_name { get; set; }
-
-        /// <summary>If set to <see cref="DirectedGraph.TRUE">TRUE</see>, the
-        /// graph will be directed.</summary>
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see> and the
+        /// graph (using <see cref="graph_name" />) already exists, the graph
+        /// is deleted and recreated.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term>true</term>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>false</term>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is true.</para></remarks>
-        public bool directed_graph { get; set; } = true;
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RECREATE = "recreate";
 
-        /// <summary>Nodes represent fundamental topological units of a graph.
-        /// </summary>
-        /// <remarks><para>Nodes must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID',
-        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT', or constant values, e.g., '{9, 10, 11} AS NODE_ID'.
-        /// If using constant values in an identifier combination, the number
-        /// of values specified must match across the combination.</para>
-        /// </remarks>
-        public IList<string> nodes { get; set; } = new List<string>();
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Edges represent the required fundamental topological unit
-        /// of a graph that typically connect nodes.</summary>
-        /// <remarks><para>Edges must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID',
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
-        /// constant values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If
-        /// using constant values in an identifier combination, the number of
-        /// values specified must match across the combination.</para>
-        /// </remarks>
-        public IList<string> edges { get; set; } = new List<string>();
-
-        /// <summary>Weights represent a method of informing the graph solver
-        /// of the cost of including a given edge in a solution.</summary>
-        /// <remarks><para>Weights must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// constant values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If
-        /// using constant values in an identifier combination, the number of
-        /// values specified must match across the combination.</para>
-        /// </remarks>
-        public IList<string> weights { get; set; } = new List<string>();
-
-        /// <summary>Restrictions represent a method of informing the graph
-        /// solver which edges and/or nodes should be ignored for the solution.
-        /// </summary>
-        /// <remarks><para>Restrictions must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or constant values, e.g., '{0, 0, 0,
-        /// 1} AS RESTRICTIONS_ONOFFCOMPARED'. If using constant values in an
-        /// identifier combination, the number of values specified must match
-        /// across the combination.</para></remarks>
-        public IList<string> restrictions { get; set; } = new List<string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:
-        ///         </term>
-        ///         <description>If node geospatial positions are input (e.g.,
-        ///         WKTPOINT, X, Y), determines the minimum separation allowed
-        ///         between unique nodes. If nodes are within the tolerance of
-        ///         each other, they will be merged as a single node. The
-        ///         default value is '1.0E-5'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>
-        ///         and the graph (using <see cref="graph_name" />) already
-        ///         exists, the graph is deleted and recreated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SAVE_PERSIST">SAVE_PERSIST</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         the graph will be saved in the persist directory (see the
-        ///         <a href="../../../config/#config-main-persistence"
-        ///         target="_top">config reference</a> for more information).
-        ///         If set to <see cref="Options.FALSE">FALSE</see>, the graph
-        ///         will be removed when the graph server is shutdown.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
-        ///         </term>
-        ///         <description>Adds a table monitor to every table used in
-        ///         the creation of the graph; this table monitor will trigger
-        ///         the graph to update dynamically upon inserts to the source
-        ///         table(s). Note that upon database restart, if <see
-        ///         cref="Options.SAVE_PERSIST">SAVE_PERSIST</see> is also set
-        ///         to <see cref="Options.TRUE">TRUE</see>, the graph will be
-        ///         fully reconstructed and the table monitors will be
-        ///         reattached. For more details on table monitors, see <see
-        ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.GRAPH_TABLE">GRAPH_TABLE</see>:
-        ///         </term>
-        ///         <description>If specified, the created graph is also
-        ///         created as a table with the given name, in
-        ///         [schema_name.]table_name format, using standard <a
-        ///         href="../../../concepts/tables/#table-name-resolution"
-        ///         target="_top">name resolution rules</a> and meeting <a
-        ///         href="../../../concepts/tables/#table-naming-criteria"
-        ///         target="_top">table naming criteria</a>.  The table will
-        ///         have the following identifier columns: 'EDGE_ID',
-        ///         'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left blank, no table
-        ///         is created. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ADD_TURNS">ADD_TURNS</see>:</term>
-        ///         <description>Adds dummy 'pillowed' edges around
-        ///         intersection nodes where there are more than three edges so
-        ///         that additional weight penalties can be imposed by the
-        ///         solve endpoints. (increases the total number of edges).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_PARTITIONED">IS_PARTITIONED</see>:</term>
-        ///         <description>Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        ///         request to. Default is to send to the server with the most
-        ///         available memory.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.USE_RTREE">USE_RTREE</see>:</term>
-        ///         <description>Use an range tree structure to accelerate and
-        ///         improve the accuracy of snapping, especially to edges.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:
-        ///         </term>
-        ///         <description>If provided the label string will be split
-        ///         according to this delimiter and each sub-string will be
-        ///         applied as a separate label onto the specified edge. The
-        ///         default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
-        ///         </term>
-        ///         <description>Multigraph choice; allowing multiple edges
-        ///         with the same node pairs if set to true, otherwise, new
-        ///         edges with existing same node pairs will not be inserted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:
-        ///         </term>
-        ///         <description>If table exists (should be generated by the
-        ///         match/graph match_embedding solver), the vector embeddings
-        ///         for the newly inserted nodes will be appended into this
-        ///         table. The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateGraphRequest object with default
-        /// parameters.</summary>
-        public CreateGraphRequest() { }
-
-        /// <summary>Constructs a CreateGraphRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="graph_name">Name of the graph resource to generate.
-        /// </param>
-        /// <param name="directed_graph">If set to <see
-        /// cref="DirectedGraph.TRUE">TRUE</see>, the graph will be directed.
-        /// If set to <see cref="DirectedGraph.FALSE">FALSE</see>, the graph
-        /// will not be directed. Consult <a
-        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
-        /// target="_top">Directed Graphs</a> for more details.
-        /// Supported values:
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the graph
+        /// will be saved in the persist directory (see the <a
+        /// href="../../../config/#config-main-persistence"
+        /// target="_top">config reference</a> for more information).</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term>true</term>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>false</term>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is true.</param>
-        /// <param name="nodes">Nodes represent fundamental topological units
-        /// of a graph. Nodes must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID',
-        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT', or constant values, e.g., '{9, 10, 11} AS NODE_ID'.
-        /// If using constant values in an identifier combination, the number
-        /// of values specified must match across the combination.</param>
-        /// <param name="edges">Edges represent the required fundamental
-        /// topological unit of a graph that typically connect nodes. Edges
-        /// must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID',
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
-        /// constant values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If
-        /// using constant values in an identifier combination, the number of
-        /// values specified must match across the combination.</param>
-        /// <param name="weights">Weights represent a method of informing the
-        /// graph solver of the cost of including a given edge in a solution.
-        /// Weights must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// constant values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If
-        /// using constant values in an identifier combination, the number of
-        /// values specified must match across the combination.</param>
-        /// <param name="restrictions">Restrictions represent a method of
-        /// informing the graph solver which edges and/or nodes should be
-        /// ignored for the solution. Restrictions must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or constant values, e.g., '{0, 0, 0,
-        /// 1} AS RESTRICTIONS_ONOFFCOMPARED'. If using constant values in an
-        /// identifier combination, the number of values specified must match
-        /// across the combination.</param>
-        /// <param name="options">Optional parameters.
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string SAVE_PERSIST = "save_persist";
+
+        /// <summary>Adds a table monitor to every table used in the creation
+        /// of the graph; this table monitor will trigger the graph to update
+        /// dynamically upon inserts to the source table(s).</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:
-        ///         </term>
-        ///         <description>If node geospatial positions are input (e.g.,
-        ///         WKTPOINT, X, Y), determines the minimum separation allowed
-        ///         between unique nodes. If nodes are within the tolerance of
-        ///         each other, they will be merged as a single node. The
-        ///         default value is '1.0E-5'.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>
-        ///         and the graph (using <paramref name="graph_name" />)
-        ///         already exists, the graph is deleted and recreated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SAVE_PERSIST">SAVE_PERSIST</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         the graph will be saved in the persist directory (see the
-        ///         <a href="../../../config/#config-main-persistence"
-        ///         target="_top">config reference</a> for more information).
-        ///         If set to <see cref="Options.FALSE">FALSE</see>, the graph
-        ///         will be removed when the graph server is shutdown.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
-        ///         </term>
-        ///         <description>Adds a table monitor to every table used in
-        ///         the creation of the graph; this table monitor will trigger
-        ///         the graph to update dynamically upon inserts to the source
-        ///         table(s). Note that upon database restart, if <see
-        ///         cref="Options.SAVE_PERSIST">SAVE_PERSIST</see> is also set
-        ///         to <see cref="Options.TRUE">TRUE</see>, the graph will be
-        ///         fully reconstructed and the table monitors will be
-        ///         reattached. For more details on table monitors, see <see
-        ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.GRAPH_TABLE">GRAPH_TABLE</see>:
-        ///         </term>
-        ///         <description>If specified, the created graph is also
-        ///         created as a table with the given name, in
-        ///         [schema_name.]table_name format, using standard <a
-        ///         href="../../../concepts/tables/#table-name-resolution"
-        ///         target="_top">name resolution rules</a> and meeting <a
-        ///         href="../../../concepts/tables/#table-naming-criteria"
-        ///         target="_top">table naming criteria</a>.  The table will
-        ///         have the following identifier columns: 'EDGE_ID',
-        ///         'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left blank, no table
-        ///         is created. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ADD_TURNS">ADD_TURNS</see>:</term>
-        ///         <description>Adds dummy 'pillowed' edges around
-        ///         intersection nodes where there are more than three edges so
-        ///         that additional weight penalties can be imposed by the
-        ///         solve endpoints. (increases the total number of edges).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_PARTITIONED">IS_PARTITIONED</see>:</term>
-        ///         <description>Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        ///         request to. Default is to send to the server with the most
-        ///         available memory.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.USE_RTREE">USE_RTREE</see>:</term>
-        ///         <description>Use an range tree structure to accelerate and
-        ///         improve the accuracy of snapping, especially to edges.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:
-        ///         </term>
-        ///         <description>If provided the label string will be split
-        ///         according to this delimiter and each sub-string will be
-        ///         applied as a separate label onto the specified edge. The
-        ///         default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
-        ///         </term>
-        ///         <description>Multigraph choice; allowing multiple edges
-        ///         with the same node pairs if set to true, otherwise, new
-        ///         edges with existing same node pairs will not be inserted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:
-        ///         </term>
-        ///         <description>If table exists (should be generated by the
-        ///         match/graph match_embedding solver), the vector embeddings
-        ///         for the newly inserted nodes will be appended into this
-        ///         table. The default value is ''.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateGraphRequest( string graph_name,
-                                   bool? directed_graph,
-                                   IList<string> nodes,
-                                   IList<string> edges,
-                                   IList<string> weights,
-                                   IList<string> restrictions,
-                                   IDictionary<string, string> options = null)
-        {
-            this.graph_name = graph_name ?? "";
-            this.directed_graph = directed_graph ?? true;
-            this.nodes = nodes ?? new List<string>();
-            this.edges = edges ?? new List<string>();
-            this.weights = weights ?? new List<string>();
-            this.restrictions = restrictions ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateGraphRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string ADD_TABLE_MONITOR = "add_table_monitor";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>.
+        /// <summary>If specified, the created graph is also created as a table
+        /// with the given name, in [schema_name.]table_name format, using
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../../concepts/tables/#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.</summary>
+        /// <remarks><para> The table will have the following identifier
+        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
+        /// blank, no table is created. The default value is ''.</para>
+        /// </remarks>
+        public const string GRAPH_TABLE = "graph_table";
+
+        /// <summary>Adds dummy 'pillowed' edges around intersection nodes
+        /// where there are more than three edges so that additional weight
+        /// penalties can be imposed by the solve endpoints.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string ADD_TURNS = "add_turns";
+
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_PARTITIONED = "is_partitioned";
+
+        /// <summary>Indicates which graph server(s) to send the request to.
+        /// </summary>
+        /// <remarks><para>Default is to send to the server with the most
+        /// available memory.</para></remarks>
+        public const string SERVER_ID = "server_id";
+
+        /// <summary>Use an range tree structure to accelerate and improve the
+        /// accuracy of snapping, especially to edges.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string USE_RTREE = "use_rtree";
+
+        /// <summary>If provided the label string will be split according to
+        /// this delimiter and each sub-string will be applied as a separate
+        /// label onto the specified edge.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string LABEL_DELIMITER = "label_delimiter";
+
+        /// <summary>Multigraph choice; allowing multiple edges with the same
+        /// node pairs if set to true, otherwise, new edges with existing same
+        /// node pairs will not be inserted.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string ALLOW_MULTIPLE_EDGES = "allow_multiple_edges";
+
+        /// <summary>If table exists (should be generated by the match/graph
+        /// match_embedding solver), the vector embeddings for the newly
+        /// inserted nodes will be appended into this table.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string EMBEDDING_TABLE = "embedding_table";
+    } // end struct Options
+
+    /// <summary>Name of the graph resource to generate.</summary>
+    public string graph_name { get; set; }
+
+    /// <summary>If set to <see cref="DirectedGraph.TRUE">TRUE</see>, the graph
+    /// will be directed.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is true.</para></remarks>
+    public bool directed_graph { get; set; } = true;
+
+    /// <summary>Nodes represent fundamental topological units of a graph.
     /// </summary>
-    public class CreateGraphResponse : KineticaData
+    /// <remarks><para>Nodes must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS NODE_ID', expressions, e.g.,
+    /// 'ST_MAKEPOINT(column1, column2) AS NODE_WKTPOINT', or constant values,
+    /// e.g., '{9, 10, 11} AS NODE_ID'. If using constant values in an
+    /// identifier combination, the number of values specified must match
+    /// across the combination.</para></remarks>
+    public IList<string> nodes { get; set; } = new List<string>();
+
+    /// <summary>Edges represent the required fundamental topological unit of a
+    /// graph that typically connect nodes.</summary>
+    /// <remarks><para>Edges must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS EDGE_ID', expressions, e.g.,
+    /// 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or constant values, e.g.,
+    /// "{'family', 'coworker'} AS EDGE_LABEL". If using constant values in an
+    /// identifier combination, the number of values specified must match
+    /// across the combination.</para></remarks>
+    public IList<string> edges { get; set; } = new List<string>();
+
+    /// <summary>Weights represent a method of informing the graph solver of
+    /// the cost of including a given edge in a solution.</summary>
+    /// <remarks><para>Weights must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', expressions,
+    /// e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+    /// e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using constant values in
+    /// an identifier combination, the number of values specified must match
+    /// across the combination.</para></remarks>
+    public IList<string> weights { get; set; } = new List<string>();
+
+    /// <summary>Restrictions represent a method of informing the graph solver
+    /// which edges and/or nodes should be ignored for the solution.</summary>
+    /// <remarks><para>Restrictions must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS RESTRICTIONS_EDGE_ID',
+    /// expressions, e.g., 'column/2 AS RESTRICTIONS_VALUECOMPARED', or
+    /// constant values, e.g., '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'. If
+    /// using constant values in an identifier combination, the number of
+    /// values specified must match across the combination.</para></remarks>
+    public IList<string> restrictions { get; set; } = new List<string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:</term>
+    ///         <description>If node geospatial positions are input (e.g.,
+    ///         WKTPOINT, X, Y), determines the minimum separation allowed
+    ///         between unique nodes. If nodes are within the tolerance of each
+    ///         other, they will be merged as a single node. The default value
+    ///         is '1.0E-5'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see> and
+    ///         the graph (using <see cref="graph_name" />) already exists, the
+    ///         graph is deleted and recreated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SAVE_PERSIST">SAVE_PERSIST</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
+    ///         graph will be saved in the persist directory (see the <a
+    ///         href="../../../config/#config-main-persistence"
+    ///         target="_top">config reference</a> for more information). If
+    ///         set to <see cref="Options.FALSE">FALSE</see>, the graph will be
+    ///         removed when the graph server is shutdown.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
+    ///         </term>
+    ///         <description>Adds a table monitor to every table used in the
+    ///         creation of the graph; this table monitor will trigger the
+    ///         graph to update dynamically upon inserts to the source
+    ///         table(s). Note that upon database restart, if <see
+    ///         cref="Options.SAVE_PERSIST">SAVE_PERSIST</see> is also set to
+    ///         <see cref="Options.TRUE">TRUE</see>, the graph will be fully
+    ///         reconstructed and the table monitors will be reattached. For
+    ///         more details on table monitors, see <see
+    ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
+    ///         <description>If specified, the created graph is also created as
+    ///         a table with the given name, in [schema_name.]table_name
+    ///         format, using standard <a
+    ///         href="../../../concepts/tables/#table-name-resolution"
+    ///         target="_top">name resolution rules</a> and meeting <a
+    ///         href="../../../concepts/tables/#table-naming-criteria"
+    ///         target="_top">table naming criteria</a>.  The table will have
+    ///         the following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+    ///         'EDGE_NODE2_ID'. If left blank, no table is created. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ADD_TURNS">ADD_TURNS</see>:</term>
+    ///         <description>Adds dummy 'pillowed' edges around intersection
+    ///         nodes where there are more than three edges so that additional
+    ///         weight penalties can be imposed by the solve endpoints.
+    ///         (increases the total number of edges).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_PARTITIONED">IS_PARTITIONED</see>:
+    ///         </term>
+    ///         <description>Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <description>Indicates which graph server(s) to send the
+    ///         request to. Default is to send to the server with the most
+    ///         available memory.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.USE_RTREE">USE_RTREE</see>:</term>
+    ///         <description>Use an range tree structure to accelerate and
+    ///         improve the accuracy of snapping, especially to edges.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+    ///         <description>If provided the label string will be split
+    ///         according to this delimiter and each sub-string will be applied
+    ///         as a separate label onto the specified edge. The default value
+    ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
+    ///         </term>
+    ///         <description>Multigraph choice; allowing multiple edges with
+    ///         the same node pairs if set to true, otherwise, new edges with
+    ///         existing same node pairs will not be inserted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:</term>
+    ///         <description>If table exists (should be generated by the
+    ///         match/graph match_embedding solver), the vector embeddings for
+    ///         the newly inserted nodes will be appended into this table. The
+    ///         default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateGraphRequest object with default
+    /// parameters.</summary>
+    public CreateGraphRequest() { }
+
+    /// <summary>Constructs a CreateGraphRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="graph_name">Name of the graph resource to generate.
+    /// </param>
+    /// <param name="directed_graph">If set to <see
+    /// cref="DirectedGraph.TRUE">TRUE</see>, the graph will be directed. If
+    /// set to <see cref="DirectedGraph.FALSE">FALSE</see>, the graph will not
+    /// be directed. Consult <a
+    /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
+    /// target="_top">Directed Graphs</a> for more details.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list>
+    /// The default value is true.</param>
+    /// <param name="nodes">Nodes represent fundamental topological units of a
+    /// graph. Nodes must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS NODE_ID', expressions, e.g.,
+    /// 'ST_MAKEPOINT(column1, column2) AS NODE_WKTPOINT', or constant values,
+    /// e.g., '{9, 10, 11} AS NODE_ID'. If using constant values in an
+    /// identifier combination, the number of values specified must match
+    /// across the combination.</param>
+    /// <param name="edges">Edges represent the required fundamental
+    /// topological unit of a graph that typically connect nodes. Edges must be
+    /// specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS EDGE_ID', expressions, e.g.,
+    /// 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or constant values, e.g.,
+    /// "{'family', 'coworker'} AS EDGE_LABEL". If using constant values in an
+    /// identifier combination, the number of values specified must match
+    /// across the combination.</param>
+    /// <param name="weights">Weights represent a method of informing the graph
+    /// solver of the cost of including a given edge in a solution. Weights
+    /// must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', expressions,
+    /// e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+    /// e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using constant values in
+    /// an identifier combination, the number of values specified must match
+    /// across the combination.</param>
+    /// <param name="restrictions">Restrictions represent a method of informing
+    /// the graph solver which edges and/or nodes should be ignored for the
+    /// solution. Restrictions must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#id-combos"
+    /// target="_top">combinations</a>. Identifiers can be used with existing
+    /// column names, e.g., 'table.column AS RESTRICTIONS_EDGE_ID',
+    /// expressions, e.g., 'column/2 AS RESTRICTIONS_VALUECOMPARED', or
+    /// constant values, e.g., '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'. If
+    /// using constant values in an identifier combination, the number of
+    /// values specified must match across the combination.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:</term>
+    ///         <description>If node geospatial positions are input (e.g.,
+    ///         WKTPOINT, X, Y), determines the minimum separation allowed
+    ///         between unique nodes. If nodes are within the tolerance of each
+    ///         other, they will be merged as a single node. The default value
+    ///         is '1.0E-5'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see> and
+    ///         the graph (using <paramref name="graph_name" />) already
+    ///         exists, the graph is deleted and recreated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SAVE_PERSIST">SAVE_PERSIST</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
+    ///         graph will be saved in the persist directory (see the <a
+    ///         href="../../../config/#config-main-persistence"
+    ///         target="_top">config reference</a> for more information). If
+    ///         set to <see cref="Options.FALSE">FALSE</see>, the graph will be
+    ///         removed when the graph server is shutdown.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
+    ///         </term>
+    ///         <description>Adds a table monitor to every table used in the
+    ///         creation of the graph; this table monitor will trigger the
+    ///         graph to update dynamically upon inserts to the source
+    ///         table(s). Note that upon database restart, if <see
+    ///         cref="Options.SAVE_PERSIST">SAVE_PERSIST</see> is also set to
+    ///         <see cref="Options.TRUE">TRUE</see>, the graph will be fully
+    ///         reconstructed and the table monitors will be reattached. For
+    ///         more details on table monitors, see <see
+    ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
+    ///         <description>If specified, the created graph is also created as
+    ///         a table with the given name, in [schema_name.]table_name
+    ///         format, using standard <a
+    ///         href="../../../concepts/tables/#table-name-resolution"
+    ///         target="_top">name resolution rules</a> and meeting <a
+    ///         href="../../../concepts/tables/#table-naming-criteria"
+    ///         target="_top">table naming criteria</a>.  The table will have
+    ///         the following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+    ///         'EDGE_NODE2_ID'. If left blank, no table is created. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ADD_TURNS">ADD_TURNS</see>:</term>
+    ///         <description>Adds dummy 'pillowed' edges around intersection
+    ///         nodes where there are more than three edges so that additional
+    ///         weight penalties can be imposed by the solve endpoints.
+    ///         (increases the total number of edges).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_PARTITIONED">IS_PARTITIONED</see>:
+    ///         </term>
+    ///         <description>Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <description>Indicates which graph server(s) to send the
+    ///         request to. Default is to send to the server with the most
+    ///         available memory.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.USE_RTREE">USE_RTREE</see>:</term>
+    ///         <description>Use an range tree structure to accelerate and
+    ///         improve the accuracy of snapping, especially to edges.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+    ///         <description>If provided the label string will be split
+    ///         according to this delimiter and each sub-string will be applied
+    ///         as a separate label onto the specified edge. The default value
+    ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
+    ///         </term>
+    ///         <description>Multigraph choice; allowing multiple edges with
+    ///         the same node pairs if set to true, otherwise, new edges with
+    ///         existing same node pairs will not be inserted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:</term>
+    ///         <description>If table exists (should be generated by the
+    ///         match/graph match_embedding solver), the vector embeddings for
+    ///         the newly inserted nodes will be appended into this table. The
+    ///         default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateGraphRequest( string graph_name,
+                               bool? directed_graph,
+                               IList<string> nodes,
+                               IList<string> edges,
+                               IList<string> weights,
+                               IList<string> restrictions,
+                               IDictionary<string, string> options = null)
     {
-        /// <summary>Indicates a successful creation on all servers.</summary>
-        public bool result { get; set; }
+        this.graph_name = graph_name ?? "";
+        this.directed_graph = directed_graph ?? true;
+        this.nodes = nodes ?? new List<string>();
+        this.edges = edges ?? new List<string>();
+        this.weights = weights ?? new List<string>();
+        this.restrictions = restrictions ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateGraphRequest
 
-        /// <summary>Total number of nodes created.</summary>
-        public long num_nodes { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>.
+/// </summary>
+public class CreateGraphResponse : KineticaData
+{
+    /// <summary>Indicates a successful creation on all servers.</summary>
+    public bool result { get; set; }
 
-        /// <summary>Total number of edges created.</summary>
-        public long num_edges { get; set; }
+    /// <summary>Total number of nodes created.</summary>
+    public long num_nodes { get; set; }
 
-        /// <summary>[Deprecated] Edges given as pairs of node indices.
-        /// </summary>
-        /// <remarks><para>Only populated if export_create_results internal
-        /// option is set to true.</para></remarks>
-        public IList<long> edges_ids { get; set; } = new List<long>();
+    /// <summary>Total number of edges created.</summary>
+    public long num_edges { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateGraphResponse
-} // end namespace kinetica
+    /// <summary>[Deprecated] Edges given as pairs of node indices.</summary>
+    /// <remarks><para>Only populated if export_create_results internal option
+    /// is set to true.</para></remarks>
+    public IList<long> edges_ids { get; set; } = new List<long>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateGraphResponse

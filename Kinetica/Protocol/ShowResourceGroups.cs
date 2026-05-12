@@ -6,235 +6,226 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.showResourceGroups(ShowResourceGroupsRequest)">Kinetica.showResourceGroups</see>.
+/// </summary>
+/// <remarks><para>Requests resource group properties.
+/// Returns detailed information about the requested resource groups.</para>
+/// </remarks>
+public class ShowResourceGroupsRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showResourceGroups(ShowResourceGroupsRequest)">Kinetica.showResourceGroups</see>.
-    /// </summary>
-    /// <remarks><para>Requests resource group properties.
-    /// Returns detailed information about the requested resource groups.
-    /// </para></remarks>
-    public class ShowResourceGroupsRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> include values
-            /// of fields that are based on the default resource group.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string SHOW_DEFAULT_VALUES = "show_default_values";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> include the
-            /// default and system resource groups in the response.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string SHOW_DEFAULT_GROUP = "show_default_group";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> include the
-            /// resource group usage on the worker ranks in the response.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string SHOW_TIER_USAGE = "show_tier_usage";
-        } // end struct Options
-
-        /// <summary>List of names of groups to be shown.</summary>
-        /// <remarks><para>A single entry with an empty string returns all
-        /// groups.</para></remarks>
-        public IList<string> names { get; set; } = new List<string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         values of fields that are based on the default resource
-        ///         group.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         the default and system resource groups in the response.
-        ///         This value defaults to false if an explicit list of group
-        ///         names is provided, and true otherwise.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         the resource group usage on the worker ranks in the
-        ///         response.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a ShowResourceGroupsRequest object with default
-        /// parameters.</summary>
-        public ShowResourceGroupsRequest() { }
-
-        /// <summary>Constructs a ShowResourceGroupsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="names">List of names of groups to be shown. A single
-        /// entry with an empty string returns all groups.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> include values of
+        /// fields that are based on the default resource group.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         values of fields that are based on the default resource
-        ///         group.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         the default and system resource groups in the response.
-        ///         This value defaults to false if an explicit list of group
-        ///         names is provided, and true otherwise.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         the resource group usage on the worker ranks in the
-        ///         response.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ShowResourceGroupsRequest( IList<string> names,
-                                          IDictionary<string, string> options = null)
-        {
-            this.names = names ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowResourceGroupsRequest
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string SHOW_DEFAULT_VALUES = "show_default_values";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showResourceGroups(ShowResourceGroupsRequest)">Kinetica.showResourceGroups</see>.
-    /// </summary>
-    public class ShowResourceGroupsResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> include the default
+        /// and system resource groups in the response.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string SHOW_DEFAULT_GROUP = "show_default_group";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> include the
+        /// resource group usage on the worker ranks in the response.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string SHOW_TIER_USAGE = "show_tier_usage";
+    } // end struct Options
+
+    /// <summary>List of names of groups to be shown.</summary>
+    /// <remarks><para>A single entry with an empty string returns all groups.
+    /// </para></remarks>
+    public IList<string> names { get; set; } = new List<string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include
+    ///         values of fields that are based on the default resource group.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include the
+    ///         default and system resource groups in the response. This value
+    ///         defaults to false if an explicit list of group names is
+    ///         provided, and true otherwise.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include the
+    ///         resource group usage on the worker ranks in the response.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a ShowResourceGroupsRequest object with default
+    /// parameters.</summary>
+    public ShowResourceGroupsRequest() { }
+
+    /// <summary>Constructs a ShowResourceGroupsRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="names">List of names of groups to be shown. A single entry
+    /// with an empty string returns all groups.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include
+    ///         values of fields that are based on the default resource group.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include the
+    ///         default and system resource groups in the response. This value
+    ///         defaults to false if an explicit list of group names is
+    ///         provided, and true otherwise.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include the
+    ///         resource group usage on the worker ranks in the response.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ShowResourceGroupsRequest( IList<string> names,
+                                      IDictionary<string, string> options = null)
     {
-        /// <summary>Map of resource group information.</summary>
-        public IList<IDictionary<string, string>> groups { get; set; } = new List<IDictionary<string, string>>();
+        this.names = names ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowResourceGroupsRequest
 
-        /// <summary>Tier usage across ranks.</summary>
-        /// <remarks><para>Layout is:
-        /// response.rank_usage[rank_number][resource_group_name] = group_usage
-        /// (as stringified json)</para></remarks>
-        public IDictionary<string, string> rank_usage { get; set; } = new Dictionary<string, string>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.showResourceGroups(ShowResourceGroupsRequest)">Kinetica.showResourceGroups</see>.
+/// </summary>
+public class ShowResourceGroupsResponse : KineticaData
+{
+    /// <summary>Map of resource group information.</summary>
+    public IList<IDictionary<string, string>> groups { get; set; } = new List<IDictionary<string, string>>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowResourceGroupsResponse
-} // end namespace kinetica
+    /// <summary>Tier usage across ranks.</summary>
+    /// <remarks><para>Layout is:
+    /// response.rank_usage[rank_number][resource_group_name] = group_usage (as
+    /// stringified json)</para></remarks>
+    public IDictionary<string, string> rank_usage { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowResourceGroupsResponse

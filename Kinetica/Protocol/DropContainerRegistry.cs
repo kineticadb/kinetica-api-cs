@@ -6,35 +6,34 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class DropContainerRegistryRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class DropContainerRegistryRequest : KineticaData
+    public string registry_name { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public DropContainerRegistryRequest() { }
+
+    public DropContainerRegistryRequest( string registry_name,
+                                         IDictionary<string, string> options = null)
     {
-        public string registry_name { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.registry_name = registry_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DropContainerRegistryRequest
+/// @endcond
 
-        public DropContainerRegistryRequest() { }
-
-        public DropContainerRegistryRequest( string registry_name,
-                                             IDictionary<string, string> options = null)
-        {
-            this.registry_name = registry_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DropContainerRegistryRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class DropContainerRegistryResponse : KineticaData
+/// @cond NO_DOCS
+public class DropContainerRegistryResponse : KineticaData
+{
+    public struct Info
     {
-        public struct Info
-        {
-            public const string KML_RESPONSE = "kml_response";
-        } // end struct Info
+        public const string KML_RESPONSE = "kml_response";
+    } // end struct Info
 
-        public string registry_name { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DropContainerRegistryResponse
-    /// @endcond
-} // end namespace kinetica
+    public string registry_name { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DropContainerRegistryResponse
+/// @endcond

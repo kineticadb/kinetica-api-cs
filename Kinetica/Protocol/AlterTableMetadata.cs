@@ -6,84 +6,82 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterTableMetadata(AlterTableMetadataRequest)">Kinetica.alterTableMetadata</see>.
+/// </summary>
+/// <remarks><para>Updates (adds or changes) metadata for tables. The metadata
+/// key and values must both be strings. This is an easy way to annotate whole
+/// tables rather than single records within tables.  Some examples of metadata
+/// are owner of the table, table creation timestamp etc.</para></remarks>
+public class AlterTableMetadataRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterTableMetadata(AlterTableMetadataRequest)">Kinetica.alterTableMetadata</see>.
-    /// </summary>
-    /// <remarks><para>Updates (adds or changes) metadata for tables. The
-    /// metadata key and values must both be strings. This is an easy way to
-    /// annotate whole tables rather than single records within tables.  Some
-    /// examples of metadata are owner of the table, table creation timestamp
-    /// etc.</para></remarks>
-    public class AlterTableMetadataRequest : KineticaData
+    /// <summary>Names of the tables whose metadata will be updated, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> All specified tables must exist, or an error will be
+    /// returned.</para></remarks>
+    public IList<string> table_names { get; set; } = new List<string>();
+
+    /// <summary>A map which contains the metadata of the tables that are to be
+    /// updated.</summary>
+    /// <remarks><para>Note that only one map is provided for all the tables;
+    /// so the change will be applied to every table. If the provided map is
+    /// empty, then all existing metadata for the table(s) will be cleared.
+    /// </para></remarks>
+    public IDictionary<string, string> metadata_map { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AlterTableMetadataRequest object with default
+    /// parameters.</summary>
+    public AlterTableMetadataRequest() { }
+
+    /// <summary>Constructs an AlterTableMetadataRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_names">Names of the tables whose metadata will be
+    /// updated, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  All specified tables must
+    /// exist, or an error will be returned.</param>
+    /// <param name="metadata_map">A map which contains the metadata of the
+    /// tables that are to be updated. Note that only one map is provided for
+    /// all the tables; so the change will be applied to every table. If the
+    /// provided map is empty, then all existing metadata for the table(s) will
+    /// be cleared.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public AlterTableMetadataRequest( IList<string> table_names,
+                                      IDictionary<string, string> metadata_map,
+                                      IDictionary<string, string> options = null)
     {
-        /// <summary>Names of the tables whose metadata will be updated, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> All specified tables must exist, or an error will
-        /// be returned.</para></remarks>
-        public IList<string> table_names { get; set; } = new List<string>();
+        this.table_names = table_names ?? new List<string>();
+        this.metadata_map = metadata_map ?? new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterTableMetadataRequest
 
-        /// <summary>A map which contains the metadata of the tables that are
-        /// to be updated.</summary>
-        /// <remarks><para>Note that only one map is provided for all the
-        /// tables; so the change will be applied to every table. If the
-        /// provided map is empty, then all existing metadata for the table(s)
-        /// will be cleared.</para></remarks>
-        public IDictionary<string, string> metadata_map { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an AlterTableMetadataRequest object with
-        /// default parameters.</summary>
-        public AlterTableMetadataRequest() { }
-
-        /// <summary>Constructs an AlterTableMetadataRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_names">Names of the tables whose metadata will
-        /// be updated, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  All specified tables must
-        /// exist, or an error will be returned.</param>
-        /// <param name="metadata_map">A map which contains the metadata of the
-        /// tables that are to be updated. Note that only one map is provided
-        /// for all the tables; so the change will be applied to every table.
-        /// If the provided map is empty, then all existing metadata for the
-        /// table(s) will be cleared.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public AlterTableMetadataRequest( IList<string> table_names,
-                                          IDictionary<string, string> metadata_map,
-                                          IDictionary<string, string> options = null)
-        {
-            this.table_names = table_names ?? new List<string>();
-            this.metadata_map = metadata_map ?? new Dictionary<string, string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterTableMetadataRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterTableMetadata(AlterTableMetadataRequest)">Kinetica.alterTableMetadata</see>.
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterTableMetadata(AlterTableMetadataRequest)">Kinetica.alterTableMetadata</see>.
+/// </summary>
+public class AlterTableMetadataResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="AlterTableMetadataRequest.table_names">table_names</see>.
     /// </summary>
-    public class AlterTableMetadataResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="AlterTableMetadataRequest.table_names">table_names</see>.
-        /// </summary>
-        public IList<string> table_names { get; set; } = new List<string>();
+    public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>Value of <see
-        /// cref="AlterTableMetadataRequest.metadata_map">metadata_map</see>.
-        /// </summary>
-        public IDictionary<string, string> metadata_map { get; set; } = new Dictionary<string, string>();
+    /// <summary>Value of <see
+    /// cref="AlterTableMetadataRequest.metadata_map">metadata_map</see>.
+    /// </summary>
+    public IDictionary<string, string> metadata_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterTableMetadataResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterTableMetadataResponse

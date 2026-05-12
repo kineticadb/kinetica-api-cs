@@ -6,10 +6,10 @@ using System.IO;
 
 
 
-namespace kinetica
-{
-    /// <summary>
-    /// Convenience class for using Avro.Generic.GenericRecord objects.
+namespace kinetica;
+
+/// <summary>
+/// Convenience class for using Avro.Generic.GenericRecord objects.
     /// </summary>
     public class KineticaRecord : Avro.Generic.GenericRecord
     {
@@ -62,7 +62,7 @@ namespace kinetica
             Schema dynamic_table_schema;
             try
             {
-                dynamic_table_schema = Avro.Schema.Parse( dynamic_table_schema_string );
+                dynamic_table_schema = Avro.Schema.Parse( KineticaData.NormalizeSchemaJson(dynamic_table_schema_string) );
             }
             catch ( Exception ex )
             {
@@ -170,5 +170,4 @@ namespace kinetica
 
 
 
-    }  // end class KineticaRecord 
-}  // end namespace kinetica
+    }  // end class KineticaRecord

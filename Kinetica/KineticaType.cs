@@ -1,30 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Avro;
 using Newtonsoft.Json.Linq;
 
-namespace kinetica
-{
-    public class KineticaType
+namespace kinetica;
+
+public class KineticaType
     {
         public class Column
         {
             public enum ColumnType
             {
-                BYTES = Avro.EnumSchema.Type.Bytes,
-                DOUBLE = Avro.EnumSchema.Type.Double,
-                FLOAT = Avro.EnumSchema.Type.Float,
-                INT = Avro.EnumSchema.Type.Int,
-                LONG = Avro.EnumSchema.Type.Long,
-                STRING = Avro.EnumSchema.Type.String,
-                DEFAULT = Avro.EnumSchema.Type.Error
+                BYTES = (int)Avro.Schema.Type.Bytes,
+                DOUBLE = (int)Avro.Schema.Type.Double,
+                FLOAT = (int)Avro.Schema.Type.Float,
+                INT = (int)Avro.Schema.Type.Int,
+                LONG = (int)Avro.Schema.Type.Long,
+                STRING = (int)Avro.Schema.Type.String,
+                BOOLEAN = (int)Avro.Schema.Type.Boolean,
+                DEFAULT = (int)Avro.Schema.Type.Error
             };
+
+            /// <summary>
+            /// Default precision for decimal columns (matches Java API).
+            /// </summary>
+            public const int DEFAULT_DECIMAL_PRECISION = 18;
+
+            /// <summary>
+            /// Default scale for decimal columns (matches Java API).
+            /// </summary>
+            public const int DEFAULT_DECIMAL_SCALE = 4;
+
+            /// <summary>
+            /// Maximum precision for 8-byte decimals. Decimals with precision > 18 use 12 bytes.
+            /// </summary>
+            public const int DECIMAL8_MAX_PRECISION = 18;
+
+            /// <summary>
+            /// Regex to parse decimal(precision, scale) format from column properties.
+            /// </summary>
+            private static readonly Regex DecimalPattern = new Regex(
+                @"decimal\s*\(\s*(\d+)\s*,\s*(\d+)\s*\)",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
             private string m_name;
             private ColumnType m_type;
             private bool m_isNullable;
             private IList<string> m_properties;
+            private int m_precision;
+            private int m_scale;
+            private bool m_isDecimal;
 
             /// <summary>
             /// Creates a Column object from the given name, type, and properties.
@@ -66,6 +93,33 @@ namespace kinetica
             /// <returns></returns>
             public IList<string> getProperties() { return m_properties; }
 
+            /// <summary>
+            /// Returns whether this column is a decimal type.
+            /// </summary>
+            /// <returns>True if the column has a decimal property.</returns>
+            public bool isDecimal() { return m_isDecimal; }
+
+            /// <summary>
+            /// Returns the precision for decimal columns.
+            /// For non-decimal columns, returns DEFAULT_DECIMAL_PRECISION.
+            /// </summary>
+            /// <returns>The total number of digits in the decimal.</returns>
+            public int getDecimalPrecision() { return m_precision; }
+
+            /// <summary>
+            /// Returns the scale for decimal columns.
+            /// For non-decimal columns, returns DEFAULT_DECIMAL_SCALE.
+            /// </summary>
+            /// <returns>The number of digits after the decimal point.</returns>
+            public int getDecimalScale() { return m_scale; }
+
+            /// <summary>
+            /// Returns the byte size needed to store decimal values for this column.
+            /// Returns 8 for precision &lt;= 18, or 12 for precision &gt; 18.
+            /// </summary>
+            /// <returns>The byte size (8 or 12) for storing decimal values.</returns>
+            public int getDecimalByteSize() { return m_precision > DECIMAL8_MAX_PRECISION ? 12 : 8; }
+
             internal void setIsNullable( bool val ) { m_isNullable = val;  }
 
             /// <summary>
@@ -101,11 +155,17 @@ namespace kinetica
                     case ColumnType.INT:
                     case ColumnType.LONG:
                     case ColumnType.STRING:
+                    case ColumnType.BOOLEAN:
                         break;
 
                     default:
-                        throw new ArgumentException($"Column {m_name} must be of type BYTES, DOUBLE, FLOAT, INT, LONG or STRING.");
+                        throw new ArgumentException($"Column {m_name} must be of type BYTES, DOUBLE, FLOAT, INT, LONG, STRING or BOOLEAN.");
                 }
+
+                // Initialize decimal info with defaults
+                m_precision = DEFAULT_DECIMAL_PRECISION;
+                m_scale = DEFAULT_DECIMAL_SCALE;
+                m_isDecimal = false;
 
                 foreach (var it in m_properties)
                 {
@@ -118,6 +178,39 @@ namespace kinetica
                     {
                         m_isNullable = true;
                     }
+
+                    // Check for decimal property and extract precision/scale
+                    if (!m_isDecimal)
+                    {
+                        SetDecimalInfo(it);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Parses a decimal property string and extracts precision and scale.
+            /// Supports formats: "decimal", "decimal(19,4)"
+            /// </summary>
+            /// <param name="property">The property string to parse.</param>
+            private void SetDecimalInfo(string property)
+            {
+                // Check for simple "decimal" property
+                if (property.Equals(ColumnProperty.DECIMAL, StringComparison.OrdinalIgnoreCase))
+                {
+                    m_isDecimal = true;
+                    // Use defaults already set
+                    return;
+                }
+
+                // Check for decimal(precision, scale) format
+                var match = DecimalPattern.Match(property);
+                if (match.Success)
+                {
+                    m_isDecimal = true;
+                    if (int.TryParse(match.Groups[1].Value, out int precision))
+                        m_precision = precision;
+                    if (int.TryParse(match.Groups[2].Value, out int scale))
+                        m_scale = scale;
                 }
             }
 
@@ -292,9 +385,13 @@ namespace kinetica
                     case ColumnProperty.CHAR256:
                     case ColumnProperty.DATE:
                     case ColumnProperty.DATETIME:
-                    case ColumnProperty.DECIMAL: 
+                    case ColumnProperty.DECIMAL:
                     case ColumnProperty.IPV4:
                     case ColumnProperty.TIME:
+                    case ColumnProperty.ULONG:
+                    case ColumnProperty.UUID:
+                    case ColumnProperty.JSON:
+                    case ColumnProperty.WKT:
                         columnType = Column.ColumnType.STRING;
                         columnProperty.Add( columnTypeString );
                         break;
@@ -307,6 +404,7 @@ namespace kinetica
                     // Properties allowed for the primitive integer type
                     case ColumnProperty.INT8:
                     case ColumnProperty.INT16:
+                    case ColumnProperty.BOOLEAN:
                         columnType = Column.ColumnType.INT;
                         columnProperty.Add( columnTypeString );
                         break;
@@ -338,7 +436,29 @@ namespace kinetica
                         break;
 
                     default:
-                        throw new KineticaException($"Unknown data type/property: {columnTypeString}");
+                        // Handle array types (array(int), array(double,10), etc.)
+                        if (columnTypeString.StartsWith(ColumnProperty.ARRAY, StringComparison.OrdinalIgnoreCase))
+                        {
+                            columnType = Column.ColumnType.STRING;
+                            columnProperty.Add(columnTypeString);
+                        }
+                        // Handle vector types (vector(1024), etc.)
+                        else if (columnTypeString.StartsWith(ColumnProperty.VECTOR, StringComparison.OrdinalIgnoreCase))
+                        {
+                            columnType = Column.ColumnType.BYTES;
+                            columnProperty.Add(columnTypeString);
+                        }
+                        // Handle decimal types with precision/scale (decimal(18,4), etc.)
+                        else if (columnTypeString.StartsWith(ColumnProperty.DECIMAL, StringComparison.OrdinalIgnoreCase))
+                        {
+                            columnType = Column.ColumnType.STRING;
+                            columnProperty.Add(columnTypeString);
+                        }
+                        else
+                        {
+                            throw new KineticaException($"Unknown data type/property: {columnTypeString}");
+                        }
+                        break;
                 }  // end switch
 
                 // Check if the column is nullable (where the column name is "column_#" as returned by Kinetica)
@@ -666,7 +786,7 @@ namespace kinetica
             // Create the avro schema from the string and save it
             try
             {
-                m_data.schema = RecordSchema.Parse(typeSchema);
+                m_data.schema = RecordSchema.Parse(KineticaData.NormalizeSchemaJson(typeSchema));
             }
             catch (Exception ex)
             {
@@ -774,9 +894,13 @@ namespace kinetica
                 {
                     columnType = Column.ColumnType.STRING;
                 }
+                else if (fieldType.ToString().Equals("boolean") || fieldType.ToString().Equals("\"boolean\""))
+                {
+                    columnType = Column.ColumnType.BOOLEAN;
+                }
                 else
                 {
-                    throw new ArgumentException("Field {fieldName} must be of type bytes, double, float, int, long or string.");
+                    throw new ArgumentException("Field {fieldName} must be of type bytes, double, float, int, long, string or boolean.");
                 }
 
                 IList<string>? columnProperties = null;
@@ -814,7 +938,7 @@ namespace kinetica
             {
                 try
                 {
-                    m_data.schema = RecordSchema.Parse(m_data.schemaString);
+                    m_data.schema = RecordSchema.Parse(KineticaData.NormalizeSchemaJson(m_data.schemaString));
                     return;
                 }
                 catch (Exception ex)
@@ -868,7 +992,7 @@ namespace kinetica
             // Create the RecordSchema from the JSON string
             try
             {
-                m_data.schema = RecordSchema.Parse(schemaString);
+                m_data.schema = RecordSchema.Parse(KineticaData.NormalizeSchemaJson(schemaString));
             }
             catch (Exception ex)
             {
@@ -880,4 +1004,3 @@ namespace kinetica
             return;
         }  // end CreateSchema()
     }  // end class KineticaType
-}  // end namespace kinetica

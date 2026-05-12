@@ -6,357 +6,352 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+/// </summary>
+/// <remarks><para>Shows the statuses of running or completed proc instances.
+/// Results are grouped by run ID (as returned from <see
+/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
+/// and data segment ID (each invocation of the proc command on a data segment
+/// is assigned a data segment ID).</para></remarks>
+public class ShowProcStatusRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
-    /// </summary>
-    /// <remarks><para>Shows the statuses of running or completed proc
-    /// instances. Results are grouped by run ID (as returned from <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
-    /// and data segment ID (each invocation of the proc command on a data
-    /// segment is assigned a data segment ID).</para></remarks>
-    public class ShowProcStatusRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, if a
-            /// proc instance has completed (either successfully or
-            /// unsuccessfully) then its status will be cleared and no longer
-            /// returned in subsequent calls.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string CLEAR_COMPLETE = "clear_complete";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="run_id" /> is specified, return the
-            /// status for a proc instance that has a matching run ID and a
-            /// matching run tag that was provided to <see
-            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-            /// </summary>
-            /// <remarks><para>If <see cref="run_id" /> is not specified,
-            /// return statuses for all proc instances where a matching run tag
-            /// was provided to <see
-            /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-            /// The default value is ''.</para></remarks>
-            public const string RUN_TAG = "run_tag";
-        } // end struct Options
-
-        /// <summary>The run ID of a specific proc instance for which the
-        /// status will be returned.</summary>
-        /// <remarks><para>If a proc with a matching run ID is not found, the
-        /// response will be empty. If not specified, the statuses of all
-        /// executed proc instances will be returned. The default value is ''.
-        /// </para></remarks>
-        public string run_id { get; set; } = "";
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         if a proc instance has completed (either successfully or
-        ///         unsuccessfully) then its status will be cleared and no
-        ///         longer returned in subsequent calls.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>If <see cref="run_id" /> is specified, return
-        ///         the status for a proc instance that has a matching run ID
-        ///         and a matching run tag that was provided to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        ///         If <see cref="run_id" /> is not specified, return statuses
-        ///         for all proc instances where a matching run tag was
-        ///         provided to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        ///         The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a ShowProcStatusRequest object with default
-        /// parameters.</summary>
-        public ShowProcStatusRequest() { }
-
-        /// <summary>Constructs a ShowProcStatusRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="run_id">The run ID of a specific proc instance for
-        /// which the status will be returned. If a proc with a matching run ID
-        /// is not found, the response will be empty. If not specified, the
-        /// statuses of all executed proc instances will be returned. The
-        /// default value is ''.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, if a proc
+        /// instance has completed (either successfully or unsuccessfully) then
+        /// its status will be cleared and no longer returned in subsequent
+        /// calls.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         if a proc instance has completed (either successfully or
-        ///         unsuccessfully) then its status will be cleared and no
-        ///         longer returned in subsequent calls.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>If <paramref name="run_id" /> is specified,
-        ///         return the status for a proc instance that has a matching
-        ///         run ID and a matching run tag that was provided to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        ///         If <paramref name="run_id" /> is not specified, return
-        ///         statuses for all proc instances where a matching run tag
-        ///         was provided to <see
-        ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        ///         The default value is ''.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ShowProcStatusRequest( string run_id = null,
-                                      IDictionary<string, string> options = null)
-        {
-            this.run_id = run_id ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowProcStatusRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
-    /// </summary>
-    public class ShowProcStatusResponse : KineticaData
-    {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="overall_statuses" />.</summary>
-        /// <remarks><para>Overall statuses for the returned run IDs. Note that
-        /// these are rollups and individual statuses may differ between data
-        /// segments for the same run ID; see <see cref="statuses" /> and <see
-        /// cref="messages" /> for statuses from individual data segments.
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
         /// </para></remarks>
-        public struct OverallStatuses
-        {
-            /// <summary>The proc instance is currently running.</summary>
-            public const string RUNNING = "running";
+        public const string CLEAR_COMPLETE = "clear_complete";
 
-            /// <summary>The proc instance completed with no errors.</summary>
-            public const string COMPLETE = "complete";
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-            /// <summary>The proc instance was killed before completion.
-            /// </summary>
-            public const string KILLED = "killed";
-
-            /// <summary>The proc instance failed with an error.</summary>
-            public const string ERROR = "error";
-
-            /// <summary>The proc instance does not have a status, i.e. it has
-            /// not yet ran.</summary>
-            public const string NONE = "none";
-        } // end struct OverallStatuses
-
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="statuses" />.</summary>
-        /// <remarks><para>Statuses for the returned run IDs, grouped by data
-        /// segment ID.</para></remarks>
-        public struct Statuses
-        {
-            /// <summary>The proc instance is currently running.</summary>
-            public const string RUNNING = "running";
-
-            /// <summary>The proc instance completed with no errors.</summary>
-            public const string COMPLETE = "complete";
-
-            /// <summary>The proc instance was killed before completion.
-            /// </summary>
-            public const string KILLED = "killed";
-
-            /// <summary>The proc instance failed with an error.</summary>
-            public const string ERROR = "error";
-
-            /// <summary>The proc instance does not have a status, i.e. it has
-            /// not yet ran.</summary>
-            public const string NONE = "none";
-        } // end struct Statuses
-
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="output" />.</summary>
-        /// <remarks><para>Output lines for the returned run IDs, grouped by
-        /// data segment ID.</para></remarks>
-        public struct Output
-        {
-            /// <summary>Output lines from stdout.</summary>
-            public const string STDOUT = "stdout";
-
-            /// <summary>Output lines from stderr.</summary>
-            public const string STDERR = "stderr";
-        } // end struct Output
-
-        /// <summary>The proc names corresponding to the returned run IDs.
+        /// <summary>If <see cref="run_id" /> is specified, return the status
+        /// for a proc instance that has a matching run ID and a matching run
+        /// tag that was provided to <see
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
         /// </summary>
-        public IDictionary<string, string> proc_names { get; set; } = new Dictionary<string, string>();
+        /// <remarks><para>If <see cref="run_id" /> is not specified, return
+        /// statuses for all proc instances where a matching run tag was
+        /// provided to <see
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        /// The default value is ''.</para></remarks>
+        public const string RUN_TAG = "run_tag";
+    } // end struct Options
 
-        /// <summary>The string params passed to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        /// for the returned run IDs.</summary>
-        public IDictionary<string, IDictionary<string, string>> _params { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+    /// <summary>The run ID of a specific proc instance for which the status
+    /// will be returned.</summary>
+    /// <remarks><para>If a proc with a matching run ID is not found, the
+    /// response will be empty. If not specified, the statuses of all executed
+    /// proc instances will be returned. The default value is ''.</para>
+    /// </remarks>
+    public string run_id { get; set; } = "";
 
-        /// <summary>The binary params passed to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        /// for the returned run IDs.</summary>
-        public IDictionary<string, IDictionary<string, byte[]>> bin_params { get; set; } = new Dictionary<string, IDictionary<string, byte[]>>();
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, if
+    ///         a proc instance has completed (either successfully or
+    ///         unsuccessfully) then its status will be cleared and no longer
+    ///         returned in subsequent calls.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
+    ///         <description>If <see cref="run_id" /> is specified, return the
+    ///         status for a proc instance that has a matching run ID and a
+    ///         matching run tag that was provided to <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         If <see cref="run_id" /> is not specified, return statuses for
+    ///         all proc instances where a matching run tag was provided to
+    ///         <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>The input table names passed to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        /// for the returned run IDs.</summary>
-        public IDictionary<string, IList<string>> input_table_names { get; set; } = new Dictionary<string, IList<string>>();
+    /// <summary>Constructs a ShowProcStatusRequest object with default
+    /// parameters.</summary>
+    public ShowProcStatusRequest() { }
 
-        /// <summary>The input column names passed to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        /// for the returned run IDs, supplemented with the column names for
-        /// input tables not included in the input column name map.</summary>
-        public IDictionary<string, IDictionary<string, IList<string>>> input_column_names { get; set; } = new Dictionary<string, IDictionary<string, IList<string>>>();
+    /// <summary>Constructs a ShowProcStatusRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="run_id">The run ID of a specific proc instance for which
+    /// the status will be returned. If a proc with a matching run ID is not
+    /// found, the response will be empty. If not specified, the statuses of
+    /// all executed proc instances will be returned. The default value is ''.
+    /// </param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, if
+    ///         a proc instance has completed (either successfully or
+    ///         unsuccessfully) then its status will be cleared and no longer
+    ///         returned in subsequent calls.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
+    ///         <description>If <paramref name="run_id" /> is specified, return
+    ///         the status for a proc instance that has a matching run ID and a
+    ///         matching run tag that was provided to <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         If <paramref name="run_id" /> is not specified, return statuses
+    ///         for all proc instances where a matching run tag was provided to
+    ///         <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ShowProcStatusRequest( string run_id = null,
+                                  IDictionary<string, string> options = null)
+    {
+        this.run_id = run_id ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowProcStatusRequest
 
-        /// <summary>The output table names passed to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        /// for the returned run IDs.</summary>
-        public IDictionary<string, IList<string>> output_table_names { get; set; } = new Dictionary<string, IList<string>>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+/// </summary>
+public class ShowProcStatusResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="overall_statuses" />.</summary>
+    /// <remarks><para>Overall statuses for the returned run IDs. Note that
+    /// these are rollups and individual statuses may differ between data
+    /// segments for the same run ID; see <see cref="statuses" /> and <see
+    /// cref="messages" /> for statuses from individual data segments.</para>
+    /// </remarks>
+    public struct OverallStatuses
+    {
+        /// <summary>The proc instance is currently running.</summary>
+        public const string RUNNING = "running";
 
-        /// <summary>The optional parameters passed to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-        /// for the returned run IDs.</summary>
-        public IDictionary<string, IDictionary<string, string>> options { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+        /// <summary>The proc instance completed with no errors.</summary>
+        public const string COMPLETE = "complete";
 
-        /// <summary>Overall statuses for the returned run IDs.</summary>
-        /// <remarks><para>Valid values are:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="OverallStatuses.RUNNING">RUNNING</see>:
-        ///         </term>
-        ///         <description>The proc instance is currently running.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="OverallStatuses.COMPLETE">COMPLETE</see>:
-        ///         </term>
-        ///         <description>The proc instance completed with no errors.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="OverallStatuses.KILLED">KILLED</see>:
-        ///         </term>
-        ///         <description>The proc instance was killed before
-        ///         completion.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="OverallStatuses.ERROR">ERROR</see>:</term>
-        ///         <description>The proc instance failed with an error.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="OverallStatuses.NONE">NONE</see>:</term>
-        ///         <description>The proc instance does not have a status, i.e.
-        ///         it has not yet ran.</description>
-        ///     </item>
-        /// </list></remarks>
-        public IDictionary<string, string> overall_statuses { get; set; } = new Dictionary<string, string>();
+        /// <summary>The proc instance was killed before completion.</summary>
+        public const string KILLED = "killed";
 
-        /// <summary>Statuses for the returned run IDs, grouped by data segment
-        /// ID.</summary>
-        /// <remarks><para>Valid values are:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Statuses.RUNNING">RUNNING</see>:</term>
-        ///         <description>The proc instance is currently running.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Statuses.COMPLETE">COMPLETE</see>:</term>
-        ///         <description>The proc instance completed with no errors.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Statuses.KILLED">KILLED</see>:</term>
-        ///         <description>The proc instance was killed before
-        ///         completion.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Statuses.ERROR">ERROR</see>:</term>
-        ///         <description>The proc instance failed with an error.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Statuses.NONE">NONE</see>:</term>
-        ///         <description>The proc instance does not have a status, i.e.
-        ///         it has not yet ran.</description>
-        ///     </item>
-        /// </list></remarks>
-        public IDictionary<string, IDictionary<string, string>> statuses { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+        /// <summary>The proc instance failed with an error.</summary>
+        public const string ERROR = "error";
 
-        /// <summary>Messages containing additional status information for the
-        /// returned run IDs, grouped by data segment ID.</summary>
-        public IDictionary<string, IDictionary<string, string>> messages { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+        /// <summary>The proc instance does not have a status, i.e. it has not
+        /// yet ran.</summary>
+        public const string NONE = "none";
+    } // end struct OverallStatuses
 
-        /// <summary>String results for the returned run IDs, grouped by data
-        /// segment ID.</summary>
-        public IDictionary<string, IDictionary<string, IDictionary<string, string>>> results { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, string>>>();
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="statuses" />.</summary>
+    /// <remarks><para>Statuses for the returned run IDs, grouped by data
+    /// segment ID.</para></remarks>
+    public struct Statuses
+    {
+        /// <summary>The proc instance is currently running.</summary>
+        public const string RUNNING = "running";
 
-        /// <summary>Binary results for the returned run IDs, grouped by data
-        /// segment ID.</summary>
-        public IDictionary<string, IDictionary<string, IDictionary<string, byte[]>>> bin_results { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, byte[]>>>();
+        /// <summary>The proc instance completed with no errors.</summary>
+        public const string COMPLETE = "complete";
 
-        /// <summary>Output lines for the returned run IDs, grouped by data
-        /// segment ID.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Output.STDOUT">STDOUT</see>:</term>
-        ///         <description>Output lines from stdout.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Output.STDERR">STDERR</see>:</term>
-        ///         <description>Output lines from stderr.</description>
-        ///     </item>
-        /// </list></remarks>
-        public IDictionary<string, IDictionary<string, IDictionary<string, IList<string>>>> output { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, IList<string>>>>();
+        /// <summary>The proc instance was killed before completion.</summary>
+        public const string KILLED = "killed";
 
-        /// <summary>Timing information for the returned run IDs, grouped by
-        /// data segment ID.</summary>
-        public IDictionary<string, IDictionary<string, IDictionary<string, long>>> timings { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, long>>>();
+        /// <summary>The proc instance failed with an error.</summary>
+        public const string ERROR = "error";
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowProcStatusResponse
-} // end namespace kinetica
+        /// <summary>The proc instance does not have a status, i.e. it has not
+        /// yet ran.</summary>
+        public const string NONE = "none";
+    } // end struct Statuses
+
+    /// <summary>A set of string constants for the parameter <see cref="output"
+    /// />.</summary>
+    /// <remarks><para>Output lines for the returned run IDs, grouped by data
+    /// segment ID.</para></remarks>
+    public struct Output
+    {
+        /// <summary>Output lines from stdout.</summary>
+        public const string STDOUT = "stdout";
+
+        /// <summary>Output lines from stderr.</summary>
+        public const string STDERR = "stderr";
+    } // end struct Output
+
+    /// <summary>The proc names corresponding to the returned run IDs.
+    /// </summary>
+    public IDictionary<string, string> proc_names { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>The string params passed to <see
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
+    public IDictionary<string, IDictionary<string, string>> _params { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+    /// <summary>The binary params passed to <see
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
+    public IDictionary<string, IDictionary<string, byte[]>> bin_params { get; set; } = new Dictionary<string, IDictionary<string, byte[]>>();
+
+    /// <summary>The input table names passed to <see
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
+    public IDictionary<string, IList<string>> input_table_names { get; set; } = new Dictionary<string, IList<string>>();
+
+    /// <summary>The input column names passed to <see
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs, supplemented with the column names for input
+    /// tables not included in the input column name map.</summary>
+    public IDictionary<string, IDictionary<string, IList<string>>> input_column_names { get; set; } = new Dictionary<string, IDictionary<string, IList<string>>>();
+
+    /// <summary>The output table names passed to <see
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
+    public IDictionary<string, IList<string>> output_table_names { get; set; } = new Dictionary<string, IList<string>>();
+
+    /// <summary>The optional parameters passed to <see
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
+    public IDictionary<string, IDictionary<string, string>> options { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+    /// <summary>Overall statuses for the returned run IDs.</summary>
+    /// <remarks><para>Valid values are:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="OverallStatuses.RUNNING">RUNNING</see>:</term>
+    ///         <description>The proc instance is currently running.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="OverallStatuses.COMPLETE">COMPLETE</see>:
+    ///         </term>
+    ///         <description>The proc instance completed with no errors.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="OverallStatuses.KILLED">KILLED</see>:</term>
+    ///         <description>The proc instance was killed before completion.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="OverallStatuses.ERROR">ERROR</see>:</term>
+    ///         <description>The proc instance failed with an error.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="OverallStatuses.NONE">NONE</see>:</term>
+    ///         <description>The proc instance does not have a status, i.e. it
+    ///         has not yet ran.</description>
+    ///     </item>
+    /// </list></remarks>
+    public IDictionary<string, string> overall_statuses { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Statuses for the returned run IDs, grouped by data segment ID.
+    /// </summary>
+    /// <remarks><para>Valid values are:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Statuses.RUNNING">RUNNING</see>:</term>
+    ///         <description>The proc instance is currently running.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Statuses.COMPLETE">COMPLETE</see>:</term>
+    ///         <description>The proc instance completed with no errors.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Statuses.KILLED">KILLED</see>:</term>
+    ///         <description>The proc instance was killed before completion.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Statuses.ERROR">ERROR</see>:</term>
+    ///         <description>The proc instance failed with an error.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Statuses.NONE">NONE</see>:</term>
+    ///         <description>The proc instance does not have a status, i.e. it
+    ///         has not yet ran.</description>
+    ///     </item>
+    /// </list></remarks>
+    public IDictionary<string, IDictionary<string, string>> statuses { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+    /// <summary>Messages containing additional status information for the
+    /// returned run IDs, grouped by data segment ID.</summary>
+    public IDictionary<string, IDictionary<string, string>> messages { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+    /// <summary>String results for the returned run IDs, grouped by data
+    /// segment ID.</summary>
+    public IDictionary<string, IDictionary<string, IDictionary<string, string>>> results { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, string>>>();
+
+    /// <summary>Binary results for the returned run IDs, grouped by data
+    /// segment ID.</summary>
+    public IDictionary<string, IDictionary<string, IDictionary<string, byte[]>>> bin_results { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, byte[]>>>();
+
+    /// <summary>Output lines for the returned run IDs, grouped by data segment
+    /// ID.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Output.STDOUT">STDOUT</see>:</term>
+    ///         <description>Output lines from stdout.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Output.STDERR">STDERR</see>:</term>
+    ///         <description>Output lines from stderr.</description>
+    ///     </item>
+    /// </list></remarks>
+    public IDictionary<string, IDictionary<string, IDictionary<string, IList<string>>>> output { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, IList<string>>>>();
+
+    /// <summary>Timing information for the returned run IDs, grouped by data
+    /// segment ID.</summary>
+    public IDictionary<string, IDictionary<string, IDictionary<string, long>>> timings { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, long>>>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowProcStatusResponse

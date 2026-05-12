@@ -6,203 +6,195 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+/// </summary>
+/// <remarks><para>Create a job which will run asynchronously. The response
+/// returns a job ID, which can be used to query the status and result of the
+/// job. The status and the result of the job upon completion can be requested
+/// by <see cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</para>
+/// </remarks>
+public class CreateJobRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
-    /// </summary>
-    /// <remarks><para>Create a job which will run asynchronously. The response
-    /// returns a job ID, which can be used to query the status and result of
-    /// the job. The status and the result of the job upon completion can be
-    /// requested by <see
-    /// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</para>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="request_encoding" />.</summary>
+    /// <remarks><para>The encoding of the request payload for the job.</para>
     /// </remarks>
-    public class CreateJobRequest : KineticaData
+    public struct RequestEncoding
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="request_encoding" />.</summary>
-        /// <remarks><para>The encoding of the request payload for the job.
-        /// </para></remarks>
-        public struct RequestEncoding
-        {
-            public const string BINARY = "binary";
-            public const string JSON = "json";
-            public const string SNAPPY = "snappy";
-        } // end struct RequestEncoding
+        public const string BINARY = "binary";
+        public const string JSON = "json";
+        public const string SNAPPY = "snappy";
+    } // end struct RequestEncoding
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Tag to use for submitted job.</summary>
-            /// <remarks><para>The same tag could be used on backup cluster to
-            /// retrieve response for the job. Tags can use letter, numbers,
-            /// '_' and '-'</para></remarks>
-            public const string JOB_TAG = "job_tag";
-        } // end struct Options
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>Tag to use for submitted job.</summary>
+        /// <remarks><para>The same tag could be used on backup cluster to
+        /// retrieve response for the job. Tags can use letter, numbers, '_'
+        /// and '-'</para></remarks>
+        public const string JOB_TAG = "job_tag";
+    } // end struct Options
 
-        /// <summary>Indicates which endpoint to execute, e.g. '/alter/table'.
-        /// </summary>
-        public string endpoint { get; set; }
-
-        /// <summary>The encoding of the request payload for the job.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="RequestEncoding.BINARY">BINARY</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RequestEncoding.JSON">JSON</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RequestEncoding.SNAPPY">SNAPPY</see>
-        ///         </term>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is <see
-        /// cref="RequestEncoding.BINARY">BINARY</see>.</para></remarks>
-        public string request_encoding { get; set; } = RequestEncoding.BINARY;
-
-        /// <summary>Binary-encoded payload for the job to be run
-        /// asynchronously.</summary>
-        /// <remarks><para> The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <see cref="endpoint" />.
-        /// Please see the documentation for the appropriate endpoint to see
-        /// what values must (or can) be specified.  If this parameter is used,
-        /// then <see cref="request_encoding" /> must be <see
-        /// cref="RequestEncoding.BINARY">BINARY</see> or <see
-        /// cref="RequestEncoding.SNAPPY">SNAPPY</see>.</para></remarks>
-        public byte[] data { get; set; }
-
-        /// <summary>JSON-encoded payload for the job to be run asynchronously.
-        /// </summary>
-        /// <remarks><para> The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <see cref="endpoint" />.
-        /// Please see the documentation for the appropriate endpoint to see
-        /// what values must (or can) be specified.  If this parameter is used,
-        /// then <see cref="request_encoding" /> must be <see
-        /// cref="RequestEncoding.JSON">JSON</see>.</para></remarks>
-        public string data_str { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>Tag to use for submitted job. The same tag
-        ///         could be used on backup cluster to retrieve response for
-        ///         the job. Tags can use letter, numbers, '_' and '-'
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateJobRequest object with default
-        /// parameters.</summary>
-        public CreateJobRequest() { }
-
-        /// <summary>Constructs a CreateJobRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="endpoint">Indicates which endpoint to execute, e.g.
-        /// '/alter/table'.</param>
-        /// <param name="request_encoding">The encoding of the request payload
-        /// for the job.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="RequestEncoding.BINARY">BINARY</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RequestEncoding.JSON">JSON</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RequestEncoding.SNAPPY">SNAPPY</see>
-        ///         </term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="RequestEncoding.BINARY">BINARY</see>.</param>
-        /// <param name="data">Binary-encoded payload for the job to be run
-        /// asynchronously.  The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <paramref name="endpoint"
-        /// />.  Please see the documentation for the appropriate endpoint to
-        /// see what values must (or can) be specified.  If this parameter is
-        /// used, then <paramref name="request_encoding" /> must be <see
-        /// cref="RequestEncoding.BINARY">BINARY</see> or <see
-        /// cref="RequestEncoding.SNAPPY">SNAPPY</see>.</param>
-        /// <param name="data_str">JSON-encoded payload for the job to be run
-        /// asynchronously.  The payload must contain the relevant input
-        /// parameters for the endpoint indicated in <paramref name="endpoint"
-        /// />.  Please see the documentation for the appropriate endpoint to
-        /// see what values must (or can) be specified.  If this parameter is
-        /// used, then <paramref name="request_encoding" /> must be <see
-        /// cref="RequestEncoding.JSON">JSON</see>.</param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>Tag to use for submitted job. The same tag
-        ///         could be used on backup cluster to retrieve response for
-        ///         the job. Tags can use letter, numbers, '_' and '-'
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateJobRequest( string endpoint,
-                                 string request_encoding,
-                                 byte[] data,
-                                 string data_str,
-                                 IDictionary<string, string> options = null)
-        {
-            this.endpoint = endpoint ?? "";
-            this.request_encoding = request_encoding ?? RequestEncoding.BINARY;
-            this.data = data ?? new byte[] { };
-            this.data_str = data_str ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateJobRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+    /// <summary>Indicates which endpoint to execute, e.g. '/alter/table'.
     /// </summary>
-    public class CreateJobResponse : KineticaData
+    public string endpoint { get; set; }
+
+    /// <summary>The encoding of the request payload for the job.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="RequestEncoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RequestEncoding.JSON">JSON</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RequestEncoding.SNAPPY">SNAPPY</see></term>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see
+    /// cref="RequestEncoding.BINARY">BINARY</see>.</para></remarks>
+    public string request_encoding { get; set; } = RequestEncoding.BINARY;
+
+    /// <summary>Binary-encoded payload for the job to be run asynchronously.
+    /// </summary>
+    /// <remarks><para> The payload must contain the relevant input parameters
+    /// for the endpoint indicated in <see cref="endpoint" />.  Please see the
+    /// documentation for the appropriate endpoint to see what values must (or
+    /// can) be specified.  If this parameter is used, then <see
+    /// cref="request_encoding" /> must be <see
+    /// cref="RequestEncoding.BINARY">BINARY</see> or <see
+    /// cref="RequestEncoding.SNAPPY">SNAPPY</see>.</para></remarks>
+    public byte[] data { get; set; }
+
+    /// <summary>JSON-encoded payload for the job to be run asynchronously.
+    /// </summary>
+    /// <remarks><para> The payload must contain the relevant input parameters
+    /// for the endpoint indicated in <see cref="endpoint" />.  Please see the
+    /// documentation for the appropriate endpoint to see what values must (or
+    /// can) be specified.  If this parameter is used, then <see
+    /// cref="request_encoding" /> must be <see
+    /// cref="RequestEncoding.JSON">JSON</see>.</para></remarks>
+    public string data_str { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
+    ///         <description>Tag to use for submitted job. The same tag could
+    ///         be used on backup cluster to retrieve response for the job.
+    ///         Tags can use letter, numbers, '_' and '-'</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateJobRequest object with default parameters.
+    /// </summary>
+    public CreateJobRequest() { }
+
+    /// <summary>Constructs a CreateJobRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="endpoint">Indicates which endpoint to execute, e.g.
+    /// '/alter/table'.</param>
+    /// <param name="request_encoding">The encoding of the request payload for
+    /// the job.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="RequestEncoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RequestEncoding.JSON">JSON</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RequestEncoding.SNAPPY">SNAPPY</see></term>
+    ///     </item>
+    /// </list>
+    /// The default value is <see cref="RequestEncoding.BINARY">BINARY</see>.
+    /// </param>
+    /// <param name="data">Binary-encoded payload for the job to be run
+    /// asynchronously.  The payload must contain the relevant input parameters
+    /// for the endpoint indicated in <paramref name="endpoint" />.  Please see
+    /// the documentation for the appropriate endpoint to see what values must
+    /// (or can) be specified.  If this parameter is used, then <paramref
+    /// name="request_encoding" /> must be <see
+    /// cref="RequestEncoding.BINARY">BINARY</see> or <see
+    /// cref="RequestEncoding.SNAPPY">SNAPPY</see>.</param>
+    /// <param name="data_str">JSON-encoded payload for the job to be run
+    /// asynchronously.  The payload must contain the relevant input parameters
+    /// for the endpoint indicated in <paramref name="endpoint" />.  Please see
+    /// the documentation for the appropriate endpoint to see what values must
+    /// (or can) be specified.  If this parameter is used, then <paramref
+    /// name="request_encoding" /> must be <see
+    /// cref="RequestEncoding.JSON">JSON</see>.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
+    ///         <description>Tag to use for submitted job. The same tag could
+    ///         be used on backup cluster to retrieve response for the job.
+    ///         Tags can use letter, numbers, '_' and '-'</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateJobRequest( string endpoint,
+                             string request_encoding,
+                             byte[] data,
+                             string data_str,
+                             IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>The job tag specified by the user or if unspecified by
-            /// user, a unique identifier generated internally.</summary>
-            public const string JOB_TAG = "job_tag";
+        this.endpoint = endpoint ?? "";
+        this.request_encoding = request_encoding ?? RequestEncoding.BINARY;
+        this.data = data ?? new byte[] { };
+        this.data_str = data_str ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateJobRequest
 
-            /// <summary>A unique identifier for this job generated for use in
-            /// tracing telemetry data</summary>
-            public const string QUERY_ID = "query_id";
-        } // end struct Info
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+/// </summary>
+public class CreateJobResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>The job tag specified by the user or if unspecified by
+        /// user, a unique identifier generated internally.</summary>
+        public const string JOB_TAG = "job_tag";
 
-        /// <summary>An identifier for the job created by this call.</summary>
-        public long job_id { get; set; }
+        /// <summary>A unique identifier for this job generated for use in
+        /// tracing telemetry data</summary>
+        public const string QUERY_ID = "query_id";
+    } // end struct Info
 
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Info.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>The job tag specified by the user or if
-        ///         unspecified by user, a unique identifier generated
-        ///         internally.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Info.QUERY_ID">QUERY_ID</see>:</term>
-        ///         <description>A unique identifier for this job generated for
-        ///         use in tracing telemetry data</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateJobResponse
-} // end namespace kinetica
+    /// <summary>An identifier for the job created by this call.</summary>
+    public long job_id { get; set; }
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Info.JOB_TAG">JOB_TAG</see>:</term>
+    ///         <description>The job tag specified by the user or if
+    ///         unspecified by user, a unique identifier generated internally.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Info.QUERY_ID">QUERY_ID</see>:</term>
+    ///         <description>A unique identifier for this job generated for use
+    ///         in tracing telemetry data</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateJobResponse

@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace kinetica
-{
-    /// <summary>
-    /// KineticaData - class to help with Avro Encoding for Kinetica
+namespace kinetica;
+
+/// <summary>
+/// KineticaData - class to help with Avro Encoding for Kinetica
     /// </summary>
     public class KineticaData : ISpecificRecord
     {
@@ -33,7 +33,7 @@ namespace kinetica
         /// <param name="type">Type received from Kinetica Server</param>
         public KineticaData(KineticaType type)
         {
-            m_schema = Avro.Schema.Parse(type.getSchemaString()) as RecordSchema;
+            m_schema = Avro.Schema.Parse(NormalizeSchemaJson(type.getSchemaString())) as RecordSchema;
             m_properties = this.GetType().GetProperties();
         }
 
@@ -96,7 +96,33 @@ namespace kinetica
             // using JsonDocument doc = JsonDocument.Parse(jsonType);
             // string v = JsonSerializer.Serialize(doc.RootElement, new JsonSerializerOptions { WriteIndented = true });
             // Console.WriteLine(t.ToString() + "::::" + v);
-            return Schema.Parse(jsonType) as RecordSchema;
+            return Schema.Parse(NormalizeSchemaJson(jsonType)) as RecordSchema;
+        }
+
+        /// <summary>
+        /// Normalizes Avro schema JSON for defensive parsing.
+        /// Apache.Avro 1.12.1 has stricter parsing requirements than vendored 0.9.0.
+        /// This round-trips through JToken to ensure proper JSON formatting.
+        /// </summary>
+        /// <param name="schemaJson">Raw schema JSON string</param>
+        /// <returns>Normalized schema JSON string</returns>
+        internal static string NormalizeSchemaJson(string? schemaJson)
+        {
+            if (string.IsNullOrWhiteSpace(schemaJson))
+                return schemaJson ?? string.Empty;
+
+            try
+            {
+                // Round-trip through JToken to normalize JSON formatting
+                var token = Newtonsoft.Json.Linq.JToken.Parse(schemaJson);
+                return token.ToString(Newtonsoft.Json.Formatting.None);
+            }
+            catch (Newtonsoft.Json.JsonException)
+            {
+                // If parsing fails, return original string
+                // Avro.Schema.Parse() will throw proper error
+                return schemaJson;
+            }
         }
 
         private static bool IsNullable(Type type)
@@ -245,4 +271,3 @@ namespace kinetica
         }
         */
     }
-}

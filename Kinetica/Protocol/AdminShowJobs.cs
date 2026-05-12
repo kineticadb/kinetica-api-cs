@@ -6,202 +6,194 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.adminShowJobs(AdminShowJobsRequest)">Kinetica.adminShowJobs</see>.
+/// </summary>
+/// <remarks><para>Get a list of the current jobs in GPUdb.</para></remarks>
+public class AdminShowJobsRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminShowJobs(AdminShowJobsRequest)">Kinetica.adminShowJobs</see>.
-    /// </summary>
-    /// <remarks><para>Get a list of the current jobs in GPUdb.</para>
-    /// </remarks>
-    public class AdminShowJobsRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
-            /// completed async jobs are also included in the response.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string SHOW_ASYNC_JOBS = "show_async_jobs";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then
-            /// information is also returned from worker ranks.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string SHOW_WORKER_INFO = "show_worker_info";
-        } // end struct Options
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         the completed async jobs are also included in the response.
-        ///         By default, once the async jobs are completed they are no
-        ///         longer included in the jobs list.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         information is also returned from worker ranks. By default
-        ///         only status from the head rank is returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an AdminShowJobsRequest object with default
-        /// parameters.</summary>
-        public AdminShowJobsRequest() { }
-
-        /// <summary>Constructs an AdminShowJobsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the completed
+        /// async jobs are also included in the response.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         the completed async jobs are also included in the response.
-        ///         By default, once the async jobs are completed they are no
-        ///         longer included in the jobs list.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         information is also returned from worker ranks. By default
-        ///         only status from the head rank is returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AdminShowJobsRequest( IDictionary<string, string> options = null)
-        {
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AdminShowJobsRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string SHOW_ASYNC_JOBS = "show_async_jobs";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminShowJobs(AdminShowJobsRequest)">Kinetica.adminShowJobs</see>.
-    /// </summary>
-    public class AdminShowJobsResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then information
+        /// is also returned from worker ranks.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></remarks>
+        public const string SHOW_WORKER_INFO = "show_worker_info";
+    } // end struct Options
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         completed async jobs are also included in the response. By
+    ///         default, once the async jobs are completed they are no longer
+    ///         included in the jobs list.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         information is also returned from worker ranks. By default only
+    ///         status from the head rank is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AdminShowJobsRequest object with default
+    /// parameters.</summary>
+    public AdminShowJobsRequest() { }
+
+    /// <summary>Constructs an AdminShowJobsRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         completed async jobs are also included in the response. By
+    ///         default, once the async jobs are completed they are no longer
+    ///         included in the jobs list.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHOW_WORKER_INFO">SHOW_WORKER_INFO</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         information is also returned from worker ranks. By default only
+    ///         status from the head rank is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AdminShowJobsRequest( IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>The job tag specified by the user or if unspecified by
-            /// user, an internally generated unique identifier for the job
-            /// across clusters.</summary>
-            public const string JOB_TAG = "job_tag";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AdminShowJobsRequest
 
-            /// <summary>Worker job information as json</summary>
-            public const string WORKER_INFO = "worker_info";
-        } // end struct Info
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.adminShowJobs(AdminShowJobsRequest)">Kinetica.adminShowJobs</see>.
+/// </summary>
+public class AdminShowJobsResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>The job tag specified by the user or if unspecified by
+        /// user, an internally generated unique identifier for the job across
+        /// clusters.</summary>
+        public const string JOB_TAG = "job_tag";
 
-        public IList<long> job_id { get; set; } = new List<long>();
+        /// <summary>Worker job information as json</summary>
+        public const string WORKER_INFO = "worker_info";
+    } // end struct Info
 
-        public IList<string> status { get; set; } = new List<string>();
+    public IList<long> job_id { get; set; } = new List<long>();
 
-        public IList<string> endpoint_name { get; set; } = new List<string>();
+    public IList<string> status { get; set; } = new List<string>();
 
-        public IList<long> time_received { get; set; } = new List<long>();
+    public IList<string> endpoint_name { get; set; } = new List<string>();
 
-        public IList<string> auth_id { get; set; } = new List<string>();
+    public IList<long> time_received { get; set; } = new List<long>();
 
-        public IList<string> source_ip { get; set; } = new List<string>();
+    public IList<string> auth_id { get; set; } = new List<string>();
 
-        public IList<string> query_text { get; set; } = new List<string>();
+    public IList<string> source_ip { get; set; } = new List<string>();
 
-        public IList<string> user_data { get; set; } = new List<string>();
+    public IList<string> query_text { get; set; } = new List<string>();
 
-        public IList<string> flags { get; set; } = new List<string>();
+    public IList<string> user_data { get; set; } = new List<string>();
 
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Info.JOB_TAG">JOB_TAG</see>:</term>
-        ///         <description>The job tag specified by the user or if
-        ///         unspecified by user, an internally generated unique
-        ///         identifier for the job across clusters.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Info.WORKER_INFO">WORKER_INFO</see>:
-        ///         </term>
-        ///         <description>Worker job information as json</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AdminShowJobsResponse
-} // end namespace kinetica
+    public IList<string> flags { get; set; } = new List<string>();
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Info.JOB_TAG">JOB_TAG</see>:</term>
+    ///         <description>The job tag specified by the user or if
+    ///         unspecified by user, an internally generated unique identifier
+    ///         for the job across clusters.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Info.WORKER_INFO">WORKER_INFO</see>:</term>
+    ///         <description>Worker job information as json</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AdminShowJobsResponse

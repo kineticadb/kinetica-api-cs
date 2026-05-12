@@ -6,43 +6,42 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class ShowModelRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class ShowModelRequest : KineticaData
+    public IList<string> model_names { get; set; } = new List<string>();
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public ShowModelRequest() { }
+
+    public ShowModelRequest( IList<string> model_names = null,
+                             IDictionary<string, string> options = null)
     {
-        public IList<string> model_names { get; set; } = new List<string>();
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.model_names = model_names ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowModelRequest
+/// @endcond
 
-        public ShowModelRequest() { }
-
-        public ShowModelRequest( IList<string> model_names = null,
-                                 IDictionary<string, string> options = null)
-        {
-            this.model_names = model_names ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowModelRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class ShowModelResponse : KineticaData
+/// @cond NO_DOCS
+public class ShowModelResponse : KineticaData
+{
+    public struct Info
     {
-        public struct Info
-        {
-            public const string KML_RESPONSE = "kml_response";
-        } // end struct Info
+        public const string KML_RESPONSE = "kml_response";
+    } // end struct Info
 
-        public IList<string> model_names { get; set; } = new List<string>();
-        public IList<int> entity_ids { get; set; } = new List<int>();
-        public IList<string> input_schemas { get; set; } = new List<string>();
-        public IList<string> output_schemas { get; set; } = new List<string>();
-        public IList<string> registry_list { get; set; } = new List<string>();
-        public IList<string> container_list { get; set; } = new List<string>();
-        public IList<string> run_function_list { get; set; } = new List<string>();
-        public IList<string> deployments { get; set; } = new List<string>();
-        public IList<IDictionary<string, string>> options { get; set; } = new List<IDictionary<string, string>>();
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowModelResponse
-    /// @endcond
-} // end namespace kinetica
+    public IList<string> model_names { get; set; } = new List<string>();
+    public IList<int> entity_ids { get; set; } = new List<int>();
+    public IList<string> input_schemas { get; set; } = new List<string>();
+    public IList<string> output_schemas { get; set; } = new List<string>();
+    public IList<string> registry_list { get; set; } = new List<string>();
+    public IList<string> container_list { get; set; } = new List<string>();
+    public IList<string> run_function_list { get; set; } = new List<string>();
+    public IList<string> deployments { get; set; } = new List<string>();
+    public IList<IDictionary<string, string>> options { get; set; } = new List<IDictionary<string, string>>();
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowModelResponse
+/// @endcond

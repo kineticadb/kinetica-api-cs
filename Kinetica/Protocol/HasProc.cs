@@ -6,74 +6,71 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.hasProc(HasProcRequest)">Kinetica.hasProc</see>.</summary>
+/// <remarks><para>Checks the existence of a proc with the given name.</para>
+/// </remarks>
+public class HasProcRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasProc(HasProcRequest)">Kinetica.hasProc</see>.
+    /// <summary>Name of the proc to check for existence.</summary>
+    public string proc_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a HasProcRequest object with default parameters.
     /// </summary>
-    /// <remarks><para>Checks the existence of a proc with the given name.
-    /// </para></remarks>
-    public class HasProcRequest : KineticaData
+    public HasProcRequest() { }
+
+    /// <summary>Constructs a HasProcRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="proc_name">Name of the proc to check for existence.
+    /// </param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public HasProcRequest( string proc_name,
+                           IDictionary<string, string> options = null)
     {
-        /// <summary>Name of the proc to check for existence.</summary>
-        public string proc_name { get; set; }
+        this.proc_name = proc_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class HasProcRequest
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.hasProc(HasProcRequest)">Kinetica.hasProc</see>.</summary>
+public class HasProcResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="proc_exists" />.</summary>
+    /// <remarks><para>Indicates whether the proc exists or not.</para>
+    /// </remarks>
+    public struct ProcExists
+    {
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct ProcExists
 
-        /// <summary>Constructs a HasProcRequest object with default
-        /// parameters.</summary>
-        public HasProcRequest() { }
-
-        /// <summary>Constructs a HasProcRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="proc_name">Name of the proc to check for existence.
-        /// </param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public HasProcRequest( string proc_name,
-                               IDictionary<string, string> options = null)
-        {
-            this.proc_name = proc_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class HasProcRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasProc(HasProcRequest)">Kinetica.hasProc</see>.
+    /// <summary>Value of <see cref="HasProcRequest.proc_name">proc_name</see>
     /// </summary>
-    public class HasProcResponse : KineticaData
-    {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="proc_exists" />.</summary>
-        /// <remarks><para>Indicates whether the proc exists or not.</para>
-        /// </remarks>
-        public struct ProcExists
-        {
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct ProcExists
+    public string proc_name { get; set; }
 
-        /// <summary>Value of <see
-        /// cref="HasProcRequest.proc_name">proc_name</see></summary>
-        public string proc_name { get; set; }
+    /// <summary>Indicates whether the proc exists or not.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list></remarks>
+    public bool proc_exists { get; set; }
 
-        /// <summary>Indicates whether the proc exists or not.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term>true</term>
-        ///     </item>
-        ///     <item>
-        ///         <term>false</term>
-        ///     </item>
-        /// </list></remarks>
-        public bool proc_exists { get; set; }
-
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class HasProcResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class HasProcResponse

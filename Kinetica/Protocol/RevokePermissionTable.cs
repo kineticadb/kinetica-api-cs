@@ -6,192 +6,189 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
+/// </summary>
+/// <remarks><para>Revokes a table-level permission from a user or role.</para>
+/// </remarks>
+public class RevokePermissionTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
-    /// </summary>
-    /// <remarks><para>Revokes a table-level permission from a user or role.
-    /// </para></remarks>
-    public class RevokePermissionTableRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="permission" />.</summary>
+    /// <remarks><para>Permission to revoke from the user or role.</para>
+    /// </remarks>
+    public struct Permission
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="permission" />.</summary>
-        /// <remarks><para>Permission to revoke from the user or role.</para>
-        /// </remarks>
-        public struct Permission
-        {
-            /// <summary>Full read/write and administrative access to the
-            /// table.</summary>
-            public const string TABLE_ADMIN = "table_admin";
+        /// <summary>Full read/write and administrative access to the table.
+        /// </summary>
+        public const string TABLE_ADMIN = "table_admin";
 
-            /// <summary>Insert access to the table.</summary>
-            public const string TABLE_INSERT = "table_insert";
+        /// <summary>Insert access to the table.</summary>
+        public const string TABLE_INSERT = "table_insert";
 
-            /// <summary>Update access to the table.</summary>
-            public const string TABLE_UPDATE = "table_update";
+        /// <summary>Update access to the table.</summary>
+        public const string TABLE_UPDATE = "table_update";
 
-            /// <summary>Delete access to the table.</summary>
-            public const string TABLE_DELETE = "table_delete";
+        /// <summary>Delete access to the table.</summary>
+        public const string TABLE_DELETE = "table_delete";
 
-            /// <summary>Read access to the table.</summary>
-            public const string TABLE_READ = "table_read";
-        } // end struct Permission
+        /// <summary>Read access to the table.</summary>
+        public const string TABLE_READ = "table_read";
+    } // end struct Permission
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Apply security to these columns, comma-separated.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string COLUMNS = "columns";
-        } // end struct Options
-
-        /// <summary>Name of the user or role from which the permission will be
-        /// revoked.</summary>
-        /// <remarks><para>Must be an existing user or role.</para></remarks>
-        public string name { get; set; }
-
-        /// <summary>Permission to revoke from the user or role.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
-        ///         </term>
-        ///         <description>Full read/write and administrative access to
-        ///         the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
-        ///         <description>Insert access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
-        ///         <description>Update access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
-        ///         <description>Delete access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
-        ///         </term>
-        ///         <description>Read access to the table.</description>
-        ///     </item>
-        /// </list></remarks>
-        public string permission { get; set; }
-
-        /// <summary>Name of the table to which the permission grants access,
-        /// in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Must be an existing table, view or schema.</para>
-        /// </remarks>
-        public string table_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
-        ///         <description>Apply security to these columns,
-        ///         comma-separated. The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a RevokePermissionTableRequest object with
-        /// default parameters.</summary>
-        public RevokePermissionTableRequest() { }
-
-        /// <summary>Constructs a RevokePermissionTableRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="name">Name of the user or role from which the
-        /// permission will be revoked. Must be an existing user or role.
-        /// </param>
-        /// <param name="permission">Permission to revoke from the user or
-        /// role.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
-        ///         </term>
-        ///         <description>Full read/write and administrative access to
-        ///         the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
-        ///         <description>Insert access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
-        ///         <description>Update access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
-        ///         <description>Delete access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
-        ///         </term>
-        ///         <description>Read access to the table.</description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="table_name">Name of the table to which the permission
-        /// grants access, in [schema_name.]table_name format, using standard
-        /// <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table, view or schema.</param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
-        ///         <description>Apply security to these columns,
-        ///         comma-separated. The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public RevokePermissionTableRequest( string name,
-                                             string permission,
-                                             string table_name,
-                                             IDictionary<string, string> options = null)
-        {
-            this.name = name ?? "";
-            this.permission = permission ?? "";
-            this.table_name = table_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class RevokePermissionTableRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
-    /// </summary>
-    public class RevokePermissionTableResponse : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>Value of <see
-        /// cref="RevokePermissionTableRequest.name">name</see>.</summary>
-        public string name { get; set; }
-
-        /// <summary>Value of <see
-        /// cref="RevokePermissionTableRequest.permission">permission</see>.
+        /// <summary>Apply security to these columns, comma-separated.
         /// </summary>
-        public string permission { get; set; }
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string COLUMNS = "columns";
+    } // end struct Options
 
-        /// <summary>Value of <see
-        /// cref="RevokePermissionTableRequest.table_name">table_name</see>.
-        /// </summary>
-        public string table_name { get; set; }
+    /// <summary>Name of the user or role from which the permission will be
+    /// revoked.</summary>
+    /// <remarks><para>Must be an existing user or role.</para></remarks>
+    public string name { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RevokePermissionTableResponse
-} // end namespace kinetica
+    /// <summary>Permission to revoke from the user or role.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+    ///         </term>
+    ///         <description>Full read/write and administrative access to the
+    ///         table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:
+    ///         </term>
+    ///         <description>Insert access to the table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
+    ///         </term>
+    ///         <description>Update access to the table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:
+    ///         </term>
+    ///         <description>Delete access to the table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+    ///         </term>
+    ///         <description>Read access to the table.</description>
+    ///     </item>
+    /// </list></remarks>
+    public string permission { get; set; }
+
+    /// <summary>Name of the table to which the permission grants access, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> Must be an existing table, view or schema.</para>
+    /// </remarks>
+    public string table_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <description>Apply security to these columns, comma-separated.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a RevokePermissionTableRequest object with default
+    /// parameters.</summary>
+    public RevokePermissionTableRequest() { }
+
+    /// <summary>Constructs a RevokePermissionTableRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="name">Name of the user or role from which the permission
+    /// will be revoked. Must be an existing user or role.</param>
+    /// <param name="permission">Permission to revoke from the user or role.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+    ///         </term>
+    ///         <description>Full read/write and administrative access to the
+    ///         table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:
+    ///         </term>
+    ///         <description>Insert access to the table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
+    ///         </term>
+    ///         <description>Update access to the table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:
+    ///         </term>
+    ///         <description>Delete access to the table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+    ///         </term>
+    ///         <description>Read access to the table.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="table_name">Name of the table to which the permission
+    /// grants access, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing table,
+    /// view or schema.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <description>Apply security to these columns, comma-separated.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public RevokePermissionTableRequest( string name,
+                                         string permission,
+                                         string table_name,
+                                         IDictionary<string, string> options = null)
+    {
+        this.name = name ?? "";
+        this.permission = permission ?? "";
+        this.table_name = table_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class RevokePermissionTableRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
+/// </summary>
+public class RevokePermissionTableResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="RevokePermissionTableRequest.name">name</see>.</summary>
+    public string name { get; set; }
+
+    /// <summary>Value of <see
+    /// cref="RevokePermissionTableRequest.permission">permission</see>.
+    /// </summary>
+    public string permission { get; set; }
+
+    /// <summary>Value of <see
+    /// cref="RevokePermissionTableRequest.table_name">table_name</see>.
+    /// </summary>
+    public string table_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RevokePermissionTableResponse

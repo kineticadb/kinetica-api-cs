@@ -6,166 +6,160 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
+/// </summary>
+/// <remarks><para>Creates a new directory in <a href="../../../tools/kifs/"
+/// target="_top">KiFS</a>. The new directory serves as a location in which the
+/// user can upload files using <see
+/// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
+/// </para></remarks>
+public class CreateDirectoryRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
-    /// </summary>
-    /// <remarks><para>Creates a new directory in <a
-    /// href="../../../tools/kifs/" target="_top">KiFS</a>. The new directory
-    /// serves as a location in which the user can upload files using <see
-    /// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
-    /// </para></remarks>
-    public class CreateDirectoryRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>When set, a home directory is created for the user
-            /// name provided in the value.</summary>
-            /// <remarks><para>The <see cref="directory_name" /> must be an
-            /// empty string in this case. The user must exist.</para>
-            /// </remarks>
-            public const string CREATE_HOME_DIRECTORY = "create_home_directory";
+        /// <summary>When set, a home directory is created for the user name
+        /// provided in the value.</summary>
+        /// <remarks><para>The <see cref="directory_name" /> must be an empty
+        /// string in this case. The user must exist.</para></remarks>
+        public const string CREATE_HOME_DIRECTORY = "create_home_directory";
 
-            /// <summary>The maximum capacity, in bytes, to apply to the
-            /// created directory.</summary>
-            /// <remarks><para>Set to -1 to indicate no upper limit. If empty,
-            /// the system default limit is applied.</para></remarks>
-            public const string DATA_LIMIT = "data_limit";
+        /// <summary>The maximum capacity, in bytes, to apply to the created
+        /// directory.</summary>
+        /// <remarks><para>Set to -1 to indicate no upper limit. If empty, the
+        /// system default limit is applied.</para></remarks>
+        public const string DATA_LIMIT = "data_limit";
 
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, does not
-            /// return an error if the directory already exists.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Name of the directory in KiFS to be created.</summary>
-        public string directory_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
-        ///         </term>
-        ///         <description>When set, a home directory is created for the
-        ///         user name provided in the value. The <see
-        ///         cref="directory_name" /> must be an empty string in this
-        ///         case. The user must exist.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DATA_LIMIT">DATA_LIMIT</see>:
-        ///         </term>
-        ///         <description>The maximum capacity, in bytes, to apply to
-        ///         the created directory. Set to -1 to indicate no upper
-        ///         limit. If empty, the system default limit is applied.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, does
-        ///         not return an error if the directory already exists.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateDirectoryRequest object with default
-        /// parameters.</summary>
-        public CreateDirectoryRequest() { }
-
-        /// <summary>Constructs a CreateDirectoryRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="directory_name">Name of the directory in KiFS to be
-        /// created.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, does not return an
+        /// error if the directory already exists.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
-        ///         </term>
-        ///         <description>When set, a home directory is created for the
-        ///         user name provided in the value. The <paramref
-        ///         name="directory_name" /> must be an empty string in this
-        ///         case. The user must exist.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.DATA_LIMIT">DATA_LIMIT</see>:
-        ///         </term>
-        ///         <description>The maximum capacity, in bytes, to apply to
-        ///         the created directory. Set to -1 to indicate no upper
-        ///         limit. If empty, the system default limit is applied.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, does
-        ///         not return an error if the directory already exists.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateDirectoryRequest( string directory_name,
-                                       IDictionary<string, string> options = null)
-        {
-            this.directory_name = directory_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateDirectoryRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
-    /// </summary>
-    public class CreateDirectoryResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Name of the directory in KiFS to be created.</summary>
+    public string directory_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+    ///         </term>
+    ///         <description>When set, a home directory is created for the user
+    ///         name provided in the value. The <see cref="directory_name" />
+    ///         must be an empty string in this case. The user must exist.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+    ///         <description>The maximum capacity, in bytes, to apply to the
+    ///         created directory. Set to -1 to indicate no upper limit. If
+    ///         empty, the system default limit is applied.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, does not
+    ///         return an error if the directory already exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateDirectoryRequest object with default
+    /// parameters.</summary>
+    public CreateDirectoryRequest() { }
+
+    /// <summary>Constructs a CreateDirectoryRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="directory_name">Name of the directory in KiFS to be
+    /// created.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+    ///         </term>
+    ///         <description>When set, a home directory is created for the user
+    ///         name provided in the value. The <paramref name="directory_name"
+    ///         /> must be an empty string in this case. The user must exist.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+    ///         <description>The maximum capacity, in bytes, to apply to the
+    ///         created directory. Set to -1 to indicate no upper limit. If
+    ///         empty, the system default limit is applied.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, does not
+    ///         return an error if the directory already exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateDirectoryRequest( string directory_name,
+                                   IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="CreateDirectoryRequest.directory_name">directory_name</see>.
-        /// </summary>
-        public string directory_name { get; set; }
+        this.directory_name = directory_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateDirectoryRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateDirectoryResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
+/// </summary>
+public class CreateDirectoryResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="CreateDirectoryRequest.directory_name">directory_name</see>.
+    /// </summary>
+    public string directory_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateDirectoryResponse

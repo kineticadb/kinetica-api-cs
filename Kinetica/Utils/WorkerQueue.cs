@@ -1,17 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 
-namespace kinetica.Utils
-{
-    internal sealed class WorkerQueue<T>
+namespace kinetica.Utils;
+
+internal sealed class WorkerQueue<T>
     {
         public System.Uri url { get; private set; }
         private readonly int capacity;
-        private readonly bool has_primary_key;
-        private readonly bool update_on_existing_pk;
         private List<T> queue;
-        private Dictionary<RecordKey, int> primary_key_map;
 
 
         /// <summary>
@@ -33,15 +30,17 @@ namespace kinetica.Utils
         /// </summary>
         /// <param name="url"></param>
         /// <param name="capacity"></param>
-        /// <param name="has_primary_key"></param>
-        /// <param name="update_on_existing_pk"></param>
-        public WorkerQueue(System.Uri url, int capacity, bool has_primary_key, bool update_on_existing_pk)
+        /// <param name="hasPrimaryKey">Reserved for future use.</param>
+        /// <param name="updateOnExistingPk">Reserved for future use.</param>
+        public WorkerQueue(System.Uri url, int capacity, bool hasPrimaryKey, bool updateOnExistingPk)
         {
             this.url = url;
             this.capacity = capacity;
 
             queue = [];
 
+            // Note: hasPrimaryKey and updateOnExistingPk parameters are reserved for future
+            // primary key deduplication functionality but not currently implemented.
         }  // end constructor WorkerQueue<T>
 
 
@@ -77,5 +76,3 @@ namespace kinetica.Utils
                 return null;
         }  // end insert
     }  // end class WorkerQueue
-
-}   // end namespace kinetica.Utils

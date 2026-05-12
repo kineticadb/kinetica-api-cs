@@ -6,69 +6,68 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.showTableMetadata(ShowTableMetadataRequest)">Kinetica.showTableMetadata</see>.
+/// </summary>
+/// <remarks><para>Retrieves the user provided metadata for the specified
+/// tables.</para></remarks>
+public class ShowTableMetadataRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showTableMetadata(ShowTableMetadataRequest)">Kinetica.showTableMetadata</see>.
-    /// </summary>
-    /// <remarks><para>Retrieves the user provided metadata for the specified
-    /// tables.</para></remarks>
-    public class ShowTableMetadataRequest : KineticaData
+    /// <summary>Names of tables whose metadata will be fetched, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> All provided tables must exist, or an error is
+    /// returned.</para></remarks>
+    public IList<string> table_names { get; set; } = new List<string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a ShowTableMetadataRequest object with default
+    /// parameters.</summary>
+    public ShowTableMetadataRequest() { }
+
+    /// <summary>Constructs a ShowTableMetadataRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_names">Names of tables whose metadata will be
+    /// fetched, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  All provided tables must
+    /// exist, or an error is returned.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public ShowTableMetadataRequest( IList<string> table_names,
+                                     IDictionary<string, string> options = null)
     {
-        /// <summary>Names of tables whose metadata will be fetched, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> All provided tables must exist, or an error is
-        /// returned.</para></remarks>
-        public IList<string> table_names { get; set; } = new List<string>();
+        this.table_names = table_names ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowTableMetadataRequest
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a ShowTableMetadataRequest object with default
-        /// parameters.</summary>
-        public ShowTableMetadataRequest() { }
-
-        /// <summary>Constructs a ShowTableMetadataRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_names">Names of tables whose metadata will be
-        /// fetched, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  All provided tables must
-        /// exist, or an error is returned.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public ShowTableMetadataRequest( IList<string> table_names,
-                                         IDictionary<string, string> options = null)
-        {
-            this.table_names = table_names ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowTableMetadataRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showTableMetadata(ShowTableMetadataRequest)">Kinetica.showTableMetadata</see>.
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.showTableMetadata(ShowTableMetadataRequest)">Kinetica.showTableMetadata</see>.
+/// </summary>
+public class ShowTableMetadataResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="ShowTableMetadataRequest.table_names">table_names</see>.
     /// </summary>
-    public class ShowTableMetadataResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="ShowTableMetadataRequest.table_names">table_names</see>.
-        /// </summary>
-        public IList<string> table_names { get; set; } = new List<string>();
+    public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>A list of maps which contain the metadata of the tables in
-        /// the order the tables are listed in <see
-        /// cref="ShowTableMetadataRequest.table_names">table_names</see>.
-        /// </summary>
-        /// <remarks><para>Each map has (metadata attribute name, metadata
-        /// attribute value) pairs.</para></remarks>
-        public IList<IDictionary<string, string>> metadata_maps { get; set; } = new List<IDictionary<string, string>>();
+    /// <summary>A list of maps which contain the metadata of the tables in the
+    /// order the tables are listed in <see
+    /// cref="ShowTableMetadataRequest.table_names">table_names</see>.
+    /// </summary>
+    /// <remarks><para>Each map has (metadata attribute name, metadata
+    /// attribute value) pairs.</para></remarks>
+    public IList<IDictionary<string, string>> metadata_maps { get; set; } = new List<IDictionary<string, string>>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowTableMetadataResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowTableMetadataResponse

@@ -6,121 +6,113 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
+/// </summary>
+/// <remarks><para>Alters a Role.</para></remarks>
+public class AlterRoleRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
-    /// </summary>
-    /// <remarks><para>Alters a Role.</para></remarks>
-    public class AlterRoleRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see cref="action"
+    /// />.</summary>
+    /// <remarks><para>Modification operation to be applied to the role.</para>
+    /// </remarks>
+    public struct Action
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="action" />.</summary>
-        /// <remarks><para>Modification operation to be applied to the role.
-        /// </para></remarks>
-        public struct Action
-        {
-            /// <summary>Sets the comment for an internal role.</summary>
-            public const string SET_COMMENT = "set_comment";
+        /// <summary>Sets the comment for an internal role.</summary>
+        public const string SET_COMMENT = "set_comment";
 
-            /// <summary>Sets the resource group for an internal role.
-            /// </summary>
-            /// <remarks><para>The resource group must exist, otherwise, an
-            /// empty string assigns the role to the default resource group.
-            /// </para></remarks>
-            public const string SET_RESOURCE_GROUP = "set_resource_group";
-        } // end struct Action
-
-        /// <summary>Name of the role to be altered.</summary>
-        /// <remarks><para>Must be an existing role.</para></remarks>
-        public string name { get; set; }
-
-        /// <summary>Modification operation to be applied to the role.
-        /// </summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:
-        ///         </term>
-        ///         <description>Sets the comment for an internal role.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
-        ///         </term>
-        ///         <description>Sets the resource group for an internal role.
-        ///         The resource group must exist, otherwise, an empty string
-        ///         assigns the role to the default resource group.
-        ///         </description>
-        ///     </item>
-        /// </list></remarks>
-        public string action { get; set; }
-
-        /// <summary>The value of the modification, depending on <see
-        /// cref="action" />.</summary>
-        public string _value { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// <summary>Sets the resource group for an internal role.</summary>
+        /// <remarks><para>The resource group must exist, otherwise, an empty
+        /// string assigns the role to the default resource group.</para>
         /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        public const string SET_RESOURCE_GROUP = "set_resource_group";
+    } // end struct Action
 
-        /// <summary>Constructs an AlterRoleRequest object with default
-        /// parameters.</summary>
-        public AlterRoleRequest() { }
+    /// <summary>Name of the role to be altered.</summary>
+    /// <remarks><para>Must be an existing role.</para></remarks>
+    public string name { get; set; }
 
-        /// <summary>Constructs an AlterRoleRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="name">Name of the role to be altered. Must be an
-        /// existing role.</param>
-        /// <param name="action">Modification operation to be applied to the
-        /// role.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:
-        ///         </term>
-        ///         <description>Sets the comment for an internal role.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
-        ///         </term>
-        ///         <description>Sets the resource group for an internal role.
-        ///         The resource group must exist, otherwise, an empty string
-        ///         assigns the role to the default resource group.
-        ///         </description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="_value">The value of the modification, depending on
-        /// <paramref name="action" />.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public AlterRoleRequest( string name,
-                                 string action,
-                                 string _value,
-                                 IDictionary<string, string> options = null)
-        {
-            this.name = name ?? "";
-            this.action = action ?? "";
-            this._value = _value ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterRoleRequest
+    /// <summary>Modification operation to be applied to the role.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:</term>
+    ///         <description>Sets the comment for an internal role.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+    ///         </term>
+    ///         <description>Sets the resource group for an internal role. The
+    ///         resource group must exist, otherwise, an empty string assigns
+    ///         the role to the default resource group.</description>
+    ///     </item>
+    /// </list></remarks>
+    public string action { get; set; }
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
+    /// <summary>The value of the modification, depending on <see cref="action"
+    /// />.</summary>
+    public string _value { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AlterRoleRequest object with default parameters.
     /// </summary>
-    public class AlterRoleResponse : KineticaData
-    {
-        /// <summary>Value of <see cref="AlterRoleRequest.name">name</see>.
-        /// </summary>
-        public string name { get; set; }
+    public AlterRoleRequest() { }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterRoleResponse
-} // end namespace kinetica
+    /// <summary>Constructs an AlterRoleRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="name">Name of the role to be altered. Must be an existing
+    /// role.</param>
+    /// <param name="action">Modification operation to be applied to the role.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:</term>
+    ///         <description>Sets the comment for an internal role.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+    ///         </term>
+    ///         <description>Sets the resource group for an internal role. The
+    ///         resource group must exist, otherwise, an empty string assigns
+    ///         the role to the default resource group.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="_value">The value of the modification, depending on
+    /// <paramref name="action" />.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public AlterRoleRequest( string name,
+                             string action,
+                             string _value,
+                             IDictionary<string, string> options = null)
+    {
+        this.name = name ?? "";
+        this.action = action ?? "";
+        this._value = _value ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterRoleRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
+/// </summary>
+public class AlterRoleResponse : KineticaData
+{
+    /// <summary>Value of <see cref="AlterRoleRequest.name">name</see>.
+    /// </summary>
+    public string name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterRoleResponse

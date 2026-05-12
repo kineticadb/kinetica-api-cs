@@ -6,1190 +6,1141 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+/// </summary>
+/// <remarks><para>Creates a new table with the given type (definition of
+/// columns).  The type is specified in <see cref="type_id" /> as either a
+/// numerical type ID (as returned by <see
+/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>) or
+/// as a list of columns, each specified as a list of the column name, data
+/// type, and any column attributes.</para>
+/// <para>Example of a type definition with some parameters:</para>
+/// <code>
+///     [
+///         ["id", "int8", "primary_key"],
+///         ["dept_id", "int8", "primary_key", "shard_key"],
+///         ["manager_id", "int8", "nullable"],
+///         ["first_name", "char32"],
+///         ["last_name", "char64"],
+///         ["salary", "decimal"],
+///         ["hire_date", "date"]
+///     ]
+/// </code>
+/// <para>Each column definition consists of the column name (which should meet
+/// the standard <a href="../../../concepts/tables/#table-naming-criteria"
+/// target="_top">column naming criteria</a>), the column's <a
+/// href="../../../concepts/types/#types-chart" target="_top">specific type</a>
+/// (int, long, float, double, string, bytes, or any of the properties map
+/// values from <see
+/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>),
+/// and any <a href="../../../concepts/types/#types-data-handling"
+/// target="_top">data handling</a>, <a
+/// href="../../../concepts/types/#types-data-keys" target="_top">data key</a>,
+/// or <a href="../../../concepts/types/#types-data-replace" target="_top">data
+/// replacement</a> properties.</para>
+/// <para>A table may optionally be designated to use a <a
+/// href="../../../concepts/tables/#replication" target="_top">replicated</a>
+/// distribution scheme, or be assigned: <a
+/// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
+/// keys</a> to other tables, a <a
+/// href="../../../concepts/tables/#partitioning"
+/// target="_top">partitioning</a> scheme, and/or a <a
+/// href="../../../rm/concepts/#tier-strategies" target="_top">tier
+/// strategy</a>.</para></remarks>
+public class CreateTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
-    /// </summary>
-    /// <remarks><para>Creates a new table with the given type (definition of
-    /// columns).  The type is specified in <see cref="type_id" /> as either a
-    /// numerical type ID (as returned by <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
-    /// or as a list of columns, each specified as a list of the column name,
-    /// data type, and any column attributes.</para>
-    /// <para>Example of a type definition with some parameters:</para>
-    /// <code>
-    ///     [
-    ///         ["id", "int8", "primary_key"],
-    ///         ["dept_id", "int8", "primary_key", "shard_key"],
-    ///         ["manager_id", "int8", "nullable"],
-    ///         ["first_name", "char32"],
-    ///         ["last_name", "char64"],
-    ///         ["salary", "decimal"],
-    ///         ["hire_date", "date"]
-    ///     ]
-    /// </code>
-    /// <para>Each column definition consists of the column name (which should
-    /// meet the standard <a
-    /// href="../../../concepts/tables/#table-naming-criteria"
-    /// target="_top">column naming criteria</a>), the column's <a
-    /// href="../../../concepts/types/#types-chart" target="_top">specific
-    /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>),
-    /// and any <a href="../../../concepts/types/#types-data-handling"
-    /// target="_top">data handling</a>, <a
-    /// href="../../../concepts/types/#types-data-keys" target="_top">data
-    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
-    /// target="_top">data replacement</a> properties.</para>
-    /// <para>A table may optionally be designated to use a <a
-    /// href="../../../concepts/tables/#replication"
-    /// target="_top">replicated</a> distribution scheme, or be assigned: <a
-    /// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
-    /// keys</a> to other tables, a <a
-    /// href="../../../concepts/tables/#partitioning"
-    /// target="_top">partitioning</a> scheme, and/or a <a
-    /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-    /// strategy</a>.</para></remarks>
-    public class CreateTableRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an
-            /// error from occurring if the table already exists and is of the
-            /// given type.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique
-            /// temporary table name will be generated in the sys_temp schema
-            /// and used in place of <see cref="table_name" />.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string CREATE_TEMP_TABLE = "create_temp_table";
-
-            /// <summary>[DEPRECATED--please specify the containing schema as
-            /// part of <see cref="table_name" /> and use <see
-            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-            /// to create the schema if non-existent]  Name of a schema which
-            /// is to contain the newly created table.</summary>
-            /// <remarks><para>If the schema is non-existent, it will be
-            /// automatically created.</para></remarks>
-            public const string COLLECTION_NAME = "collection_name";
-
-            /// <summary>[DEPRECATED--please use <see
-            /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-            /// to create a schema instead]  Indicates whether to create a
-            /// schema instead of a table.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_COLLECTION = "is_collection";
-
-            /// <summary>Affects the <a
-            /// href="../../../concepts/tables/#distribution"
-            /// target="_top">distribution scheme</a> for the table's data.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_REPLICATED = "is_replicated";
-
-            /// <summary>Semicolon-separated list of <a
-            /// href="../../../concepts/tables/#foreign-keys"
-            /// target="_top">foreign keys</a>, of the format
-            /// '(source_column_name [, ...]) references
-            /// target_table_name(primary_key_column_name [, ...]) [as
-            /// foreign_key_name]'.</summary>
-            public const string FOREIGN_KEYS = "foreign_keys";
-
-            /// <summary>Foreign shard key of the format 'source_column
-            /// references shard_by_column from
-            /// target_table(primary_key_column)'.</summary>
-            public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
-
-            /// <summary><a href="../../../concepts/tables/#partitioning"
-            /// target="_top">Partitioning</a> scheme to use.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.RANGE">RANGE</see>:</term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-range"
-            ///         target="_top">range partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:
-            ///         </term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-interval"
-            ///         target="_top">interval partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.LIST">LIST</see>:</term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-list"
-            ///         target="_top">list partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.HASH">HASH</see>:</term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-hash"
-            ///         target="_top">hash partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SERIES">SERIES</see>:</term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-series"
-            ///         target="_top">series partitioning</a>.</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string PARTITION_TYPE = "partition_type";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range partitioning</a>.</summary>
-            public const string RANGE = "RANGE";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-interval"
-            /// target="_top">interval partitioning</a>.</summary>
-            public const string INTERVAL = "INTERVAL";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-list"
-            /// target="_top">list partitioning</a>.</summary>
-            public const string LIST = "LIST";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-hash"
-            /// target="_top">hash partitioning</a>.</summary>
-            public const string HASH = "HASH";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-series"
-            /// target="_top">series partitioning</a>.</summary>
-            public const string SERIES = "SERIES";
-
-            /// <summary>Comma-separated list of partition keys, which are the
-            /// columns or column expressions by which records will be assigned
-            /// to partitions defined by <see
-            /// cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
-            /// </summary>
-            public const string PARTITION_KEYS = "partition_keys";
-
-            /// <summary>Comma-separated list of partition definitions, whose
-            /// format depends on the choice of <see
-            /// cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.</summary>
-            /// <remarks><para> See <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range partitioning</a>, <a
-            /// href="../../../concepts/tables/#partitioning-by-interval"
-            /// target="_top">interval partitioning</a>, <a
-            /// href="../../../concepts/tables/#partitioning-by-list"
-            /// target="_top">list partitioning</a>, <a
-            /// href="../../../concepts/tables/#partitioning-by-hash"
-            /// target="_top">hash partitioning</a>, or <a
-            /// href="../../../concepts/tables/#partitioning-by-series"
-            /// target="_top">series partitioning</a> for example formats.
-            /// </para></remarks>
-            public const string PARTITION_DEFINITIONS = "partition_definitions";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, a new
-            /// partition will be created for values which don't fall into an
-            /// existing partition.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
-
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the table specified in <see
-            /// cref="table_name" />.</summary>
-            public const string TTL = "ttl";
-
-            /// <summary>Indicates the number of records per chunk to be used
-            /// for this table.</summary>
-            public const string CHUNK_SIZE = "chunk_size";
-
-            /// <summary>Indicates the target maximum data size for each column
-            /// in a chunk to be used for this table.</summary>
-            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
-
-            /// <summary>Indicates the target maximum data size for all columns
-            /// in a chunk to be used for this table.</summary>
-            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
-
-            /// <summary>Indicates whether the table is a <a
-            /// href="../../../concepts/tables_memory_only/"
-            /// target="_top">memory-only table</a>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_RESULT_TABLE = "is_result_table";
-
-            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
-            /// target="_top">tier strategy</a> for the table and its columns.
-            /// </summary>
-            public const string STRATEGY_DEFINITION = "strategy_definition";
-
-            /// <summary>The default <a
-            /// href="../../../concepts/column_compression/"
-            /// target="_top">compression codec</a> for this table's columns.
-            /// </summary>
-            public const string COMPRESSION_CODEC = "compression_codec";
-
-            /// <summary>Set startup data loading scheme for the table.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
-            ///         <description>Load as much vector data as possible into
-            ///         memory before accepting requests.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
-            ///         <description>Load the necessary vector data at start,
-            ///         and load the remainder lazily.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
-            ///         </term>
-            ///         <description>Load vector data as requests use it.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
-            ///         <description>Load vector data using the
-            ///         system-configured default.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.SYSTEM">SYSTEM</see>.</para></remarks>
-            public const string LOAD_VECTORS_POLICY = "load_vectors_policy";
-
-            /// <summary>Generate as much primary key index data as possible
-            /// before accepting requests.</summary>
-            public const string ALWAYS = "always";
-
-            /// <summary>Generate the necessary primary key index data at
-            /// start, and load the remainder lazily.</summary>
-            public const string LAZY = "lazy";
-
-            /// <summary>Generate primary key index data as requests use it.
-            /// </summary>
-            public const string ON_DEMAND = "on_demand";
-
-            /// <summary>Generate primary key index data using the
-            /// system-configured default.</summary>
-            public const string SYSTEM = "system";
-
-            /// <summary>Set startup primary-key index generation scheme for
-            /// the table.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
-            ///         <description>Generate as much primary key index data as
-            ///         possible before accepting requests.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
-            ///         <description>Generate the necessary primary key index
-            ///         data at start, and load the remainder lazily.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
-            ///         </term>
-            ///         <description>Generate primary key index data as
-            ///         requests use it.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
-            ///         <description>Generate primary key index data using the
-            ///         system-configured default.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.SYSTEM">SYSTEM</see>.</para></remarks>
-            public const string BUILD_PK_INDEX_POLICY = "build_pk_index_policy";
-        } // end struct Options
-
-        /// <summary>Name of the table to be created, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.</summary>
-        /// <remarks><para>Error for requests with existing table of the same
-        /// name and type ID may be suppressed by using the <see
-        /// cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see> option.
-        /// </para></remarks>
-        public string table_name { get; set; }
-
-        /// <summary>The type for the table, specified as either an existing
-        /// table's numerical type ID (as returned by <see
-        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
-        /// or a type definition (as described above).</summary>
-        public string type_id { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         prevents an error from occurring if the table already
-        ///         exists and is of the given type.  If a table with the same
-        ///         ID but a different type exists, it is still an error.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
-        ///         unique temporary table name will be generated in the
-        ///         sys_temp schema and used in place of <see cref="table_name"
-        ///         />. If <see
-        ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see> is
-        ///         <see cref="Options.TRUE">TRUE</see>, then this is always
-        ///         allowed even if the caller does not have permission to
-        ///         create tables. The generated name is returned in <see
-        ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
-        ///         </term>
-        ///         <description>[DEPRECATED--please specify the containing
-        ///         schema as part of <see cref="table_name" /> and use <see
-        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        ///         to create the schema if non-existent]  Name of a schema
-        ///         which is to contain the newly created table. If the schema
-        ///         is non-existent, it will be automatically created.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>[DEPRECATED--please use <see
-        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        ///         to create a schema instead]  Indicates whether to create a
-        ///         schema instead of a table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>Affects the <a
-        ///         href="../../../concepts/tables/#distribution"
-        ///         target="_top">distribution scheme</a> for the table's data.
-        ///         If <see cref="Options.TRUE">TRUE</see> and the given type
-        ///         has no explicit <a
-        ///         href="../../../concepts/tables/#shard-key"
-        ///         target="_top">shard key</a> defined, the table will be <a
-        ///         href="../../../concepts/tables/#replication"
-        ///         target="_top">replicated</a>.  If <see
-        ///         cref="Options.FALSE">FALSE</see>, the table will be <a
-        ///         href="../../../concepts/tables/#sharding"
-        ///         target="_top">sharded</a> according to the shard key
-        ///         specified in the given <see cref="type_id" />, or <a
-        ///         href="../../../concepts/tables/#random-sharding"
-        ///         target="_top">randomly sharded</a>, if no shard key is
-        ///         specified.  Note that a type containing a shard key cannot
-        ///         be used to create a replicated table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
-        ///         </term>
-        ///         <description>Semicolon-separated list of <a
-        ///         href="../../../concepts/tables/#foreign-keys"
-        ///         target="_top">foreign keys</a>, of the format
-        ///         '(source_column_name [, ...]) references
-        ///         target_table_name(primary_key_column_name [, ...]) [as
-        ///         foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
-        ///         </term>
-        ///         <description>Foreign shard key of the format 'source_column
-        ///         references shard_by_column from
-        ///         target_table(primary_key_column)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
-        ///         <description><a
-        ///         href="../../../concepts/tables/#partitioning"
-        ///         target="_top">Partitioning</a> scheme to use.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-range"
-        ///                 target="_top">range partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-interval"
-        ///                 target="_top">interval partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LIST">LIST</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-list"
-        ///                 target="_top">list partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.HASH">HASH</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-hash"
-        ///                 target="_top">hash partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SERIES">SERIES</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-series"
-        ///                 target="_top">series partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
-        ///         <description>Comma-separated list of partition keys, which
-        ///         are the columns or column expressions by which records will
-        ///         be assigned to partitions defined by <see
-        ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
-        ///         </term>
-        ///         <description>Comma-separated list of partition definitions,
-        ///         whose format depends on the choice of <see
-        ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-interval"
-        ///         target="_top">interval partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-hash"
-        ///         target="_top">hash partitioning</a>, or <a
-        ///         href="../../../concepts/tables/#partitioning-by-series"
-        ///         target="_top">series partitioning</a> for example formats.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
-        ///         partition will be created for values which don't fall into
-        ///         an existing partition.  Currently only supported for <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitions</a>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the table specified in <see
-        ///         cref="table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
-        ///         </term>
-        ///         <description>Indicates the number of records per chunk to
-        ///         be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for
-        ///         each column in a chunk to be used for this table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for all
-        ///         columns in a chunk to be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
-        ///         </term>
-        ///         <description>Indicates whether the table is a <a
-        ///         href="../../../concepts/tables_memory_only/"
-        ///         target="_top">memory-only table</a>. A result table cannot
-        ///         contain columns with text_search <a
-        ///         href="../../../concepts/types/#data-handling"
-        ///         target="_top">data-handling</a>, and it will not be
-        ///         retained if the server is restarted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>The <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
-        ///         </term>
-        ///         <description>The default <a
-        ///         href="../../../concepts/column_compression/"
-        ///         target="_top">compression codec</a> for this table's
-        ///         columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup data loading scheme for the table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
-        ///                 </term>
-        ///                 <description>Load as much vector data as possible
-        ///                 into memory before accepting requests.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
-        ///                 <description>Load the necessary vector data at
-        ///                 start, and load the remainder lazily.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
-        ///                 <description>Load vector data as requests use it.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
-        ///                 </term>
-        ///                 <description>Load vector data using the
-        ///                 system-configured default.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup primary-key index generation
-        ///         scheme for the table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
-        ///                 </term>
-        ///                 <description>Generate as much primary key index
-        ///                 data as possible before accepting requests.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
-        ///                 <description>Generate the necessary primary key
-        ///                 index data at start, and load the remainder lazily.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
-        ///                 <description>Generate primary key index data as
-        ///                 requests use it.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
-        ///                 </term>
-        ///                 <description>Generate primary key index data using
-        ///                 the system-configured default.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateTableRequest object with default
-        /// parameters.</summary>
-        public CreateTableRequest() { }
-
-        /// <summary>Constructs a CreateTableRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table to be created, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>. Error for requests with
-        /// existing table of the same name and type ID may be suppressed by
-        /// using the <see
-        /// cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see> option.
-        /// </param>
-        /// <param name="type_id">The type for the table, specified as either
-        /// an existing table's numerical type ID (as returned by <see
-        /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
-        /// or a type definition (as described above).</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an error
+        /// from occurring if the table already exists and is of the given
+        /// type.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         prevents an error from occurring if the table already
-        ///         exists and is of the given type.  If a table with the same
-        ///         ID but a different type exists, it is still an error.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a
-        ///         unique temporary table name will be generated in the
-        ///         sys_temp schema and used in place of <paramref
-        ///         name="table_name" />. If <see
-        ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see> is
-        ///         <see cref="Options.TRUE">TRUE</see>, then this is always
-        ///         allowed even if the caller does not have permission to
-        ///         create tables. The generated name is returned in <see
-        ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
+
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
+        /// table name will be generated in the sys_temp schema and used in
+        /// place of <see cref="table_name" />.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:
-        ///         </term>
-        ///         <description>[DEPRECATED--please specify the containing
-        ///         schema as part of <paramref name="table_name" /> and use
-        ///         <see
-        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        ///         to create the schema if non-existent]  Name of a schema
-        ///         which is to contain the newly created table. If the schema
-        ///         is non-existent, it will be automatically created.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string CREATE_TEMP_TABLE = "create_temp_table";
+
+        /// <summary>[DEPRECATED--please specify the containing schema as part
+        /// of <see cref="table_name" /> and use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema which is to
+        /// contain the newly created table.</summary>
+        /// <remarks><para>If the schema is non-existent, it will be
+        /// automatically created.</para></remarks>
+        public const string COLLECTION_NAME = "collection_name";
+
+        /// <summary>[DEPRECATED--please use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create a schema instead]  Indicates whether to create a schema
+        /// instead of a table.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>[DEPRECATED--please use <see
-        ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        ///         to create a schema instead]  Indicates whether to create a
-        ///         schema instead of a table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_COLLECTION = "is_collection";
+
+        /// <summary>Affects the <a
+        /// href="../../../concepts/tables/#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>Affects the <a
-        ///         href="../../../concepts/tables/#distribution"
-        ///         target="_top">distribution scheme</a> for the table's data.
-        ///         If <see cref="Options.TRUE">TRUE</see> and the given type
-        ///         has no explicit <a
-        ///         href="../../../concepts/tables/#shard-key"
-        ///         target="_top">shard key</a> defined, the table will be <a
-        ///         href="../../../concepts/tables/#replication"
-        ///         target="_top">replicated</a>.  If <see
-        ///         cref="Options.FALSE">FALSE</see>, the table will be <a
-        ///         href="../../../concepts/tables/#sharding"
-        ///         target="_top">sharded</a> according to the shard key
-        ///         specified in the given <paramref name="type_id" />, or <a
-        ///         href="../../../concepts/tables/#random-sharding"
-        ///         target="_top">randomly sharded</a>, if no shard key is
-        ///         specified.  Note that a type containing a shard key cannot
-        ///         be used to create a replicated table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_REPLICATED = "is_replicated";
+
+        /// <summary>Semicolon-separated list of <a
+        /// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
+        /// keys</a>, of the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</summary>
+        public const string FOREIGN_KEYS = "foreign_keys";
+
+        /// <summary>Foreign shard key of the format 'source_column references
+        /// shard_by_column from target_table(primary_key_column)'.</summary>
+        public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
+
+        /// <summary><a href="../../../concepts/tables/#partitioning"
+        /// target="_top">Partitioning</a> scheme to use.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
-        ///         </term>
-        ///         <description>Semicolon-separated list of <a
-        ///         href="../../../concepts/tables/#foreign-keys"
-        ///         target="_top">foreign keys</a>, of the format
-        ///         '(source_column_name [, ...]) references
-        ///         target_table_name(primary_key_column_name [, ...]) [as
-        ///         foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
-        ///         </term>
-        ///         <description>Foreign shard key of the format 'source_column
-        ///         references shard_by_column from
-        ///         target_table(primary_key_column)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
-        ///         <description><a
-        ///         href="../../../concepts/tables/#partitioning"
-        ///         target="_top">Partitioning</a> scheme to use.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-range"
-        ///                 target="_top">range partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-interval"
-        ///                 target="_top">interval partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LIST">LIST</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-list"
-        ///                 target="_top">list partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.HASH">HASH</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-hash"
-        ///                 target="_top">hash partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SERIES">SERIES</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-series"
-        ///                 target="_top">series partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
-        ///         <description>Comma-separated list of partition keys, which
-        ///         are the columns or column expressions by which records will
-        ///         be assigned to partitions defined by <see
-        ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
-        ///         </term>
-        ///         <description>Comma-separated list of partition definitions,
-        ///         whose format depends on the choice of <see
-        ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
+        ///         <term><see cref="Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range partitioning</a>, <a
+        ///         target="_top">range partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-interval"
-        ///         target="_top">interval partitioning</a>, <a
+        ///         target="_top">interval partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LIST">LIST</see>:</term>
+        ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitioning</a>, <a
+        ///         target="_top">list partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-hash"
-        ///         target="_top">hash partitioning</a>, or <a
+        ///         target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-series"
-        ///         target="_top">series partitioning</a> for example formats.
-        ///         </description>
+        ///         target="_top">series partitioning</a>.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string PARTITION_TYPE = "partition_type";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>.</summary>
+        public const string RANGE = "RANGE";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>.</summary>
+        public const string INTERVAL = "INTERVAL";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</summary>
+        public const string LIST = "LIST";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</summary>
+        public const string HASH = "HASH";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</summary>
+        public const string SERIES = "SERIES";
+
+        /// <summary>Comma-separated list of partition keys, which are the
+        /// columns or column expressions by which records will be assigned to
+        /// partitions defined by <see
+        /// cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// </summary>
+        public const string PARTITION_KEYS = "partition_keys";
+
+        /// <summary>Comma-separated list of partition definitions, whose
+        /// format depends on the choice of <see
+        /// cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.</summary>
+        /// <remarks><para> See <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example formats.</para>
+        /// </remarks>
+        public const string PARTITION_DEFINITIONS = "partition_definitions";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a new partition
+        /// will be created for values which don't fall into an existing
+        /// partition.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
-        ///         partition will be created for values which don't fall into
-        ///         an existing partition.  Currently only supported for <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitions</a>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the table specified in <paramref
-        ///         name="table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:
-        ///         </term>
-        ///         <description>Indicates the number of records per chunk to
-        ///         be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for
-        ///         each column in a chunk to be used for this table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for all
-        ///         columns in a chunk to be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
-        ///         </term>
-        ///         <description>Indicates whether the table is a <a
-        ///         href="../../../concepts/tables_memory_only/"
-        ///         target="_top">memory-only table</a>. A result table cannot
-        ///         contain columns with text_search <a
-        ///         href="../../../concepts/types/#data-handling"
-        ///         target="_top">data-handling</a>, and it will not be
-        ///         retained if the server is restarted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>The <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
-        ///         </term>
-        ///         <description>The default <a
-        ///         href="../../../concepts/column_compression/"
-        ///         target="_top">compression codec</a> for this table's
-        ///         columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup data loading scheme for the table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
-        ///                 </term>
-        ///                 <description>Load as much vector data as possible
-        ///                 into memory before accepting requests.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
-        ///                 <description>Load the necessary vector data at
-        ///                 start, and load the remainder lazily.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
-        ///                 <description>Load vector data as requests use it.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
-        ///                 </term>
-        ///                 <description>Load vector data using the
-        ///                 system-configured default.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
-        ///         </term>
-        ///         <description>Set startup primary-key index generation
-        ///         scheme for the table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:
-        ///                 </term>
-        ///                 <description>Generate as much primary key index
-        ///                 data as possible before accepting requests.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
-        ///                 <description>Generate the necessary primary key
-        ///                 index data at start, and load the remainder lazily.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
-        ///                 <description>Generate primary key index data as
-        ///                 requests use it.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:
-        ///                 </term>
-        ///                 <description>Generate primary key index data using
-        ///                 the system-configured default.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SYSTEM">SYSTEM</see>.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateTableRequest( string table_name,
-                                   string type_id,
-                                   IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.type_id = type_id ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateTableRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
-    /// </summary>
-    public class CreateTableResponse : KineticaData
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in <see
+        /// cref="table_name" />.</summary>
+        public const string TTL = "ttl";
+
+        /// <summary>Indicates the number of records per chunk to be used for
+        /// this table.</summary>
+        public const string CHUNK_SIZE = "chunk_size";
+
+        /// <summary>Indicates the target maximum data size for each column in
+        /// a chunk to be used for this table.</summary>
+        public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+        /// <summary>Indicates the target maximum data size for all columns in
+        /// a chunk to be used for this table.</summary>
+        public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
+        /// <summary>Indicates whether the table is a <a
+        /// href="../../../concepts/tables_memory_only/"
+        /// target="_top">memory-only table</a>.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_RESULT_TABLE = "is_result_table";
+
+        /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+        /// target="_top">tier strategy</a> for the table and its columns.
+        /// </summary>
+        public const string STRATEGY_DEFINITION = "strategy_definition";
+
+        /// <summary>The default <a
+        /// href="../../../concepts/column_compression/"
+        /// target="_top">compression codec</a> for this table's columns.
+        /// </summary>
+        public const string COMPRESSION_CODEC = "compression_codec";
+
+        /// <summary>Set startup data loading scheme for the table.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+        ///         <description>Load as much vector data as possible into
+        ///         memory before accepting requests.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///         <description>Load the necessary vector data at start, and
+        ///         load the remainder lazily.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///         <description>Load vector data as requests use it.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+        ///         <description>Load vector data using the system-configured
+        ///         default.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+        /// </para></remarks>
+        public const string LOAD_VECTORS_POLICY = "load_vectors_policy";
+
+        /// <summary>Generate as much primary key index data as possible before
+        /// accepting requests.</summary>
+        public const string ALWAYS = "always";
+
+        /// <summary>Generate the necessary primary key index data at start,
+        /// and load the remainder lazily.</summary>
+        public const string LAZY = "lazy";
+
+        /// <summary>Generate primary key index data as requests use it.
+        /// </summary>
+        public const string ON_DEMAND = "on_demand";
+
+        /// <summary>Generate primary key index data using the
+        /// system-configured default.</summary>
+        public const string SYSTEM = "system";
+
+        /// <summary>Set startup primary-key index generation scheme for the
+        /// table.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+        ///         <description>Generate as much primary key index data as
+        ///         possible before accepting requests.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///         <description>Generate the necessary primary key index data
+        ///         at start, and load the remainder lazily.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///         <description>Generate primary key index data as requests
+        ///         use it.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+        ///         <description>Generate primary key index data using the
+        ///         system-configured default.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+        /// </para></remarks>
+        public const string BUILD_PK_INDEX_POLICY = "build_pk_index_policy";
+    } // end struct Options
+
+    /// <summary>Name of the table to be created, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a> and meeting <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">table naming criteria</a>.</summary>
+    /// <remarks><para>Error for requests with existing table of the same name
+    /// and type ID may be suppressed by using the <see
+    /// cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see> option.
+    /// </para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>The type for the table, specified as either an existing
+    /// table's numerical type ID (as returned by <see
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+    /// or a type definition (as described above).</summary>
+    public string type_id { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
+    ///         an error from occurring if the table already exists and is of
+    ///         the given type.  If a table with the same ID but a different
+    ///         type exists, it is still an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         temporary table name will be generated in the sys_temp schema
+    ///         and used in place of <see cref="table_name" />. If <see
+    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see> is <see
+    ///         cref="Options.TRUE">TRUE</see>, then this is always allowed
+    ///         even if the caller does not have permission to create tables.
+    ///         The generated name is returned in <see
+    ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         <description>[DEPRECATED--please specify the containing schema
+    ///         as part of <see cref="table_name" /> and use <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the newly created table. If the schema is
+    ///         non-existent, it will be automatically created.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_COLLECTION">IS_COLLECTION</see>:
+    ///         </term>
+    ///         <description>[DEPRECATED--please use <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create a schema instead]  Indicates whether to create a
+    ///         schema instead of a table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         </term>
+    ///         <description>Affects the <a
+    ///         href="../../../concepts/tables/#distribution"
+    ///         target="_top">distribution scheme</a> for the table's data.  If
+    ///         <see cref="Options.TRUE">TRUE</see> and the given type has no
+    ///         explicit <a href="../../../concepts/tables/#shard-key"
+    ///         target="_top">shard key</a> defined, the table will be <a
+    ///         href="../../../concepts/tables/#replication"
+    ///         target="_top">replicated</a>.  If <see
+    ///         cref="Options.FALSE">FALSE</see>, the table will be <a
+    ///         href="../../../concepts/tables/#sharding"
+    ///         target="_top">sharded</a> according to the shard key specified
+    ///         in the given <see cref="type_id" />, or <a
+    ///         href="../../../concepts/tables/#random-sharding"
+    ///         target="_top">randomly sharded</a>, if no shard key is
+    ///         specified.  Note that a type containing a shard key cannot be
+    ///         used to create a replicated table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         </term>
+    ///         <description>Semicolon-separated list of <a
+    ///         href="../../../concepts/tables/#foreign-keys"
+    ///         target="_top">foreign keys</a>, of the format
+    ///         '(source_column_name [, ...]) references
+    ///         target_table_name(primary_key_column_name [, ...]) [as
+    ///         foreign_key_name]'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         </term>
+    ///         <description>Foreign shard key of the format 'source_column
+    ///         references shard_by_column from
+    ///         target_table(primary_key_column)'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.LIST">LIST</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.HASH">HASH</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SERIES">SERIES</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for each
+    ///         column in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         <description>Indicates the target maximum data size for all
+    ///         columns in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+    ///         <description>Indicates whether the table is a <a
+    ///         href="../../../concepts/tables_memory_only/"
+    ///         target="_top">memory-only table</a>. A result table cannot
+    ///         contain columns with text_search <a
+    ///         href="../../../concepts/types/#data-handling"
+    ///         target="_top">data-handling</a>, and it will not be retained if
+    ///         the server is restarted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>The <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         </term>
+    ///         <description>The default <a
+    ///         href="../../../concepts/column_compression/"
+    ///         target="_top">compression codec</a> for this table's columns.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup data loading scheme for the table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <description>Load as much vector data as possible into
+    ///                 memory before accepting requests.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <description>Load the necessary vector data at start,
+    ///                 and load the remainder lazily.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 </term>
+    ///                 <description>Load vector data as requests use it.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <description>Load vector data using the
+    ///                 system-configured default.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup primary-key index generation scheme
+    ///         for the table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <description>Generate as much primary key index data as
+    ///                 possible before accepting requests.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <description>Generate the necessary primary key index
+    ///                 data at start, and load the remainder lazily.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 </term>
+    ///                 <description>Generate primary key index data as
+    ///                 requests use it.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <description>Generate primary key index data using the
+    ///                 system-configured default.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateTableRequest object with default
+    /// parameters.</summary>
+    public CreateTableRequest() { }
+
+    /// <summary>Constructs a CreateTableRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table to be created, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a> and meeting <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">table naming criteria</a>. Error for requests with
+    /// existing table of the same name and type ID may be suppressed by using
+    /// the <see cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>
+    /// option.</param>
+    /// <param name="type_id">The type for the table, specified as either an
+    /// existing table's numerical type ID (as returned by <see
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+    /// or a type definition (as described above).</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
+    ///         an error from occurring if the table already exists and is of
+    ///         the given type.  If a table with the same ID but a different
+    ///         type exists, it is still an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         temporary table name will be generated in the sys_temp schema
+    ///         and used in place of <paramref name="table_name" />. If <see
+    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see> is <see
+    ///         cref="Options.TRUE">TRUE</see>, then this is always allowed
+    ///         even if the caller does not have permission to create tables.
+    ///         The generated name is returned in <see
+    ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         <description>[DEPRECATED--please specify the containing schema
+    ///         as part of <paramref name="table_name" /> and use <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the newly created table. If the schema is
+    ///         non-existent, it will be automatically created.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_COLLECTION">IS_COLLECTION</see>:
+    ///         </term>
+    ///         <description>[DEPRECATED--please use <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create a schema instead]  Indicates whether to create a
+    ///         schema instead of a table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         </term>
+    ///         <description>Affects the <a
+    ///         href="../../../concepts/tables/#distribution"
+    ///         target="_top">distribution scheme</a> for the table's data.  If
+    ///         <see cref="Options.TRUE">TRUE</see> and the given type has no
+    ///         explicit <a href="../../../concepts/tables/#shard-key"
+    ///         target="_top">shard key</a> defined, the table will be <a
+    ///         href="../../../concepts/tables/#replication"
+    ///         target="_top">replicated</a>.  If <see
+    ///         cref="Options.FALSE">FALSE</see>, the table will be <a
+    ///         href="../../../concepts/tables/#sharding"
+    ///         target="_top">sharded</a> according to the shard key specified
+    ///         in the given <paramref name="type_id" />, or <a
+    ///         href="../../../concepts/tables/#random-sharding"
+    ///         target="_top">randomly sharded</a>, if no shard key is
+    ///         specified.  Note that a type containing a shard key cannot be
+    ///         used to create a replicated table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         </term>
+    ///         <description>Semicolon-separated list of <a
+    ///         href="../../../concepts/tables/#foreign-keys"
+    ///         target="_top">foreign keys</a>, of the format
+    ///         '(source_column_name [, ...]) references
+    ///         target_table_name(primary_key_column_name [, ...]) [as
+    ///         foreign_key_name]'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         </term>
+    ///         <description>Foreign shard key of the format 'source_column
+    ///         references shard_by_column from
+    ///         target_table(primary_key_column)'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.LIST">LIST</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.HASH">HASH</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SERIES">SERIES</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
+    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <paramref
+    ///         name="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for each
+    ///         column in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         <description>Indicates the target maximum data size for all
+    ///         columns in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+    ///         <description>Indicates whether the table is a <a
+    ///         href="../../../concepts/tables_memory_only/"
+    ///         target="_top">memory-only table</a>. A result table cannot
+    ///         contain columns with text_search <a
+    ///         href="../../../concepts/types/#data-handling"
+    ///         target="_top">data-handling</a>, and it will not be retained if
+    ///         the server is restarted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>The <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         </term>
+    ///         <description>The default <a
+    ///         href="../../../concepts/column_compression/"
+    ///         target="_top">compression codec</a> for this table's columns.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup data loading scheme for the table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <description>Load as much vector data as possible into
+    ///                 memory before accepting requests.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <description>Load the necessary vector data at start,
+    ///                 and load the remainder lazily.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 </term>
+    ///                 <description>Load vector data as requests use it.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <description>Load vector data using the
+    ///                 system-configured default.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+    ///         </term>
+    ///         <description>Set startup primary-key index generation scheme
+    ///         for the table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <description>Generate as much primary key index data as
+    ///                 possible before accepting requests.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <description>Generate the necessary primary key index
+    ///                 data at start, and load the remainder lazily.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 </term>
+    ///                 <description>Generate primary key index data as
+    ///                 requests use it.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <description>Generate primary key index data using the
+    ///                 system-configured default.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateTableRequest( string table_name,
+                               string type_id,
+                               IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>The fully qualified name of the new table (i.e.
-            /// including the schema)</summary>
-            public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
-        } // end struct Info
+        this.table_name = table_name ?? "";
+        this.type_id = type_id ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateTableRequest
 
-        /// <summary>Value of <see
-        /// cref="CreateTableRequest.table_name">table_name</see>.</summary>
-        public string table_name { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+/// </summary>
+public class CreateTableResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>The fully qualified name of the new table (i.e. including
+        /// the schema)</summary>
+        public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
+    } // end struct Info
 
-        /// <summary>Value of <see
-        /// cref="CreateTableRequest.type_id">type_id</see>.</summary>
-        public string type_id { get; set; }
+    /// <summary>Value of <see
+    /// cref="CreateTableRequest.table_name">table_name</see>.</summary>
+    public string table_name { get; set; }
 
-        /// <summary>[DEPRECATED--this will always return false]  Indicates if
-        /// the created entity is a schema.</summary>
-        public bool is_collection { get; set; }
+    /// <summary>Value of <see cref="CreateTableRequest.type_id">type_id</see>.
+    /// </summary>
+    public string type_id { get; set; }
 
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
-        ///         </term>
-        ///         <description>The fully qualified name of the new table
-        ///         (i.e. including the schema)</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateTableResponse
-} // end namespace kinetica
+    /// <summary>[DEPRECATED--this will always return false]  Indicates if the
+    /// created entity is a schema.</summary>
+    public bool is_collection { get; set; }
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
+    ///         </term>
+    ///         <description>The fully qualified name of the new table (i.e.
+    ///         including the schema)</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateTableResponse

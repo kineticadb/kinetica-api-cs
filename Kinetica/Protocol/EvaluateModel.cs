@@ -6,43 +6,42 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class EvaluateModelRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class EvaluateModelRequest : KineticaData
+    public string model_name { get; set; }
+    public int replicas { get; set; }
+    public string deployment_mode { get; set; }
+    public string source_table { get; set; }
+    public string destination_table { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public EvaluateModelRequest() { }
+
+    public EvaluateModelRequest( string model_name,
+                                 int replicas,
+                                 string deployment_mode,
+                                 string source_table,
+                                 string destination_table,
+                                 IDictionary<string, string> options = null)
     {
-        public string model_name { get; set; }
-        public int replicas { get; set; }
-        public string deployment_mode { get; set; }
-        public string source_table { get; set; }
-        public string destination_table { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.model_name = model_name ?? "";
+        this.replicas = replicas;
+        this.deployment_mode = deployment_mode ?? "";
+        this.source_table = source_table ?? "";
+        this.destination_table = destination_table ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class EvaluateModelRequest
+/// @endcond
 
-        public EvaluateModelRequest() { }
-
-        public EvaluateModelRequest( string model_name,
-                                     int replicas,
-                                     string deployment_mode,
-                                     string source_table,
-                                     string destination_table,
-                                     IDictionary<string, string> options = null)
-        {
-            this.model_name = model_name ?? "";
-            this.replicas = replicas;
-            this.deployment_mode = deployment_mode ?? "";
-            this.source_table = source_table ?? "";
-            this.destination_table = destination_table ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class EvaluateModelRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class EvaluateModelResponse : KineticaData
-    {
-        public string model_name { get; set; }
-        public string destination_table { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class EvaluateModelResponse
-    /// @endcond
-} // end namespace kinetica
+/// @cond NO_DOCS
+public class EvaluateModelResponse : KineticaData
+{
+    public string model_name { get; set; }
+    public string destination_table { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class EvaluateModelResponse
+/// @endcond

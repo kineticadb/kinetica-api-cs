@@ -6,166 +6,165 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class VisualizeImageHeatmapRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class VisualizeImageHeatmapRequest : KineticaData
+    public struct Projection
     {
-        public struct Projection
-        {
-            public const string EPSG_4326 = "EPSG:4326";
-            public const string PLATE_CARREE = "PLATE_CARREE";
-            public const string _900913 = "900913";
-            public const string EPSG_900913 = "EPSG:900913";
-            public const string _102100 = "102100";
-            public const string EPSG_102100 = "EPSG:102100";
-            public const string _3857 = "3857";
-            public const string EPSG_3857 = "EPSG:3857";
-            public const string WEB_MERCATOR = "WEB_MERCATOR";
-        } // end struct Projection
+        public const string EPSG_4326 = "EPSG:4326";
+        public const string PLATE_CARREE = "PLATE_CARREE";
+        public const string _900913 = "900913";
+        public const string EPSG_900913 = "EPSG:900913";
+        public const string _102100 = "102100";
+        public const string EPSG_102100 = "EPSG:102100";
+        public const string _3857 = "3857";
+        public const string EPSG_3857 = "EPSG:3857";
+        public const string WEB_MERCATOR = "WEB_MERCATOR";
+    } // end struct Projection
 
-        public struct StyleOptions
-        {
-            public const string COLORMAP = "colormap";
-            public const string JET = "jet";
-            public const string ACCENT = "accent";
-            public const string AFMHOT = "afmhot";
-            public const string AUTUMN = "autumn";
-            public const string BINARY = "binary";
-            public const string BLUES = "blues";
-            public const string BONE = "bone";
-            public const string BRBG = "brbg";
-            public const string BRG = "brg";
-            public const string BUGN = "bugn";
-            public const string BUPU = "bupu";
-            public const string BWR = "bwr";
-            public const string CMRMAP = "cmrmap";
-            public const string COOL = "cool";
-            public const string COOLWARM = "coolwarm";
-            public const string COPPER = "copper";
-            public const string CUBEHELIX = "cubehelix";
-            public const string DARK2 = "dark2";
-            public const string FLAG = "flag";
-            public const string GIST_EARTH = "gist_earth";
-            public const string GIST_GRAY = "gist_gray";
-            public const string GIST_HEAT = "gist_heat";
-            public const string GIST_NCAR = "gist_ncar";
-            public const string GIST_RAINBOW = "gist_rainbow";
-            public const string GIST_STERN = "gist_stern";
-            public const string GIST_YARG = "gist_yarg";
-            public const string GNBU = "gnbu";
-            public const string GNUPLOT2 = "gnuplot2";
-            public const string GNUPLOT = "gnuplot";
-            public const string GRAY = "gray";
-            public const string GREENS = "greens";
-            public const string GREYS = "greys";
-            public const string HOT = "hot";
-            public const string HSV = "hsv";
-            public const string INFERNO = "inferno";
-            public const string MAGMA = "magma";
-            public const string NIPY_SPECTRAL = "nipy_spectral";
-            public const string OCEAN = "ocean";
-            public const string ORANGES = "oranges";
-            public const string ORRD = "orrd";
-            public const string PAIRED = "paired";
-            public const string PASTEL1 = "pastel1";
-            public const string PASTEL2 = "pastel2";
-            public const string PINK = "pink";
-            public const string PIYG = "piyg";
-            public const string PLASMA = "plasma";
-            public const string PRGN = "prgn";
-            public const string PRISM = "prism";
-            public const string PUBU = "pubu";
-            public const string PUBUGN = "pubugn";
-            public const string PUOR = "puor";
-            public const string PURD = "purd";
-            public const string PURPLES = "purples";
-            public const string RAINBOW = "rainbow";
-            public const string RDBU = "rdbu";
-            public const string RDGY = "rdgy";
-            public const string RDPU = "rdpu";
-            public const string RDYLBU = "rdylbu";
-            public const string RDYLGN = "rdylgn";
-            public const string REDS = "reds";
-            public const string SEISMIC = "seismic";
-            public const string SET1 = "set1";
-            public const string SET2 = "set2";
-            public const string SET3 = "set3";
-            public const string SPECTRAL = "spectral";
-            public const string SPRING = "spring";
-            public const string SUMMER = "summer";
-            public const string TERRAIN = "terrain";
-            public const string VIRIDIS = "viridis";
-            public const string WINTER = "winter";
-            public const string WISTIA = "wistia";
-            public const string YLGN = "ylgn";
-            public const string YLGNBU = "ylgnbu";
-            public const string YLORBR = "ylorbr";
-            public const string YLORRD = "ylorrd";
-            public const string BLUR_RADIUS = "blur_radius";
-            public const string BG_COLOR = "bg_color";
-            public const string GRADIENT_START_COLOR = "gradient_start_color";
-            public const string GRADIENT_END_COLOR = "gradient_end_color";
-        } // end struct StyleOptions
-
-        public IList<string> table_names { get; set; } = new List<string>();
-        public string x_column_name { get; set; }
-        public string y_column_name { get; set; }
-        public string value_column_name { get; set; }
-        public string geometry_column_name { get; set; }
-        public double min_x { get; set; }
-        public double max_x { get; set; }
-        public double min_y { get; set; }
-        public double max_y { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public string projection { get; set; } = Projection.PLATE_CARREE;
-        public IDictionary<string, string> style_options { get; set; } = new Dictionary<string, string>();
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        public VisualizeImageHeatmapRequest() { }
-
-        public VisualizeImageHeatmapRequest( IList<string> table_names,
-                                             string x_column_name,
-                                             string y_column_name,
-                                             string value_column_name,
-                                             string geometry_column_name,
-                                             double min_x,
-                                             double max_x,
-                                             double min_y,
-                                             double max_y,
-                                             int width,
-                                             int height,
-                                             string projection,
-                                             IDictionary<string, string> style_options,
-                                             IDictionary<string, string> options = null)
-        {
-            this.table_names = table_names ?? new List<string>();
-            this.x_column_name = x_column_name ?? "";
-            this.y_column_name = y_column_name ?? "";
-            this.value_column_name = value_column_name ?? "";
-            this.geometry_column_name = geometry_column_name ?? "";
-            this.min_x = min_x;
-            this.max_x = max_x;
-            this.min_y = min_y;
-            this.max_y = max_y;
-            this.width = width;
-            this.height = height;
-            this.projection = projection ?? Projection.PLATE_CARREE;
-            this.style_options = style_options ?? new Dictionary<string, string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class VisualizeImageHeatmapRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class VisualizeImageHeatmapResponse : KineticaData
+    public struct StyleOptions
     {
-        public int width { get; set; }
-        public int height { get; set; }
-        public long bg_color { get; set; }
-        public byte[] image_data { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class VisualizeImageHeatmapResponse
-    /// @endcond
-} // end namespace kinetica
+        public const string COLORMAP = "colormap";
+        public const string JET = "jet";
+        public const string ACCENT = "accent";
+        public const string AFMHOT = "afmhot";
+        public const string AUTUMN = "autumn";
+        public const string BINARY = "binary";
+        public const string BLUES = "blues";
+        public const string BONE = "bone";
+        public const string BRBG = "brbg";
+        public const string BRG = "brg";
+        public const string BUGN = "bugn";
+        public const string BUPU = "bupu";
+        public const string BWR = "bwr";
+        public const string CMRMAP = "cmrmap";
+        public const string COOL = "cool";
+        public const string COOLWARM = "coolwarm";
+        public const string COPPER = "copper";
+        public const string CUBEHELIX = "cubehelix";
+        public const string DARK2 = "dark2";
+        public const string FLAG = "flag";
+        public const string GIST_EARTH = "gist_earth";
+        public const string GIST_GRAY = "gist_gray";
+        public const string GIST_HEAT = "gist_heat";
+        public const string GIST_NCAR = "gist_ncar";
+        public const string GIST_RAINBOW = "gist_rainbow";
+        public const string GIST_STERN = "gist_stern";
+        public const string GIST_YARG = "gist_yarg";
+        public const string GNBU = "gnbu";
+        public const string GNUPLOT2 = "gnuplot2";
+        public const string GNUPLOT = "gnuplot";
+        public const string GRAY = "gray";
+        public const string GREENS = "greens";
+        public const string GREYS = "greys";
+        public const string HOT = "hot";
+        public const string HSV = "hsv";
+        public const string INFERNO = "inferno";
+        public const string MAGMA = "magma";
+        public const string NIPY_SPECTRAL = "nipy_spectral";
+        public const string OCEAN = "ocean";
+        public const string ORANGES = "oranges";
+        public const string ORRD = "orrd";
+        public const string PAIRED = "paired";
+        public const string PASTEL1 = "pastel1";
+        public const string PASTEL2 = "pastel2";
+        public const string PINK = "pink";
+        public const string PIYG = "piyg";
+        public const string PLASMA = "plasma";
+        public const string PRGN = "prgn";
+        public const string PRISM = "prism";
+        public const string PUBU = "pubu";
+        public const string PUBUGN = "pubugn";
+        public const string PUOR = "puor";
+        public const string PURD = "purd";
+        public const string PURPLES = "purples";
+        public const string RAINBOW = "rainbow";
+        public const string RDBU = "rdbu";
+        public const string RDGY = "rdgy";
+        public const string RDPU = "rdpu";
+        public const string RDYLBU = "rdylbu";
+        public const string RDYLGN = "rdylgn";
+        public const string REDS = "reds";
+        public const string SEISMIC = "seismic";
+        public const string SET1 = "set1";
+        public const string SET2 = "set2";
+        public const string SET3 = "set3";
+        public const string SPECTRAL = "spectral";
+        public const string SPRING = "spring";
+        public const string SUMMER = "summer";
+        public const string TERRAIN = "terrain";
+        public const string VIRIDIS = "viridis";
+        public const string WINTER = "winter";
+        public const string WISTIA = "wistia";
+        public const string YLGN = "ylgn";
+        public const string YLGNBU = "ylgnbu";
+        public const string YLORBR = "ylorbr";
+        public const string YLORRD = "ylorrd";
+        public const string BLUR_RADIUS = "blur_radius";
+        public const string BG_COLOR = "bg_color";
+        public const string GRADIENT_START_COLOR = "gradient_start_color";
+        public const string GRADIENT_END_COLOR = "gradient_end_color";
+    } // end struct StyleOptions
+
+    public IList<string> table_names { get; set; } = new List<string>();
+    public string x_column_name { get; set; }
+    public string y_column_name { get; set; }
+    public string value_column_name { get; set; }
+    public string geometry_column_name { get; set; }
+    public double min_x { get; set; }
+    public double max_x { get; set; }
+    public double min_y { get; set; }
+    public double max_y { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
+    public string projection { get; set; } = Projection.PLATE_CARREE;
+    public IDictionary<string, string> style_options { get; set; } = new Dictionary<string, string>();
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public VisualizeImageHeatmapRequest() { }
+
+    public VisualizeImageHeatmapRequest( IList<string> table_names,
+                                         string x_column_name,
+                                         string y_column_name,
+                                         string value_column_name,
+                                         string geometry_column_name,
+                                         double min_x,
+                                         double max_x,
+                                         double min_y,
+                                         double max_y,
+                                         int width,
+                                         int height,
+                                         string projection,
+                                         IDictionary<string, string> style_options,
+                                         IDictionary<string, string> options = null)
+    {
+        this.table_names = table_names ?? new List<string>();
+        this.x_column_name = x_column_name ?? "";
+        this.y_column_name = y_column_name ?? "";
+        this.value_column_name = value_column_name ?? "";
+        this.geometry_column_name = geometry_column_name ?? "";
+        this.min_x = min_x;
+        this.max_x = max_x;
+        this.min_y = min_y;
+        this.max_y = max_y;
+        this.width = width;
+        this.height = height;
+        this.projection = projection ?? Projection.PLATE_CARREE;
+        this.style_options = style_options ?? new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class VisualizeImageHeatmapRequest
+/// @endcond
+
+/// @cond NO_DOCS
+public class VisualizeImageHeatmapResponse : KineticaData
+{
+    public int width { get; set; }
+    public int height { get; set; }
+    public long bg_color { get; set; }
+    public byte[] image_data { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class VisualizeImageHeatmapResponse
+/// @endcond

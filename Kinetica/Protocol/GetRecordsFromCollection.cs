@@ -6,448 +6,432 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+/// </summary>
+/// <remarks><para>Retrieves records from a collection. The operation can
+/// optionally return the record IDs which can be used in certain queries such
+/// as <see
+/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.</para>
+/// <para>This operation supports paging through the data via the <see
+/// cref="offset" /> and <see cref="limit" /> parameters.</para>
+/// <para>Note that when using the Java API, it is not possible to retrieve
+/// records from join views using this operation.
+/// (DEPRECATED)</para></remarks>
+public class GetRecordsFromCollectionRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
-    /// </summary>
-    /// <remarks><para>Retrieves records from a collection. The operation can
-    /// optionally return the record IDs which can be used in certain queries
-    /// such as <see
-    /// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.</para>
-    /// <para>This operation supports paging through the data via the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters.</para>
-    /// <para>Note that when using the Java API, it is not possible to retrieve
-    /// records from join views using this operation.
-    /// (DEPRECATED)</para></remarks>
-    public class GetRecordsFromCollectionRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="encoding" />.</summary>
+    /// <remarks><para>Specifies the encoding for returned records; either <see
+    /// cref="Encoding.BINARY">BINARY</see> or <see
+    /// cref="Encoding.JSON">JSON</see>.</para></remarks>
+    public struct Encoding
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="encoding" />.</summary>
-        /// <remarks><para>Specifies the encoding for returned records; either
-        /// <see cref="Encoding.BINARY">BINARY</see> or <see
-        /// cref="Encoding.JSON">JSON</see>.</para></remarks>
-        public struct Encoding
-        {
-            public const string BINARY = "binary";
-            public const string JSON = "json";
-        } // end struct Encoding
+        public const string BINARY = "binary";
+        public const string JSON = "json";
+    } // end struct Encoding
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
-            /// internal record ID along with each returned record.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RETURN_RECORD_IDS = "return_record_ids";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Optional filter expression to apply to the table.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string EXPRESSION = "expression";
-        } // end struct Options
-
-        /// <summary>Name of the collection or table from which records are to
-        /// be retrieved, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Must be an existing collection or table.</para>
-        /// </remarks>
-        public string table_name { get; set; }
-
-        /// <summary>A positive integer indicating the number of initial
-        /// results to skip (this can be useful for paging through the
-        /// results).</summary>
-        /// <remarks><para>The default value is 0. The minimum allowed value is
-        /// 0. The maximum allowed value is MAX_INT.</para></remarks>
-        public long offset { get; set; } = 0;
-
-        /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned, or END_OF_SET (-9999) to indicate that the
-        /// maximum number of results allowed by the server should be returned.
-        /// </summary>
-        /// <remarks><para> The number of records returned will never exceed
-        /// the server's own limit, defined by the <a
-        /// href="../../../config/#config-main-general"
-        /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration. Use <see cref="offset" /> & <see cref="limit" /> to
-        /// request subsequent pages of results. The default value is -9999.
-        /// </para></remarks>
-        public long limit { get; set; } = -9999;
-
-        /// <summary>Specifies the encoding for returned records; either <see
-        /// cref="Encoding.BINARY">BINARY</see> or <see
-        /// cref="Encoding.JSON">JSON</see>.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    public struct Options
+    {
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
+        /// internal record ID along with each returned record.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Encoding.JSON">JSON</see></term>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see
-        /// cref="Encoding.BINARY">BINARY</see>.</para></remarks>
-        public string encoding { get; set; } = Encoding.BINARY;
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RETURN_RECORD_IDS = "return_record_ids";
 
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record ID along with each returned
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
-        ///         </term>
-        ///         <description>Optional filter expression to apply to the
-        ///         table. The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Constructs a GetRecordsFromCollectionRequest object with
-        /// default parameters.</summary>
-        public GetRecordsFromCollectionRequest() { }
+        /// <summary>Optional filter expression to apply to the table.
+        /// </summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string EXPRESSION = "expression";
+    } // end struct Options
 
-        /// <summary>Constructs a GetRecordsFromCollectionRequest object with
-        /// the specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the collection or table from which
-        /// records are to be retrieved, in [schema_name.]table_name format,
-        /// using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// collection or table.</param>
-        /// <param name="offset">A positive integer indicating the number of
-        /// initial results to skip (this can be useful for paging through the
-        /// results). The default value is 0. The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT.</param>
-        /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the maximum number of results allowed by the server should be
-        /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the <a
-        /// href="../../../config/#config-main-general"
-        /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration. Use <paramref name="offset" /> & <paramref
-        /// name="limit" /> to request subsequent pages of results. The default
-        /// value is -9999.</param>
-        /// <param name="options"><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record ID along with each returned
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
-        ///         </term>
-        ///         <description>Optional filter expression to apply to the
-        ///         table. The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public GetRecordsFromCollectionRequest( string table_name,
-                                                long? offset = null,
-                                                long? limit = null,
-                                                IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.offset = offset ?? 0;
-            this.limit = limit ?? -9999;
-            this.encoding = Encoding.BINARY;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
+    /// <summary>Name of the collection or table from which records are to be
+    /// retrieved, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> Must be an existing collection or table.</para>
+    /// </remarks>
+    public string table_name { get; set; }
 
-        /// <summary>Constructs a GetRecordsFromCollectionRequest object with
-        /// the specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the collection or table from which
-        /// records are to be retrieved, in [schema_name.]table_name format,
-        /// using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// collection or table.</param>
-        /// <param name="offset">A positive integer indicating the number of
-        /// initial results to skip (this can be useful for paging through the
-        /// results). The default value is 0. The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT.</param>
-        /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the maximum number of results allowed by the server should be
-        /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the <a
-        /// href="../../../config/#config-main-general"
-        /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration. Use <paramref name="offset" /> & <paramref
-        /// name="limit" /> to request subsequent pages of results. The default
-        /// value is -9999.</param>
-        /// <param name="encoding">Specifies the encoding for returned records;
-        /// either <see cref="Encoding.BINARY">BINARY</see> or <see
-        /// cref="Encoding.JSON">JSON</see>.
-        /// Supported values:
+    /// <summary>A positive integer indicating the number of initial results to
+    /// skip (this can be useful for paging through the results).</summary>
+    /// <remarks><para>The default value is 0. The minimum allowed value is 0.
+    /// The maximum allowed value is MAX_INT.</para></remarks>
+    public long offset { get; set; } = 0;
+
+    /// <summary>A positive integer indicating the maximum number of results to
+    /// be returned, or END_OF_SET (-9999) to indicate that the maximum number
+    /// of results allowed by the server should be returned.</summary>
+    /// <remarks><para> The number of records returned will never exceed the
+    /// server's own limit, defined by the <a
+    /// href="../../../config/#config-main-general"
+    /// target="_top">max_get_records_size</a> parameter in the server
+    /// configuration. Use <see cref="offset" /> and <see cref="limit" /> to
+    /// request subsequent pages of results. The default value is -9999.</para>
+    /// </remarks>
+    public long limit { get; set; } = -9999;
+
+    /// <summary>Specifies the encoding for returned records; either <see
+    /// cref="Encoding.BINARY">BINARY</see> or <see
+    /// cref="Encoding.JSON">JSON</see>.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
+    /// </para></remarks>
+    public string encoding { get; set; } = Encoding.BINARY;
+
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record ID along with each returned record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <description>Optional filter expression to apply to the table.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a GetRecordsFromCollectionRequest object with
+    /// default parameters.</summary>
+    public GetRecordsFromCollectionRequest() { }
+
+    /// <summary>Constructs a GetRecordsFromCollectionRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the collection or table from which
+    /// records are to be retrieved, in [schema_name.]table_name format, using
+    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing
+    /// collection or table.</param>
+    /// <param name="offset">A positive integer indicating the number of
+    /// initial results to skip (this can be useful for paging through the
+    /// results). The default value is 0. The minimum allowed value is 0. The
+    /// maximum allowed value is MAX_INT.</param>
+    /// <param name="limit">A positive integer indicating the maximum number of
+    /// results to be returned, or END_OF_SET (-9999) to indicate that the
+    /// maximum number of results allowed by the server should be returned.
+    /// The number of records returned will never exceed the server's own
+    /// limit, defined by the <a href="../../../config/#config-main-general"
+    /// target="_top">max_get_records_size</a> parameter in the server
+    /// configuration. Use <paramref name="offset" /> and <paramref
+    /// name="limit" /> to request subsequent pages of results. The default
+    /// value is -9999.</param>
+    /// <param name="options"><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record ID along with each returned record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <description>Optional filter expression to apply to the table.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public GetRecordsFromCollectionRequest( string table_name,
+                                            long? offset = null,
+                                            long? limit = null,
+                                            IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.offset = offset ?? 0;
+        this.limit = limit ?? -9999;
+        this.encoding = Encoding.BINARY;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+
+    /// <summary>Constructs a GetRecordsFromCollectionRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the collection or table from which
+    /// records are to be retrieved, in [schema_name.]table_name format, using
+    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing
+    /// collection or table.</param>
+    /// <param name="offset">A positive integer indicating the number of
+    /// initial results to skip (this can be useful for paging through the
+    /// results). The default value is 0. The minimum allowed value is 0. The
+    /// maximum allowed value is MAX_INT.</param>
+    /// <param name="limit">A positive integer indicating the maximum number of
+    /// results to be returned, or END_OF_SET (-9999) to indicate that the
+    /// maximum number of results allowed by the server should be returned.
+    /// The number of records returned will never exceed the server's own
+    /// limit, defined by the <a href="../../../config/#config-main-general"
+    /// target="_top">max_get_records_size</a> parameter in the server
+    /// configuration. Use <paramref name="offset" /> and <paramref
+    /// name="limit" /> to request subsequent pages of results. The default
+    /// value is -9999.</param>
+    /// <param name="encoding">Specifies the encoding for returned records;
+    /// either <see cref="Encoding.BINARY">BINARY</see> or <see
+    /// cref="Encoding.JSON">JSON</see>.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// <param name="options"><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record ID along with each returned record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <description>Optional filter expression to apply to the table.
+    ///         The default value is ''.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public GetRecordsFromCollectionRequest( string table_name,
+                                            long? offset = null,
+                                            long? limit = null,
+                                            string encoding = null,
+                                            IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.offset = offset ?? 0;
+        this.limit = limit ?? -9999;
+        this.encoding = encoding ?? Encoding.BINARY;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end full constructor
+} // end class GetRecordsFromCollectionRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+/// </summary>
+public class RawGetRecordsFromCollectionResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>Total number of records.</summary>
+        public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
+
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="Info.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Encoding.JSON">JSON</see></term>
+        ///         <term><see cref="Info.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>
-        /// The default value is <see cref="Encoding.BINARY">BINARY</see>.
-        /// </param>
-        /// <param name="options"><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record ID along with each returned
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:
-        ///         </term>
-        ///         <description>Optional filter expression to apply to the
-        ///         table. The default value is ''.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public GetRecordsFromCollectionRequest( string table_name,
-                                                long? offset = null,
-                                                long? limit = null,
-                                                string encoding = null,
-                                                IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.offset = offset ?? 0;
-            this.limit = limit ?? -9999;
-            this.encoding = encoding ?? Encoding.BINARY;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end full constructor
-    } // end class GetRecordsFromCollectionRequest
+        /// </list></remarks>
+        public const string HAS_MORE_RECORDS = "has_more_records";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Info
+
+    /// <summary>Value of <see
+    /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see>.
     /// </summary>
-    public class RawGetRecordsFromCollectionResponse : KineticaData
+    public string table_name { get; set; }
+
+    /// <summary>The type IDs of the corresponding records in <see
+    /// cref="records_binary" /> or <see cref="records_json" />.</summary>
+    /// <remarks><para>This is useful when <see
+    /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see> is a
+    /// heterogeneous collection (collections containing tables of different
+    /// types).</para></remarks>
+    public IList<string> type_names { get; set; } = new List<string>();
+
+    /// <summary>If the encoding parameter of the request was 'binary' then
+    /// this list contains the binary encoded records retrieved from the
+    /// table/collection.</summary>
+    /// <remarks><para>Otherwise, empty list.</para></remarks>
+    public IList<byte[]> records_binary { get; set; } = new List<byte[]>();
+
+    /// <summary>If the encoding parameter of the request was 'json', then this
+    /// list contains the JSON encoded records retrieved from the
+    /// table/collection.</summary>
+    /// <remarks><para>Otherwise, empty list.</para></remarks>
+    public IList<string> records_json { get; set; } = new List<string>();
+
+    /// <summary>If the 'return_record_ids' option of the request was 'true',
+    /// then this list contains the internal ID for each object.</summary>
+    /// <remarks><para>Otherwise it will be empty.</para></remarks>
+    public IList<string> record_ids { get; set; } = new List<string>();
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
+    ///         </term>
+    ///         <description>Total number of records.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:
+    ///         </term>
+    ///         <description>Too many records. Returned a partial set.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Info.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Info.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RawGetRecordsFromCollectionResponse
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+/// </summary>
+///
+/// <typeparam name="T">The type of object being processed.</typeparam>
+public class GetRecordsFromCollectionResponse<T> : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>Total number of records.</summary>
-            public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
+        /// <summary>Total number of records.</summary>
+        public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
 
-            /// <summary>Too many records.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Info.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Info.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string HAS_MORE_RECORDS = "has_more_records";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Info
-
-        /// <summary>Value of <see
-        /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see>.
-        /// </summary>
-        public string table_name { get; set; }
-
-        /// <summary>The type IDs of the corresponding records in <see
-        /// cref="records_binary" /> or <see cref="records_json" />.</summary>
-        /// <remarks><para>This is useful when <see
-        /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see>
-        /// is a heterogeneous collection (collections containing tables of
-        /// different types).</para></remarks>
-        public IList<string> type_names { get; set; } = new List<string>();
-
-        /// <summary>If the encoding parameter of the request was 'binary' then
-        /// this list contains the binary encoded records retrieved from the
-        /// table/collection.</summary>
-        /// <remarks><para>Otherwise, empty list.</para></remarks>
-        public IList<byte[]> records_binary { get; set; } = new List<byte[]>();
-
-        /// <summary>If the encoding parameter of the request was 'json', then
-        /// this list contains the JSON encoded records retrieved from the
-        /// table/collection.</summary>
-        /// <remarks><para>Otherwise, empty list.</para></remarks>
-        public IList<string> records_json { get; set; } = new List<string>();
-
-        /// <summary>If the 'return_record_ids' option of the request was
-        /// 'true', then this list contains the internal ID for each object.
-        /// </summary>
-        /// <remarks><para>Otherwise it will be empty.</para></remarks>
-        public IList<string> record_ids { get; set; } = new List<string>();
-
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
+        /// <summary>Too many records.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
-        ///         </term>
-        ///         <description>Total number of records.</description>
+        ///         <term><see cref="Info.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:</term>
-        ///         <description>Too many records. Returned a partial set.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Info.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Info.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
+        ///         <term><see cref="Info.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RawGetRecordsFromCollectionResponse
+        /// </list></remarks>
+        public const string HAS_MORE_RECORDS = "has_more_records";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Info
+
+    /// <summary>Value of <see
+    /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see>.
     /// </summary>
-    ///
-    /// <typeparam name="T">The type of object being processed.</typeparam>
-    public class GetRecordsFromCollectionResponse<T> : KineticaData
-    {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>Total number of records.</summary>
-            public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
+    public string table_name { get; set; }
 
-            /// <summary>Too many records.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Info.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Info.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></remarks>
-            public const string HAS_MORE_RECORDS = "has_more_records";
+    /// <summary>The type IDs of the corresponding records in <see cref="data"
+    /// /> or <c>records_json</c>.</summary>
+    /// <remarks><para>This is useful when <see
+    /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see> is a
+    /// heterogeneous collection (collections containing tables of different
+    /// types).</para></remarks>
+    public IList<string> type_names { get; set; } = new List<string>();
 
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Info
+    /// <summary>If the encoding parameter of the request was 'binary' then
+    /// this list contains the binary encoded records retrieved from the
+    /// table/collection.</summary>
+    /// <remarks><para>Otherwise, empty list.</para></remarks>
+    public IList<T> data { get; set; } = new List<T>();
 
-        /// <summary>Value of <see
-        /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see>.
-        /// </summary>
-        public string table_name { get; set; }
+    /// <summary>If the 'return_record_ids' option of the request was 'true',
+    /// then this list contains the internal ID for each object.</summary>
+    /// <remarks><para>Otherwise it will be empty.</para></remarks>
+    public IList<string> record_ids { get; set; } = new List<string>();
 
-        /// <summary>The type IDs of the corresponding records in <see
-        /// cref="data" /> or <c>records_json</c>.</summary>
-        /// <remarks><para>This is useful when <see
-        /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see>
-        /// is a heterogeneous collection (collections containing tables of
-        /// different types).</para></remarks>
-        public IList<string> type_names { get; set; } = new List<string>();
-
-        /// <summary>If the encoding parameter of the request was 'binary' then
-        /// this list contains the binary encoded records retrieved from the
-        /// table/collection.</summary>
-        /// <remarks><para>Otherwise, empty list.</para></remarks>
-        public IList<T> data { get; set; } = new List<T>();
-
-        /// <summary>If the 'return_record_ids' option of the request was
-        /// 'true', then this list contains the internal ID for each object.
-        /// </summary>
-        /// <remarks><para>Otherwise it will be empty.</para></remarks>
-        public IList<string> record_ids { get; set; } = new List<string>();
-
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
-        ///         </term>
-        ///         <description>Total number of records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:</term>
-        ///         <description>Too many records. Returned a partial set.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Info.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Info.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class GetRecordsFromCollectionResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
+    ///         </term>
+    ///         <description>Total number of records.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:
+    ///         </term>
+    ///         <description>Too many records. Returned a partial set.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Info.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Info.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class GetRecordsFromCollectionResponse

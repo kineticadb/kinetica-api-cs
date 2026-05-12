@@ -6,62 +6,62 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class ImportModelRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class ImportModelRequest : KineticaData
+    public struct Options
     {
-        public struct Options
-        {
-            public const string CREDENTIAL = "credential";
-            public const string MEMORY_LIMIT = "memory_limit";
-            public const string REMOTE_MODEL_NAME = "remote_model_name";
-            public const string REMOTE_MODEL_LOCATION = "remote_model_location";
-            public const string REMOTE_MODEL_PROVIDER_TYPE = "remote_model_provider_type";
-            public const string NVIDIA = "nvidia";
-            public const string OPENAI = "openai";
-            public const string SQLGPT = "sqlgpt";
-            public const string REMOTE_MODEL_TYPE = "remote_model_type";
-            public const string EMBEDDING = "embedding";
-        } // end struct Options
+        public const string CREDENTIAL = "credential";
+        public const string MEMORY_LIMIT = "memory_limit";
+        public const string REMOTE_MODEL_NAME = "remote_model_name";
+        public const string REMOTE_MODEL_DIMENSIONS = "remote_model_dimensions";
+        public const string REMOTE_MODEL_LOCATION = "remote_model_location";
+        public const string REMOTE_MODEL_PROVIDER_TYPE = "remote_model_provider_type";
+        public const string NVIDIA = "nvidia";
+        public const string OPENAI = "openai";
+        public const string SQLGPT = "sqlgpt";
+        public const string REMOTE_MODEL_TYPE = "remote_model_type";
+        public const string EMBEDDING = "embedding";
+    } // end struct Options
 
-        public string model_name { get; set; }
-        public string registry_name { get; set; }
-        public string container { get; set; }
-        public string run_function { get; set; }
-        public string model_type { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    public string model_name { get; set; }
+    public string registry_name { get; set; }
+    public string container { get; set; }
+    public string run_function { get; set; }
+    public string model_type { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        public ImportModelRequest() { }
+    public ImportModelRequest() { }
 
-        public ImportModelRequest( string model_name,
-                                   string registry_name,
-                                   string container,
-                                   string run_function,
-                                   string model_type,
-                                   IDictionary<string, string> options = null)
-        {
-            this.model_name = model_name ?? "";
-            this.registry_name = registry_name ?? "";
-            this.container = container ?? "";
-            this.run_function = run_function ?? "";
-            this.model_type = model_type ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ImportModelRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class ImportModelResponse : KineticaData
+    public ImportModelRequest( string model_name,
+                               string registry_name,
+                               string container,
+                               string run_function,
+                               string model_type,
+                               IDictionary<string, string> options = null)
     {
-        public struct Info
-        {
-            public const string KML_RESPONSE = "kml_response";
-        } // end struct Info
+        this.model_name = model_name ?? "";
+        this.registry_name = registry_name ?? "";
+        this.container = container ?? "";
+        this.run_function = run_function ?? "";
+        this.model_type = model_type ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ImportModelRequest
+/// @endcond
 
-        public string model_name { get; set; }
-        public int entity_id { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ImportModelResponse
-    /// @endcond
-} // end namespace kinetica
+/// @cond NO_DOCS
+public class ImportModelResponse : KineticaData
+{
+    public struct Info
+    {
+        public const string KML_RESPONSE = "kml_response";
+    } // end struct Info
+
+    public string model_name { get; set; }
+    public int entity_id { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ImportModelResponse
+/// @endcond

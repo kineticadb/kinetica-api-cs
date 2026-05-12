@@ -6,1554 +6,1534 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>.
+/// </summary>
+/// <remarks><para>Adds multiple records to the specified table. The operation
+/// is synchronous, meaning that a response will not be returned until all the
+/// records are fully inserted and available. The response payload provides the
+/// counts of the number of records actually inserted and/or updated, and can
+/// provide the unique identifier of each added record.</para>
+/// <para>The <see cref="options" /> parameter can be used to customize this
+/// function's behavior.</para>
+/// <para>The <see
+/// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
+/// specifies the record collision policy for inserting into a table with a <a
+/// href="../../../concepts/tables/#primary-keys" target="_top">primary
+/// key</a>, but is ignored if no primary key exists.</para>
+/// <para>The <see cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+/// option indicates that the database should return the unique identifiers of
+/// inserted records.</para></remarks>
+public class RawInsertRecordsRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>.
-    /// </summary>
-    /// <remarks><para>Adds multiple records to the specified table. The
-    /// operation is synchronous, meaning that a response will not be returned
-    /// until all the records are fully inserted and available. The response
-    /// payload provides the counts of the number of records actually inserted
-    /// and/or updated, and can provide the unique identifier of each added
-    /// record.</para>
-    /// <para>The <see cref="options" /> parameter can be used to customize
-    /// this function's behavior.</para>
-    /// <para>The <see
-    /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
-    /// specifies the record collision policy for inserting into a table with a
-    /// <a href="../../../concepts/tables/#primary-keys" target="_top">primary
-    /// key</a>, but is ignored if no primary key exists.</para>
-    /// <para>The <see cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
-    /// option indicates that the database should return the unique identifiers
-    /// of inserted records.</para></remarks>
-    public class RawInsertRecordsRequest : KineticaData
+
+    private const string Schema_ = @"
     {
+        ""type"": ""record"",
+        ""name"": ""RawInsertRecordsRequest"",
+        ""namespace"": ""kinetica"",
+        ""fields"": [
+            { ""name"": ""table_name"", ""type"": ""string"" },
+            { ""name"": ""list"", ""type"": { ""type"": ""array"", ""items"": ""bytes"" } },
+            { ""name"": ""list_str"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
+            { ""name"": ""list_encoding"", ""type"": ""string"" },
+            { ""name"": ""options"", ""type"": { ""type"": ""map"", ""values"": ""string"" } }
+        ]
+    }";
 
-        private const string Schema_ = @"
-        {
-            ""type"": ""record"",
-            ""name"": ""RawInsertRecordsRequest"",
-            ""namespace"": ""kinetica"",
-            ""fields"": [
-                { ""name"": ""table_name"", ""type"": ""string"" },
-                { ""name"": ""list"", ""type"": { ""type"": ""array"", ""items"": ""bytes"" } },
-                { ""name"": ""list_str"", ""type"": { ""type"": ""array"", ""items"": ""string"" } },
-                { ""name"": ""list_encoding"", ""type"": ""string"" },
-                { ""name"": ""options"", ""type"": { ""type"": ""map"", ""values"": ""string"" } }
-            ]
-        }";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="list_encoding" />.</summary>
+    /// <remarks><para>The encoding of the records to be inserted.</para>
+    /// </remarks>
+    public struct ListEncoding
+    {
+        public const string BINARY = "binary";
+        public const string JSON = "json";
+    } // end struct ListEncoding
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="list_encoding" />.</summary>
-        /// <remarks><para>The encoding of the records to be inserted.</para>
-        /// </remarks>
-        public struct ListEncoding
-        {
-            public const string BINARY = "binary";
-            public const string JSON = "json";
-        } // end struct ListEncoding
-
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Specifies the record collision policy for inserting
-            /// into a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Upsert new records when primary keys match
-            ///         existing records</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Reject new records when primary keys match
-            ///         existing records</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Specifies the record collision error-suppression
-            /// policy for inserting into a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>, only used when not in upsert
-            /// mode (upsert mode is disabled when <see
-            /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-            /// is <see cref="Options.FALSE">FALSE</see>).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Ignore new records whose primary key
-            ///         values collide with those of existing records
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Treat as errors any new records whose
-            ///         primary key values collide with those of existing
-            ///         records</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
-
-            /// <summary>The record with higher value for the column resolves
-            /// the primary-key insert conflict.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string PK_CONFLICT_PREDICATE_HIGHER = "pk_conflict_predicate_higher";
-
-            /// <summary>The record with lower value for the column resolves
-            /// the primary-key insert conflict.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
-            /// internal record id along for each inserted record.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RETURN_RECORD_IDS = "return_record_ids";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any
-            /// strings which are too long for their target charN string
-            /// columns will be truncated to fit.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string TRUNCATE_STRINGS = "truncate_strings";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, success
-            /// will always be returned, and any errors found will be included
-            /// in the info map.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all
-            /// correct records will be inserted and incorrect records will be
-            /// rejected and reported.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, no data
-            /// will be saved and any errors will be returned.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DRY_RUN = "dry_run";
-        } // end struct Options
-
-        /// <summary>Name of table to which the records are to be added, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Must be an existing table.</para></remarks>
-        public string table_name { get; set; }
-
-        /// <summary>An array of binary-encoded data for the records to be
-        /// added.</summary>
-        /// <remarks><para>All records must be of the same type as that of the
-        /// table. Empty array if <see cref="list_encoding" /> is <see
-        /// cref="ListEncoding.JSON">JSON</see>.</para></remarks>
-        public IList<byte[]> list { get; set; } = new List<byte[]>();
-
-        /// <summary>An array of JSON encoded data for the records to be added.
-        /// </summary>
-        /// <remarks><para>All records must be of the same type as that of the
-        /// table. Empty array if <see cref="list_encoding" /> is <see
-        /// cref="ListEncoding.BINARY">BINARY</see>.</para></remarks>
-        public IList<string> list_str { get; set; } = new List<string>();
-
-        /// <summary>The encoding of the records to be inserted.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>Specifies the record collision policy for inserting into a
+        /// table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="ListEncoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        ///         existing records</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="ListEncoding.JSON">JSON</see></term>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        ///         existing records</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see
-        /// cref="ListEncoding.BINARY">BINARY</see>.</para></remarks>
-        public string list_encoding { get; set; } = ListEncoding.BINARY;
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
-        ///         <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key or if
-        ///         upsert mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
-        ///         </term>
-        ///         <description>The record with higher value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
-        ///         </term>
-        ///         <description>The record with lower value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record id along for each inserted
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         any strings which are too long for their target charN
-        ///         string columns will be truncated to fit.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         success will always be returned, and any errors found will
-        ///         be included in the info map.  The "bad_record_indices"
-        ///         entry is a comma-separated list of bad records (0-based).
-        ///         And if so, there will also be an "error_N" entry for each
-        ///         record with an error, where N is the index (0-based).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all correct records will be inserted and incorrect records
-        ///         will be rejected and reported.  Otherwise, the entire batch
-        ///         will be rejected if any records are incorrect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         no data will be saved and any errors will be returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Constructs a RawInsertRecordsRequest object with default
-        /// parameters.</summary>
-        public RawInsertRecordsRequest() { }
-
-        /// <summary>Constructs a RawInsertRecordsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of table to which the records are to
-        /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table.</param>
-        /// <param name="list">An array of binary-encoded data for the records
-        /// to be added. All records must be of the same type as that of the
-        /// table. Empty array if <paramref name="list_encoding" /> is <see
-        /// cref="ListEncoding.JSON">JSON</see>.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>Specifies the record collision error-suppression policy
+        /// for inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when not in upsert mode (upsert mode is disabled
+        /// when <see
+        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
+        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
-        ///         <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        ///         collide with those of existing records</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key or if
-        ///         upsert mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
-        ///         </term>
-        ///         <description>The record with higher value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
-        ///         </term>
-        ///         <description>The record with lower value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record id along for each inserted
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         any strings which are too long for their target charN
-        ///         string columns will be truncated to fit.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         success will always be returned, and any errors found will
-        ///         be included in the info map.  The "bad_record_indices"
-        ///         entry is a comma-separated list of bad records (0-based).
-        ///         And if so, there will also be an "error_N" entry for each
-        ///         record with an error, where N is the index (0-based).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all correct records will be inserted and incorrect records
-        ///         will be rejected and reported.  Otherwise, the entire batch
-        ///         will be rejected if any records are incorrect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         no data will be saved and any errors will be returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        ///         key values collide with those of existing records
         ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public RawInsertRecordsRequest( string table_name,
-                                        IList<byte[]> list,
-                                        IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.list = list ?? new List<byte[]>();
-            this.list_str = new List<string>();
-            this.list_encoding = ListEncoding.BINARY;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
-        /// <summary>Constructs a RawInsertRecordsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of table to which the records are to
-        /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table.</param>
-        /// <param name="list">An array of binary-encoded data for the records
-        /// to be added. All records must be of the same type as that of the
-        /// table. Empty array if <paramref name="list_encoding" /> is <see
-        /// cref="ListEncoding.JSON">JSON</see>.</param>
-        /// <param name="list_str">An array of JSON encoded data for the
-        /// records to be added. All records must be of the same type as that
-        /// of the table. Empty array if <paramref name="list_encoding" /> is
-        /// <see cref="ListEncoding.BINARY">BINARY</see>.</param>
-        /// <param name="list_encoding">The encoding of the records to be
-        /// inserted.
-        /// Supported values:
+        /// <summary>The record with higher value for the column resolves the
+        /// primary-key insert conflict.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string PK_CONFLICT_PREDICATE_HIGHER = "pk_conflict_predicate_higher";
+
+        /// <summary>The record with lower value for the column resolves the
+        /// primary-key insert conflict.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
+        /// internal record id along for each inserted record.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="ListEncoding.BINARY">BINARY</see></term>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="ListEncoding.JSON">JSON</see></term>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is <see cref="ListEncoding.BINARY">BINARY</see>.
-        /// </param>
-        /// <param name="options">Optional parameters.
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RETURN_RECORD_IDS = "return_record_ids";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any strings
+        /// which are too long for their target charN string columns will be
+        /// truncated to fit.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
-        ///         <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key or if
-        ///         upsert mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
-        ///         </term>
-        ///         <description>The record with higher value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
-        ///         </term>
-        ///         <description>The record with lower value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record id along for each inserted
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         any strings which are too long for their target charN
-        ///         string columns will be truncated to fit.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         success will always be returned, and any errors found will
-        ///         be included in the info map.  The "bad_record_indices"
-        ///         entry is a comma-separated list of bad records (0-based).
-        ///         And if so, there will also be an "error_N" entry for each
-        ///         record with an error, where N is the index (0-based).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all correct records will be inserted and incorrect records
-        ///         will be rejected and reported.  Otherwise, the entire batch
-        ///         will be rejected if any records are incorrect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         no data will be saved and any errors will be returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public RawInsertRecordsRequest( string table_name,
-                                        IList<byte[]> list,
-                                        IList<string> list_str,
-                                        string list_encoding = null,
-                                        IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.list = list ?? new List<byte[]>();
-            this.list_str = list_str ?? new List<string>();
-            this.list_encoding = list_encoding ?? ListEncoding.BINARY;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end full constructor
-    } // end class RawInsertRecordsRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string TRUNCATE_STRINGS = "truncate_strings";
 
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>.
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, success
+        /// will always be returned, and any errors found will be included in
+        /// the info map.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all correct
+        /// records will be inserted and incorrect records will be rejected and
+        /// reported.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, no data
+        /// will be saved and any errors will be returned.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DRY_RUN = "dry_run";
+    } // end struct Options
+
+    /// <summary>Name of table to which the records are to be added, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> Must be an existing table.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>An array of binary-encoded data for the records to be added.
     /// </summary>
-    /// <remarks><para>Adds multiple records to the specified table. The
-    /// operation is synchronous, meaning that a response will not be returned
-    /// until all the records are fully inserted and available. The response
-    /// payload provides the counts of the number of records actually inserted
-    /// and/or updated, and can provide the unique identifier of each added
-    /// record.</para>
-    /// <para>The <see cref="options" /> parameter can be used to customize
-    /// this function's behavior.</para>
-    /// <para>The <see
-    /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
-    /// specifies the record collision policy for inserting into a table with a
-    /// <a href="../../../concepts/tables/#primary-keys" target="_top">primary
-    /// key</a>, but is ignored if no primary key exists.</para>
-    /// <para>The <see cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
-    /// option indicates that the database should return the unique identifiers
-    /// of inserted records.</para></remarks>
+    /// <remarks><para>All records must be of the same type as that of the
+    /// table. Empty array if <see cref="list_encoding" /> is <see
+    /// cref="ListEncoding.JSON">JSON</see>.</para></remarks>
+    public IList<byte[]> list { get; set; } = new List<byte[]>();
+
+    /// <summary>An array of JSON encoded data for the records to be added.
+    /// </summary>
+    /// <remarks><para>All records must be of the same type as that of the
+    /// table. Empty array if <see cref="list_encoding" /> is <see
+    /// cref="ListEncoding.BINARY">BINARY</see>.</para></remarks>
+    public IList<string> list_str { get; set; } = new List<string>();
+
+    /// <summary>The encoding of the records to be inserted.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="ListEncoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="ListEncoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see
+    /// cref="ListEncoding.BINARY">BINARY</see>.</para></remarks>
+    public string list_encoding { get; set; } = ListEncoding.BINARY;
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         </term>
+    ///         <description>The record with higher value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         </term>
+    ///         <description>The record with lower value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record id along for each inserted record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         strings which are too long for their target charN string
+    ///         columns will be truncated to fit.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         success will always be returned, and any errors found will be
+    ///         included in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  And if so,
+    ///         there will also be an "error_N" entry for each record with an
+    ///         error, where N is the index (0-based).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         correct records will be inserted and incorrect records will be
+    ///         rejected and reported.  Otherwise, the entire batch will be
+    ///         rejected if any records are incorrect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
+    ///         data will be saved and any errors will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a RawInsertRecordsRequest object with default
+    /// parameters.</summary>
+    public RawInsertRecordsRequest() { }
+
+    /// <summary>Constructs a RawInsertRecordsRequest object with the specified
+    /// parameters.</summary>
     ///
-    /// <typeparam name="T">The type of object being processed.</typeparam>
-    public class InsertRecordsRequest<T> : KineticaData
+    /// <param name="table_name">Name of table to which the records are to be
+    /// added, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing table.
+    /// </param>
+    /// <param name="list">An array of binary-encoded data for the records to
+    /// be added. All records must be of the same type as that of the table.
+    /// Empty array if <paramref name="list_encoding" /> is <see
+    /// cref="ListEncoding.JSON">JSON</see>.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         </term>
+    ///         <description>The record with higher value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         </term>
+    ///         <description>The record with lower value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record id along for each inserted record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         strings which are too long for their target charN string
+    ///         columns will be truncated to fit.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         success will always be returned, and any errors found will be
+    ///         included in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  And if so,
+    ///         there will also be an "error_N" entry for each record with an
+    ///         error, where N is the index (0-based).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         correct records will be inserted and incorrect records will be
+    ///         rejected and reported.  Otherwise, the entire batch will be
+    ///         rejected if any records are incorrect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
+    ///         data will be saved and any errors will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public RawInsertRecordsRequest( string table_name,
+                                    IList<byte[]> list,
+                                    IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Specifies the record collision policy for inserting
-            /// into a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Upsert new records when primary keys match
-            ///         existing records</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Reject new records when primary keys match
-            ///         existing records</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+        this.table_name = table_name ?? "";
+        this.list = list ?? new List<byte[]>();
+        this.list_str = new List<string>();
+        this.list_encoding = ListEncoding.BINARY;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
 
-            public const string TRUE = "true";
-            public const string FALSE = "false";
+    /// <summary>Constructs a RawInsertRecordsRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of table to which the records are to be
+    /// added, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing table.
+    /// </param>
+    /// <param name="list">An array of binary-encoded data for the records to
+    /// be added. All records must be of the same type as that of the table.
+    /// Empty array if <paramref name="list_encoding" /> is <see
+    /// cref="ListEncoding.JSON">JSON</see>.</param>
+    /// <param name="list_str">An array of JSON encoded data for the records to
+    /// be added. All records must be of the same type as that of the table.
+    /// Empty array if <paramref name="list_encoding" /> is <see
+    /// cref="ListEncoding.BINARY">BINARY</see>.</param>
+    /// <param name="list_encoding">The encoding of the records to be inserted.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="ListEncoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="ListEncoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// The default value is <see cref="ListEncoding.BINARY">BINARY</see>.
+    /// </param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         </term>
+    ///         <description>The record with higher value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         </term>
+    ///         <description>The record with lower value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record id along for each inserted record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         strings which are too long for their target charN string
+    ///         columns will be truncated to fit.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         success will always be returned, and any errors found will be
+    ///         included in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  And if so,
+    ///         there will also be an "error_N" entry for each record with an
+    ///         error, where N is the index (0-based).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         correct records will be inserted and incorrect records will be
+    ///         rejected and reported.  Otherwise, the entire batch will be
+    ///         rejected if any records are incorrect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
+    ///         data will be saved and any errors will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public RawInsertRecordsRequest( string table_name,
+                                    IList<byte[]> list,
+                                    IList<string> list_str,
+                                    string list_encoding = null,
+                                    IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.list = list ?? new List<byte[]>();
+        this.list_str = list_str ?? new List<string>();
+        this.list_encoding = list_encoding ?? ListEncoding.BINARY;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end full constructor
+} // end class RawInsertRecordsRequest
 
-            /// <summary>Specifies the record collision error-suppression
-            /// policy for inserting into a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>, only used when not in upsert
-            /// mode (upsert mode is disabled when <see
-            /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-            /// is <see cref="Options.FALSE">FALSE</see>).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Ignore new records whose primary key
-            ///         values collide with those of existing records
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Treat as errors any new records whose
-            ///         primary key values collide with those of existing
-            ///         records</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
-
-            /// <summary>The record with higher value for the column resolves
-            /// the primary-key insert conflict.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string PK_CONFLICT_PREDICATE_HIGHER = "pk_conflict_predicate_higher";
-
-            /// <summary>The record with lower value for the column resolves
-            /// the primary-key insert conflict.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
-            /// internal record id along for each inserted record.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RETURN_RECORD_IDS = "return_record_ids";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any
-            /// strings which are too long for their target charN string
-            /// columns will be truncated to fit.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string TRUNCATE_STRINGS = "truncate_strings";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, success
-            /// will always be returned, and any errors found will be included
-            /// in the info map.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all
-            /// correct records will be inserted and incorrect records will be
-            /// rejected and reported.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, no data
-            /// will be saved and any errors will be returned.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DRY_RUN = "dry_run";
-        } // end struct Options
-
-        /// <summary>Name of table to which the records are to be added, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Must be an existing table.</para></remarks>
-        public string table_name { get; set; }
-
-        /// <summary>An array of binary-encoded data for the records to be
-        /// added.</summary>
-        /// <remarks><para>All records must be of the same type as that of the
-        /// table. Empty array if <c>list_encoding</c> is <c>JSON</c>.</para>
-        /// </remarks>
-        public IList<T> data { get; set; } = new List<T>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
-        ///         <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key or if
-        ///         upsert mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
-        ///         </term>
-        ///         <description>The record with higher value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
-        ///         </term>
-        ///         <description>The record with lower value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record id along for each inserted
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         any strings which are too long for their target charN
-        ///         string columns will be truncated to fit.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         success will always be returned, and any errors found will
-        ///         be included in the info map.  The "bad_record_indices"
-        ///         entry is a comma-separated list of bad records (0-based).
-        ///         And if so, there will also be an "error_N" entry for each
-        ///         record with an error, where N is the index (0-based).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all correct records will be inserted and incorrect records
-        ///         will be rejected and reported.  Otherwise, the entire batch
-        ///         will be rejected if any records are incorrect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         no data will be saved and any errors will be returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an InsertRecordsRequest object with default
-        /// parameters.</summary>
-        public InsertRecordsRequest() { }
-
-        /// <summary>Constructs an InsertRecordsRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of table to which the records are to
-        /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table.</param>
-        /// <param name="data">An array of binary-encoded data for the records
-        /// to be added. All records must be of the same type as that of the
-        /// table. Empty array if <c>list_encoding</c> is <c>JSON</c>.</param>
-        /// <param name="options">Optional parameters.
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>.
+/// </summary>
+/// <remarks><para>Adds multiple records to the specified table. The operation
+/// is synchronous, meaning that a response will not be returned until all the
+/// records are fully inserted and available. The response payload provides the
+/// counts of the number of records actually inserted and/or updated, and can
+/// provide the unique identifier of each added record.</para>
+/// <para>The <see cref="options" /> parameter can be used to customize this
+/// function's behavior.</para>
+/// <para>The <see
+/// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
+/// specifies the record collision policy for inserting into a table with a <a
+/// href="../../../concepts/tables/#primary-keys" target="_top">primary
+/// key</a>, but is ignored if no primary key exists.</para>
+/// <para>The <see cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+/// option indicates that the database should return the unique identifiers of
+/// inserted records.</para></remarks>
+///
+/// <typeparam name="T">The type of object being processed.</typeparam>
+public class InsertRecordsRequest<T> : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>Specifies the record collision policy for inserting into a
+        /// table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
-        ///         <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        ///         existing records</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
-        ///         & <see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
-        ///         If the specified table does not have a primary key or if
-        ///         upsert mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        ///         existing records</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>Specifies the record collision error-suppression policy
+        /// for inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when not in upsert mode (upsert mode is disabled
+        /// when <see
+        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
+        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        ///         collide with those of existing records</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
-        ///         </term>
-        ///         <description>The record with higher value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
-        ///         </term>
-        ///         <description>The record with lower value for the column
-        ///         resolves the primary-key insert conflict. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> then
-        ///         return the internal record id along for each inserted
-        ///         record.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         any strings which are too long for their target charN
-        ///         string columns will be truncated to fit.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         success will always be returned, and any errors found will
-        ///         be included in the info map.  The "bad_record_indices"
-        ///         entry is a comma-separated list of bad records (0-based).
-        ///         And if so, there will also be an "error_N" entry for each
-        ///         record with an error, where N is the index (0-based).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         all correct records will be inserted and incorrect records
-        ///         will be rejected and reported.  Otherwise, the entire batch
-        ///         will be rejected if any records are incorrect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         no data will be saved and any errors will be returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        ///         key values collide with those of existing records
         ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public InsertRecordsRequest( string table_name,
-                                     IList<T> data,
-                                     IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.data = data ?? new List<T>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class InsertRecordsRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>.
+        /// <summary>The record with higher value for the column resolves the
+        /// primary-key insert conflict.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string PK_CONFLICT_PREDICATE_HIGHER = "pk_conflict_predicate_higher";
+
+        /// <summary>The record with lower value for the column resolves the
+        /// primary-key insert conflict.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
+        /// internal record id along for each inserted record.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RETURN_RECORD_IDS = "return_record_ids";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any strings
+        /// which are too long for their target charN string columns will be
+        /// truncated to fit.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string TRUNCATE_STRINGS = "truncate_strings";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, success
+        /// will always be returned, and any errors found will be included in
+        /// the info map.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all correct
+        /// records will be inserted and incorrect records will be rejected and
+        /// reported.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, no data
+        /// will be saved and any errors will be returned.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DRY_RUN = "dry_run";
+    } // end struct Options
+
+    /// <summary>Name of table to which the records are to be added, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> Must be an existing table.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>An array of binary-encoded data for the records to be added.
     /// </summary>
-    public class InsertRecordsResponse : KineticaData
+    /// <remarks><para>All records must be of the same type as that of the
+    /// table. Empty array if <c>list_encoding</c> is <c>JSON</c>.</para>
+    /// </remarks>
+    public IList<T> data { get; set; } = new List<T>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         </term>
+    ///         <description>The record with higher value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         </term>
+    ///         <description>The record with lower value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record id along for each inserted record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         strings which are too long for their target charN string
+    ///         columns will be truncated to fit.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         success will always be returned, and any errors found will be
+    ///         included in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  And if so,
+    ///         there will also be an "error_N" entry for each record with an
+    ///         error, where N is the index (0-based).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         correct records will be inserted and incorrect records will be
+    ///         rejected and reported.  Otherwise, the entire batch will be
+    ///         rejected if any records are incorrect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
+    ///         data will be saved and any errors will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an InsertRecordsRequest object with default
+    /// parameters.</summary>
+    public InsertRecordsRequest() { }
+
+    /// <summary>Constructs an InsertRecordsRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_name">Name of table to which the records are to be
+    /// added, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing table.
+    /// </param>
+    /// <param name="data">An array of binary-encoded data for the records to
+    /// be added. All records must be of the same type as that of the table.
+    /// Empty array if <c>list_encoding</c> is <c>JSON</c>.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         and <see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         </term>
+    ///         <description>The record with higher value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         </term>
+    ///         <description>The record with lower value for the column
+    ///         resolves the primary-key insert conflict. The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
+    ///         the internal record id along for each inserted record.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         strings which are too long for their target charN string
+    ///         columns will be truncated to fit.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         success will always be returned, and any errors found will be
+    ///         included in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  And if so,
+    ///         there will also be an "error_N" entry for each record with an
+    ///         error, where N is the index (0-based).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         correct records will be inserted and incorrect records will be
+    ///         rejected and reported.  Otherwise, the entire batch will be
+    ///         rejected if any records are incorrect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
+    ///         data will be saved and any errors will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public InsertRecordsRequest( string table_name,
+                                 IList<T> data,
+                                 IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>If return_individual_errors option is specified or
-            /// implied, returns a comma-separated list of invalid indices
-            /// (0-based)</summary>
-            public const string BAD_RECORD_INDICES = "bad_record_indices";
+        this.table_name = table_name ?? "";
+        this.data = data ?? new List<T>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class InsertRecordsRequest
 
-            /// <summary>Error message for record at index N (0-based)
-            /// </summary>
-            public const string ERROR_N = "error_N";
-        } // end struct Info
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>.
+/// </summary>
+public class InsertRecordsResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>If return_individual_errors option is specified or
+        /// implied, returns a comma-separated list of invalid indices
+        /// (0-based)</summary>
+        public const string BAD_RECORD_INDICES = "bad_record_indices";
 
-        /// <summary>An array containing the IDs with which the added records
-        /// are identified internally.</summary>
-        public IList<string> record_ids { get; set; } = new List<string>();
+        /// <summary>Error message for record at index N (0-based)</summary>
+        public const string ERROR_N = "error_N";
+    } // end struct Info
 
-        /// <summary>The number of records inserted.</summary>
-        public int count_inserted { get; set; }
+    /// <summary>An array containing the IDs with which the added records are
+    /// identified internally.</summary>
+    public IList<string> record_ids { get; set; } = new List<string>();
 
-        /// <summary>The number of records updated.</summary>
-        public int count_updated { get; set; }
+    /// <summary>The number of records inserted.</summary>
+    public int count_inserted { get; set; }
 
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Info.BAD_RECORD_INDICES">BAD_RECORD_INDICES</see>:
-        ///         </term>
-        ///         <description>If return_individual_errors option is
-        ///         specified or implied, returns a comma-separated list of
-        ///         invalid indices (0-based)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Info.ERROR_N">ERROR_N</see>:</term>
-        ///         <description>Error message for record at index N (0-based)
-        ///         </description>
-        ///     </item>
-        /// </list></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class InsertRecordsResponse
-} // end namespace kinetica
+    /// <summary>The number of records updated.</summary>
+    public int count_updated { get; set; }
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Info.BAD_RECORD_INDICES">BAD_RECORD_INDICES</see>:</term>
+    ///         <description>If return_individual_errors option is specified or
+    ///         implied, returns a comma-separated list of invalid indices
+    ///         (0-based)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Info.ERROR_N">ERROR_N</see>:</term>
+    ///         <description>Error message for record at index N (0-based)
+    ///         </description>
+    ///     </item>
+    /// </list></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class InsertRecordsResponse

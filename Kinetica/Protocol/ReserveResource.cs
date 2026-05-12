@@ -6,54 +6,53 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class ReserveResourceRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class ReserveResourceRequest : KineticaData
+    public struct Action
     {
-        public struct Action
-        {
-            public const string GET_SIZE = "get_size";
-            public const string NOTIFY_UNTIERED = "notify_untiered";
-            public const string TIER = "tier";
-            public const string EVICT = "evict";
-            public const string DELETE = "delete";
-            public const string CHANGE_OWNER = "change_owner";
-        } // end struct Action
+        public const string GET_SIZE = "get_size";
+        public const string NOTIFY_UNTIERED = "notify_untiered";
+        public const string TIER = "tier";
+        public const string EVICT = "evict";
+        public const string DELETE = "delete";
+        public const string CHANGE_OWNER = "change_owner";
+    } // end struct Action
 
-        public string component { get; set; }
-        public string name { get; set; }
-        public string action { get; set; }
-        public long bytes_requested { get; set; } = 0;
-        public long owner_id { get; set; } = 0;
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    public string component { get; set; }
+    public string name { get; set; }
+    public string action { get; set; }
+    public long bytes_requested { get; set; } = 0;
+    public long owner_id { get; set; } = 0;
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        public ReserveResourceRequest() { }
+    public ReserveResourceRequest() { }
 
-        public ReserveResourceRequest( string component,
-                                       string name,
-                                       string action,
-                                       long? bytes_requested = null,
-                                       long? owner_id = null,
-                                       IDictionary<string, string> options = null)
-        {
-            this.component = component ?? "";
-            this.name = name ?? "";
-            this.action = action ?? "";
-            this.bytes_requested = bytes_requested ?? 0;
-            this.owner_id = owner_id ?? 0;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ReserveResourceRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class ReserveResourceResponse : KineticaData
+    public ReserveResourceRequest( string component,
+                                   string name,
+                                   string action,
+                                   long? bytes_requested = null,
+                                   long? owner_id = null,
+                                   IDictionary<string, string> options = null)
     {
-        public string component { get; set; }
-        public string name { get; set; }
-        public long reservation { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ReserveResourceResponse
-    /// @endcond
-} // end namespace kinetica
+        this.component = component ?? "";
+        this.name = name ?? "";
+        this.action = action ?? "";
+        this.bytes_requested = bytes_requested ?? 0;
+        this.owner_id = owner_id ?? 0;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ReserveResourceRequest
+/// @endcond
+
+/// @cond NO_DOCS
+public class ReserveResourceResponse : KineticaData
+{
+    public string component { get; set; }
+    public string name { get; set; }
+    public long reservation { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ReserveResourceResponse
+/// @endcond

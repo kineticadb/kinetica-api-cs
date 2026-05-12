@@ -6,177 +6,175 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
+/// </summary>
+/// <remarks><para>Drops an existing SQL-style <a
+/// href="../../../concepts/schemas/" target="_top">schema</a>, specified in
+/// <see cref="schema_name" />.</para></remarks>
+public class DropSchemaRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
-    /// </summary>
-    /// <remarks><para>Drops an existing SQL-style <a
-    /// href="../../../concepts/schemas/" target="_top">schema</a>, specified
-    /// in <see cref="schema_name" />.</para></remarks>
-    public class DropSchemaRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the
-            /// schema specified in <see cref="schema_name" /> does not exist,
-            /// no error is returned.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, all tables
-            /// within the schema will be dropped.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string CASCADE = "cascade";
-        } // end struct Options
-
-        /// <summary>Name of the schema to be dropped.</summary>
-        /// <remarks><para>Must be an existing schema.</para></remarks>
-        public string schema_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
-        ///         the schema specified in <see cref="schema_name" /> does not
-        ///         exist, no error is returned. If <see
-        ///         cref="Options.FALSE">FALSE</see> and if the schema
-        ///         specified in <see cref="schema_name" /> does not exist,
-        ///         then an error is returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CASCADE">CASCADE</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, all
-        ///         tables within the schema will be dropped. If <see
-        ///         cref="Options.FALSE">FALSE</see>, the schema will be
-        ///         dropped only if empty.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a DropSchemaRequest object with default
-        /// parameters.</summary>
-        public DropSchemaRequest() { }
-
-        /// <summary>Constructs a DropSchemaRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="schema_name">Name of the schema to be dropped. Must be
-        /// an existing schema.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the schema
+        /// specified in <see cref="schema_name" /> does not exist, no error is
+        /// returned.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and if
-        ///         the schema specified in <paramref name="schema_name" />
-        ///         does not exist, no error is returned. If <see
-        ///         cref="Options.FALSE">FALSE</see> and if the schema
-        ///         specified in <paramref name="schema_name" /> does not
-        ///         exist, then an error is returned.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.CASCADE">CASCADE</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, all
-        ///         tables within the schema will be dropped. If <see
-        ///         cref="Options.FALSE">FALSE</see>, the schema will be
-        ///         dropped only if empty.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public DropSchemaRequest( string schema_name,
-                                  IDictionary<string, string> options = null)
-        {
-            this.schema_name = schema_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DropSchemaRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, all tables within
+        /// the schema will be dropped.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string CASCADE = "cascade";
+    } // end struct Options
+
+    /// <summary>Name of the schema to be dropped.</summary>
+    /// <remarks><para>Must be an existing schema.</para></remarks>
+    public string schema_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
+    ///         schema specified in <see cref="schema_name" /> does not exist,
+    ///         no error is returned. If <see cref="Options.FALSE">FALSE</see>
+    ///         and if the schema specified in <see cref="schema_name" /> does
+    ///         not exist, then an error is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CASCADE">CASCADE</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, all tables
+    ///         within the schema will be dropped. If <see
+    ///         cref="Options.FALSE">FALSE</see>, the schema will be dropped
+    ///         only if empty.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a DropSchemaRequest object with default parameters.
     /// </summary>
-    public class DropSchemaResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="DropSchemaRequest.schema_name">schema_name</see>.</summary>
-        public string schema_name { get; set; }
+    public DropSchemaRequest() { }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DropSchemaResponse
-} // end namespace kinetica
+    /// <summary>Constructs a DropSchemaRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="schema_name">Name of the schema to be dropped. Must be an
+    /// existing schema.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
+    ///         schema specified in <paramref name="schema_name" /> does not
+    ///         exist, no error is returned. If <see
+    ///         cref="Options.FALSE">FALSE</see> and if the schema specified in
+    ///         <paramref name="schema_name" /> does not exist, then an error
+    ///         is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CASCADE">CASCADE</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, all tables
+    ///         within the schema will be dropped. If <see
+    ///         cref="Options.FALSE">FALSE</see>, the schema will be dropped
+    ///         only if empty.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public DropSchemaRequest( string schema_name,
+                              IDictionary<string, string> options = null)
+    {
+        this.schema_name = schema_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DropSchemaRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
+/// </summary>
+public class DropSchemaResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="DropSchemaRequest.schema_name">schema_name</see>.</summary>
+    public string schema_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DropSchemaResponse

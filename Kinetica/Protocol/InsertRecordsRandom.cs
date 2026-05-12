@@ -6,831 +6,786 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
+/// </summary>
+/// <remarks><para>Generates a specified number of random records and adds them
+/// to the given table. There is an optional parameter that allows the user to
+/// customize the ranges of the column values. It also allows the user to
+/// specify linear profiles for some or all columns in which case linear values
+/// are generated rather than random ones. Only individual tables are supported
+/// for this operation.</para>
+/// <para>This operation is synchronous, meaning that a response will not be
+/// returned until all random records are fully available.</para></remarks>
+public class InsertRecordsRandomRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
-    /// </summary>
-    /// <remarks><para>Generates a specified number of random records and adds
-    /// them to the given table. There is an optional parameter that allows the
-    /// user to customize the ranges of the column values. It also allows the
-    /// user to specify linear profiles for some or all columns in which case
-    /// linear values are generated rather than random ones. Only individual
-    /// tables are supported for this operation.</para>
-    /// <para>This operation is synchronous, meaning that a response will not
-    /// be returned until all random records are fully available.</para>
-    /// </remarks>
-    public class InsertRecordsRandomRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameter to pass in specifications for the
+    /// randomness of the values.  This map is different from the *options*
+    /// parameter of most other endpoints in that it is a map of string to map
+    /// of string to doubles, while most others are maps of string to string.
+    /// In this map, the top level keys represent which column's parameters are
+    /// being specified, while the internal keys represents which parameter is
+    /// being specified.  These parameters take on different meanings depending
+    /// on the type of the column.  Below follows a more detailed description
+    /// of the map:</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameter to pass in specifications for the
-        /// randomness of the values.  This map is different from the *options*
-        /// parameter of most other endpoints in that it is a map of string to
-        /// map of string to doubles, while most others are maps of string to
-        /// string.  In this map, the top level keys represent which column's
-        /// parameters are being specified, while the internal keys represents
-        /// which parameter is being specified.  These parameters take on
-        /// different meanings depending on the type of the column.  Below
-        /// follows a more detailed description of the map:</para></remarks>
-        public struct Options
-        {
-            /// <summary>If provided, the internal random number generator will
-            /// be initialized with the given value.</summary>
-            /// <remarks><list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.VALUE">VALUE</see>:</term>
-            ///         <description>The seed value to use</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string SEED = "seed";
-
-            /// <summary>The seed value to use</summary>
-            public const string VALUE = "value";
-
-            /// <summary>This key indicates that the specifications relayed in
-            /// the internal map are to be applied to all columns of the
-            /// records.</summary>
-            /// <remarks><list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.MIN">MIN</see>:</term>
-            ///         <description>For numerical columns, the minimum of the
-            ///         generated values is set to this value.  Default is
-            ///         -99999.  For point, shape, and track columns, min for
-            ///         numeric 'x' and 'y' columns needs to be within [-180,
-            ///         180] and [-90, 90], respectively. The default minimum
-            ///         possible values for these columns in such cases are
-            ///         -180.0 and -90.0. For the 'TIMESTAMP' column, the
-            ///         default minimum corresponds to Jan 1, 2010.
-            ///         For string columns, the minimum length of the randomly
-            ///         generated strings is set to this value (default is 0).
-            ///         If both minimum and maximum are provided, minimum must
-            ///         be less than or equal to max.
-            ///         If the min is outside the accepted ranges for strings
-            ///         columns and 'x' and 'y' columns for point/shape/track,
-            ///         then those parameters will not be set; however, an
-            ///         error will not be thrown in such a case. It is the
-            ///         responsibility of the user to use the <see
-            ///         cref="Options.ALL">ALL</see> parameter judiciously.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.MAX">MAX</see>:</term>
-            ///         <description>For numerical columns, the maximum of the
-            ///         generated values is set to this value. Default is
-            ///         99999. For point, shape, and track columns, max for
-            ///         numeric 'x' and 'y' columns needs to be within [-180,
-            ///         180] and [-90, 90], respectively. The default minimum
-            ///         possible values for these columns in such cases are
-            ///         180.0 and 90.0.
-            ///         For string columns, the maximum length of the randomly
-            ///         generated strings. If both minimum and maximum are
-            ///         provided, *max* must be greater than or equal to *min*.
-            ///         If the *max* is outside the accepted ranges for strings
-            ///         columns and 'x' and 'y' columns for point/shape/track,
-            ///         then those parameters will not be set; however, an
-            ///         error will not be thrown in such a case. It is the
-            ///         responsibility of the user to use the <see
-            ///         cref="Options.ALL">ALL</see> parameter judiciously.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:
-            ///         </term>
-            ///         <description>If specified, generate values for all
-            ///         columns evenly spaced with the given interval value. If
-            ///         a max value is specified for a given column the data is
-            ///         randomly generated between min and max and decimated
-            ///         down to the interval. If no max is provided the data is
-            ///         linearly generated starting at the minimum value
-            ///         (instead of generating random data). For non-decimated
-            ///         string-type columns the interval value is ignored.
-            ///         Instead the values are generated following the pattern:
-            ///         'attrname_creationIndex#', i.e. the column name
-            ///         suffixed with an underscore and a running counter
-            ///         (starting at 0). For string types with limited size
-            ///         (e.g. char4) the prefix is dropped. No nulls will be
-            ///         generated for nullable columns.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
-            ///         </term>
-            ///         <description>If specified, then generate the given
-            ///         percentage of the count as nulls for all nullable
-            ///         columns.  This option will be ignored for non-nullable
-            ///         columns.  The value must be within the range [0, 1.0].
-            ///         The default value is 5% (0.05).</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.CARDINALITY">CARDINALITY</see>:</term>
-            ///         <description>If specified, limit the randomly generated
-            ///         values to a fixed set. Not allowed on a column with
-            ///         interval specified, and is not applicable to WKT or
-            ///         Track-specific columns. The value must be greater than
-            ///         0. This option is disabled by default.</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string ALL = "all";
-
-            /// <summary>Minimum possible length for generated series; default
-            /// is 100 records per series.</summary>
-            /// <remarks><para>Must be an integral value within the range [1,
-            /// 500]. If both min and max are specified, min must be less than
-            /// or equal to max.</para></remarks>
-            public const string MIN = "min";
-
-            /// <summary>Maximum possible length for generated series; default
-            /// is 500 records per series.</summary>
-            /// <remarks><para>Must be an integral value within the range [1,
-            /// 500]. If both min and max are specified, max must be greater
-            /// than or equal to min.</para></remarks>
-            public const string MAX = "max";
-
-            /// <summary>If specified, generate values for all columns evenly
-            /// spaced with the given interval value.</summary>
-            /// <remarks><para>If a max value is specified for a given column
-            /// the data is randomly generated between min and max and
-            /// decimated down to the interval. If no max is provided the data
-            /// is linearly generated starting at the minimum value (instead of
-            /// generating random data). For non-decimated string-type columns
-            /// the interval value is ignored. Instead the values are generated
-            /// following the pattern: 'attrname_creationIndex#', i.e. the
-            /// column name suffixed with an underscore and a running counter
-            /// (starting at 0). For string types with limited size (e.g.
-            /// char4) the prefix is dropped. No nulls will be generated for
-            /// nullable columns.</para></remarks>
-            public const string INTERVAL = "interval";
-
-            /// <summary>If specified and if this column is nullable, then
-            /// generate the given percentage of the count as nulls.</summary>
-            /// <remarks><para> This option will result in an error if the
-            /// column is not nullable.  The value must be within the range [0,
-            /// 1.0].  The default value is 5% (0.05).</para></remarks>
-            public const string NULL_PERCENTAGE = "null_percentage";
-
-            /// <summary>If specified, limit the randomly generated values to a
-            /// fixed set.</summary>
-            /// <remarks><para>Not allowed on a column with interval specified,
-            /// and is not applicable to WKT or Track-specific columns. The
-            /// value must be greater than 0. This option is disabled by
-            /// default.</para></remarks>
-            public const string CARDINALITY = "cardinality";
-
-            /// <summary>Use the desired column name in place of <see
-            /// cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
-            /// parameters for the column specified.</summary>
-            /// <remarks><list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.MIN">MIN</see>:</term>
-            ///         <description>For numerical columns, the minimum of the
-            ///         generated values is set to this value.  Default is
-            ///         -99999.  For point, shape, and track columns, min for
-            ///         numeric 'x' and 'y' columns needs to be within [-180,
-            ///         180] and [-90, 90], respectively. The default minimum
-            ///         possible values for these columns in such cases are
-            ///         -180.0 and -90.0. For the 'TIMESTAMP' column, the
-            ///         default minimum corresponds to Jan 1, 2010.
-            ///         For string columns, the minimum length of the randomly
-            ///         generated strings is set to this value (default is 0).
-            ///         If both minimum and maximum are provided, minimum must
-            ///         be less than or equal to max.
-            ///         If the min is outside the accepted ranges for strings
-            ///         columns and 'x' and 'y' columns for point/shape/track,
-            ///         then those parameters will not be set; however, an
-            ///         error will not be thrown in such a case. It is the
-            ///         responsibility of the user to use the <see
-            ///         cref="Options.ALL">ALL</see> parameter judiciously.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.MAX">MAX</see>:</term>
-            ///         <description>For numerical columns, the maximum of the
-            ///         generated values is set to this value. Default is
-            ///         99999. For point, shape, and track columns, max for
-            ///         numeric 'x' and 'y' columns needs to be within [-180,
-            ///         180] and [-90, 90], respectively. The default minimum
-            ///         possible values for these columns in such cases are
-            ///         180.0 and 90.0.
-            ///         For string columns, the maximum length of the randomly
-            ///         generated strings. If both minimum and maximum are
-            ///         provided, *max* must be greater than or equal to *min*.
-            ///         If the *max* is outside the accepted ranges for strings
-            ///         columns and 'x' and 'y' columns for point/shape/track,
-            ///         then those parameters will not be set; however, an
-            ///         error will not be thrown in such a case. It is the
-            ///         responsibility of the user to use the <see
-            ///         cref="Options.ALL">ALL</see> parameter judiciously.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:
-            ///         </term>
-            ///         <description>If specified, generate values for all
-            ///         columns evenly spaced with the given interval value. If
-            ///         a max value is specified for a given column the data is
-            ///         randomly generated between min and max and decimated
-            ///         down to the interval. If no max is provided the data is
-            ///         linearly generated starting at the minimum value
-            ///         (instead of generating random data). For non-decimated
-            ///         string-type columns the interval value is ignored.
-            ///         Instead the values are generated following the pattern:
-            ///         'attrname_creationIndex#', i.e. the column name
-            ///         suffixed with an underscore and a running counter
-            ///         (starting at 0). For string types with limited size
-            ///         (e.g. char4) the prefix is dropped. No nulls will be
-            ///         generated for nullable columns.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
-            ///         </term>
-            ///         <description>If specified and if this column is
-            ///         nullable, then generate the given percentage of the
-            ///         count as nulls.  This option will result in an error if
-            ///         the column is not nullable.  The value must be within
-            ///         the range [0, 1.0].  The default value is 5% (0.05).
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.CARDINALITY">CARDINALITY</see>:</term>
-            ///         <description>If specified, limit the randomly generated
-            ///         values to a fixed set. Not allowed on a column with
-            ///         interval specified, and is not applicable to WKT or
-            ///         Track-specific columns. The value must be greater than
-            ///         0. This option is disabled by default.</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string ATTR_NAME = "attr_name";
-
-            /// <summary>This key-map pair is only valid for track data sets
-            /// (an error is thrown otherwise).</summary>
-            /// <remarks><list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.MIN">MIN</see>:</term>
-            ///         <description>Minimum possible length for generated
-            ///         series; default is 100 records per series. Must be an
-            ///         integral value within the range [1, 500]. If both min
-            ///         and max are specified, min must be less than or equal
-            ///         to max. The minimum allowed value is 1. The maximum
-            ///         allowed value is 500.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.MAX">MAX</see>:</term>
-            ///         <description>Maximum possible length for generated
-            ///         series; default is 500 records per series. Must be an
-            ///         integral value within the range [1, 500]. If both min
-            ///         and max are specified, max must be greater than or
-            ///         equal to min. The minimum allowed value is 1. The
-            ///         maximum allowed value is 500.</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string TRACK_LENGTH = "track_length";
-        } // end struct Options
-
-        /// <summary>Table to which random records will be added, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Must be an existing table, not a view.</para>
-        /// </remarks>
-        public string table_name { get; set; }
-
-        /// <summary>Number of records to generate.</summary>
-        public long count { get; set; }
-
-        /// <summary>Optional parameter to pass in specifications for the
-        /// randomness of the values.</summary>
+        /// <summary>If provided, the internal random number generator will be
+        /// initialized with the given value.</summary>
         /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.SEED">SEED</see>:</term>
-        ///         <description>If provided, the internal random number
-        ///         generator will be initialized with the given value.  The
-        ///         minimum is 0.  This allows for the same set of random
-        ///         numbers to be generated across invocation of this endpoint
-        ///         in case the user wants to repeat the test.  Since <see
-        ///         cref="options" />, is a map of maps, we need an internal
-        ///         map to provide the seed value.  For example, to pass 100 as
-        ///         the seed value through this parameter, you need something
-        ///         equivalent to: 'options' = {'seed': { 'value': 100 } }.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
-        ///                 <description>The seed value to use</description>
-        ///             </item>
-        ///         </list></description>
+        ///         <term><see cref="Options.VALUE">VALUE</see>:</term>
+        ///         <description>The seed value to use</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ALL">ALL</see>:</term>
-        ///         <description>This key indicates that the specifications
-        ///         relayed in the internal map are to be applied to all
-        ///         columns of the records.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.MIN">MIN</see>:</term>
-        ///                 <description>For numerical columns, the minimum of
-        ///                 the generated values is set to this value.  Default
-        ///                 is -99999.  For point, shape, and track columns,
-        ///                 min for numeric 'x' and 'y' columns needs to be
-        ///                 within [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are -180.0 and -90.0. For the
-        ///                 'TIMESTAMP' column, the default minimum corresponds
-        ///                 to Jan 1, 2010.
-        ///                 For string columns, the minimum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 0). If both minimum and maximum are
-        ///                 provided, minimum must be less than or equal to
-        ///                 max.
-        ///                 If the min is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.MAX">MAX</see>:</term>
-        ///                 <description>For numerical columns, the maximum of
-        ///                 the generated values is set to this value. Default
-        ///                 is 99999. For point, shape, and track columns, max
-        ///                 for numeric 'x' and 'y' columns needs to be within
-        ///                 [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are 180.0 and 90.0.
-        ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings. If both minimum and
-        ///                 maximum are provided, *max* must be greater than or
-        ///                 equal to *min*.
-        ///                 If the *max* is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>If specified, generate values for all
-        ///                 columns evenly spaced with the given interval
-        ///                 value. If a max value is specified for a given
-        ///                 column the data is randomly generated between min
-        ///                 and max and decimated down to the interval. If no
-        ///                 max is provided the data is linearly generated
-        ///                 starting at the minimum value (instead of
-        ///                 generating random data). For non-decimated
-        ///                 string-type columns the interval value is ignored.
-        ///                 Instead the values are generated following the
-        ///                 pattern: 'attrname_creationIndex#', i.e. the column
-        ///                 name suffixed with an underscore and a running
-        ///                 counter (starting at 0). For string types with
-        ///                 limited size (e.g. char4) the prefix is dropped. No
-        ///                 nulls will be generated for nullable columns.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
-        ///                 </term>
-        ///                 <description>If specified, then generate the given
-        ///                 percentage of the count as nulls for all nullable
-        ///                 columns.  This option will be ignored for
-        ///                 non-nullable columns.  The value must be within the
-        ///                 range [0, 1.0].  The default value is 5% (0.05).
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.CARDINALITY">CARDINALITY</see>:
-        ///                 </term>
-        ///                 <description>If specified, limit the randomly
-        ///                 generated values to a fixed set. Not allowed on a
-        ///                 column with interval specified, and is not
-        ///                 applicable to WKT or Track-specific columns. The
-        ///                 value must be greater than 0. This option is
-        ///                 disabled by default.</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ATTR_NAME">ATTR_NAME</see>:</term>
-        ///         <description>Use the desired column name in place of <see
-        ///         cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the
-        ///         following parameters for the column specified. This
-        ///         overrides any parameter set by <see
-        ///         cref="Options.ALL">ALL</see>.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.MIN">MIN</see>:</term>
-        ///                 <description>For numerical columns, the minimum of
-        ///                 the generated values is set to this value.  Default
-        ///                 is -99999.  For point, shape, and track columns,
-        ///                 min for numeric 'x' and 'y' columns needs to be
-        ///                 within [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are -180.0 and -90.0. For the
-        ///                 'TIMESTAMP' column, the default minimum corresponds
-        ///                 to Jan 1, 2010.
-        ///                 For string columns, the minimum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 0). If both minimum and maximum are
-        ///                 provided, minimum must be less than or equal to
-        ///                 max.
-        ///                 If the min is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.MAX">MAX</see>:</term>
-        ///                 <description>For numerical columns, the maximum of
-        ///                 the generated values is set to this value. Default
-        ///                 is 99999. For point, shape, and track columns, max
-        ///                 for numeric 'x' and 'y' columns needs to be within
-        ///                 [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are 180.0 and 90.0.
-        ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings. If both minimum and
-        ///                 maximum are provided, *max* must be greater than or
-        ///                 equal to *min*.
-        ///                 If the *max* is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>If specified, generate values for all
-        ///                 columns evenly spaced with the given interval
-        ///                 value. If a max value is specified for a given
-        ///                 column the data is randomly generated between min
-        ///                 and max and decimated down to the interval. If no
-        ///                 max is provided the data is linearly generated
-        ///                 starting at the minimum value (instead of
-        ///                 generating random data). For non-decimated
-        ///                 string-type columns the interval value is ignored.
-        ///                 Instead the values are generated following the
-        ///                 pattern: 'attrname_creationIndex#', i.e. the column
-        ///                 name suffixed with an underscore and a running
-        ///                 counter (starting at 0). For string types with
-        ///                 limited size (e.g. char4) the prefix is dropped. No
-        ///                 nulls will be generated for nullable columns.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
-        ///                 </term>
-        ///                 <description>If specified and if this column is
-        ///                 nullable, then generate the given percentage of the
-        ///                 count as nulls.  This option will result in an
-        ///                 error if the column is not nullable.  The value
-        ///                 must be within the range [0, 1.0].  The default
-        ///                 value is 5% (0.05).</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.CARDINALITY">CARDINALITY</see>:
-        ///                 </term>
-        ///                 <description>If specified, limit the randomly
-        ///                 generated values to a fixed set. Not allowed on a
-        ///                 column with interval specified, and is not
-        ///                 applicable to WKT or Track-specific columns. The
-        ///                 value must be greater than 0. This option is
-        ///                 disabled by default.</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TRACK_LENGTH">TRACK_LENGTH</see>:
-        ///         </term>
-        ///         <description>This key-map pair is only valid for track data
-        ///         sets (an error is thrown otherwise).  No nulls would be
-        ///         generated for nullable columns.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.MIN">MIN</see>:</term>
-        ///                 <description>Minimum possible length for generated
-        ///                 series; default is 100 records per series. Must be
-        ///                 an integral value within the range [1, 500]. If
-        ///                 both min and max are specified, min must be less
-        ///                 than or equal to max. The minimum allowed value is
-        ///                 1. The maximum allowed value is 500.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.MAX">MAX</see>:</term>
-        ///                 <description>Maximum possible length for generated
-        ///                 series; default is 500 records per series. Must be
-        ///                 an integral value within the range [1, 500]. If
-        ///                 both min and max are specified, max must be greater
-        ///                 than or equal to min. The minimum allowed value is
-        ///                 1. The maximum allowed value is 500.</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, IDictionary<string, double>> options { get; set; } = new Dictionary<string, IDictionary<string, double>>();
+        /// </list></remarks>
+        public const string SEED = "seed";
 
-        /// <summary>Constructs an InsertRecordsRandomRequest object with
-        /// default parameters.</summary>
-        public InsertRecordsRandomRequest() { }
+        /// <summary>The seed value to use</summary>
+        public const string VALUE = "value";
 
-        /// <summary>Constructs an InsertRecordsRandomRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Table to which random records will be
-        /// added, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Must be an existing
-        /// table, not a view.</param>
-        /// <param name="count">Number of records to generate.</param>
-        /// <param name="options">Optional parameter to pass in specifications
-        /// for the randomness of the values.  This map is different from the
-        /// *options* parameter of most other endpoints in that it is a map of
-        /// string to map of string to doubles, while most others are maps of
-        /// string to string.  In this map, the top level keys represent which
-        /// column's parameters are being specified, while the internal keys
-        /// represents which parameter is being specified.  These parameters
-        /// take on different meanings depending on the type of the column.
-        /// Below follows a more detailed description of the map:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.SEED">SEED</see>:</term>
-        ///         <description>If provided, the internal random number
-        ///         generator will be initialized with the given value.  The
-        ///         minimum is 0.  This allows for the same set of random
-        ///         numbers to be generated across invocation of this endpoint
-        ///         in case the user wants to repeat the test.  Since <paramref
-        ///         name="options" />, is a map of maps, we need an internal
-        ///         map to provide the seed value.  For example, to pass 100 as
-        ///         the seed value through this parameter, you need something
-        ///         equivalent to: 'options' = {'seed': { 'value': 100 } }.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
-        ///                 <description>The seed value to use</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ALL">ALL</see>:</term>
-        ///         <description>This key indicates that the specifications
-        ///         relayed in the internal map are to be applied to all
-        ///         columns of the records.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.MIN">MIN</see>:</term>
-        ///                 <description>For numerical columns, the minimum of
-        ///                 the generated values is set to this value.  Default
-        ///                 is -99999.  For point, shape, and track columns,
-        ///                 min for numeric 'x' and 'y' columns needs to be
-        ///                 within [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are -180.0 and -90.0. For the
-        ///                 'TIMESTAMP' column, the default minimum corresponds
-        ///                 to Jan 1, 2010.
-        ///                 For string columns, the minimum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 0). If both minimum and maximum are
-        ///                 provided, minimum must be less than or equal to
-        ///                 max.
-        ///                 If the min is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.MAX">MAX</see>:</term>
-        ///                 <description>For numerical columns, the maximum of
-        ///                 the generated values is set to this value. Default
-        ///                 is 99999. For point, shape, and track columns, max
-        ///                 for numeric 'x' and 'y' columns needs to be within
-        ///                 [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are 180.0 and 90.0.
-        ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings. If both minimum and
-        ///                 maximum are provided, *max* must be greater than or
-        ///                 equal to *min*.
-        ///                 If the *max* is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>If specified, generate values for all
-        ///                 columns evenly spaced with the given interval
-        ///                 value. If a max value is specified for a given
-        ///                 column the data is randomly generated between min
-        ///                 and max and decimated down to the interval. If no
-        ///                 max is provided the data is linearly generated
-        ///                 starting at the minimum value (instead of
-        ///                 generating random data). For non-decimated
-        ///                 string-type columns the interval value is ignored.
-        ///                 Instead the values are generated following the
-        ///                 pattern: 'attrname_creationIndex#', i.e. the column
-        ///                 name suffixed with an underscore and a running
-        ///                 counter (starting at 0). For string types with
-        ///                 limited size (e.g. char4) the prefix is dropped. No
-        ///                 nulls will be generated for nullable columns.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
-        ///                 </term>
-        ///                 <description>If specified, then generate the given
-        ///                 percentage of the count as nulls for all nullable
-        ///                 columns.  This option will be ignored for
-        ///                 non-nullable columns.  The value must be within the
-        ///                 range [0, 1.0].  The default value is 5% (0.05).
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.CARDINALITY">CARDINALITY</see>:
-        ///                 </term>
-        ///                 <description>If specified, limit the randomly
-        ///                 generated values to a fixed set. Not allowed on a
-        ///                 column with interval specified, and is not
-        ///                 applicable to WKT or Track-specific columns. The
-        ///                 value must be greater than 0. This option is
-        ///                 disabled by default.</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ATTR_NAME">ATTR_NAME</see>:</term>
-        ///         <description>Use the desired column name in place of <see
-        ///         cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the
-        ///         following parameters for the column specified. This
-        ///         overrides any parameter set by <see
-        ///         cref="Options.ALL">ALL</see>.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.MIN">MIN</see>:</term>
-        ///                 <description>For numerical columns, the minimum of
-        ///                 the generated values is set to this value.  Default
-        ///                 is -99999.  For point, shape, and track columns,
-        ///                 min for numeric 'x' and 'y' columns needs to be
-        ///                 within [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are -180.0 and -90.0. For the
-        ///                 'TIMESTAMP' column, the default minimum corresponds
-        ///                 to Jan 1, 2010.
-        ///                 For string columns, the minimum length of the
-        ///                 randomly generated strings is set to this value
-        ///                 (default is 0). If both minimum and maximum are
-        ///                 provided, minimum must be less than or equal to
-        ///                 max.
-        ///                 If the min is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.MAX">MAX</see>:</term>
-        ///                 <description>For numerical columns, the maximum of
-        ///                 the generated values is set to this value. Default
-        ///                 is 99999. For point, shape, and track columns, max
-        ///                 for numeric 'x' and 'y' columns needs to be within
-        ///                 [-180, 180] and [-90, 90], respectively. The
-        ///                 default minimum possible values for these columns
-        ///                 in such cases are 180.0 and 90.0.
-        ///                 For string columns, the maximum length of the
-        ///                 randomly generated strings. If both minimum and
-        ///                 maximum are provided, *max* must be greater than or
-        ///                 equal to *min*.
-        ///                 If the *max* is outside the accepted ranges for
-        ///                 strings columns and 'x' and 'y' columns for
-        ///                 point/shape/track, then those parameters will not
-        ///                 be set; however, an error will not be thrown in
-        ///                 such a case. It is the responsibility of the user
-        ///                 to use the <see cref="Options.ALL">ALL</see>
-        ///                 parameter judiciously.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>If specified, generate values for all
-        ///                 columns evenly spaced with the given interval
-        ///                 value. If a max value is specified for a given
-        ///                 column the data is randomly generated between min
-        ///                 and max and decimated down to the interval. If no
-        ///                 max is provided the data is linearly generated
-        ///                 starting at the minimum value (instead of
-        ///                 generating random data). For non-decimated
-        ///                 string-type columns the interval value is ignored.
-        ///                 Instead the values are generated following the
-        ///                 pattern: 'attrname_creationIndex#', i.e. the column
-        ///                 name suffixed with an underscore and a running
-        ///                 counter (starting at 0). For string types with
-        ///                 limited size (e.g. char4) the prefix is dropped. No
-        ///                 nulls will be generated for nullable columns.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
-        ///                 </term>
-        ///                 <description>If specified and if this column is
-        ///                 nullable, then generate the given percentage of the
-        ///                 count as nulls.  This option will result in an
-        ///                 error if the column is not nullable.  The value
-        ///                 must be within the range [0, 1.0].  The default
-        ///                 value is 5% (0.05).</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.CARDINALITY">CARDINALITY</see>:
-        ///                 </term>
-        ///                 <description>If specified, limit the randomly
-        ///                 generated values to a fixed set. Not allowed on a
-        ///                 column with interval specified, and is not
-        ///                 applicable to WKT or Track-specific columns. The
-        ///                 value must be greater than 0. This option is
-        ///                 disabled by default.</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TRACK_LENGTH">TRACK_LENGTH</see>:
-        ///         </term>
-        ///         <description>This key-map pair is only valid for track data
-        ///         sets (an error is thrown otherwise).  No nulls would be
-        ///         generated for nullable columns.
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.MIN">MIN</see>:</term>
-        ///                 <description>Minimum possible length for generated
-        ///                 series; default is 100 records per series. Must be
-        ///                 an integral value within the range [1, 500]. If
-        ///                 both min and max are specified, min must be less
-        ///                 than or equal to max. The minimum allowed value is
-        ///                 1. The maximum allowed value is 500.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.MAX">MAX</see>:</term>
-        ///                 <description>Maximum possible length for generated
-        ///                 series; default is 500 records per series. Must be
-        ///                 an integral value within the range [1, 500]. If
-        ///                 both min and max are specified, max must be greater
-        ///                 than or equal to min. The minimum allowed value is
-        ///                 1. The maximum allowed value is 500.</description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public InsertRecordsRandomRequest( string table_name,
-                                           long count,
-                                           IDictionary<string, IDictionary<string, double>> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.count = count;
-            this.options = options ?? new Dictionary<string, IDictionary<string, double>>();
-        } // end constructor
-    } // end class InsertRecordsRandomRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
-    /// </summary>
-    public class InsertRecordsRandomResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="InsertRecordsRandomRequest.table_name">table_name</see>.
+        /// <summary>This key indicates that the specifications relayed in the
+        /// internal map are to be applied to all columns of the records.
         /// </summary>
-        public string table_name { get; set; }
+        /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.MIN">MIN</see>:</term>
+        ///         <description>For numerical columns, the minimum of the
+        ///         generated values is set to this value.  Default is -99999.
+        ///         For point, shape, and track columns, min for numeric 'x'
+        ///         and 'y' columns needs to be within [-180, 180] and [-90,
+        ///         90], respectively. The default minimum possible values for
+        ///         these columns in such cases are -180.0 and -90.0. For the
+        ///         'TIMESTAMP' column, the default minimum corresponds to Jan
+        ///         1, 2010.
+        ///         For string columns, the minimum length of the randomly
+        ///         generated strings is set to this value (default is 0). If
+        ///         both minimum and maximum are provided, minimum must be less
+        ///         than or equal to max.
+        ///         If the min is outside the accepted ranges for strings
+        ///         columns and 'x' and 'y' columns for point/shape/track, then
+        ///         those parameters will not be set; however, an error will
+        ///         not be thrown in such a case. It is the responsibility of
+        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         parameter judiciously.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.MAX">MAX</see>:</term>
+        ///         <description>For numerical columns, the maximum of the
+        ///         generated values is set to this value. Default is 99999.
+        ///         For point, shape, and track columns, max for numeric 'x'
+        ///         and 'y' columns needs to be within [-180, 180] and [-90,
+        ///         90], respectively. The default minimum possible values for
+        ///         these columns in such cases are 180.0 and 90.0.
+        ///         For string columns, the maximum length of the randomly
+        ///         generated strings. If both minimum and maximum are
+        ///         provided, *max* must be greater than or equal to *min*.
+        ///         If the *max* is outside the accepted ranges for strings
+        ///         columns and 'x' and 'y' columns for point/shape/track, then
+        ///         those parameters will not be set; however, an error will
+        ///         not be thrown in such a case. It is the responsibility of
+        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         parameter judiciously.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        ///         evenly spaced with the given interval value. If a max value
+        ///         is specified for a given column the data is randomly
+        ///         generated between min and max and decimated down to the
+        ///         interval. If no max is provided the data is linearly
+        ///         generated starting at the minimum value (instead of
+        ///         generating random data). For non-decimated string-type
+        ///         columns the interval value is ignored. Instead the values
+        ///         are generated following the pattern:
+        ///         'attrname_creationIndex#', i.e. the column name suffixed
+        ///         with an underscore and a running counter (starting at 0).
+        ///         For string types with limited size (e.g. char4) the prefix
+        ///         is dropped. No nulls will be generated for nullable
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+        ///         </term>
+        ///         <description>If specified, then generate the given
+        ///         percentage of the count as nulls for all nullable columns.
+        ///         This option will be ignored for non-nullable columns.  The
+        ///         value must be within the range [0, 1.0].  The default value
+        ///         is 5% (0.05).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.CARDINALITY">CARDINALITY</see>:
+        ///         </term>
+        ///         <description>If specified, limit the randomly generated
+        ///         values to a fixed set. Not allowed on a column with
+        ///         interval specified, and is not applicable to WKT or
+        ///         Track-specific columns. The value must be greater than 0.
+        ///         This option is disabled by default.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string ALL = "all";
 
-        /// <summary>Number of records inserted.</summary>
-        public long count { get; set; }
+        /// <summary>Minimum possible length for generated series; default is
+        /// 100 records per series.</summary>
+        /// <remarks><para>Must be an integral value within the range [1, 500].
+        /// If both min and max are specified, min must be less than or equal
+        /// to max.</para></remarks>
+        public const string MIN = "min";
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class InsertRecordsRandomResponse
-} // end namespace kinetica
+        /// <summary>Maximum possible length for generated series; default is
+        /// 500 records per series.</summary>
+        /// <remarks><para>Must be an integral value within the range [1, 500].
+        /// If both min and max are specified, max must be greater than or
+        /// equal to min.</para></remarks>
+        public const string MAX = "max";
+
+        /// <summary>If specified, generate values for all columns evenly
+        /// spaced with the given interval value.</summary>
+        /// <remarks><para>If a max value is specified for a given column the
+        /// data is randomly generated between min and max and decimated down
+        /// to the interval. If no max is provided the data is linearly
+        /// generated starting at the minimum value (instead of generating
+        /// random data). For non-decimated string-type columns the interval
+        /// value is ignored. Instead the values are generated following the
+        /// pattern: 'attrname_creationIndex#', i.e. the column name suffixed
+        /// with an underscore and a running counter (starting at 0). For
+        /// string types with limited size (e.g. char4) the prefix is dropped.
+        /// No nulls will be generated for nullable columns.</para></remarks>
+        public const string INTERVAL = "interval";
+
+        /// <summary>If specified and if this column is nullable, then generate
+        /// the given percentage of the count as nulls.</summary>
+        /// <remarks><para> This option will result in an error if the column
+        /// is not nullable.  The value must be within the range [0, 1.0].  The
+        /// default value is 5% (0.05).</para></remarks>
+        public const string NULL_PERCENTAGE = "null_percentage";
+
+        /// <summary>If specified, limit the randomly generated values to a
+        /// fixed set.</summary>
+        /// <remarks><para>Not allowed on a column with interval specified, and
+        /// is not applicable to WKT or Track-specific columns. The value must
+        /// be greater than 0. This option is disabled by default.</para>
+        /// </remarks>
+        public const string CARDINALITY = "cardinality";
+
+        /// <summary>Use the desired column name in place of <see
+        /// cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
+        /// parameters for the column specified.</summary>
+        /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.MIN">MIN</see>:</term>
+        ///         <description>For numerical columns, the minimum of the
+        ///         generated values is set to this value.  Default is -99999.
+        ///         For point, shape, and track columns, min for numeric 'x'
+        ///         and 'y' columns needs to be within [-180, 180] and [-90,
+        ///         90], respectively. The default minimum possible values for
+        ///         these columns in such cases are -180.0 and -90.0. For the
+        ///         'TIMESTAMP' column, the default minimum corresponds to Jan
+        ///         1, 2010.
+        ///         For string columns, the minimum length of the randomly
+        ///         generated strings is set to this value (default is 0). If
+        ///         both minimum and maximum are provided, minimum must be less
+        ///         than or equal to max.
+        ///         If the min is outside the accepted ranges for strings
+        ///         columns and 'x' and 'y' columns for point/shape/track, then
+        ///         those parameters will not be set; however, an error will
+        ///         not be thrown in such a case. It is the responsibility of
+        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         parameter judiciously.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.MAX">MAX</see>:</term>
+        ///         <description>For numerical columns, the maximum of the
+        ///         generated values is set to this value. Default is 99999.
+        ///         For point, shape, and track columns, max for numeric 'x'
+        ///         and 'y' columns needs to be within [-180, 180] and [-90,
+        ///         90], respectively. The default minimum possible values for
+        ///         these columns in such cases are 180.0 and 90.0.
+        ///         For string columns, the maximum length of the randomly
+        ///         generated strings. If both minimum and maximum are
+        ///         provided, *max* must be greater than or equal to *min*.
+        ///         If the *max* is outside the accepted ranges for strings
+        ///         columns and 'x' and 'y' columns for point/shape/track, then
+        ///         those parameters will not be set; however, an error will
+        ///         not be thrown in such a case. It is the responsibility of
+        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         parameter judiciously.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        ///         evenly spaced with the given interval value. If a max value
+        ///         is specified for a given column the data is randomly
+        ///         generated between min and max and decimated down to the
+        ///         interval. If no max is provided the data is linearly
+        ///         generated starting at the minimum value (instead of
+        ///         generating random data). For non-decimated string-type
+        ///         columns the interval value is ignored. Instead the values
+        ///         are generated following the pattern:
+        ///         'attrname_creationIndex#', i.e. the column name suffixed
+        ///         with an underscore and a running counter (starting at 0).
+        ///         For string types with limited size (e.g. char4) the prefix
+        ///         is dropped. No nulls will be generated for nullable
+        ///         columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+        ///         </term>
+        ///         <description>If specified and if this column is nullable,
+        ///         then generate the given percentage of the count as nulls.
+        ///         This option will result in an error if the column is not
+        ///         nullable.  The value must be within the range [0, 1.0].
+        ///         The default value is 5% (0.05).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.CARDINALITY">CARDINALITY</see>:
+        ///         </term>
+        ///         <description>If specified, limit the randomly generated
+        ///         values to a fixed set. Not allowed on a column with
+        ///         interval specified, and is not applicable to WKT or
+        ///         Track-specific columns. The value must be greater than 0.
+        ///         This option is disabled by default.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string ATTR_NAME = "attr_name";
+
+        /// <summary>This key-map pair is only valid for track data sets (an
+        /// error is thrown otherwise).</summary>
+        /// <remarks><list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.MIN">MIN</see>:</term>
+        ///         <description>Minimum possible length for generated series;
+        ///         default is 100 records per series. Must be an integral
+        ///         value within the range [1, 500]. If both min and max are
+        ///         specified, min must be less than or equal to max. The
+        ///         minimum allowed value is 1. The maximum allowed value is
+        ///         500.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.MAX">MAX</see>:</term>
+        ///         <description>Maximum possible length for generated series;
+        ///         default is 500 records per series. Must be an integral
+        ///         value within the range [1, 500]. If both min and max are
+        ///         specified, max must be greater than or equal to min. The
+        ///         minimum allowed value is 1. The maximum allowed value is
+        ///         500.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string TRACK_LENGTH = "track_length";
+    } // end struct Options
+
+    /// <summary>Table to which random records will be added, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> Must be an existing table, not a view.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>Number of records to generate.</summary>
+    public long count { get; set; }
+
+    /// <summary>Optional parameter to pass in specifications for the
+    /// randomness of the values.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.SEED">SEED</see>:</term>
+    ///         <description>If provided, the internal random number generator
+    ///         will be initialized with the given value.  The minimum is 0.
+    ///         This allows for the same set of random numbers to be generated
+    ///         across invocation of this endpoint in case the user wants to
+    ///         repeat the test.  Since <see cref="options" />, is a map of
+    ///         maps, we need an internal map to provide the seed value.  For
+    ///         example, to pass 100 as the seed value through this parameter,
+    ///         you need something equivalent to: 'options' = {'seed': {
+    ///         'value': 100 } }.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
+    ///                 <description>The seed value to use</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ALL">ALL</see>:</term>
+    ///         <description>This key indicates that the specifications relayed
+    ///         in the internal map are to be applied to all columns of the
+    ///         records.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <description>For numerical columns, the minimum of the
+    ///                 generated values is set to this value.  Default is
+    ///                 -99999.  For point, shape, and track columns, min for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 -180.0 and -90.0. For the 'TIMESTAMP' column, the
+    ///                 default minimum corresponds to Jan 1, 2010.
+    ///                 For string columns, the minimum length of the randomly
+    ///                 generated strings is set to this value (default is 0).
+    ///                 If both minimum and maximum are provided, minimum must
+    ///                 be less than or equal to max.
+    ///                 If the min is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <description>For numerical columns, the maximum of the
+    ///                 generated values is set to this value. Default is
+    ///                 99999. For point, shape, and track columns, max for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 180.0 and 90.0.
+    ///                 For string columns, the maximum length of the randomly
+    ///                 generated strings. If both minimum and maximum are
+    ///                 provided, *max* must be greater than or equal to *min*.
+    ///                 If the *max* is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>If specified, generate values for all
+    ///                 columns evenly spaced with the given interval value. If
+    ///                 a max value is specified for a given column the data is
+    ///                 randomly generated between min and max and decimated
+    ///                 down to the interval. If no max is provided the data is
+    ///                 linearly generated starting at the minimum value
+    ///                 (instead of generating random data). For non-decimated
+    ///                 string-type columns the interval value is ignored.
+    ///                 Instead the values are generated following the pattern:
+    ///                 'attrname_creationIndex#', i.e. the column name
+    ///                 suffixed with an underscore and a running counter
+    ///                 (starting at 0). For string types with limited size
+    ///                 (e.g. char4) the prefix is dropped. No nulls will be
+    ///                 generated for nullable columns.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 </term>
+    ///                 <description>If specified, then generate the given
+    ///                 percentage of the count as nulls for all nullable
+    ///                 columns.  This option will be ignored for non-nullable
+    ///                 columns.  The value must be within the range [0, 1.0].
+    ///                 The default value is 5% (0.05).</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 <description>If specified, limit the randomly generated
+    ///                 values to a fixed set. Not allowed on a column with
+    ///                 interval specified, and is not applicable to WKT or
+    ///                 Track-specific columns. The value must be greater than
+    ///                 0. This option is disabled by default.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ATTR_NAME">ATTR_NAME</see>:</term>
+    ///         <description>Use the desired column name in place of <see
+    ///         cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
+    ///         parameters for the column specified. This overrides any
+    ///         parameter set by <see cref="Options.ALL">ALL</see>.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <description>For numerical columns, the minimum of the
+    ///                 generated values is set to this value.  Default is
+    ///                 -99999.  For point, shape, and track columns, min for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 -180.0 and -90.0. For the 'TIMESTAMP' column, the
+    ///                 default minimum corresponds to Jan 1, 2010.
+    ///                 For string columns, the minimum length of the randomly
+    ///                 generated strings is set to this value (default is 0).
+    ///                 If both minimum and maximum are provided, minimum must
+    ///                 be less than or equal to max.
+    ///                 If the min is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <description>For numerical columns, the maximum of the
+    ///                 generated values is set to this value. Default is
+    ///                 99999. For point, shape, and track columns, max for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 180.0 and 90.0.
+    ///                 For string columns, the maximum length of the randomly
+    ///                 generated strings. If both minimum and maximum are
+    ///                 provided, *max* must be greater than or equal to *min*.
+    ///                 If the *max* is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>If specified, generate values for all
+    ///                 columns evenly spaced with the given interval value. If
+    ///                 a max value is specified for a given column the data is
+    ///                 randomly generated between min and max and decimated
+    ///                 down to the interval. If no max is provided the data is
+    ///                 linearly generated starting at the minimum value
+    ///                 (instead of generating random data). For non-decimated
+    ///                 string-type columns the interval value is ignored.
+    ///                 Instead the values are generated following the pattern:
+    ///                 'attrname_creationIndex#', i.e. the column name
+    ///                 suffixed with an underscore and a running counter
+    ///                 (starting at 0). For string types with limited size
+    ///                 (e.g. char4) the prefix is dropped. No nulls will be
+    ///                 generated for nullable columns.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 </term>
+    ///                 <description>If specified and if this column is
+    ///                 nullable, then generate the given percentage of the
+    ///                 count as nulls.  This option will result in an error if
+    ///                 the column is not nullable.  The value must be within
+    ///                 the range [0, 1.0].  The default value is 5% (0.05).
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 <description>If specified, limit the randomly generated
+    ///                 values to a fixed set. Not allowed on a column with
+    ///                 interval specified, and is not applicable to WKT or
+    ///                 Track-specific columns. The value must be greater than
+    ///                 0. This option is disabled by default.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TRACK_LENGTH">TRACK_LENGTH</see>:
+    ///         </term>
+    ///         <description>This key-map pair is only valid for track data
+    ///         sets (an error is thrown otherwise).  No nulls would be
+    ///         generated for nullable columns.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <description>Minimum possible length for generated
+    ///                 series; default is 100 records per series. Must be an
+    ///                 integral value within the range [1, 500]. If both min
+    ///                 and max are specified, min must be less than or equal
+    ///                 to max. The minimum allowed value is 1. The maximum
+    ///                 allowed value is 500.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <description>Maximum possible length for generated
+    ///                 series; default is 500 records per series. Must be an
+    ///                 integral value within the range [1, 500]. If both min
+    ///                 and max are specified, max must be greater than or
+    ///                 equal to min. The minimum allowed value is 1. The
+    ///                 maximum allowed value is 500.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, IDictionary<string, double>> options { get; set; } = new Dictionary<string, IDictionary<string, double>>();
+
+    /// <summary>Constructs an InsertRecordsRandomRequest object with default
+    /// parameters.</summary>
+    public InsertRecordsRandomRequest() { }
+
+    /// <summary>Constructs an InsertRecordsRandomRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_name">Table to which random records will be added,
+    /// in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Must be an existing table,
+    /// not a view.</param>
+    /// <param name="count">Number of records to generate.</param>
+    /// <param name="options">Optional parameter to pass in specifications for
+    /// the randomness of the values.  This map is different from the *options*
+    /// parameter of most other endpoints in that it is a map of string to map
+    /// of string to doubles, while most others are maps of string to string.
+    /// In this map, the top level keys represent which column's parameters are
+    /// being specified, while the internal keys represents which parameter is
+    /// being specified.  These parameters take on different meanings depending
+    /// on the type of the column.  Below follows a more detailed description
+    /// of the map:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.SEED">SEED</see>:</term>
+    ///         <description>If provided, the internal random number generator
+    ///         will be initialized with the given value.  The minimum is 0.
+    ///         This allows for the same set of random numbers to be generated
+    ///         across invocation of this endpoint in case the user wants to
+    ///         repeat the test.  Since <paramref name="options" />, is a map
+    ///         of maps, we need an internal map to provide the seed value.
+    ///         For example, to pass 100 as the seed value through this
+    ///         parameter, you need something equivalent to: 'options' =
+    ///         {'seed': { 'value': 100 } }.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
+    ///                 <description>The seed value to use</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ALL">ALL</see>:</term>
+    ///         <description>This key indicates that the specifications relayed
+    ///         in the internal map are to be applied to all columns of the
+    ///         records.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <description>For numerical columns, the minimum of the
+    ///                 generated values is set to this value.  Default is
+    ///                 -99999.  For point, shape, and track columns, min for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 -180.0 and -90.0. For the 'TIMESTAMP' column, the
+    ///                 default minimum corresponds to Jan 1, 2010.
+    ///                 For string columns, the minimum length of the randomly
+    ///                 generated strings is set to this value (default is 0).
+    ///                 If both minimum and maximum are provided, minimum must
+    ///                 be less than or equal to max.
+    ///                 If the min is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <description>For numerical columns, the maximum of the
+    ///                 generated values is set to this value. Default is
+    ///                 99999. For point, shape, and track columns, max for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 180.0 and 90.0.
+    ///                 For string columns, the maximum length of the randomly
+    ///                 generated strings. If both minimum and maximum are
+    ///                 provided, *max* must be greater than or equal to *min*.
+    ///                 If the *max* is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>If specified, generate values for all
+    ///                 columns evenly spaced with the given interval value. If
+    ///                 a max value is specified for a given column the data is
+    ///                 randomly generated between min and max and decimated
+    ///                 down to the interval. If no max is provided the data is
+    ///                 linearly generated starting at the minimum value
+    ///                 (instead of generating random data). For non-decimated
+    ///                 string-type columns the interval value is ignored.
+    ///                 Instead the values are generated following the pattern:
+    ///                 'attrname_creationIndex#', i.e. the column name
+    ///                 suffixed with an underscore and a running counter
+    ///                 (starting at 0). For string types with limited size
+    ///                 (e.g. char4) the prefix is dropped. No nulls will be
+    ///                 generated for nullable columns.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 </term>
+    ///                 <description>If specified, then generate the given
+    ///                 percentage of the count as nulls for all nullable
+    ///                 columns.  This option will be ignored for non-nullable
+    ///                 columns.  The value must be within the range [0, 1.0].
+    ///                 The default value is 5% (0.05).</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 <description>If specified, limit the randomly generated
+    ///                 values to a fixed set. Not allowed on a column with
+    ///                 interval specified, and is not applicable to WKT or
+    ///                 Track-specific columns. The value must be greater than
+    ///                 0. This option is disabled by default.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ATTR_NAME">ATTR_NAME</see>:</term>
+    ///         <description>Use the desired column name in place of <see
+    ///         cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
+    ///         parameters for the column specified. This overrides any
+    ///         parameter set by <see cref="Options.ALL">ALL</see>.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <description>For numerical columns, the minimum of the
+    ///                 generated values is set to this value.  Default is
+    ///                 -99999.  For point, shape, and track columns, min for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 -180.0 and -90.0. For the 'TIMESTAMP' column, the
+    ///                 default minimum corresponds to Jan 1, 2010.
+    ///                 For string columns, the minimum length of the randomly
+    ///                 generated strings is set to this value (default is 0).
+    ///                 If both minimum and maximum are provided, minimum must
+    ///                 be less than or equal to max.
+    ///                 If the min is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <description>For numerical columns, the maximum of the
+    ///                 generated values is set to this value. Default is
+    ///                 99999. For point, shape, and track columns, max for
+    ///                 numeric 'x' and 'y' columns needs to be within [-180,
+    ///                 180] and [-90, 90], respectively. The default minimum
+    ///                 possible values for these columns in such cases are
+    ///                 180.0 and 90.0.
+    ///                 For string columns, the maximum length of the randomly
+    ///                 generated strings. If both minimum and maximum are
+    ///                 provided, *max* must be greater than or equal to *min*.
+    ///                 If the *max* is outside the accepted ranges for strings
+    ///                 columns and 'x' and 'y' columns for point/shape/track,
+    ///                 then those parameters will not be set; however, an
+    ///                 error will not be thrown in such a case. It is the
+    ///                 responsibility of the user to use the <see
+    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>If specified, generate values for all
+    ///                 columns evenly spaced with the given interval value. If
+    ///                 a max value is specified for a given column the data is
+    ///                 randomly generated between min and max and decimated
+    ///                 down to the interval. If no max is provided the data is
+    ///                 linearly generated starting at the minimum value
+    ///                 (instead of generating random data). For non-decimated
+    ///                 string-type columns the interval value is ignored.
+    ///                 Instead the values are generated following the pattern:
+    ///                 'attrname_creationIndex#', i.e. the column name
+    ///                 suffixed with an underscore and a running counter
+    ///                 (starting at 0). For string types with limited size
+    ///                 (e.g. char4) the prefix is dropped. No nulls will be
+    ///                 generated for nullable columns.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 </term>
+    ///                 <description>If specified and if this column is
+    ///                 nullable, then generate the given percentage of the
+    ///                 count as nulls.  This option will result in an error if
+    ///                 the column is not nullable.  The value must be within
+    ///                 the range [0, 1.0].  The default value is 5% (0.05).
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 <description>If specified, limit the randomly generated
+    ///                 values to a fixed set. Not allowed on a column with
+    ///                 interval specified, and is not applicable to WKT or
+    ///                 Track-specific columns. The value must be greater than
+    ///                 0. This option is disabled by default.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TRACK_LENGTH">TRACK_LENGTH</see>:
+    ///         </term>
+    ///         <description>This key-map pair is only valid for track data
+    ///         sets (an error is thrown otherwise).  No nulls would be
+    ///         generated for nullable columns.
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <description>Minimum possible length for generated
+    ///                 series; default is 100 records per series. Must be an
+    ///                 integral value within the range [1, 500]. If both min
+    ///                 and max are specified, min must be less than or equal
+    ///                 to max. The minimum allowed value is 1. The maximum
+    ///                 allowed value is 500.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <description>Maximum possible length for generated
+    ///                 series; default is 500 records per series. Must be an
+    ///                 integral value within the range [1, 500]. If both min
+    ///                 and max are specified, max must be greater than or
+    ///                 equal to min. The minimum allowed value is 1. The
+    ///                 maximum allowed value is 500.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public InsertRecordsRandomRequest( string table_name,
+                                       long count,
+                                       IDictionary<string, IDictionary<string, double>> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.count = count;
+        this.options = options ?? new Dictionary<string, IDictionary<string, double>>();
+    } // end constructor
+} // end class InsertRecordsRandomRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
+/// </summary>
+public class InsertRecordsRandomResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="InsertRecordsRandomRequest.table_name">table_name</see>.
+    /// </summary>
+    public string table_name { get; set; }
+
+    /// <summary>Number of records inserted.</summary>
+    public long count { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class InsertRecordsRandomResponse

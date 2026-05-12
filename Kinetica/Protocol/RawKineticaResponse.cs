@@ -4,19 +4,18 @@
  *  DO NOT EDIT DIRECTLY.
  */
 
-namespace kinetica
+namespace kinetica;
+
+/// <para>A set of parameters for the raw wrapper for Kinetica responses.
+public class RawKineticaResponse : KineticaData
 {
-    /// <para>A set of parameters for the raw wrapper for Kinetica responses.
-    public class RawKineticaResponse : KineticaData
-    {
-        public string status { get; set; }
+    public string status { get; set; }
 
-        public string message { get; set; }
+    public string message { get; set; }
 
-        public string data_type { get; set; }
+    public string data_type { get; set; }
 
-        public byte[] data { get; set; }
+    public byte[] data { get; set; }
 
-        public string data_str { get; set; }
-    } // end class RawKineticaResponse
-} // end namespace kinetica
+    public string data_str { get; set; }
+} // end class RawKineticaResponse

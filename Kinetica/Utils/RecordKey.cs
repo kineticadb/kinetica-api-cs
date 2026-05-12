@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text.RegularExpressions;
 
 
-namespace kinetica.Utils
-{
-    /// <summary>
-    /// A key based on a given record that serves as either a primary key
+namespace kinetica.Utils;
+
+/// <summary>
+/// A key based on a given record that serves as either a primary key
     /// or a shard key.  The <see cref="RecordKeyBuilder{T}"/> class creates
     /// these record keys.
     /// </summary>
@@ -22,10 +23,6 @@ namespace kinetica.Utils
         /// </summary>
         private static readonly Regex DATETIME_REGEX = new Regex("\\A(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})(?<time>\\s+(?<hour>\\d{1,2}):(?<min>\\d{2}):(?<sec>\\d{2})(?:\\.(?<ms>\\d{1,6}))?)?$");
 
-        /// <summary>
-        /// Decimal number with upto 19 digits of precision and 4 digits of scale
-        /// </summary>
-        private static readonly Regex DECIMAL_REGEX = new Regex("\\A\\s*(?<sign>[+-]?)((?<int>\\d+)(\\.(?<intfrac>\\d{0,4}))?|\\.(?<onlyfrac>\\d{1,4}))\\s*\\z");
 
         /// <summary>
         /// xxx.xxx.xxx.xxx (where xxx is in the range [0, 255])
@@ -454,7 +451,7 @@ namespace kinetica.Utils
                 day = int.Parse(match.Groups[3].ToString());
                 date = new DateTime(year, month, day, calendar);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Upon any error, set this key to be invalid
                 this.addInt(0);
@@ -561,7 +558,7 @@ namespace kinetica.Utils
                 // Now put it all together
                 date = new DateTime(year, month, day, hour, minute, second, msecond, calendar);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Upon any error, set this key to be invalid
                 this.addLong(0);
@@ -594,107 +591,90 @@ namespace kinetica.Utils
 
 
         /// <summary>
-        /// Adds a string to the buffer that has the 'decimal' property.
-        /// Internally, the date is stored as a long.
+        /// Adds a decimal value to the buffer with specified precision and scale.
+        /// For precision <= 18, the value is stored as an 8-byte scaled long.
+        /// For precision > 18, the value is stored as a 12-byte scaled BigInteger (little-endian).
         /// </summary>
-        /// <param name="value">The date string to be added.  Must have
-        /// upto 19 digits of precision and four digits of scale format.</param>
-        public void addDecimal(string value)
+        /// <param name="value">The decimal string to be added.</param>
+        /// <param name="precision">The total number of digits in the decimal.</param>
+        /// <param name="scale">The number of digits after the decimal point.</param>
+        public void addDecimal(string value, int precision, int scale)
         {
             // Check and throw if the buffer is already full
             this.isBufferFull(true);
 
-            // Handle nulls
-            if (value == null)
+            // Determine byte size based on precision
+            int byteSize = (precision > 18) ? 12 : 8;
+
+            // Handle nulls or empty strings
+            if (string.IsNullOrEmpty(value) || value == "null")
             {
-                this.addLong(0L);
+                for (int i = 0; i < byteSize; i++)
+                    this.add((byte)0);
                 return;
             }
 
-            // Check that the given value matches the decimal regular expression pattern
-            Match match = DECIMAL_REGEX.Match(value);
-            if (!match.Success)
-            {
-                // No match, so the key is invalid
-                this.is_valid = false;
-                this.addLong(0L);
-                return;
-            }
-
-            // Parse the string value
-            long decimal_value;
             try
             {
-                // Extract the integral and fractional parts
-                Group integral_group = match.Groups["int"];
-                Group fraction_with_integral_group = match.Groups["intfrac"];
-                Group frac_only_group = match.Groups["onlyfrac"];
-
-                if (integral_group.Success)
-                {   // Has an integral part to the decimal
-                    decimal_value = long.Parse(integral_group.Value);
-
-                    if (fraction_with_integral_group.Success)
-                    {   // Also have a fractional part
-                        long fraction = 0;
-                        // The fraction could be zero in length (i.e. the string ends with the decimal point)
-                        if (fraction_with_integral_group.Value.Length > 0)
-                            fraction = long.Parse(fraction_with_integral_group.Value);
-
-                        // We need to shift the integral part to the left appropriately
-                        // before adding the fraction
-                        long integral_part = decimal_value * (long)Math.Pow(10, fraction_with_integral_group.Value.Length);
-                        decimal_value = integral_part + fraction;
-
-                        // Shift it further to the left if the fraction is less than 1000
-                        switch (fraction_with_integral_group.Value.Length)
-                        {
-                            case 1:
-                                decimal_value *= 1000; break;
-                            case 2:
-                                decimal_value *= 100; break;
-                            case 3:
-                                decimal_value *= 10; break;
-                        }
-                    }
+                // Parse the decimal value
+                if (!decimal.TryParse(value, System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture, out decimal parsedValue))
+                {
+                    // Invalid format - write zeros and mark invalid
+                    for (int i = 0; i < byteSize; i++)
+                        this.add((byte)0);
+                    this.is_valid = false;
+                    return;
                 }
-                else if (frac_only_group.Success)
-                {  // Only the fractional part is given
-                    decimal_value = long.Parse(frac_only_group.Value);
 
-                    // Adjust the value so that it is always four digits long
-                    switch (frac_only_group.Value.Length)
-                    {
-                        case 1:
-                            decimal_value *= 1000; break;
-                        case 2:
-                            decimal_value *= 100; break;
-                        case 3:
-                            decimal_value *= 10; break;
-                    }
+                // Calculate the scale multiplier
+                decimal multiplier = (decimal)Math.Pow(10, scale);
+
+                // Scale the value and round to get unscaled integer
+                decimal scaledValue = Math.Round(parsedValue * multiplier);
+
+                if (precision <= 18)
+                {
+                    // 8-byte decimal: store as long
+                    long longValue = (long)scaledValue;
+                    this.addLong(longValue);
                 }
                 else
-                    throw new KineticaException("No match for decimal!");
+                {
+                    // 12-byte decimal: store as BigInteger in little-endian
+                    this.willBufferOverflow(12);
 
-                // Now handle the sign
-                Group sign_group = match.Groups["sign"];
-                if (sign_group.Success)
-                {   // Needs action only if negative
-                    if (sign_group.Value == "-")
-                        decimal_value = (-1) * decimal_value;
+                    // Convert to BigInteger
+                    BigInteger bigValue = new BigInteger(scaledValue);
+
+                    // Get little-endian bytes, pad or truncate to 12 bytes
+                    byte[] bigBytes = bigValue.ToByteArray();
+                    byte[] result = new byte[12];
+
+                    // Copy bytes, handling both positive and negative numbers
+                    int copyLen = Math.Min(bigBytes.Length, 12);
+                    Array.Copy(bigBytes, result, copyLen);
+
+                    // Sign-extend if negative and bytes are fewer than 12
+                    if (bigValue < 0 && bigBytes.Length < 12)
+                    {
+                        for (int i = bigBytes.Length; i < 12; i++)
+                            result[i] = 0xFF;
+                    }
+
+                    // Add all 12 bytes
+                    foreach (byte b in result)
+                        this.add(b);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Upon any error, set this key to be invalid
-                this.addLong(0L);
+                for (int i = 0; i < byteSize; i++)
+                    this.add((byte)0);
                 this.is_valid = false;
-                return;
             }
-
-            // Deduce the integer representing the date
-            this.addLong(decimal_value);
-        }  // end addDecimal()
+        }  // end addDecimal(value, precision, scale)
 
 
         /// <summary>
@@ -736,7 +716,7 @@ namespace kinetica.Utils
                 c = int.Parse(match.Groups["c"].Value);
                 d = int.Parse(match.Groups["d"].Value);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Upon any error, set this key to be invalid
                 this.addInt(0);
@@ -815,7 +795,7 @@ namespace kinetica.Utils
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Upon any error, set this key to be invalid
                 this.addInt(0);
@@ -874,7 +854,7 @@ namespace kinetica.Utils
         /// added to the key (i.e. if the buffer is not full), then throw an
         /// exception.
         /// </summary>
-        public void computHashes()
+        public void computeHashes()
         {
             // Check all the values for the key have been added
             if (this.current_size != this.buffer_size)
@@ -887,7 +867,7 @@ namespace kinetica.Utils
             // Save the hash value
             this.routingHash = murmur.val1;
             this.hash_code = (int)(this.routingHash ^ ((this.routingHash >> 32) & 0x0000ffffL));
-        }  // end computHashes
+        }  // end computeHashes
 
 
 
@@ -906,5 +886,3 @@ namespace kinetica.Utils
         }  // end route
 
     }  // end class RecordKey
-
-}   // end namespace kinetica.Utils

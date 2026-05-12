@@ -6,39 +6,38 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class ShowContainerRegistryRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class ShowContainerRegistryRequest : KineticaData
+    public string registry_name { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public ShowContainerRegistryRequest() { }
+
+    public ShowContainerRegistryRequest( string registry_name,
+                                         IDictionary<string, string> options = null)
     {
-        public string registry_name { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.registry_name = registry_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowContainerRegistryRequest
+/// @endcond
 
-        public ShowContainerRegistryRequest() { }
-
-        public ShowContainerRegistryRequest( string registry_name,
-                                             IDictionary<string, string> options = null)
-        {
-            this.registry_name = registry_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowContainerRegistryRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class ShowContainerRegistryResponse : KineticaData
+/// @cond NO_DOCS
+public class ShowContainerRegistryResponse : KineticaData
+{
+    public struct Info
     {
-        public struct Info
-        {
-            public const string KML_RESPONSE = "kml_response";
-        } // end struct Info
+        public const string KML_RESPONSE = "kml_response";
+    } // end struct Info
 
-        public string registry_name { get; set; }
-        public IList<string> registry_names { get; set; } = new List<string>();
-        public IList<int> entity_ids { get; set; } = new List<int>();
-        public IList<string> uri_list { get; set; } = new List<string>();
-        public IList<string> credential_list { get; set; } = new List<string>();
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowContainerRegistryResponse
-    /// @endcond
-} // end namespace kinetica
+    public string registry_name { get; set; }
+    public IList<string> registry_names { get; set; } = new List<string>();
+    public IList<int> entity_ids { get; set; } = new List<int>();
+    public IList<string> uri_list { get; set; } = new List<string>();
+    public IList<string> credential_list { get; set; } = new List<string>();
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowContainerRegistryResponse
+/// @endcond

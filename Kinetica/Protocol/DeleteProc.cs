@@ -6,54 +6,53 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.deleteProc(DeleteProcRequest)">Kinetica.deleteProc</see>.
+/// </summary>
+/// <remarks><para>Deletes a proc. Any currently running instances of the proc
+/// will be killed.</para></remarks>
+public class DeleteProcRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.deleteProc(DeleteProcRequest)">Kinetica.deleteProc</see>.
+    /// <summary>Name of the proc to be deleted.</summary>
+    /// <remarks><para>Must be the name of a currently existing proc.</para>
+    /// </remarks>
+    public string proc_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a DeleteProcRequest object with default parameters.
     /// </summary>
-    /// <remarks><para>Deletes a proc. Any currently running instances of the
-    /// proc will be killed.</para></remarks>
-    public class DeleteProcRequest : KineticaData
+    public DeleteProcRequest() { }
+
+    /// <summary>Constructs a DeleteProcRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="proc_name">Name of the proc to be deleted. Must be the
+    /// name of a currently existing proc.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public DeleteProcRequest( string proc_name,
+                              IDictionary<string, string> options = null)
     {
-        /// <summary>Name of the proc to be deleted.</summary>
-        /// <remarks><para>Must be the name of a currently existing proc.
-        /// </para></remarks>
-        public string proc_name { get; set; }
+        this.proc_name = proc_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DeleteProcRequest
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.deleteProc(DeleteProcRequest)">Kinetica.deleteProc</see>.
+/// </summary>
+public class DeleteProcResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="DeleteProcRequest.proc_name">proc_name</see>.</summary>
+    public string proc_name { get; set; }
 
-        /// <summary>Constructs a DeleteProcRequest object with default
-        /// parameters.</summary>
-        public DeleteProcRequest() { }
-
-        /// <summary>Constructs a DeleteProcRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="proc_name">Name of the proc to be deleted. Must be the
-        /// name of a currently existing proc.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public DeleteProcRequest( string proc_name,
-                                  IDictionary<string, string> options = null)
-        {
-            this.proc_name = proc_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DeleteProcRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.deleteProc(DeleteProcRequest)">Kinetica.deleteProc</see>.
-    /// </summary>
-    public class DeleteProcResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="DeleteProcRequest.proc_name">proc_name</see>.</summary>
-        public string proc_name { get; set; }
-
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DeleteProcResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DeleteProcResponse

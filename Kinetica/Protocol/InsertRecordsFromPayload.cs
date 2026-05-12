@@ -6,3086 +6,3034 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.insertRecordsFromPayload(InsertRecordsFromPayloadRequest)">Kinetica.insertRecordsFromPayload</see>.
+/// </summary>
+/// <remarks><para>Reads from the given text-based or binary payload and
+/// inserts the data into a new or existing table.  The table will be created
+/// if it doesn't already exist.</para>
+/// <para>Returns once all records are processed.</para></remarks>
+public class InsertRecordsFromPayloadRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.insertRecordsFromPayload(InsertRecordsFromPayloadRequest)">Kinetica.insertRecordsFromPayload</see>.
-    /// </summary>
-    /// <remarks><para>Reads from the given text-based or binary payload and
-    /// inserts the data into a new or existing table.  The table will be
-    /// created if it doesn't already exist.</para>
-    /// <para>Returns once all records are processed.</para></remarks>
-    public class InsertRecordsFromPayloadRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="create_table_options" />.</summary>
+    /// <remarks><para>Options used when creating the target table. Includes
+    /// type to use. The other options match those in <see
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    /// </para></remarks>
+    public struct CreateTableOptions
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="create_table_options" />.</summary>
-        /// <remarks><para>Options used when creating the target table.
-        /// Includes type to use. The other options match those in <see
-        /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
-        /// </para></remarks>
-        public struct CreateTableOptions
-        {
-            /// <summary>ID of a currently registered <a
-            /// href="../../../concepts/types/" target="_top">type</a>.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string TYPE_ID = "type_id";
-
-            /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
-            /// prevents an error from occurring if the table already exists
-            /// and is of the given type.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Affects the <a
-            /// href="../../../concepts/tables/#distribution"
-            /// target="_top">distribution scheme</a> for the table's data.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_REPLICATED = "is_replicated";
-
-            /// <summary>Semicolon-separated list of <a
-            /// href="../../../concepts/tables/#foreign-keys"
-            /// target="_top">foreign keys</a>, of the format
-            /// '(source_column_name [, ...]) references
-            /// target_table_name(primary_key_column_name [, ...]) [as
-            /// foreign_key_name]'.</summary>
-            public const string FOREIGN_KEYS = "foreign_keys";
-
-            /// <summary>Foreign shard key of the format 'source_column
-            /// references shard_by_column from
-            /// target_table(primary_key_column)'.</summary>
-            public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
-
-            /// <summary><a href="../../../concepts/tables/#partitioning"
-            /// target="_top">Partitioning</a> scheme to use.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
-            ///         </term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-range"
-            ///         target="_top">range partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
-            ///         </term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-interval"
-            ///         target="_top">interval partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.LIST">LIST</see>:
-            ///         </term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-list"
-            ///         target="_top">list partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.HASH">HASH</see>:
-            ///         </term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-hash"
-            ///         target="_top">hash partitioning</a>.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="CreateTableOptions.SERIES">SERIES</see>:</term>
-            ///         <description>Use <a
-            ///         href="../../../concepts/tables/#partitioning-by-series"
-            ///         target="_top">series partitioning</a>.</description>
-            ///     </item>
-            /// </list></remarks>
-            public const string PARTITION_TYPE = "partition_type";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range partitioning</a>.</summary>
-            public const string RANGE = "RANGE";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-interval"
-            /// target="_top">interval partitioning</a>.</summary>
-            public const string INTERVAL = "INTERVAL";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-list"
-            /// target="_top">list partitioning</a>.</summary>
-            public const string LIST = "LIST";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-hash"
-            /// target="_top">hash partitioning</a>.</summary>
-            public const string HASH = "HASH";
-
-            /// <summary>Use <a
-            /// href="../../../concepts/tables/#partitioning-by-series"
-            /// target="_top">series partitioning</a>.</summary>
-            public const string SERIES = "SERIES";
-
-            /// <summary>Comma-separated list of partition keys, which are the
-            /// columns or column expressions by which records will be assigned
-            /// to partitions defined by <see
-            /// cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
-            /// </summary>
-            public const string PARTITION_KEYS = "partition_keys";
-
-            /// <summary>Comma-separated list of partition definitions, whose
-            /// format depends on the choice of <see
-            /// cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
-            /// </summary>
-            /// <remarks><para> See <a
-            /// href="../../../concepts/tables/#partitioning-by-range"
-            /// target="_top">range partitioning</a>, <a
-            /// href="../../../concepts/tables/#partitioning-by-interval"
-            /// target="_top">interval partitioning</a>, <a
-            /// href="../../../concepts/tables/#partitioning-by-list"
-            /// target="_top">list partitioning</a>, <a
-            /// href="../../../concepts/tables/#partitioning-by-hash"
-            /// target="_top">hash partitioning</a>, or <a
-            /// href="../../../concepts/tables/#partitioning-by-series"
-            /// target="_top">series partitioning</a> for example formats.
-            /// </para></remarks>
-            public const string PARTITION_DEFINITIONS = "partition_definitions";
-
-            /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>, a
-            /// new partition will be created for values which don't fall into
-            /// an existing partition.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
-
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the table specified in <see
-            /// cref="table_name" />.</summary>
-            public const string TTL = "ttl";
-
-            /// <summary>Indicates the number of records per chunk to be used
-            /// for this table.</summary>
-            public const string CHUNK_SIZE = "chunk_size";
-
-            /// <summary>Indicates the target maximum data size for each column
-            /// in a chunk to be used for this table.</summary>
-            public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
-
-            /// <summary>Indicates the target maximum data size for all columns
-            /// in a chunk to be used for this table.</summary>
-            public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
-
-            /// <summary>Indicates whether the table is a <a
-            /// href="../../../concepts/tables_memory_only/"
-            /// target="_top">memory-only table</a>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_RESULT_TABLE = "is_result_table";
-
-            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
-            /// target="_top">tier strategy</a> for the table and its columns.
-            /// </summary>
-            public const string STRATEGY_DEFINITION = "strategy_definition";
-
-            /// <summary>The default <a
-            /// href="../../../concepts/column_compression/"
-            /// target="_top">compression codec</a> for this table's columns.
-            /// </summary>
-            public const string COMPRESSION_CODEC = "compression_codec";
-        } // end struct CreateTableOptions
-
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Optional name of a table to which records that were
-            /// rejected are written.</summary>
-            /// <remarks><para> The bad-record-table has the following columns:
-            /// line_number (long), line_rejected (string), error_message
-            /// (string).</para></remarks>
-            public const string BAD_RECORD_TABLE_NAME = "bad_record_table_name";
-
-            /// <summary>A positive integer indicating the maximum number of
-            /// records that can be  written to the bad-record-table.</summary>
-            /// <remarks><para>  Default value is 10000</para></remarks>
-            public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
-
-            /// <summary>For subscriptions: A positive integer indicating the
-            /// maximum number of records that can be written to the
-            /// bad-record-table per file/payload.</summary>
-            /// <remarks><para>Default value will be 'bad_record_table_limit'
-            /// and total size of the table per rank is limited to
-            /// 'bad_record_table_limit'</para></remarks>
-            public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
-
-            /// <summary>Internal tuning parameter--number of records per batch
-            /// when inserting data.</summary>
-            public const string BATCH_SIZE = "batch_size";
-
-            /// <summary>For each target column specified, applies the
-            /// column-property-bound format to the source data loaded into
-            /// that column.</summary>
-            /// <remarks><para> Each column format will contain a mapping of
-            /// one or more of its column properties to an appropriate format
-            /// for each property.  Currently supported column properties
-            /// include date, time, & datetime. The parameter value must be
-            /// formatted as a JSON string of maps of column names to maps of
-            /// column properties to their corresponding column formats, e.g.,
-            /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : {
-            /// "time" : "%H:%M:%S" } }'.</para>
-            /// <para>See <see
-            /// cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
-            /// for valid format syntax.</para></remarks>
-            public const string COLUMN_FORMATS = "column_formats";
-
-            /// <summary>Specifies a comma-delimited list of columns from the
-            /// source data to load.</summary>
-            /// <remarks><para> If more than one file is being loaded, this
-            /// list applies to all files.</para>
-            /// <para>Column numbers can be specified discretely or as a range.
-            /// For example, a value of '5,7,1..3' will insert values from the
-            /// fifth column in the source data into the first column in the
-            /// target table, from the seventh column in the source data into
-            /// the second column in the target table, and from the first
-            /// through third columns in the source data into the third through
-            /// fifth columns in the target table.</para>
-            /// <para>If the source data contains a header, column names
-            /// matching the file header names may be provided instead of
-            /// column numbers.  If the target table doesn't exist, the table
-            /// will be created with the columns in this order.  If the target
-            /// table does exist with columns in a different order than the
-            /// source data, this list can be used to match the order of the
-            /// target table.  For example, a value of 'C, B, A' will create a
-            /// three column table with column C, followed by column B,
-            /// followed by column A; or will insert those fields in that order
-            /// into a table created with columns in that order.  If the target
-            /// table exists, the column names must match the source data field
-            /// names for a name-mapping to be successful.</para>
-            /// <para>Mutually exclusive with <see
-            /// cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.</para>
-            /// </remarks>
-            public const string COLUMNS_TO_LOAD = "columns_to_load";
-
-            /// <summary>Specifies a comma-delimited list of columns from the
-            /// source data to skip.</summary>
-            /// <remarks><para> Mutually exclusive with <see
-            /// cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.</para>
-            /// </remarks>
-            public const string COLUMNS_TO_SKIP = "columns_to_skip";
-
-            /// <summary>Optional: payload compression type.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.NONE">NONE</see>:</term>
-            ///         <description>Uncompressed</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.AUTO">AUTO</see>:</term>
-            ///         <description>Default. Auto detect compression type
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.GZIP">GZIP</see>:</term>
-            ///         <description>gzip file compression.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.BZIP2">BZIP2</see>:</term>
-            ///         <description>bzip2 file compression.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.AUTO">AUTO</see>.
-            /// </para></remarks>
-            public const string COMPRESSION_TYPE = "compression_type";
-
-            /// <summary>Uncompressed</summary>
-            public const string NONE = "none";
-
-            /// <summary>Default.</summary>
-            /// <remarks><para>Auto detect compression type</para></remarks>
-            public const string AUTO = "auto";
-
-            /// <summary>gzip file compression.</summary>
-            public const string GZIP = "gzip";
-
-            /// <summary>bzip2 file compression.</summary>
-            public const string BZIP2 = "bzip2";
-
-            /// <summary>Specifies the default format to be applied to source
-            /// data loaded into columns with the corresponding column
-            /// property.</summary>
-            /// <remarks><para> Currently supported column properties include
-            /// date, time, & datetime.  This default column-property-bound
-            /// format can be overridden by specifying a column property &
-            /// format for a given target column in <see
-            /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
-            /// specified annotation, the format will apply to all columns with
-            /// that annotation unless a custom <see
-            /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
-            /// annotation is specified.</para>
-            /// <para>The parameter value must be formatted as a JSON string
-            /// that is a map of column properties to their respective column
-            /// formats, e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.
-            /// Column formats are specified as a string of control characters
-            /// and plain text. The supported control characters are 'Y', 'm',
-            /// 'd', 'H', 'M', 'S', and 's', which follow the Linux
-            /// 'strptime()' specification, as well as 's', which specifies
-            /// seconds and fractional seconds (though the fractional component
-            /// will be truncated past milliseconds).</para>
-            /// <para>Formats for the 'date' annotation must include the 'Y',
-            /// 'm', and 'd' control characters. Formats for the 'time'
-            /// annotation must include the 'H', 'M', and either 'S' or 's'
-            /// (but not both) control characters. Formats for the 'datetime'
-            /// annotation meet both the 'date' and 'time' control character
-            /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S"
-            /// }' would be used to interpret text as "05/04/2000 12:12:11"
-            /// </para></remarks>
-            public const string DEFAULT_COLUMN_FORMATS = "default_column_formats";
-
-            /// <summary>Specifies how errors should be handled upon insertion.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
-            ///         </term>
-            ///         <description>Records with missing columns are populated
-            ///         with nulls if possible; otherwise, the malformed
-            ///         records are skipped.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
-            ///         </term>
-            ///         <description>Malformed records are skipped.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.ABORT">ABORT</see>:</term>
-            ///         <description>Stops current insertion and aborts entire
-            ///         operation when an error is encountered.  Primary key
-            ///         collisions are considered abortable errors in this
-            ///         mode.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.ABORT">ABORT</see>.</para></remarks>
-            public const string ERROR_HANDLING = "error_handling";
-
-            /// <summary>Records with missing columns are populated with nulls
-            /// if possible; otherwise, the malformed records are skipped.
-            /// </summary>
-            public const string PERMISSIVE = "permissive";
-
-            /// <summary>Malformed records are skipped.</summary>
-            public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
-
-            /// <summary>Stops current insertion and aborts entire operation
-            /// when an error is encountered.</summary>
-            /// <remarks><para> Primary key collisions are considered abortable
-            /// errors in this mode.</para></remarks>
-            public const string ABORT = "abort";
-
-            /// <summary>Specifies the type of the file(s) whose records will
-            /// be inserted.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.AVRO">AVRO</see>:</term>
-            ///         <description>Avro file format</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
-            ///         </term>
-            ///         <description>Delimited text file format; e.g., CSV,
-            ///         TSV, PSV, etc.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.GDB">GDB</see>:</term>
-            ///         <description>Esri/GDB file format</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.JSON">JSON</see>:</term>
-            ///         <description>Json file format</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.PARQUET">PARQUET</see>:</term>
-            ///         <description>Apache Parquet file format</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:
-            ///         </term>
-            ///         <description>ShapeFile file format</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</para>
-            /// </remarks>
-            public const string FILE_TYPE = "file_type";
-
-            /// <summary>Avro file format</summary>
-            public const string AVRO = "avro";
-
-            /// <summary>Delimited text file format; e.g., CSV, TSV, PSV, etc.
-            /// </summary>
-            public const string DELIMITED_TEXT = "delimited_text";
-
-            /// <summary>Esri/GDB file format</summary>
-            public const string GDB = "gdb";
-
-            /// <summary>Json file format</summary>
-            public const string JSON = "json";
-
-            /// <summary>Apache Parquet file format</summary>
-            public const string PARQUET = "parquet";
-
-            /// <summary>ShapeFile file format</summary>
-            public const string SHAPEFILE = "shapefile";
-
-            /// <summary>Specifies how to handle nested columns.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Break up nested columns to multiple
-            ///         columns</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Treat nested columns as json columns
-            ///         instead of flattening</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string FLATTEN_COLUMNS = "flatten_columns";
-
-            /// <summary>Upsert new records when primary keys match existing
-            /// records</summary>
-            public const string TRUE = "true";
-
-            /// <summary>Reject new records when primary keys match existing
-            /// records</summary>
-            public const string FALSE = "false";
-
-            /// <summary>Comma separated list of gdal conf options, for the
-            /// specific requests: key=value.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string GDAL_CONFIGURATION_OPTIONS = "gdal_configuration_options";
-
-            /// <summary>Specifies the record collision error-suppression
-            /// policy for inserting into a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>, only used when not in upsert
-            /// mode (upsert mode is disabled when <see
-            /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-            /// is <see cref="Options.FALSE">FALSE</see>).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Ignore new records whose primary key
-            ///         values collide with those of existing records
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Treat as errors any new records whose
-            ///         primary key values collide with those of existing
-            ///         records</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
-
-            /// <summary>Whether to do a full load, dry run, or perform a type
-            /// inference on the source data.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FULL">FULL</see>:</term>
-            ///         <description>Run a type inference on the source data
-            ///         (if needed) and ingest</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-            ///         <description>Does not load data, but walks through the
-            ///         source data and determines the number of valid records,
-            ///         taking into account the current mode of <see
-            ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
-            ///         </term>
-            ///         <description>Infer the type of the source data and
-            ///         return, without ingesting any data.  The inferred type
-            ///         is returned in the response.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.FULL">FULL</see>.
-            /// </para></remarks>
-            public const string INGESTION_MODE = "ingestion_mode";
-
-            /// <summary>Run a type inference on the source data (if needed)
-            /// and ingest</summary>
-            public const string FULL = "full";
-
-            /// <summary>Does not load data, but walks through the source data
-            /// and determines the number of valid records, taking into account
-            /// the current mode of <see
-            /// cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.</summary>
-            public const string DRY_RUN = "dry_run";
-
-            /// <summary>Infer the type of the source data and return, without
-            /// ingesting any data.</summary>
-            /// <remarks><para> The inferred type is returned in the response.
-            /// </para></remarks>
-            public const string TYPE_INFERENCE_ONLY = "type_inference_only";
-
-            /// <summary>Optional: geo files layer(s) name(s): comma separated.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string LAYER = "layer";
-
-            /// <summary>Scheme for distributing the extraction and loading of
-            /// data from the source data file(s).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.HEAD">HEAD</see>:</term>
-            ///         <description>The head node loads all data. All files
-            ///         must be available to the head node.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
-            ///         </term>
-            ///         <description>The head node coordinates loading data by
-            ///         worker processes across all nodes from shared files
-            ///         available to all workers.
-            ///         NOTE:
-            ///         Instead of existing on a shared source, the files can
-            ///         be duplicated on a source local to each host to improve
-            ///         performance, though the files must appear as the same
-            ///         data set from the perspective of all hosts performing
-            ///         the load.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
-            ///         </term>
-            ///         <description>A single worker process on each node loads
-            ///         all files that are available to it. This option works
-            ///         best when each worker loads files from its own file
-            ///         system, to maximize performance. In order to avoid data
-            ///         duplication, either each worker performing the load
-            ///         needs to have visibility to a set of files unique to it
-            ///         (no file is visible to more than one node) or the
-            ///         target table needs to have a primary key (which will
-            ///         allow the worker to automatically deduplicate data).
-            ///         NOTE:
-            ///         If the target table doesn't exist, the table structure
-            ///         will be determined by the head node. If the head node
-            ///         has no files local to it, it will be unable to
-            ///         determine the structure and the request will fail.
-            ///         If the head node is configured to have no worker
-            ///         processes, no data strictly accessible to the head node
-            ///         will be loaded.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.HEAD">HEAD</see>.
-            /// </para></remarks>
-            public const string LOADING_MODE = "loading_mode";
-
-            /// <summary>The head node loads all data.</summary>
-            /// <remarks><para>All files must be available to the head node.
-            /// </para></remarks>
-            public const string HEAD = "head";
-
-            /// <summary>The head node coordinates loading data by worker
-            /// processes across all nodes from shared files available to all
-            /// workers.</summary>
-            /// <remarks><para> NOTE:</para>
-            /// <para>Instead of existing on a shared source, the files can be
-            /// duplicated on a source local to each host to improve
-            /// performance, though the files must appear as the same data set
-            /// from the perspective of all hosts performing the load.</para>
-            /// </remarks>
-            public const string DISTRIBUTED_SHARED = "distributed_shared";
-
-            /// <summary>A single worker process on each node loads all files
-            /// that are available to it.</summary>
-            /// <remarks><para>This option works best when each worker loads
-            /// files from its own file system, to maximize performance. In
-            /// order to avoid data duplication, either each worker performing
-            /// the load needs to have visibility to a set of files unique to
-            /// it (no file is visible to more than one node) or the target
-            /// table needs to have a primary key (which will allow the worker
-            /// to automatically deduplicate data).</para>
-            /// <para>NOTE:</para>
-            /// <para>If the target table doesn't exist, the table structure
-            /// will be determined by the head node. If the head node has no
-            /// files local to it, it will be unable to determine the structure
-            /// and the request will fail.</para>
-            /// <para>If the head node is configured to have no worker
-            /// processes, no data strictly accessible to the head node will be
-            /// loaded.</para></remarks>
-            public const string DISTRIBUTED_LOCAL = "distributed_local";
-
-            /// <summary>For Avro local timestamp columns</summary>
-            public const string LOCAL_TIME_OFFSET = "local_time_offset";
-
-            /// <summary>Limit the number of records to load in this request:
-            /// If this number is larger than a batch_size, then the number of
-            /// records loaded will be limited to the next whole number of
-            /// batch_size (per working thread).</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string MAX_RECORDS_TO_LOAD = "max_records_to_load";
-
-            /// <summary>Optional: number of tasks for reading file per rank.
-            /// </summary>
-            /// <remarks><para>Default will be external_file_reader_num_tasks
-            /// </para></remarks>
-            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, the number of
-            /// seconds between attempts to load external files into the table.
-            /// </summary>
-            /// <remarks><para> If zero, polling will be continuous as long as
-            /// data is found.  If no data is found, the interval will steadily
-            /// increase to a maximum of 60 seconds.</para></remarks>
-            public const string POLL_INTERVAL = "poll_interval";
-
-            /// <summary>Optional: comma separated list of column names, to set
-            /// as primary keys, when not specified in the type.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string PRIMARY_KEYS = "primary_keys";
-
-            /// <summary>Confluent Schema registry connection timeout (in Secs)
-            /// </summary>
-            public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
-
-            /// <summary>Confluent Schema registry connection timeout (in Secs)
-            /// </summary>
-            public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
-
-            /// <summary>Max records to skip due to SR connection failures,
-            /// before failing</summary>
-            public const string SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES = "schema_registry_max_consecutive_connection_failures";
-
-            /// <summary>Max records to skip due to schema related errors,
-            /// before failing</summary>
-            public const string MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE = "max_consecutive_invalid_schema_failure";
-
-            /// <summary>Name of the Avro schema in the schema registry to use
-            /// when reading Avro records.</summary>
-            public const string SCHEMA_REGISTRY_SCHEMA_NAME = "schema_registry_schema_name";
-
-            /// <summary>Optional: comma separated list of column names, to set
-            /// as primary keys, when not specified in the type.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string SHARD_KEYS = "shard_keys";
-
-            /// <summary>Skip a number of lines from the beginning of the file.
-            /// </summary>
-            public const string SKIP_LINES = "skip_lines";
-
-            /// <summary>Continuously poll the data source to check for new
-            /// data and load it into the table.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string SUBSCRIBE = "subscribe";
-
-            /// <summary>Optional: table_insert_mode.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.SINGLE">SINGLE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            ///         cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.SINGLE">SINGLE</see>.</para></remarks>
-            public const string TABLE_INSERT_MODE = "table_insert_mode";
-
-            public const string SINGLE = "single";
-            public const string TABLE_PER_FILE = "table_per_file";
-
-            /// <summary>Specifies the character string that should be
-            /// interpreted as a comment line prefix in the source data.
-            /// </summary>
-            /// <remarks><para> All lines in the data starting with the
-            /// provided string are ignored.</para>
-            /// <para>For <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-            /// value is '#'.</para></remarks>
-            public const string TEXT_COMMENT_STRING = "text_comment_string";
-
-            /// <summary>Specifies the character delimiting field values in the
-            /// source data and field names in the header (if present).
-            /// </summary>
-            /// <remarks><para> For <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-            /// value is ','.</para></remarks>
-            public const string TEXT_DELIMITER = "text_delimiter";
-
-            /// <summary>Specifies the character that is used to escape other
-            /// characters in the source data.</summary>
-            /// <remarks><para> An 'a', 'b', 'f', 'n', 'r', 't', or 'v'
-            /// preceded by an escape character will be interpreted as the
-            /// ASCII bell, backspace, form feed, line feed, carriage return,
-            /// horizontal tab, & vertical tab, respectively.  For example, the
-            /// escape character followed by an 'n' will be interpreted as a
-            /// newline within a field value.</para>
-            /// <para>The escape character can also be used to escape the
-            /// quoting character, and will be treated as an escape character
-            /// whether it is within a quoted field value or not.</para>
-            /// <para>For <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only.</para></remarks>
-            public const string TEXT_ESCAPE_CHARACTER = "text_escape_character";
-
-            /// <summary>Indicates whether the source data contains a header
-            /// row.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string TEXT_HAS_HEADER = "text_has_header";
-
-            /// <summary>Specifies the delimiter for <a
-            /// href="../../../concepts/types/#column-properties"
-            /// target="_top">column properties</a> in the header row (if
-            /// present).</summary>
-            /// <remarks><para> Cannot be set to same value as <see
-            /// cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.</para>
-            /// <para>For <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-            /// value is '|'.</para></remarks>
-            public const string TEXT_HEADER_PROPERTY_DELIMITER = "text_header_property_delimiter";
-
-            /// <summary>Specifies the character string that should be
-            /// interpreted as a null value in the source data.</summary>
-            /// <remarks><para> For <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-            /// value is '\\N'.</para></remarks>
-            public const string TEXT_NULL_STRING = "text_null_string";
-
-            /// <summary>Specifies the character that should be interpreted as
-            /// a field value quoting character in the source data.</summary>
-            /// <remarks><para> The character must appear at beginning and end
-            /// of field value to take effect.  Delimiters within quoted fields
-            /// are treated as literals and not delimiters.  Within a quoted
-            /// field, two consecutive quote characters will be interpreted as
-            /// a single literal quote character, effectively escaping it.  To
-            /// not have a quote character, specify an empty string.</para>
-            /// <para>For <see
-            /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-            /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-            /// value is '"'.</para></remarks>
-            public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
-
-            /// <summary>Add 'text_search' property to internally inferenced
-            /// string columns.</summary>
-            /// <remarks><para>Comma separated list of column names or '*' for
-            /// all columns. To add text_search property only to string columns
-            /// of minimum size, set also the option
-            /// 'text_search_min_column_length'</para></remarks>
-            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
-
-            /// <summary>Set minimum column size.</summary>
-            /// <remarks><para>Used only when 'text_search_columns' has a
-            /// value.</para></remarks>
-            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>,
-            /// truncate string values that are longer than the column's type
-            /// size.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string TRUNCATE_STRINGS = "truncate_strings";
-
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>,
-            /// truncates the table specified by <see cref="table_name" />
-            /// prior to loading the file(s).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string TRUNCATE_TABLE = "truncate_table";
-
-            /// <summary>The default value is ''.</summary>
-            public const string TYPE_INFERENCE_MAX_RECORDS_READ = "type_inference_max_records_read";
-
-            /// <summary>optimize type inference for:</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.ACCURACY">ACCURACY</see>:
-            ///         </term>
-            ///         <description>Scans data to get exactly-typed & sized
-            ///         columns for all data scanned.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SPEED">SPEED</see>:</term>
-            ///         <description>Scans data and picks the widest possible
-            ///         column types so that 'all' values will fit with minimum
-            ///         data scanned</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.ACCURACY">ACCURACY</see>.</para></remarks>
-            public const string TYPE_INFERENCE_MODE = "type_inference_mode";
-
-            /// <summary>Scans data to get exactly-typed & sized columns for
-            /// all data scanned.</summary>
-            public const string ACCURACY = "accuracy";
-
-            /// <summary>Scans data and picks the widest possible column types
-            /// so that 'all' values will fit with minimum data scanned
-            /// </summary>
-            public const string SPEED = "speed";
-
-            /// <summary>Specifies the record collision policy for inserting
-            /// into a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Upsert new records when primary keys match
-            ///         existing records</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Reject new records when primary keys match
-            ///         existing records</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
-        } // end struct Options
-
-        /// <summary>Name of the table into which the data will be inserted, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para>If the table does not exist, the table will be
-        /// created using either an existing <see
-        /// cref="CreateTableOptions.TYPE_ID">TYPE_ID</see> or the type
-        /// inferred from the payload, and the new table name will have to meet
-        /// standard <a href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.</para></remarks>
-        public string table_name { get; set; }
-
-        /// <summary>Records formatted as delimited text</summary>
-        public string data_text { get; set; }
-
-        /// <summary>Records formatted as binary data</summary>
-        public byte[] data_bytes { get; set; }
-
-        /// <summary>Not implemented yet.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
+        /// <summary>ID of a currently registered <a
+        /// href="../../../concepts/types/" target="_top">type</a>.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string TYPE_ID = "type_id";
+
+        /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+        /// prevents an error from occurring if the table already exists and is
+        /// of the given type.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
+
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>Affects the <a
+        /// href="../../../concepts/tables/#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        public const string IS_REPLICATED = "is_replicated";
+
+        /// <summary>Semicolon-separated list of <a
+        /// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
+        /// keys</a>, of the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</summary>
+        public const string FOREIGN_KEYS = "foreign_keys";
+
+        /// <summary>Foreign shard key of the format 'source_column references
+        /// shard_by_column from target_table(primary_key_column)'.</summary>
+        public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
+
+        /// <summary><a href="../../../concepts/tables/#partitioning"
+        /// target="_top">Partitioning</a> scheme to use.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+        ///         </term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-interval"
+        ///         target="_top">interval partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.LIST">LIST</see>:
+        ///         </term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-list"
+        ///         target="_top">list partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.HASH">HASH</see>:
+        ///         </term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-hash"
+        ///         target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.SERIES">SERIES</see>:
+        ///         </term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-series"
+        ///         target="_top">series partitioning</a>.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string PARTITION_TYPE = "partition_type";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>.</summary>
+        public const string RANGE = "RANGE";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>.</summary>
+        public const string INTERVAL = "INTERVAL";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</summary>
+        public const string LIST = "LIST";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</summary>
+        public const string HASH = "HASH";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</summary>
+        public const string SERIES = "SERIES";
+
+        /// <summary>Comma-separated list of partition keys, which are the
+        /// columns or column expressions by which records will be assigned to
+        /// partitions defined by <see
+        /// cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// </summary>
+        public const string PARTITION_KEYS = "partition_keys";
+
+        /// <summary>Comma-separated list of partition definitions, whose
+        /// format depends on the choice of <see
+        /// cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+        /// </summary>
+        /// <remarks><para> See <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example formats.</para>
         /// </remarks>
-        public IDictionary<string, IDictionary<string, string>> modify_columns { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+        public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-        /// <summary>Options used when creating the target table.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
-        ///         </term>
-        ///         <description>ID of a currently registered <a
-        ///         href="../../../concepts/types/" target="_top">type</a>. The
-        ///         default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="CreateTableOptions.TRUE">TRUE</see>, prevents an
-        ///         error from occurring if the table already exists and is of
-        ///         the given type.  If a table with the same ID but a
-        ///         different type exists, it is still an error.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
-        ///         </term>
-        ///         <description>Affects the <a
-        ///         href="../../../concepts/tables/#distribution"
-        ///         target="_top">distribution scheme</a> for the table's data.
-        ///         If <see cref="CreateTableOptions.TRUE">TRUE</see> and the
-        ///         given type has no explicit <a
-        ///         href="../../../concepts/tables/#shard-key"
-        ///         target="_top">shard key</a> defined, the table will be <a
-        ///         href="../../../concepts/tables/#replication"
-        ///         target="_top">replicated</a>.  If <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will
-        ///         be <a href="../../../concepts/tables/#sharding"
-        ///         target="_top">sharded</a> according to the shard key
-        ///         specified in the given <see
-        ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
-        ///         href="../../../concepts/tables/#random-sharding"
-        ///         target="_top">randomly sharded</a>, if no shard key is
-        ///         specified.  Note that a type containing a shard key cannot
-        ///         be used to create a replicated table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
-        ///         </term>
-        ///         <description>Semicolon-separated list of <a
-        ///         href="../../../concepts/tables/#foreign-keys"
-        ///         target="_top">foreign keys</a>, of the format
-        ///         '(source_column_name [, ...]) references
-        ///         target_table_name(primary_key_column_name [, ...]) [as
-        ///         foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
-        ///         </term>
-        ///         <description>Foreign shard key of the format 'source_column
-        ///         references shard_by_column from
-        ///         target_table(primary_key_column)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
-        ///         </term>
-        ///         <description><a
-        ///         href="../../../concepts/tables/#partitioning"
-        ///         target="_top">Partitioning</a> scheme to use.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.RANGE">RANGE</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-range"
-        ///                 target="_top">range partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-interval"
-        ///                 target="_top">interval partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.LIST">LIST</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-list"
-        ///                 target="_top">list partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.HASH">HASH</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-hash"
-        ///                 target="_top">hash partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.SERIES">SERIES</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-series"
-        ///                 target="_top">series partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
-        ///         </term>
-        ///         <description>Comma-separated list of partition keys, which
-        ///         are the columns or column expressions by which records will
-        ///         be assigned to partitions defined by <see
-        ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
-        ///         </term>
-        ///         <description>Comma-separated list of partition definitions,
-        ///         whose format depends on the choice of <see
-        ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
-        ///         See <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-interval"
-        ///         target="_top">interval partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-hash"
-        ///         target="_top">hash partitioning</a>, or <a
-        ///         href="../../../concepts/tables/#partitioning-by-series"
-        ///         target="_top">series partitioning</a> for example formats.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="CreateTableOptions.TRUE">TRUE</see>, a new partition
-        ///         will be created for values which don't fall into an
-        ///         existing partition.  Currently only supported for <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitions</a>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the table specified in <see
-        ///         cref="table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:
-        ///         </term>
-        ///         <description>Indicates the number of records per chunk to
-        ///         be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for
-        ///         each column in a chunk to be used for this table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for all
-        ///         columns in a chunk to be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
-        ///         </term>
-        ///         <description>Indicates whether the table is a <a
-        ///         href="../../../concepts/tables_memory_only/"
-        ///         target="_top">memory-only table</a>. A result table cannot
-        ///         contain columns with text_search <a
-        ///         href="../../../concepts/types/#data-handling"
-        ///         target="_top">data-handling</a>, and it will not be
-        ///         retained if the server is restarted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>The <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
-        ///         </term>
-        ///         <description>The default <a
-        ///         href="../../../concepts/column_compression/"
-        ///         target="_top">compression codec</a> for this table's
-        ///         columns.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> create_table_options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
-        ///         </term>
-        ///         <description>Optional name of a table to which records that
-        ///         were rejected are written.  The bad-record-table has the
-        ///         following columns: line_number (long), line_rejected
-        ///         (string), error_message (string).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
-        ///         </term>
-        ///         <description>A positive integer indicating the maximum
-        ///         number of records that can be  written to the
-        ///         bad-record-table.   Default value is 10000</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
-        ///         </term>
-        ///         <description>For subscriptions: A positive integer
-        ///         indicating the maximum number of records that can be
-        ///         written to the bad-record-table per file/payload. Default
-        ///         value will be 'bad_record_table_limit' and total size of
-        ///         the table per rank is limited to 'bad_record_table_limit'
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>Internal tuning parameter--number of records
-        ///         per batch when inserting data.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>For each target column specified, applies the
-        ///         column-property-bound format to the source data loaded into
-        ///         that column.  Each column format will contain a mapping of
-        ///         one or more of its column properties to an appropriate
-        ///         format for each property.  Currently supported column
-        ///         properties include date, time, & datetime. The parameter
-        ///         value must be formatted as a JSON string of maps of column
-        ///         names to maps of column properties to their corresponding
-        ///         column formats, e.g., '{ "order_date" : { "date" :
-        ///         "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }'.
-        ///         See <see
-        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
-        ///         for valid format syntax.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:
-        ///         </term>
-        ///         <description>Specifies a comma-delimited list of columns
-        ///         from the source data to load.  If more than one file is
-        ///         being loaded, this list applies to all files.
-        ///         Column numbers can be specified discretely or as a range.
-        ///         For example, a value of '5,7,1..3' will insert values from
-        ///         the fifth column in the source data into the first column
-        ///         in the target table, from the seventh column in the source
-        ///         data into the second column in the target table, and from
-        ///         the first through third columns in the source data into the
-        ///         third through fifth columns in the target table.
-        ///         If the source data contains a header, column names matching
-        ///         the file header names may be provided instead of column
-        ///         numbers.  If the target table doesn't exist, the table will
-        ///         be created with the columns in this order.  If the target
-        ///         table does exist with columns in a different order than the
-        ///         source data, this list can be used to match the order of
-        ///         the target table.  For example, a value of 'C, B, A' will
-        ///         create a three column table with column C, followed by
-        ///         column B, followed by column A; or will insert those fields
-        ///         in that order into a table created with columns in that
-        ///         order.  If the target table exists, the column names must
-        ///         match the source data field names for a name-mapping to be
-        ///         successful.
-        ///         Mutually exclusive with <see
-        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:
-        ///         </term>
-        ///         <description>Specifies a comma-delimited list of columns
-        ///         from the source data to skip.  Mutually exclusive with <see
-        ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
-        ///         </term>
-        ///         <description>Optional: payload compression type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Uncompressed</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
-        ///                 <description>Default. Auto detect compression type
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.GZIP">GZIP</see>:</term>
-        ///                 <description>gzip file compression.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.BZIP2">BZIP2</see>:</term>
-        ///                 <description>bzip2 file compression.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.AUTO">AUTO</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
-        ///         </term>
-        ///         <description>Specifies the default format to be applied to
-        ///         source data loaded into columns with the corresponding
-        ///         column property.  Currently supported column properties
-        ///         include date, time, & datetime.  This default
-        ///         column-property-bound format can be overridden by
-        ///         specifying a column property & format for a given target
-        ///         column in <see
-        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For
-        ///         each specified annotation, the format will apply to all
-        ///         columns with that annotation unless a custom <see
-        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
-        ///         annotation is specified.
-        ///         The parameter value must be formatted as a JSON string that
-        ///         is a map of column properties to their respective column
-        ///         formats, e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S"
-        ///         }'.  Column formats are specified as a string of control
-        ///         characters and plain text. The supported control characters
-        ///         are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow the
-        ///         Linux 'strptime()' specification, as well as 's', which
-        ///         specifies seconds and fractional seconds (though the
-        ///         fractional component will be truncated past milliseconds).
-        ///         Formats for the 'date' annotation must include the 'Y',
-        ///         'm', and 'd' control characters. Formats for the 'time'
-        ///         annotation must include the 'H', 'M', and either 'S' or 's'
-        ///         (but not both) control characters. Formats for the
-        ///         'datetime' annotation meet both the 'date' and 'time'
-        ///         control character requirements. For example, '{"datetime" :
-        ///         "%m/%d/%Y %H:%M:%S" }' would be used to interpret text as
-        ///         "05/04/2000 12:12:11"</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
-        ///         <description>Specifies how errors should be handled upon
-        ///         insertion.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.PERMISSIVE">PERMISSIVE</see>:</term>
-        ///                 <description>Records with missing columns are
-        ///                 populated with nulls if possible; otherwise, the
-        ///                 malformed records are skipped.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
-        ///                 </term>
-        ///                 <description>Malformed records are skipped.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
-        ///                 <description>Stops current insertion and aborts
-        ///                 entire operation when an error is encountered.
-        ///                 Primary key collisions are considered abortable
-        ///                 errors in this mode.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.ABORT">ABORT</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the type of the file(s) whose
-        ///         records will be inserted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.AVRO">AVRO</see>:</term>
-        ///                 <description>Avro file format</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
-        ///                 </term>
-        ///                 <description>Delimited text file format; e.g., CSV,
-        ///                 TSV, PSV, etc.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.GDB">GDB</see>:</term>
-        ///                 <description>Esri/GDB file format</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.JSON">JSON</see>:</term>
-        ///                 <description>Json file format</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.PARQUET">PARQUET</see>:
-        ///                 </term>
-        ///                 <description>Apache Parquet file format
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.SHAPEFILE">SHAPEFILE</see>:</term>
-        ///                 <description>ShapeFile file format</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
-        ///         </term>
-        ///         <description>Specifies how to handle nested columns.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Break up nested columns to multiple
-        ///                 columns</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat nested columns as json columns
-        ///                 instead of flattening</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
-        ///         </term>
-        ///         <description>Comma separated list of gdal conf options, for
-        ///         the specific requests: key=value. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
-        ///         specified table does not have a primary key or if upsert
-        ///         mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
-        ///         <description>Whether to do a full load, dry run, or perform
-        ///         a type inference on the source data.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FULL">FULL</see>:</term>
-        ///                 <description>Run a type inference on the source
-        ///                 data (if needed) and ingest</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:
-        ///                 </term>
-        ///                 <description>Does not load data, but walks through
-        ///                 the source data and determines the number of valid
-        ///                 records, taking into account the current mode of
-        ///                 <see
-        ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
-        ///                 </term>
-        ///                 <description>Infer the type of the source data and
-        ///                 return, without ingesting any data.  The inferred
-        ///                 type is returned in the response.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FULL">FULL</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
-        ///         <description>Optional: geo files layer(s) name(s): comma
-        ///         separated. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
-        ///         </term>
-        ///         <description>Scheme for distributing the extraction and
-        ///         loading of data from the source data file(s). This option
-        ///         applies only when loading files that are local to the
-        ///         database.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.HEAD">HEAD</see>:</term>
-        ///                 <description>The head node loads all data. All
-        ///                 files must be available to the head node.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
-        ///                 </term>
-        ///                 <description>The head node coordinates loading data
-        ///                 by worker processes across all nodes from shared
-        ///                 files available to all workers.
-        ///                 NOTE:
-        ///                 Instead of existing on a shared source, the files
-        ///                 can be duplicated on a source local to each host to
-        ///                 improve performance, though the files must appear
-        ///                 as the same data set from the perspective of all
-        ///                 hosts performing the load.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
-        ///                 </term>
-        ///                 <description>A single worker process on each node
-        ///                 loads all files that are available to it. This
-        ///                 option works best when each worker loads files from
-        ///                 its own file system, to maximize performance. In
-        ///                 order to avoid data duplication, either each worker
-        ///                 performing the load needs to have visibility to a
-        ///                 set of files unique to it (no file is visible to
-        ///                 more than one node) or the target table needs to
-        ///                 have a primary key (which will allow the worker to
-        ///                 automatically deduplicate data).
-        ///                 NOTE:
-        ///                 If the target table doesn't exist, the table
-        ///                 structure will be determined by the head node. If
-        ///                 the head node has no files local to it, it will be
-        ///                 unable to determine the structure and the request
-        ///                 will fail.
-        ///                 If the head node is configured to have no worker
-        ///                 processes, no data strictly accessible to the head
-        ///                 node will be loaded.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.HEAD">HEAD</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
-        ///         </term>
-        ///         <description>For Avro local timestamp columns</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
-        ///         </term>
-        ///         <description>Limit the number of records to load in this
-        ///         request: If this number is larger than a batch_size, then
-        ///         the number of records loaded will be limited to the next
-        ///         whole number of batch_size (per working thread). The
-        ///         default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
-        ///         </term>
-        ///         <description>Optional: number of tasks for reading file per
-        ///         rank. Default will be external_file_reader_num_tasks
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, the
-        ///         number of seconds between attempts to load external files
-        ///         into the table.  If zero, polling will be continuous as
-        ///         long as data is found.  If no data is found, the interval
-        ///         will steadily increase to a maximum of 60 seconds.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
-        ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
-        ///         </term>
-        ///         <description>Max records to skip due to SR connection
-        ///         failures, before failing</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
-        ///         </term>
-        ///         <description>Max records to skip due to schema related
-        ///         errors, before failing</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Avro schema in the schema registry
-        ///         to use when reading Avro records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:
-        ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
-        ///         </term>
-        ///         <description>Skip a number of lines from the beginning of
-        ///         the file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
-        ///         <description>Continuously poll the data source to check for
-        ///         new data and load it into the table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
-        ///         </term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        ///         records from multiple files: if table_per_file then insert
-        ///         from each file into a new table. Currently supported only
-        ///         for shapefiles.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.SINGLE">SINGLE</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
-        ///         </term>
-        ///         <description>Specifies the character string that should be
-        ///         interpreted as a comment line prefix in the source data.
-        ///         All lines in the data starting with the provided string are
-        ///         ignored.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '#'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Specifies the character delimiting field
-        ///         values in the source data and field names in the header (if
-        ///         present).
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
-        ///         </term>
-        ///         <description>Specifies the character that is used to escape
-        ///         other characters in the source data.
-        ///         An 'a', 'b', 'f', 'n', 'r', 't', or 'v' preceded by an
-        ///         escape character will be interpreted as the ASCII bell,
-        ///         backspace, form feed, line feed, carriage return,
-        ///         horizontal tab, & vertical tab, respectively.  For example,
-        ///         the escape character followed by an 'n' will be interpreted
-        ///         as a newline within a field value.
-        ///         The escape character can also be used to escape the quoting
-        ///         character, and will be treated as an escape character
-        ///         whether it is within a quoted field value or not.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:
-        ///         </term>
-        ///         <description>Indicates whether the source data contains a
-        ///         header row.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
-        ///         </term>
-        ///         <description>Specifies the delimiter for <a
-        ///         href="../../../concepts/types/#column-properties"
-        ///         target="_top">column properties</a> in the header row (if
-        ///         present).  Cannot be set to same value as <see
-        ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:
-        ///         </term>
-        ///         <description>Specifies the character string that should be
-        ///         interpreted as a null value in the source data.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '\\N'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
-        ///         </term>
-        ///         <description>Specifies the character that should be
-        ///         interpreted as a field value quoting character in the
-        ///         source data.  The character must appear at beginning and
-        ///         end of field value to take effect.  Delimiters within
-        ///         quoted fields are treated as literals and not delimiters.
-        ///         Within a quoted field, two consecutive quote characters
-        ///         will be interpreted as a single literal quote character,
-        ///         effectively escaping it.  To not have a quote character,
-        ///         specify an empty string.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '"'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
-        ///         </term>
-        ///         <description>Add 'text_search' property to internally
-        ///         inferenced string columns. Comma separated list of column
-        ///         names or '*' for all columns. To add text_search property
-        ///         only to string columns of minimum size, set also the option
-        ///         'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
-        ///         </term>
-        ///         <description>Set minimum column size. Used only when
-        ///         'text_search_columns' has a value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         truncate string values that are longer than the column's
-        ///         type size.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         truncates the table specified by <see cref="table_name" />
-        ///         prior to loading the file(s).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>:
-        ///         </term>
-        ///         <description>The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
-        ///         </term>
-        ///         <description>optimize type inference for:
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ACCURACY">ACCURACY</see>:
-        ///                 </term>
-        ///                 <description>Scans data to get exactly-typed &
-        ///                 sized columns for all data scanned.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SPEED">SPEED</see>:</term>
-        ///                 <description>Scans data and picks the widest
-        ///                 possible column types so that 'all' values will fit
-        ///                 with minimum data scanned</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.ACCURACY">ACCURACY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
-        ///         & <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an InsertRecordsFromPayloadRequest object with
-        /// default parameters.</summary>
-        public InsertRecordsFromPayloadRequest() { }
-
-        /// <summary>Constructs an InsertRecordsFromPayloadRequest object with
-        /// the specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table into which the data will
-        /// be inserted, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>. If the table does not
-        /// exist, the table will be created using either an existing <see
-        /// cref="CreateTableOptions.TYPE_ID">TYPE_ID</see> or the type
-        /// inferred from the payload, and the new table name will have to meet
-        /// standard <a href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.</param>
-        /// <param name="data_text">Records formatted as delimited text</param>
-        /// <param name="data_bytes">Records formatted as binary data</param>
-        /// <param name="modify_columns">Not implemented yet. The default value
-        /// is an empty Dictionary.</param>
-        /// <param name="create_table_options">Options used when creating the
-        /// target table. Includes type to use. The other options match those
-        /// in <see
-        /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+        /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>, a new
+        /// partition will be created for values which don't fall into an
+        /// existing partition.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
-        ///         </term>
-        ///         <description>ID of a currently registered <a
-        ///         href="../../../concepts/types/" target="_top">type</a>. The
-        ///         default value is ''.</description>
+        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
-        ///         <description>If <see
-        ///         cref="CreateTableOptions.TRUE">TRUE</see>, prevents an
-        ///         error from occurring if the table already exists and is of
-        ///         the given type.  If a table with the same ID but a
-        ///         different type exists, it is still an error.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
-        ///         </term>
-        ///         <description>Affects the <a
-        ///         href="../../../concepts/tables/#distribution"
-        ///         target="_top">distribution scheme</a> for the table's data.
-        ///         If <see cref="CreateTableOptions.TRUE">TRUE</see> and the
-        ///         given type has no explicit <a
-        ///         href="../../../concepts/tables/#shard-key"
-        ///         target="_top">shard key</a> defined, the table will be <a
-        ///         href="../../../concepts/tables/#replication"
-        ///         target="_top">replicated</a>.  If <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will
-        ///         be <a href="../../../concepts/tables/#sharding"
-        ///         target="_top">sharded</a> according to the shard key
-        ///         specified in the given <see
-        ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
-        ///         href="../../../concepts/tables/#random-sharding"
-        ///         target="_top">randomly sharded</a>, if no shard key is
-        ///         specified.  Note that a type containing a shard key cannot
-        ///         be used to create a replicated table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
-        ///         </term>
-        ///         <description>Semicolon-separated list of <a
-        ///         href="../../../concepts/tables/#foreign-keys"
-        ///         target="_top">foreign keys</a>, of the format
-        ///         '(source_column_name [, ...]) references
-        ///         target_table_name(primary_key_column_name [, ...]) [as
-        ///         foreign_key_name]'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
-        ///         </term>
-        ///         <description>Foreign shard key of the format 'source_column
-        ///         references shard_by_column from
-        ///         target_table(primary_key_column)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
-        ///         </term>
-        ///         <description><a
-        ///         href="../../../concepts/tables/#partitioning"
-        ///         target="_top">Partitioning</a> scheme to use.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.RANGE">RANGE</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-range"
-        ///                 target="_top">range partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-interval"
-        ///                 target="_top">interval partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.LIST">LIST</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-list"
-        ///                 target="_top">list partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.HASH">HASH</see>:</term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-hash"
-        ///                 target="_top">hash partitioning</a>.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.SERIES">SERIES</see>:
-        ///                 </term>
-        ///                 <description>Use <a
-        ///                 href="../../../concepts/tables/#partitioning-by-series"
-        ///                 target="_top">series partitioning</a>.
-        ///                 </description>
-        ///             </item>
-        ///         </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
-        ///         </term>
-        ///         <description>Comma-separated list of partition keys, which
-        ///         are the columns or column expressions by which records will
-        ///         be assigned to partitions defined by <see
-        ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
-        ///         </term>
-        ///         <description>Comma-separated list of partition definitions,
-        ///         whose format depends on the choice of <see
-        ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
-        ///         See <a
-        ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-interval"
-        ///         target="_top">interval partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitioning</a>, <a
-        ///         href="../../../concepts/tables/#partitioning-by-hash"
-        ///         target="_top">hash partitioning</a>, or <a
-        ///         href="../../../concepts/tables/#partitioning-by-series"
-        ///         target="_top">series partitioning</a> for example formats.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="CreateTableOptions.TRUE">TRUE</see>, a new partition
-        ///         will be created for values which don't fall into an
-        ///         existing partition.  Currently only supported for <a
-        ///         href="../../../concepts/tables/#partitioning-by-list"
-        ///         target="_top">list partitions</a>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the table specified in <paramref
-        ///         name="table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:
-        ///         </term>
-        ///         <description>Indicates the number of records per chunk to
-        ///         be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for
-        ///         each column in a chunk to be used for this table.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
-        ///         </term>
-        ///         <description>Indicates the target maximum data size for all
-        ///         columns in a chunk to be used for this table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
-        ///         </term>
-        ///         <description>Indicates whether the table is a <a
-        ///         href="../../../concepts/tables_memory_only/"
-        ///         target="_top">memory-only table</a>. A result table cannot
-        ///         contain columns with text_search <a
-        ///         href="../../../concepts/types/#data-handling"
-        ///         target="_top">data-handling</a>, and it will not be
-        ///         retained if the server is restarted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="CreateTableOptions.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
-        ///         </term>
-        ///         <description>The <a
-        ///         href="../../../rm/concepts/#tier-strategies"
-        ///         target="_top">tier strategy</a> for the table and its
-        ///         columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
-        ///         </term>
-        ///         <description>The default <a
-        ///         href="../../../concepts/column_compression/"
-        ///         target="_top">compression codec</a> for this table's
-        ///         columns.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        /// <param name="options">Optional parameters.
+        /// <para>The default value is <see
+        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
+
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in <see
+        /// cref="table_name" />.</summary>
+        public const string TTL = "ttl";
+
+        /// <summary>Indicates the number of records per chunk to be used for
+        /// this table.</summary>
+        public const string CHUNK_SIZE = "chunk_size";
+
+        /// <summary>Indicates the target maximum data size for each column in
+        /// a chunk to be used for this table.</summary>
+        public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
+
+        /// <summary>Indicates the target maximum data size for all columns in
+        /// a chunk to be used for this table.</summary>
+        public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
+
+        /// <summary>Indicates whether the table is a <a
+        /// href="../../../concepts/tables_memory_only/"
+        /// target="_top">memory-only table</a>.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
-        ///         <description>Optional name of a table to which records that
-        ///         were rejected are written.  The bad-record-table has the
-        ///         following columns: line_number (long), line_rejected
-        ///         (string), error_message (string).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
-        ///         </term>
-        ///         <description>A positive integer indicating the maximum
-        ///         number of records that can be  written to the
-        ///         bad-record-table.   Default value is 10000</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
-        ///         </term>
-        ///         <description>For subscriptions: A positive integer
-        ///         indicating the maximum number of records that can be
-        ///         written to the bad-record-table per file/payload. Default
-        ///         value will be 'bad_record_table_limit' and total size of
-        ///         the table per rank is limited to 'bad_record_table_limit'
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>Internal tuning parameter--number of records
-        ///         per batch when inserting data.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>For each target column specified, applies the
-        ///         column-property-bound format to the source data loaded into
-        ///         that column.  Each column format will contain a mapping of
-        ///         one or more of its column properties to an appropriate
-        ///         format for each property.  Currently supported column
-        ///         properties include date, time, & datetime. The parameter
-        ///         value must be formatted as a JSON string of maps of column
-        ///         names to maps of column properties to their corresponding
-        ///         column formats, e.g., '{ "order_date" : { "date" :
-        ///         "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }'.
-        ///         See <see
-        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
-        ///         for valid format syntax.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:
-        ///         </term>
-        ///         <description>Specifies a comma-delimited list of columns
-        ///         from the source data to load.  If more than one file is
-        ///         being loaded, this list applies to all files.
-        ///         Column numbers can be specified discretely or as a range.
-        ///         For example, a value of '5,7,1..3' will insert values from
-        ///         the fifth column in the source data into the first column
-        ///         in the target table, from the seventh column in the source
-        ///         data into the second column in the target table, and from
-        ///         the first through third columns in the source data into the
-        ///         third through fifth columns in the target table.
-        ///         If the source data contains a header, column names matching
-        ///         the file header names may be provided instead of column
-        ///         numbers.  If the target table doesn't exist, the table will
-        ///         be created with the columns in this order.  If the target
-        ///         table does exist with columns in a different order than the
-        ///         source data, this list can be used to match the order of
-        ///         the target table.  For example, a value of 'C, B, A' will
-        ///         create a three column table with column C, followed by
-        ///         column B, followed by column A; or will insert those fields
-        ///         in that order into a table created with columns in that
-        ///         order.  If the target table exists, the column names must
-        ///         match the source data field names for a name-mapping to be
-        ///         successful.
-        ///         Mutually exclusive with <see
-        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:
-        ///         </term>
-        ///         <description>Specifies a comma-delimited list of columns
-        ///         from the source data to skip.  Mutually exclusive with <see
-        ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
-        ///         </term>
-        ///         <description>Optional: payload compression type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Uncompressed</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
-        ///                 <description>Default. Auto detect compression type
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.GZIP">GZIP</see>:</term>
-        ///                 <description>gzip file compression.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.BZIP2">BZIP2</see>:</term>
-        ///                 <description>bzip2 file compression.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.AUTO">AUTO</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
-        ///         </term>
-        ///         <description>Specifies the default format to be applied to
-        ///         source data loaded into columns with the corresponding
-        ///         column property.  Currently supported column properties
-        ///         include date, time, & datetime.  This default
-        ///         column-property-bound format can be overridden by
-        ///         specifying a column property & format for a given target
-        ///         column in <see
-        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For
-        ///         each specified annotation, the format will apply to all
-        ///         columns with that annotation unless a custom <see
-        ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
-        ///         annotation is specified.
-        ///         The parameter value must be formatted as a JSON string that
-        ///         is a map of column properties to their respective column
-        ///         formats, e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S"
-        ///         }'.  Column formats are specified as a string of control
-        ///         characters and plain text. The supported control characters
-        ///         are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow the
-        ///         Linux 'strptime()' specification, as well as 's', which
-        ///         specifies seconds and fractional seconds (though the
-        ///         fractional component will be truncated past milliseconds).
-        ///         Formats for the 'date' annotation must include the 'Y',
-        ///         'm', and 'd' control characters. Formats for the 'time'
-        ///         annotation must include the 'H', 'M', and either 'S' or 's'
-        ///         (but not both) control characters. Formats for the
-        ///         'datetime' annotation meet both the 'date' and 'time'
-        ///         control character requirements. For example, '{"datetime" :
-        ///         "%m/%d/%Y %H:%M:%S" }' would be used to interpret text as
-        ///         "05/04/2000 12:12:11"</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
-        ///         <description>Specifies how errors should be handled upon
-        ///         insertion.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.PERMISSIVE">PERMISSIVE</see>:</term>
-        ///                 <description>Records with missing columns are
-        ///                 populated with nulls if possible; otherwise, the
-        ///                 malformed records are skipped.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
-        ///                 </term>
-        ///                 <description>Malformed records are skipped.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
-        ///                 <description>Stops current insertion and aborts
-        ///                 entire operation when an error is encountered.
-        ///                 Primary key collisions are considered abortable
-        ///                 errors in this mode.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.ABORT">ABORT</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the type of the file(s) whose
-        ///         records will be inserted.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.AVRO">AVRO</see>:</term>
-        ///                 <description>Avro file format</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
-        ///                 </term>
-        ///                 <description>Delimited text file format; e.g., CSV,
-        ///                 TSV, PSV, etc.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.GDB">GDB</see>:</term>
-        ///                 <description>Esri/GDB file format</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.JSON">JSON</see>:</term>
-        ///                 <description>Json file format</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.PARQUET">PARQUET</see>:
-        ///                 </term>
-        ///                 <description>Apache Parquet file format
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.SHAPEFILE">SHAPEFILE</see>:</term>
-        ///                 <description>ShapeFile file format</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
-        ///         </term>
-        ///         <description>Specifies how to handle nested columns.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Break up nested columns to multiple
-        ///                 columns</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat nested columns as json columns
-        ///                 instead of flattening</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
-        ///         </term>
-        ///         <description>Comma separated list of gdal conf options, for
-        ///         the specific requests: key=value. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into a table with a
-        ///         <a href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when not in upsert
-        ///         mode (upsert mode is disabled when <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record being inserted
-        ///         that is rejected for having primary key values that match
-        ///         those of an existing table record will be ignored with no
-        ///         error generated.  If <see cref="Options.FALSE">FALSE</see>,
-        ///         the rejection of any record for having primary key values
-        ///         matching an existing record will result in an error being
-        ///         reported, as determined by <see
-        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
-        ///         specified table does not have a primary key or if upsert
-        ///         mode is in effect (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>), then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore new records whose primary key
-        ///                 values collide with those of existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any new records whose
-        ///                 primary key values collide with those of existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
-        ///         <description>Whether to do a full load, dry run, or perform
-        ///         a type inference on the source data.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FULL">FULL</see>:</term>
-        ///                 <description>Run a type inference on the source
-        ///                 data (if needed) and ingest</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:
-        ///                 </term>
-        ///                 <description>Does not load data, but walks through
-        ///                 the source data and determines the number of valid
-        ///                 records, taking into account the current mode of
-        ///                 <see
-        ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
-        ///                 </term>
-        ///                 <description>Infer the type of the source data and
-        ///                 return, without ingesting any data.  The inferred
-        ///                 type is returned in the response.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FULL">FULL</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
-        ///         <description>Optional: geo files layer(s) name(s): comma
-        ///         separated. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
-        ///         </term>
-        ///         <description>Scheme for distributing the extraction and
-        ///         loading of data from the source data file(s). This option
-        ///         applies only when loading files that are local to the
-        ///         database.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.HEAD">HEAD</see>:</term>
-        ///                 <description>The head node loads all data. All
-        ///                 files must be available to the head node.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
-        ///                 </term>
-        ///                 <description>The head node coordinates loading data
-        ///                 by worker processes across all nodes from shared
-        ///                 files available to all workers.
-        ///                 NOTE:
-        ///                 Instead of existing on a shared source, the files
-        ///                 can be duplicated on a source local to each host to
-        ///                 improve performance, though the files must appear
-        ///                 as the same data set from the perspective of all
-        ///                 hosts performing the load.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
-        ///                 </term>
-        ///                 <description>A single worker process on each node
-        ///                 loads all files that are available to it. This
-        ///                 option works best when each worker loads files from
-        ///                 its own file system, to maximize performance. In
-        ///                 order to avoid data duplication, either each worker
-        ///                 performing the load needs to have visibility to a
-        ///                 set of files unique to it (no file is visible to
-        ///                 more than one node) or the target table needs to
-        ///                 have a primary key (which will allow the worker to
-        ///                 automatically deduplicate data).
-        ///                 NOTE:
-        ///                 If the target table doesn't exist, the table
-        ///                 structure will be determined by the head node. If
-        ///                 the head node has no files local to it, it will be
-        ///                 unable to determine the structure and the request
-        ///                 will fail.
-        ///                 If the head node is configured to have no worker
-        ///                 processes, no data strictly accessible to the head
-        ///                 node will be loaded.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.HEAD">HEAD</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
-        ///         </term>
-        ///         <description>For Avro local timestamp columns</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
-        ///         </term>
-        ///         <description>Limit the number of records to load in this
-        ///         request: If this number is larger than a batch_size, then
-        ///         the number of records loaded will be limited to the next
-        ///         whole number of batch_size (per working thread). The
-        ///         default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
-        ///         </term>
-        ///         <description>Optional: number of tasks for reading file per
-        ///         rank. Default will be external_file_reader_num_tasks
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, the
-        ///         number of seconds between attempts to load external files
-        ///         into the table.  If zero, polling will be continuous as
-        ///         long as data is found.  If no data is found, the interval
-        ///         will steadily increase to a maximum of 60 seconds.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
-        ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
-        ///         </term>
-        ///         <description>Confluent Schema registry connection timeout
-        ///         (in Secs)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
-        ///         </term>
-        ///         <description>Max records to skip due to SR connection
-        ///         failures, before failing</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
-        ///         </term>
-        ///         <description>Max records to skip due to schema related
-        ///         errors, before failing</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
-        ///         </term>
-        ///         <description>Name of the Avro schema in the schema registry
-        ///         to use when reading Avro records.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:
-        ///         </term>
-        ///         <description>Optional: comma separated list of column
-        ///         names, to set as primary keys, when not specified in the
-        ///         type. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:
-        ///         </term>
-        ///         <description>Skip a number of lines from the beginning of
-        ///         the file.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
-        ///         <description>Continuously poll the data source to check for
-        ///         new data and load it into the table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
-        ///         </term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        ///         records from multiple files: if table_per_file then insert
-        ///         from each file into a new table. Currently supported only
-        ///         for shapefiles.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.SINGLE">SINGLE</see>
-        ///                 </term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
-        ///         </term>
-        ///         <description>Specifies the character string that should be
-        ///         interpreted as a comment line prefix in the source data.
-        ///         All lines in the data starting with the provided string are
-        ///         ignored.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '#'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Specifies the character delimiting field
-        ///         values in the source data and field names in the header (if
-        ///         present).
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
-        ///         </term>
-        ///         <description>Specifies the character that is used to escape
-        ///         other characters in the source data.
-        ///         An 'a', 'b', 'f', 'n', 'r', 't', or 'v' preceded by an
-        ///         escape character will be interpreted as the ASCII bell,
-        ///         backspace, form feed, line feed, carriage return,
-        ///         horizontal tab, & vertical tab, respectively.  For example,
-        ///         the escape character followed by an 'n' will be interpreted
-        ///         as a newline within a field value.
-        ///         The escape character can also be used to escape the quoting
-        ///         character, and will be treated as an escape character
-        ///         whether it is within a quoted field value or not.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:
-        ///         </term>
-        ///         <description>Indicates whether the source data contains a
-        ///         header row.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
-        ///         </term>
-        ///         <description>Specifies the delimiter for <a
-        ///         href="../../../concepts/types/#column-properties"
-        ///         target="_top">column properties</a> in the header row (if
-        ///         present).  Cannot be set to same value as <see
-        ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:
-        ///         </term>
-        ///         <description>Specifies the character string that should be
-        ///         interpreted as a null value in the source data.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '\\N'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
-        ///         </term>
-        ///         <description>Specifies the character that should be
-        ///         interpreted as a field value quoting character in the
-        ///         source data.  The character must appear at beginning and
-        ///         end of field value to take effect.  Delimiters within
-        ///         quoted fields are treated as literals and not delimiters.
-        ///         Within a quoted field, two consecutive quote characters
-        ///         will be interpreted as a single literal quote character,
-        ///         effectively escaping it.  To not have a quote character,
-        ///         specify an empty string.
-        ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The
-        ///         default value is '"'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
-        ///         </term>
-        ///         <description>Add 'text_search' property to internally
-        ///         inferenced string columns. Comma separated list of column
-        ///         names or '*' for all columns. To add text_search property
-        ///         only to string columns of minimum size, set also the option
-        ///         'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
-        ///         </term>
-        ///         <description>Set minimum column size. Used only when
-        ///         'text_search_columns' has a value.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
-        ///         </term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         truncate string values that are longer than the column's
-        ///         type size.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         truncates the table specified by <paramref
-        ///         name="table_name" /> prior to loading the file(s).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>:
-        ///         </term>
-        ///         <description>The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
-        ///         </term>
-        ///         <description>optimize type inference for:
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ACCURACY">ACCURACY</see>:
-        ///                 </term>
-        ///                 <description>Scans data to get exactly-typed &
-        ///                 sized columns for all data scanned.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SPEED">SPEED</see>:</term>
-        ///                 <description>Scans data and picks the widest
-        ///                 possible column types so that 'all' values will fit
-        ///                 with minimum data scanned</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.ACCURACY">ACCURACY</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will be replaced by that new record (the new data
-        ///         will be "upserted"). If set to <see
-        ///         cref="Options.FALSE">FALSE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted will remain unchanged, while the new record will
-        ///         be rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
-        ///         & <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Upsert new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject new records when primary keys
-        ///                 match existing records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public InsertRecordsFromPayloadRequest( string table_name,
-                                                string data_text,
-                                                byte[] data_bytes,
-                                                IDictionary<string, IDictionary<string, string>> modify_columns = null,
-                                                IDictionary<string, string> create_table_options = null,
-                                                IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.data_text = data_text ?? "";
-            this.data_bytes = data_bytes ?? new byte[] { };
-            this.modify_columns = modify_columns ?? new Dictionary<string, IDictionary<string, string>>();
-            this.create_table_options = create_table_options ?? new Dictionary<string, string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class InsertRecordsFromPayloadRequest
+        /// <para>The default value is <see
+        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        public const string IS_RESULT_TABLE = "is_result_table";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.insertRecordsFromPayload(InsertRecordsFromPayloadRequest)">Kinetica.insertRecordsFromPayload</see>.
-    /// </summary>
-    public class InsertRecordsFromPayloadResponse : KineticaData
+        /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
+        /// target="_top">tier strategy</a> for the table and its columns.
+        /// </summary>
+        public const string STRATEGY_DEFINITION = "strategy_definition";
+
+        /// <summary>The default <a
+        /// href="../../../concepts/column_compression/"
+        /// target="_top">compression codec</a> for this table's columns.
+        /// </summary>
+        public const string COMPRESSION_CODEC = "compression_codec";
+    } // end struct CreateTableOptions
+
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>Value of <see
-        /// cref="InsertRecordsFromPayloadRequest.table_name">table_name</see>.
+        /// <summary>Optional name of a table to which records that were
+        /// rejected are written.</summary>
+        /// <remarks><para> The bad-record-table has the following columns:
+        /// line_number (long), line_rejected (string), error_message (string).
+        /// </para></remarks>
+        public const string BAD_RECORD_TABLE_NAME = "bad_record_table_name";
+
+        /// <summary>A positive integer indicating the maximum number of
+        /// records that can be  written to the bad-record-table.</summary>
+        /// <remarks><para>  Default value is 10000</para></remarks>
+        public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
+
+        /// <summary>For subscriptions: A positive integer indicating the
+        /// maximum number of records that can be written to the
+        /// bad-record-table per file/payload.</summary>
+        /// <remarks><para>Default value will be 'bad_record_table_limit' and
+        /// total size of the table per rank is limited to
+        /// 'bad_record_table_limit'</para></remarks>
+        public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
+
+        /// <summary>Internal tuning parameter--number of records per batch
+        /// when inserting data.</summary>
+        public const string BATCH_SIZE = "batch_size";
+
+        /// <summary>For each target column specified, applies the
+        /// column-property-bound format to the source data loaded into that
+        /// column.</summary>
+        /// <remarks><para> Each column format will contain a mapping of one or
+        /// more of its column properties to an appropriate format for each
+        /// property.  Currently supported column properties include date,
+        /// time, and datetime. The parameter value must be formatted as a JSON
+        /// string of maps of column names to maps of column properties to
+        /// their corresponding column formats, e.g., '{ "order_date" : {
+        /// "date" : "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" }
+        /// }'.</para>
+        /// <para>See <see
+        /// cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+        /// for valid format syntax.</para></remarks>
+        public const string COLUMN_FORMATS = "column_formats";
+
+        /// <summary>Specifies a comma-delimited list of columns from the
+        /// source data to load.</summary>
+        /// <remarks><para> If more than one file is being loaded, this list
+        /// applies to all files.</para>
+        /// <para>Column numbers can be specified discretely or as a range.
+        /// For example, a value of '5,7,1..3' will insert values from the
+        /// fifth column in the source data into the first column in the target
+        /// table, from the seventh column in the source data into the second
+        /// column in the target table, and from the first through third
+        /// columns in the source data into the third through fifth columns in
+        /// the target table.</para>
+        /// <para>If the source data contains a header, column names matching
+        /// the file header names may be provided instead of column numbers.
+        /// If the target table doesn't exist, the table will be created with
+        /// the columns in this order.  If the target table does exist with
+        /// columns in a different order than the source data, this list can be
+        /// used to match the order of the target table.  For example, a value
+        /// of 'C, B, A' will create a three column table with column C,
+        /// followed by column B, followed by column A; or will insert those
+        /// fields in that order into a table created with columns in that
+        /// order.  If the target table exists, the column names must match the
+        /// source data field names for a name-mapping to be successful.</para>
+        /// <para>Mutually exclusive with <see
+        /// cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.</para>
+        /// </remarks>
+        public const string COLUMNS_TO_LOAD = "columns_to_load";
+
+        /// <summary>Specifies a comma-delimited list of columns from the
+        /// source data to skip.</summary>
+        /// <remarks><para> Mutually exclusive with <see
+        /// cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.</para>
+        /// </remarks>
+        public const string COLUMNS_TO_SKIP = "columns_to_skip";
+
+        /// <summary>Optional: payload compression type.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression type
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.AUTO">AUTO</see>.
+        /// </para></remarks>
+        public const string COMPRESSION_TYPE = "compression_type";
+
+        /// <summary>Uncompressed</summary>
+        public const string NONE = "none";
+
+        /// <summary>Default.</summary>
+        /// <remarks><para>Auto detect compression type</para></remarks>
+        public const string AUTO = "auto";
+
+        /// <summary>gzip file compression.</summary>
+        public const string GZIP = "gzip";
+
+        /// <summary>bzip2 file compression.</summary>
+        public const string BZIP2 = "bzip2";
+
+        /// <summary>Specifies the default format to be applied to source data
+        /// loaded into columns with the corresponding column property.
         /// </summary>
-        public string table_name { get; set; }
+        /// <remarks><para> Currently supported column properties include date,
+        /// time, and datetime.  This default column-property-bound format can
+        /// be overridden by specifying a column property and format for a
+        /// given target column in <see
+        /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
+        /// specified annotation, the format will apply to all columns with
+        /// that annotation unless a custom <see
+        /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
+        /// annotation is specified.</para>
+        /// <para>The parameter value must be formatted as a JSON string that
+        /// is a map of column properties to their respective column formats,
+        /// e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.  Column
+        /// formats are specified as a string of control characters and plain
+        /// text. The supported control characters are 'Y', 'm', 'd', 'H', 'M',
+        /// 'S', and 's', which follow the Linux 'strptime()' specification, as
+        /// well as 's', which specifies seconds and fractional seconds (though
+        /// the fractional component will be truncated past
+        /// milliseconds).</para>
+        /// <para>Formats for the 'date' annotation must include the 'Y', 'm',
+        /// and 'd' control characters. Formats for the 'time' annotation must
+        /// include the 'H', 'M', and either 'S' or 's' (but not both) control
+        /// characters. Formats for the 'datetime' annotation meet both the
+        /// 'date' and 'time' control character requirements. For example,
+        /// '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to interpret
+        /// text as "05/04/2000 12:12:11"</para></remarks>
+        public const string DEFAULT_COLUMN_FORMATS = "default_column_formats";
 
-        /// <summary>ID of the currently registered table structure <a
-        /// href="../../../concepts/types/" target="_top">type</a> for the
-        /// target table</summary>
-        public string type_id { get; set; }
-
-        /// <summary>A JSON string describing the columns of the target table
+        /// <summary>Specifies how errors should be handled upon insertion.
         /// </summary>
-        public string type_definition { get; set; }
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+        ///         </term>
+        ///         <description>Records with missing columns are populated
+        ///         with nulls if possible; otherwise, the malformed records
+        ///         are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         </term>
+        ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.ABORT">ABORT</see>:</term>
+        ///         <description>Stops current insertion and aborts entire
+        ///         operation when an error is encountered.  Primary key
+        ///         collisions are considered abortable errors in this mode.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.ABORT">ABORT</see>.
+        /// </para></remarks>
+        public const string ERROR_HANDLING = "error_handling";
 
-        /// <summary>The user-defined description associated with the target
-        /// table's structure</summary>
-        public string type_label { get; set; }
+        /// <summary>Records with missing columns are populated with nulls if
+        /// possible; otherwise, the malformed records are skipped.</summary>
+        public const string PERMISSIVE = "permissive";
 
-        /// <summary>A mapping of each target table column name to an array of
-        /// column properties associated with that column</summary>
-        public IDictionary<string, IList<string>> type_properties { get; set; } = new Dictionary<string, IList<string>>();
+        /// <summary>Malformed records are skipped.</summary>
+        public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
 
-        /// <summary>Number of records inserted into the target table.
+        /// <summary>Stops current insertion and aborts entire operation when
+        /// an error is encountered.</summary>
+        /// <remarks><para> Primary key collisions are considered abortable
+        /// errors in this mode.</para></remarks>
+        public const string ABORT = "abort";
+
+        /// <summary>Specifies the type of the file(s) whose records will be
+        /// inserted.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        ///         PSV, etc.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.GDB">GDB</see>:</term>
+        ///         <description>Esri/GDB file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</para>
+        /// </remarks>
+        public const string FILE_TYPE = "file_type";
+
+        /// <summary>Avro file format</summary>
+        public const string AVRO = "avro";
+
+        /// <summary>Delimited text file format; e.g., CSV, TSV, PSV, etc.
         /// </summary>
-        public long count_inserted { get; set; }
+        public const string DELIMITED_TEXT = "delimited_text";
 
-        /// <summary>Number of records skipped, when not running in <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see>
-        /// error handling mode.</summary>
-        public long count_skipped { get; set; }
+        /// <summary>Esri/GDB file format</summary>
+        public const string GDB = "gdb";
 
-        /// <summary>[Not yet implemented]  Number of records updated within
-        /// the target table.</summary>
-        public long count_updated { get; set; }
+        /// <summary>Json file format</summary>
+        public const string JSON = "json";
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class InsertRecordsFromPayloadResponse
-} // end namespace kinetica
+        /// <summary>Apache Parquet file format</summary>
+        public const string PARQUET = "parquet";
+
+        /// <summary>ShapeFile file format</summary>
+        public const string SHAPEFILE = "shapefile";
+
+        /// <summary>Specifies how to handle nested columns.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Break up nested columns to multiple columns
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat nested columns as json columns instead
+        ///         of flattening</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string FLATTEN_COLUMNS = "flatten_columns";
+
+        /// <summary>Upsert new records when primary keys match existing
+        /// records</summary>
+        public const string TRUE = "true";
+
+        /// <summary>Reject new records when primary keys match existing
+        /// records</summary>
+        public const string FALSE = "false";
+
+        /// <summary>Comma separated list of gdal conf options, for the
+        /// specific requests: key=value.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string GDAL_CONFIGURATION_OPTIONS = "gdal_configuration_options";
+
+        /// <summary>Specifies the record collision error-suppression policy
+        /// for inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when not in upsert mode (upsert mode is disabled
+        /// when <see
+        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
+        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        ///         collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        ///         key values collide with those of existing records
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
+
+        /// <summary>Whether to do a full load, dry run, or perform a type
+        /// inference on the source data.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.FULL">FULL</see>:</term>
+        ///         <description>Run a type inference on the source data (if
+        ///         needed) and ingest</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>Does not load data, but walks through the
+        ///         source data and determines the number of valid records,
+        ///         taking into account the current mode of <see
+        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+        ///         </term>
+        ///         <description>Infer the type of the source data and return,
+        ///         without ingesting any data.  The inferred type is returned
+        ///         in the response.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FULL">FULL</see>.
+        /// </para></remarks>
+        public const string INGESTION_MODE = "ingestion_mode";
+
+        /// <summary>Run a type inference on the source data (if needed) and
+        /// ingest</summary>
+        public const string FULL = "full";
+
+        /// <summary>Does not load data, but walks through the source data and
+        /// determines the number of valid records, taking into account the
+        /// current mode of <see
+        /// cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.</summary>
+        public const string DRY_RUN = "dry_run";
+
+        /// <summary>Infer the type of the source data and return, without
+        /// ingesting any data.</summary>
+        /// <remarks><para> The inferred type is returned in the response.
+        /// </para></remarks>
+        public const string TYPE_INFERENCE_ONLY = "type_inference_only";
+
+        /// <summary>Optional: geo files layer(s) name(s): comma separated.
+        /// </summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string LAYER = "layer";
+
+        /// <summary>Scheme for distributing the extraction and loading of data
+        /// from the source data file(s).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.HEAD">HEAD</see>:</term>
+        ///         <description>The head node loads all data. All files must
+        ///         be available to the head node.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
+        ///         </term>
+        ///         <description>The head node coordinates loading data by
+        ///         worker processes across all nodes from shared files
+        ///         available to all workers.
+        ///         NOTE:
+        ///         Instead of existing on a shared source, the files can be
+        ///         duplicated on a source local to each host to improve
+        ///         performance, though the files must appear as the same data
+        ///         set from the perspective of all hosts performing the load.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
+        ///         </term>
+        ///         <description>A single worker process on each node loads all
+        ///         files that are available to it. This option works best when
+        ///         each worker loads files from its own file system, to
+        ///         maximize performance. In order to avoid data duplication,
+        ///         either each worker performing the load needs to have
+        ///         visibility to a set of files unique to it (no file is
+        ///         visible to more than one node) or the target table needs to
+        ///         have a primary key (which will allow the worker to
+        ///         automatically deduplicate data).
+        ///         NOTE:
+        ///         If the target table doesn't exist, the table structure will
+        ///         be determined by the head node. If the head node has no
+        ///         files local to it, it will be unable to determine the
+        ///         structure and the request will fail.
+        ///         If the head node is configured to have no worker processes,
+        ///         no data strictly accessible to the head node will be
+        ///         loaded.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.HEAD">HEAD</see>.
+        /// </para></remarks>
+        public const string LOADING_MODE = "loading_mode";
+
+        /// <summary>The head node loads all data.</summary>
+        /// <remarks><para>All files must be available to the head node.</para>
+        /// </remarks>
+        public const string HEAD = "head";
+
+        /// <summary>The head node coordinates loading data by worker processes
+        /// across all nodes from shared files available to all workers.
+        /// </summary>
+        /// <remarks><para> NOTE:</para>
+        /// <para>Instead of existing on a shared source, the files can be
+        /// duplicated on a source local to each host to improve performance,
+        /// though the files must appear as the same data set from the
+        /// perspective of all hosts performing the load.</para></remarks>
+        public const string DISTRIBUTED_SHARED = "distributed_shared";
+
+        /// <summary>A single worker process on each node loads all files that
+        /// are available to it.</summary>
+        /// <remarks><para>This option works best when each worker loads files
+        /// from its own file system, to maximize performance. In order to
+        /// avoid data duplication, either each worker performing the load
+        /// needs to have visibility to a set of files unique to it (no file is
+        /// visible to more than one node) or the target table needs to have a
+        /// primary key (which will allow the worker to automatically
+        /// deduplicate data).</para>
+        /// <para>NOTE:</para>
+        /// <para>If the target table doesn't exist, the table structure will
+        /// be determined by the head node. If the head node has no files local
+        /// to it, it will be unable to determine the structure and the request
+        /// will fail.</para>
+        /// <para>If the head node is configured to have no worker processes,
+        /// no data strictly accessible to the head node will be loaded.</para>
+        /// </remarks>
+        public const string DISTRIBUTED_LOCAL = "distributed_local";
+
+        /// <summary>For Avro local timestamp columns</summary>
+        public const string LOCAL_TIME_OFFSET = "local_time_offset";
+
+        /// <summary>Limit the number of records to load in this request: If
+        /// this number is larger than a batch_size, then the number of records
+        /// loaded will be limited to the next whole number of batch_size (per
+        /// working thread).</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string MAX_RECORDS_TO_LOAD = "max_records_to_load";
+
+        /// <summary>Optional: number of tasks for reading file per rank.
+        /// </summary>
+        /// <remarks><para>Default will be external_file_reader_num_tasks
+        /// </para></remarks>
+        public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, the number of
+        /// seconds between attempts to load external files into the table.
+        /// </summary>
+        /// <remarks><para> If zero, polling will be continuous as long as data
+        /// is found.  If no data is found, the interval will steadily increase
+        /// to a maximum of 60 seconds.</para></remarks>
+        public const string POLL_INTERVAL = "poll_interval";
+
+        /// <summary>Optional: comma separated list of column names, to set as
+        /// primary keys, when not specified in the type.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string PRIMARY_KEYS = "primary_keys";
+
+        /// <summary>Confluent Schema registry connection timeout (in Secs)
+        /// </summary>
+        public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
+
+        /// <summary>Confluent Schema registry connection timeout (in Secs)
+        /// </summary>
+        public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
+
+        /// <summary>Max records to skip due to SR connection failures, before
+        /// failing</summary>
+        public const string SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES = "schema_registry_max_consecutive_connection_failures";
+
+        /// <summary>Max records to skip due to schema related errors, before
+        /// failing</summary>
+        public const string MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE = "max_consecutive_invalid_schema_failure";
+
+        /// <summary>Name of the Avro schema in the schema registry to use when
+        /// reading Avro records.</summary>
+        public const string SCHEMA_REGISTRY_SCHEMA_NAME = "schema_registry_schema_name";
+
+        /// <summary>Optional: comma separated list of column names, to set as
+        /// primary keys, when not specified in the type.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string SHARD_KEYS = "shard_keys";
+
+        /// <summary>Skip a number of lines from the beginning of the file.
+        /// </summary>
+        public const string SKIP_LINES = "skip_lines";
+
+        /// <summary>Continuously poll the data source to check for new data
+        /// and load it into the table.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string SUBSCRIBE = "subscribe";
+
+        /// <summary>Optional: table_insert_mode.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.SINGLE">SINGLE</see>.
+        /// </para></remarks>
+        public const string TABLE_INSERT_MODE = "table_insert_mode";
+
+        public const string SINGLE = "single";
+        public const string TABLE_PER_FILE = "table_per_file";
+
+        /// <summary>Specifies the character string that should be interpreted
+        /// as a comment line prefix in the source data.</summary>
+        /// <remarks><para> All lines in the data starting with the provided
+        /// string are ignored.</para>
+        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+        /// value is '#'.</para></remarks>
+        public const string TEXT_COMMENT_STRING = "text_comment_string";
+
+        /// <summary>Specifies the character delimiting field values in the
+        /// source data and field names in the header (if present).</summary>
+        /// <remarks><para> For <see
+        /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
+        /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default value is
+        /// ','.</para></remarks>
+        public const string TEXT_DELIMITER = "text_delimiter";
+
+        /// <summary>Specifies the character that is used to escape other
+        /// characters in the source data.</summary>
+        /// <remarks><para> An 'a', 'b', 'f', 'n', 'r', 't', or 'v' preceded by
+        /// an escape character will be interpreted as the ASCII bell,
+        /// backspace, form feed, line feed, carriage return, horizontal tab,
+        /// and vertical tab, respectively.  For example, the escape character
+        /// followed by an 'n' will be interpreted as a newline within a field
+        /// value.</para>
+        /// <para>The escape character can also be used to escape the quoting
+        /// character, and will be treated as an escape character whether it is
+        /// within a quoted field value or not.</para>
+        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.</para>
+        /// </remarks>
+        public const string TEXT_ESCAPE_CHARACTER = "text_escape_character";
+
+        /// <summary>Indicates whether the source data contains a header row.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string TEXT_HAS_HEADER = "text_has_header";
+
+        /// <summary>Specifies the delimiter for <a
+        /// href="../../../concepts/types/#column-properties"
+        /// target="_top">column properties</a> in the header row (if present).
+        /// </summary>
+        /// <remarks><para> Cannot be set to same value as <see
+        /// cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.</para>
+        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+        /// value is '|'.</para></remarks>
+        public const string TEXT_HEADER_PROPERTY_DELIMITER = "text_header_property_delimiter";
+
+        /// <summary>Specifies the character string that should be interpreted
+        /// as a null value in the source data.</summary>
+        /// <remarks><para> For <see
+        /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
+        /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default value is
+        /// '\\N'.</para></remarks>
+        public const string TEXT_NULL_STRING = "text_null_string";
+
+        /// <summary>Specifies the character that should be interpreted as a
+        /// field value quoting character in the source data.</summary>
+        /// <remarks><para> The character must appear at beginning and end of
+        /// field value to take effect.  Delimiters within quoted fields are
+        /// treated as literals and not delimiters.  Within a quoted field, two
+        /// consecutive quote characters will be interpreted as a single
+        /// literal quote character, effectively escaping it.  To not have a
+        /// quote character, specify an empty string.</para>
+        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+        /// value is '"'.</para></remarks>
+        public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
+
+        /// <summary>Add 'text_search' property to internally inferenced string
+        /// columns.</summary>
+        /// <remarks><para>Comma separated list of column names or '*' for all
+        /// columns. To add text_search property only to string columns of
+        /// minimum size, set also the option 'text_search_min_column_length'
+        /// </para></remarks>
+        public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
+
+        /// <summary>Set minimum column size.</summary>
+        /// <remarks><para>Used only when 'text_search_columns' has a value.
+        /// </para></remarks>
+        public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, remove
+        /// leading or trailing space from fields.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string TRIM_SPACE = "trim_space";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, truncate
+        /// string values that are longer than the column's type size.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string TRUNCATE_STRINGS = "truncate_strings";
+
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, truncates
+        /// the table specified by <see cref="table_name" /> prior to loading
+        /// the file(s).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string TRUNCATE_TABLE = "truncate_table";
+
+        /// <summary>The default value is ''.</summary>
+        public const string TYPE_INFERENCE_MAX_RECORDS_READ = "type_inference_max_records_read";
+
+        /// <summary>optimize type inference for:</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>Scans data to get exactly-typed and sized
+        ///         columns for all data scanned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SPEED">SPEED</see>:</term>
+        ///         <description>Scans data and picks the widest possible
+        ///         column types so that 'all' values will fit with minimum
+        ///         data scanned</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="Options.ACCURACY">ACCURACY</see>.</para></remarks>
+        public const string TYPE_INFERENCE_MODE = "type_inference_mode";
+
+        /// <summary>Scans data to get exactly-typed and sized columns for all
+        /// data scanned.</summary>
+        public const string ACCURACY = "accuracy";
+
+        /// <summary>Scans data and picks the widest possible column types so
+        /// that 'all' values will fit with minimum data scanned</summary>
+        public const string SPEED = "speed";
+
+        /// <summary>Specifies the record collision policy for inserting into a
+        /// table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        ///         existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        ///         existing records</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+    } // end struct Options
+
+    /// <summary>Name of the table into which the data will be inserted, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para>If the table does not exist, the table will be created
+    /// using either an existing <see
+    /// cref="CreateTableOptions.TYPE_ID">TYPE_ID</see> or the type inferred
+    /// from the payload, and the new table name will have to meet standard <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">table naming criteria</a>.</para></remarks>
+    public string table_name { get; set; }
+
+    /// <summary>Records formatted as delimited text</summary>
+    public string data_text { get; set; }
+
+    /// <summary>Records formatted as binary data</summary>
+    public byte[] data_bytes { get; set; }
+
+    /// <summary>Not implemented yet.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, IDictionary<string, string>> modify_columns { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+    /// <summary>Options used when creating the target table.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
+    ///         </term>
+    ///         <description>ID of a currently registered <a
+    ///         href="../../../concepts/types/" target="_top">type</a>. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         prevents an error from occurring if the table already exists
+    ///         and is of the given type.  If a table with the same ID but a
+    ///         different type exists, it is still an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         </term>
+    ///         <description>Affects the <a
+    ///         href="../../../concepts/tables/#distribution"
+    ///         target="_top">distribution scheme</a> for the table's data.  If
+    ///         <see cref="CreateTableOptions.TRUE">TRUE</see> and the given
+    ///         type has no explicit <a
+    ///         href="../../../concepts/tables/#shard-key" target="_top">shard
+    ///         key</a> defined, the table will be <a
+    ///         href="../../../concepts/tables/#replication"
+    ///         target="_top">replicated</a>.  If <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will be
+    ///         <a href="../../../concepts/tables/#sharding"
+    ///         target="_top">sharded</a> according to the shard key specified
+    ///         in the given <see
+    ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
+    ///         href="../../../concepts/tables/#random-sharding"
+    ///         target="_top">randomly sharded</a>, if no shard key is
+    ///         specified.  Note that a type containing a shard key cannot be
+    ///         used to create a replicated table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         </term>
+    ///         <description>Semicolon-separated list of <a
+    ///         href="../../../concepts/tables/#foreign-keys"
+    ///         target="_top">foreign keys</a>, of the format
+    ///         '(source_column_name [, ...]) references
+    ///         target_table_name(primary_key_column_name [, ...]) [as
+    ///         foreign_key_name]'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         </term>
+    ///         <description>Foreign shard key of the format 'source_column
+    ///         references shard_by_column from
+    ///         target_table(primary_key_column)'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableOptions.SERIES">SERIES</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         a new partition will be created for values which don't fall
+    ///         into an existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for each
+    ///         column in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for all
+    ///         columns in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         </term>
+    ///         <description>Indicates whether the table is a <a
+    ///         href="../../../concepts/tables_memory_only/"
+    ///         target="_top">memory-only table</a>. A result table cannot
+    ///         contain columns with text_search <a
+    ///         href="../../../concepts/types/#data-handling"
+    ///         target="_top">data-handling</a>, and it will not be retained if
+    ///         the server is restarted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>The <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         </term>
+    ///         <description>The default <a
+    ///         href="../../../concepts/column_compression/"
+    ///         target="_top">compression codec</a> for this table's columns.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> create_table_options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+    ///         </term>
+    ///         <description>Optional name of a table to which records that
+    ///         were rejected are written.  The bad-record-table has the
+    ///         following columns: line_number (long), line_rejected (string),
+    ///         error_message (string).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
+    ///         </term>
+    ///         <description>A positive integer indicating the maximum number
+    ///         of records that can be  written to the bad-record-table.
+    ///         Default value is 10000</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
+    ///         </term>
+    ///         <description>For subscriptions: A positive integer indicating
+    ///         the maximum number of records that can be written to the
+    ///         bad-record-table per file/payload. Default value will be
+    ///         'bad_record_table_limit' and total size of the table per rank
+    ///         is limited to 'bad_record_table_limit'</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <description>Internal tuning parameter--number of records per
+    ///         batch when inserting data.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:
+    ///         </term>
+    ///         <description>For each target column specified, applies the
+    ///         column-property-bound format to the source data loaded into
+    ///         that column.  Each column format will contain a mapping of one
+    ///         or more of its column properties to an appropriate format for
+    ///         each property.  Currently supported column properties include
+    ///         date, time, and datetime. The parameter value must be formatted
+    ///         as a JSON string of maps of column names to maps of column
+    ///         properties to their corresponding column formats, e.g., '{
+    ///         "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
+    ///         : "%H:%M:%S" } }'.
+    ///         See <see
+    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+    ///         for valid format syntax.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+    ///         <description>Specifies a comma-delimited list of columns from
+    ///         the source data to load.  If more than one file is being
+    ///         loaded, this list applies to all files.
+    ///         Column numbers can be specified discretely or as a range.  For
+    ///         example, a value of '5,7,1..3' will insert values from the
+    ///         fifth column in the source data into the first column in the
+    ///         target table, from the seventh column in the source data into
+    ///         the second column in the target table, and from the first
+    ///         through third columns in the source data into the third through
+    ///         fifth columns in the target table.
+    ///         If the source data contains a header, column names matching the
+    ///         file header names may be provided instead of column numbers.
+    ///         If the target table doesn't exist, the table will be created
+    ///         with the columns in this order.  If the target table does exist
+    ///         with columns in a different order than the source data, this
+    ///         list can be used to match the order of the target table.  For
+    ///         example, a value of 'C, B, A' will create a three column table
+    ///         with column C, followed by column B, followed by column A; or
+    ///         will insert those fields in that order into a table created
+    ///         with columns in that order.  If the target table exists, the
+    ///         column names must match the source data field names for a
+    ///         name-mapping to be successful.
+    ///         Mutually exclusive with <see
+    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+    ///         <description>Specifies a comma-delimited list of columns from
+    ///         the source data to skip.  Mutually exclusive with <see
+    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+    ///         <description>Optional: payload compression type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <description>Uncompressed</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
+    ///                 <description>Default. Auto detect compression type
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.GZIP">GZIP</see>:</term>
+    ///                 <description>gzip file compression.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.BZIP2">BZIP2</see>:</term>
+    ///                 <description>bzip2 file compression.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.AUTO">AUTO</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
+    ///         </term>
+    ///         <description>Specifies the default format to be applied to
+    ///         source data loaded into columns with the corresponding column
+    ///         property.  Currently supported column properties include date,
+    ///         time, and datetime.  This default column-property-bound format
+    ///         can be overridden by specifying a column property and format
+    ///         for a given target column in <see
+    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
+    ///         specified annotation, the format will apply to all columns with
+    ///         that annotation unless a custom <see
+    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
+    ///         annotation is specified.
+    ///         The parameter value must be formatted as a JSON string that is
+    ///         a map of column properties to their respective column formats,
+    ///         e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.  Column
+    ///         formats are specified as a string of control characters and
+    ///         plain text. The supported control characters are 'Y', 'm', 'd',
+    ///         'H', 'M', 'S', and 's', which follow the Linux 'strptime()'
+    ///         specification, as well as 's', which specifies seconds and
+    ///         fractional seconds (though the fractional component will be
+    ///         truncated past milliseconds).
+    ///         Formats for the 'date' annotation must include the 'Y', 'm',
+    ///         and 'd' control characters. Formats for the 'time' annotation
+    ///         must include the 'H', 'M', and either 'S' or 's' (but not both)
+    ///         control characters. Formats for the 'datetime' annotation meet
+    ///         both the 'date' and 'time' control character requirements. For
+    ///         example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
+    ///         interpret text as "05/04/2000 12:12:11"</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with missing columns are populated
+    ///                 with nulls if possible; otherwise, the malformed
+    ///                 records are skipped.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Malformed records are skipped.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
+    ///                 <description>Stops current insertion and aborts entire
+    ///                 operation when an error is encountered.  Primary key
+    ///                 collisions are considered abortable errors in this
+    ///                 mode.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.ABORT">ABORT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
+    ///         <description>Specifies the type of the file(s) whose records
+    ///         will be inserted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.AVRO">AVRO</see>:</term>
+    ///                 <description>Avro file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+    ///                 </term>
+    ///                 <description>Delimited text file format; e.g., CSV,
+    ///                 TSV, PSV, etc.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.GDB">GDB</see>:</term>
+    ///                 <description>Esri/GDB file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.JSON">JSON</see>:</term>
+    ///                 <description>Json file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.PARQUET">PARQUET</see>:</term>
+    ///                 <description>Apache Parquet file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:
+    ///                 </term>
+    ///                 <description>ShapeFile file format</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:</term>
+    ///         <description>Specifies how to handle nested columns.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Break up nested columns to multiple
+    ///                 columns</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat nested columns as json columns
+    ///                 instead of flattening</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
+    ///         </term>
+    ///         <description>Comma separated list of gdal conf options, for the
+    ///         specific requests: key=value. The default value is ''.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
+    ///         specified table does not have a primary key or if upsert mode
+    ///         is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INGESTION_MODE">INGESTION_MODE</see>:
+    ///         </term>
+    ///         <description>Whether to do a full load, dry run, or perform a
+    ///         type inference on the source data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <description>Run a type inference on the source data
+    ///                 (if needed) and ingest</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///                 <description>Does not load data, but walks through the
+    ///                 source data and determines the number of valid records,
+    ///                 taking into account the current mode of <see
+    ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+    ///                 </term>
+    ///                 <description>Infer the type of the source data and
+    ///                 return, without ingesting any data.  The inferred type
+    ///                 is returned in the response.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FULL">FULL</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
+    ///         <description>Optional: geo files layer(s) name(s): comma
+    ///         separated. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
+    ///         </term>
+    ///         <description>Scheme for distributing the extraction and loading
+    ///         of data from the source data file(s). This option applies only
+    ///         when loading files that are local to the database.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.HEAD">HEAD</see>:</term>
+    ///                 <description>The head node loads all data. All files
+    ///                 must be available to the head node.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
+    ///                 </term>
+    ///                 <description>The head node coordinates loading data by
+    ///                 worker processes across all nodes from shared files
+    ///                 available to all workers.
+    ///                 NOTE:
+    ///                 Instead of existing on a shared source, the files can
+    ///                 be duplicated on a source local to each host to improve
+    ///                 performance, though the files must appear as the same
+    ///                 data set from the perspective of all hosts performing
+    ///                 the load.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
+    ///                 </term>
+    ///                 <description>A single worker process on each node loads
+    ///                 all files that are available to it. This option works
+    ///                 best when each worker loads files from its own file
+    ///                 system, to maximize performance. In order to avoid data
+    ///                 duplication, either each worker performing the load
+    ///                 needs to have visibility to a set of files unique to it
+    ///                 (no file is visible to more than one node) or the
+    ///                 target table needs to have a primary key (which will
+    ///                 allow the worker to automatically deduplicate data).
+    ///                 NOTE:
+    ///                 If the target table doesn't exist, the table structure
+    ///                 will be determined by the head node. If the head node
+    ///                 has no files local to it, it will be unable to
+    ///                 determine the structure and the request will fail.
+    ///                 If the head node is configured to have no worker
+    ///                 processes, no data strictly accessible to the head node
+    ///                 will be loaded.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.HEAD">HEAD</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
+    ///         </term>
+    ///         <description>For Avro local timestamp columns</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
+    ///         </term>
+    ///         <description>Limit the number of records to load in this
+    ///         request: If this number is larger than a batch_size, then the
+    ///         number of records loaded will be limited to the next whole
+    ///         number of batch_size (per working thread). The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
+    ///         </term>
+    ///         <description>Optional: number of tasks for reading file per
+    ///         rank. Default will be external_file_reader_num_tasks
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.POLL_INTERVAL">POLL_INTERVAL</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, the number
+    ///         of seconds between attempts to load external files into the
+    ///         table.  If zero, polling will be continuous as long as data is
+    ///         found.  If no data is found, the interval will steadily
+    ///         increase to a maximum of 60 seconds.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
+    ///         </term>
+    ///         <description>Optional: comma separated list of column names, to
+    ///         set as primary keys, when not specified in the type. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
+    ///         </term>
+    ///         <description>Max records to skip due to SR connection failures,
+    ///         before failing</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
+    ///         </term>
+    ///         <description>Max records to skip due to schema related errors,
+    ///         before failing</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Avro schema in the schema registry to
+    ///         use when reading Avro records.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+    ///         <description>Optional: comma separated list of column names, to
+    ///         set as primary keys, when not specified in the type. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:</term>
+    ///         <description>Skip a number of lines from the beginning of the
+    ///         file.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+    ///         <description>Continuously poll the data source to check for new
+    ///         data and load it into the table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
+    ///         </term>
+    ///         <description>Optional: table_insert_mode. When inserting
+    ///         records from multiple files: if table_per_file then insert from
+    ///         each file into a new table. Currently supported only for
+    ///         shapefiles.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.SINGLE">SINGLE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.SINGLE">SINGLE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
+    ///         </term>
+    ///         <description>Specifies the character string that should be
+    ///         interpreted as a comment line prefix in the source data.  All
+    ///         lines in the data starting with the provided string are
+    ///         ignored.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '#'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:
+    ///         </term>
+    ///         <description>Specifies the character delimiting field values in
+    ///         the source data and field names in the header (if present).
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is ','.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
+    ///         </term>
+    ///         <description>Specifies the character that is used to escape
+    ///         other characters in the source data.
+    ///         An 'a', 'b', 'f', 'n', 'r', 't', or 'v' preceded by an escape
+    ///         character will be interpreted as the ASCII bell, backspace,
+    ///         form feed, line feed, carriage return, horizontal tab, and
+    ///         vertical tab, respectively.  For example, the escape character
+    ///         followed by an 'n' will be interpreted as a newline within a
+    ///         field value.
+    ///         The escape character can also be used to escape the quoting
+    ///         character, and will be treated as an escape character whether
+    ///         it is within a quoted field value or not.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+    ///         <description>Indicates whether the source data contains a
+    ///         header row.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
+    ///         </term>
+    ///         <description>Specifies the delimiter for <a
+    ///         href="../../../concepts/types/#column-properties"
+    ///         target="_top">column properties</a> in the header row (if
+    ///         present).  Cannot be set to same value as <see
+    ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '|'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+    ///         <description>Specifies the character string that should be
+    ///         interpreted as a null value in the source data.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '\\N'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
+    ///         </term>
+    ///         <description>Specifies the character that should be interpreted
+    ///         as a field value quoting character in the source data.  The
+    ///         character must appear at beginning and end of field value to
+    ///         take effect.  Delimiters within quoted fields are treated as
+    ///         literals and not delimiters.  Within a quoted field, two
+    ///         consecutive quote characters will be interpreted as a single
+    ///         literal quote character, effectively escaping it.  To not have
+    ///         a quote character, specify an empty string.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '"'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
+    ///         </term>
+    ///         <description>Add 'text_search' property to internally
+    ///         inferenced string columns. Comma separated list of column names
+    ///         or '*' for all columns. To add text_search property only to
+    ///         string columns of minimum size, set also the option
+    ///         'text_search_min_column_length'</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
+    ///         </term>
+    ///         <description>Set minimum column size. Used only when
+    ///         'text_search_columns' has a value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TRIM_SPACE">TRIM_SPACE</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         remove leading or trailing space from fields.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         truncate string values that are longer than the column's type
+    ///         size.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         truncates the table specified by <see cref="table_name" />
+    ///         prior to loading the file(s).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>:
+    ///         </term>
+    ///         <description>The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
+    ///         </term>
+    ///         <description>optimize type inference for:
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ACCURACY">ACCURACY</see>:
+    ///                 </term>
+    ///                 <description>Scans data to get exactly-typed and sized
+    ///                 columns for all data scanned.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SPEED">SPEED</see>:</term>
+    ///                 <description>Scans data and picks the widest possible
+    ///                 column types so that 'all' values will fit with minimum
+    ///                 data scanned</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="Options.ACCURACY">ACCURACY</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> and
+    ///         <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If
+    ///         the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an InsertRecordsFromPayloadRequest object with
+    /// default parameters.</summary>
+    public InsertRecordsFromPayloadRequest() { }
+
+    /// <summary>Constructs an InsertRecordsFromPayloadRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table into which the data will be
+    /// inserted, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>. If the table does not exist,
+    /// the table will be created using either an existing <see
+    /// cref="CreateTableOptions.TYPE_ID">TYPE_ID</see> or the type inferred
+    /// from the payload, and the new table name will have to meet standard <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">table naming criteria</a>.</param>
+    /// <param name="data_text">Records formatted as delimited text</param>
+    /// <param name="data_bytes">Records formatted as binary data</param>
+    /// <param name="modify_columns">Not implemented yet. The default value is
+    /// an empty Dictionary.</param>
+    /// <param name="create_table_options">Options used when creating the
+    /// target table. Includes type to use. The other options match those in
+    /// <see
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
+    ///         </term>
+    ///         <description>ID of a currently registered <a
+    ///         href="../../../concepts/types/" target="_top">type</a>. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         prevents an error from occurring if the table already exists
+    ///         and is of the given type.  If a table with the same ID but a
+    ///         different type exists, it is still an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         </term>
+    ///         <description>Affects the <a
+    ///         href="../../../concepts/tables/#distribution"
+    ///         target="_top">distribution scheme</a> for the table's data.  If
+    ///         <see cref="CreateTableOptions.TRUE">TRUE</see> and the given
+    ///         type has no explicit <a
+    ///         href="../../../concepts/tables/#shard-key" target="_top">shard
+    ///         key</a> defined, the table will be <a
+    ///         href="../../../concepts/tables/#replication"
+    ///         target="_top">replicated</a>.  If <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will be
+    ///         <a href="../../../concepts/tables/#sharding"
+    ///         target="_top">sharded</a> according to the shard key specified
+    ///         in the given <see
+    ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
+    ///         href="../../../concepts/tables/#random-sharding"
+    ///         target="_top">randomly sharded</a>, if no shard key is
+    ///         specified.  Note that a type containing a shard key cannot be
+    ///         used to create a replicated table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         </term>
+    ///         <description>Semicolon-separated list of <a
+    ///         href="../../../concepts/tables/#foreign-keys"
+    ///         target="_top">foreign keys</a>, of the format
+    ///         '(source_column_name [, ...]) references
+    ///         target_table_name(primary_key_column_name [, ...]) [as
+    ///         foreign_key_name]'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         </term>
+    ///         <description>Foreign shard key of the format 'source_column
+    ///         references shard_by_column from
+    ///         target_table(primary_key_column)'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableOptions.SERIES">SERIES</see>:</term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         a new partition will be created for values which don't fall
+    ///         into an existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <paramref
+    ///         name="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for each
+    ///         column in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Indicates the target maximum data size for all
+    ///         columns in a chunk to be used for this table.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         </term>
+    ///         <description>Indicates whether the table is a <a
+    ///         href="../../../concepts/tables_memory_only/"
+    ///         target="_top">memory-only table</a>. A result table cannot
+    ///         contain columns with text_search <a
+    ///         href="../../../concepts/types/#data-handling"
+    ///         target="_top">data-handling</a>, and it will not be retained if
+    ///         the server is restarted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         </term>
+    ///         <description>The <a
+    ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
+    ///         strategy</a> for the table and its columns.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         </term>
+    ///         <description>The default <a
+    ///         href="../../../concepts/column_compression/"
+    ///         target="_top">compression codec</a> for this table's columns.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+    ///         </term>
+    ///         <description>Optional name of a table to which records that
+    ///         were rejected are written.  The bad-record-table has the
+    ///         following columns: line_number (long), line_rejected (string),
+    ///         error_message (string).</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
+    ///         </term>
+    ///         <description>A positive integer indicating the maximum number
+    ///         of records that can be  written to the bad-record-table.
+    ///         Default value is 10000</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
+    ///         </term>
+    ///         <description>For subscriptions: A positive integer indicating
+    ///         the maximum number of records that can be written to the
+    ///         bad-record-table per file/payload. Default value will be
+    ///         'bad_record_table_limit' and total size of the table per rank
+    ///         is limited to 'bad_record_table_limit'</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <description>Internal tuning parameter--number of records per
+    ///         batch when inserting data.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:
+    ///         </term>
+    ///         <description>For each target column specified, applies the
+    ///         column-property-bound format to the source data loaded into
+    ///         that column.  Each column format will contain a mapping of one
+    ///         or more of its column properties to an appropriate format for
+    ///         each property.  Currently supported column properties include
+    ///         date, time, and datetime. The parameter value must be formatted
+    ///         as a JSON string of maps of column names to maps of column
+    ///         properties to their corresponding column formats, e.g., '{
+    ///         "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
+    ///         : "%H:%M:%S" } }'.
+    ///         See <see
+    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+    ///         for valid format syntax.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+    ///         <description>Specifies a comma-delimited list of columns from
+    ///         the source data to load.  If more than one file is being
+    ///         loaded, this list applies to all files.
+    ///         Column numbers can be specified discretely or as a range.  For
+    ///         example, a value of '5,7,1..3' will insert values from the
+    ///         fifth column in the source data into the first column in the
+    ///         target table, from the seventh column in the source data into
+    ///         the second column in the target table, and from the first
+    ///         through third columns in the source data into the third through
+    ///         fifth columns in the target table.
+    ///         If the source data contains a header, column names matching the
+    ///         file header names may be provided instead of column numbers.
+    ///         If the target table doesn't exist, the table will be created
+    ///         with the columns in this order.  If the target table does exist
+    ///         with columns in a different order than the source data, this
+    ///         list can be used to match the order of the target table.  For
+    ///         example, a value of 'C, B, A' will create a three column table
+    ///         with column C, followed by column B, followed by column A; or
+    ///         will insert those fields in that order into a table created
+    ///         with columns in that order.  If the target table exists, the
+    ///         column names must match the source data field names for a
+    ///         name-mapping to be successful.
+    ///         Mutually exclusive with <see
+    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+    ///         <description>Specifies a comma-delimited list of columns from
+    ///         the source data to skip.  Mutually exclusive with <see
+    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+    ///         <description>Optional: payload compression type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <description>Uncompressed</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
+    ///                 <description>Default. Auto detect compression type
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.GZIP">GZIP</see>:</term>
+    ///                 <description>gzip file compression.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.BZIP2">BZIP2</see>:</term>
+    ///                 <description>bzip2 file compression.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.AUTO">AUTO</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
+    ///         </term>
+    ///         <description>Specifies the default format to be applied to
+    ///         source data loaded into columns with the corresponding column
+    ///         property.  Currently supported column properties include date,
+    ///         time, and datetime.  This default column-property-bound format
+    ///         can be overridden by specifying a column property and format
+    ///         for a given target column in <see
+    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
+    ///         specified annotation, the format will apply to all columns with
+    ///         that annotation unless a custom <see
+    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
+    ///         annotation is specified.
+    ///         The parameter value must be formatted as a JSON string that is
+    ///         a map of column properties to their respective column formats,
+    ///         e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.  Column
+    ///         formats are specified as a string of control characters and
+    ///         plain text. The supported control characters are 'Y', 'm', 'd',
+    ///         'H', 'M', 'S', and 's', which follow the Linux 'strptime()'
+    ///         specification, as well as 's', which specifies seconds and
+    ///         fractional seconds (though the fractional component will be
+    ///         truncated past milliseconds).
+    ///         Formats for the 'date' annotation must include the 'Y', 'm',
+    ///         and 'd' control characters. Formats for the 'time' annotation
+    ///         must include the 'H', 'M', and either 'S' or 's' (but not both)
+    ///         control characters. Formats for the 'datetime' annotation meet
+    ///         both the 'date' and 'time' control character requirements. For
+    ///         example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
+    ///         interpret text as "05/04/2000 12:12:11"</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with missing columns are populated
+    ///                 with nulls if possible; otherwise, the malformed
+    ///                 records are skipped.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Malformed records are skipped.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
+    ///                 <description>Stops current insertion and aborts entire
+    ///                 operation when an error is encountered.  Primary key
+    ///                 collisions are considered abortable errors in this
+    ///                 mode.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.ABORT">ABORT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
+    ///         <description>Specifies the type of the file(s) whose records
+    ///         will be inserted.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.AVRO">AVRO</see>:</term>
+    ///                 <description>Avro file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+    ///                 </term>
+    ///                 <description>Delimited text file format; e.g., CSV,
+    ///                 TSV, PSV, etc.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.GDB">GDB</see>:</term>
+    ///                 <description>Esri/GDB file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.JSON">JSON</see>:</term>
+    ///                 <description>Json file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.PARQUET">PARQUET</see>:</term>
+    ///                 <description>Apache Parquet file format</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:
+    ///                 </term>
+    ///                 <description>ShapeFile file format</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:</term>
+    ///         <description>Specifies how to handle nested columns.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Break up nested columns to multiple
+    ///                 columns</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat nested columns as json columns
+    ///                 instead of flattening</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
+    ///         </term>
+    ///         <description>Comma separated list of gdal conf options, for the
+    ///         specific requests: key=value. The default value is ''.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when not in upsert
+    ///         mode (upsert mode is disabled when <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
+    ///         is rejected for having primary key values that match those of
+    ///         an existing table record will be ignored with no error
+    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         rejection of any record for having primary key values matching
+    ///         an existing record will result in an error being reported, as
+    ///         determined by <see
+    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
+    ///         specified table does not have a primary key or if upsert mode
+    ///         is in effect (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
+    ///         no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore new records whose primary key
+    ///                 values collide with those of existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any new records whose
+    ///                 primary key values collide with those of existing
+    ///                 records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INGESTION_MODE">INGESTION_MODE</see>:
+    ///         </term>
+    ///         <description>Whether to do a full load, dry run, or perform a
+    ///         type inference on the source data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <description>Run a type inference on the source data
+    ///                 (if needed) and ingest</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///                 <description>Does not load data, but walks through the
+    ///                 source data and determines the number of valid records,
+    ///                 taking into account the current mode of <see
+    ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+    ///                 </term>
+    ///                 <description>Infer the type of the source data and
+    ///                 return, without ingesting any data.  The inferred type
+    ///                 is returned in the response.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FULL">FULL</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
+    ///         <description>Optional: geo files layer(s) name(s): comma
+    ///         separated. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
+    ///         </term>
+    ///         <description>Scheme for distributing the extraction and loading
+    ///         of data from the source data file(s). This option applies only
+    ///         when loading files that are local to the database.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.HEAD">HEAD</see>:</term>
+    ///                 <description>The head node loads all data. All files
+    ///                 must be available to the head node.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
+    ///                 </term>
+    ///                 <description>The head node coordinates loading data by
+    ///                 worker processes across all nodes from shared files
+    ///                 available to all workers.
+    ///                 NOTE:
+    ///                 Instead of existing on a shared source, the files can
+    ///                 be duplicated on a source local to each host to improve
+    ///                 performance, though the files must appear as the same
+    ///                 data set from the perspective of all hosts performing
+    ///                 the load.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
+    ///                 </term>
+    ///                 <description>A single worker process on each node loads
+    ///                 all files that are available to it. This option works
+    ///                 best when each worker loads files from its own file
+    ///                 system, to maximize performance. In order to avoid data
+    ///                 duplication, either each worker performing the load
+    ///                 needs to have visibility to a set of files unique to it
+    ///                 (no file is visible to more than one node) or the
+    ///                 target table needs to have a primary key (which will
+    ///                 allow the worker to automatically deduplicate data).
+    ///                 NOTE:
+    ///                 If the target table doesn't exist, the table structure
+    ///                 will be determined by the head node. If the head node
+    ///                 has no files local to it, it will be unable to
+    ///                 determine the structure and the request will fail.
+    ///                 If the head node is configured to have no worker
+    ///                 processes, no data strictly accessible to the head node
+    ///                 will be loaded.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.HEAD">HEAD</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
+    ///         </term>
+    ///         <description>For Avro local timestamp columns</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
+    ///         </term>
+    ///         <description>Limit the number of records to load in this
+    ///         request: If this number is larger than a batch_size, then the
+    ///         number of records loaded will be limited to the next whole
+    ///         number of batch_size (per working thread). The default value is
+    ///         ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
+    ///         </term>
+    ///         <description>Optional: number of tasks for reading file per
+    ///         rank. Default will be external_file_reader_num_tasks
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.POLL_INTERVAL">POLL_INTERVAL</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, the number
+    ///         of seconds between attempts to load external files into the
+    ///         table.  If zero, polling will be continuous as long as data is
+    ///         found.  If no data is found, the interval will steadily
+    ///         increase to a maximum of 60 seconds.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
+    ///         </term>
+    ///         <description>Optional: comma separated list of column names, to
+    ///         set as primary keys, when not specified in the type. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>Confluent Schema registry connection timeout (in
+    ///         Secs)</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
+    ///         </term>
+    ///         <description>Max records to skip due to SR connection failures,
+    ///         before failing</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
+    ///         </term>
+    ///         <description>Max records to skip due to schema related errors,
+    ///         before failing</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
+    ///         </term>
+    ///         <description>Name of the Avro schema in the schema registry to
+    ///         use when reading Avro records.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+    ///         <description>Optional: comma separated list of column names, to
+    ///         set as primary keys, when not specified in the type. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:</term>
+    ///         <description>Skip a number of lines from the beginning of the
+    ///         file.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+    ///         <description>Continuously poll the data source to check for new
+    ///         data and load it into the table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
+    ///         </term>
+    ///         <description>Optional: table_insert_mode. When inserting
+    ///         records from multiple files: if table_per_file then insert from
+    ///         each file into a new table. Currently supported only for
+    ///         shapefiles.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.SINGLE">SINGLE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.SINGLE">SINGLE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
+    ///         </term>
+    ///         <description>Specifies the character string that should be
+    ///         interpreted as a comment line prefix in the source data.  All
+    ///         lines in the data starting with the provided string are
+    ///         ignored.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '#'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:
+    ///         </term>
+    ///         <description>Specifies the character delimiting field values in
+    ///         the source data and field names in the header (if present).
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is ','.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
+    ///         </term>
+    ///         <description>Specifies the character that is used to escape
+    ///         other characters in the source data.
+    ///         An 'a', 'b', 'f', 'n', 'r', 't', or 'v' preceded by an escape
+    ///         character will be interpreted as the ASCII bell, backspace,
+    ///         form feed, line feed, carriage return, horizontal tab, and
+    ///         vertical tab, respectively.  For example, the escape character
+    ///         followed by an 'n' will be interpreted as a newline within a
+    ///         field value.
+    ///         The escape character can also be used to escape the quoting
+    ///         character, and will be treated as an escape character whether
+    ///         it is within a quoted field value or not.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+    ///         <description>Indicates whether the source data contains a
+    ///         header row.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
+    ///         </term>
+    ///         <description>Specifies the delimiter for <a
+    ///         href="../../../concepts/types/#column-properties"
+    ///         target="_top">column properties</a> in the header row (if
+    ///         present).  Cannot be set to same value as <see
+    ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '|'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+    ///         <description>Specifies the character string that should be
+    ///         interpreted as a null value in the source data.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '\\N'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
+    ///         </term>
+    ///         <description>Specifies the character that should be interpreted
+    ///         as a field value quoting character in the source data.  The
+    ///         character must appear at beginning and end of field value to
+    ///         take effect.  Delimiters within quoted fields are treated as
+    ///         literals and not delimiters.  Within a quoted field, two
+    ///         consecutive quote characters will be interpreted as a single
+    ///         literal quote character, effectively escaping it.  To not have
+    ///         a quote character, specify an empty string.
+    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
+    ///         value is '"'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
+    ///         </term>
+    ///         <description>Add 'text_search' property to internally
+    ///         inferenced string columns. Comma separated list of column names
+    ///         or '*' for all columns. To add text_search property only to
+    ///         string columns of minimum size, set also the option
+    ///         'text_search_min_column_length'</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
+    ///         </term>
+    ///         <description>Set minimum column size. Used only when
+    ///         'text_search_columns' has a value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TRIM_SPACE">TRIM_SPACE</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         remove leading or trailing space from fields.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         truncate string values that are longer than the column's type
+    ///         size.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         truncates the table specified by <paramref name="table_name" />
+    ///         prior to loading the file(s).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>:
+    ///         </term>
+    ///         <description>The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
+    ///         </term>
+    ///         <description>optimize type inference for:
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ACCURACY">ACCURACY</see>:
+    ///                 </term>
+    ///                 <description>Scans data to get exactly-typed and sized
+    ///                 columns for all data scanned.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SPEED">SPEED</see>:</term>
+    ///                 <description>Scans data and picks the widest possible
+    ///                 column types so that 'all' values will fit with minimum
+    ///                 data scanned</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="Options.ACCURACY">ACCURACY</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         will be replaced by that new record (the new data will be
+    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will remain unchanged, while
+    ///         the new record will be rejected and the error handled as
+    ///         determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> and
+    ///         <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If
+    ///         the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Upsert new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject new records when primary keys match
+    ///                 existing records</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public InsertRecordsFromPayloadRequest( string table_name,
+                                            string data_text,
+                                            byte[] data_bytes,
+                                            IDictionary<string, IDictionary<string, string>> modify_columns = null,
+                                            IDictionary<string, string> create_table_options = null,
+                                            IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.data_text = data_text ?? "";
+        this.data_bytes = data_bytes ?? new byte[] { };
+        this.modify_columns = modify_columns ?? new Dictionary<string, IDictionary<string, string>>();
+        this.create_table_options = create_table_options ?? new Dictionary<string, string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class InsertRecordsFromPayloadRequest
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.insertRecordsFromPayload(InsertRecordsFromPayloadRequest)">Kinetica.insertRecordsFromPayload</see>.
+/// </summary>
+public class InsertRecordsFromPayloadResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="InsertRecordsFromPayloadRequest.table_name">table_name</see>.
+    /// </summary>
+    public string table_name { get; set; }
+
+    /// <summary>ID of the currently registered table structure <a
+    /// href="../../../concepts/types/" target="_top">type</a> for the target
+    /// table</summary>
+    public string type_id { get; set; }
+
+    /// <summary>A JSON string describing the columns of the target table
+    /// </summary>
+    public string type_definition { get; set; }
+
+    /// <summary>The user-defined description associated with the target
+    /// table's structure</summary>
+    public string type_label { get; set; }
+
+    /// <summary>A mapping of each target table column name to an array of
+    /// column properties associated with that column</summary>
+    public IDictionary<string, IList<string>> type_properties { get; set; } = new Dictionary<string, IList<string>>();
+
+    /// <summary>Number of records inserted into the target table.</summary>
+    public long count_inserted { get; set; }
+
+    /// <summary>Number of records skipped, when not running in <see
+    /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see> error
+    /// handling mode.</summary>
+    public long count_skipped { get; set; }
+
+    /// <summary>[Not yet implemented]  Number of records updated within the
+    /// target table.</summary>
+    public long count_updated { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class InsertRecordsFromPayloadResponse

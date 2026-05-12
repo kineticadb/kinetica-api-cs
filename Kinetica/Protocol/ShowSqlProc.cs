@@ -6,184 +6,182 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
+/// </summary>
+/// <remarks><para>Shows information about SQL procedures, including the full
+/// definition of each requested procedure.</para></remarks>
+public class ShowSqlProcRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
-    /// </summary>
-    /// <remarks><para>Shows information about SQL procedures, including the
-    /// full definition of each requested procedure.</para></remarks>
-    public class ShowSqlProcRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error will
-            /// be returned if the requested procedure does not exist.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Name of the procedure for which to retrieve the
-        /// information.</summary>
-        /// <remarks><para>If blank, then information about all procedures is
-        /// returned. The default value is ''.</para></remarks>
-        public string procedure_name { get; set; } = "";
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, no
-        ///         error will be returned if the requested procedure does not
-        ///         exist.  If <see cref="Options.FALSE">FALSE</see>, an error
-        ///         will be returned if the requested procedure does not exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a ShowSqlProcRequest object with default
-        /// parameters.</summary>
-        public ShowSqlProcRequest() { }
-
-        /// <summary>Constructs a ShowSqlProcRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="procedure_name">Name of the procedure for which to
-        /// retrieve the information. If blank, then information about all
-        /// procedures is returned. The default value is ''.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error will be
+        /// returned if the requested procedure does not exist.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, no
-        ///         error will be returned if the requested procedure does not
-        ///         exist.  If <see cref="Options.FALSE">FALSE</see>, an error
-        ///         will be returned if the requested procedure does not exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ShowSqlProcRequest( string procedure_name = null,
-                                   IDictionary<string, string> options = null)
-        {
-            this.procedure_name = procedure_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowSqlProcRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Name of the procedure for which to retrieve the information.
     /// </summary>
-    public class ShowSqlProcResponse : KineticaData
+    /// <remarks><para>If blank, then information about all procedures is
+    /// returned. The default value is ''.</para></remarks>
+    public string procedure_name { get; set; } = "";
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         will be returned if the requested procedure does not exist.  If
+    ///         <see cref="Options.FALSE">FALSE</see>, an error will be
+    ///         returned if the requested procedure does not exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a ShowSqlProcRequest object with default
+    /// parameters.</summary>
+    public ShowSqlProcRequest() { }
+
+    /// <summary>Constructs a ShowSqlProcRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="procedure_name">Name of the procedure for which to
+    /// retrieve the information. If blank, then information about all
+    /// procedures is returned. The default value is ''.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         will be returned if the requested procedure does not exist.  If
+    ///         <see cref="Options.FALSE">FALSE</see>, an error will be
+    ///         returned if the requested procedure does not exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ShowSqlProcRequest( string procedure_name = null,
+                               IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="additional_info" />.</summary>
-        /// <remarks><para>Additional information about the respective tables
-        /// in the requested procedures.</para></remarks>
-        public struct AdditionalInfo
-        {
-            /// <summary>The periodic execution impersonate user.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string EXECUTE_AS = "execute_as";
+        this.procedure_name = procedure_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowSqlProcRequest
 
-            /// <summary>The periodic execution interval in seconds.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string EXECUTE_INTERVAL = "execute_interval";
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
+/// </summary>
+public class ShowSqlProcResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="additional_info" />.</summary>
+    /// <remarks><para>Additional information about the respective tables in
+    /// the requested procedures.</para></remarks>
+    public struct AdditionalInfo
+    {
+        /// <summary>The periodic execution impersonate user.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string EXECUTE_AS = "execute_as";
 
-            /// <summary>The initial date/time that periodic execution began.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string EXECUTE_START_TIME = "execute_start_time";
+        /// <summary>The periodic execution interval in seconds.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string EXECUTE_INTERVAL = "execute_interval";
 
-            /// <summary>Time at which the periodic execution stops.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string EXECUTE_STOP_TIME = "execute_stop_time";
-        } // end struct AdditionalInfo
-
-        /// <summary>A list of the names of the requested procedures.</summary>
-        public IList<string> procedure_names { get; set; } = new List<string>();
-
-        /// <summary>A list of the definitions for the requested procedures.
+        /// <summary>The initial date/time that periodic execution began.
         /// </summary>
-        public IList<string> procedure_definitions { get; set; } = new List<string>();
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string EXECUTE_START_TIME = "execute_start_time";
 
-        /// <summary>Additional information about the respective tables in the
-        /// requested procedures.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="AdditionalInfo.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>The periodic execution impersonate user. The
-        ///         default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="AdditionalInfo.EXECUTE_INTERVAL">EXECUTE_INTERVAL</see>:
-        ///         </term>
-        ///         <description>The periodic execution interval in seconds.
-        ///         The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="AdditionalInfo.EXECUTE_START_TIME">EXECUTE_START_TIME</see>:
-        ///         </term>
-        ///         <description>The initial date/time that periodic execution
-        ///         began. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="AdditionalInfo.EXECUTE_STOP_TIME">EXECUTE_STOP_TIME</see>:
-        ///         </term>
-        ///         <description>Time at which the periodic execution stops.
-        ///         The default value is ''.</description>
-        ///     </item>
-        /// </list></remarks>
-        public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();
+        /// <summary>Time at which the periodic execution stops.</summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string EXECUTE_STOP_TIME = "execute_stop_time";
+    } // end struct AdditionalInfo
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowSqlProcResponse
-} // end namespace kinetica
+    /// <summary>A list of the names of the requested procedures.</summary>
+    public IList<string> procedure_names { get; set; } = new List<string>();
+
+    /// <summary>A list of the definitions for the requested procedures.
+    /// </summary>
+    public IList<string> procedure_definitions { get; set; } = new List<string>();
+
+    /// <summary>Additional information about the respective tables in the
+    /// requested procedures.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="AdditionalInfo.EXECUTE_AS">EXECUTE_AS</see>:
+    ///         </term>
+    ///         <description>The periodic execution impersonate user. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AdditionalInfo.EXECUTE_INTERVAL">EXECUTE_INTERVAL</see>:
+    ///         </term>
+    ///         <description>The periodic execution interval in seconds. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AdditionalInfo.EXECUTE_START_TIME">EXECUTE_START_TIME</see>:
+    ///         </term>
+    ///         <description>The initial date/time that periodic execution
+    ///         began. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AdditionalInfo.EXECUTE_STOP_TIME">EXECUTE_STOP_TIME</see>:
+    ///         </term>
+    ///         <description>Time at which the periodic execution stops. The
+    ///         default value is ''.</description>
+    ///     </item>
+    /// </list></remarks>
+    public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowSqlProcResponse

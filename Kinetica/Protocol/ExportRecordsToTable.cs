@@ -6,294 +6,285 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
+/// </summary>
+/// <remarks><para>Exports records from source table to the specified target
+/// table in an external database</para></remarks>
+public class ExportRecordsToTableRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
-    /// </summary>
-    /// <remarks><para>Exports records from source table to the specified
-    /// target table in an external database</para></remarks>
-    public class ExportRecordsToTableRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Batch size, which determines how many rows to export
-            /// per round trip.</summary>
-            /// <remarks><para>The default value is '200000'.</para></remarks>
-            public const string BATCH_SIZE = "batch_size";
+        /// <summary>Batch size, which determines how many rows to export per
+        /// round trip.</summary>
+        /// <remarks><para>The default value is '200000'.</para></remarks>
+        public const string BATCH_SIZE = "batch_size";
 
-            /// <summary>Name of an existing external data sink to which table
-            /// name specified in <see cref="table_name" /> will be exported
-            /// </summary>
-            public const string DATASINK_NAME = "datasink_name";
+        /// <summary>Name of an existing external data sink to which table name
+        /// specified in <see cref="table_name" /> will be exported</summary>
+        public const string DATASINK_NAME = "datasink_name";
 
-            /// <summary>Executes the statement per each JDBC session before
-            /// doing actual load.</summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string JDBC_SESSION_INIT_STATEMENT = "jdbc_session_init_statement";
-
-            /// <summary>Executes the statement once before doing actual load.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string JDBC_CONNECTION_INIT_STATEMENT = "jdbc_connection_init_statement";
-
-            /// <summary>Name of the target table to which source table is
-            /// exported.</summary>
-            /// <remarks><para>When this option is specified remote_query
-            /// cannot be specified. The default value is ''.</para></remarks>
-            public const string REMOTE_TABLE = "remote_table";
-
-            /// <summary>Wraps parameterized variables with st_geomfromtext or
-            /// st_geomfromwkb based on source column type.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string USE_ST_GEOMFROM_CASTS = "use_st_geomfrom_casts";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Uses $n style syntax when generating insert query for
-            /// remote_table option.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string USE_INDEXED_PARAMETERS = "use_indexed_parameters";
-        } // end struct Options
-
-        /// <summary>Name of the table from which the data will be exported to
-        /// remote database, in [schema_name.]table_name format, using standard
-        /// <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        public string table_name { get; set; }
-
-        /// <summary>Parameterized insert query to export gpudb table data into
-        /// remote database.</summary>
+        /// <summary>Executes the statement per each JDBC session before doing
+        /// actual load.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
-        public string remote_query { get; set; } = "";
+        public const string JDBC_SESSION_INIT_STATEMENT = "jdbc_session_init_statement";
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>Batch size, which determines how many rows to
-        ///         export per round trip. The default value is '200000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
-        ///         <description>Name of an existing external data sink to
-        ///         which table name specified in <see cref="table_name" />
-        ///         will be exported</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
-        ///         </term>
-        ///         <description>Executes the statement per each JDBC session
-        ///         before doing actual load. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
-        ///         </term>
-        ///         <description>Executes the statement once before doing
-        ///         actual load. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.REMOTE_TABLE">REMOTE_TABLE</see>:
-        ///         </term>
-        ///         <description>Name of the target table to which source table
-        ///         is exported. When this option is specified remote_query
-        ///         cannot be specified. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
-        ///         </term>
-        ///         <description>Wraps parameterized variables with
-        ///         st_geomfromtext or st_geomfromwkb based on source column
-        ///         type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
-        ///         </term>
-        ///         <description>Uses $n style syntax when generating insert
-        ///         query for remote_table option.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        /// <summary>Executes the statement once before doing actual load.
+        /// </summary>
+        /// <remarks><para>The default value is ''.</para></remarks>
+        public const string JDBC_CONNECTION_INIT_STATEMENT = "jdbc_connection_init_statement";
 
-        /// <summary>Constructs an ExportRecordsToTableRequest object with
-        /// default parameters.</summary>
-        public ExportRecordsToTableRequest() { }
+        /// <summary>Name of the target table to which source table is
+        /// exported.</summary>
+        /// <remarks><para>When this option is specified remote_query cannot be
+        /// specified. The default value is ''.</para></remarks>
+        public const string REMOTE_TABLE = "remote_table";
 
-        /// <summary>Constructs an ExportRecordsToTableRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table from which the data will
-        /// be exported to remote database, in [schema_name.]table_name format,
-        /// using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="remote_query">Parameterized insert query to export
-        /// gpudb table data into remote database. The default value is ''.
-        /// </param>
-        /// <param name="options">Optional parameters.
+        /// <summary>Wraps parameterized variables with st_geomfromtext or
+        /// st_geomfromwkb based on source column type.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>Batch size, which determines how many rows to
-        ///         export per round trip. The default value is '200000'.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
-        ///         <description>Name of an existing external data sink to
-        ///         which table name specified in <paramref name="table_name"
-        ///         /> will be exported</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
-        ///         </term>
-        ///         <description>Executes the statement per each JDBC session
-        ///         before doing actual load. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
-        ///         </term>
-        ///         <description>Executes the statement once before doing
-        ///         actual load. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.REMOTE_TABLE">REMOTE_TABLE</see>:
-        ///         </term>
-        ///         <description>Name of the target table to which source table
-        ///         is exported. When this option is specified remote_query
-        ///         cannot be specified. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
-        ///         </term>
-        ///         <description>Wraps parameterized variables with
-        ///         st_geomfromtext or st_geomfromwkb based on source column
-        ///         type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
-        ///         </term>
-        ///         <description>Uses $n style syntax when generating insert
-        ///         query for remote_table option.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ExportRecordsToTableRequest( string table_name,
-                                            string remote_query = null,
-                                            IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.remote_query = remote_query ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ExportRecordsToTableRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string USE_ST_GEOMFROM_CASTS = "use_st_geomfrom_casts";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
-    /// </summary>
-    public class ExportRecordsToTableResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>Uses $n style syntax when generating insert query for
+        /// remote_table option.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string USE_INDEXED_PARAMETERS = "use_indexed_parameters";
+    } // end struct Options
+
+    /// <summary>Name of the table from which the data will be exported to
+    /// remote database, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    public string table_name { get; set; }
+
+    /// <summary>Parameterized insert query to export gpudb table data into
+    /// remote database.</summary>
+    /// <remarks><para>The default value is ''.</para></remarks>
+    public string remote_query { get; set; } = "";
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <description>Batch size, which determines how many rows to
+    ///         export per round trip. The default value is '200000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DATASINK_NAME">DATASINK_NAME</see>:
+    ///         </term>
+    ///         <description>Name of an existing external data sink to which
+    ///         table name specified in <see cref="table_name" /> will be
+    ///         exported</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
+    ///         </term>
+    ///         <description>Executes the statement per each JDBC session
+    ///         before doing actual load. The default value is ''.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
+    ///         </term>
+    ///         <description>Executes the statement once before doing actual
+    ///         load. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.REMOTE_TABLE">REMOTE_TABLE</see>:
+    ///         </term>
+    ///         <description>Name of the target table to which source table is
+    ///         exported. When this option is specified remote_query cannot be
+    ///         specified. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
+    ///         </term>
+    ///         <description>Wraps parameterized variables with st_geomfromtext
+    ///         or st_geomfromwkb based on source column type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
+    ///         </term>
+    ///         <description>Uses $n style syntax when generating insert query
+    ///         for remote_table option.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an ExportRecordsToTableRequest object with default
+    /// parameters.</summary>
+    public ExportRecordsToTableRequest() { }
+
+    /// <summary>Constructs an ExportRecordsToTableRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table from which the data will be
+    /// exported to remote database, in [schema_name.]table_name format, using
+    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="remote_query">Parameterized insert query to export gpudb
+    /// table data into remote database. The default value is ''.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <description>Batch size, which determines how many rows to
+    ///         export per round trip. The default value is '200000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DATASINK_NAME">DATASINK_NAME</see>:
+    ///         </term>
+    ///         <description>Name of an existing external data sink to which
+    ///         table name specified in <paramref name="table_name" /> will be
+    ///         exported</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
+    ///         </term>
+    ///         <description>Executes the statement per each JDBC session
+    ///         before doing actual load. The default value is ''.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
+    ///         </term>
+    ///         <description>Executes the statement once before doing actual
+    ///         load. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.REMOTE_TABLE">REMOTE_TABLE</see>:
+    ///         </term>
+    ///         <description>Name of the target table to which source table is
+    ///         exported. When this option is specified remote_query cannot be
+    ///         specified. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
+    ///         </term>
+    ///         <description>Wraps parameterized variables with st_geomfromtext
+    ///         or st_geomfromwkb based on source column type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
+    ///         </term>
+    ///         <description>Uses $n style syntax when generating insert query
+    ///         for remote_table option.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ExportRecordsToTableRequest( string table_name,
+                                        string remote_query = null,
+                                        IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="ExportRecordsToTableRequest.table_name">table_name</see>.
-        /// </summary>
-        public string table_name { get; set; }
+        this.table_name = table_name ?? "";
+        this.remote_query = remote_query ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ExportRecordsToTableRequest
 
-        /// <summary>Number of records inserted into the target table.
-        /// </summary>
-        public long count_inserted { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
+/// </summary>
+public class ExportRecordsToTableResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="ExportRecordsToTableRequest.table_name">table_name</see>.
+    /// </summary>
+    public string table_name { get; set; }
 
-        /// <summary>Number of records skipped.</summary>
-        public long count_skipped { get; set; }
+    /// <summary>Number of records inserted into the target table.</summary>
+    public long count_inserted { get; set; }
 
-        /// <summary>[Not yet implemented]  Number of records updated within
-        /// the target table.</summary>
-        public long count_updated { get; set; }
+    /// <summary>Number of records skipped.</summary>
+    public long count_skipped { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ExportRecordsToTableResponse
-} // end namespace kinetica
+    /// <summary>[Not yet implemented]  Number of records updated within the
+    /// target table.</summary>
+    public long count_updated { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ExportRecordsToTableResponse

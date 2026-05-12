@@ -6,231 +6,249 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
+/// </summary>
+/// <remarks><para>Alters an existing database <a
+/// href="../../../admin/backup_restore/#database-backup"
+/// target="_top">backup</a>, accessible via the <a
+/// href="../../../concepts/data_sinks/" target="_top">data sink</a> specified
+/// by <see cref="datasink_name" />.</para></remarks>
+public class AlterBackupRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
-    /// </summary>
-    /// <remarks><para>Alters an existing database backup containing a current
-    /// snapshot of existing objects.</para></remarks>
-    public class AlterBackupRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see cref="action"
+    /// />.</summary>
+    /// <remarks><para>Operation to be applied.</para></remarks>
+    public struct Action
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="action" />.</summary>
-        /// <remarks><para>Operation to be applied</para></remarks>
-        public struct Action
-        {
-            /// <summary>Calculate checksum for backup files</summary>
-            public const string CHECKSUM = "checksum";
+        /// <summary>Calculate checksum for backed-up files.</summary>
+        public const string CHECKSUM = "checksum";
 
-            /// <summary>Only save the DDL, do not backup table data</summary>
-            public const string DDL_ONLY = "ddl_only";
+        /// <summary>Whether or not to only save DDL and not back up table
+        /// data, when taking future snapshots; set <see cref="_value" /> to
+        /// 'true' or 'false' for DDL only or DDL and table data, respectively.
+        /// </summary>
+        public const string DDL_ONLY = "ddl_only";
 
-            /// <summary>Maximum number of incremental backups to keep
-            /// </summary>
-            public const string MAX_INCREMENTAL_BACKUPS_TO_KEEP = "max_incremental_backups_to_keep";
+        /// <summary>Maximum number of incremental snapshots to keep, when
+        /// taking future snapshots; set <see cref="_value" /> to the number of
+        /// snapshots to keep.</summary>
+        public const string MAX_INCREMENTAL_BACKUPS_TO_KEEP = "max_incremental_backups_to_keep";
 
-            /// <summary>Merges all backup instances and creates a single full
-            /// backup</summary>
-            public const string MERGE = "merge";
+        /// <summary>Merges all snapshots within a backup and creates a single
+        /// full snapshot.</summary>
+        public const string MERGE = "merge";
 
-            /// <summary>Purges backup instances</summary>
-            public const string PURGE = "purge";
-        } // end struct Action
+        /// <summary>Deletes a snapshot from a backup; set <see cref="_value"
+        /// /> to the snapshot ID to purge.</summary>
+        public const string PURGE = "purge";
+    } // end struct Action
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Comments to store with the new backup instance
-            /// </summary>
-            public const string COMMENT = "comment";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>Comments to store with the backup.</summary>
+        public const string COMMENT = "comment";
 
-            /// <summary>Dry run of backup changes.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DRY_RUN = "dry_run";
-
-            public const string FALSE = "false";
-            public const string TRUE = "true";
-        } // end struct Options
-
-        /// <summary>Name of the backup object to be altered</summary>
-        public string backup_name { get; set; }
-
-        /// <summary>Operation to be applied.</summary>
+        /// <summary>Whether or not to perform a dry run of a backup
+        /// alteration.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Action.CHECKSUM">CHECKSUM</see>:</term>
-        ///         <description>Calculate checksum for backup files
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Action.DDL_ONLY">DDL_ONLY</see>:</term>
-        ///         <description>Only save the DDL, do not backup table data
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
-        ///         </term>
-        ///         <description>Maximum number of incremental backups to keep
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.MERGE">MERGE</see>:</term>
-        ///         <description>Merges all backup instances and creates a
-        ///         single full backup</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.PURGE">PURGE</see>:</term>
-        ///         <description>Purges backup instances</description>
-        ///     </item>
-        /// </list></remarks>
-        public string action { get; set; }
-
-        /// <summary>Action specific argument.</summary>
-        public string _value { get; set; }
-
-        /// <summary>Datasink where backup will be stored.</summary>
-        public string datasink_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
-        ///         <description>Comments to store with the new backup instance
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Dry run of backup changes.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DRY_RUN = "dry_run";
 
-        /// <summary>Constructs an AlterBackupRequest object with default
-        /// parameters.</summary>
-        public AlterBackupRequest() { }
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
 
-        /// <summary>Constructs an AlterBackupRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="backup_name">Name of the backup object to be altered
-        /// </param>
-        /// <param name="action">Operation to be applied.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Action.CHECKSUM">CHECKSUM</see>:</term>
-        ///         <description>Calculate checksum for backup files
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.DDL_ONLY">DDL_ONLY</see>:</term>
-        ///         <description>Only save the DDL, do not backup table data
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
-        ///         </term>
-        ///         <description>Maximum number of incremental backups to keep
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.MERGE">MERGE</see>:</term>
-        ///         <description>Merges all backup instances and creates a
-        ///         single full backup</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Action.PURGE">PURGE</see>:</term>
-        ///         <description>Purges backup instances</description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="_value">Action specific argument.</param>
-        /// <param name="datasink_name">Datasink where backup will be stored.
-        /// </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
-        ///         <description>Comments to store with the new backup instance
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Dry run of backup changes.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AlterBackupRequest( string backup_name,
-                                   string action,
-                                   string _value,
-                                   string datasink_name,
-                                   IDictionary<string, string> options = null)
-        {
-            this.backup_name = backup_name ?? "";
-            this.action = action ?? "";
-            this._value = _value ?? "";
-            this.datasink_name = datasink_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterBackupRequest
+    /// <summary>Name of the backup to be altered.</summary>
+    public string backup_name { get; set; }
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
+    /// <summary>Operation to be applied.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Action.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>Calculate checksum for backed-up files.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <description>Whether or not to only save DDL and not back up
+    ///         table data, when taking future snapshots; set <see
+    ///         cref="_value" /> to 'true' or 'false' for DDL only or DDL and
+    ///         table data, respectively.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         </term>
+    ///         <description>Maximum number of incremental snapshots to keep,
+    ///         when taking future snapshots; set <see cref="_value" /> to the
+    ///         number of snapshots to keep.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.MERGE">MERGE</see>:</term>
+    ///         <description>Merges all snapshots within a backup and creates a
+    ///         single full snapshot.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.PURGE">PURGE</see>:</term>
+    ///         <description>Deletes a snapshot from a backup; set <see
+    ///         cref="_value" /> to the snapshot ID to purge.</description>
+    ///     </item>
+    /// </list></remarks>
+    public string action { get; set; }
+
+    /// <summary>Value of the modification, depending on <see cref="action" />.
     /// </summary>
-    public class AlterBackupResponse : KineticaData
+    public string _value { get; set; }
+
+    /// <summary>Data sink through which the backup is accessible.</summary>
+    public string datasink_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <description>Comments to store with the backup.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>Whether or not to perform a dry run of a backup
+    ///         alteration.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AlterBackupRequest object with default
+    /// parameters.</summary>
+    public AlterBackupRequest() { }
+
+    /// <summary>Constructs an AlterBackupRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="backup_name">Name of the backup to be altered.</param>
+    /// <param name="action">Operation to be applied.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Action.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>Calculate checksum for backed-up files.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <description>Whether or not to only save DDL and not back up
+    ///         table data, when taking future snapshots; set <paramref
+    ///         name="_value" /> to 'true' or 'false' for DDL only or DDL and
+    ///         table data, respectively.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         </term>
+    ///         <description>Maximum number of incremental snapshots to keep,
+    ///         when taking future snapshots; set <paramref name="_value" /> to
+    ///         the number of snapshots to keep.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.MERGE">MERGE</see>:</term>
+    ///         <description>Merges all snapshots within a backup and creates a
+    ///         single full snapshot.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Action.PURGE">PURGE</see>:</term>
+    ///         <description>Deletes a snapshot from a backup; set <paramref
+    ///         name="_value" /> to the snapshot ID to purge.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="_value">Value of the modification, depending on <paramref
+    /// name="action" />.</param>
+    /// <param name="datasink_name">Data sink through which the backup is
+    /// accessible.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <description>Comments to store with the backup.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>Whether or not to perform a dry run of a backup
+    ///         alteration.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AlterBackupRequest( string backup_name,
+                               string action,
+                               string _value,
+                               string datasink_name,
+                               IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="AlterBackupRequest.backup_name">backup_name</see>.</summary>
-        public string backup_name { get; set; }
+        this.backup_name = backup_name ?? "";
+        this.action = action ?? "";
+        this._value = _value ?? "";
+        this.datasink_name = datasink_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterBackupRequest
 
-        /// <summary>Backup ID.</summary>
-        public long backup_id { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
+/// </summary>
+public class AlterBackupResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="AlterBackupRequest.backup_name">backup_name</see>.</summary>
+    public string backup_name { get; set; }
 
-        /// <summary>Total size of files affected by alter operation</summary>
-        public long total_bytes { get; set; }
+    /// <summary>ID of the snapshot affected by the alter operation, if any.
+    /// </summary>
+    public long backup_id { get; set; }
 
-        /// <summary>Total number of records affected alter operation</summary>
-        public long total_number_of_records { get; set; }
+    /// <summary>Total size of files affected by the alter operation.</summary>
+    public long total_bytes { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterBackupResponse
-} // end namespace kinetica
+    /// <summary>Total number of records affected by the alter operation.
+    /// </summary>
+    public long total_number_of_records { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterBackupResponse

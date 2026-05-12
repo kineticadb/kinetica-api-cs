@@ -6,126 +6,122 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.</summary>
+/// <remarks><para>Requests table write-ahead log (WAL) properties.
+/// Returns information about the requested table WAL entries.</para></remarks>
+public class ShowWalRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.
-    /// </summary>
-    /// <remarks><para>Requests table write-ahead log (WAL) properties.
-    /// Returns information about the requested table WAL entries.</para>
-    /// </remarks>
-    public class ShowWalRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> include a map
-            /// of the WAL settings for the requested tables.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string SHOW_SETTINGS = "show_settings";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>List of tables to query.</summary>
-        /// <remarks><para>An asterisk returns all tables.</para></remarks>
-        public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         a map of the WAL settings for the requested tables.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a ShowWalRequest object with default
-        /// parameters.</summary>
-        public ShowWalRequest() { }
-
-        /// <summary>Constructs a ShowWalRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="table_names">List of tables to query. An asterisk
-        /// returns all tables.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> include a map of
+        /// the WAL settings for the requested tables.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> include
-        ///         a map of the WAL settings for the requested tables.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ShowWalRequest( IList<string> table_names,
-                               IDictionary<string, string> options = null)
-        {
-            this.table_names = table_names ?? new List<string>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class ShowWalRequest
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string SHOW_SETTINGS = "show_settings";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>List of tables to query.</summary>
+    /// <remarks><para>An asterisk returns all tables.</para></remarks>
+    public IList<string> table_names { get; set; } = new List<string>();
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include a
+    ///         map of the WAL settings for the requested tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a ShowWalRequest object with default parameters.
     /// </summary>
-    public class ShowWalResponse : KineticaData
+    public ShowWalRequest() { }
+
+    /// <summary>Constructs a ShowWalRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="table_names">List of tables to query. An asterisk returns
+    /// all tables.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> include a
+    ///         map of the WAL settings for the requested tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ShowWalRequest( IList<string> table_names,
+                           IDictionary<string, string> options = null)
     {
-        /// <summary>List of returned tables.</summary>
-        public IList<string> table_names { get; set; } = new List<string>();
+        this.table_names = table_names ?? new List<string>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class ShowWalRequest
 
-        /// <summary>List of current WAL usage.</summary>
-        public IList<IList<long>> sizes { get; set; } = new List<IList<long>>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.</summary>
+public class ShowWalResponse : KineticaData
+{
+    /// <summary>List of returned tables.</summary>
+    public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>List of WAL capacities.</summary>
-        public IList<long> capacities { get; set; } = new List<long>();
+    /// <summary>List of current WAL usage.</summary>
+    public IList<IList<long>> sizes { get; set; } = new List<IList<long>>();
 
-        /// <summary>List of number of uncommitted entries.</summary>
-        public IList<IList<long>> uncommitted { get; set; } = new List<IList<long>>();
+    /// <summary>List of WAL capacities.</summary>
+    public IList<long> capacities { get; set; } = new List<long>();
 
-        /// <summary>List of table WAL settings.</summary>
-        public IList<IDictionary<string, string>> settings { get; set; } = new List<IDictionary<string, string>>();
+    /// <summary>List of number of uncommitted entries.</summary>
+    public IList<IList<long>> uncommitted { get; set; } = new List<IList<long>>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ShowWalResponse
-} // end namespace kinetica
+    /// <summary>List of table WAL settings.</summary>
+    public IList<IDictionary<string, string>> settings { get; set; } = new List<IDictionary<string, string>>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ShowWalResponse

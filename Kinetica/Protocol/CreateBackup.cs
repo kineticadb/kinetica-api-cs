@@ -6,622 +6,723 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
+/// </summary>
+/// <remarks><para>Creates a database <a
+/// href="../../../admin/backup_restore/#database-backup"
+/// target="_top">backup</a>, containing a snapshot of existing objects, at the
+/// remote file store accessible via the <a
+/// href="../../../concepts/data_sinks/" target="_top">data sink</a> specified
+/// by <see cref="datasink_name" />.</para></remarks>
+public class CreateBackupRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
-    /// </summary>
-    /// <remarks><para>Creates a database backup containing a current snapshot
-    /// of existing objects.</para></remarks>
-    public class CreateBackupRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="backup_type" />.</summary>
+    /// <remarks><para>Type of snapshot to create.</para></remarks>
+    public struct BackupType
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="backup_type" />.</summary>
-        /// <remarks><para>Type of backup to create</para></remarks>
-        public struct BackupType
-        {
-            public const string INCREMENTAL = "incremental";
-            public const string DIFFERENTIAL = "differential";
-            public const string FULL = "full";
-        } // end struct BackupType
+        /// <summary>Snapshot of changes in the database objects and data since
+        /// the last full snapshot.</summary>
+        public const string DIFFERENTIAL = "differential";
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="backup_objects_map" />.</summary>
-        /// <remarks><para>Map of objects to be captured in the backup. Error
-        /// if empty and creating full backup. Error if non-empty when creating
-        /// an incremental or differential backup.</para></remarks>
-        public struct BackupObjectsMap
-        {
-            /// <summary>All object types in a schema (excludes permissions,
-            /// system configuration, host secret key, KiFS directories and
-            /// user defined functions)</summary>
-            public const string ALL = "all";
+        /// <summary>Snapshot of the given database objects and data.</summary>
+        public const string FULL = "full";
 
-            /// <summary>Database Table</summary>
-            public const string TABLE = "table";
+        /// <summary>Snapshot of changes in the database objects and data since
+        /// the last snapshot of any kind.</summary>
+        public const string INCREMENTAL = "incremental";
+    } // end struct BackupType
 
-            /// <summary>Credential</summary>
-            public const string CREDENTIAL = "credential";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="backup_objects_map" />.</summary>
+    /// <remarks><para>Map of objects to be captured in the backup; must be
+    /// specified when creating a full snapshot and left unspecified when
+    /// creating an incremental or differential snapshot.</para></remarks>
+    public struct BackupObjectsMap
+    {
+        /// <summary>All object types and data contained in the given <a
+        /// href="../../../concepts/schemas/" target="_top">schema(s)</a>.
+        /// </summary>
+        public const string ALL = "all";
 
-            /// <summary>Context</summary>
-            public const string CONTEXT = "context";
+        /// <summary><a href="../../../sql-gpt/concepts/#sql-gpt-context"
+        /// target="_top">Context(s)</a>.</summary>
+        public const string CONTEXT = "context";
 
-            /// <summary>Data Sink</summary>
-            public const string DATASINK = "datasink";
+        /// <summary><a href="../../../concepts/credentials/"
+        /// target="_top">Credential(s)</a>.</summary>
+        public const string CREDENTIAL = "credential";
 
-            /// <summary>Data Source</summary>
-            public const string DATASOURCE = "datasource";
+        /// <summary><a href="../../../concepts/data_sinks/" target="_top">Data
+        /// sink(s)</a>.</summary>
+        public const string DATASINK = "datasink";
 
-            /// <summary>SQL Procedure</summary>
-            public const string STORED_PROCEDURE = "stored_procedure";
+        /// <summary><a href="../../../concepts/data_sources/"
+        /// target="_top">Data source(s)</a>.</summary>
+        public const string DATASOURCE = "datasource";
 
-            /// <summary>Table Monitor (Stream)</summary>
-            public const string MONITOR = "monitor";
+        /// <summary><a href="../../../udf/python/writing/#udf-python-func-env"
+        /// target="_top">Python UDF function environment(s)</a>.</summary>
+        public const string FUNCTION_ENVIRONMENT = "function_environment";
 
-            /// <summary>User (internal and external) and associated
-            /// permissions</summary>
-            public const string USER = "user";
+        /// <summary><a href="../../../graph_solver/network_graph_solver/"
+        /// target="_top">Graph(s)</a>.</summary>
+        public const string GRAPH = "graph";
 
-            /// <summary>Role, role members (roles or users, recursively) and
-            /// associated permissions</summary>
-            public const string ROLE = "role";
+        /// <summary><a href="../../../concepts/table_monitors/"
+        /// target="_top">Table monitor(s)</a> / <a
+        /// href="../../../sql/ddl/#create-stream" target="_top">SQL
+        /// stream(s)</a>.</summary>
+        public const string MONITOR = "monitor";
 
-            /// <summary>If <see cref="BackupObjectsMap.TRUE">TRUE</see>,
-            /// backup the database configuration file.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="BackupObjectsMap.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="BackupObjectsMap.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="BackupObjectsMap.FALSE">FALSE</see>.</para></remarks>
-            public const string CONFIGURATION = "configuration";
+        /// <summary><a href="../../../rm/concepts/#resource-groups"
+        /// target="_top">Resource group(s)</a>.</summary>
+        public const string RESOURCE_GROUP = "resource_group";
 
-            public const string FALSE = "false";
-            public const string TRUE = "true";
-        } // end struct BackupObjectsMap
+        /// <summary><a href="../../../security/sec_concepts/#roles"
+        /// target="_top">Role(s)</a>, role members (roles or users,
+        /// recursively), and associated permissions.</summary>
+        public const string ROLE = "role";
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Comments to store with this backup</summary>
-            public const string COMMENT = "comment";
+        /// <summary><a href="../../../sql/procedure/" target="_top">SQL
+        /// procedure(s)</a>.</summary>
+        public const string STORED_PROCEDURE = "stored_procedure";
 
-            /// <summary>Calculate checksum for backup files.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string CHECKSUM = "checksum";
+        /// <summary><a href="../../../concepts/tables/"
+        /// target="_top">Table(s)</a> and <a
+        /// href="../../../sql/ddl/#create-view" target="_top">SQL view(s)</a>.
+        /// </summary>
+        public const string TABLE = "table";
 
-            public const string FALSE = "false";
-            public const string TRUE = "true";
+        /// <summary><a
+        /// href="../../../security/sec_concepts/#security-concepts-users"
+        /// target="_top">User(s)</a> (internal and external) and associated
+        /// permissions.</summary>
+        public const string USER = "user";
 
-            /// <summary>Only save the DDL, do not backup table data.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DDL_ONLY = "ddl_only";
+        /// <summary><a href="../../../udf_overview" target="_top">UDF(s)</a>.
+        /// </summary>
+        public const string USER_DEFINED_FUNCTION = "user_defined_function";
+    } // end struct BackupObjectsMap
 
-            /// <summary>Maximum number of incremental backups to keep.
-            /// </summary>
-            /// <remarks><para>The default value is '-1'.</para></remarks>
-            public const string MAX_INCREMENTAL_BACKUPS_TO_KEEP = "max_incremental_backups_to_keep";
-
-            /// <summary>When the backup type is differential, delete any
-            /// intermediate incremental or differential backups.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DELETE_INTERMEDIATE_BACKUPS = "delete_intermediate_backups";
-
-            /// <summary>Replace the existing backup object with a new full
-            /// backup if it already exists.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RECREATE = "recreate";
-
-            /// <summary>Dry run of backup.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DRY_RUN = "dry_run";
-        } // end struct Options
-
-        /// <summary>Name for this backup object.</summary>
-        /// <remarks><para>If the backup object already exists, only an
-        /// incremental or differential backup can be made, unless recreate is
-        /// specified</para></remarks>
-        public string backup_name { get; set; }
-
-        /// <summary>Type of backup to create.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>Whether or not to calculate checksums for backup files.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="BackupType.INCREMENTAL">INCREMENTAL</see>
-        ///         </term>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see></term>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupType.FULL">FULL</see></term>
-        ///     </item>
-        /// </list></remarks>
-        public string backup_type { get; set; }
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string CHECKSUM = "checksum";
 
-        /// <summary>Map of objects to be captured in the backup.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.ALL">ALL</see>:</term>
-        ///         <description>All object types in a schema (excludes
-        ///         permissions, system configuration, host secret key, KiFS
-        ///         directories and user defined functions)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.TABLE">TABLE</see>:
-        ///         </term>
-        ///         <description>Database Table</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Credential</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.CONTEXT">CONTEXT</see>:
-        ///         </term>
-        ///         <description>Context</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.DATASINK">DATASINK</see>:
-        ///         </term>
-        ///         <description>Data Sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.DATASOURCE">DATASOURCE</see>:</term>
-        ///         <description>Data Source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
-        ///         </term>
-        ///         <description>SQL Procedure</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.MONITOR">MONITOR</see>:
-        ///         </term>
-        ///         <description>Table Monitor (Stream)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.USER">USER</see>:</term>
-        ///         <description>User (internal and external) and associated
-        ///         permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.ROLE">ROLE</see>:</term>
-        ///         <description>Role, role members (roles or users,
-        ///         recursively) and associated permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.CONFIGURATION">CONFIGURATION</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="BackupObjectsMap.TRUE">TRUE</see>, backup the
-        ///         database configuration file.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="BackupObjectsMap.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="BackupObjectsMap.TRUE">TRUE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="BackupObjectsMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list></remarks>
-        public IDictionary<string, string> backup_objects_map { get; set; } = new Dictionary<string, string>();
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Datasink where backup will be stored.</summary>
-        public string datasink_name { get; set; }
+        /// <summary>Comments to store with this backup.</summary>
+        public const string COMMENT = "comment";
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
+        /// <summary>Whether or not, for tables, to only backup DDL and not
+        /// table data.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
-        ///         <description>Comments to store with this backup
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>For tables, only back up DDL, not data.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
-        ///         <description>Calculate checksum for backup files.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
-        ///         <description>Only save the DDL, do not backup table data.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
-        ///         </term>
-        ///         <description>Maximum number of incremental backups to keep.
-        ///         The default value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
-        ///         </term>
-        ///         <description>When the backup type is differential, delete
-        ///         any intermediate incremental or differential backups. This
-        ///         overrides <see
-        ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
-        ///         <description>Replace the existing backup object with a new
-        ///         full backup if it already exists.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Dry run of backup.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>For tables, back up DDL and data.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DDL_ONLY = "ddl_only";
 
-        /// <summary>Constructs a CreateBackupRequest object with default
-        /// parameters.</summary>
-        public CreateBackupRequest() { }
-
-        /// <summary>Constructs a CreateBackupRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="backup_name">Name for this backup object. If the
-        /// backup object already exists, only an incremental or differential
-        /// backup can be made, unless recreate is specified</param>
-        /// <param name="backup_type">Type of backup to create.
-        /// Supported values:
+        /// <summary>Whether or not to delete any intermediate snapshots when
+        /// the <see cref="backup_type" /> is set to <see
+        /// cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="BackupType.INCREMENTAL">INCREMENTAL</see>
-        ///         </term>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupType.FULL">FULL</see></term>
-        ///     </item>
-        /// </list></param>
-        /// <param name="backup_objects_map">Map of objects to be captured in
-        /// the backup. Error if empty and creating full backup. Error if
-        /// non-empty when creating an incremental or differential backup.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.ALL">ALL</see>:</term>
-        ///         <description>All object types in a schema (excludes
-        ///         permissions, system configuration, host secret key, KiFS
-        ///         directories and user defined functions)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.TABLE">TABLE</see>:
-        ///         </term>
-        ///         <description>Database Table</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:</term>
-        ///         <description>Credential</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.CONTEXT">CONTEXT</see>:
-        ///         </term>
-        ///         <description>Context</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.DATASINK">DATASINK</see>:
-        ///         </term>
-        ///         <description>Data Sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.DATASOURCE">DATASOURCE</see>:</term>
-        ///         <description>Data Source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
-        ///         </term>
-        ///         <description>SQL Procedure</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.MONITOR">MONITOR</see>:
-        ///         </term>
-        ///         <description>Table Monitor (Stream)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.USER">USER</see>:</term>
-        ///         <description>User (internal and external) and associated
-        ///         permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="BackupObjectsMap.ROLE">ROLE</see>:</term>
-        ///         <description>Role, role members (roles or users,
-        ///         recursively) and associated permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="BackupObjectsMap.CONFIGURATION">CONFIGURATION</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="BackupObjectsMap.TRUE">TRUE</see>, backup the
-        ///         database configuration file.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="BackupObjectsMap.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="BackupObjectsMap.TRUE">TRUE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="BackupObjectsMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="datasink_name">Datasink where backup will be stored.
-        /// </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
-        ///         <description>Comments to store with this backup
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
-        ///         <description>Calculate checksum for backup files.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
-        ///         <description>Only save the DDL, do not backup table data.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
-        ///         </term>
-        ///         <description>Maximum number of incremental backups to keep.
-        ///         The default value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
-        ///         </term>
-        ///         <description>When the backup type is differential, delete
-        ///         any intermediate incremental or differential backups. This
-        ///         overrides <see
-        ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
-        ///         <description>Replace the existing backup object with a new
-        ///         full backup if it already exists.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Dry run of backup.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateBackupRequest( string backup_name,
-                                    string backup_type,
-                                    IDictionary<string, string> backup_objects_map,
-                                    string datasink_name,
-                                    IDictionary<string, string> options = null)
-        {
-            this.backup_name = backup_name ?? "";
-            this.backup_type = backup_type ?? "";
-            this.backup_objects_map = backup_objects_map ?? new Dictionary<string, string>();
-            this.datasink_name = datasink_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateBackupRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DELETE_INTERMEDIATE_BACKUPS = "delete_intermediate_backups";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
-    /// </summary>
-    public class CreateBackupResponse : KineticaData
+        /// <summary>Whether or not to perform a dry run of a backup operation.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DRY_RUN = "dry_run";
+
+        /// <summary>Maximum number of incremental snapshots to keep.</summary>
+        /// <remarks><para>The default value is '-1'.</para></remarks>
+        public const string MAX_INCREMENTAL_BACKUPS_TO_KEEP = "max_incremental_backups_to_keep";
+
+        /// <summary>Whether or not to replace an existing backup object with a
+        /// new backup with a full snapshot, if one already exists.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RECREATE = "recreate";
+    } // end struct Options
+
+    /// <summary>Name for this backup.</summary>
+    /// <remarks><para>If the backup already exists, only an incremental or
+    /// differential backup can be made, unless <see
+    /// cref="Options.RECREATE">RECREATE</see> is set to <see
+    /// cref="Options.TRUE">TRUE</see>.</para></remarks>
+    public string backup_name { get; set; }
+
+    /// <summary>Type of snapshot to create.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>:
+    ///         </term>
+    ///         <description>Snapshot of changes in the database objects and
+    ///         data since the last full snapshot.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupType.FULL">FULL</see>:</term>
+    ///         <description>Snapshot of the given database objects and data.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupType.INCREMENTAL">INCREMENTAL</see>:
+    ///         </term>
+    ///         <description>Snapshot of changes in the database objects and
+    ///         data since the last snapshot of any kind.</description>
+    ///     </item>
+    /// </list></remarks>
+    public string backup_type { get; set; }
+
+    /// <summary>Map of objects to be captured in the backup; must be specified
+    /// when creating a full snapshot and left unspecified when creating an
+    /// incremental or differential snapshot.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.ALL">ALL</see>:</term>
+    ///         <description>All object types and data contained in the given
+    ///         <a href="../../../concepts/schemas/"
+    ///         target="_top">schema(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
+    ///         target="_top">Context(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/credentials/"
+    ///         target="_top">Credential(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.DATASINK">DATASINK</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/data_sinks/"
+    ///         target="_top">Data sink(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.DATASOURCE">DATASOURCE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/data_sources/"
+    ///         target="_top">Data source(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../udf/python/writing/#udf-python-func-env"
+    ///         target="_top">Python UDF function environment(s)</a>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <description><a
+    ///         href="../../../graph_solver/network_graph_solver/"
+    ///         target="_top">Graph(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.MONITOR">MONITOR</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/table_monitors/"
+    ///         target="_top">Table monitor(s)</a> / <a
+    ///         href="../../../sql/ddl/#create-stream" target="_top">SQL
+    ///         stream(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         </term>
+    ///         <description><a href="../../../rm/concepts/#resource-groups"
+    ///         target="_top">Resource group(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <description><a href="../../../security/sec_concepts/#roles"
+    ///         target="_top">Role(s)</a>, role members (roles or users,
+    ///         recursively), and associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         </term>
+    ///         <description><a href="../../../sql/procedure/"
+    ///         target="_top">SQL procedure(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <description><a href="../../../concepts/tables/"
+    ///         target="_top">Table(s)</a> and <a
+    ///         href="../../../sql/ddl/#create-view" target="_top">SQL
+    ///         view(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.USER">USER</see>:</term>
+    ///         <description><a
+    ///         href="../../../security/sec_concepts/#security-concepts-users"
+    ///         target="_top">User(s)</a> (internal and external) and
+    ///         associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         </term>
+    ///         <description><a href="../../../udf_overview"
+    ///         target="_top">UDF(s)</a>.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> backup_objects_map { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Data sink through which the backup will be stored.</summary>
+    public string datasink_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>Whether or not to calculate checksums for backup
+    ///         files.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <description>Comments to store with this backup.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <description>Whether or not, for tables, to only backup DDL and
+    ///         not table data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>For tables, only back up DDL, not data.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>For tables, back up DDL and data.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
+    ///         </term>
+    ///         <description>Whether or not to delete any intermediate
+    ///         snapshots when the <see cref="backup_type" /> is set to <see
+    ///         cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>Whether or not to perform a dry run of a backup
+    ///         operation.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         </term>
+    ///         <description>Maximum number of incremental snapshots to keep.
+    ///         The default value is '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
+    ///         <description>Whether or not to replace an existing backup
+    ///         object with a new backup with a full snapshot, if one already
+    ///         exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateBackupRequest object with default
+    /// parameters.</summary>
+    public CreateBackupRequest() { }
+
+    /// <summary>Constructs a CreateBackupRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="backup_name">Name for this backup. If the backup already
+    /// exists, only an incremental or differential backup can be made, unless
+    /// <see cref="Options.RECREATE">RECREATE</see> is set to <see
+    /// cref="Options.TRUE">TRUE</see>.</param>
+    /// <param name="backup_type">Type of snapshot to create.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>:
+    ///         </term>
+    ///         <description>Snapshot of changes in the database objects and
+    ///         data since the last full snapshot.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupType.FULL">FULL</see>:</term>
+    ///         <description>Snapshot of the given database objects and data.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupType.INCREMENTAL">INCREMENTAL</see>:
+    ///         </term>
+    ///         <description>Snapshot of changes in the database objects and
+    ///         data since the last snapshot of any kind.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="backup_objects_map">Map of objects to be captured in the
+    /// backup; must be specified when creating a full snapshot and left
+    /// unspecified when creating an incremental or differential snapshot.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.ALL">ALL</see>:</term>
+    ///         <description>All object types and data contained in the given
+    ///         <a href="../../../concepts/schemas/"
+    ///         target="_top">schema(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
+    ///         target="_top">Context(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/credentials/"
+    ///         target="_top">Credential(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.DATASINK">DATASINK</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/data_sinks/"
+    ///         target="_top">Data sink(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.DATASOURCE">DATASOURCE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/data_sources/"
+    ///         target="_top">Data source(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../udf/python/writing/#udf-python-func-env"
+    ///         target="_top">Python UDF function environment(s)</a>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <description><a
+    ///         href="../../../graph_solver/network_graph_solver/"
+    ///         target="_top">Graph(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.MONITOR">MONITOR</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/table_monitors/"
+    ///         target="_top">Table monitor(s)</a> / <a
+    ///         href="../../../sql/ddl/#create-stream" target="_top">SQL
+    ///         stream(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         </term>
+    ///         <description><a href="../../../rm/concepts/#resource-groups"
+    ///         target="_top">Resource group(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <description><a href="../../../security/sec_concepts/#roles"
+    ///         target="_top">Role(s)</a>, role members (roles or users,
+    ///         recursively), and associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         </term>
+    ///         <description><a href="../../../sql/procedure/"
+    ///         target="_top">SQL procedure(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <description><a href="../../../concepts/tables/"
+    ///         target="_top">Table(s)</a> and <a
+    ///         href="../../../sql/ddl/#create-view" target="_top">SQL
+    ///         view(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="BackupObjectsMap.USER">USER</see>:</term>
+    ///         <description><a
+    ///         href="../../../security/sec_concepts/#security-concepts-users"
+    ///         target="_top">User(s)</a> (internal and external) and
+    ///         associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="BackupObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         </term>
+    ///         <description><a href="../../../udf_overview"
+    ///         target="_top">UDF(s)</a>.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    /// <param name="datasink_name">Data sink through which the backup will be
+    /// stored.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>Whether or not to calculate checksums for backup
+    ///         files.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <description>Comments to store with this backup.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <description>Whether or not, for tables, to only backup DDL and
+    ///         not table data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>For tables, only back up DDL, not data.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>For tables, back up DDL and data.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
+    ///         </term>
+    ///         <description>Whether or not to delete any intermediate
+    ///         snapshots when the <paramref name="backup_type" /> is set to
+    ///         <see cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>Whether or not to perform a dry run of a backup
+    ///         operation.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         </term>
+    ///         <description>Maximum number of incremental snapshots to keep.
+    ///         The default value is '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
+    ///         <description>Whether or not to replace an existing backup
+    ///         object with a new backup with a full snapshot, if one already
+    ///         exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateBackupRequest( string backup_name,
+                                string backup_type,
+                                IDictionary<string, string> backup_objects_map,
+                                string datasink_name,
+                                IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="CreateBackupRequest.backup_name">backup_name</see>.</summary>
-        public string backup_name { get; set; }
+        this.backup_name = backup_name ?? "";
+        this.backup_type = backup_type ?? "";
+        this.backup_objects_map = backup_objects_map ?? new Dictionary<string, string>();
+        this.datasink_name = datasink_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateBackupRequest
 
-        /// <summary>Backup ID.</summary>
-        public long backup_id { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
+/// </summary>
+public class CreateBackupResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="CreateBackupRequest.backup_name">backup_name</see>.</summary>
+    public string backup_name { get; set; }
 
-        /// <summary>Total size of all files copied for this snapshot</summary>
-        public long copied_bytes { get; set; }
+    /// <summary>ID of the snapshot created.</summary>
+    public long backup_id { get; set; }
 
-        /// <summary>Total number of files copied for this snapshot</summary>
-        public long copied_files { get; set; }
+    /// <summary>Total size of all files copied for this snapshot.</summary>
+    public long copied_bytes { get; set; }
 
-        /// <summary>Total number of records in all files copied for this
-        /// snapshot</summary>
-        public long copied_records { get; set; }
+    /// <summary>Total number of files copied for this snapshot.</summary>
+    public long copied_files { get; set; }
 
-        /// <summary>Total number of records that can be restored from this
-        /// snapshot</summary>
-        public long total_number_of_records { get; set; }
+    /// <summary>Total number of records in all files copied for this snapshot.
+    /// </summary>
+    public long copied_records { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateBackupResponse
-} // end namespace kinetica
+    /// <summary>Total number of records that can be restored from this
+    /// snapshot.</summary>
+    public long total_number_of_records { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateBackupResponse

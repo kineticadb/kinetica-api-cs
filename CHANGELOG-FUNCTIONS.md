@@ -1,5 +1,26 @@
 # Kinetica REST API Changelog
 
+## Version 7.2.3.13
+#### Added
+-   Added backup and restore support for graph definitions.
+-   Added ``/check/table`` endpoint
+
+## Version 7.2.3.9
+#### Added
+-   Added backup and restore support for resource groups, user defined functions and function environments.
+
+## Version 7.2.3.6
+##### Breaking Changes
+-   Removed ``/update/records/byseries`` endpoint
+
+## Version 7.2.3.5
+#### Added
+-   Added support for sorting of all columns of ``ki_tiered_objects`` table
+
+## Version 7.2.3.3
+#### Added
+-   Added ``/drop/backup`` endpoint to delete backup objects
+
 ## Version 7.2.3.1
 #### Changed Endpoints
 -   Added new option ``ha_consumer_replay_offset`` to ``/alter/system/properties`` request

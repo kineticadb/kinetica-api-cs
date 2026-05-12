@@ -30,9 +30,16 @@ namespace Example
             Console.WriteLine("================================");
             Console.WriteLine();
 
+            // Handle special commands first (before requiring URL)
+            if (args.Length > 0 && args[0].StartsWith("--"))
+            {
+                HandleCommand(args);
+                return;
+            }
+
             if ( args.Length < 1)
             {
-                Console.WriteLine("Missing URL as command-line parameter; e.g.: http://localhost:9191");
+                PrintUsage();
                 return;
             }
 
@@ -53,10 +60,32 @@ namespace Example
                 }
 
                 // Run the various example functions
-                JdbcExample(JdbcDriverPath, serverUrl, _ServerOptions.Username, _ServerOptions.Password);
-                RunExample( serverUrl, _ServerOptions );
-                RunSeriesExample( serverUrl, _ServerOptions );
-                RunMultiheadIngestExample( serverUrl, _ServerOptions );
+                if (JdbcDriverPath.Length > 0)
+                {
+                    try { JdbcExample(JdbcDriverPath, serverUrl, _ServerOptions.Username, _ServerOptions.Password); }
+                    catch (Exception ex) { Console.WriteLine($"JDBC Example failed: {ex.Message}\n"); }
+                }
+
+                try { RunExample( serverUrl, _ServerOptions ); }
+                catch (Exception ex) { Console.WriteLine($"RunExample failed: {ex.Message}\n"); }
+
+                try { RunSeriesExample( serverUrl, _ServerOptions ); }
+                catch (Exception ex) { Console.WriteLine($"RunSeriesExample failed: {ex.Message}\n"); }
+
+                try { RunMultiheadIngestExample( serverUrl, _ServerOptions ); }
+                catch (Exception ex) { Console.WriteLine($"RunMultiheadIngestExample failed: {ex.Message}\n"); }
+
+                // Run the comprehensive all-types example with BulkInserter and RecordRetriever
+                try { AllTypesExample.RunAsync(serverUrl, _ServerOptions.Username, _ServerOptions.Password).GetAwaiter().GetResult(); }
+                catch (Exception ex) { Console.WriteLine($"AllTypesExample failed: {ex.Message}\n"); }
+
+                // Run the shard key example with RecordRetriever for multi-head retrieval
+                try { ShardKeyExample.RunAsync(serverUrl, _ServerOptions.Username, _ServerOptions.Password).GetAwaiter().GetResult(); }
+                catch (Exception ex) { Console.WriteLine($"ShardKeyExample failed: {ex.Message}\n"); }
+
+                // Run the ADO.NET batch insert example
+                try { AdoBatchInsertExample.RunAsync(serverUrl, _ServerOptions.Username, _ServerOptions.Password).GetAwaiter().GetResult(); }
+                catch (Exception ex) { Console.WriteLine($"AdoBatchInsertExample failed: {ex.Message}\n"); }
             }
             catch (Exception ex)
             {
@@ -67,6 +96,90 @@ namespace Example
             Console.WriteLine("=============================");
             Console.WriteLine("= Example C# Project - Done =");
             Console.WriteLine("=============================");
+        }
+
+        /// <summary>
+        /// Handle special command-line arguments for new examples.
+        /// </summary>
+        static void HandleCommand(string[] args)
+        {
+            var command = args[0].ToLower();
+            var extraArgs = args.Length > 1 ? args[1..] : Array.Empty<string>();
+
+            switch (command)
+            {
+                case "--help":
+                case "-h":
+                    PrintUsage();
+                    break;
+
+                case "--dashboard":
+                    BulkInserterDashboardExample.RunAsync().GetAwaiter().GetResult();
+                    break;
+
+                case "--integration":
+                    BulkInserterFullIntegrationExample.RunAsync().GetAwaiter().GetResult();
+                    break;
+
+                case "--clear-table":
+                    var tableName = extraArgs.Length > 0 ? extraArgs[0] : "";
+                    ClearTableExample.RunAsync(tableName).GetAwaiter().GetResult();
+                    break;
+
+                case "--cleanup-all":
+                    var schemaPattern = extraArgs.Length > 0 ? extraArgs[0] : "test_schema";
+                    CleanupAllExample.RunAsync(schemaPattern).GetAwaiter().GetResult();
+                    break;
+
+                case "--show-tables":
+                    var schemaFilter = extraArgs.Length > 0 ? extraArgs[0] : "";
+                    ShowTablesExample.Run(schemaFilter);
+                    break;
+
+                case "--truncate":
+                    var truncateTable = extraArgs.Length > 0 ? extraArgs[0] : "";
+                    TruncateTableExample.RunAsync(truncateTable).GetAwaiter().GetResult();
+                    break;
+
+                case "--schema-demo":
+                    SchemaBuilderDemo.Run();
+                    break;
+
+                default:
+                    Console.WriteLine($"Unknown command: {command}");
+                    PrintUsage();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Print usage information.
+        /// </summary>
+        static void PrintUsage()
+        {
+            Console.WriteLine("Usage:");
+            Console.WriteLine("  dotnet run --project Example -- <url> <user> <password> [jdbc_driver_path]");
+            Console.WriteLine();
+            Console.WriteLine("Or use one of these commands:");
+            Console.WriteLine("  --help               Show this help message");
+            Console.WriteLine("  --dashboard          Run BulkInserter monitoring dashboard example");
+            Console.WriteLine("  --integration        Run BulkInserter full integration example");
+            Console.WriteLine("  --clear-table <name> Clear all data from a table");
+            Console.WriteLine("  --cleanup-all [pat]  Drop all tables matching pattern (default: test_schema)");
+            Console.WriteLine("  --show-tables [pat]  List all tables (optionally filter by schema)");
+            Console.WriteLine("  --truncate <name>    Truncate a table (faster than clear-table)");
+            Console.WriteLine("  --schema-demo        Show schema builder examples and reference");
+            Console.WriteLine();
+            Console.WriteLine("Environment variables for commands:");
+            Console.WriteLine("  KINETICA_URL         Server URL (default: http://localhost:9191)");
+            Console.WriteLine("  KINETICA_USER        Username (default: admin)");
+            Console.WriteLine("  KINETICA_PASSWORD    Password (default: secret)");
+            Console.WriteLine();
+            Console.WriteLine("Examples:");
+            Console.WriteLine("  dotnet run --project Example -- http://localhost:9191 admin secret");
+            Console.WriteLine("  dotnet run --project Example -- --dashboard");
+            Console.WriteLine("  dotnet run --project Example -- --integration");
+            Console.WriteLine("  dotnet run --project Example -- --clear-table test_schema.my_table");
         }
 
         #region Constants
@@ -522,8 +635,14 @@ namespace Example
             // Establish a connection with Kinetica
             Kinetica kdb = new( serverUrl, serverOptions );
 
+            Dictionary<string, IList<string>> columnProperties = new()
+            {
+                // And a composite primary key on two columns
+                {"x", [ColumnProperty.DECIMAL]},
+            };
+
             // Create the series type record in Kinetica
-            KineticaType seriesType = KineticaType.fromClass( typeof( SeriesRecord ) );
+            KineticaType seriesType = KineticaType.fromClass( typeof( SeriesRecord ), columnProperties );
             string seriesTypeId = seriesType.create( kdb );
             Console.WriteLine($"ID of the created series type: {seriesTypeId}\n");
 
@@ -542,17 +661,17 @@ namespace Example
             List<SeriesRecord> seriesData =
             [
                 // Five series points moving horizontally
-                new SeriesRecord() { x = 30, y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = 35, y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = 40, y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = 45, y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = 50, y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("30").ToString("F4"), y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("35").ToString("F4"), y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("40").ToString("F4"), y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("45").ToString("F4"), y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("50").ToString("F4"), y = 40, TRACKID = series1, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
                 // Five series points moving vertically
-                new SeriesRecord() { x = -30, y = -40, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = -30, y = -45, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = -30, y = -50, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = -30, y = -55, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
-                new SeriesRecord() { x = -30, y = -60, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("-30").ToString("F4"), y = -40, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("-30").ToString("F4"), y = -45, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("-30").ToString("F4"), y = -50, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("-30").ToString("F4"), y = -55, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
+                new SeriesRecord() { x = decimal.Parse("-30").ToString("F4"), y = -60, TRACKID = series2, TIMESTAMP= (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds },
             ];
 
             // Insert the data into the table
@@ -713,7 +832,7 @@ namespace Example
 
         private class SeriesRecord
         {
-            public double x { get; set; }
+            public string? x { get; set; }
             public double y { get; set; }
             public string? TRACKID { get; set; }
             public long TIMESTAMP { get; set; }

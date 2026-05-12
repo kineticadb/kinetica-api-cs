@@ -1,13 +1,15 @@
-﻿using System;
-using System.Runtime.Serialization;
+using System;
 
 
-namespace kinetica
-{
-    [Serializable()]
-    public class KineticaException : System.Exception
+namespace kinetica;
+
+public class KineticaException : System.Exception
     {
-        private string message;
+        /// <summary>
+        /// HTTP status code if this exception originated from an HTTP error response.
+        /// Null if the exception is not HTTP-related.
+        /// </summary>
+        public int? StatusCode { get; }
 
         public KineticaException() { }
 
@@ -16,11 +18,23 @@ namespace kinetica
         public KineticaException( string msg, Exception innerException ) :
             base( msg, innerException ) { }
 
-        protected KineticaException( SerializationInfo info, StreamingContext context )
-            : base ( info, context ) { }
+        /// <summary>
+        /// Creates a KineticaException with an HTTP status code.
+        /// </summary>
+        /// <param name="msg">Error message</param>
+        /// <param name="statusCode">HTTP status code</param>
+        /// <param name="innerException">Inner exception (optional)</param>
+        public KineticaException(string msg, int? statusCode, Exception? innerException = null)
+            : base(msg, innerException)
+        {
+            StatusCode = statusCode;
+        }
 
-        public string what() { return message; }
+        public string what() { return Message; }
 
-        public override string ToString() { return "KineticaException: " + message; }
+        public override string ToString()
+        {
+            var baseMsg = "KineticaException: " + Message;
+            return StatusCode.HasValue ? $"{baseMsg} (HTTP {StatusCode})" : baseMsg;
+        }
     }
-}

@@ -6,645 +6,807 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
+/// </summary>
+/// <remarks><para>Restores database objects from a <a
+/// href="../../../admin/backup_restore/#database-backup"
+/// target="_top">backup</a> accessible via the <a
+/// href="../../../concepts/data_sources/" target="_top">data source</a>
+/// specified by <see cref="datasource_name" />.</para></remarks>
+public class RestoreBackupRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
-    /// </summary>
-    /// <remarks><para>Restores objects from a backup instance.
-    /// Response from a backup restoration operation.</para></remarks>
-    public class RestoreBackupRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="restore_objects_map" />.</summary>
+    /// <remarks><para>Map of database objects to be restored from the backup.
+    /// </para></remarks>
+    public struct RestoreObjectsMap
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="restore_objects_map" />.</summary>
-        /// <remarks><para>Map of objects to be restored from the backup. Error
-        /// if empty.</para></remarks>
-        public struct RestoreObjectsMap
-        {
-            /// <summary>All object types in a schema (excludes permissions,
-            /// system configuration, host secret key, KiFS directories and
-            /// user defined functions)</summary>
-            public const string ALL = "all";
+        /// <summary>All object types and data contained in the given <a
+        /// href="../../../concepts/schemas/" target="_top">schema(s)</a>.
+        /// </summary>
+        public const string ALL = "all";
 
-            /// <summary>Database Table</summary>
-            public const string TABLE = "table";
+        /// <summary><a href="../../../sql-gpt/concepts/#sql-gpt-context"
+        /// target="_top">Context(s)</a>.</summary>
+        public const string CONTEXT = "context";
 
-            /// <summary>Credential</summary>
-            public const string CREDENTIAL = "credential";
+        /// <summary><a href="../../../concepts/credentials/"
+        /// target="_top">Credential(s)</a>.</summary>
+        public const string CREDENTIAL = "credential";
 
-            /// <summary>Context</summary>
-            public const string CONTEXT = "context";
+        /// <summary><a href="../../../concepts/data_sinks/" target="_top">Data
+        /// sink(s)</a>.</summary>
+        public const string DATASINK = "datasink";
 
-            /// <summary>Data Sink</summary>
-            public const string DATASINK = "datasink";
+        /// <summary><a href="../../../concepts/data_sources/"
+        /// target="_top">Data source(s)</a>.</summary>
+        public const string DATASOURCE = "datasource";
 
-            /// <summary>Data Source</summary>
-            public const string DATASOURCE = "datasource";
+        /// <summary><a href="../../../udf/python/writing/#udf-python-func-env"
+        /// target="_top">Python UDF function environment(s)</a>.</summary>
+        public const string FUNCTION_ENVIRONMENT = "function_environment";
 
-            /// <summary>SQL Procedure</summary>
-            public const string STORED_PROCEDURE = "stored_procedure";
+        /// <summary><a href="../../../graph_solver/network_graph_solver/"
+        /// target="_top">Graph(s)</a>.</summary>
+        public const string GRAPH = "graph";
 
-            /// <summary>Table Monitor (Stream)</summary>
-            public const string MONITOR = "monitor";
+        /// <summary><a href="../../../concepts/table_monitors/"
+        /// target="_top">Table monitor(s)</a> / <a
+        /// href="../../../sql/ddl/#create-stream" target="_top">SQL
+        /// stream(s)</a>.</summary>
+        public const string MONITOR = "monitor";
 
-            /// <summary>User (internal and external) and associated
-            /// permissions</summary>
-            public const string USER = "user";
+        /// <summary><a href="../../../rm/concepts/#resource-groups"
+        /// target="_top">Resource group(s)</a>.</summary>
+        public const string RESOURCE_GROUP = "resource_group";
 
-            /// <summary>Role, role members (roles or users, recursively) and
-            /// associated permissions</summary>
-            public const string ROLE = "role";
+        /// <summary><a href="../../../security/sec_concepts/#roles"
+        /// target="_top">Role(s)</a>, role members (roles or users,
+        /// recursively), and associated permissions.</summary>
+        public const string ROLE = "role";
 
-            /// <summary>If <see cref="RestoreObjectsMap.TRUE">TRUE</see>,
-            /// restore the database configuration file.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="RestoreObjectsMap.FALSE">FALSE</see>
-            ///         </term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="RestoreObjectsMap.TRUE">TRUE</see>
-            ///         </term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="RestoreObjectsMap.FALSE">FALSE</see>.</para></remarks>
-            public const string CONFIGURATION = "configuration";
+        /// <summary><a href="../../../sql/procedure/" target="_top">SQL
+        /// procedure(s)</a>.</summary>
+        public const string STORED_PROCEDURE = "stored_procedure";
 
-            public const string FALSE = "false";
-            public const string TRUE = "true";
-        } // end struct RestoreObjectsMap
+        /// <summary><a href="../../../concepts/tables/"
+        /// target="_top">Table(s)</a> and <a
+        /// href="../../../sql/ddl/#create-view" target="_top">SQL view(s)</a>.
+        /// </summary>
+        public const string TABLE = "table";
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Backup instance ID to restore.</summary>
-            /// <remarks><para>Leave empty to restore the most recent backup
-            /// instance. The default value is ''.</para></remarks>
-            public const string BACKUP_ID = "backup_id";
+        /// <summary><a
+        /// href="../../../security/sec_concepts/#security-concepts-users"
+        /// target="_top">User(s)</a> (internal and external) and associated
+        /// permissions.</summary>
+        public const string USER = "user";
 
-            /// <summary>Behavior to apply when restoring objects that already
-            /// exist.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.NONE">NONE</see>:</term>
-            ///         <description>If an object to be restored currently
-            ///         exists with the same name, abort and return error
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.REPLACE">REPLACE</see>:</term>
-            ///         <description>If an object to be restored currently
-            ///         exists with the same name, replace it with the backup
-            ///         version</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.RENAME">RENAME</see>:</term>
-            ///         <description>If an object to be restored currently
-            ///         exists with the same name, rename the original version
-            ///         </description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.NONE">NONE</see>.
-            /// </para></remarks>
-            public const string RESTORE_POLICY = "restore_policy";
+        /// <summary><a href="../../../udf_overview" target="_top">UDF(s)</a>.
+        /// </summary>
+        public const string USER_DEFINED_FUNCTION = "user_defined_function";
+    } // end struct RestoreObjectsMap
 
-            /// <summary>If an object to be restored currently exists with the
-            /// same name, abort and return error</summary>
-            public const string NONE = "none";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>ID of the snapshot to restore.</summary>
+        /// <remarks><para>Leave empty to restore the most recent snapshot in
+        /// the backup. The default value is ''.</para></remarks>
+        public const string BACKUP_ID = "backup_id";
 
-            /// <summary>If an object to be restored currently exists with the
-            /// same name, replace it with the backup version</summary>
-            public const string REPLACE = "replace";
+        /// <summary>Whether or not to verify checksums for backup files when
+        /// restoring.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string CHECKSUM = "checksum";
 
-            /// <summary>If an object to be restored currently exists with the
-            /// same name, rename the original version</summary>
-            public const string RENAME = "rename";
+        /// <summary>Restore table data by re-ingesting it.</summary>
+        /// <remarks><para> This is the default behavior if the cluster
+        /// topology differs from that of the contained backup.</para>
+        /// </remarks>
+        public const string TRUE = "true";
 
-            /// <summary>If the restore policy is rename, optionally use this
-            /// schema for renamed objects instead of a default generated one.
-            /// </summary>
-            /// <remarks><para>The default value is ''.</para></remarks>
-            public const string RENAMED_OBJECTS_SCHEMA = "renamed_objects_schema";
+        /// <summary>Restore the persisted data files directly.</summary>
+        public const string FALSE = "false";
 
-            /// <summary>Create the schema for an object to be restored if it
-            /// does not currently exist.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string CREATE_SCHEMA_IF_NOT_EXIST = "create_schema_if_not_exist";
+        /// <summary>Behavior to apply when the schema containing any database
+        /// object to restore does not already exist.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>If the schema containing any restored object
+        ///         does not exist, create it automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>If the schema containing any restored object
+        ///         does not exist, return an error.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string CREATE_SCHEMA_IF_NOT_EXIST = "create_schema_if_not_exist";
 
-            public const string FALSE = "false";
-            public const string TRUE = "true";
+        /// <summary>Behavior to apply when restoring tables.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Restore table DDL, but do not restore data.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Restore tables and their data.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DDL_ONLY = "ddl_only";
 
-            /// <summary>Only recreates the objects from their DDL, do not
-            /// restore table data.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DDL_ONLY = "ddl_only";
+        /// <summary>Whether or not to perform a dry run of the restoration
+        /// operation.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DRY_RUN = "dry_run";
 
-            /// <summary>Verify checksum for backup files.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string CHECKSUM = "checksum";
+        /// <summary>Behavior to apply when restoring table data.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Restore table data by re-ingesting it.  This
+        ///         is the default behavior if the cluster topology differs
+        ///         from that of the contained backup.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Restore the persisted data files directly.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string REINGEST = "reingest";
 
-            /// <summary>Does a dry-run restoration operation.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DRY_RUN = "dry_run";
-        } // end struct Options
-
-        /// <summary>Name of the backup object, which must refer to a currently
-        /// existing backup.</summary>
+        /// <summary>If the <see
+        /// cref="Options.RESTORE_POLICY">RESTORE_POLICY</see> is <see
+        /// cref="Options.RENAME">RENAME</see>, use this schema for relocated
+        /// existing objects instead of the default generated one.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
-        public string backup_name { get; set; } = "";
+        public const string RENAMED_OBJECTS_SCHEMA = "renamed_objects_schema";
 
-        /// <summary>Map of objects to be restored from the backup.</summary>
-        /// <remarks><list type="bullet">
+        /// <summary>Behavior to apply when any database object to restore
+        /// already exists.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.ALL">ALL</see>:</term>
-        ///         <description>All object types in a schema (excludes
-        ///         permissions, system configuration, host secret key, KiFS
-        ///         directories and user defined functions)</description>
+        ///         <term><see cref="Options.NONE">NONE</see>:</term>
+        ///         <description>If an object to be restored already exists
+        ///         with the same name, abort and return error.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.TABLE">TABLE</see>:
-        ///         </term>
-        ///         <description>Database Table</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:
-        ///         </term>
-        ///         <description>Credential</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.CONTEXT">CONTEXT</see>:
-        ///         </term>
-        ///         <description>Context</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.DATASINK">DATASINK</see>:</term>
-        ///         <description>Data Sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:
-        ///         </term>
-        ///         <description>Data Source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
-        ///         </term>
-        ///         <description>SQL Procedure</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.MONITOR">MONITOR</see>:
-        ///         </term>
-        ///         <description>Table Monitor (Stream)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.USER">USER</see>:</term>
-        ///         <description>User (internal and external) and associated
-        ///         permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.ROLE">ROLE</see>:</term>
-        ///         <description>Role, role members (roles or users,
-        ///         recursively) and associated permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.CONFIGURATION">CONFIGURATION</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="RestoreObjectsMap.TRUE">TRUE</see>, restore the
-        ///         database configuration file.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="RestoreObjectsMap.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="RestoreObjectsMap.TRUE">TRUE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="RestoreObjectsMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list></remarks>
-        public IDictionary<string, string> restore_objects_map { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Datasource where backup is located.</summary>
-        public string datasource_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
-        ///         <description>Backup instance ID to restore. Leave empty to
-        ///         restore the most recent backup instance. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESTORE_POLICY">RESTORE_POLICY</see>:</term>
-        ///         <description>Behavior to apply when restoring objects that
-        ///         already exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>If an object to be restored currently
-        ///                 exists with the same name, abort and return error
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.REPLACE">REPLACE</see>:
-        ///                 </term>
-        ///                 <description>If an object to be restored currently
-        ///                 exists with the same name, replace it with the
-        ///                 backup version</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.RENAME">RENAME</see>:
-        ///                 </term>
-        ///                 <description>If an object to be restored currently
-        ///                 exists with the same name, rename the original
-        ///                 version</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.NONE">NONE</see>.
+        ///         <term><see cref="Options.REPLACE">REPLACE</see>:</term>
+        ///         <description>If an object to be restored already exists
+        ///         with the same name, replace it with the backup version.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
-        ///         </term>
-        ///         <description>If the restore policy is rename, optionally
-        ///         use this schema for renamed objects instead of a default
-        ///         generated one. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
-        ///         </term>
-        ///         <description>Create the schema for an object to be restored
-        ///         if it does not currently exist. Error otherwise.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
-        ///         <description>Only recreates the objects from their DDL, do
-        ///         not restore table data.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
-        ///         <description>Verify checksum for backup files.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Does a dry-run restoration operation.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+        ///         <term><see cref="Options.RENAME">RENAME</see>:</term>
+        ///         <description>If an object to be restored already exists
+        ///         with the same name, move that existing one to the schema
+        ///         specified by <see
+        ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+        ///         This policy does not apply to non-schema objects.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        /// <para>The default value is <see cref="Options.NONE">NONE</see>.
+        /// </para></remarks>
+        public const string RESTORE_POLICY = "restore_policy";
 
-        /// <summary>Constructs a RestoreBackupRequest object with default
-        /// parameters.</summary>
-        public RestoreBackupRequest() { }
+        /// <summary>If an object to be restored already exists with the same
+        /// name, abort and return error.</summary>
+        public const string NONE = "none";
 
-        /// <summary>Constructs a RestoreBackupRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="backup_name">Name of the backup object, which must
-        /// refer to a currently existing backup. The default value is ''.
-        /// </param>
-        /// <param name="restore_objects_map">Map of objects to be restored
-        /// from the backup. Error if empty.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.ALL">ALL</see>:</term>
-        ///         <description>All object types in a schema (excludes
-        ///         permissions, system configuration, host secret key, KiFS
-        ///         directories and user defined functions)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.TABLE">TABLE</see>:
-        ///         </term>
-        ///         <description>Database Table</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:
-        ///         </term>
-        ///         <description>Credential</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.CONTEXT">CONTEXT</see>:
-        ///         </term>
-        ///         <description>Context</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.DATASINK">DATASINK</see>:</term>
-        ///         <description>Data Sink</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:
-        ///         </term>
-        ///         <description>Data Source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
-        ///         </term>
-        ///         <description>SQL Procedure</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.MONITOR">MONITOR</see>:
-        ///         </term>
-        ///         <description>Table Monitor (Stream)</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.USER">USER</see>:</term>
-        ///         <description>User (internal and external) and associated
-        ///         permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="RestoreObjectsMap.ROLE">ROLE</see>:</term>
-        ///         <description>Role, role members (roles or users,
-        ///         recursively) and associated permissions</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="RestoreObjectsMap.CONFIGURATION">CONFIGURATION</see>:
-        ///         </term>
-        ///         <description>If <see
-        ///         cref="RestoreObjectsMap.TRUE">TRUE</see>, restore the
-        ///         database configuration file.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see
-        ///                 cref="RestoreObjectsMap.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="RestoreObjectsMap.TRUE">TRUE</see>
-        ///                 </term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="RestoreObjectsMap.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list></param>
-        /// <param name="datasource_name">Datasource where backup is located.
-        /// </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
-        ///         <description>Backup instance ID to restore. Leave empty to
-        ///         restore the most recent backup instance. The default value
-        ///         is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESTORE_POLICY">RESTORE_POLICY</see>:</term>
-        ///         <description>Behavior to apply when restoring objects that
-        ///         already exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>If an object to be restored currently
-        ///                 exists with the same name, abort and return error
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.REPLACE">REPLACE</see>:
-        ///                 </term>
-        ///                 <description>If an object to be restored currently
-        ///                 exists with the same name, replace it with the
-        ///                 backup version</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.RENAME">RENAME</see>:
-        ///                 </term>
-        ///                 <description>If an object to be restored currently
-        ///                 exists with the same name, rename the original
-        ///                 version</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.NONE">NONE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
-        ///         </term>
-        ///         <description>If the restore policy is rename, optionally
-        ///         use this schema for renamed objects instead of a default
-        ///         generated one. The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
-        ///         </term>
-        ///         <description>Create the schema for an object to be restored
-        ///         if it does not currently exist. Error otherwise.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
-        ///         <description>Only recreates the objects from their DDL, do
-        ///         not restore table data.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
-        ///         <description>Verify checksum for backup files.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Does a dry-run restoration operation.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public RestoreBackupRequest( string backup_name,
-                                     IDictionary<string, string> restore_objects_map,
-                                     string datasource_name,
-                                     IDictionary<string, string> options = null)
-        {
-            this.backup_name = backup_name ?? "";
-            this.restore_objects_map = restore_objects_map ?? new Dictionary<string, string>();
-            this.datasource_name = datasource_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class RestoreBackupRequest
+        /// <summary>If an object to be restored already exists with the same
+        /// name, replace it with the backup version.</summary>
+        public const string REPLACE = "replace";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
+        /// <summary>If an object to be restored already exists with the same
+        /// name, move that existing one to the schema specified by <see
+        /// cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+        /// </summary>
+        /// <remarks><para>This policy does not apply to non-schema objects.
+        /// </para></remarks>
+        public const string RENAME = "rename";
+    } // end struct Options
+
+    /// <summary>Name of the backup to restore from, which must refer to an
+    /// existing backup.</summary>
+    /// <remarks><para>The default value is ''.</para></remarks>
+    public string backup_name { get; set; } = "";
+
+    /// <summary>Map of database objects to be restored from the backup.
     /// </summary>
-    public class RestoreBackupResponse : KineticaData
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.ALL">ALL</see>:</term>
+    ///         <description>All object types and data contained in the given
+    ///         <a href="../../../concepts/schemas/"
+    ///         target="_top">schema(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
+    ///         target="_top">Context(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:</term>
+    ///         <description><a href="../../../concepts/credentials/"
+    ///         target="_top">Credential(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.DATASINK">DATASINK</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/data_sinks/"
+    ///         target="_top">Data sink(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:</term>
+    ///         <description><a href="../../../concepts/data_sources/"
+    ///         target="_top">Data source(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../udf/python/writing/#udf-python-func-env"
+    ///         target="_top">Python UDF function environment(s)</a>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <description><a
+    ///         href="../../../graph_solver/network_graph_solver/"
+    ///         target="_top">Graph(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.MONITOR">MONITOR</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/table_monitors/"
+    ///         target="_top">Table monitor(s)</a> / <a
+    ///         href="../../../sql/ddl/#create-stream" target="_top">SQL
+    ///         stream(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         </term>
+    ///         <description><a href="../../../rm/concepts/#resource-groups"
+    ///         target="_top">Resource group(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <description><a href="../../../security/sec_concepts/#roles"
+    ///         target="_top">Role(s)</a>, role members (roles or users,
+    ///         recursively), and associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         </term>
+    ///         <description><a href="../../../sql/procedure/"
+    ///         target="_top">SQL procedure(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <description><a href="../../../concepts/tables/"
+    ///         target="_top">Table(s)</a> and <a
+    ///         href="../../../sql/ddl/#create-view" target="_top">SQL
+    ///         view(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.USER">USER</see>:</term>
+    ///         <description><a
+    ///         href="../../../security/sec_concepts/#security-concepts-users"
+    ///         target="_top">User(s)</a> (internal and external) and
+    ///         associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         </term>
+    ///         <description><a href="../../../udf_overview"
+    ///         target="_top">UDF(s)</a>.</description>
+    ///     </item>
+    /// </list></remarks>
+    public IDictionary<string, string> restore_objects_map { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Data source through which the backup will be restored.
+    /// </summary>
+    public string datasource_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
+    ///         <description>ID of the snapshot to restore. Leave empty to
+    ///         restore the most recent snapshot in the backup. The default
+    ///         value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>Whether or not to verify checksums for backup
+    ///         files when restoring.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when the schema containing any
+    ///         database object to restore does not already exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>If the schema containing any restored
+    ///                 object does not exist, create it automatically.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>If the schema containing any restored
+    ///                 object does not exist, return an error.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <description>Behavior to apply when restoring tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Restore table DDL, but do not restore
+    ///                 data.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Restore tables and their data.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>Whether or not to perform a dry run of the
+    ///         restoration operation.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.REINGEST">REINGEST</see>:</term>
+    ///         <description>Behavior to apply when restoring table data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Restore table data by re-ingesting it.
+    ///                 This is the default behavior if the cluster topology
+    ///                 differs from that of the contained backup.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Restore the persisted data files directly.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
+    ///         </term>
+    ///         <description>If the <see
+    ///         cref="Options.RESTORE_POLICY">RESTORE_POLICY</see> is <see
+    ///         cref="Options.RENAME">RENAME</see>, use this schema for
+    ///         relocated existing objects instead of the default generated
+    ///         one. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RESTORE_POLICY">RESTORE_POLICY</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when any database object to
+    ///         restore already exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <description>If an object to be restored already exists
+    ///                 with the same name, abort and return error.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.REPLACE">REPLACE</see>:</term>
+    ///                 <description>If an object to be restored already exists
+    ///                 with the same name, replace it with the backup version.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.RENAME">RENAME</see>:</term>
+    ///                 <description>If an object to be restored already exists
+    ///                 with the same name, move that existing one to the
+    ///                 schema specified by <see
+    ///                 cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+    ///                 This policy does not apply to non-schema objects.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a RestoreBackupRequest object with default
+    /// parameters.</summary>
+    public RestoreBackupRequest() { }
+
+    /// <summary>Constructs a RestoreBackupRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="backup_name">Name of the backup to restore from, which
+    /// must refer to an existing backup. The default value is ''.</param>
+    /// <param name="restore_objects_map">Map of database objects to be
+    /// restored from the backup.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.ALL">ALL</see>:</term>
+    ///         <description>All object types and data contained in the given
+    ///         <a href="../../../concepts/schemas/"
+    ///         target="_top">schema(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
+    ///         target="_top">Context(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:</term>
+    ///         <description><a href="../../../concepts/credentials/"
+    ///         target="_top">Credential(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.DATASINK">DATASINK</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/data_sinks/"
+    ///         target="_top">Data sink(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:</term>
+    ///         <description><a href="../../../concepts/data_sources/"
+    ///         target="_top">Data source(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         </term>
+    ///         <description><a
+    ///         href="../../../udf/python/writing/#udf-python-func-env"
+    ///         target="_top">Python UDF function environment(s)</a>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <description><a
+    ///         href="../../../graph_solver/network_graph_solver/"
+    ///         target="_top">Graph(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.MONITOR">MONITOR</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/table_monitors/"
+    ///         target="_top">Table monitor(s)</a> / <a
+    ///         href="../../../sql/ddl/#create-stream" target="_top">SQL
+    ///         stream(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         </term>
+    ///         <description><a href="../../../rm/concepts/#resource-groups"
+    ///         target="_top">Resource group(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <description><a href="../../../security/sec_concepts/#roles"
+    ///         target="_top">Role(s)</a>, role members (roles or users,
+    ///         recursively), and associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         </term>
+    ///         <description><a href="../../../sql/procedure/"
+    ///         target="_top">SQL procedure(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <description><a href="../../../concepts/tables/"
+    ///         target="_top">Table(s)</a> and <a
+    ///         href="../../../sql/ddl/#create-view" target="_top">SQL
+    ///         view(s)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="RestoreObjectsMap.USER">USER</see>:</term>
+    ///         <description><a
+    ///         href="../../../security/sec_concepts/#security-concepts-users"
+    ///         target="_top">User(s)</a> (internal and external) and
+    ///         associated permissions.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         </term>
+    ///         <description><a href="../../../udf_overview"
+    ///         target="_top">UDF(s)</a>.</description>
+    ///     </item>
+    /// </list></param>
+    /// <param name="datasource_name">Data source through which the backup will
+    /// be restored.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
+    ///         <description>ID of the snapshot to restore. Leave empty to
+    ///         restore the most recent snapshot in the backup. The default
+    ///         value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>Whether or not to verify checksums for backup
+    ///         files when restoring.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when the schema containing any
+    ///         database object to restore does not already exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>If the schema containing any restored
+    ///                 object does not exist, create it automatically.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>If the schema containing any restored
+    ///                 object does not exist, return an error.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <description>Behavior to apply when restoring tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Restore table DDL, but do not restore
+    ///                 data.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Restore tables and their data.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <description>Whether or not to perform a dry run of the
+    ///         restoration operation.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.REINGEST">REINGEST</see>:</term>
+    ///         <description>Behavior to apply when restoring table data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Restore table data by re-ingesting it.
+    ///                 This is the default behavior if the cluster topology
+    ///                 differs from that of the contained backup.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Restore the persisted data files directly.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
+    ///         </term>
+    ///         <description>If the <see
+    ///         cref="Options.RESTORE_POLICY">RESTORE_POLICY</see> is <see
+    ///         cref="Options.RENAME">RENAME</see>, use this schema for
+    ///         relocated existing objects instead of the default generated
+    ///         one. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.RESTORE_POLICY">RESTORE_POLICY</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when any database object to
+    ///         restore already exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <description>If an object to be restored already exists
+    ///                 with the same name, abort and return error.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.REPLACE">REPLACE</see>:</term>
+    ///                 <description>If an object to be restored already exists
+    ///                 with the same name, replace it with the backup version.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.RENAME">RENAME</see>:</term>
+    ///                 <description>If an object to be restored already exists
+    ///                 with the same name, move that existing one to the
+    ///                 schema specified by <see
+    ///                 cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+    ///                 This policy does not apply to non-schema objects.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public RestoreBackupRequest( string backup_name,
+                                 IDictionary<string, string> restore_objects_map,
+                                 string datasource_name,
+                                 IDictionary<string, string> options = null)
     {
-        /// <summary>The backup name</summary>
-        public string backup_name { get; set; }
+        this.backup_name = backup_name ?? "";
+        this.restore_objects_map = restore_objects_map ?? new Dictionary<string, string>();
+        this.datasource_name = datasource_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class RestoreBackupRequest
 
-        /// <summary>The backup ID that was restored</summary>
-        public long backup_id { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
+/// </summary>
+public class RestoreBackupResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="RestoreBackupRequest.backup_name">backup_name</see>.</summary>
+    public string backup_name { get; set; }
 
-        /// <summary>Total size of data restored from backup</summary>
-        public long restored_bytes { get; set; }
+    /// <summary>ID of the snapshot that was restored.</summary>
+    public long backup_id { get; set; }
 
-        /// <summary>Total number of files restored from backup</summary>
-        public long restored_files { get; set; }
+    /// <summary>Total size of data restored from backup.</summary>
+    public long restored_bytes { get; set; }
 
-        /// <summary>Total number of records restored from backup</summary>
-        public long restored_records { get; set; }
+    /// <summary>Total number of files restored from backup.</summary>
+    public long restored_files { get; set; }
 
-        /// <summary>Objects that were successfully restored and their
-        /// associated types.</summary>
-        public IDictionary<string, string> restored_objects { get; set; } = new Dictionary<string, string>();
+    /// <summary>Total number of records restored from backup.</summary>
+    public long restored_records { get; set; }
 
-        /// <summary>Original and new names of objects that were successfully
-        /// restored and their associated types.</summary>
-        public IDictionary<string, string> renamed_objects { get; set; } = new Dictionary<string, string>();
+    /// <summary>Database objects that were successfully restored and their
+    /// associated types.</summary>
+    public IDictionary<string, string> restored_objects { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Objects that failed to be restored and their associated
-        /// types.</summary>
-        public IDictionary<string, string> failed_objects { get; set; } = new Dictionary<string, string>();
+    /// <summary>Original and new names of database objects that were
+    /// successfully restored and their associated types.</summary>
+    public IDictionary<string, string> renamed_objects { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RestoreBackupResponse
-} // end namespace kinetica
+    /// <summary>Database objects that failed to be restored and their
+    /// associated types.</summary>
+    public IDictionary<string, string> failed_objects { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RestoreBackupResponse

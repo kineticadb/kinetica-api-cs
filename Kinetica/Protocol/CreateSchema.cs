@@ -6,123 +6,120 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
+/// </summary>
+/// <remarks><para>Creates a SQL-style <a href="../../../concepts/schemas/"
+/// target="_top">schema</a>. Schemas are containers for tables and views.
+/// Multiple tables and views can be defined with the same name in different
+/// schemas.</para></remarks>
+public class CreateSchemaRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
-    /// </summary>
-    /// <remarks><para>Creates a SQL-style <a href="../../../concepts/schemas/"
-    /// target="_top">schema</a>. Schemas are containers for tables and views.
-    /// Multiple tables and views can be defined with the same name in
-    /// different schemas.</para></remarks>
-    public class CreateSchemaRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an
-            /// error from occurring if the schema already exists.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct Options
-
-        /// <summary>Name of the schema to be created.</summary>
-        /// <remarks><para> Has the same naming restrictions as <a
-        /// href="../../../concepts/tables/" target="_top">tables</a>.</para>
-        /// </remarks>
-        public string schema_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         prevents an error from occurring if the schema already
-        ///         exists.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateSchemaRequest object with default
-        /// parameters.</summary>
-        public CreateSchemaRequest() { }
-
-        /// <summary>Constructs a CreateSchemaRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="schema_name">Name of the schema to be created.  Has
-        /// the same naming restrictions as <a href="../../../concepts/tables/"
-        /// target="_top">tables</a>.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an error
+        /// from occurring if the schema already exists.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         prevents an error from occurring if the schema already
-        ///         exists.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public CreateSchemaRequest( string schema_name,
-                                    IDictionary<string, string> options = null)
-        {
-            this.schema_name = schema_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateSchemaRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
-    /// </summary>
-    public class CreateSchemaResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct Options
+
+    /// <summary>Name of the schema to be created.</summary>
+    /// <remarks><para> Has the same naming restrictions as <a
+    /// href="../../../concepts/tables/" target="_top">tables</a>.</para>
+    /// </remarks>
+    public string schema_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
+    ///         an error from occurring if the schema already exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateSchemaRequest object with default
+    /// parameters.</summary>
+    public CreateSchemaRequest() { }
+
+    /// <summary>Constructs a CreateSchemaRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="schema_name">Name of the schema to be created.  Has the
+    /// same naming restrictions as <a href="../../../concepts/tables/"
+    /// target="_top">tables</a>.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
+    ///         an error from occurring if the schema already exists.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public CreateSchemaRequest( string schema_name,
+                                IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="CreateSchemaRequest.schema_name">schema_name</see>.</summary>
-        public string schema_name { get; set; }
+        this.schema_name = schema_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateSchemaRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateSchemaResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
+/// </summary>
+public class CreateSchemaResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="CreateSchemaRequest.schema_name">schema_name</see>.</summary>
+    public string schema_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateSchemaResponse

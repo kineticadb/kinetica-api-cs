@@ -6,68 +6,67 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.revokeRole(RevokeRoleRequest)">Kinetica.revokeRole</see>.
+/// </summary>
+/// <remarks><para>Revokes membership in a role from a user or role.</para>
+/// </remarks>
+public class RevokeRoleRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.revokeRole(RevokeRoleRequest)">Kinetica.revokeRole</see>.
+    /// <summary>Name of the role in which membership will be revoked.
     /// </summary>
-    /// <remarks><para>Revokes membership in a role from a user or role.</para>
+    /// <remarks><para>Must be an existing role.</para></remarks>
+    public string role { get; set; }
+
+    /// <summary>Name of the user or role that will be revoked membership in
+    /// <see cref="role" />.</summary>
+    /// <remarks><para>Must be an existing user or role.</para></remarks>
+    public string member { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
     /// </remarks>
-    public class RevokeRoleRequest : KineticaData
-    {
-        /// <summary>Name of the role in which membership will be revoked.
-        /// </summary>
-        /// <remarks><para>Must be an existing role.</para></remarks>
-        public string role { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Name of the user or role that will be revoked membership
-        /// in <see cref="role" />.</summary>
-        /// <remarks><para>Must be an existing user or role.</para></remarks>
-        public string member { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a RevokeRoleRequest object with default
-        /// parameters.</summary>
-        public RevokeRoleRequest() { }
-
-        /// <summary>Constructs a RevokeRoleRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="role">Name of the role in which membership will be
-        /// revoked. Must be an existing role.</param>
-        /// <param name="member">Name of the user or role that will be revoked
-        /// membership in <paramref name="role" />. Must be an existing user or
-        /// role.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public RevokeRoleRequest( string role,
-                                  string member,
-                                  IDictionary<string, string> options = null)
-        {
-            this.role = role ?? "";
-            this.member = member ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class RevokeRoleRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.revokeRole(RevokeRoleRequest)">Kinetica.revokeRole</see>.
+    /// <summary>Constructs a RevokeRoleRequest object with default parameters.
     /// </summary>
-    public class RevokeRoleResponse : KineticaData
+    public RevokeRoleRequest() { }
+
+    /// <summary>Constructs a RevokeRoleRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="role">Name of the role in which membership will be
+    /// revoked. Must be an existing role.</param>
+    /// <param name="member">Name of the user or role that will be revoked
+    /// membership in <paramref name="role" />. Must be an existing user or
+    /// role.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public RevokeRoleRequest( string role,
+                              string member,
+                              IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see cref="RevokeRoleRequest.role">role</see>.
-        /// </summary>
-        public string role { get; set; }
+        this.role = role ?? "";
+        this.member = member ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class RevokeRoleRequest
 
-        /// <summary>Value of <see
-        /// cref="RevokeRoleRequest.member">member</see>.</summary>
-        public string member { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.revokeRole(RevokeRoleRequest)">Kinetica.revokeRole</see>.
+/// </summary>
+public class RevokeRoleResponse : KineticaData
+{
+    /// <summary>Value of <see cref="RevokeRoleRequest.role">role</see>.
+    /// </summary>
+    public string role { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RevokeRoleResponse
-} // end namespace kinetica
+    /// <summary>Value of <see cref="RevokeRoleRequest.member">member</see>.
+    /// </summary>
+    public string member { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RevokeRoleResponse

@@ -6,104 +6,101 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.
+/// </summary>
+/// <remarks><para>Sets up a simple range trigger for a column_name for one or
+/// more tables. Once the trigger has been activated, any record added to the
+/// listed tables(s) via <see
+/// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
+/// with the chosen column_name's value falling within the specified range will
+/// trip the trigger. All such records will be queued at the trigger port (by
+/// default '9001' but able to be retrieved via <see
+/// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>)
+/// for any listening client to collect. Active triggers can be cancelled by
+/// using the <see
+/// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>
+/// endpoint or by clearing all relevant tables.</para>
+/// <para>The output returns the trigger handle as well as indicating success
+/// or failure of the trigger activation.</para></remarks>
+public class CreateTriggerByRangeRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.
-    /// </summary>
-    /// <remarks><para>Sets up a simple range trigger for a column_name for one
-    /// or more tables. Once the trigger has been activated, any record added
-    /// to the listed tables(s) via <see
-    /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
-    /// with the chosen column_name's value falling within the specified range
-    /// will trip the trigger. All such records will be queued at the trigger
-    /// port (by default '9001' but able to be retrieved via <see
-    /// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>
-    /// endpoint or by clearing all relevant tables.</para>
-    /// <para>The output returns the trigger handle as well as indicating
-    /// success or failure of the trigger activation.</para></remarks>
-    public class CreateTriggerByRangeRequest : KineticaData
+    /// <summary>User-created ID for the trigger.</summary>
+    /// <remarks><para>The ID can be alphanumeric, contain symbols, and must
+    /// contain at least one character.</para></remarks>
+    public string request_id { get; set; }
+
+    /// <summary>Tables on which the trigger will be active, each in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    public IList<string> table_names { get; set; } = new List<string>();
+
+    /// <summary>Name of a numeric column_name on which the trigger is
+    /// activated.</summary>
+    public string column_name { get; set; }
+
+    /// <summary>The lower bound (inclusive) for the trigger range.</summary>
+    public double min { get; set; }
+
+    /// <summary>The upper bound (inclusive) for the trigger range.</summary>
+    public double max { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a CreateTriggerByRangeRequest object with default
+    /// parameters.</summary>
+    public CreateTriggerByRangeRequest() { }
+
+    /// <summary>Constructs a CreateTriggerByRangeRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="request_id">User-created ID for the trigger. The ID can be
+    /// alphanumeric, contain symbols, and must contain at least one character.
+    /// </param>
+    /// <param name="table_names">Tables on which the trigger will be active,
+    /// each in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="column_name">Name of a numeric column_name on which the
+    /// trigger is activated.</param>
+    /// <param name="min">The lower bound (inclusive) for the trigger range.
+    /// </param>
+    /// <param name="max">The upper bound (inclusive) for the trigger range.
+    /// </param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public CreateTriggerByRangeRequest( string request_id,
+                                        IList<string> table_names,
+                                        string column_name,
+                                        double min,
+                                        double max,
+                                        IDictionary<string, string> options = null)
     {
-        /// <summary>User-created ID for the trigger.</summary>
-        /// <remarks><para>The ID can be alphanumeric, contain symbols, and
-        /// must contain at least one character.</para></remarks>
-        public string request_id { get; set; }
+        this.request_id = request_id ?? "";
+        this.table_names = table_names ?? new List<string>();
+        this.column_name = column_name ?? "";
+        this.min = min;
+        this.max = max;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateTriggerByRangeRequest
 
-        /// <summary>Tables on which the trigger will be active, each in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>Name of a numeric column_name on which the trigger is
-        /// activated.</summary>
-        public string column_name { get; set; }
-
-        /// <summary>The lower bound (inclusive) for the trigger range.
-        /// </summary>
-        public double min { get; set; }
-
-        /// <summary>The upper bound (inclusive) for the trigger range.
-        /// </summary>
-        public double max { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a CreateTriggerByRangeRequest object with
-        /// default parameters.</summary>
-        public CreateTriggerByRangeRequest() { }
-
-        /// <summary>Constructs a CreateTriggerByRangeRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="request_id">User-created ID for the trigger. The ID
-        /// can be alphanumeric, contain symbols, and must contain at least one
-        /// character.</param>
-        /// <param name="table_names">Tables on which the trigger will be
-        /// active, each in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="column_name">Name of a numeric column_name on which
-        /// the trigger is activated.</param>
-        /// <param name="min">The lower bound (inclusive) for the trigger
-        /// range.</param>
-        /// <param name="max">The upper bound (inclusive) for the trigger
-        /// range.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public CreateTriggerByRangeRequest( string request_id,
-                                            IList<string> table_names,
-                                            string column_name,
-                                            double min,
-                                            double max,
-                                            IDictionary<string, string> options = null)
-        {
-            this.request_id = request_id ?? "";
-            this.table_names = table_names ?? new List<string>();
-            this.column_name = column_name ?? "";
-            this.min = min;
-            this.max = max;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateTriggerByRangeRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.
+/// </summary>
+public class CreateTriggerByRangeResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="CreateTriggerByRangeRequest.request_id">request_id</see>.
     /// </summary>
-    public class CreateTriggerByRangeResponse : KineticaData
-    {
-        /// <summary>Value of <see
-        /// cref="CreateTriggerByRangeRequest.request_id">request_id</see>.
-        /// </summary>
-        public string trigger_id { get; set; }
+    public string trigger_id { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateTriggerByRangeResponse
-} // end namespace kinetica
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateTriggerByRangeResponse

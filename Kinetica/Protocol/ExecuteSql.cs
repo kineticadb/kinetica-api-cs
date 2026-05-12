@@ -6,1642 +6,1733 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
+/// </summary>
+/// <remarks><para>Execute a SQL statement (query, DML, or DDL).</para>
+/// <para>See <a href="../../../sql/" target="_top">SQL Support</a> for the
+/// complete set of supported SQL commands.</para>
+/// <para>When a caller wants all the results from a large query (e.g., more
+/// than <a href="../../../config/#config-main-general"
+/// target="_top">max_get_records_size</a> records), they can make multiple
+/// calls to this endpoint using the <see cref="offset" /> and <see
+/// cref="limit" /> parameters to page through the results.  Normally, this
+/// will execute the <see cref="statement" /> query each time. To avoid
+/// re-executing the query each time and to keep the results in the same order,
+/// the caller should specify a <see
+/// cref="Options.PAGING_TABLE">PAGING_TABLE</see> name to hold the results of
+/// the query between calls and specify the <see
+/// cref="Options.PAGING_TABLE">PAGING_TABLE</see> on subsequent calls. When
+/// this is done, the caller should clear the paging table and any other tables
+/// in the <see
+/// cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+/// (both returned in the response) when they are done paging through the
+/// results.  <see cref="ExecuteSqlResponse.paging_table">paging_table</see>
+/// (and <see
+/// cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>)
+/// will be empty if no paging table was created (e.g., when all the query
+/// results were returned in the first call).</para></remarks>
+public class ExecuteSqlRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
-    /// </summary>
-    /// <remarks><para>Execute a SQL statement (query, DML, or DDL).</para>
-    /// <para>See <a href="../../../sql/" target="_top">SQL Support</a> for the
-    /// complete set of supported SQL commands.</para></remarks>
-    public class ExecuteSqlRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="encoding" />.</summary>
+    /// <remarks><para>Specifies the encoding for returned records; either
+    /// 'binary' or 'json'.</para></remarks>
+    public struct Encoding
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="encoding" />.</summary>
-        /// <remarks><para>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.</para></remarks>
-        public struct Encoding
-        {
-            public const string BINARY = "binary";
-            public const string JSON = "json";
-        } // end struct Encoding
+        public const string BINARY = "binary";
+        public const string JSON = "json";
+    } // end struct Encoding
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables the
-            /// cost-based optimization of the given query.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string COST_BASED_OPTIMIZATION = "cost_based_optimization";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables the
+        /// cost-based optimization of the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string COST_BASED_OPTIMIZATION = "cost_based_optimization";
 
-            public const string TRUE = "true";
-            public const string FALSE = "false";
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, enables the
-            /// use of distributed joins in servicing the given query.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DISTRIBUTED_JOINS = "distributed_joins";
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, enables the use of
+        /// distributed joins in servicing the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DISTRIBUTED_JOINS = "distributed_joins";
 
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, enables the
-            /// use of distributed operations in servicing the given query.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string DISTRIBUTED_OPERATIONS = "distributed_operations";
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, enables the use of
+        /// distributed operations in servicing the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string DISTRIBUTED_OPERATIONS = "distributed_operations";
 
-            /// <summary>Specifies the record collision error-suppression
-            /// policy for inserting into or updating a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>, only used when primary key
-            /// record collisions are rejected (<see
-            /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-            /// is <see cref="Options.FALSE">FALSE</see>).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Ignore inserts/updates that result in
-            ///         primary key collisions with existing records
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Treat as errors any inserts/updates that
-            ///         result in primary key collisions with existing records
-            ///         </description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
+        /// <summary>Specifies the record collision error-suppression policy
+        /// for inserting into or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when primary key record collisions are rejected
+        /// (<see
+        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
+        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore inserts/updates that result in primary
+        ///         key collisions with existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any inserts/updates that
+        ///         result in primary key collisions with existing records
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, Joins/Filters
-            /// results  will always be materialized ( saved to result tables
-            /// format).</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string LATE_MATERIALIZATION = "late_materialization";
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, Joins/Filters
+        /// results  will always be materialized ( saved to result tables
+        /// format).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string LATE_MATERIALIZATION = "late_materialization";
 
-            /// <summary>When empty or the specified paging table not exists,
-            /// the system will create a paging table and return when query
-            /// output has more records than the user asked.</summary>
-            /// <remarks><para>If the paging table exists in the system, the
-            /// records from the paging table are returned without evaluating
-            /// the query.</para></remarks>
-            public const string PAGING_TABLE = "paging_table";
-
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the paging table.</summary>
-            public const string PAGING_TABLE_TTL = "paging_table_ttl";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables the
-            /// parallel step execution of the given query.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PARALLEL_EXECUTION = "parallel_execution";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables
-            /// plan caching for the given query.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PLAN_CACHE = "plan_cache";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, compiles a
-            /// query into an execution plan and saves it in query cache.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string PREPARE_MODE = "prepare_mode";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, then columns
-            /// that were dict encoded in the source table will be dict encoded
-            /// in the projection table.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
-
-            /// <summary>Query parameters in JSON array or arrays (for
-            /// inserting multiple rows).</summary>
-            /// <remarks><para> This can be used instead of <see cref="data" />
-            /// and <see cref="request_schema_str" />.</para></remarks>
-            public const string QUERY_PARAMETERS = "query_parameters";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables
-            /// caching of the results of the given query.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string RESULTS_CACHING = "results_caching";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables
-            /// rule-based rewrite optimizations for the given query.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string RULE_BASED_OPTIMIZATION = "rule_based_optimization";
-
-            /// <summary>If <see cref="Options.FALSE">FALSE</see>, scalar
-            /// subqueries will be translated into joins.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string SSQ_OPTIMIZATION = "ssq_optimization";
-
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the intermediate result tables used in
-            /// query execution.</summary>
-            public const string TTL = "ttl";
-
-            /// <summary>Specifies the record collision policy for inserting
-            /// into or updating a table with a <a
-            /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Replace the collided-into record with the
-            ///         record inserted or updated when a new/modified record
-            ///         causes a primary key collision with an existing record
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Reject the insert or update when it
-            ///         results in a primary key collision with an existing
-            ///         record</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
-
-            /// <summary>When changing a column using alter table, validate the
-            /// change before applying it.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
-
-            /// <summary>Use the supplied value as the <a
-            /// href="../../../concepts/schemas/#default-schema"
-            /// target="_top">default schema</a> when processing this SQL
-            /// command.</summary>
-            public const string CURRENT_SCHEMA = "current_schema";
-        } // end struct Options
-
-        /// <summary>SQL statement (query, DML, or DDL) to be executed
+        /// <summary>When specified (or <see
+        /// cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see> is set), the
+        /// system will create a paging table to hold the results of the query,
+        /// when the output has more records than are in the response (i.e.,
+        /// when <see
+        /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
+        /// is <see cref="ExecuteSqlResponse.HasMoreRecords.TRUE">TRUE</see>).
         /// </summary>
-        public string statement { get; set; }
+        /// <remarks><para>If the specified paging table exists, the records
+        /// from the paging table are returned without re-evaluating the query.
+        /// It is the caller's responsibility to clear the <see
+        /// cref="ExecuteSqlResponse.paging_table">paging_table</see> and other
+        /// tables in the <see
+        /// cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+        /// (both returned in the response) when they are done with this query.
+        /// </para></remarks>
+        public const string PAGING_TABLE = "paging_table";
 
-        /// <summary>A positive integer indicating the number of initial
-        /// results to skip (this can be useful for paging through the
-        /// results).</summary>
-        /// <remarks><para>The default value is 0. The minimum allowed value is
-        /// 0. The maximum allowed value is MAX_INT.</para></remarks>
-        public long offset { get; set; } = 0;
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the paging table.</summary>
+        /// <remarks><para> -1 indicates no timeout.  Setting this option will
+        /// cause a paging table to be generated when needed. The <see
+        /// cref="ExecuteSqlResponse.paging_table">paging_table</see> and other
+        /// tables in the <see
+        /// cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+        /// (both returned in the response) will be automatically cleared after
+        /// the TTL expires, if set to a positive number. However, it is still
+        /// recommended that the caller clear these tables when they are done
+        /// with this query.</para></remarks>
+        public const string PAGING_TABLE_TTL = "paging_table_ttl";
 
-        /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned, or END_OF_SET (-9999) to indicate that the
-        /// maximum number of results allowed by the server should be returned.
+        /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables the
+        /// parallel step execution of the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PARALLEL_EXECUTION = "parallel_execution";
+
+        /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables plan
+        /// caching for the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PLAN_CACHE = "plan_cache";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, compiles a query
+        /// into an execution plan and saves it in query cache.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string PREPARE_MODE = "prepare_mode";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then columns that
+        /// were dict encoded in the source table will be dict encoded in the
+        /// projection table.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
+
+        /// <summary>Query parameters in JSON array or arrays (for inserting
+        /// multiple rows).</summary>
+        /// <remarks><para> This can be used instead of <see cref="data" /> and
+        /// <see cref="request_schema_str" />.</para></remarks>
+        public const string QUERY_PARAMETERS = "query_parameters";
+
+        /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables caching
+        /// of the results of the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string RESULTS_CACHING = "results_caching";
+
+        /// <summary>If <see cref="Options.FALSE">FALSE</see>, disables
+        /// rule-based rewrite optimizations for the given query.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string RULE_BASED_OPTIMIZATION = "rule_based_optimization";
+
+        /// <summary>If <see cref="Options.FALSE">FALSE</see>, scalar
+        /// subqueries will be translated into joins.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string SSQ_OPTIMIZATION = "ssq_optimization";
+
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</summary>
+        public const string TTL = "ttl";
+
+        /// <summary>Specifies the record collision policy for inserting into
+        /// or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Replace the collided-into record with the
+        ///         record inserted or updated when a new/modified record
+        ///         causes a primary key collision with an existing record
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject the insert or update when it results in
+        ///         a primary key collision with an existing record
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+        /// <summary>When changing a column using alter table, validate the
+        /// change before applying it.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
+
+        /// <summary>Use the supplied value as the <a
+        /// href="../../../concepts/schemas/#default-schema"
+        /// target="_top">default schema</a> when processing this SQL command.
         /// </summary>
-        /// <remarks><para> The number of records returned will never exceed
-        /// the server's own limit, defined by the <a
-        /// href="../../../config/#config-main-general"
-        /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration. Use <see
-        /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
-        /// to see if more records exist in the result to be fetched, and <see
-        /// cref="offset" /> & <see cref="limit" /> to request subsequent pages
-        /// of results. The default value is -9999.</para></remarks>
-        public long limit { get; set; } = -9999;
+        public const string CURRENT_SCHEMA = "current_schema";
+    } // end struct Options
 
-        /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Encoding.JSON">JSON</see></term>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is <see
-        /// cref="Encoding.BINARY">BINARY</see>.</para></remarks>
-        public string encoding { get; set; } = Encoding.BINARY;
+    /// <summary>SQL statement (query, DML, or DDL) to be executed</summary>
+    public string statement { get; set; }
 
-        /// <summary>Avro schema of <see cref="data" />.</summary>
-        /// <remarks><para>The default value is ''.</para></remarks>
-        public string request_schema_str { get; set; } = "";
+    /// <summary>A positive integer indicating the number of initial results to
+    /// skip (this can be useful for paging through the results).</summary>
+    /// <remarks><para>The default value is 0. The minimum allowed value is 0.
+    /// The maximum allowed value is MAX_INT.</para></remarks>
+    public long offset { get; set; } = 0;
 
-        /// <summary>An array of binary-encoded data for the records to be
-        /// binded to the SQL query.</summary>
-        /// <remarks><para> Or use <see
-        /// cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see> to pass the
-        /// data in JSON format. The default value is an empty List.</para>
-        /// </remarks>
-        public IList<byte[]> data { get; set; } = new List<byte[]>();
+    /// <summary>A positive integer indicating the maximum number of results to
+    /// be returned, or END_OF_SET (-9999) to indicate that the maximum number
+    /// of results allowed by the server should be returned.</summary>
+    /// <remarks><para> The number of records returned will never exceed the
+    /// server's own limit, defined by the <a
+    /// href="../../../config/#config-main-general"
+    /// target="_top">max_get_records_size</a> parameter in the server
+    /// configuration. Use <see
+    /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see> to
+    /// see if more records exist in the result to be fetched, and <see
+    /// cref="offset" /> and <see cref="limit" /> to request subsequent pages
+    /// of results. The default value is -9999.</para></remarks>
+    public long limit { get; set; } = -9999;
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables the cost-based optimization of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         enables the use of distributed joins in servicing the given
-        ///         query.  Any query requiring a distributed join will
-        ///         succeed, though hints can be used in the query to change
-        ///         the distribution of the source data to allow the query to
-        ///         succeed.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         enables the use of distributed operations in servicing the
-        ///         given query.  Any query requiring a distributed join will
-        ///         succeed, though hints can be used in the query to change
-        ///         the distribution of the source data to allow the query to
-        ///         succeed.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into or updating a
-        ///         table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when primary key
-        ///         record collisions are rejected (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record insert/update
-        ///         that is rejected for resulting in a primary key collision
-        ///         with an existing table record will be ignored with no error
-        ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-        ///         rejection of any insert/update for resulting in a primary
-        ///         key collision will cause an error to be reported.  If the
-        ///         specified table does not have a primary key or if <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>, then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore inserts/updates that result in
-        ///                 primary key collisions with existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any inserts/updates
-        ///                 that result in primary key collisions with existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         Joins/Filters results  will always be materialized ( saved
-        ///         to result tables format).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PAGING_TABLE">PAGING_TABLE</see>:
-        ///         </term>
-        ///         <description>When empty or the specified paging table not
-        ///         exists, the system will create a paging table and return
-        ///         when query output has more records than the user asked. If
-        ///         the paging table exists in the system, the records from the
-        ///         paging table are returned without evaluating the query.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:
-        ///         </term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the paging table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables the parallel step execution of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PLAN_CACHE">PLAN_CACHE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables plan caching for the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PREPARE_MODE">PREPARE_MODE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         compiles a query into an execution plan and saves it in
-        ///         query cache. Query execution is not performed and an empty
-        ///         response will be returned to user.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         columns that were dict encoded in the source table will be
-        ///         dict encoded in the projection table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:
-        ///         </term>
-        ///         <description>Query parameters in JSON array or arrays (for
-        ///         inserting multiple rows).  This can be used instead of <see
-        ///         cref="data" /> and <see cref="request_schema_str" />.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESULTS_CACHING">RESULTS_CACHING</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables caching of the results of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables rule-based rewrite optimizations for the given
-        ///         query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         scalar subqueries will be translated into joins.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the intermediate result tables
-        ///         used in query execution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into or updating a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted or updated will be replaced by that record. If set
-        ///         to <see cref="Options.FALSE">FALSE</see>, any such primary
-        ///         key collision will result in the insert/update being
-        ///         rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Replace the collided-into record with
-        ///                 the record inserted or updated when a new/modified
-        ///                 record causes a primary key collision with an
-        ///                 existing record</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject the insert or update when it
-        ///                 results in a primary key collision with an existing
-        ///                 record</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>When changing a column using alter table,
-        ///         validate the change before applying it. If <see
-        ///         cref="Options.TRUE">TRUE</see>, then validate all values. A
-        ///         value too large (or too long) for the new type will prevent
-        ///         any change. If <see cref="Options.FALSE">FALSE</see>, then
-        ///         when a value is too large or long, it will be truncated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
-        ///         <description>Use the supplied value as the <a
-        ///         href="../../../concepts/schemas/#default-schema"
-        ///         target="_top">default schema</a> when processing this SQL
-        ///         command.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+    /// <summary>Specifies the encoding for returned records; either 'binary'
+    /// or 'json'.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
+    /// </para></remarks>
+    public string encoding { get; set; } = Encoding.BINARY;
 
-        /// <summary>Constructs an ExecuteSqlRequest object with default
-        /// parameters.</summary>
-        public ExecuteSqlRequest() { }
+    /// <summary>Avro schema of <see cref="data" />.</summary>
+    /// <remarks><para>The default value is ''.</para></remarks>
+    public string request_schema_str { get; set; } = "";
 
-        /// <summary>Constructs an ExecuteSqlRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="statement">SQL statement (query, DML, or DDL) to be
-        /// executed</param>
-        /// <param name="offset">A positive integer indicating the number of
-        /// initial results to skip (this can be useful for paging through the
-        /// results). The default value is 0. The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT.</param>
-        /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the maximum number of results allowed by the server should be
-        /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the <a
-        /// href="../../../config/#config-main-general"
-        /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration. Use <see
-        /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
-        /// to see if more records exist in the result to be fetched, and
-        /// <paramref name="offset" /> & <paramref name="limit" /> to request
-        /// subsequent pages of results. The default value is -9999.</param>
-        /// <param name="request_schema_str">Avro schema of <paramref
-        /// name="data" />. The default value is ''.</param>
-        /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  Or use <see
-        /// cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see> to pass the
-        /// data in JSON format. The default value is an empty List.</param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables the cost-based optimization of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         enables the use of distributed joins in servicing the given
-        ///         query.  Any query requiring a distributed join will
-        ///         succeed, though hints can be used in the query to change
-        ///         the distribution of the source data to allow the query to
-        ///         succeed.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         enables the use of distributed operations in servicing the
-        ///         given query.  Any query requiring a distributed join will
-        ///         succeed, though hints can be used in the query to change
-        ///         the distribution of the source data to allow the query to
-        ///         succeed.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into or updating a
-        ///         table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when primary key
-        ///         record collisions are rejected (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record insert/update
-        ///         that is rejected for resulting in a primary key collision
-        ///         with an existing table record will be ignored with no error
-        ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-        ///         rejection of any insert/update for resulting in a primary
-        ///         key collision will cause an error to be reported.  If the
-        ///         specified table does not have a primary key or if <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>, then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore inserts/updates that result in
-        ///                 primary key collisions with existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any inserts/updates
-        ///                 that result in primary key collisions with existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         Joins/Filters results  will always be materialized ( saved
-        ///         to result tables format).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PAGING_TABLE">PAGING_TABLE</see>:
-        ///         </term>
-        ///         <description>When empty or the specified paging table not
-        ///         exists, the system will create a paging table and return
-        ///         when query output has more records than the user asked. If
-        ///         the paging table exists in the system, the records from the
-        ///         paging table are returned without evaluating the query.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:
-        ///         </term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the paging table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables the parallel step execution of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PLAN_CACHE">PLAN_CACHE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables plan caching for the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PREPARE_MODE">PREPARE_MODE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         compiles a query into an execution plan and saves it in
-        ///         query cache. Query execution is not performed and an empty
-        ///         response will be returned to user.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         columns that were dict encoded in the source table will be
-        ///         dict encoded in the projection table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:
-        ///         </term>
-        ///         <description>Query parameters in JSON array or arrays (for
-        ///         inserting multiple rows).  This can be used instead of
-        ///         <paramref name="data" /> and <paramref
-        ///         name="request_schema_str" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESULTS_CACHING">RESULTS_CACHING</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables caching of the results of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables rule-based rewrite optimizations for the given
-        ///         query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         scalar subqueries will be translated into joins.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the intermediate result tables
-        ///         used in query execution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into or updating a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted or updated will be replaced by that record. If set
-        ///         to <see cref="Options.FALSE">FALSE</see>, any such primary
-        ///         key collision will result in the insert/update being
-        ///         rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Replace the collided-into record with
-        ///                 the record inserted or updated when a new/modified
-        ///                 record causes a primary key collision with an
-        ///                 existing record</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject the insert or update when it
-        ///                 results in a primary key collision with an existing
-        ///                 record</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>When changing a column using alter table,
-        ///         validate the change before applying it. If <see
-        ///         cref="Options.TRUE">TRUE</see>, then validate all values. A
-        ///         value too large (or too long) for the new type will prevent
-        ///         any change. If <see cref="Options.FALSE">FALSE</see>, then
-        ///         when a value is too large or long, it will be truncated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
-        ///         <description>Use the supplied value as the <a
-        ///         href="../../../concepts/schemas/#default-schema"
-        ///         target="_top">default schema</a> when processing this SQL
-        ///         command.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ExecuteSqlRequest( string statement,
-                                  long? offset = null,
-                                  long? limit = null,
-                                  string request_schema_str = null,
-                                  IList<byte[]> data = null,
-                                  IDictionary<string, string> options = null)
-        {
-            this.statement = statement ?? "";
-            this.offset = offset ?? 0;
-            this.limit = limit ?? -9999;
-            this.encoding = Encoding.BINARY;
-            this.request_schema_str = request_schema_str ?? "";
-            this.data = data ?? new List<byte[]>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
+    /// <summary>An array of binary-encoded data for the records to be binded
+    /// to the SQL query.</summary>
+    /// <remarks><para> Or use <see
+    /// cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see> to pass the data
+    /// in JSON format. The default value is an empty List.</para></remarks>
+    public IList<byte[]> data { get; set; } = new List<byte[]>();
 
-        /// <summary>Constructs an ExecuteSqlRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="statement">SQL statement (query, DML, or DDL) to be
-        /// executed</param>
-        /// <param name="offset">A positive integer indicating the number of
-        /// initial results to skip (this can be useful for paging through the
-        /// results). The default value is 0. The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT.</param>
-        /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the maximum number of results allowed by the server should be
-        /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the <a
-        /// href="../../../config/#config-main-general"
-        /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration. Use <see
-        /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
-        /// to see if more records exist in the result to be fetched, and
-        /// <paramref name="offset" /> & <paramref name="limit" /> to request
-        /// subsequent pages of results. The default value is -9999.</param>
-        /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Encoding.JSON">JSON</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see cref="Encoding.BINARY">BINARY</see>.
-        /// </param>
-        /// <param name="request_schema_str">Avro schema of <paramref
-        /// name="data" />. The default value is ''.</param>
-        /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  Or use <see
-        /// cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see> to pass the
-        /// data in JSON format. The default value is an empty List.</param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables the cost-based optimization of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         enables the use of distributed joins in servicing the given
-        ///         query.  Any query requiring a distributed join will
-        ///         succeed, though hints can be used in the query to change
-        ///         the distribution of the source data to allow the query to
-        ///         succeed.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         enables the use of distributed operations in servicing the
-        ///         given query.  Any query requiring a distributed join will
-        ///         succeed, though hints can be used in the query to change
-        ///         the distribution of the source data to allow the query to
-        ///         succeed.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision
-        ///         error-suppression policy for inserting into or updating a
-        ///         table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>, only used when primary key
-        ///         record collisions are rejected (<see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any record insert/update
-        ///         that is rejected for resulting in a primary key collision
-        ///         with an existing table record will be ignored with no error
-        ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-        ///         rejection of any insert/update for resulting in a primary
-        ///         key collision will cause an error to be reported.  If the
-        ///         specified table does not have a primary key or if <see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-        ///         is <see cref="Options.TRUE">TRUE</see>, then this option
-        ///         has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Ignore inserts/updates that result in
-        ///                 primary key collisions with existing records
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Treat as errors any inserts/updates
-        ///                 that result in primary key collisions with existing
-        ///                 records</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         Joins/Filters results  will always be materialized ( saved
-        ///         to result tables format).
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PAGING_TABLE">PAGING_TABLE</see>:
-        ///         </term>
-        ///         <description>When empty or the specified paging table not
-        ///         exists, the system will create a paging table and return
-        ///         when query output has more records than the user asked. If
-        ///         the paging table exists in the system, the records from the
-        ///         paging table are returned without evaluating the query.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:
-        ///         </term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the paging table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables the parallel step execution of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PLAN_CACHE">PLAN_CACHE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables plan caching for the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PREPARE_MODE">PREPARE_MODE</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>,
-        ///         compiles a query into an execution plan and saves it in
-        ///         query cache. Query execution is not performed and an empty
-        ///         response will be returned to user.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
-        ///         columns that were dict encoded in the source table will be
-        ///         dict encoded in the projection table.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:
-        ///         </term>
-        ///         <description>Query parameters in JSON array or arrays (for
-        ///         inserting multiple rows).  This can be used instead of
-        ///         <paramref name="data" /> and <paramref
-        ///         name="request_schema_str" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESULTS_CACHING">RESULTS_CACHING</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables caching of the results of the given query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         disables rule-based rewrite optimizations for the given
-        ///         query.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.FALSE">FALSE</see>,
-        ///         scalar subqueries will be translated into joins.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        ///         target="_top">TTL</a> of the intermediate result tables
-        ///         used in query execution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
-        ///         </term>
-        ///         <description>Specifies the record collision policy for
-        ///         inserting into or updating a table with a <a
-        ///         href="../../../concepts/tables/#primary-keys"
-        ///         target="_top">primary key</a>. If set to <see
-        ///         cref="Options.TRUE">TRUE</see>, any existing table record
-        ///         with primary key values that match those of a record being
-        ///         inserted or updated will be replaced by that record. If set
-        ///         to <see cref="Options.FALSE">FALSE</see>, any such primary
-        ///         key collision will result in the insert/update being
-        ///         rejected and the error handled as determined by <see
-        ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
-        ///         If the specified table does not have a primary key, then
-        ///         this option has no effect.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Replace the collided-into record with
-        ///                 the record inserted or updated when a new/modified
-        ///                 record causes a primary key collision with an
-        ///                 existing record</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Reject the insert or update when it
-        ///                 results in a primary key collision with an existing
-        ///                 record</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
-        ///         </term>
-        ///         <description>When changing a column using alter table,
-        ///         validate the change before applying it. If <see
-        ///         cref="Options.TRUE">TRUE</see>, then validate all values. A
-        ///         value too large (or too long) for the new type will prevent
-        ///         any change. If <see cref="Options.FALSE">FALSE</see>, then
-        ///         when a value is too large or long, it will be truncated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
-        ///         <description>Use the supplied value as the <a
-        ///         href="../../../concepts/schemas/#default-schema"
-        ///         target="_top">default schema</a> when processing this SQL
-        ///         command.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public ExecuteSqlRequest( string statement,
-                                  long? offset = null,
-                                  long? limit = null,
-                                  string encoding = null,
-                                  string request_schema_str = null,
-                                  IList<byte[]> data = null,
-                                  IDictionary<string, string> options = null)
-        {
-            this.statement = statement ?? "";
-            this.offset = offset ?? 0;
-            this.limit = limit ?? -9999;
-            this.encoding = encoding ?? Encoding.BINARY;
-            this.request_schema_str = request_schema_str ?? "";
-            this.data = data ?? new List<byte[]>();
-            this.options = options ?? new Dictionary<string, string>();
-        } // end full constructor
-    } // end class ExecuteSqlRequest
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         the cost-based optimization of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, enables
+    ///         the use of distributed joins in servicing the given query.  Any
+    ///         query requiring a distributed join will succeed, though hints
+    ///         can be used in the query to change the distribution of the
+    ///         source data to allow the query to succeed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, enables
+    ///         the use of distributed operations in servicing the given query.
+    ///         Any query requiring a distributed join will succeed, though
+    ///         hints can be used in the query to change the distribution of
+    ///         the source data to allow the query to succeed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into or updating a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when primary key
+    ///         record collisions are rejected (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record insert/update that
+    ///         is rejected for resulting in a primary key collision with an
+    ///         existing table record will be ignored with no error generated.
+    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
+    ///         insert/update for resulting in a primary key collision will
+    ///         cause an error to be reported.  If the specified table does not
+    ///         have a primary key or if <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
+    ///         effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore inserts/updates that result in
+    ///                 primary key collisions with existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any inserts/updates that
+    ///                 result in primary key collisions with existing records
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+    ///         Joins/Filters results  will always be materialized ( saved to
+    ///         result tables format).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PAGING_TABLE">PAGING_TABLE</see>:
+    ///         </term>
+    ///         <description>When specified (or <see
+    ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see> is set),
+    ///         the system will create a paging table to hold the results of
+    ///         the query, when the output has more records than are in the
+    ///         response (i.e., when <see
+    ///         cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
+    ///         is <see
+    ///         cref="ExecuteSqlResponse.HasMoreRecords.TRUE">TRUE</see>). If
+    ///         the specified paging table exists, the records from the paging
+    ///         table are returned without re-evaluating the query.  It is the
+    ///         caller's responsibility to clear the <see
+    ///         cref="ExecuteSqlResponse.paging_table">paging_table</see> and
+    ///         other tables in the <see
+    ///         cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+    ///         (both returned in the response) when they are done with this
+    ///         query.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the paging table.  -1 indicates no
+    ///         timeout.  Setting this option will cause a paging table to be
+    ///         generated when needed. The <see
+    ///         cref="ExecuteSqlResponse.paging_table">paging_table</see> and
+    ///         other tables in the <see
+    ///         cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+    ///         (both returned in the response) will be automatically cleared
+    ///         after the TTL expires, if set to a positive number. However, it
+    ///         is still recommended that the caller clear these tables when
+    ///         they are done with this query.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         the parallel step execution of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         plan caching for the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PREPARE_MODE">PREPARE_MODE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, compiles a
+    ///         query into an execution plan and saves it in query cache. Query
+    ///         execution is not performed and an empty response will be
+    ///         returned to user.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         columns that were dict encoded in the source table will be dict
+    ///         encoded in the projection table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+    ///         <description>Query parameters in JSON array or arrays (for
+    ///         inserting multiple rows).  This can be used instead of <see
+    ///         cref="data" /> and <see cref="request_schema_str" />.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         caching of the results of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         rule-based rewrite optimizations for the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, scalar
+    ///         subqueries will be translated into joins.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the intermediate result tables used in
+    ///         query execution.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into or updating a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         or updated will be replaced by that record. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, any such primary key
+    ///         collision will result in the insert/update being rejected and
+    ///         the error handled as determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
+    ///         the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Replace the collided-into record with the
+    ///                 record inserted or updated when a new/modified record
+    ///                 causes a primary key collision with an existing record
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject the insert or update when it
+    ///                 results in a primary key collision with an existing
+    ///                 record</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column using alter table, validate
+    ///         the change before applying it. If <see
+    ///         cref="Options.TRUE">TRUE</see>, then validate all values. A
+    ///         value too large (or too long) for the new type will prevent any
+    ///         change. If <see cref="Options.FALSE">FALSE</see>, then when a
+    ///         value is too large or long, it will be truncated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:
+    ///         </term>
+    ///         <description>Use the supplied value as the <a
+    ///         href="../../../concepts/schemas/#default-schema"
+    ///         target="_top">default schema</a> when processing this SQL
+    ///         command.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
-    /// </summary>
-    public class RawExecuteSqlResponse : KineticaData
+    /// <summary>Constructs an ExecuteSqlRequest object with default
+    /// parameters.</summary>
+    public ExecuteSqlRequest() { }
+
+    /// <summary>Constructs an ExecuteSqlRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="statement">SQL statement (query, DML, or DDL) to be
+    /// executed</param>
+    /// <param name="offset">A positive integer indicating the number of
+    /// initial results to skip (this can be useful for paging through the
+    /// results). The default value is 0. The minimum allowed value is 0. The
+    /// maximum allowed value is MAX_INT.</param>
+    /// <param name="limit">A positive integer indicating the maximum number of
+    /// results to be returned, or END_OF_SET (-9999) to indicate that the
+    /// maximum number of results allowed by the server should be returned.
+    /// The number of records returned will never exceed the server's own
+    /// limit, defined by the <a href="../../../config/#config-main-general"
+    /// target="_top">max_get_records_size</a> parameter in the server
+    /// configuration. Use <see
+    /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see> to
+    /// see if more records exist in the result to be fetched, and <paramref
+    /// name="offset" /> and <paramref name="limit" /> to request subsequent
+    /// pages of results. The default value is -9999.</param>
+    /// <param name="request_schema_str">Avro schema of <paramref name="data"
+    /// />. The default value is ''.</param>
+    /// <param name="data">An array of binary-encoded data for the records to
+    /// be binded to the SQL query.  Or use <see
+    /// cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see> to pass the data
+    /// in JSON format. The default value is an empty List.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         the cost-based optimization of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, enables
+    ///         the use of distributed joins in servicing the given query.  Any
+    ///         query requiring a distributed join will succeed, though hints
+    ///         can be used in the query to change the distribution of the
+    ///         source data to allow the query to succeed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, enables
+    ///         the use of distributed operations in servicing the given query.
+    ///         Any query requiring a distributed join will succeed, though
+    ///         hints can be used in the query to change the distribution of
+    ///         the source data to allow the query to succeed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into or updating a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when primary key
+    ///         record collisions are rejected (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record insert/update that
+    ///         is rejected for resulting in a primary key collision with an
+    ///         existing table record will be ignored with no error generated.
+    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
+    ///         insert/update for resulting in a primary key collision will
+    ///         cause an error to be reported.  If the specified table does not
+    ///         have a primary key or if <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
+    ///         effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore inserts/updates that result in
+    ///                 primary key collisions with existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any inserts/updates that
+    ///                 result in primary key collisions with existing records
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+    ///         Joins/Filters results  will always be materialized ( saved to
+    ///         result tables format).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PAGING_TABLE">PAGING_TABLE</see>:
+    ///         </term>
+    ///         <description>When specified (or <see
+    ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see> is set),
+    ///         the system will create a paging table to hold the results of
+    ///         the query, when the output has more records than are in the
+    ///         response (i.e., when <see
+    ///         cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
+    ///         is <see
+    ///         cref="ExecuteSqlResponse.HasMoreRecords.TRUE">TRUE</see>). If
+    ///         the specified paging table exists, the records from the paging
+    ///         table are returned without re-evaluating the query.  It is the
+    ///         caller's responsibility to clear the <see
+    ///         cref="ExecuteSqlResponse.paging_table">paging_table</see> and
+    ///         other tables in the <see
+    ///         cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+    ///         (both returned in the response) when they are done with this
+    ///         query.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the paging table.  -1 indicates no
+    ///         timeout.  Setting this option will cause a paging table to be
+    ///         generated when needed. The <see
+    ///         cref="ExecuteSqlResponse.paging_table">paging_table</see> and
+    ///         other tables in the <see
+    ///         cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+    ///         (both returned in the response) will be automatically cleared
+    ///         after the TTL expires, if set to a positive number. However, it
+    ///         is still recommended that the caller clear these tables when
+    ///         they are done with this query.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         the parallel step execution of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         plan caching for the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PREPARE_MODE">PREPARE_MODE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, compiles a
+    ///         query into an execution plan and saves it in query cache. Query
+    ///         execution is not performed and an empty response will be
+    ///         returned to user.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         columns that were dict encoded in the source table will be dict
+    ///         encoded in the projection table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+    ///         <description>Query parameters in JSON array or arrays (for
+    ///         inserting multiple rows).  This can be used instead of
+    ///         <paramref name="data" /> and <paramref
+    ///         name="request_schema_str" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         caching of the results of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         rule-based rewrite optimizations for the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, scalar
+    ///         subqueries will be translated into joins.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the intermediate result tables used in
+    ///         query execution.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into or updating a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         or updated will be replaced by that record. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, any such primary key
+    ///         collision will result in the insert/update being rejected and
+    ///         the error handled as determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
+    ///         the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Replace the collided-into record with the
+    ///                 record inserted or updated when a new/modified record
+    ///                 causes a primary key collision with an existing record
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject the insert or update when it
+    ///                 results in a primary key collision with an existing
+    ///                 record</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column using alter table, validate
+    ///         the change before applying it. If <see
+    ///         cref="Options.TRUE">TRUE</see>, then validate all values. A
+    ///         value too large (or too long) for the new type will prevent any
+    ///         change. If <see cref="Options.FALSE">FALSE</see>, then when a
+    ///         value is too large or long, it will be truncated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:
+    ///         </term>
+    ///         <description>Use the supplied value as the <a
+    ///         href="../../../concepts/schemas/#default-schema"
+    ///         target="_top">default schema</a> when processing this SQL
+    ///         command.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ExecuteSqlRequest( string statement,
+                              long? offset = null,
+                              long? limit = null,
+                              string request_schema_str = null,
+                              IList<byte[]> data = null,
+                              IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="has_more_records" />.</summary>
-        /// <remarks><para>Too many records. Returned a partial set.</para>
-        /// </remarks>
-        public struct HasMoreRecords
-        {
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct HasMoreRecords
+        this.statement = statement ?? "";
+        this.offset = offset ?? 0;
+        this.limit = limit ?? -9999;
+        this.encoding = Encoding.BINARY;
+        this.request_schema_str = request_schema_str ?? "";
+        this.data = data ?? new List<byte[]>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>Number of records in the final table</summary>
-            public const string COUNT = "count";
-        } // end struct Info
-
-        /// <summary>The number of objects/records affected.</summary>
-        public long count_affected { get; set; }
-
-        /// <summary>Avro schema of <see cref="binary_encoded_response" /> or
-        /// <see cref="json_encoded_response" />.</summary>
-        public string response_schema_str { get; set; }
-
-        /// <summary>Avro binary encoded response.</summary>
-        public byte[] binary_encoded_response { get; set; }
-
-        /// <summary>Avro JSON encoded response.</summary>
-        public string json_encoded_response { get; set; }
-
-        /// <summary>Total/Filtered number of records.</summary>
-        public long total_number_of_records { get; set; }
-
-        /// <summary>Too many records.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term>true</term>
-        ///     </item>
-        ///     <item>
-        ///         <term>false</term>
-        ///     </item>
-        /// </list></remarks>
-        public bool has_more_records { get; set; }
-
-        /// <summary>Name of the table that has the result records of the
-        /// query.</summary>
-        /// <remarks><para>Valid, when <see cref="has_more_records" /> is <see
-        /// cref="HasMoreRecords.TRUE">TRUE</see></para></remarks>
-        public string paging_table { get; set; }
-
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
-        ///         <description>Number of records in the final table
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RawExecuteSqlResponse
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
-    /// </summary>
-    public class ExecuteSqlResponse : KineticaData
+    /// <summary>Constructs an ExecuteSqlRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="statement">SQL statement (query, DML, or DDL) to be
+    /// executed</param>
+    /// <param name="offset">A positive integer indicating the number of
+    /// initial results to skip (this can be useful for paging through the
+    /// results). The default value is 0. The minimum allowed value is 0. The
+    /// maximum allowed value is MAX_INT.</param>
+    /// <param name="limit">A positive integer indicating the maximum number of
+    /// results to be returned, or END_OF_SET (-9999) to indicate that the
+    /// maximum number of results allowed by the server should be returned.
+    /// The number of records returned will never exceed the server's own
+    /// limit, defined by the <a href="../../../config/#config-main-general"
+    /// target="_top">max_get_records_size</a> parameter in the server
+    /// configuration. Use <see
+    /// cref="ExecuteSqlResponse.has_more_records">has_more_records</see> to
+    /// see if more records exist in the result to be fetched, and <paramref
+    /// name="offset" /> and <paramref name="limit" /> to request subsequent
+    /// pages of results. The default value is -9999.</param>
+    /// <param name="encoding">Specifies the encoding for returned records;
+    /// either 'binary' or 'json'.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// <param name="request_schema_str">Avro schema of <paramref name="data"
+    /// />. The default value is ''.</param>
+    /// <param name="data">An array of binary-encoded data for the records to
+    /// be binded to the SQL query.  Or use <see
+    /// cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see> to pass the data
+    /// in JSON format. The default value is an empty List.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         the cost-based optimization of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, enables
+    ///         the use of distributed joins in servicing the given query.  Any
+    ///         query requiring a distributed join will succeed, though hints
+    ///         can be used in the query to change the distribution of the
+    ///         source data to allow the query to succeed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, enables
+    ///         the use of distributed operations in servicing the given query.
+    ///         Any query requiring a distributed join will succeed, though
+    ///         hints can be used in the query to change the distribution of
+    ///         the source data to allow the query to succeed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision error-suppression
+    ///         policy for inserting into or updating a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>, only used when primary key
+    ///         record collisions are rejected (<see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any record insert/update that
+    ///         is rejected for resulting in a primary key collision with an
+    ///         existing table record will be ignored with no error generated.
+    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
+    ///         insert/update for resulting in a primary key collision will
+    ///         cause an error to be reported.  If the specified table does not
+    ///         have a primary key or if <see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
+    ///         effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Ignore inserts/updates that result in
+    ///                 primary key collisions with existing records
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Treat as errors any inserts/updates that
+    ///                 result in primary key collisions with existing records
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>,
+    ///         Joins/Filters results  will always be materialized ( saved to
+    ///         result tables format).
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PAGING_TABLE">PAGING_TABLE</see>:
+    ///         </term>
+    ///         <description>When specified (or <see
+    ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see> is set),
+    ///         the system will create a paging table to hold the results of
+    ///         the query, when the output has more records than are in the
+    ///         response (i.e., when <see
+    ///         cref="ExecuteSqlResponse.has_more_records">has_more_records</see>
+    ///         is <see
+    ///         cref="ExecuteSqlResponse.HasMoreRecords.TRUE">TRUE</see>). If
+    ///         the specified paging table exists, the records from the paging
+    ///         table are returned without re-evaluating the query.  It is the
+    ///         caller's responsibility to clear the <see
+    ///         cref="ExecuteSqlResponse.paging_table">paging_table</see> and
+    ///         other tables in the <see
+    ///         cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+    ///         (both returned in the response) when they are done with this
+    ///         query.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the paging table.  -1 indicates no
+    ///         timeout.  Setting this option will cause a paging table to be
+    ///         generated when needed. The <see
+    ///         cref="ExecuteSqlResponse.paging_table">paging_table</see> and
+    ///         other tables in the <see
+    ///         cref="ExecuteSqlResponse.Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>
+    ///         (both returned in the response) will be automatically cleared
+    ///         after the TTL expires, if set to a positive number. However, it
+    ///         is still recommended that the caller clear these tables when
+    ///         they are done with this query.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         the parallel step execution of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         plan caching for the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PREPARE_MODE">PREPARE_MODE</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, compiles a
+    ///         query into an execution plan and saves it in query cache. Query
+    ///         execution is not performed and an empty response will be
+    ///         returned to user.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         columns that were dict encoded in the source table will be dict
+    ///         encoded in the projection table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+    ///         <description>Query parameters in JSON array or arrays (for
+    ///         inserting multiple rows).  This can be used instead of
+    ///         <paramref name="data" /> and <paramref
+    ///         name="request_schema_str" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         caching of the results of the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, disables
+    ///         rule-based rewrite optimizations for the given query.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+    ///         <description>If <see cref="Options.FALSE">FALSE</see>, scalar
+    ///         subqueries will be translated into joins.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the intermediate result tables used in
+    ///         query execution.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         </term>
+    ///         <description>Specifies the record collision policy for
+    ///         inserting into or updating a table with a <a
+    ///         href="../../../concepts/tables/#primary-keys"
+    ///         target="_top">primary key</a>. If set to <see
+    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
+    ///         primary key values that match those of a record being inserted
+    ///         or updated will be replaced by that record. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, any such primary key
+    ///         collision will result in the insert/update being rejected and
+    ///         the error handled as determined by <see
+    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
+    ///         the specified table does not have a primary key, then this
+    ///         option has no effect.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Replace the collided-into record with the
+    ///                 record inserted or updated when a new/modified record
+    ///                 causes a primary key collision with an existing record
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Reject the insert or update when it
+    ///                 results in a primary key collision with an existing
+    ///                 record</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:
+    ///         </term>
+    ///         <description>When changing a column using alter table, validate
+    ///         the change before applying it. If <see
+    ///         cref="Options.TRUE">TRUE</see>, then validate all values. A
+    ///         value too large (or too long) for the new type will prevent any
+    ///         change. If <see cref="Options.FALSE">FALSE</see>, then when a
+    ///         value is too large or long, it will be truncated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:
+    ///         </term>
+    ///         <description>Use the supplied value as the <a
+    ///         href="../../../concepts/schemas/#default-schema"
+    ///         target="_top">default schema</a> when processing this SQL
+    ///         command.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public ExecuteSqlRequest( string statement,
+                              long? offset = null,
+                              long? limit = null,
+                              string encoding = null,
+                              string request_schema_str = null,
+                              IList<byte[]> data = null,
+                              IDictionary<string, string> options = null)
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="has_more_records" />.</summary>
-        /// <remarks><para>Too many records. Returned a partial set.</para>
-        /// </remarks>
-        public struct HasMoreRecords
-        {
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-        } // end struct HasMoreRecords
+        this.statement = statement ?? "";
+        this.offset = offset ?? 0;
+        this.limit = limit ?? -9999;
+        this.encoding = encoding ?? Encoding.BINARY;
+        this.request_schema_str = request_schema_str ?? "";
+        this.data = data ?? new List<byte[]>();
+        this.options = options ?? new Dictionary<string, string>();
+    } // end full constructor
+} // end class ExecuteSqlRequest
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="info" />.</summary>
-        /// <remarks><para>Additional information.</para></remarks>
-        public struct Info
-        {
-            /// <summary>Number of records in the final table</summary>
-            public const string COUNT = "count";
-        } // end struct Info
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
+/// </summary>
+public class RawExecuteSqlResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="has_more_records" />.</summary>
+    /// <remarks><para>Too many records. Returned a partial set.</para>
+    /// </remarks>
+    public struct HasMoreRecords
+    {
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct HasMoreRecords
 
-        /// <summary>The number of objects/records affected.</summary>
-        public long count_affected { get; set; }
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>Number of records without final limits applied</summary>
+        public const string COUNT = "count";
 
-        /// <summary>Avro binary encoded response.</summary>
-        public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
+        /// <summary>List of tables, comma-separated, in addition to the <see
+        /// cref="paging_table" />, created as result of the query.</summary>
+        /// <remarks><para>These should be cleared by the caller when they are
+        /// done querying.</para></remarks>
+        public const string RESULT_TABLE_LIST = "result_table_list";
+    } // end struct Info
 
-        /// <summary>Total/Filtered number of records.</summary>
-        public long total_number_of_records { get; set; }
+    /// <summary>The number of objects/records affected.</summary>
+    public long count_affected { get; set; }
 
-        /// <summary>Too many records.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term>true</term>
-        ///     </item>
-        ///     <item>
-        ///         <term>false</term>
-        ///     </item>
-        /// </list></remarks>
-        public bool has_more_records { get; set; }
+    /// <summary>Avro schema of <see cref="binary_encoded_response" /> or <see
+    /// cref="json_encoded_response" />.</summary>
+    public string response_schema_str { get; set; }
 
-        /// <summary>Name of the table that has the result records of the
-        /// query.</summary>
-        /// <remarks><para>Valid, when <see cref="has_more_records" /> is <see
-        /// cref="HasMoreRecords.TRUE">TRUE</see></para></remarks>
-        public string paging_table { get; set; }
+    /// <summary>Avro binary encoded response.</summary>
+    public byte[] binary_encoded_response { get; set; }
 
-        /// <summary>Additional information.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
-        ///         <description>Number of records in the final table
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class ExecuteSqlResponse
-} // end namespace kinetica
+    /// <summary>Avro JSON encoded response.</summary>
+    public string json_encoded_response { get; set; }
+
+    /// <summary>Total/Filtered number of records.</summary>
+    public long total_number_of_records { get; set; }
+
+    /// <summary>Too many records.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list></remarks>
+    public bool has_more_records { get; set; }
+
+    /// <summary>Name of the table that has the result records of the query.
+    /// </summary>
+    /// <remarks><para>Valid, when <see cref="has_more_records" /> is <see
+    /// cref="HasMoreRecords.TRUE">TRUE</see>.  The caller should clear this
+    /// and all tables in <see
+    /// cref="Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see> when they are
+    /// done querying.</para></remarks>
+    public string paging_table { get; set; }
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
+    ///         <description>Number of records without final limits applied
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>:</term>
+    ///         <description>List of tables, comma-separated, in addition to
+    ///         the <see cref="paging_table" />, created as result of the
+    ///         query. These should be cleared by the caller when they are done
+    ///         querying.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RawExecuteSqlResponse
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
+/// </summary>
+public class ExecuteSqlResponse : KineticaData
+{
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="has_more_records" />.</summary>
+    /// <remarks><para>Too many records. Returned a partial set.</para>
+    /// </remarks>
+    public struct HasMoreRecords
+    {
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+    } // end struct HasMoreRecords
+
+    /// <summary>A set of string constants for the parameter <see cref="info"
+    /// />.</summary>
+    /// <remarks><para>Additional information.</para></remarks>
+    public struct Info
+    {
+        /// <summary>Number of records without final limits applied</summary>
+        public const string COUNT = "count";
+
+        /// <summary>List of tables, comma-separated, in addition to the <see
+        /// cref="paging_table" />, created as result of the query.</summary>
+        /// <remarks><para>These should be cleared by the caller when they are
+        /// done querying.</para></remarks>
+        public const string RESULT_TABLE_LIST = "result_table_list";
+    } // end struct Info
+
+    /// <summary>The number of objects/records affected.</summary>
+    public long count_affected { get; set; }
+
+    /// <summary>Avro binary encoded response.</summary>
+    public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
+
+    /// <summary>Total/Filtered number of records.</summary>
+    public long total_number_of_records { get; set; }
+
+    /// <summary>Too many records.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>true</term>
+    ///     </item>
+    ///     <item>
+    ///         <term>false</term>
+    ///     </item>
+    /// </list></remarks>
+    public bool has_more_records { get; set; }
+
+    /// <summary>Name of the table that has the result records of the query.
+    /// </summary>
+    /// <remarks><para>Valid, when <see cref="has_more_records" /> is <see
+    /// cref="HasMoreRecords.TRUE">TRUE</see>.  The caller should clear this
+    /// and all tables in <see
+    /// cref="Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see> when they are
+    /// done querying.</para></remarks>
+    public string paging_table { get; set; }
+
+    /// <summary>Additional information.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
+    ///         <description>Number of records without final limits applied
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Info.RESULT_TABLE_LIST">RESULT_TABLE_LIST</see>:</term>
+    ///         <description>List of tables, comma-separated, in addition to
+    ///         the <see cref="paging_table" />, created as result of the
+    ///         query. These should be cleared by the caller when they are done
+    ///         querying.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class ExecuteSqlResponse

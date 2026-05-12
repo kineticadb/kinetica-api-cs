@@ -6,170 +6,169 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
+/// </summary>
+/// <remarks><para>Deletes a directory from <a href="../../../tools/kifs/"
+/// target="_top">KiFS</a>.</para></remarks>
+public class DeleteDirectoryRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
-    /// </summary>
-    /// <remarks><para>Deletes a directory from <a href="../../../tools/kifs/"
-    /// target="_top">KiFS</a>.</para></remarks>
-    public class DeleteDirectoryRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, will delete
-            /// directory and all files residing in it.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string RECURSIVE = "recursive";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error is
-            /// returned if specified directory does not exist.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
-        } // end struct Options
-
-        /// <summary>Name of the directory in KiFS to be deleted.</summary>
-        /// <remarks><para>The directory must contain no files, unless <see
-        /// cref="Options.RECURSIVE">RECURSIVE</see> is <see
-        /// cref="Options.TRUE">TRUE</see></para></remarks>
-        public string directory_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.RECURSIVE">RECURSIVE</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, will
-        ///         delete directory and all files residing in it. If false,
-        ///         directory must be empty for deletion.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, no
-        ///         error is returned if specified directory does not exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a DeleteDirectoryRequest object with default
-        /// parameters.</summary>
-        public DeleteDirectoryRequest() { }
-
-        /// <summary>Constructs a DeleteDirectoryRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="directory_name">Name of the directory in KiFS to be
-        /// deleted. The directory must contain no files, unless <see
-        /// cref="Options.RECURSIVE">RECURSIVE</see> is <see
-        /// cref="Options.TRUE">TRUE</see></param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, will delete
+        /// directory and all files residing in it.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.RECURSIVE">RECURSIVE</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, will
-        ///         delete directory and all files residing in it. If false,
-        ///         directory must be empty for deletion.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, no
-        ///         error is returned if specified directory does not exist.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public DeleteDirectoryRequest( string directory_name,
-                                       IDictionary<string, string> options = null)
-        {
-            this.directory_name = directory_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DeleteDirectoryRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string RECURSIVE = "recursive";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
-    /// </summary>
-    public class DeleteDirectoryResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error is
+        /// returned if specified directory does not exist.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
+    } // end struct Options
+
+    /// <summary>Name of the directory in KiFS to be deleted.</summary>
+    /// <remarks><para>The directory must contain no files, unless <see
+    /// cref="Options.RECURSIVE">RECURSIVE</see> is <see
+    /// cref="Options.TRUE">TRUE</see></para></remarks>
+    public string directory_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.RECURSIVE">RECURSIVE</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, will
+    ///         delete directory and all files residing in it. If false,
+    ///         directory must be empty for deletion.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         is returned if specified directory does not exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a DeleteDirectoryRequest object with default
+    /// parameters.</summary>
+    public DeleteDirectoryRequest() { }
+
+    /// <summary>Constructs a DeleteDirectoryRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="directory_name">Name of the directory in KiFS to be
+    /// deleted. The directory must contain no files, unless <see
+    /// cref="Options.RECURSIVE">RECURSIVE</see> is <see
+    /// cref="Options.TRUE">TRUE</see></param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.RECURSIVE">RECURSIVE</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, will
+    ///         delete directory and all files residing in it. If false,
+    ///         directory must be empty for deletion.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         </term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         is returned if specified directory does not exist.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public DeleteDirectoryRequest( string directory_name,
+                                   IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="DeleteDirectoryRequest.directory_name">directory_name</see>.
-        /// </summary>
-        public string directory_name { get; set; }
+        this.directory_name = directory_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DeleteDirectoryRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DeleteDirectoryResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
+/// </summary>
+public class DeleteDirectoryResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="DeleteDirectoryRequest.directory_name">directory_name</see>.
+    /// </summary>
+    public string directory_name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DeleteDirectoryResponse

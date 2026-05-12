@@ -6,440 +6,427 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.alterResourceGroup(AlterResourceGroupRequest)">Kinetica.alterResourceGroup</see>.
+/// </summary>
+/// <remarks><para>Alters the properties of an existing resource group to
+/// facilitate resource management.</para></remarks>
+public class AlterResourceGroupRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterResourceGroup(AlterResourceGroupRequest)">Kinetica.alterResourceGroup</see>.
-    /// </summary>
-    /// <remarks><para>Alters the properties of an existing resource group to
-    /// facilitate resource management.</para></remarks>
-    public class AlterResourceGroupRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="tier_attributes" />.</summary>
+    /// <remarks><para>Optional map containing tier names and their respective
+    /// attribute group limits.  The only valid attribute limit that can be set
+    /// is max_memory (in bytes) for the VRAM and RAM tiers.</para>
+    /// <para>For instance, to set max VRAM capacity to 1GB per rank per GPU
+    /// and max RAM capacity to 10GB per rank, use:
+    /// {'VRAM':{'max_memory':'1000000000'},
+    /// 'RAM':{'max_memory':'10000000000'}}</para></remarks>
+    public struct TierAttributes
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="tier_attributes" />.</summary>
-        /// <remarks><para>Optional map containing tier names and their
-        /// respective attribute group limits.  The only valid attribute limit
-        /// that can be set is max_memory (in bytes) for the VRAM & RAM
-        /// tiers.</para>
-        /// <para>For instance, to set max VRAM capacity to 1GB per rank per
-        /// GPU and max RAM capacity to 10GB per rank, use:
-        /// {'VRAM':{'max_memory':'1000000000'},
-        /// 'RAM':{'max_memory':'10000000000'}}</para></remarks>
-        public struct TierAttributes
-        {
-            /// <summary>Maximum amount of memory usable at one time, per rank,
-            /// per GPU, for the VRAM tier; or maximum amount of memory usable
-            /// at one time, per rank, for the RAM tier.</summary>
-            public const string MAX_MEMORY = "max_memory";
-        } // end struct TierAttributes
+        /// <summary>Maximum amount of memory usable at one time, per rank, per
+        /// GPU, for the VRAM tier; or maximum amount of memory usable at one
+        /// time, per rank, for the RAM tier.</summary>
+        public const string MAX_MEMORY = "max_memory";
+    } // end struct TierAttributes
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="ranking" />.</summary>
-        /// <remarks><para>If the resource group ranking is to be updated, this
-        /// indicates the relative ranking among existing resource groups where
-        /// this resource group will be placed.</para></remarks>
-        public struct Ranking
-        {
-            /// <summary>Don't change the ranking</summary>
-            public const string EMPTY_STRING = "";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="ranking" />.</summary>
+    /// <remarks><para>If the resource group ranking is to be updated, this
+    /// indicates the relative ranking among existing resource groups where
+    /// this resource group will be placed.</para></remarks>
+    public struct Ranking
+    {
+        /// <summary>Don't change the ranking</summary>
+        public const string EMPTY_STRING = "";
 
-            /// <summary>Make this resource group the new first one in the
-            /// ordering</summary>
-            public const string FIRST = "first";
+        /// <summary>Make this resource group the new first one in the ordering
+        /// </summary>
+        public const string FIRST = "first";
 
-            /// <summary>Make this resource group the new last one in the
-            /// ordering</summary>
-            public const string LAST = "last";
+        /// <summary>Make this resource group the new last one in the ordering
+        /// </summary>
+        public const string LAST = "last";
 
-            /// <summary>Place this resource group before the one specified by
-            /// <see cref="adjoining_resource_group" /> in the ordering
-            /// </summary>
-            public const string BEFORE = "before";
+        /// <summary>Place this resource group before the one specified by <see
+        /// cref="adjoining_resource_group" /> in the ordering</summary>
+        public const string BEFORE = "before";
 
-            /// <summary>Place this resource group after the one specified by
-            /// <see cref="adjoining_resource_group" /> in the ordering
-            /// </summary>
-            public const string AFTER = "after";
-        } // end struct Ranking
+        /// <summary>Place this resource group after the one specified by <see
+        /// cref="adjoining_resource_group" /> in the ordering</summary>
+        public const string AFTER = "after";
+    } // end struct Ranking
 
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>Maximum number of simultaneous threads that will be
-            /// used to execute a request, per rank, for this group.</summary>
-            /// <remarks><para>The minimum allowed value is '4'.</para>
-            /// </remarks>
-            public const string MAX_CPU_CONCURRENCY = "max_cpu_concurrency";
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
+    {
+        /// <summary>Maximum number of simultaneous threads that will be used
+        /// to execute a request, per rank, for this group.</summary>
+        /// <remarks><para>The minimum allowed value is '4'.</para></remarks>
+        public const string MAX_CPU_CONCURRENCY = "max_cpu_concurrency";
 
-            /// <summary>Maximum amount of data, per rank, in bytes, that can
-            /// be used by all database objects within this group.</summary>
-            /// <remarks><para> Set to -1 to indicate no upper limit. The
-            /// minimum allowed value is '-1'.</para></remarks>
-            public const string MAX_DATA = "max_data";
+        /// <summary>Maximum amount of data, per rank, in bytes, that can be
+        /// used by all database objects within this group.</summary>
+        /// <remarks><para> Set to -1 to indicate no upper limit. The minimum
+        /// allowed value is '-1'.</para></remarks>
+        public const string MAX_DATA = "max_data";
 
-            /// <summary>Maximum priority of a scheduled task for this group.
-            /// </summary>
-            /// <remarks><para>The minimum allowed value is '1'. The maximum
-            /// allowed value is '100'.</para></remarks>
-            public const string MAX_SCHEDULING_PRIORITY = "max_scheduling_priority";
+        /// <summary>Maximum priority of a scheduled task for this group.
+        /// </summary>
+        /// <remarks><para>The minimum allowed value is '1'. The maximum
+        /// allowed value is '100'.</para></remarks>
+        public const string MAX_SCHEDULING_PRIORITY = "max_scheduling_priority";
 
-            /// <summary>Maximum priority of a tiered object for this group.
-            /// </summary>
-            /// <remarks><para>The minimum allowed value is '1'. The maximum
-            /// allowed value is '10'.</para></remarks>
-            public const string MAX_TIER_PRIORITY = "max_tier_priority";
+        /// <summary>Maximum priority of a tiered object for this group.
+        /// </summary>
+        /// <remarks><para>The minimum allowed value is '1'. The maximum
+        /// allowed value is '10'.</para></remarks>
+        public const string MAX_TIER_PRIORITY = "max_tier_priority";
 
-            /// <summary>If <see cref="Options.TRUE">TRUE</see>, this request
-            /// applies to the global default resource group.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string IS_DEFAULT_GROUP = "is_default_group";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>If <see cref="Options.TRUE">TRUE</see> and a
-            /// system-level change was requested, the system configuration
-            /// will be written to disk upon successful application of this
-            /// request.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PERSIST = "persist";
-        } // end struct Options
-
-        /// <summary>Name of the group to be altered.</summary>
-        /// <remarks><para>Must be an existing resource group name or an empty
-        /// string when used in conjunction with <see
-        /// cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>.</para>
-        /// </remarks>
-        public string name { get; set; }
-
-        /// <summary>Optional map containing tier names and their respective
-        /// attribute group limits.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:</term>
-        ///         <description>Maximum amount of memory usable at one time,
-        ///         per rank, per GPU, for the VRAM tier; or maximum amount of
-        ///         memory usable at one time, per rank, for the RAM tier.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, IDictionary<string, string>> tier_attributes { get; set; } = new Dictionary<string, IDictionary<string, string>>();
-
-        /// <summary>If the resource group ranking is to be updated, this
-        /// indicates the relative ranking among existing resource groups where
-        /// this resource group will be placed.</summary>
+        /// <summary>If <see cref="Options.TRUE">TRUE</see>, this request
+        /// applies to the global default resource group.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>:
-        ///         </term>
-        ///         <description>Don't change the ranking</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Ranking.FIRST">FIRST</see>:</term>
-        ///         <description>Make this resource group the new first one in
-        ///         the ordering</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.LAST">LAST</see>:</term>
-        ///         <description>Make this resource group the new last one in
-        ///         the ordering</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.BEFORE">BEFORE</see>:</term>
-        ///         <description>Place this resource group before the one
-        ///         specified by <see cref="adjoining_resource_group" /> in the
-        ///         ordering</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.AFTER">AFTER</see>:</term>
-        ///         <description>Place this resource group after the one
-        ///         specified by <see cref="adjoining_resource_group" /> in the
-        ///         ordering</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see
-        /// cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>.</para></remarks>
-        public string ranking { get; set; } = Ranking.EMPTY_STRING;
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string IS_DEFAULT_GROUP = "is_default_group";
 
-        /// <summary>If <see cref="ranking" /> is <see
-        /// cref="Ranking.BEFORE">BEFORE</see> or <see
-        /// cref="Ranking.AFTER">AFTER</see>, this field indicates the resource
-        /// group before or after which the current group will be placed;
-        /// otherwise, leave blank.</summary>
-        /// <remarks><para>The default value is ''.</para></remarks>
-        public string adjoining_resource_group { get; set; } = "";
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:
-        ///         </term>
-        ///         <description>Maximum number of simultaneous threads that
-        ///         will be used to execute a request, per rank, for this
-        ///         group. The minimum allowed value is '4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_DATA">MAX_DATA</see>:</term>
-        ///         <description>Maximum amount of data, per rank, in bytes,
-        ///         that can be used by all database objects within this group.
-        ///         Set to -1 to indicate no upper limit. The minimum allowed
-        ///         value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:
-        ///         </term>
-        ///         <description>Maximum priority of a scheduled task for this
-        ///         group. The minimum allowed value is '1'. The maximum
-        ///         allowed value is '100'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_TIER_PRIORITY">MAX_TIER_PRIORITY</see>:
-        ///         </term>
-        ///         <description>Maximum priority of a tiered object for this
-        ///         group. The minimum allowed value is '1'. The maximum
-        ///         allowed value is '10'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, this
-        ///         request applies to the global default resource group. It is
-        ///         an error for this field to be <see
-        ///         cref="Options.TRUE">TRUE</see> when the <see cref="name" />
-        ///         field is also populated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and a
-        ///         system-level change was requested, the system configuration
-        ///         will be written to disk upon successful application of this
-        ///         request. This will commit the changes from this request and
-        ///         any additional in-memory modifications.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs an AlterResourceGroupRequest object with
-        /// default parameters.</summary>
-        public AlterResourceGroupRequest() { }
-
-        /// <summary>Constructs an AlterResourceGroupRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="name">Name of the group to be altered. Must be an
-        /// existing resource group name or an empty string when used in
-        /// conjunction with <see
-        /// cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>.</param>
-        /// <param name="tier_attributes">Optional map containing tier names
-        /// and their respective attribute group limits.  The only valid
-        /// attribute limit that can be set is max_memory (in bytes) for the
-        /// VRAM & RAM tiers.
-        /// For instance, to set max VRAM capacity to 1GB per rank per GPU and
-        /// max RAM capacity to 10GB per rank, use:
-        /// {'VRAM':{'max_memory':'1000000000'},
-        /// 'RAM':{'max_memory':'10000000000'}}.
+        /// <summary>If <see cref="Options.TRUE">TRUE</see> and a system-level
+        /// change was requested, the system configuration will be written to
+        /// disk upon successful application of this request.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:</term>
-        ///         <description>Maximum amount of memory usable at one time,
-        ///         per rank, per GPU, for the VRAM tier; or maximum amount of
-        ///         memory usable at one time, per rank, for the RAM tier.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        /// <param name="ranking">If the resource group ranking is to be
-        /// updated, this indicates the relative ranking among existing
-        /// resource groups where this resource group will be placed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>:
-        ///         </term>
-        ///         <description>Don't change the ranking</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.FIRST">FIRST</see>:</term>
-        ///         <description>Make this resource group the new first one in
-        ///         the ordering</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.LAST">LAST</see>:</term>
-        ///         <description>Make this resource group the new last one in
-        ///         the ordering</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.BEFORE">BEFORE</see>:</term>
-        ///         <description>Place this resource group before the one
-        ///         specified by <paramref name="adjoining_resource_group" />
-        ///         in the ordering</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Ranking.AFTER">AFTER</see>:</term>
-        ///         <description>Place this resource group after the one
-        ///         specified by <paramref name="adjoining_resource_group" />
-        ///         in the ordering</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>.</param>
-        /// <param name="adjoining_resource_group">If <paramref name="ranking"
-        /// /> is <see cref="Ranking.BEFORE">BEFORE</see> or <see
-        /// cref="Ranking.AFTER">AFTER</see>, this field indicates the resource
-        /// group before or after which the current group will be placed;
-        /// otherwise, leave blank. The default value is ''.</param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:
-        ///         </term>
-        ///         <description>Maximum number of simultaneous threads that
-        ///         will be used to execute a request, per rank, for this
-        ///         group. The minimum allowed value is '4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_DATA">MAX_DATA</see>:</term>
-        ///         <description>Maximum amount of data, per rank, in bytes,
-        ///         that can be used by all database objects within this group.
-        ///         Set to -1 to indicate no upper limit. The minimum allowed
-        ///         value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:
-        ///         </term>
-        ///         <description>Maximum priority of a scheduled task for this
-        ///         group. The minimum allowed value is '1'. The maximum
-        ///         allowed value is '100'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_TIER_PRIORITY">MAX_TIER_PRIORITY</see>:
-        ///         </term>
-        ///         <description>Maximum priority of a tiered object for this
-        ///         group. The minimum allowed value is '1'. The maximum
-        ///         allowed value is '10'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:
-        ///         </term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see>, this
-        ///         request applies to the global default resource group. It is
-        ///         an error for this field to be <see
-        ///         cref="Options.TRUE">TRUE</see> when the <paramref
-        ///         name="name" /> field is also populated.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <see cref="Options.TRUE">TRUE</see> and a
-        ///         system-level change was requested, the system configuration
-        ///         will be written to disk upon successful application of this
-        ///         request. This will commit the changes from this request and
-        ///         any additional in-memory modifications.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public AlterResourceGroupRequest( string name,
-                                          IDictionary<string, IDictionary<string, string>> tier_attributes = null,
-                                          string ranking = null,
-                                          string adjoining_resource_group = null,
-                                          IDictionary<string, string> options = null)
-        {
-            this.name = name ?? "";
-            this.tier_attributes = tier_attributes ?? new Dictionary<string, IDictionary<string, string>>();
-            this.ranking = ranking ?? Ranking.EMPTY_STRING;
-            this.adjoining_resource_group = adjoining_resource_group ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterResourceGroupRequest
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PERSIST = "persist";
+    } // end struct Options
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterResourceGroup(AlterResourceGroupRequest)">Kinetica.alterResourceGroup</see>.
-    /// </summary>
-    public class AlterResourceGroupResponse : KineticaData
+    /// <summary>Name of the group to be altered.</summary>
+    /// <remarks><para>Must be an existing resource group name or an empty
+    /// string when used in conjunction with <see
+    /// cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>.</para>
+    /// </remarks>
+    public string name { get; set; }
+
+    /// <summary>Optional map containing tier names and their respective
+    /// attribute group limits.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Maximum amount of memory usable at one time, per
+    ///         rank, per GPU, for the VRAM tier; or maximum amount of memory
+    ///         usable at one time, per rank, for the RAM tier.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, IDictionary<string, string>> tier_attributes { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+    /// <summary>If the resource group ranking is to be updated, this indicates
+    /// the relative ranking among existing resource groups where this resource
+    /// group will be placed.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>:
+    ///         </term>
+    ///         <description>Don't change the ranking</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.FIRST">FIRST</see>:</term>
+    ///         <description>Make this resource group the new first one in the
+    ///         ordering</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.LAST">LAST</see>:</term>
+    ///         <description>Make this resource group the new last one in the
+    ///         ordering</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.BEFORE">BEFORE</see>:</term>
+    ///         <description>Place this resource group before the one specified
+    ///         by <see cref="adjoining_resource_group" /> in the ordering
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.AFTER">AFTER</see>:</term>
+    ///         <description>Place this resource group after the one specified
+    ///         by <see cref="adjoining_resource_group" /> in the ordering
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see
+    /// cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>.</para></remarks>
+    public string ranking { get; set; } = Ranking.EMPTY_STRING;
+
+    /// <summary>If <see cref="ranking" /> is <see
+    /// cref="Ranking.BEFORE">BEFORE</see> or <see
+    /// cref="Ranking.AFTER">AFTER</see>, this field indicates the resource
+    /// group before or after which the current group will be placed;
+    /// otherwise, leave blank.</summary>
+    /// <remarks><para>The default value is ''.</para></remarks>
+    public string adjoining_resource_group { get; set; } = "";
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:
+    ///         </term>
+    ///         <description>Maximum number of simultaneous threads that will
+    ///         be used to execute a request, per rank, for this group. The
+    ///         minimum allowed value is '4'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_DATA">MAX_DATA</see>:</term>
+    ///         <description>Maximum amount of data, per rank, in bytes, that
+    ///         can be used by all database objects within this group.  Set to
+    ///         -1 to indicate no upper limit. The minimum allowed value is
+    ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:
+    ///         </term>
+    ///         <description>Maximum priority of a scheduled task for this
+    ///         group. The minimum allowed value is '1'. The maximum allowed
+    ///         value is '100'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_TIER_PRIORITY">MAX_TIER_PRIORITY</see>:
+    ///         </term>
+    ///         <description>Maximum priority of a tiered object for this
+    ///         group. The minimum allowed value is '1'. The maximum allowed
+    ///         value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, this
+    ///         request applies to the global default resource group. It is an
+    ///         error for this field to be <see cref="Options.TRUE">TRUE</see>
+    ///         when the <see cref="name" /> field is also populated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and a
+    ///         system-level change was requested, the system configuration
+    ///         will be written to disk upon successful application of this
+    ///         request. This will commit the changes from this request and any
+    ///         additional in-memory modifications.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs an AlterResourceGroupRequest object with default
+    /// parameters.</summary>
+    public AlterResourceGroupRequest() { }
+
+    /// <summary>Constructs an AlterResourceGroupRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="name">Name of the group to be altered. Must be an existing
+    /// resource group name or an empty string when used in conjunction with
+    /// <see cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>.</param>
+    /// <param name="tier_attributes">Optional map containing tier names and
+    /// their respective attribute group limits.  The only valid attribute
+    /// limit that can be set is max_memory (in bytes) for the VRAM and RAM
+    /// tiers.
+    /// For instance, to set max VRAM capacity to 1GB per rank per GPU and max
+    /// RAM capacity to 10GB per rank, use:
+    /// {'VRAM':{'max_memory':'1000000000'},
+    /// 'RAM':{'max_memory':'10000000000'}}.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:
+    ///         </term>
+    ///         <description>Maximum amount of memory usable at one time, per
+    ///         rank, per GPU, for the VRAM tier; or maximum amount of memory
+    ///         usable at one time, per rank, for the RAM tier.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    /// <param name="ranking">If the resource group ranking is to be updated,
+    /// this indicates the relative ranking among existing resource groups
+    /// where this resource group will be placed.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>:
+    ///         </term>
+    ///         <description>Don't change the ranking</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.FIRST">FIRST</see>:</term>
+    ///         <description>Make this resource group the new first one in the
+    ///         ordering</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.LAST">LAST</see>:</term>
+    ///         <description>Make this resource group the new last one in the
+    ///         ordering</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.BEFORE">BEFORE</see>:</term>
+    ///         <description>Place this resource group before the one specified
+    ///         by <paramref name="adjoining_resource_group" /> in the ordering
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Ranking.AFTER">AFTER</see>:</term>
+    ///         <description>Place this resource group after the one specified
+    ///         by <paramref name="adjoining_resource_group" /> in the ordering
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is <see
+    /// cref="Ranking.EMPTY_STRING">EMPTY_STRING</see>.</param>
+    /// <param name="adjoining_resource_group">If <paramref name="ranking" />
+    /// is <see cref="Ranking.BEFORE">BEFORE</see> or <see
+    /// cref="Ranking.AFTER">AFTER</see>, this field indicates the resource
+    /// group before or after which the current group will be placed;
+    /// otherwise, leave blank. The default value is ''.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:
+    ///         </term>
+    ///         <description>Maximum number of simultaneous threads that will
+    ///         be used to execute a request, per rank, for this group. The
+    ///         minimum allowed value is '4'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_DATA">MAX_DATA</see>:</term>
+    ///         <description>Maximum amount of data, per rank, in bytes, that
+    ///         can be used by all database objects within this group.  Set to
+    ///         -1 to indicate no upper limit. The minimum allowed value is
+    ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:
+    ///         </term>
+    ///         <description>Maximum priority of a scheduled task for this
+    ///         group. The minimum allowed value is '1'. The maximum allowed
+    ///         value is '100'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_TIER_PRIORITY">MAX_TIER_PRIORITY</see>:
+    ///         </term>
+    ///         <description>Maximum priority of a tiered object for this
+    ///         group. The minimum allowed value is '1'. The maximum allowed
+    ///         value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see>, this
+    ///         request applies to the global default resource group. It is an
+    ///         error for this field to be <see cref="Options.TRUE">TRUE</see>
+    ///         when the <paramref name="name" /> field is also populated.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see cref="Options.TRUE">TRUE</see> and a
+    ///         system-level change was requested, the system configuration
+    ///         will be written to disk upon successful application of this
+    ///         request. This will commit the changes from this request and any
+    ///         additional in-memory modifications.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public AlterResourceGroupRequest( string name,
+                                      IDictionary<string, IDictionary<string, string>> tier_attributes = null,
+                                      string ranking = null,
+                                      string adjoining_resource_group = null,
+                                      IDictionary<string, string> options = null)
     {
-        /// <summary>Value of <see
-        /// cref="AlterResourceGroupRequest.name">name</see>.</summary>
-        public string name { get; set; }
+        this.name = name ?? "";
+        this.tier_attributes = tier_attributes ?? new Dictionary<string, IDictionary<string, string>>();
+        this.ranking = ranking ?? Ranking.EMPTY_STRING;
+        this.adjoining_resource_group = adjoining_resource_group ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterResourceGroupRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterResourceGroupResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.alterResourceGroup(AlterResourceGroupRequest)">Kinetica.alterResourceGroup</see>.
+/// </summary>
+public class AlterResourceGroupResponse : KineticaData
+{
+    /// <summary>Value of <see
+    /// cref="AlterResourceGroupRequest.name">name</see>.</summary>
+    public string name { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterResourceGroupResponse

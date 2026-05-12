@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 
-namespace kinetica.Utils
-{
+namespace kinetica.Utils;
 
-    /// <summary>
-    /// Builds or creates <see cref="RecordKey"/> objects based on a given record.
+/// <summary>
+/// Builds or creates <see cref="RecordKey"/> objects based on a given record.
     /// </summary>
     /// <typeparam name="T">The type of record to build keys off of.</typeparam>
     internal sealed class RecordKeyBuilder<T>
@@ -26,7 +26,8 @@ namespace kinetica.Utils
             CHAR256,
             DATE,
             DATETIME,
-            DECIMAL,
+            DECIMAL,       // 8-byte decimal (precision <= 18)
+            DECIMAL_BIG,   // 12-byte decimal (precision > 18)
             DOUBLE,
             FLOAT,
             INT,
@@ -39,11 +40,26 @@ namespace kinetica.Utils
             TIMESTAMP
         }  // end enum ColumnType
 
+        /// <summary>
+        /// Stores precision and scale for decimal columns.
+        /// </summary>
+        private struct DecimalInfo
+        {
+            public int Precision;
+            public int Scale;
+        }
+
+        /// <summary>
+        /// Regex to parse decimal(precision, scale) format
+        /// </summary>
+        private static readonly Regex DECIMAL_REGEX = new Regex(@"decimal\s*\(\s*(\d+)\s*,\s*(\d+)\s*\)", RegexOptions.IgnoreCase);
+
 
         // Class members
         private KineticaType ktype;
         private IList<int> routing_column_indices;
         private IList<ColumnType> column_types;
+        private IDictionary<int, DecimalInfo> decimal_infos;  // Maps column index to precision/scale
         private int buffer_size;
 
         public RecordKeyBuilder(bool is_primary_key, KineticaType ktype)
@@ -53,6 +69,7 @@ namespace kinetica.Utils
             this.buffer_size = 0;
             routing_column_indices = new List<int>();
             column_types = new List<ColumnType>();
+            decimal_infos = new Dictionary<int, DecimalInfo>();
 
             // We need to check if the type has all of the following: x, y, timestamp, track ID
             // (this will tell us if it's a track type table, and if so, the track ID
@@ -235,10 +252,22 @@ namespace kinetica.Utils
                                 column_types.Add(ColumnType.DATETIME);
                                 this.buffer_size += 8;
                             }
-                            else if (column.getProperties().Contains(ColumnProperty.DECIMAL))
+                            else if (HasDecimalProperty(column.getProperties(), out int precision, out int scale))
                             {
-                                column_types.Add(ColumnType.DECIMAL);
-                                this.buffer_size += 8;
+                                // Store decimal info for this column
+                                decimal_infos[i] = new DecimalInfo { Precision = precision, Scale = scale };
+
+                                // Use 8 bytes for precision <= 18, 12 bytes for precision > 18
+                                if (precision > 18)
+                                {
+                                    column_types.Add(ColumnType.DECIMAL_BIG);
+                                    this.buffer_size += 12;
+                                }
+                                else
+                                {
+                                    column_types.Add(ColumnType.DECIMAL);
+                                    this.buffer_size += 8;
+                                }
                             }
                             else if (column.getProperties().Contains(ColumnProperty.IPV4))
                             {
@@ -265,6 +294,66 @@ namespace kinetica.Utils
                 }  // end switch on the column's primitive data type
             }  // end foreach
         }  // end constructor RecordKeyBuilder
+
+
+        /// <summary>
+        /// Checks if column properties contain a decimal specification and extracts precision/scale.
+        /// Supports formats like "decimal(19,4)" or "precision=19", "scale=4" as separate properties.
+        /// </summary>
+        /// <param name="properties">The column properties to check.</param>
+        /// <param name="precision">Output: the extracted precision (default 19 if not found).</param>
+        /// <param name="scale">Output: the extracted scale (default 4 if not found).</param>
+        /// <returns>True if a decimal property was found.</returns>
+        private static bool HasDecimalProperty(IList<string> properties, out int precision, out int scale)
+        {
+            precision = 19;  // Default precision
+            scale = 4;       // Default scale
+            bool foundDecimal = false;
+
+            foreach (var prop in properties)
+            {
+                // Check for "decimal" (simple form)
+                if (prop.Equals(ColumnProperty.DECIMAL, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    foundDecimal = true;
+                    continue;
+                }
+
+                // Check for decimal(precision, scale) format
+                var match = DECIMAL_REGEX.Match(prop);
+                if (match.Success)
+                {
+                    foundDecimal = true;
+                    if (int.TryParse(match.Groups[1].Value, out int p))
+                        precision = p;
+                    if (int.TryParse(match.Groups[2].Value, out int s))
+                        scale = s;
+                    continue;
+                }
+
+                // Check for precision=X format
+                if (prop.StartsWith("precision=", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    var val = prop.Substring(10);
+                    if (int.TryParse(val, out int p))
+                        precision = p;
+                    foundDecimal = true;
+                    continue;
+                }
+
+                // Check for scale=X format
+                if (prop.StartsWith("scale=", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    var val = prop.Substring(6);
+                    if (int.TryParse(val, out int s))
+                        scale = s;
+                    // Note: scale alone doesn't indicate decimal
+                    continue;
+                }
+            }
+
+            return foundDecimal;
+        }
 
 
         /// <summary>
@@ -339,7 +428,23 @@ namespace kinetica.Utils
                         break;
 
                     case ColumnType.DECIMAL:
-                        key.addDecimal((string)value);
+                        {
+                            // Get precision/scale for this column
+                            var decInfo = decimal_infos.TryGetValue(this.routing_column_indices[i], out var info)
+                                ? info
+                                : new DecimalInfo { Precision = 19, Scale = 4 };
+                            key.addDecimal((string)value, decInfo.Precision, decInfo.Scale);
+                        }
+                        break;
+
+                    case ColumnType.DECIMAL_BIG:
+                        {
+                            // Get precision/scale for this column (12-byte decimal)
+                            var decInfo = decimal_infos.TryGetValue(this.routing_column_indices[i], out var info)
+                                ? info
+                                : new DecimalInfo { Precision = 38, Scale = 10 };
+                            key.addDecimal((string)value, decInfo.Precision, decInfo.Scale);
+                        }
                         break;
 
                     case ColumnType.DOUBLE:
@@ -385,7 +490,7 @@ namespace kinetica.Utils
             }  // end for loop
 
             // Compute the hash for the key and return it
-            key.computHashes();
+            key.computeHashes();
             return key;
         }  // end build()
 
@@ -452,6 +557,7 @@ namespace kinetica.Utils
                     case ColumnType.DATE:
                     case ColumnType.DATETIME:
                     case ColumnType.DECIMAL:
+                    case ColumnType.DECIMAL_BIG:
                     case ColumnType.IPV4:
                     case ColumnType.STRING:
                     case ColumnType.TIME:
@@ -505,5 +611,3 @@ namespace kinetica.Utils
         }
 
     }  // end class RecordKeyBuilder
-
-}   // end namespace kinetica.Utils

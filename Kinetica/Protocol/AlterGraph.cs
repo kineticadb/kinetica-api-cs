@@ -6,55 +6,54 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class AlterGraphRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class AlterGraphRequest : KineticaData
+    public struct Action
     {
-        public struct Action
-        {
-            public const string ADD_TABLE_MONITOR = "add_table_monitor";
-            public const string RESET_CLIENT = "reset_client";
-            public const string RESET_SERVER = "reset_server";
-            public const string CANCEL_TASK = "cancel_task";
-            public const string ALTER_LOGGER = "alter_logger";
-            public const string DELETE_ALL = "delete_all";
-            public const string STATUS = "status";
-            public const string COLLECT_GRAPHS = "collect_graphs";
-            public const string RESTORE_GRAPHS = "restore_graphs";
-        } // end struct Action
+        public const string ADD_TABLE_MONITOR = "add_table_monitor";
+        public const string RESET_CLIENT = "reset_client";
+        public const string RESET_SERVER = "reset_server";
+        public const string CANCEL_TASK = "cancel_task";
+        public const string ALTER_LOGGER = "alter_logger";
+        public const string DELETE_ALL = "delete_all";
+        public const string STATUS = "status";
+        public const string COLLECT_GRAPHS = "collect_graphs";
+        public const string RESTORE_GRAPHS = "restore_graphs";
+    } // end struct Action
 
-        public struct Options
-        {
-            public const string SERVER_ID = "server_id";
-        } // end struct Options
-
-        public string graph_name { get; set; }
-        public string action { get; set; }
-        public string action_arg { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        public AlterGraphRequest() { }
-
-        public AlterGraphRequest( string graph_name,
-                                  string action,
-                                  string action_arg,
-                                  IDictionary<string, string> options = null)
-        {
-            this.graph_name = graph_name ?? "";
-            this.action = action ?? "";
-            this.action_arg = action_arg ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class AlterGraphRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class AlterGraphResponse : KineticaData
+    public struct Options
     {
-        public string action { get; set; }
-        public string action_arg { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class AlterGraphResponse
-    /// @endcond
-} // end namespace kinetica
+        public const string SERVER_ID = "server_id";
+    } // end struct Options
+
+    public string graph_name { get; set; }
+    public string action { get; set; }
+    public string action_arg { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public AlterGraphRequest() { }
+
+    public AlterGraphRequest( string graph_name,
+                              string action,
+                              string action_arg,
+                              IDictionary<string, string> options = null)
+    {
+        this.graph_name = graph_name ?? "";
+        this.action = action ?? "";
+        this.action_arg = action_arg ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class AlterGraphRequest
+/// @endcond
+
+/// @cond NO_DOCS
+public class AlterGraphResponse : KineticaData
+{
+    public string action { get; set; }
+    public string action_arg { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class AlterGraphResponse
+/// @endcond

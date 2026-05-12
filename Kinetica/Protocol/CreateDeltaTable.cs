@@ -6,33 +6,32 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// @cond NO_DOCS
+public class CreateDeltaTableRequest : KineticaData
 {
-    /// @cond NO_DOCS
-    public class CreateDeltaTableRequest : KineticaData
+    public string delta_table_name { get; set; }
+    public string table_name { get; set; }
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    public CreateDeltaTableRequest() { }
+
+    public CreateDeltaTableRequest( string delta_table_name,
+                                    string table_name,
+                                    IDictionary<string, string> options = null)
     {
-        public string delta_table_name { get; set; }
-        public string table_name { get; set; }
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        this.delta_table_name = delta_table_name ?? "";
+        this.table_name = table_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class CreateDeltaTableRequest
+/// @endcond
 
-        public CreateDeltaTableRequest() { }
-
-        public CreateDeltaTableRequest( string delta_table_name,
-                                        string table_name,
-                                        IDictionary<string, string> options = null)
-        {
-            this.delta_table_name = delta_table_name ?? "";
-            this.table_name = table_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class CreateDeltaTableRequest
-    /// @endcond
-
-    /// @cond NO_DOCS
-    public class CreateDeltaTableResponse : KineticaData
-    {
-        public string delta_table_name { get; set; }
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class CreateDeltaTableResponse
-    /// @endcond
-} // end namespace kinetica
+/// @cond NO_DOCS
+public class CreateDeltaTableResponse : KineticaData
+{
+    public string delta_table_name { get; set; }
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class CreateDeltaTableResponse
+/// @endcond

@@ -6,2508 +6,2594 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.matchGraph(MatchGraphRequest)">Kinetica.matchGraph</see>.
+/// </summary>
+/// <remarks><para>Matches a directed route implied by a given set of
+/// latitude/longitude points to an existing underlying road network graph
+/// using a given solution type.</para>
+/// <para>IMPORTANT: It's highly recommended that you review the <a
+/// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs and
+/// Solvers</a> concepts documentation, the <a
+/// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+/// Tutorial</a>, and/or some <a href="../../../guide-tags/graph---match/"
+/// target="_top">/match/graph examples</a> before using this endpoint.</para>
+/// </remarks>
+public class MatchGraphRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.matchGraph(MatchGraphRequest)">Kinetica.matchGraph</see>.
-    /// </summary>
-    /// <remarks><para>Matches a directed route implied by a given set of
-    /// latitude/longitude points to an existing underlying road network graph
-    /// using a given solution type.</para>
-    /// <para>IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs
-    /// & Solvers</a> concepts documentation, the <a
-    /// href="../../../guides/graph_rest_guide/" target="_top">Graph REST
-    /// Tutorial</a>, and/or some <a href="../../../guide-tags/graph---match/"
-    /// target="_top">/match/graph examples</a> before using this endpoint.
-    /// </para></remarks>
-    public class MatchGraphRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="solve_method" />.</summary>
+    /// <remarks><para>The type of solver to use for graph matching.</para>
+    /// </remarks>
+    public struct SolveMethod
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="solve_method" />.</summary>
-        /// <remarks><para>The type of solver to use for graph matching.</para>
+        /// <summary>Matches <see cref="sample_points" /> to the graph using
+        /// the Hidden Markov Model (HMM)-based method, which conducts a
+        /// range-tree closest-edge search to find the best combinations of
+        /// possible road segments (<see
+        /// cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>) for each sample
+        /// point to create the best route.</summary>
+        /// <remarks><para>The route is secured one point at a time while
+        /// looking ahead <see cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>
+        /// number of points, so the prediction is corrected after each point.
+        /// This solution type is the most accurate but also the most
+        /// computationally intensive. Related options: <see
+        /// cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see> and <see
+        /// cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>.</para></remarks>
+        public const string MARKOV_CHAIN = "markov_chain";
+
+        /// <summary>Matches <see cref="sample_points" /> to find the most
+        /// probable path between origin and destination pairs with cost
+        /// constraints.</summary>
+        public const string MATCH_OD_PAIRS = "match_od_pairs";
+
+        /// <summary>Matches <see cref="sample_points" /> to optimize
+        /// scheduling multiple supplies (trucks) with varying sizes to varying
+        /// demand sites with varying capacities per depot.</summary>
+        /// <remarks><para>Related options: <see
+        /// cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see> and <see
+        /// cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>.</para>
         /// </remarks>
-        public struct SolveMethod
-        {
-            /// <summary>Matches <see cref="sample_points" /> to the graph
-            /// using the Hidden Markov Model (HMM)-based method, which
-            /// conducts a range-tree closest-edge search to find the best
-            /// combinations of possible road segments (<see
-            /// cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>) for each sample
-            /// point to create the best route.</summary>
-            /// <remarks><para>The route is secured one point at a time while
-            /// looking ahead <see cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>
-            /// number of points, so the prediction is corrected after each
-            /// point. This solution type is the most accurate but also the
-            /// most computationally intensive. Related options: <see
-            /// cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see> and <see
-            /// cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>.</para></remarks>
-            public const string MARKOV_CHAIN = "markov_chain";
-
-            /// <summary>Matches <see cref="sample_points" /> to find the most
-            /// probable path between origin and destination pairs with cost
-            /// constraints.</summary>
-            public const string MATCH_OD_PAIRS = "match_od_pairs";
-
-            /// <summary>Matches <see cref="sample_points" /> to optimize
-            /// scheduling multiple supplies (trucks) with varying sizes to
-            /// varying demand sites with varying capacities per depot.
-            /// </summary>
-            /// <remarks><para>Related options: <see
-            /// cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see> and <see
-            /// cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>.</para>
-            /// </remarks>
-            public const string MATCH_SUPPLY_DEMAND = "match_supply_demand";
-
-            /// <summary>Matches <see cref="sample_points" /> source and
-            /// destination pairs for the shortest path solves in batch mode.
-            /// </summary>
-            public const string MATCH_BATCH_SOLVES = "match_batch_solves";
-
-            /// <summary>Matches closed loops (Eulerian paths) originating and
-            /// ending at each graph node within min and max hops (levels).
-            /// </summary>
-            public const string MATCH_LOOPS = "match_loops";
-
-            /// <summary>Matches an optimal path across a number of ev-charging
-            /// stations between source and target locations.</summary>
-            public const string MATCH_CHARGING_STATIONS = "match_charging_stations";
-
-            /// <summary>Matches the intersection set(s) by computing the
-            /// Jaccard similarity score between node pairs.</summary>
-            public const string MATCH_SIMILARITY = "match_similarity";
-
-            /// <summary>Matches the pickups and dropoffs by optimizing the
-            /// total trip costs</summary>
-            public const string MATCH_PICKUP_DROPOFF = "match_pickup_dropoff";
-
-            /// <summary>Matches the graph nodes with a cluster index using
-            /// Louvain clustering algorithm</summary>
-            public const string MATCH_CLUSTERS = "match_clusters";
-
-            /// <summary>Matches a pattern in the graph</summary>
-            public const string MATCH_PATTERN = "match_pattern";
-
-            /// <summary>Creates vector node embeddings</summary>
-            public const string MATCH_EMBEDDING = "match_embedding";
-
-            /// <summary>Solves for isochrones for a set of input sources
-            /// </summary>
-            public const string MATCH_ISOCHRONE = "match_isochrone";
-        } // end struct SolveMethod
-
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Additional parameters</para></remarks>
-        public struct Options
-        {
-            /// <summary>GPS noise value (in meters) to remove redundant sample
-            /// points.</summary>
-            /// <remarks><para>Use -1 to disable noise reduction. The default
-            /// value accounts for 95% of point variation (+ or -5 meters). The
-            /// default value is '5.0'.</para></remarks>
-            public const string GPS_NOISE = "gps_noise";
-
-            /// <summary>Maximum number of potentially matching road segments
-            /// for each sample point.</summary>
-            /// <remarks><para>For the <see
-            /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver, the
-            /// default is 3. The default value is '3'.</para></remarks>
-            public const string NUM_SEGMENTS = "num_segments";
-
-            /// <summary>Maximum search radius used when snapping sample points
-            /// onto potentially matching surrounding segments.</summary>
-            /// <remarks><para>The default value corresponds to approximately
-            /// 100 meters. The default value is '0.001'.</para></remarks>
-            public const string SEARCH_RADIUS = "search_radius";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
-            /// </summary>
-            /// <remarks><para>Length of the sample points lookahead window
-            /// within the Markov kernel; the larger the number, the more
-            /// accurate the solution. The default value is '9'.</para>
-            /// </remarks>
-            public const string CHAIN_WIDTH = "chain_width";
-
-            /// <summary>Optional WKT starting point from <see
-            /// cref="sample_points" /> for the solver.</summary>
-            /// <remarks><para>The default behavior for the endpoint is to use
-            /// time to determine the starting point. The default value is
-            /// 'POINT NULL'.</para></remarks>
-            public const string SOURCE = "source";
-
-            /// <summary>Optional WKT ending point from <see
-            /// cref="sample_points" /> for the solver.</summary>
-            /// <remarks><para>The default behavior for the endpoint is to use
-            /// time to determine the destination point. The default value is
-            /// 'POINT NULL'.</para></remarks>
-            public const string DESTINATION = "destination";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Partial off-loading at multiple store
-            ///         (demand) locations</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>No partial off-loading allowed if supply
-            ///         is less than the store's demand.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PARTIAL_LOADING = "partial_loading";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>This is the cutoff for the number of generated
-            /// combinations for sequencing the demand locations - can increase
-            /// this up to 2M. The default value is '10000'.</para></remarks>
-            public const string MAX_COMBINATIONS = "max_combinations";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>This is the cutoff for the number of generated
-            /// combinations for sequencing the supply locations if/when
-            /// 'permute_supplies' is true. The default value is '10000'.
-            /// </para></remarks>
-            public const string MAX_SUPPLY_COMBINATIONS = "max_supply_combinations";
-
-            /// <summary>This will add an additional weight over the edges
-            /// labeled as 'left turn' if the 'add_turn' option parameter of
-            /// the <see
-            /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-            /// was invoked at graph creation.</summary>
-            /// <remarks><para>The default value is '0.0'.</para></remarks>
-            public const string LEFT_TURN_PENALTY = "left_turn_penalty";
-
-            /// <summary>This will add an additional weight over the edges
-            /// labeled as' right turn' if the 'add_turn' option parameter of
-            /// the <see
-            /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-            /// was invoked at graph creation.</summary>
-            /// <remarks><para>The default value is '0.0'.</para></remarks>
-            public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
-
-            /// <summary>This will add an additional weight over the edges
-            /// labeled as 'intersection' if the 'add_turn' option parameter of
-            /// the <see
-            /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-            /// was invoked at graph creation.</summary>
-            /// <remarks><para>The default value is '0.0'.</para></remarks>
-            public const string INTERSECTION_PENALTY = "intersection_penalty";
-
-            /// <summary>This will add an additional weight over the edges
-            /// labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-            /// parameter of the <see
-            /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-            /// was invoked at graph creation.</summary>
-            /// <remarks><para>The default value is '0.0'.</para></remarks>
-            public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>When it is true (default), each record in the
-            /// output table shows a particular truck's scheduled cumulative
-            /// round trip path (MULTILINESTRING) and the corresponding
-            /// aggregated cost. Otherwise, each record shows a single
-            /// scheduled truck route (LINESTRING) towards a particular demand
-            /// location (store id) with its corresponding cost. The default
-            /// value is 'true'.</para></remarks>
-            public const string AGGREGATED_OUTPUT = "aggregated_output";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>When it is true (non-default), the output will
-            /// be in tracks format for all the round trips of each truck in
-            /// which the timestamps are populated directly from the edge
-            /// weights starting from their originating depots. The default
-            /// value is 'false'.</para></remarks>
-            public const string OUTPUT_TRACKS = "output_tracks";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// and <see
-            /// cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
-            /// solvers only.</summary>
-            /// <remarks><para>If this constraint is greater than zero
-            /// (default) then the trucks/rides will skip traveling from one
-            /// demand/pick location to another if the cost between them is
-            /// greater than this number (distance or time). Zero (default)
-            /// value means no check is performed. The default value is '0.0'.
-            /// </para></remarks>
-            public const string MAX_TRIP_COST = "max_trip_cost";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
-            /// </summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Filter out the folded paths.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Do not filter out the folded paths
-            ///         </description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string FILTER_FOLDING_PATHS = "filter_folding_paths";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>The unit cost per load amount to be delivered.
-            /// If this value is greater than zero (default) then the
-            /// additional cost of this unit load multiplied by the total
-            /// dropped load will be added over to the trip cost to the demand
-            /// location. The default value is '0.0'.</para></remarks>
-            public const string UNIT_UNLOADING_COST = "unit_unloading_cost";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
-            /// </summary>
-            /// <remarks><para>If specified (greater than zero), the maximum
-            /// number of threads will not be greater than the specified value.
-            /// It can be lower due to the memory and the number cores
-            /// available. Default value of zero allows the algorithm to set
-            /// the maximal number of threads within these constraints. The
-            /// default value is '0'.</para></remarks>
-            public const string MAX_NUM_THREADS = "max_num_threads";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>If specified (greater than zero), any supply
-            /// actor's total service cost (distance or time) will be limited
-            /// by the specified value including multiple rounds (if set). The
-            /// default value is '0.0'.</para></remarks>
-            public const string SERVICE_LIMIT = "service_limit";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Allows reusing supply actors (trucks,
-            ///         e.g.) for scheduling again.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Supply actors are scheduled only once from
-            ///         their depots.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string ENABLE_REUSE = "enable_reuse";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>If specified (greater than zero), a supply actor
-            /// (truck) can at most have this many stops (demand locations) in
-            /// one round trip. Otherwise, it is unlimited. If
-            /// 'enable_truck_reuse' is on, this condition will be applied
-            /// separately at each round trip use of the same truck. The
-            /// default value is '0'.</para></remarks>
-            public const string MAX_STOPS = "max_stops";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// and <see
-            /// cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
-            /// solvers only.</summary>
-            /// <remarks><para>If specified (greater than zero), it filters the
-            /// demands/picks outside this radius centered around the supply
-            /// actor/ride's originating location (distance or time). The
-            /// default value is '0.0'.</para></remarks>
-            public const string SERVICE_RADIUS = "service_radius";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Generates sequences over supply side
-            ///         permutations if total supply is less than twice the
-            ///         total demand</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Permutations are not performed, rather a
-            ///         specific order of supplies based on capacity is
-            ///         computed</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PERMUTE_SUPPLIES = "permute_supplies";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Sets only one visit per demand location by
-            ///         a salesman (TSM mode)</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>No preset limit (usual MSDO mode)
-            ///         </description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string BATCH_TSM_MODE = "batch_tsm_mode";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>The optimization is done for trips in
-            ///         round trip manner always returning to originating
-            ///         locations</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Supplies do not have to come back to their
-            ///         originating locations in their routes. The routes are
-            ///         considered finished at the final dropoff.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string ROUND_TRIP = "round_trip";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
-            /// only.</summary>
-            /// <remarks><para>Terminates the cluster exchange iterations
-            /// across 2-step-cycles (outer loop) when quality does not improve
-            /// during iterations. The default value is '10'.</para></remarks>
-            public const string NUM_CYCLES = "num_cycles";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-            /// solvers only.</summary>
-            /// <remarks><para>Terminates the cluster exchanges within the
-            /// first step iterations of a cycle (inner loop) unless
-            /// convergence is reached. The default value is '10'.</para>
-            /// </remarks>
-            public const string NUM_LOOPS_PER_CYCLE = "num_loops_per_cycle";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
-            /// only.</summary>
-            /// <remarks><para> Limits the output to the top
-            /// 'num_output_clusters' clusters based on density. Default value
-            /// of zero outputs all clusters. The default value is '0'.</para>
-            /// </remarks>
-            public const string NUM_OUTPUT_CLUSTERS = "num_output_clusters";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-            /// solvers only.</summary>
-            /// <remarks><para>If set (value greater than zero), it terminates
-            /// when the number of clusters goes below than this number. For
-            /// embedding solver the default is 8. The default value is '0'.
-            /// </para></remarks>
-            public const string MAX_NUM_CLUSTERS = "max_num_clusters";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
-            /// only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.GIRVAN">GIRVAN</see>:</term>
-            ///         <description>Uses the Newman Girvan quality metric for
-            ///         cluster solver</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.SPECTRAL">SPECTRAL</see>:
-            ///         </term>
-            ///         <description>Applies recursive spectral bisection (RSB)
-            ///         partitioning solver</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.GIRVAN">GIRVAN</see>.</para></remarks>
-            public const string CLUSTER_QUALITY_METRIC = "cluster_quality_metric";
-
-            /// <summary>Uses the Newman Girvan quality metric for cluster
-            /// solver</summary>
-            public const string GIRVAN = "girvan";
-
-            /// <summary>Applies recursive spectral bisection (RSB)
-            /// partitioning solver</summary>
-            public const string SPECTRAL = "spectral";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.ODD">ODD</see>:</term>
-            ///         <description>Applies odd/even rule restrictions to odd
-            ///         tagged vehicles.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.EVEN">EVEN</see>:</term>
-            ///         <description>Applies odd/even rule restrictions to even
-            ///         tagged vehicles.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.NONE">NONE</see>:</term>
-            ///         <description>Does not apply odd/even rule restrictions
-            ///         to any vehicles.</description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.NONE">NONE</see>.
-            /// </para></remarks>
-            public const string RESTRICTED_TYPE = "restricted_type";
-
-            /// <summary>Applies odd/even rule restrictions to odd tagged
-            /// vehicles.</summary>
-            public const string ODD = "odd";
-
-            /// <summary>Applies odd/even rule restrictions to even tagged
-            /// vehicles.</summary>
-            public const string EVEN = "even";
-
-            /// <summary>Does not apply odd/even rule restrictions to any
-            /// vehicles.</summary>
-            public const string NONE = "none";
-
-            /// <summary>Indicates which graph server(s) to send the request
-            /// to.</summary>
-            /// <remarks><para>Default is to send to the server, amongst those
-            /// containing the corresponding graph, that has the most
-            /// computational bandwidth. The default value is ''.</para>
-            /// </remarks>
-            public const string SERVER_ID = "server_id";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-            ///         <description>Solves using inverse shortest path solver.
-            ///         </description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-            ///         <description>Solves using direct shortest path solver.
-            ///         </description>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string INVERSE_SOLVE = "inverse_solve";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
-            /// </summary>
-            /// <remarks><para>Finds closed loops around each node deducible
-            /// not less than this minimal hop (level) deep. The default value
-            /// is '0'.</para></remarks>
-            public const string MIN_LOOP_LEVEL = "min_loop_level";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
-            /// </summary>
-            /// <remarks><para>Finds closed loops around each node deducible
-            /// not more than this maximal hop (level) deep. The default value
-            /// is '5'.</para></remarks>
-            public const string MAX_LOOP_LEVEL = "max_loop_level";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
-            /// </summary>
-            /// <remarks><para>Searches within this limit of nodes per vertex
-            /// to detect loops. The value zero means there is no limit. The
-            /// default value is '10000'.</para></remarks>
-            public const string SEARCH_LIMIT = "search_limit";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
-            /// </summary>
-            /// <remarks><para>Uses this value as the batch size of the number
-            /// of loops in flushing(inserting) to the output table. The
-            /// default value is '1000'.</para></remarks>
-            public const string OUTPUT_BATCH_SIZE = "output_batch_size";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-            /// solver only.</summary>
-            /// <remarks><para>This is the maximum ev-charging capacity of a
-            /// vehicle (distance in meters or time in seconds depending on the
-            /// unit of the graph weights). The default value is '300000.0'.
-            /// </para></remarks>
-            public const string CHARGING_CAPACITY = "charging_capacity";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-            /// solver only.</summary>
-            /// <remarks><para>Solver searches for this many number of stations
-            /// closest around each base charging location found by capacity.
-            /// The default value is '10'.</para></remarks>
-            public const string CHARGING_CANDIDATES = "charging_candidates";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-            /// solver only.</summary>
-            /// <remarks><para>This is the penalty for full charging. The
-            /// default value is '30000.0'.</para></remarks>
-            public const string CHARGING_PENALTY = "charging_penalty";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> and
-            /// <see cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-            /// solvers only.</summary>
-            /// <remarks><para>Searches within this maximum hops for source and
-            /// target node pairs to compute the Jaccard scores. The default
-            /// value is '3'.</para></remarks>
-            public const string MAX_HOPS = "max_hops";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-            /// solver only.</summary>
-            /// <remarks><para>Limits the traversal depth if it reaches this
-            /// many number of nodes. The default value is '1000'.</para>
-            /// </remarks>
-            public const string TRAVERSAL_NODE_LIMIT = "traversal_node_limit";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-            /// solver only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string PAIRED_SIMILARITY = "paired_similarity";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-            /// solvers only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string FORCE_UNDIRECTED = "force_undirected";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
-            /// only.</summary>
-            /// <remarks><para>Limits the number of dimensions in node vector
-            /// embeddings. The default value is '1000'.</para></remarks>
-            public const string MAX_VECTOR_DIMENSION = "max_vector_dimension";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-            /// solvers only.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see
-            /// cref="Options.FALSE">FALSE</see>.</para></remarks>
-            public const string OPTIMIZE_EMBEDDING_WEIGHTS = "optimize_embedding_weights";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
-            /// only.</summary>
-            /// <remarks><para>User specified weights per sub feature in vector
-            /// embeddings. The string contains the comma separated float
-            /// values for each sub-feature in the vector space. These values
-            /// will ONLY be used if 'optimize_embedding_weights' is false. The
-            /// default value is '1.0,1.0,1.0,1.0'.</para></remarks>
-            public const string EMBEDDING_WEIGHTS = "embedding_weights";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
-            /// only.</summary>
-            /// <remarks><para>Sets the number of random nodes from the graph
-            /// for solving the weights using stochastic gradient descent. The
-            /// default value is '1000'.</para></remarks>
-            public const string OPTIMIZATION_SAMPLING_SIZE = "optimization_sampling_size";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
-            /// only.</summary>
-            /// <remarks><para>When the iterations (epochs) for the convergence
-            /// of the stochastic gradient descent algorithm reaches this
-            /// number it bails out unless relative error between consecutive
-            /// iterations is below the 'optimization_error_tolerance' option.
-            /// The default value is '1000'.</para></remarks>
-            public const string OPTIMIZATION_MAX_ITERATIONS = "optimization_max_iterations";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
-            /// only.</summary>
-            /// <remarks><para>When the relative error between all of the
-            /// weights' consecutive iterations falls below this threshold the
-            /// optimization cycle is interrupted unless the number of
-            /// iterations reaches the limit set by the option
-            /// 'max_optimization_iterations'. The default value is '0.001'.
-            /// </para></remarks>
-            public const string OPTIMIZATION_ERROR_TOLERANCE = "optimization_error_tolerance";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
-            /// only.</summary>
-            /// <remarks><para>It is otherwise known as the learning rate,
-            /// which is the proportionality constant in front of the gradient
-            /// term in successive iterations. The default value is '0.3'.
-            /// </para></remarks>
-            public const string OPTIMIZATION_ITERATION_RATE = "optimization_iteration_rate";
-
-            /// <summary>For the <see
-            /// cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see> solver
-            /// only.</summary>
-            /// <remarks><para>Sets the maximal reachability limit for
-            /// computing isochrones. Zero means no limit. The default value is
-            /// '0.0'.</para></remarks>
-            public const string MAX_RADIUS = "max_radius";
-        } // end struct Options
-
-        /// <summary>Name of the underlying geospatial graph resource to match
-        /// to using <see cref="sample_points" />.</summary>
-        public string graph_name { get; set; }
-
-        /// <summary>Sample points used to match to an underlying geospatial
-        /// graph.</summary>
-        /// <remarks><para>Sample points must be specified using <a
-        /// href="../../../graph_solver/network_graph_solver/#match-identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#match-combinations"
-        /// target="_top">combinations</a>. Identifiers can be used with:
-        /// existing column names, e.g., 'table.column AS SAMPLE_X';
-        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
-        /// SAMPLE_WKTPOINT'; or constant values, e.g., '{1, 2, 10} AS
-        /// SAMPLE_TRIPID'.</para></remarks>
-        public IList<string> sample_points { get; set; } = new List<string>();
-
-        /// <summary>The type of solver to use for graph matching.</summary>
+        public const string MATCH_SUPPLY_DEMAND = "match_supply_demand";
+
+        /// <summary>Matches <see cref="sample_points" /> source and
+        /// destination pairs for the shortest path solves in batch mode.
+        /// </summary>
+        public const string MATCH_BATCH_SOLVES = "match_batch_solves";
+
+        /// <summary>Matches closed loops (Eulerian paths) originating and
+        /// ending at each graph node within min and max hops (levels).
+        /// </summary>
+        public const string MATCH_LOOPS = "match_loops";
+
+        /// <summary>Matches an optimal path across a number of ev-charging
+        /// stations between source and target locations.</summary>
+        public const string MATCH_CHARGING_STATIONS = "match_charging_stations";
+
+        /// <summary>Matches the intersection set(s) by computing the Jaccard
+        /// similarity score between node pairs.</summary>
+        public const string MATCH_SIMILARITY = "match_similarity";
+
+        /// <summary>Matches the pickups and dropoffs by optimizing the total
+        /// trip costs</summary>
+        public const string MATCH_PICKUP_DROPOFF = "match_pickup_dropoff";
+
+        /// <summary>Matches the graph nodes with a cluster index using Louvain
+        /// clustering algorithm</summary>
+        public const string MATCH_CLUSTERS = "match_clusters";
+
+        /// <summary>Matches a pattern in the graph</summary>
+        public const string MATCH_PATTERN = "match_pattern";
+
+        /// <summary>Creates vector node embeddings</summary>
+        public const string MATCH_EMBEDDING = "match_embedding";
+
+        /// <summary>Solves for isochrones for a set of input sources</summary>
+        public const string MATCH_ISOCHRONE = "match_isochrone";
+
+        /// <summary>Computes detour costs for nearby stations at a mark point
+        /// along each source-target route.</summary>
+        public const string MATCH_ROUTE_DETOUR = "match_route_detour";
+    } // end struct SolveMethod
+
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Additional parameters</para></remarks>
+    public struct Options
+    {
+        /// <summary>GPS noise value (in meters) to remove redundant sample
+        /// points.</summary>
+        /// <remarks><para>Use -1 to disable noise reduction. The default value
+        /// accounts for 95% of point variation (+ or -5 meters). The default
+        /// value is '5.0'.</para></remarks>
+        public const string GPS_NOISE = "gps_noise";
+
+        /// <summary>Maximum number of potentially matching road segments for
+        /// each sample point.</summary>
+        /// <remarks><para>For the <see
+        /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver, the
+        /// default is 3. The default value is '3'.</para></remarks>
+        public const string NUM_SEGMENTS = "num_segments";
+
+        /// <summary>Maximum search radius used when snapping sample points
+        /// onto potentially matching surrounding segments.</summary>
+        /// <remarks><para>The default value corresponds to approximately 100
+        /// meters. The default value is '0.001'.</para></remarks>
+        public const string SEARCH_RADIUS = "search_radius";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+        /// </summary>
+        /// <remarks><para>Length of the sample points lookahead window within
+        /// the Markov kernel; the larger the number, the more accurate the
+        /// solution. The default value is '9'.</para></remarks>
+        public const string CHAIN_WIDTH = "chain_width";
+
+        /// <summary>Optional WKT starting point from <see cref="sample_points"
+        /// /> for the solver.</summary>
+        /// <remarks><para>The default behavior for the endpoint is to use time
+        /// to determine the starting point. The default value is 'POINT NULL'.
+        /// </para></remarks>
+        public const string SOURCE = "source";
+
+        /// <summary>Optional WKT ending point from <see cref="sample_points"
+        /// /> for the solver.</summary>
+        /// <remarks><para>The default behavior for the endpoint is to use time
+        /// to determine the destination point. The default value is 'POINT
+        /// NULL'.</para></remarks>
+        public const string DESTINATION = "destination";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:</term>
-        ///         <description>Matches <see cref="sample_points" /> to the
-        ///         graph using the Hidden Markov Model (HMM)-based method,
-        ///         which conducts a range-tree closest-edge search to find the
-        ///         best combinations of possible road segments (<see
-        ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>) for each
-        ///         sample point to create the best route. The route is secured
-        ///         one point at a time while looking ahead <see
-        ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see> number of
-        ///         points, so the prediction is corrected after each point.
-        ///         This solution type is the most accurate but also the most
-        ///         computationally intensive. Related options: <see
-        ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see> and <see
-        ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Partial off-loading at multiple store (demand)
+        ///         locations</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:
-        ///         </term>
-        ///         <description>Matches <see cref="sample_points" /> to find
-        ///         the most probable path between origin and destination pairs
-        ///         with cost constraints.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:
-        ///         </term>
-        ///         <description>Matches <see cref="sample_points" /> to
-        ///         optimize scheduling multiple supplies (trucks) with varying
-        ///         sizes to varying demand sites with varying capacities per
-        ///         depot. Related options: <see
-        ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see> and
-        ///         <see
-        ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:
-        ///         </term>
-        ///         <description>Matches <see cref="sample_points" /> source
-        ///         and destination pairs for the shortest path solves in batch
-        ///         mode.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:</term>
-        ///         <description>Matches closed loops (Eulerian paths)
-        ///         originating and ending at each graph node within min and
-        ///         max hops (levels).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:
-        ///         </term>
-        ///         <description>Matches an optimal path across a number of
-        ///         ev-charging stations between source and target locations.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:
-        ///         </term>
-        ///         <description>Matches the intersection set(s) by computing
-        ///         the Jaccard similarity score between node pairs.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:
-        ///         </term>
-        ///         <description>Matches the pickups and dropoffs by optimizing
-        ///         the total trip costs</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:
-        ///         </term>
-        ///         <description>Matches the graph nodes with a cluster index
-        ///         using Louvain clustering algorithm</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:
-        ///         </term>
-        ///         <description>Matches a pattern in the graph</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
-        ///         </term>
-        ///         <description>Creates vector node embeddings</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
-        ///         </term>
-        ///         <description>Solves for isochrones for a set of input
-        ///         sources</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>No partial off-loading allowed if supply is
+        ///         less than the store's demand.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see
-        /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.</para>
-        /// </remarks>
-        public string solve_method { get; set; } = SolveMethod.MARKOV_CHAIN;
-
-        /// <summary>The name of the table used to store the results, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.</summary>
-        /// <remarks><para> This table contains a <a
-        /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
-        /// target="_top">track</a> of geospatial points for the matched
-        /// portion of the graph, a track ID, and a score value. Also outputs a
-        /// details table containing a trip ID (that matches the track ID), the
-        /// latitude/longitude pair, the timestamp the point was recorded at,
-        /// and an edge ID corresponding to the matched road segment. Must not
-        /// be an existing table of the same name. The default value is ''.
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
         /// </para></remarks>
-        public string solution_table { get; set; } = "";
+        public const string PARTIAL_LOADING = "partial_loading";
 
-        /// <summary>Additional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.GPS_NOISE">GPS_NOISE</see>:</term>
-        ///         <description>GPS noise value (in meters) to remove
-        ///         redundant sample points. Use -1 to disable noise reduction.
-        ///         The default value accounts for 95% of point variation (+ or
-        ///         -5 meters). The default value is '5.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:
-        ///         </term>
-        ///         <description>Maximum number of potentially matching road
-        ///         segments for each sample point. For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver,
-        ///         the default is 3. The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description>Maximum search radius used when snapping
-        ///         sample points onto potentially matching surrounding
-        ///         segments. The default value corresponds to approximately
-        ///         100 meters. The default value is '0.001'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver
-        ///         only. Length of the sample points lookahead window within
-        ///         the Markov kernel; the larger the number, the more accurate
-        ///         the solution. The default value is '9'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SOURCE">SOURCE</see>:</term>
-        ///         <description>Optional WKT starting point from <see
-        ///         cref="sample_points" /> for the solver. The default
-        ///         behavior for the endpoint is to use time to determine the
-        ///         starting point. The default value is 'POINT NULL'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DESTINATION">DESTINATION</see>:
-        ///         </term>
-        ///         <description>Optional WKT ending point from <see
-        ///         cref="sample_points" /> for the solver. The default
-        ///         behavior for the endpoint is to use time to determine the
-        ///         destination point. The default value is 'POINT NULL'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When false (non-default), trucks do not
-        ///         off-load at the demand (store) side if the remainder is
-        ///         less than the store's need.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Partial off-loading at multiple store
-        ///                 (demand) locations</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>No partial off-loading allowed if
-        ///                 supply is less than the store's demand.
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. This is the cutoff for the number of generated
-        ///         combinations for sequencing the demand locations - can
-        ///         increase this up to 2M. The default value is '10000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. This is the cutoff for the number of generated
-        ///         combinations for sequencing the supply locations if/when
-        ///         'permute_supplies' is true. The default value is '10000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as 'left turn' if the 'add_turn' option
-        ///         parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as' right turn' if the 'add_turn' option
-        ///         parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as 'intersection' if the 'add_turn' option
-        ///         parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as 'sharp turn' or 'u-turn' if the 'add_turn'
-        ///         option parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When it is true (default), each record in the
-        ///         output table shows a particular truck's scheduled
-        ///         cumulative round trip path (MULTILINESTRING) and the
-        ///         corresponding aggregated cost. Otherwise, each record shows
-        ///         a single scheduled truck route (LINESTRING) towards a
-        ///         particular demand location (store id) with its
-        ///         corresponding cost. The default value is 'true'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When it is true (non-default), the output will
-        ///         be in tracks format for all the round trips of each truck
-        ///         in which the timestamps are populated directly from the
-        ///         edge weights starting from their originating depots. The
-        ///         default value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         and <see
-        ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
-        ///         solvers only. If this constraint is greater than zero
-        ///         (default) then the trucks/rides will skip traveling from
-        ///         one demand/pick location to another if the cost between
-        ///         them is greater than this number (distance or time). Zero
-        ///         (default) value means no check is performed. The default
-        ///         value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver
-        ///         only. When true (non-default), the paths per sequence
-        ///         combination is checked for folding over patterns and can
-        ///         significantly increase the execution time depending on the
-        ///         chain width and the number of GPS samples.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Filter out the folded paths.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Do not filter out the folded paths
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. The unit cost per load amount to be delivered.
-        ///         If this value is greater than zero (default) then the
-        ///         additional cost of this unit load multiplied by the total
-        ///         dropped load will be added over to the trip cost to the
-        ///         demand location. The default value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver
-        ///         only. If specified (greater than zero), the maximum number
-        ///         of threads will not be greater than the specified value. It
-        ///         can be lower due to the memory and the number cores
-        ///         available. Default value of zero allows the algorithm to
-        ///         set the maximal number of threads within these constraints.
-        ///         The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (greater than zero), any supply
-        ///         actor's total service cost (distance or time) will be
-        ///         limited by the specified value including multiple rounds
-        ///         (if set). The default value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ENABLE_REUSE">ENABLE_REUSE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (true), all supply actors can be
-        ///         scheduled for second rounds from their originating depots.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Allows reusing supply actors (trucks,
-        ///                 e.g.) for scheduling again.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Supply actors are scheduled only once
-        ///                 from their depots.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_STOPS">MAX_STOPS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (greater than zero), a supply
-        ///         actor (truck) can at most have this many stops (demand
-        ///         locations) in one round trip. Otherwise, it is unlimited.
-        ///         If 'enable_truck_reuse' is on, this condition will be
-        ///         applied separately at each round trip use of the same
-        ///         truck. The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         and <see
-        ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
-        ///         solvers only. If specified (greater than zero), it filters
-        ///         the demands/picks outside this radius centered around the
-        ///         supply actor/ride's originating location (distance or
-        ///         time). The default value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (true), supply side actors are
-        ///         permuted for the demand combinations during MSDO
-        ///         optimization - note that this option increases optimization
-        ///         time significantly - use of 'max_combinations' option is
-        ///         recommended to prevent prohibitively long runs.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Generates sequences over supply side
-        ///                 permutations if total supply is less than twice the
-        ///                 total demand</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Permutations are not performed, rather
-        ///                 a specific order of supplies based on capacity is
-        ///                 computed</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When enabled, it sets the number of visits on
-        ///         each demand location by a single salesman at each trip is
-        ///         considered to be (one) 1, otherwise there is no bound.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Sets only one visit per demand
-        ///                 location by a salesman (TSM mode)</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>No preset limit (usual MSDO mode)
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ROUND_TRIP">ROUND_TRIP</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When enabled, the supply will have to return
-        ///         back to the origination location.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>The optimization is done for trips in
-        ///                 round trip manner always returning to originating
-        ///                 locations</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Supplies do not have to come back to
-        ///                 their originating locations in their routes. The
-        ///                 routes are considered finished at the final
-        ///                 dropoff.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.NUM_CYCLES">NUM_CYCLES</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. Terminates the cluster exchange iterations
-        ///         across 2-step-cycles (outer loop) when quality does not
-        ///         improve during iterations. The default value is '10'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
-        ///         <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Terminates the cluster exchanges within the
-        ///         first step iterations of a cycle (inner loop) unless
-        ///         convergence is reached. The default value is '10'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only.  Limits the output to the top
-        ///         'num_output_clusters' clusters based on density. Default
-        ///         value of zero outputs all clusters. The default value is
-        ///         '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
-        ///         <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. If set (value greater than zero), it
-        ///         terminates when the number of clusters goes below than this
-        ///         number. For embedding solver the default is 8. The default
-        ///         value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. The quality metric for Louvain modularity
-        ///         optimization solver.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.GIRVAN">GIRVAN</see>:
-        ///                 </term>
-        ///                 <description>Uses the Newman Girvan quality metric
-        ///                 for cluster solver</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SPECTRAL">SPECTRAL</see>:
-        ///                 </term>
-        ///                 <description>Applies recursive spectral bisection
-        ///                 (RSB) partitioning solver</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.GIRVAN">GIRVAN</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. Optimization is performed by restricting
-        ///         routes labeled by 'MSDO_ODDEVEN_RESTRICTED' only for this
-        ///         supply actor (truck) type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ODD">ODD</see>:</term>
-        ///                 <description>Applies odd/even rule restrictions to
-        ///                 odd tagged vehicles.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.EVEN">EVEN</see>:</term>
-        ///                 <description>Applies odd/even rule restrictions to
-        ///                 even tagged vehicles.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Does not apply odd/even rule
-        ///                 restrictions to any vehicles.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.NONE">NONE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        ///         request to. Default is to send to the server, amongst those
-        ///         containing the corresponding graph, that has the most
-        ///         computational bandwidth. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
-        ///         solver only. Solves source-destination pairs using inverse
-        ///         shortest path solver.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Solves using inverse shortest path
-        ///                 solver.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Solves using direct shortest path
-        ///                 solver.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Finds closed loops around each node deducible not
-        ///         less than this minimal hop (level) deep. The default value
-        ///         is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Finds closed loops around each node deducible not
-        ///         more than this maximal hop (level) deep. The default value
-        ///         is '5'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Searches within this limit of nodes per vertex to
-        ///         detect loops. The value zero means there is no limit. The
-        ///         default value is '10000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Uses this value as the batch size of the number of
-        ///         loops in flushing(inserting) to the output table. The
-        ///         default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-        ///         solver only. This is the maximum ev-charging capacity of a
-        ///         vehicle (distance in meters or time in seconds depending on
-        ///         the unit of the graph weights). The default value is
-        ///         '300000.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-        ///         solver only. Solver searches for this many number of
-        ///         stations closest around each base charging location found
-        ///         by capacity. The default value is '10'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-        ///         solver only. This is the penalty for full charging. The
-        ///         default value is '30000.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_HOPS">MAX_HOPS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         and <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Searches within this maximum hops for source
-        ///         and target node pairs to compute the Jaccard scores. The
-        ///         default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         solver only. Limits the traversal depth if it reaches this
-        ///         many number of nodes. The default value is '1000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         solver only. If true, it computes Jaccard score between
-        ///         each pair, otherwise it will compute Jaccard from the
-        ///         intersection set between the source and target nodes.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and
-        ///         <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Pattern matching will be using both pattern
-        ///         and graph as undirected if set to true.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_VECTOR_DIMENSION">MAX_VECTOR_DIMENSION</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. Limits the number of dimensions in node vector
-        ///         embeddings. The default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZE_EMBEDDING_WEIGHTS">OPTIMIZE_EMBEDDING_WEIGHTS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Solves to find the optimal weights per sub
-        ///         feature in vector embeddings.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.EMBEDDING_WEIGHTS">EMBEDDING_WEIGHTS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. User specified weights per sub feature in
-        ///         vector embeddings. The string contains the comma separated
-        ///         float values for each sub-feature in the vector space.
-        ///         These values will ONLY be used if
-        ///         'optimize_embedding_weights' is false. The default value is
-        ///         '1.0,1.0,1.0,1.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_SAMPLING_SIZE">OPTIMIZATION_SAMPLING_SIZE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. Sets the number of random nodes from the graph
-        ///         for solving the weights using stochastic gradient descent.
-        ///         The default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_MAX_ITERATIONS">OPTIMIZATION_MAX_ITERATIONS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. When the iterations (epochs) for the
-        ///         convergence of the stochastic gradient descent algorithm
-        ///         reaches this number it bails out unless relative error
-        ///         between consecutive iterations is below the
-        ///         'optimization_error_tolerance' option. The default value is
-        ///         '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_ERROR_TOLERANCE">OPTIMIZATION_ERROR_TOLERANCE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. When the relative error between all of the
-        ///         weights' consecutive iterations falls below this threshold
-        ///         the optimization cycle is interrupted unless the number of
-        ///         iterations reaches the limit set by the option
-        ///         'max_optimization_iterations'. The default value is
-        ///         '0.001'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_ITERATION_RATE">OPTIMIZATION_ITERATION_RATE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. It is otherwise known as the learning rate,
-        ///         which is the proportionality constant in front of the
-        ///         gradient term in successive iterations. The default value
-        ///         is '0.3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_RADIUS">MAX_RADIUS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
-        ///         solver only. Sets the maximal reachability limit for
-        ///         computing isochrones. Zero means no limit. The default
-        ///         value is '0.0'.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        public const string TRUE = "true";
+        public const string FALSE = "false";
 
-        /// <summary>Constructs a MatchGraphRequest object with default
-        /// parameters.</summary>
-        public MatchGraphRequest() { }
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>This is the cutoff for the number of generated
+        /// combinations for sequencing the demand locations - can increase
+        /// this up to 2M. The default value is '10000'.</para></remarks>
+        public const string MAX_COMBINATIONS = "max_combinations";
 
-        /// <summary>Constructs a MatchGraphRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="graph_name">Name of the underlying geospatial graph
-        /// resource to match to using <paramref name="sample_points" />.
-        /// </param>
-        /// <param name="sample_points">Sample points used to match to an
-        /// underlying geospatial graph. Sample points must be specified using
-        /// <a
-        /// href="../../../graph_solver/network_graph_solver/#match-identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../../graph_solver/network_graph_solver/#match-combinations"
-        /// target="_top">combinations</a>. Identifiers can be used with:
-        /// existing column names, e.g., 'table.column AS SAMPLE_X';
-        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
-        /// SAMPLE_WKTPOINT'; or constant values, e.g., '{1, 2, 10} AS
-        /// SAMPLE_TRIPID'.</param>
-        /// <param name="solve_method">The type of solver to use for graph
-        /// matching.
-        /// Supported values:
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>This is the cutoff for the number of generated
+        /// combinations for sequencing the supply locations if/when
+        /// 'permute_supplies' is true. The default value is '10000'.</para>
+        /// </remarks>
+        public const string MAX_SUPPLY_COMBINATIONS = "max_supply_combinations";
+
+        /// <summary>This will add an additional weight over the edges labeled
+        /// as 'left turn' if the 'add_turn' option parameter of the <see
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
+        /// <remarks><para>The default value is '0.0'.</para></remarks>
+        public const string LEFT_TURN_PENALTY = "left_turn_penalty";
+
+        /// <summary>This will add an additional weight over the edges labeled
+        /// as' right turn' if the 'add_turn' option parameter of the <see
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
+        /// <remarks><para>The default value is '0.0'.</para></remarks>
+        public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
+
+        /// <summary>This will add an additional weight over the edges labeled
+        /// as 'intersection' if the 'add_turn' option parameter of the <see
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
+        /// <remarks><para>The default value is '0.0'.</para></remarks>
+        public const string INTERSECTION_PENALTY = "intersection_penalty";
+
+        /// <summary>This will add an additional weight over the edges labeled
+        /// as 'sharp turn' or 'u-turn' if the 'add_turn' option parameter of
+        /// the <see
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
+        /// <remarks><para>The default value is '0.0'.</para></remarks>
+        public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>When it is true (default), each record in the output
+        /// table shows a particular truck's scheduled cumulative round trip
+        /// path (MULTILINESTRING) and the corresponding aggregated cost.
+        /// Otherwise, each record shows a single scheduled truck route
+        /// (LINESTRING) towards a particular demand location (store id) with
+        /// its corresponding cost. The default value is 'true'.</para>
+        /// </remarks>
+        public const string AGGREGATED_OUTPUT = "aggregated_output";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>When it is true (non-default), the output will be in
+        /// tracks format for all the round trips of each truck in which the
+        /// timestamps are populated directly from the edge weights starting
+        /// from their originating depots. The default value is 'false'.</para>
+        /// </remarks>
+        public const string OUTPUT_TRACKS = "output_tracks";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// and <see
+        /// cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
+        /// solvers only.</summary>
+        /// <remarks><para>If this constraint is greater than zero (default)
+        /// then the trucks/rides will skip traveling from one demand/pick
+        /// location to another if the cost between them is greater than this
+        /// number (distance or time). Zero (default) value means no check is
+        /// performed. The default value is '0.0'.</para></remarks>
+        public const string MAX_TRIP_COST = "max_trip_cost";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:</term>
-        ///         <description>Matches <paramref name="sample_points" /> to
-        ///         the graph using the Hidden Markov Model (HMM)-based method,
-        ///         which conducts a range-tree closest-edge search to find the
-        ///         best combinations of possible road segments (<see
-        ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>) for each
-        ///         sample point to create the best route. The route is secured
-        ///         one point at a time while looking ahead <see
-        ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see> number of
-        ///         points, so the prediction is corrected after each point.
-        ///         This solution type is the most accurate but also the most
-        ///         computationally intensive. Related options: <see
-        ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see> and <see
-        ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Filter out the folded paths.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:
-        ///         </term>
-        ///         <description>Matches <paramref name="sample_points" /> to
-        ///         find the most probable path between origin and destination
-        ///         pairs with cost constraints.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:
-        ///         </term>
-        ///         <description>Matches <paramref name="sample_points" /> to
-        ///         optimize scheduling multiple supplies (trucks) with varying
-        ///         sizes to varying demand sites with varying capacities per
-        ///         depot. Related options: <see
-        ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see> and
-        ///         <see
-        ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>.
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Do not filter out the folded paths
         ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:
-        ///         </term>
-        ///         <description>Matches <paramref name="sample_points" />
-        ///         source and destination pairs for the shortest path solves
-        ///         in batch mode.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:</term>
-        ///         <description>Matches closed loops (Eulerian paths)
-        ///         originating and ending at each graph node within min and
-        ///         max hops (levels).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:
-        ///         </term>
-        ///         <description>Matches an optimal path across a number of
-        ///         ev-charging stations between source and target locations.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:
-        ///         </term>
-        ///         <description>Matches the intersection set(s) by computing
-        ///         the Jaccard similarity score between node pairs.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:
-        ///         </term>
-        ///         <description>Matches the pickups and dropoffs by optimizing
-        ///         the total trip costs</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:
-        ///         </term>
-        ///         <description>Matches the graph nodes with a cluster index
-        ///         using Louvain clustering algorithm</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:
-        ///         </term>
-        ///         <description>Matches a pattern in the graph</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
-        ///         </term>
-        ///         <description>Creates vector node embeddings</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
-        ///         </term>
-        ///         <description>Solves for isochrones for a set of input
-        ///         sources</description>
         ///     </item>
         /// </list>
-        /// The default value is <see
-        /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.</param>
-        /// <param name="solution_table">The name of the table used to store
-        /// the results, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  This table contains a <a
-        /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
-        /// target="_top">track</a> of geospatial points for the matched
-        /// portion of the graph, a track ID, and a score value. Also outputs a
-        /// details table containing a trip ID (that matches the track ID), the
-        /// latitude/longitude pair, the timestamp the point was recorded at,
-        /// and an edge ID corresponding to the matched road segment. Must not
-        /// be an existing table of the same name. The default value is ''.
-        /// </param>
-        /// <param name="options">Additional parameters.
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string FILTER_FOLDING_PATHS = "filter_folding_paths";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>The unit cost per load amount to be delivered. If
+        /// this value is greater than zero (default) then the additional cost
+        /// of this unit load multiplied by the total dropped load will be
+        /// added over to the trip cost to the demand location. The default
+        /// value is '0.0'.</para></remarks>
+        public const string UNIT_UNLOADING_COST = "unit_unloading_cost";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+        /// </summary>
+        /// <remarks><para>If specified (greater than zero), the maximum number
+        /// of threads will not be greater than the specified value. It can be
+        /// lower due to the memory and the number cores available. Default
+        /// value of zero allows the algorithm to set the maximal number of
+        /// threads within these constraints. The default value is '0'.</para>
+        /// </remarks>
+        public const string MAX_NUM_THREADS = "max_num_threads";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>If specified (greater than zero), any supply actor's
+        /// total service cost (distance or time) will be limited by the
+        /// specified value including multiple rounds (if set). The default
+        /// value is '0.0'.</para></remarks>
+        public const string SERVICE_LIMIT = "service_limit";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.GPS_NOISE">GPS_NOISE</see>:</term>
-        ///         <description>GPS noise value (in meters) to remove
-        ///         redundant sample points. Use -1 to disable noise reduction.
-        ///         The default value accounts for 95% of point variation (+ or
-        ///         -5 meters). The default value is '5.0'.</description>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Allows reusing supply actors (trucks, e.g.)
+        ///         for scheduling again.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:
-        ///         </term>
-        ///         <description>Maximum number of potentially matching road
-        ///         segments for each sample point. For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver,
-        ///         the default is 3. The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description>Maximum search radius used when snapping
-        ///         sample points onto potentially matching surrounding
-        ///         segments. The default value corresponds to approximately
-        ///         100 meters. The default value is '0.001'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver
-        ///         only. Length of the sample points lookahead window within
-        ///         the Markov kernel; the larger the number, the more accurate
-        ///         the solution. The default value is '9'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SOURCE">SOURCE</see>:</term>
-        ///         <description>Optional WKT starting point from <paramref
-        ///         name="sample_points" /> for the solver. The default
-        ///         behavior for the endpoint is to use time to determine the
-        ///         starting point. The default value is 'POINT NULL'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.DESTINATION">DESTINATION</see>:
-        ///         </term>
-        ///         <description>Optional WKT ending point from <paramref
-        ///         name="sample_points" /> for the solver. The default
-        ///         behavior for the endpoint is to use time to determine the
-        ///         destination point. The default value is 'POINT NULL'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When false (non-default), trucks do not
-        ///         off-load at the demand (store) side if the remainder is
-        ///         less than the store's need.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Partial off-loading at multiple store
-        ///                 (demand) locations</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>No partial off-loading allowed if
-        ///                 supply is less than the store's demand.
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. This is the cutoff for the number of generated
-        ///         combinations for sequencing the demand locations - can
-        ///         increase this up to 2M. The default value is '10000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. This is the cutoff for the number of generated
-        ///         combinations for sequencing the supply locations if/when
-        ///         'permute_supplies' is true. The default value is '10000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as 'left turn' if the 'add_turn' option
-        ///         parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as' right turn' if the 'add_turn' option
-        ///         parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as 'intersection' if the 'add_turn' option
-        ///         parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
-        ///         </term>
-        ///         <description>This will add an additional weight over the
-        ///         edges labeled as 'sharp turn' or 'u-turn' if the 'add_turn'
-        ///         option parameter of the <see
-        ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        ///         was invoked at graph creation. The default value is '0.0'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When it is true (default), each record in the
-        ///         output table shows a particular truck's scheduled
-        ///         cumulative round trip path (MULTILINESTRING) and the
-        ///         corresponding aggregated cost. Otherwise, each record shows
-        ///         a single scheduled truck route (LINESTRING) towards a
-        ///         particular demand location (store id) with its
-        ///         corresponding cost. The default value is 'true'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When it is true (non-default), the output will
-        ///         be in tracks format for all the round trips of each truck
-        ///         in which the timestamps are populated directly from the
-        ///         edge weights starting from their originating depots. The
-        ///         default value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         and <see
-        ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
-        ///         solvers only. If this constraint is greater than zero
-        ///         (default) then the trucks/rides will skip traveling from
-        ///         one demand/pick location to another if the cost between
-        ///         them is greater than this number (distance or time). Zero
-        ///         (default) value means no check is performed. The default
-        ///         value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver
-        ///         only. When true (non-default), the paths per sequence
-        ///         combination is checked for folding over patterns and can
-        ///         significantly increase the execution time depending on the
-        ///         chain width and the number of GPS samples.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Filter out the folded paths.
-        ///                 </description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Do not filter out the folded paths
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. The unit cost per load amount to be delivered.
-        ///         If this value is greater than zero (default) then the
-        ///         additional cost of this unit load multiplied by the total
-        ///         dropped load will be added over to the trip cost to the
-        ///         demand location. The default value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver
-        ///         only. If specified (greater than zero), the maximum number
-        ///         of threads will not be greater than the specified value. It
-        ///         can be lower due to the memory and the number cores
-        ///         available. Default value of zero allows the algorithm to
-        ///         set the maximal number of threads within these constraints.
-        ///         The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (greater than zero), any supply
-        ///         actor's total service cost (distance or time) will be
-        ///         limited by the specified value including multiple rounds
-        ///         (if set). The default value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ENABLE_REUSE">ENABLE_REUSE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (true), all supply actors can be
-        ///         scheduled for second rounds from their originating depots.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Allows reusing supply actors (trucks,
-        ///                 e.g.) for scheduling again.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Supply actors are scheduled only once
-        ///                 from their depots.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_STOPS">MAX_STOPS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (greater than zero), a supply
-        ///         actor (truck) can at most have this many stops (demand
-        ///         locations) in one round trip. Otherwise, it is unlimited.
-        ///         If 'enable_truck_reuse' is on, this condition will be
-        ///         applied separately at each round trip use of the same
-        ///         truck. The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         and <see
-        ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
-        ///         solvers only. If specified (greater than zero), it filters
-        ///         the demands/picks outside this radius centered around the
-        ///         supply actor/ride's originating location (distance or
-        ///         time). The default value is '0.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. If specified (true), supply side actors are
-        ///         permuted for the demand combinations during MSDO
-        ///         optimization - note that this option increases optimization
-        ///         time significantly - use of 'max_combinations' option is
-        ///         recommended to prevent prohibitively long runs.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Generates sequences over supply side
-        ///                 permutations if total supply is less than twice the
-        ///                 total demand</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Permutations are not performed, rather
-        ///                 a specific order of supplies based on capacity is
-        ///                 computed</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When enabled, it sets the number of visits on
-        ///         each demand location by a single salesman at each trip is
-        ///         considered to be (one) 1, otherwise there is no bound.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Sets only one visit per demand
-        ///                 location by a salesman (TSM mode)</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>No preset limit (usual MSDO mode)
-        ///                 </description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ROUND_TRIP">ROUND_TRIP</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. When enabled, the supply will have to return
-        ///         back to the origination location.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>The optimization is done for trips in
-        ///                 round trip manner always returning to originating
-        ///                 locations</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Supplies do not have to come back to
-        ///                 their originating locations in their routes. The
-        ///                 routes are considered finished at the final
-        ///                 dropoff.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.NUM_CYCLES">NUM_CYCLES</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. Terminates the cluster exchange iterations
-        ///         across 2-step-cycles (outer loop) when quality does not
-        ///         improve during iterations. The default value is '10'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
-        ///         <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Terminates the cluster exchanges within the
-        ///         first step iterations of a cycle (inner loop) unless
-        ///         convergence is reached. The default value is '10'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only.  Limits the output to the top
-        ///         'num_output_clusters' clusters based on density. Default
-        ///         value of zero outputs all clusters. The default value is
-        ///         '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and
-        ///         <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. If set (value greater than zero), it
-        ///         terminates when the number of clusters goes below than this
-        ///         number. For embedding solver the default is 8. The default
-        ///         value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
-        ///         solver only. The quality metric for Louvain modularity
-        ///         optimization solver.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.GIRVAN">GIRVAN</see>:
-        ///                 </term>
-        ///                 <description>Uses the Newman Girvan quality metric
-        ///                 for cluster solver</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.SPECTRAL">SPECTRAL</see>:
-        ///                 </term>
-        ///                 <description>Applies recursive spectral bisection
-        ///                 (RSB) partitioning solver</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see
-        ///         cref="Options.GIRVAN">GIRVAN</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
-        ///         solver only. Optimization is performed by restricting
-        ///         routes labeled by 'MSDO_ODDEVEN_RESTRICTED' only for this
-        ///         supply actor (truck) type.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.ODD">ODD</see>:</term>
-        ///                 <description>Applies odd/even rule restrictions to
-        ///                 odd tagged vehicles.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.EVEN">EVEN</see>:</term>
-        ///                 <description>Applies odd/even rule restrictions to
-        ///                 even tagged vehicles.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-        ///                 <description>Does not apply odd/even rule
-        ///                 restrictions to any vehicles.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.NONE">NONE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        ///         request to. Default is to send to the server, amongst those
-        ///         containing the corresponding graph, that has the most
-        ///         computational bandwidth. The default value is ''.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
-        ///         solver only. Solves source-destination pairs using inverse
-        ///         shortest path solver.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///                 <description>Solves using inverse shortest path
-        ///                 solver.</description>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///                 <description>Solves using direct shortest path
-        ///                 solver.</description>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Finds closed loops around each node deducible not
-        ///         less than this minimal hop (level) deep. The default value
-        ///         is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Finds closed loops around each node deducible not
-        ///         more than this maximal hop (level) deep. The default value
-        ///         is '5'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Searches within this limit of nodes per vertex to
-        ///         detect loops. The value zero means there is no limit. The
-        ///         default value is '10000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver
-        ///         only. Uses this value as the batch size of the number of
-        ///         loops in flushing(inserting) to the output table. The
-        ///         default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-        ///         solver only. This is the maximum ev-charging capacity of a
-        ///         vehicle (distance in meters or time in seconds depending on
-        ///         the unit of the graph weights). The default value is
-        ///         '300000.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-        ///         solver only. Solver searches for this many number of
-        ///         stations closest around each base charging location found
-        ///         by capacity. The default value is '10'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
-        ///         solver only. This is the penalty for full charging. The
-        ///         default value is '30000.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_HOPS">MAX_HOPS</see>:</term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         and <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Searches within this maximum hops for source
-        ///         and target node pairs to compute the Jaccard scores. The
-        ///         default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         solver only. Limits the traversal depth if it reaches this
-        ///         many number of nodes. The default value is '1000'.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
-        ///         solver only. If true, it computes Jaccard score between
-        ///         each pair, otherwise it will compute Jaccard from the
-        ///         intersection set between the source and target nodes.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and
-        ///         <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Pattern matching will be using both pattern
-        ///         and graph as undirected if set to true.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.MAX_VECTOR_DIMENSION">MAX_VECTOR_DIMENSION</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. Limits the number of dimensions in node vector
-        ///         embeddings. The default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZE_EMBEDDING_WEIGHTS">OPTIMIZE_EMBEDDING_WEIGHTS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solvers only. Solves to find the optimal weights per sub
-        ///         feature in vector embeddings.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.EMBEDDING_WEIGHTS">EMBEDDING_WEIGHTS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. User specified weights per sub feature in
-        ///         vector embeddings. The string contains the comma separated
-        ///         float values for each sub-feature in the vector space.
-        ///         These values will ONLY be used if
-        ///         'optimize_embedding_weights' is false. The default value is
-        ///         '1.0,1.0,1.0,1.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_SAMPLING_SIZE">OPTIMIZATION_SAMPLING_SIZE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. Sets the number of random nodes from the graph
-        ///         for solving the weights using stochastic gradient descent.
-        ///         The default value is '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_MAX_ITERATIONS">OPTIMIZATION_MAX_ITERATIONS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. When the iterations (epochs) for the
-        ///         convergence of the stochastic gradient descent algorithm
-        ///         reaches this number it bails out unless relative error
-        ///         between consecutive iterations is below the
-        ///         'optimization_error_tolerance' option. The default value is
-        ///         '1000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_ERROR_TOLERANCE">OPTIMIZATION_ERROR_TOLERANCE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. When the relative error between all of the
-        ///         weights' consecutive iterations falls below this threshold
-        ///         the optimization cycle is interrupted unless the number of
-        ///         iterations reaches the limit set by the option
-        ///         'max_optimization_iterations'. The default value is
-        ///         '0.001'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.OPTIMIZATION_ITERATION_RATE">OPTIMIZATION_ITERATION_RATE</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
-        ///         solver only. It is otherwise known as the learning rate,
-        ///         which is the proportionality constant in front of the
-        ///         gradient term in successive iterations. The default value
-        ///         is '0.3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.MAX_RADIUS">MAX_RADIUS</see>:
-        ///         </term>
-        ///         <description>For the <see
-        ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>
-        ///         solver only. Sets the maximal reachability limit for
-        ///         computing isochrones. Zero means no limit. The default
-        ///         value is '0.0'.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Supply actors are scheduled only once from
+        ///         their depots.</description>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public MatchGraphRequest( string graph_name,
-                                  IList<string> sample_points,
-                                  string solve_method = null,
-                                  string solution_table = null,
-                                  IDictionary<string, string> options = null)
-        {
-            this.graph_name = graph_name ?? "";
-            this.sample_points = sample_points ?? new List<string>();
-            this.solve_method = solve_method ?? SolveMethod.MARKOV_CHAIN;
-            this.solution_table = solution_table ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class MatchGraphRequest
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string ENABLE_REUSE = "enable_reuse";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.matchGraph(MatchGraphRequest)">Kinetica.matchGraph</see>.
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>If specified (greater than zero), a supply actor
+        /// (truck) can at most have this many stops (demand locations) in one
+        /// round trip. Otherwise, it is unlimited. If 'enable_truck_reuse' is
+        /// on, this condition will be applied separately at each round trip
+        /// use of the same truck. The default value is '0'.</para></remarks>
+        public const string MAX_STOPS = "max_stops";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// and <see
+        /// cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
+        /// solvers only.</summary>
+        /// <remarks><para>If specified (greater than zero), it filters the
+        /// demands/picks outside this radius centered around the supply
+        /// actor/ride's originating location (distance or time). The default
+        /// value is '0.0'.</para></remarks>
+        public const string SERVICE_RADIUS = "service_radius";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Generates sequences over supply side
+        ///         permutations if total supply is less than twice the total
+        ///         demand</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Permutations are not performed, rather a
+        ///         specific order of supplies based on capacity is computed
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PERMUTE_SUPPLIES = "permute_supplies";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Sets only one visit per demand location by a
+        ///         salesman (TSM mode)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>No preset limit (usual MSDO mode)
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string BATCH_TSM_MODE = "batch_tsm_mode";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>The optimization is done for trips in round
+        ///         trip manner always returning to originating locations
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Supplies do not have to come back to their
+        ///         originating locations in their routes. The routes are
+        ///         considered finished at the final dropoff.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string ROUND_TRIP = "round_trip";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver only.
+        /// </summary>
+        /// <remarks><para>Terminates the cluster exchange iterations across
+        /// 2-step-cycles (outer loop) when quality does not improve during
+        /// iterations. The default value is '10'.</para></remarks>
+        public const string NUM_CYCLES = "num_cycles";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solvers
+        /// only.</summary>
+        /// <remarks><para>Terminates the cluster exchanges within the first
+        /// step iterations of a cycle (inner loop) unless convergence is
+        /// reached. The default value is '10'.</para></remarks>
+        public const string NUM_LOOPS_PER_CYCLE = "num_loops_per_cycle";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver only.
+        /// </summary>
+        /// <remarks><para> Limits the output to the top 'num_output_clusters'
+        /// clusters based on density. Default value of zero outputs all
+        /// clusters. The default value is '0'.</para></remarks>
+        public const string NUM_OUTPUT_CLUSTERS = "num_output_clusters";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solvers
+        /// only.</summary>
+        /// <remarks><para>If set (value greater than zero), it terminates when
+        /// the number of clusters goes below than this number. For embedding
+        /// solver the default is 8. The default value is '0'.</para></remarks>
+        public const string MAX_NUM_CLUSTERS = "max_num_clusters";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver only.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.GIRVAN">GIRVAN</see>:</term>
+        ///         <description>Uses the Newman Girvan quality metric for
+        ///         cluster solver</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.SPECTRAL">SPECTRAL</see>:</term>
+        ///         <description>Applies recursive spectral bisection (RSB)
+        ///         partitioning solver</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.GIRVAN">GIRVAN</see>.
+        /// </para></remarks>
+        public const string CLUSTER_QUALITY_METRIC = "cluster_quality_metric";
+
+        /// <summary>Uses the Newman Girvan quality metric for cluster solver
+        /// </summary>
+        public const string GIRVAN = "girvan";
+
+        /// <summary>Applies recursive spectral bisection (RSB) partitioning
+        /// solver</summary>
+        public const string SPECTRAL = "spectral";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.ODD">ODD</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to odd
+        ///         tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.EVEN">EVEN</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to even
+        ///         tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.NONE">NONE</see>:</term>
+        ///         <description>Does not apply odd/even rule restrictions to
+        ///         any vehicles.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.NONE">NONE</see>.
+        /// </para></remarks>
+        public const string RESTRICTED_TYPE = "restricted_type";
+
+        /// <summary>Applies odd/even rule restrictions to odd tagged vehicles.
+        /// </summary>
+        public const string ODD = "odd";
+
+        /// <summary>Applies odd/even rule restrictions to even tagged
+        /// vehicles.</summary>
+        public const string EVEN = "even";
+
+        /// <summary>Does not apply odd/even rule restrictions to any vehicles.
+        /// </summary>
+        public const string NONE = "none";
+
+        /// <summary>Indicates which graph server(s) to send the request to.
+        /// </summary>
+        /// <remarks><para>Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth. The default value is ''.</para></remarks>
+        public const string SERVER_ID = "server_id";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <description>Solves using inverse shortest path solver.
+        ///         </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <description>Solves using direct shortest path solver.
+        ///         </description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string INVERSE_SOLVE = "inverse_solve";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+        /// </summary>
+        /// <remarks><para>Finds closed loops around each node deducible not
+        /// less than this minimal hop (level) deep. The default value is '0'.
+        /// </para></remarks>
+        public const string MIN_LOOP_LEVEL = "min_loop_level";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+        /// </summary>
+        /// <remarks><para>Finds closed loops around each node deducible not
+        /// more than this maximal hop (level) deep. The default value is '5'.
+        /// </para></remarks>
+        public const string MAX_LOOP_LEVEL = "max_loop_level";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+        /// </summary>
+        /// <remarks><para>Searches within this limit of nodes per vertex to
+        /// detect loops. The value zero means there is no limit. The default
+        /// value is '10000'.</para></remarks>
+        public const string SEARCH_LIMIT = "search_limit";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+        /// </summary>
+        /// <remarks><para>Uses this value as the batch size of the number of
+        /// loops in flushing(inserting) to the output table. The default value
+        /// is '1000'.</para></remarks>
+        public const string OUTPUT_BATCH_SIZE = "output_batch_size";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+        /// solver only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string MULTI_STEP = "multi_step";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+        /// solver only.</summary>
+        /// <remarks><para>This is the maximum ev-charging capacity of a
+        /// vehicle (distance in meters or time in seconds depending on the
+        /// unit of the graph weights). The default value is '300000.0'.</para>
+        /// </remarks>
+        public const string CHARGING_CAPACITY = "charging_capacity";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+        /// solver only.</summary>
+        /// <remarks><para>Solver searches for this many number of stations
+        /// closest around each base charging location found by capacity. The
+        /// default value is '10'.</para></remarks>
+        public const string CHARGING_CANDIDATES = "charging_candidates";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+        /// solver only.</summary>
+        /// <remarks><para>This is the penalty for full charging. The default
+        /// value is '30000.0'.</para></remarks>
+        public const string CHARGING_PENALTY = "charging_penalty";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+        /// solver only.</summary>
+        /// <remarks><para>Cost along the route at which to search for nearby
+        /// stations If zero, it solves along the trip sliding the 3 SSSP cycle
+        /// kernel by radius amount. The default value is '3600.0'.</para>
+        /// </remarks>
+        public const string DETOUR_MARK_COST = "detour_mark_cost";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+        /// solver only.</summary>
+        /// <remarks><para>Multiplier on detour_mark_cost to determine the
+        /// reentry point on the route (default 1.2 means 20% further along).
+        /// The default value is '1.2'.</para></remarks>
+        public const string DETOUR_REENTRY_FACTOR = "detour_reentry_factor";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+        /// solver only.</summary>
+        /// <remarks><para>Search radius around the mark point for finding
+        /// nearby prospective stations (e.g. cafes, pit stops, EV charging
+        /// stations). The default value is '600.0'.</para></remarks>
+        public const string DETOUR_SEARCH_RADIUS = "detour_search_radius";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+        /// solver only.</summary>
+        /// <remarks><para>Maximum number of nearby stations to consider within
+        /// the search radius around the mark point. The default value is '10'.
+        /// </para></remarks>
+        public const string DETOUR_SEARCH_LIMIT = "detour_search_limit";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> and <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solvers
+        /// only.</summary>
+        /// <remarks><para>Searches within this maximum hops for source and
+        /// target node pairs to compute the Jaccard scores. The default value
+        /// is '3'.</para></remarks>
+        public const string MAX_HOPS = "max_hops";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> solver
+        /// only.</summary>
+        /// <remarks><para>Limits the traversal depth if it reaches this many
+        /// number of nodes. The default value is '1000'.</para></remarks>
+        public const string TRAVERSAL_NODE_LIMIT = "traversal_node_limit";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> solver
+        /// only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string PAIRED_SIMILARITY = "paired_similarity";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solvers
+        /// only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string FORCE_UNDIRECTED = "force_undirected";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+        /// only.</summary>
+        /// <remarks><para>Limits the number of dimensions in node vector
+        /// embeddings. The default value is '1000'.</para></remarks>
+        public const string MAX_VECTOR_DIMENSION = "max_vector_dimension";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solvers
+        /// only.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// </para></remarks>
+        public const string OPTIMIZE_EMBEDDING_WEIGHTS = "optimize_embedding_weights";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+        /// only.</summary>
+        /// <remarks><para>User specified weights per sub feature in vector
+        /// embeddings. The string contains the comma separated float values
+        /// for each sub-feature in the vector space. These values will ONLY be
+        /// used if 'optimize_embedding_weights' is false. The default value is
+        /// '1.0,1.0,1.0,1.0'.</para></remarks>
+        public const string EMBEDDING_WEIGHTS = "embedding_weights";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+        /// only.</summary>
+        /// <remarks><para>Sets the number of random nodes from the graph for
+        /// solving the weights using stochastic gradient descent. The default
+        /// value is '1000'.</para></remarks>
+        public const string OPTIMIZATION_SAMPLING_SIZE = "optimization_sampling_size";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+        /// only.</summary>
+        /// <remarks><para>When the iterations (epochs) for the convergence of
+        /// the stochastic gradient descent algorithm reaches this number it
+        /// bails out unless relative error between consecutive iterations is
+        /// below the 'optimization_error_tolerance' option. The default value
+        /// is '1000'.</para></remarks>
+        public const string OPTIMIZATION_MAX_ITERATIONS = "optimization_max_iterations";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+        /// only.</summary>
+        /// <remarks><para>When the relative error between all of the weights'
+        /// consecutive iterations falls below this threshold the optimization
+        /// cycle is interrupted unless the number of iterations reaches the
+        /// limit set by the option 'max_optimization_iterations'. The default
+        /// value is '0.001'.</para></remarks>
+        public const string OPTIMIZATION_ERROR_TOLERANCE = "optimization_error_tolerance";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+        /// only.</summary>
+        /// <remarks><para>It is otherwise known as the learning rate, which is
+        /// the proportionality constant in front of the gradient term in
+        /// successive iterations. The default value is '0.3'.</para></remarks>
+        public const string OPTIMIZATION_ITERATION_RATE = "optimization_iteration_rate";
+
+        /// <summary>For the <see
+        /// cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see> solver
+        /// only.</summary>
+        /// <remarks><para>Sets the maximal reachability limit for computing
+        /// isochrones. Zero means no limit. The default value is '0.0'.</para>
+        /// </remarks>
+        public const string MAX_RADIUS = "max_radius";
+    } // end struct Options
+
+    /// <summary>Name of the underlying geospatial graph resource to match to
+    /// using <see cref="sample_points" />.</summary>
+    public string graph_name { get; set; }
+
+    /// <summary>Sample points used to match to an underlying geospatial graph.
     /// </summary>
-    public class MatchGraphResponse : KineticaData
+    /// <remarks><para>Sample points must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#match-identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#match-combinations"
+    /// target="_top">combinations</a>. Identifiers can be used with: existing
+    /// column names, e.g., 'table.column AS SAMPLE_X'; expressions, e.g.,
+    /// 'ST_MAKEPOINT(table.x, table.y) AS SAMPLE_WKTPOINT'; or constant
+    /// values, e.g., '{1, 2, 10} AS SAMPLE_TRIPID'.</para></remarks>
+    public IList<string> sample_points { get; set; } = new List<string>();
+
+    /// <summary>The type of solver to use for graph matching.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:
+    ///         </term>
+    ///         <description>Matches <see cref="sample_points" /> to the graph
+    ///         using the Hidden Markov Model (HMM)-based method, which
+    ///         conducts a range-tree closest-edge search to find the best
+    ///         combinations of possible road segments (<see
+    ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>) for each sample
+    ///         point to create the best route. The route is secured one point
+    ///         at a time while looking ahead <see
+    ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see> number of points,
+    ///         so the prediction is corrected after each point. This solution
+    ///         type is the most accurate but also the most computationally
+    ///         intensive. Related options: <see
+    ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see> and <see
+    ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
+    ///         <description>Matches <see cref="sample_points" /> to find the
+    ///         most probable path between origin and destination pairs with
+    ///         cost constraints.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:
+    ///         </term>
+    ///         <description>Matches <see cref="sample_points" /> to optimize
+    ///         scheduling multiple supplies (trucks) with varying sizes to
+    ///         varying demand sites with varying capacities per depot. Related
+    ///         options: <see
+    ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see> and <see
+    ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:
+    ///         </term>
+    ///         <description>Matches <see cref="sample_points" /> source and
+    ///         destination pairs for the shortest path solves in batch mode.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:
+    ///         </term>
+    ///         <description>Matches closed loops (Eulerian paths) originating
+    ///         and ending at each graph node within min and max hops (levels).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:
+    ///         </term>
+    ///         <description>Matches an optimal path across a number of
+    ///         ev-charging stations between source and target locations.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:
+    ///         </term>
+    ///         <description>Matches the intersection set(s) by computing the
+    ///         Jaccard similarity score between node pairs.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:
+    ///         </term>
+    ///         <description>Matches the pickups and dropoffs by optimizing the
+    ///         total trip costs</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
+    ///         <description>Matches the graph nodes with a cluster index using
+    ///         Louvain clustering algorithm</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:</term>
+    ///         <description>Matches a pattern in the graph</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
+    ///         </term>
+    ///         <description>Creates vector node embeddings</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
+    ///         </term>
+    ///         <description>Solves for isochrones for a set of input sources
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>:
+    ///         </term>
+    ///         <description>Computes detour costs for nearby stations at a
+    ///         mark point along each source-target route.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see
+    /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.</para></remarks>
+    public string solve_method { get; set; } = SolveMethod.MARKOV_CHAIN;
+
+    /// <summary>The name of the table used to store the results, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a> and meeting <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">table naming criteria</a>.</summary>
+    /// <remarks><para> This table contains a <a
+    /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
+    /// target="_top">track</a> of geospatial points for the matched portion of
+    /// the graph, a track ID, and a score value. Also outputs a details table
+    /// containing a trip ID (that matches the track ID), the
+    /// latitude/longitude pair, the timestamp the point was recorded at, and
+    /// an edge ID corresponding to the matched road segment. Must not be an
+    /// existing table of the same name. The default value is ''.</para>
+    /// </remarks>
+    public string solution_table { get; set; } = "";
+
+    /// <summary>Additional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.GPS_NOISE">GPS_NOISE</see>:</term>
+    ///         <description>GPS noise value (in meters) to remove redundant
+    ///         sample points. Use -1 to disable noise reduction. The default
+    ///         value accounts for 95% of point variation (+ or -5 meters). The
+    ///         default value is '5.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:
+    ///         </term>
+    ///         <description>Maximum number of potentially matching road
+    ///         segments for each sample point. For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver, the
+    ///         default is 3. The default value is '3'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:
+    ///         </term>
+    ///         <description>Maximum search radius used when snapping sample
+    ///         points onto potentially matching surrounding segments. The
+    ///         default value corresponds to approximately 100 meters. The
+    ///         default value is '0.001'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+    ///         Length of the sample points lookahead window within the Markov
+    ///         kernel; the larger the number, the more accurate the solution.
+    ///         The default value is '9'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SOURCE">SOURCE</see>:</term>
+    ///         <description>Optional WKT starting point from <see
+    ///         cref="sample_points" /> for the solver. The default behavior
+    ///         for the endpoint is to use time to determine the starting
+    ///         point. The default value is 'POINT NULL'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DESTINATION">DESTINATION</see>:</term>
+    ///         <description>Optional WKT ending point from <see
+    ///         cref="sample_points" /> for the solver. The default behavior
+    ///         for the endpoint is to use time to determine the destination
+    ///         point. The default value is 'POINT NULL'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When false (non-default), trucks do not off-load
+    ///         at the demand (store) side if the remainder is less than the
+    ///         store's need.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Partial off-loading at multiple store
+    ///                 (demand) locations</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>No partial off-loading allowed if supply
+    ///                 is less than the store's demand.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. This is the cutoff for the number of generated
+    ///         combinations for sequencing the demand locations - can increase
+    ///         this up to 2M. The default value is '10000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. This is the cutoff for the number of generated
+    ///         combinations for sequencing the supply locations if/when
+    ///         'permute_supplies' is true. The default value is '10000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as 'left turn' if the 'add_turn' option parameter of
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as' right turn' if the 'add_turn' option parameter of
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as 'intersection' if the 'add_turn' option parameter of
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+    ///         parameter of the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When it is true (default), each record in the
+    ///         output table shows a particular truck's scheduled cumulative
+    ///         round trip path (MULTILINESTRING) and the corresponding
+    ///         aggregated cost. Otherwise, each record shows a single
+    ///         scheduled truck route (LINESTRING) towards a particular demand
+    ///         location (store id) with its corresponding cost. The default
+    ///         value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When it is true (non-default), the output will be
+    ///         in tracks format for all the round trips of each truck in which
+    ///         the timestamps are populated directly from the edge weights
+    ///         starting from their originating depots. The default value is
+    ///         'false'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         and <see
+    ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
+    ///         solvers only. If this constraint is greater than zero (default)
+    ///         then the trucks/rides will skip traveling from one demand/pick
+    ///         location to another if the cost between them is greater than
+    ///         this number (distance or time). Zero (default) value means no
+    ///         check is performed. The default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+    ///         When true (non-default), the paths per sequence combination is
+    ///         checked for folding over patterns and can significantly
+    ///         increase the execution time depending on the chain width and
+    ///         the number of GPS samples.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Filter out the folded paths.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Do not filter out the folded paths
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. The unit cost per load amount to be delivered. If
+    ///         this value is greater than zero (default) then the additional
+    ///         cost of this unit load multiplied by the total dropped load
+    ///         will be added over to the trip cost to the demand location. The
+    ///         default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+    ///         If specified (greater than zero), the maximum number of threads
+    ///         will not be greater than the specified value. It can be lower
+    ///         due to the memory and the number cores available. Default value
+    ///         of zero allows the algorithm to set the maximal number of
+    ///         threads within these constraints. The default value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (greater than zero), any supply
+    ///         actor's total service cost (distance or time) will be limited
+    ///         by the specified value including multiple rounds (if set). The
+    ///         default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ENABLE_REUSE">ENABLE_REUSE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (true), all supply actors can be
+    ///         scheduled for second rounds from their originating depots.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Allows reusing supply actors (trucks,
+    ///                 e.g.) for scheduling again.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Supply actors are scheduled only once from
+    ///                 their depots.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_STOPS">MAX_STOPS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (greater than zero), a supply actor
+    ///         (truck) can at most have this many stops (demand locations) in
+    ///         one round trip. Otherwise, it is unlimited. If
+    ///         'enable_truck_reuse' is on, this condition will be applied
+    ///         separately at each round trip use of the same truck. The
+    ///         default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         and <see
+    ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
+    ///         solvers only. If specified (greater than zero), it filters the
+    ///         demands/picks outside this radius centered around the supply
+    ///         actor/ride's originating location (distance or time). The
+    ///         default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (true), supply side actors are
+    ///         permuted for the demand combinations during MSDO optimization -
+    ///         note that this option increases optimization time significantly
+    ///         - use of 'max_combinations' option is recommended to prevent
+    ///         prohibitively long runs.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Generates sequences over supply side
+    ///                 permutations if total supply is less than twice the
+    ///                 total demand</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Permutations are not performed, rather a
+    ///                 specific order of supplies based on capacity is
+    ///                 computed</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When enabled, it sets the number of visits on each
+    ///         demand location by a single salesman at each trip is considered
+    ///         to be (one) 1, otherwise there is no bound.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Sets only one visit per demand location by
+    ///                 a salesman (TSM mode)</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>No preset limit (usual MSDO mode)
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ROUND_TRIP">ROUND_TRIP</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When enabled, the supply will have to return back
+    ///         to the origination location.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>The optimization is done for trips in
+    ///                 round trip manner always returning to originating
+    ///                 locations</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Supplies do not have to come back to their
+    ///                 originating locations in their routes. The routes are
+    ///                 considered finished at the final dropoff.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.NUM_CYCLES">NUM_CYCLES</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
+    ///         only. Terminates the cluster exchange iterations across
+    ///         2-step-cycles (outer loop) when quality does not improve during
+    ///         iterations. The default value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Terminates the cluster exchanges within the first
+    ///         step iterations of a cycle (inner loop) unless convergence is
+    ///         reached. The default value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
+    ///         only.  Limits the output to the top 'num_output_clusters'
+    ///         clusters based on density. Default value of zero outputs all
+    ///         clusters. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. If set (value greater than zero), it terminates
+    ///         when the number of clusters goes below than this number. For
+    ///         embedding solver the default is 8. The default value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
+    ///         only. The quality metric for Louvain modularity optimization
+    ///         solver.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.GIRVAN">GIRVAN</see>:</term>
+    ///                 <description>Uses the Newman Girvan quality metric for
+    ///                 cluster solver</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SPECTRAL">SPECTRAL</see>:
+    ///                 </term>
+    ///                 <description>Applies recursive spectral bisection (RSB)
+    ///                 partitioning solver</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.GIRVAN">GIRVAN</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. Optimization is performed by restricting routes
+    ///         labeled by 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor
+    ///         (truck) type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ODD">ODD</see>:</term>
+    ///                 <description>Applies odd/even rule restrictions to odd
+    ///                 tagged vehicles.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.EVEN">EVEN</see>:</term>
+    ///                 <description>Applies odd/even rule restrictions to even
+    ///                 tagged vehicles.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <description>Does not apply odd/even rule restrictions
+    ///                 to any vehicles.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <description>Indicates which graph server(s) to send the
+    ///         request to. Default is to send to the server, amongst those
+    ///         containing the corresponding graph, that has the most
+    ///         computational bandwidth. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
+    ///         solver only. Solves source-destination pairs using inverse
+    ///         shortest path solver.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Solves using inverse shortest path solver.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Solves using direct shortest path solver.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Finds closed loops around each node deducible not less than
+    ///         this minimal hop (level) deep. The default value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Finds closed loops around each node deducible not more than
+    ///         this maximal hop (level) deep. The default value is '5'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Searches within this limit of nodes per vertex to detect loops.
+    ///         The value zero means there is no limit. The default value is
+    ///         '10000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Uses this value as the batch size of the number of loops in
+    ///         flushing(inserting) to the output table. The default value is
+    ///         '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MULTI_STEP">MULTI_STEP</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. Runs multiple supply demand solver repeatedly in a
+    ///         multi step cycle by switching supplies to demands until it
+    ///         reaches the main hub supply.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+    ///         solver only. This is the maximum ev-charging capacity of a
+    ///         vehicle (distance in meters or time in seconds depending on the
+    ///         unit of the graph weights). The default value is '300000.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+    ///         solver only. Solver searches for this many number of stations
+    ///         closest around each base charging location found by capacity.
+    ///         The default value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+    ///         solver only. This is the penalty for full charging. The default
+    ///         value is '30000.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_MARK_COST">DETOUR_MARK_COST</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Cost along the route at which to search for nearby
+    ///         stations If zero, it solves along the trip sliding the 3 SSSP
+    ///         cycle kernel by radius amount. The default value is '3600.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_REENTRY_FACTOR">DETOUR_REENTRY_FACTOR</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Multiplier on detour_mark_cost to determine the
+    ///         reentry point on the route (default 1.2 means 20% further
+    ///         along). The default value is '1.2'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_SEARCH_RADIUS">DETOUR_SEARCH_RADIUS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Search radius around the mark point for finding
+    ///         nearby prospective stations (e.g. cafes, pit stops, EV charging
+    ///         stations). The default value is '600.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_SEARCH_LIMIT">DETOUR_SEARCH_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Maximum number of nearby stations to consider
+    ///         within the search radius around the mark point. The default
+    ///         value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_HOPS">MAX_HOPS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> and
+    ///         <see cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Searches within this maximum hops for source and
+    ///         target node pairs to compute the Jaccard scores. The default
+    ///         value is '3'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
+    ///         solver only. Limits the traversal depth if it reaches this many
+    ///         number of nodes. The default value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
+    ///         solver only. If true, it computes Jaccard score between each
+    ///         pair, otherwise it will compute Jaccard from the intersection
+    ///         set between the source and target nodes.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Pattern matching will be using both pattern and
+    ///         graph as undirected if set to true.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_VECTOR_DIMENSION">MAX_VECTOR_DIMENSION</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. Limits the number of dimensions in node vector
+    ///         embeddings. The default value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZE_EMBEDDING_WEIGHTS">OPTIMIZE_EMBEDDING_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Solves to find the optimal weights per sub
+    ///         feature in vector embeddings.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.EMBEDDING_WEIGHTS">EMBEDDING_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. User specified weights per sub feature in vector
+    ///         embeddings. The string contains the comma separated float
+    ///         values for each sub-feature in the vector space. These values
+    ///         will ONLY be used if 'optimize_embedding_weights' is false. The
+    ///         default value is '1.0,1.0,1.0,1.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_SAMPLING_SIZE">OPTIMIZATION_SAMPLING_SIZE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. Sets the number of random nodes from the graph for
+    ///         solving the weights using stochastic gradient descent. The
+    ///         default value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_MAX_ITERATIONS">OPTIMIZATION_MAX_ITERATIONS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. When the iterations (epochs) for the convergence of the
+    ///         stochastic gradient descent algorithm reaches this number it
+    ///         bails out unless relative error between consecutive iterations
+    ///         is below the 'optimization_error_tolerance' option. The default
+    ///         value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_ERROR_TOLERANCE">OPTIMIZATION_ERROR_TOLERANCE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. When the relative error between all of the weights'
+    ///         consecutive iterations falls below this threshold the
+    ///         optimization cycle is interrupted unless the number of
+    ///         iterations reaches the limit set by the option
+    ///         'max_optimization_iterations'. The default value is '0.001'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_ITERATION_RATE">OPTIMIZATION_ITERATION_RATE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. It is otherwise known as the learning rate, which is the
+    ///         proportionality constant in front of the gradient term in
+    ///         successive iterations. The default value is '0.3'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_RADIUS">MAX_RADIUS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see> solver
+    ///         only. Sets the maximal reachability limit for computing
+    ///         isochrones. Zero means no limit. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a MatchGraphRequest object with default parameters.
+    /// </summary>
+    public MatchGraphRequest() { }
+
+    /// <summary>Constructs a MatchGraphRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="graph_name">Name of the underlying geospatial graph
+    /// resource to match to using <paramref name="sample_points" />.</param>
+    /// <param name="sample_points">Sample points used to match to an
+    /// underlying geospatial graph. Sample points must be specified using <a
+    /// href="../../../graph_solver/network_graph_solver/#match-identifiers"
+    /// target="_top">identifiers</a>; identifiers are grouped as <a
+    /// href="../../../graph_solver/network_graph_solver/#match-combinations"
+    /// target="_top">combinations</a>. Identifiers can be used with: existing
+    /// column names, e.g., 'table.column AS SAMPLE_X'; expressions, e.g.,
+    /// 'ST_MAKEPOINT(table.x, table.y) AS SAMPLE_WKTPOINT'; or constant
+    /// values, e.g., '{1, 2, 10} AS SAMPLE_TRIPID'.</param>
+    /// <param name="solve_method">The type of solver to use for graph
+    /// matching.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:
+    ///         </term>
+    ///         <description>Matches <paramref name="sample_points" /> to the
+    ///         graph using the Hidden Markov Model (HMM)-based method, which
+    ///         conducts a range-tree closest-edge search to find the best
+    ///         combinations of possible road segments (<see
+    ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>) for each sample
+    ///         point to create the best route. The route is secured one point
+    ///         at a time while looking ahead <see
+    ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see> number of points,
+    ///         so the prediction is corrected after each point. This solution
+    ///         type is the most accurate but also the most computationally
+    ///         intensive. Related options: <see
+    ///         cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see> and <see
+    ///         cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
+    ///         <description>Matches <paramref name="sample_points" /> to find
+    ///         the most probable path between origin and destination pairs
+    ///         with cost constraints.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:
+    ///         </term>
+    ///         <description>Matches <paramref name="sample_points" /> to
+    ///         optimize scheduling multiple supplies (trucks) with varying
+    ///         sizes to varying demand sites with varying capacities per
+    ///         depot. Related options: <see
+    ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see> and <see
+    ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:
+    ///         </term>
+    ///         <description>Matches <paramref name="sample_points" /> source
+    ///         and destination pairs for the shortest path solves in batch
+    ///         mode.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:
+    ///         </term>
+    ///         <description>Matches closed loops (Eulerian paths) originating
+    ///         and ending at each graph node within min and max hops (levels).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:
+    ///         </term>
+    ///         <description>Matches an optimal path across a number of
+    ///         ev-charging stations between source and target locations.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:
+    ///         </term>
+    ///         <description>Matches the intersection set(s) by computing the
+    ///         Jaccard similarity score between node pairs.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:
+    ///         </term>
+    ///         <description>Matches the pickups and dropoffs by optimizing the
+    ///         total trip costs</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
+    ///         <description>Matches the graph nodes with a cluster index using
+    ///         Louvain clustering algorithm</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:</term>
+    ///         <description>Matches a pattern in the graph</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
+    ///         </term>
+    ///         <description>Creates vector node embeddings</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
+    ///         </term>
+    ///         <description>Solves for isochrones for a set of input sources
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>:
+    ///         </term>
+    ///         <description>Computes detour costs for nearby stations at a
+    ///         mark point along each source-target route.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is <see
+    /// cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.</param>
+    /// <param name="solution_table">The name of the table used to store the
+    /// results, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a> and meeting <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
+    /// target="_top">table naming criteria</a>.  This table contains a <a
+    /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
+    /// target="_top">track</a> of geospatial points for the matched portion of
+    /// the graph, a track ID, and a score value. Also outputs a details table
+    /// containing a trip ID (that matches the track ID), the
+    /// latitude/longitude pair, the timestamp the point was recorded at, and
+    /// an edge ID corresponding to the matched road segment. Must not be an
+    /// existing table of the same name. The default value is ''.</param>
+    /// <param name="options">Additional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.GPS_NOISE">GPS_NOISE</see>:</term>
+    ///         <description>GPS noise value (in meters) to remove redundant
+    ///         sample points. Use -1 to disable noise reduction. The default
+    ///         value accounts for 95% of point variation (+ or -5 meters). The
+    ///         default value is '5.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:
+    ///         </term>
+    ///         <description>Maximum number of potentially matching road
+    ///         segments for each sample point. For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver, the
+    ///         default is 3. The default value is '3'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:
+    ///         </term>
+    ///         <description>Maximum search radius used when snapping sample
+    ///         points onto potentially matching surrounding segments. The
+    ///         default value corresponds to approximately 100 meters. The
+    ///         default value is '0.001'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+    ///         Length of the sample points lookahead window within the Markov
+    ///         kernel; the larger the number, the more accurate the solution.
+    ///         The default value is '9'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SOURCE">SOURCE</see>:</term>
+    ///         <description>Optional WKT starting point from <paramref
+    ///         name="sample_points" /> for the solver. The default behavior
+    ///         for the endpoint is to use time to determine the starting
+    ///         point. The default value is 'POINT NULL'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.DESTINATION">DESTINATION</see>:</term>
+    ///         <description>Optional WKT ending point from <paramref
+    ///         name="sample_points" /> for the solver. The default behavior
+    ///         for the endpoint is to use time to determine the destination
+    ///         point. The default value is 'POINT NULL'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When false (non-default), trucks do not off-load
+    ///         at the demand (store) side if the remainder is less than the
+    ///         store's need.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Partial off-loading at multiple store
+    ///                 (demand) locations</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>No partial off-loading allowed if supply
+    ///                 is less than the store's demand.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. This is the cutoff for the number of generated
+    ///         combinations for sequencing the demand locations - can increase
+    ///         this up to 2M. The default value is '10000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. This is the cutoff for the number of generated
+    ///         combinations for sequencing the supply locations if/when
+    ///         'permute_supplies' is true. The default value is '10000'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as 'left turn' if the 'add_turn' option parameter of
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as' right turn' if the 'add_turn' option parameter of
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as 'intersection' if the 'add_turn' option parameter of
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
+    ///         </term>
+    ///         <description>This will add an additional weight over the edges
+    ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+    ///         parameter of the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When it is true (default), each record in the
+    ///         output table shows a particular truck's scheduled cumulative
+    ///         round trip path (MULTILINESTRING) and the corresponding
+    ///         aggregated cost. Otherwise, each record shows a single
+    ///         scheduled truck route (LINESTRING) towards a particular demand
+    ///         location (store id) with its corresponding cost. The default
+    ///         value is 'true'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When it is true (non-default), the output will be
+    ///         in tracks format for all the round trips of each truck in which
+    ///         the timestamps are populated directly from the edge weights
+    ///         starting from their originating depots. The default value is
+    ///         'false'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         and <see
+    ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
+    ///         solvers only. If this constraint is greater than zero (default)
+    ///         then the trucks/rides will skip traveling from one demand/pick
+    ///         location to another if the cost between them is greater than
+    ///         this number (distance or time). Zero (default) value means no
+    ///         check is performed. The default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+    ///         When true (non-default), the paths per sequence combination is
+    ///         checked for folding over patterns and can significantly
+    ///         increase the execution time depending on the chain width and
+    ///         the number of GPS samples.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Filter out the folded paths.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Do not filter out the folded paths
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. The unit cost per load amount to be delivered. If
+    ///         this value is greater than zero (default) then the additional
+    ///         cost of this unit load multiplied by the total dropped load
+    ///         will be added over to the trip cost to the demand location. The
+    ///         default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see> solver only.
+    ///         If specified (greater than zero), the maximum number of threads
+    ///         will not be greater than the specified value. It can be lower
+    ///         due to the memory and the number cores available. Default value
+    ///         of zero allows the algorithm to set the maximal number of
+    ///         threads within these constraints. The default value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (greater than zero), any supply
+    ///         actor's total service cost (distance or time) will be limited
+    ///         by the specified value including multiple rounds (if set). The
+    ///         default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ENABLE_REUSE">ENABLE_REUSE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (true), all supply actors can be
+    ///         scheduled for second rounds from their originating depots.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Allows reusing supply actors (trucks,
+    ///                 e.g.) for scheduling again.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Supply actors are scheduled only once from
+    ///                 their depots.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_STOPS">MAX_STOPS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (greater than zero), a supply actor
+    ///         (truck) can at most have this many stops (demand locations) in
+    ///         one round trip. Otherwise, it is unlimited. If
+    ///         'enable_truck_reuse' is on, this condition will be applied
+    ///         separately at each round trip use of the same truck. The
+    ///         default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         and <see
+    ///         cref="SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>
+    ///         solvers only. If specified (greater than zero), it filters the
+    ///         demands/picks outside this radius centered around the supply
+    ///         actor/ride's originating location (distance or time). The
+    ///         default value is '0.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. If specified (true), supply side actors are
+    ///         permuted for the demand combinations during MSDO optimization -
+    ///         note that this option increases optimization time significantly
+    ///         - use of 'max_combinations' option is recommended to prevent
+    ///         prohibitively long runs.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Generates sequences over supply side
+    ///                 permutations if total supply is less than twice the
+    ///                 total demand</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Permutations are not performed, rather a
+    ///                 specific order of supplies based on capacity is
+    ///                 computed</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When enabled, it sets the number of visits on each
+    ///         demand location by a single salesman at each trip is considered
+    ///         to be (one) 1, otherwise there is no bound.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Sets only one visit per demand location by
+    ///                 a salesman (TSM mode)</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>No preset limit (usual MSDO mode)
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.ROUND_TRIP">ROUND_TRIP</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. When enabled, the supply will have to return back
+    ///         to the origination location.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>The optimization is done for trips in
+    ///                 round trip manner always returning to originating
+    ///                 locations</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Supplies do not have to come back to their
+    ///                 originating locations in their routes. The routes are
+    ///                 considered finished at the final dropoff.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.NUM_CYCLES">NUM_CYCLES</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
+    ///         only. Terminates the cluster exchange iterations across
+    ///         2-step-cycles (outer loop) when quality does not improve during
+    ///         iterations. The default value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Terminates the cluster exchanges within the first
+    ///         step iterations of a cycle (inner loop) unless convergence is
+    ///         reached. The default value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
+    ///         only.  Limits the output to the top 'num_output_clusters'
+    ///         clusters based on density. Default value of zero outputs all
+    ///         clusters. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> and <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. If set (value greater than zero), it terminates
+    ///         when the number of clusters goes below than this number. For
+    ///         embedding solver the default is 8. The default value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see> solver
+    ///         only. The quality metric for Louvain modularity optimization
+    ///         solver.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.GIRVAN">GIRVAN</see>:</term>
+    ///                 <description>Uses the Newman Girvan quality metric for
+    ///                 cluster solver</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.SPECTRAL">SPECTRAL</see>:
+    ///                 </term>
+    ///                 <description>Applies recursive spectral bisection (RSB)
+    ///                 partitioning solver</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.GIRVAN">GIRVAN</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. Optimization is performed by restricting routes
+    ///         labeled by 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor
+    ///         (truck) type.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.ODD">ODD</see>:</term>
+    ///                 <description>Applies odd/even rule restrictions to odd
+    ///                 tagged vehicles.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.EVEN">EVEN</see>:</term>
+    ///                 <description>Applies odd/even rule restrictions to even
+    ///                 tagged vehicles.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <description>Does not apply odd/even rule restrictions
+    ///                 to any vehicles.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <description>Indicates which graph server(s) to send the
+    ///         request to. Default is to send to the server, amongst those
+    ///         containing the corresponding graph, that has the most
+    ///         computational bandwidth. The default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
+    ///         solver only. Solves source-destination pairs using inverse
+    ///         shortest path solver.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <description>Solves using inverse shortest path solver.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <description>Solves using direct shortest path solver.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Finds closed loops around each node deducible not less than
+    ///         this minimal hop (level) deep. The default value is '0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Finds closed loops around each node deducible not more than
+    ///         this maximal hop (level) deep. The default value is '5'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Searches within this limit of nodes per vertex to detect loops.
+    ///         The value zero means there is no limit. The default value is
+    ///         '10000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see> solver only.
+    ///         Uses this value as the batch size of the number of loops in
+    ///         flushing(inserting) to the output table. The default value is
+    ///         '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MULTI_STEP">MULTI_STEP</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
+    ///         solver only. Runs multiple supply demand solver repeatedly in a
+    ///         multi step cycle by switching supplies to demands until it
+    ///         reaches the main hub supply.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+    ///         solver only. This is the maximum ev-charging capacity of a
+    ///         vehicle (distance in meters or time in seconds depending on the
+    ///         unit of the graph weights). The default value is '300000.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+    ///         solver only. Solver searches for this many number of stations
+    ///         closest around each base charging location found by capacity.
+    ///         The default value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>
+    ///         solver only. This is the penalty for full charging. The default
+    ///         value is '30000.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_MARK_COST">DETOUR_MARK_COST</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Cost along the route at which to search for nearby
+    ///         stations If zero, it solves along the trip sliding the 3 SSSP
+    ///         cycle kernel by radius amount. The default value is '3600.0'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_REENTRY_FACTOR">DETOUR_REENTRY_FACTOR</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Multiplier on detour_mark_cost to determine the
+    ///         reentry point on the route (default 1.2 means 20% further
+    ///         along). The default value is '1.2'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_SEARCH_RADIUS">DETOUR_SEARCH_RADIUS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Search radius around the mark point for finding
+    ///         nearby prospective stations (e.g. cafes, pit stops, EV charging
+    ///         stations). The default value is '600.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.DETOUR_SEARCH_LIMIT">DETOUR_SEARCH_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ROUTE_DETOUR">MATCH_ROUTE_DETOUR</see>
+    ///         solver only. Maximum number of nearby stations to consider
+    ///         within the search radius around the mark point. The default
+    ///         value is '10'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_HOPS">MAX_HOPS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see> and
+    ///         <see cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Searches within this maximum hops for source and
+    ///         target node pairs to compute the Jaccard scores. The default
+    ///         value is '3'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
+    ///         solver only. Limits the traversal depth if it reaches this many
+    ///         number of nodes. The default value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
+    ///         solver only. If true, it computes Jaccard score between each
+    ///         pair, otherwise it will compute Jaccard from the intersection
+    ///         set between the source and target nodes.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see> and <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Pattern matching will be using both pattern and
+    ///         graph as undirected if set to true.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.MAX_VECTOR_DIMENSION">MAX_VECTOR_DIMENSION</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. Limits the number of dimensions in node vector
+    ///         embeddings. The default value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZE_EMBEDDING_WEIGHTS">OPTIMIZE_EMBEDDING_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
+    ///         solvers only. Solves to find the optimal weights per sub
+    ///         feature in vector embeddings.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.EMBEDDING_WEIGHTS">EMBEDDING_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. User specified weights per sub feature in vector
+    ///         embeddings. The string contains the comma separated float
+    ///         values for each sub-feature in the vector space. These values
+    ///         will ONLY be used if 'optimize_embedding_weights' is false. The
+    ///         default value is '1.0,1.0,1.0,1.0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_SAMPLING_SIZE">OPTIMIZATION_SAMPLING_SIZE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. Sets the number of random nodes from the graph for
+    ///         solving the weights using stochastic gradient descent. The
+    ///         default value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_MAX_ITERATIONS">OPTIMIZATION_MAX_ITERATIONS</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. When the iterations (epochs) for the convergence of the
+    ///         stochastic gradient descent algorithm reaches this number it
+    ///         bails out unless relative error between consecutive iterations
+    ///         is below the 'optimization_error_tolerance' option. The default
+    ///         value is '1000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_ERROR_TOLERANCE">OPTIMIZATION_ERROR_TOLERANCE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. When the relative error between all of the weights'
+    ///         consecutive iterations falls below this threshold the
+    ///         optimization cycle is interrupted unless the number of
+    ///         iterations reaches the limit set by the option
+    ///         'max_optimization_iterations'. The default value is '0.001'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="Options.OPTIMIZATION_ITERATION_RATE">OPTIMIZATION_ITERATION_RATE</see>:
+    ///         </term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see> solver
+    ///         only. It is otherwise known as the learning rate, which is the
+    ///         proportionality constant in front of the gradient term in
+    ///         successive iterations. The default value is '0.3'.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.MAX_RADIUS">MAX_RADIUS</see>:</term>
+    ///         <description>For the <see
+    ///         cref="SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see> solver
+    ///         only. Sets the maximal reachability limit for computing
+    ///         isochrones. Zero means no limit. The default value is '0.0'.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public MatchGraphRequest( string graph_name,
+                              IList<string> sample_points,
+                              string solve_method = null,
+                              string solution_table = null,
+                              IDictionary<string, string> options = null)
     {
-        /// <summary>Indicates a successful solution.</summary>
-        public bool result { get; set; }
+        this.graph_name = graph_name ?? "";
+        this.sample_points = sample_points ?? new List<string>();
+        this.solve_method = solve_method ?? SolveMethod.MARKOV_CHAIN;
+        this.solution_table = solution_table ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class MatchGraphRequest
 
-        /// <summary>The mean square error calculation representing the map
-        /// matching score.</summary>
-        /// <remarks><para>Values closer to zero are better.</para></remarks>
-        public float match_score { get; set; }
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.matchGraph(MatchGraphRequest)">Kinetica.matchGraph</see>.
+/// </summary>
+public class MatchGraphResponse : KineticaData
+{
+    /// <summary>Indicates a successful solution.</summary>
+    public bool result { get; set; }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class MatchGraphResponse
-} // end namespace kinetica
+    /// <summary>The mean square error calculation representing the map
+    /// matching score.</summary>
+    /// <remarks><para>Values closer to zero are better.</para></remarks>
+    public float match_score { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class MatchGraphResponse

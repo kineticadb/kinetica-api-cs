@@ -6,248 +6,245 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+/// </summary>
+/// <remarks><para>Retrieves the complete series/track records from the given
+/// <see cref="world_table_name" /> based on the partial track information
+/// contained in the <see cref="table_name" />.</para>
+/// <para>This operation supports paging through the data via the <see
+/// cref="offset" /> and <see cref="limit" /> parameters.</para>
+/// <para>In contrast to <see
+/// cref="Kinetica.getRecords{T}(GetRecordsRequest)">Kinetica.getRecords</see>
+/// this returns records grouped by series/track. So if <see cref="offset" />
+/// is 0 and <see cref="limit" /> is 5 this operation would return the first 5
+/// series/tracks in <see cref="table_name" />. Each series/track will be
+/// returned sorted by their TIMESTAMP column.</para></remarks>
+public class GetRecordsBySeriesRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
-    /// </summary>
-    /// <remarks><para>Retrieves the complete series/track records from the
-    /// given <see cref="world_table_name" /> based on the partial track
-    /// information contained in the <see cref="table_name" />.</para>
-    /// <para>This operation supports paging through the data via the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters.</para>
-    /// <para>In contrast to <see
-    /// cref="Kinetica.getRecords{T}(GetRecordsRequest)">Kinetica.getRecords</see>
-    /// this returns records grouped by series/track. So if <see cref="offset"
-    /// /> is 0 and <see cref="limit" /> is 5 this operation would return the
-    /// first 5 series/tracks in <see cref="table_name" />. Each series/track
-    /// will be returned sorted by their TIMESTAMP column.</para></remarks>
-    public class GetRecordsBySeriesRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="encoding" />.</summary>
+    /// <remarks><para>Specifies the encoding for returned records; either <see
+    /// cref="Encoding.BINARY">BINARY</see> or <see
+    /// cref="Encoding.JSON">JSON</see>.</para></remarks>
+    public struct Encoding
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="encoding" />.</summary>
-        /// <remarks><para>Specifies the encoding for returned records; either
-        /// <see cref="Encoding.BINARY">BINARY</see> or <see
-        /// cref="Encoding.JSON">JSON</see>.</para></remarks>
-        public struct Encoding
-        {
-            public const string BINARY = "binary";
-            public const string JSON = "json";
-        } // end struct Encoding
+        public const string BINARY = "binary";
+        public const string JSON = "json";
+    } // end struct Encoding
 
-        /// <summary>Name of the table or view for which series/tracks will be
-        /// fetched, in [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        public string table_name { get; set; }
+    /// <summary>Name of the table or view for which series/tracks will be
+    /// fetched, in [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    public string table_name { get; set; }
 
-        /// <summary>Name of the table containing the complete series/track
-        /// information to be returned for the tracks present in the <see
-        /// cref="table_name" />, in [schema_name.]table_name format, using
-        /// standard <a href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</summary>
-        /// <remarks><para> Typically this is used when retrieving
-        /// series/tracks from a view (which contains partial series/tracks)
-        /// but the user wants to retrieve the entire original series/tracks.
-        /// Can be blank.</para></remarks>
-        public string world_table_name { get; set; }
+    /// <summary>Name of the table containing the complete series/track
+    /// information to be returned for the tracks present in the <see
+    /// cref="table_name" />, in [schema_name.]table_name format, using
+    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</summary>
+    /// <remarks><para> Typically this is used when retrieving series/tracks
+    /// from a view (which contains partial series/tracks) but the user wants
+    /// to retrieve the entire original series/tracks. Can be blank.</para>
+    /// </remarks>
+    public string world_table_name { get; set; }
 
-        /// <summary>A positive integer indicating the number of initial
-        /// series/tracks to skip (useful for paging through the results).
-        /// </summary>
-        /// <remarks><para>The default value is 0. The minimum allowed value is
-        /// 0. The maximum allowed value is MAX_INT.</para></remarks>
-        public int offset { get; set; } = 0;
-
-        /// <summary>A positive integer indicating the maximum number of
-        /// series/tracks to be returned.</summary>
-        /// <remarks><para>Or END_OF_SET (-9999) to indicate that the max
-        /// number of results should be returned. The default value is 250.
-        /// </para></remarks>
-        public int limit { get; set; } = 250;
-
-        /// <summary>Specifies the encoding for returned records; either <see
-        /// cref="Encoding.BINARY">BINARY</see> or <see
-        /// cref="Encoding.JSON">JSON</see>.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Encoding.JSON">JSON</see></term>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is <see
-        /// cref="Encoding.BINARY">BINARY</see>.</para></remarks>
-        public string encoding { get; set; } = Encoding.BINARY;
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><para>The default value is an empty Dictionary.</para>
-        /// </remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a GetRecordsBySeriesRequest object with default
-        /// parameters.</summary>
-        public GetRecordsBySeriesRequest() { }
-
-        /// <summary>Constructs a GetRecordsBySeriesRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table or view for which
-        /// series/tracks will be fetched, in [schema_name.]table_name format,
-        /// using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="world_table_name">Name of the table containing the
-        /// complete series/track information to be returned for the tracks
-        /// present in the <paramref name="table_name" />, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Typically this is used
-        /// when retrieving series/tracks from a view (which contains partial
-        /// series/tracks) but the user wants to retrieve the entire original
-        /// series/tracks. Can be blank.</param>
-        /// <param name="offset">A positive integer indicating the number of
-        /// initial series/tracks to skip (useful for paging through the
-        /// results). The default value is 0. The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT.</param>
-        /// <param name="limit">A positive integer indicating the maximum
-        /// number of series/tracks to be returned. Or END_OF_SET (-9999) to
-        /// indicate that the max number of results should be returned. The
-        /// default value is 250.</param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public GetRecordsBySeriesRequest( string table_name,
-                                          string world_table_name,
-                                          int? offset = null,
-                                          int? limit = null,
-                                          IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.world_table_name = world_table_name ?? "";
-            this.offset = offset ?? 0;
-            this.limit = limit ?? 250;
-            this.encoding = Encoding.BINARY;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-
-        /// <summary>Constructs a GetRecordsBySeriesRequest object with the
-        /// specified parameters.</summary>
-        ///
-        /// <param name="table_name">Name of the table or view for which
-        /// series/tracks will be fetched, in [schema_name.]table_name format,
-        /// using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.</param>
-        /// <param name="world_table_name">Name of the table containing the
-        /// complete series/track information to be returned for the tracks
-        /// present in the <paramref name="table_name" />, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  Typically this is used
-        /// when retrieving series/tracks from a view (which contains partial
-        /// series/tracks) but the user wants to retrieve the entire original
-        /// series/tracks. Can be blank.</param>
-        /// <param name="offset">A positive integer indicating the number of
-        /// initial series/tracks to skip (useful for paging through the
-        /// results). The default value is 0. The minimum allowed value is 0.
-        /// The maximum allowed value is MAX_INT.</param>
-        /// <param name="limit">A positive integer indicating the maximum
-        /// number of series/tracks to be returned. Or END_OF_SET (-9999) to
-        /// indicate that the max number of results should be returned. The
-        /// default value is 250.</param>
-        /// <param name="encoding">Specifies the encoding for returned records;
-        /// either <see cref="Encoding.BINARY">BINARY</see> or <see
-        /// cref="Encoding.JSON">JSON</see>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Encoding.JSON">JSON</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see cref="Encoding.BINARY">BINARY</see>.
-        /// </param>
-        /// <param name="options">Optional parameters. The default value is an
-        /// empty Dictionary.</param>
-        public GetRecordsBySeriesRequest( string table_name,
-                                          string world_table_name,
-                                          int? offset = null,
-                                          int? limit = null,
-                                          string encoding = null,
-                                          IDictionary<string, string> options = null)
-        {
-            this.table_name = table_name ?? "";
-            this.world_table_name = world_table_name ?? "";
-            this.offset = offset ?? 0;
-            this.limit = limit ?? 250;
-            this.encoding = encoding ?? Encoding.BINARY;
-            this.options = options ?? new Dictionary<string, string>();
-        } // end full constructor
-    } // end class GetRecordsBySeriesRequest
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+    /// <summary>A positive integer indicating the number of initial
+    /// series/tracks to skip (useful for paging through the results).
     /// </summary>
-    public class RawGetRecordsBySeriesResponse : KineticaData
-    {
-        /// <summary>The table name (one per series/track) of the returned
-        /// series/tracks.</summary>
-        public IList<string> table_names { get; set; } = new List<string>();
+    /// <remarks><para>The default value is 0. The minimum allowed value is 0.
+    /// The maximum allowed value is MAX_INT.</para></remarks>
+    public int offset { get; set; } = 0;
 
-        /// <summary>The type IDs (one per series/track) of the returned
-        /// series/tracks.</summary>
-        public IList<string> type_names { get; set; } = new List<string>();
+    /// <summary>A positive integer indicating the maximum number of
+    /// series/tracks to be returned.</summary>
+    /// <remarks><para>Or END_OF_SET (-9999) to indicate that the max number of
+    /// results should be returned. The default value is 250.</para></remarks>
+    public int limit { get; set; } = 250;
 
-        /// <summary>The type schemas (one per series/track) of the returned
-        /// series/tracks.</summary>
-        public IList<string> type_schemas { get; set; } = new List<string>();
+    /// <summary>Specifies the encoding for returned records; either <see
+    /// cref="Encoding.BINARY">BINARY</see> or <see
+    /// cref="Encoding.JSON">JSON</see>.</summary>
+    /// <remarks><para>Supported values:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
+    /// </para></remarks>
+    public string encoding { get; set; } = Encoding.BINARY;
 
-        /// <summary>If the encoding parameter of the request was 'binary' then
-        /// this list-of-lists contains the binary encoded records for each
-        /// object (inner list) in each series/track (outer list).</summary>
-        /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
-        public IList<IList<byte[]>> list_records_binary { get; set; } = new List<IList<byte[]>>();
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><para>The default value is an empty Dictionary.</para>
+    /// </remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>If the encoding parameter of the request was 'json' then
-        /// this list-of-lists contains the json encoded records for each
-        /// object (inner list) in each series/track (outer list).</summary>
-        /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
-        public IList<IList<string>> list_records_json { get; set; } = new List<IList<string>>();
+    /// <summary>Constructs a GetRecordsBySeriesRequest object with default
+    /// parameters.</summary>
+    public GetRecordsBySeriesRequest() { }
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class RawGetRecordsBySeriesResponse
-
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
-    /// </summary>
+    /// <summary>Constructs a GetRecordsBySeriesRequest object with the
+    /// specified parameters.</summary>
     ///
-    /// <typeparam name="T">The type of object being processed.</typeparam>
-    public class GetRecordsBySeriesResponse<T> : KineticaData
+    /// <param name="table_name">Name of the table or view for which
+    /// series/tracks will be fetched, in [schema_name.]table_name format,
+    /// using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="world_table_name">Name of the table containing the
+    /// complete series/track information to be returned for the tracks present
+    /// in the <paramref name="table_name" />, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Typically this is used when
+    /// retrieving series/tracks from a view (which contains partial
+    /// series/tracks) but the user wants to retrieve the entire original
+    /// series/tracks. Can be blank.</param>
+    /// <param name="offset">A positive integer indicating the number of
+    /// initial series/tracks to skip (useful for paging through the results).
+    /// The default value is 0. The minimum allowed value is 0. The maximum
+    /// allowed value is MAX_INT.</param>
+    /// <param name="limit">A positive integer indicating the maximum number of
+    /// series/tracks to be returned. Or END_OF_SET (-9999) to indicate that
+    /// the max number of results should be returned. The default value is 250.
+    /// </param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public GetRecordsBySeriesRequest( string table_name,
+                                      string world_table_name,
+                                      int? offset = null,
+                                      int? limit = null,
+                                      IDictionary<string, string> options = null)
     {
-        /// <summary>The table name (one per series/track) of the returned
-        /// series/tracks.</summary>
-        public IList<string> table_names { get; set; } = new List<string>();
+        this.table_name = table_name ?? "";
+        this.world_table_name = world_table_name ?? "";
+        this.offset = offset ?? 0;
+        this.limit = limit ?? 250;
+        this.encoding = Encoding.BINARY;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
 
-        /// <summary>The type IDs (one per series/track) of the returned
-        /// series/tracks.</summary>
-        public IList<string> type_names { get; set; } = new List<string>();
+    /// <summary>Constructs a GetRecordsBySeriesRequest object with the
+    /// specified parameters.</summary>
+    ///
+    /// <param name="table_name">Name of the table or view for which
+    /// series/tracks will be fetched, in [schema_name.]table_name format,
+    /// using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.</param>
+    /// <param name="world_table_name">Name of the table containing the
+    /// complete series/track information to be returned for the tracks present
+    /// in the <paramref name="table_name" />, in [schema_name.]table_name
+    /// format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
+    /// target="_top">name resolution rules</a>.  Typically this is used when
+    /// retrieving series/tracks from a view (which contains partial
+    /// series/tracks) but the user wants to retrieve the entire original
+    /// series/tracks. Can be blank.</param>
+    /// <param name="offset">A positive integer indicating the number of
+    /// initial series/tracks to skip (useful for paging through the results).
+    /// The default value is 0. The minimum allowed value is 0. The maximum
+    /// allowed value is MAX_INT.</param>
+    /// <param name="limit">A positive integer indicating the maximum number of
+    /// series/tracks to be returned. Or END_OF_SET (-9999) to indicate that
+    /// the max number of results should be returned. The default value is 250.
+    /// </param>
+    /// <param name="encoding">Specifies the encoding for returned records;
+    /// either <see cref="Encoding.BINARY">BINARY</see> or <see
+    /// cref="Encoding.JSON">JSON</see>.
+    /// Supported values:
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///     </item>
+    /// </list>
+    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// <param name="options">Optional parameters. The default value is an
+    /// empty Dictionary.</param>
+    public GetRecordsBySeriesRequest( string table_name,
+                                      string world_table_name,
+                                      int? offset = null,
+                                      int? limit = null,
+                                      string encoding = null,
+                                      IDictionary<string, string> options = null)
+    {
+        this.table_name = table_name ?? "";
+        this.world_table_name = world_table_name ?? "";
+        this.offset = offset ?? 0;
+        this.limit = limit ?? 250;
+        this.encoding = encoding ?? Encoding.BINARY;
+        this.options = options ?? new Dictionary<string, string>();
+    } // end full constructor
+} // end class GetRecordsBySeriesRequest
 
-        /// <summary>The type schemas (one per series/track) of the returned
-        /// series/tracks.</summary>
-        public IList<string> type_schemas { get; set; } = new List<string>();
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+/// </summary>
+public class RawGetRecordsBySeriesResponse : KineticaData
+{
+    /// <summary>The table name (one per series/track) of the returned
+    /// series/tracks.</summary>
+    public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>If the encoding parameter of the request was 'binary' then
-        /// this list-of-lists contains the binary encoded records for each
-        /// object (inner list) in each series/track (outer list).</summary>
-        /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
-        public IList<IList<T>> data { get; set; } = new List<IList<T>>();
+    /// <summary>The type IDs (one per series/track) of the returned
+    /// series/tracks.</summary>
+    public IList<string> type_names { get; set; } = new List<string>();
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class GetRecordsBySeriesResponse
-} // end namespace kinetica
+    /// <summary>The type schemas (one per series/track) of the returned
+    /// series/tracks.</summary>
+    public IList<string> type_schemas { get; set; } = new List<string>();
+
+    /// <summary>If the encoding parameter of the request was 'binary' then
+    /// this list-of-lists contains the binary encoded records for each object
+    /// (inner list) in each series/track (outer list).</summary>
+    /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
+    public IList<IList<byte[]>> list_records_binary { get; set; } = new List<IList<byte[]>>();
+
+    /// <summary>If the encoding parameter of the request was 'json' then this
+    /// list-of-lists contains the json encoded records for each object (inner
+    /// list) in each series/track (outer list).</summary>
+    /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
+    public IList<IList<string>> list_records_json { get; set; } = new List<IList<string>>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class RawGetRecordsBySeriesResponse
+
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+/// </summary>
+///
+/// <typeparam name="T">The type of object being processed.</typeparam>
+public class GetRecordsBySeriesResponse<T> : KineticaData
+{
+    /// <summary>The table name (one per series/track) of the returned
+    /// series/tracks.</summary>
+    public IList<string> table_names { get; set; } = new List<string>();
+
+    /// <summary>The type IDs (one per series/track) of the returned
+    /// series/tracks.</summary>
+    public IList<string> type_names { get; set; } = new List<string>();
+
+    /// <summary>The type schemas (one per series/track) of the returned
+    /// series/tracks.</summary>
+    public IList<string> type_schemas { get; set; } = new List<string>();
+
+    /// <summary>If the encoding parameter of the request was 'binary' then
+    /// this list-of-lists contains the binary encoded records for each object
+    /// (inner list) in each series/track (outer list).</summary>
+    /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
+    public IList<IList<T>> data { get; set; } = new List<IList<T>>();
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class GetRecordsBySeriesResponse

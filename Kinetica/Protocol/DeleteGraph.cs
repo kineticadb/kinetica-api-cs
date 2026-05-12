@@ -6,137 +6,134 @@
 
 using System.Collections.Generic;
 
-namespace kinetica
+namespace kinetica;
+
+/// <summary>A set of parameters for <see
+/// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
+/// </summary>
+/// <remarks><para>Deletes an existing graph from the graph server and/or
+/// persist.</para></remarks>
+public class DeleteGraphRequest : KineticaData
 {
-    /// <summary>A set of parameters for <see
-    /// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
-    /// </summary>
-    /// <remarks><para>Deletes an existing graph from the graph server and/or
-    /// persist.</para></remarks>
-    public class DeleteGraphRequest : KineticaData
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
+    public struct Options
     {
-        /// <summary>A set of string constants for the parameter <see
-        /// cref="options" />.</summary>
-        /// <remarks><para>Optional parameters.</para></remarks>
-        public struct Options
-        {
-            /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the
-            /// graph is removed from the server and persist.</summary>
-            /// <remarks><para>Supported values:</para>
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see cref="Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see cref="Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-            /// </para></remarks>
-            public const string DELETE_PERSIST = "delete_persist";
-
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
-            /// <summary>Indicates which graph server(s) to send the request
-            /// to.</summary>
-            /// <remarks><para>Default is to send to get information about all
-            /// the servers.</para></remarks>
-            public const string SERVER_ID = "server_id";
-        } // end struct Options
-
-        /// <summary>Name of the graph to be deleted.</summary>
-        public string graph_name { get; set; }
-
-        /// <summary>Optional parameters.</summary>
-        /// <remarks><list type="bullet">
-        ///     <item>
-        ///         <term><see
-        ///         cref="Options.DELETE_PERSIST">DELETE_PERSIST</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         the graph is removed from the server and persist. If set to
-        ///         <see cref="Options.FALSE">FALSE</see>, the graph is removed
-        ///         from the server but is left in persist. The graph can be
-        ///         reloaded from persist if it is recreated with the same
-        ///         'graph_name'.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        ///         request to. Default is to send to get information about all
-        ///         the servers.</description>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is an empty Dictionary.</para></remarks>
-        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>Constructs a DeleteGraphRequest object with default
-        /// parameters.</summary>
-        public DeleteGraphRequest() { }
-
-        /// <summary>Constructs a DeleteGraphRequest object with the specified
-        /// parameters.</summary>
-        ///
-        /// <param name="graph_name">Name of the graph to be deleted.</param>
-        /// <param name="options">Optional parameters.
+        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the graph
+        /// is removed from the server and persist.</summary>
+        /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see
-        ///         cref="Options.DELETE_PERSIST">DELETE_PERSIST</see>:</term>
-        ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-        ///         the graph is removed from the server and persist. If set to
-        ///         <see cref="Options.FALSE">FALSE</see>, the graph is removed
-        ///         from the server but is left in persist. The graph can be
-        ///         reloaded from persist if it is recreated with the same
-        ///         'graph_name'.
-        ///         Supported values:
-        ///         <list type="bullet">
-        ///             <item>
-        ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-        ///             </item>
-        ///             <item>
-        ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-        ///             </item>
-        ///         </list>
-        ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-        ///         </description>
+        ///         <term><see cref="Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        ///         request to. Default is to send to get information about all
-        ///         the servers.</description>
+        ///         <term><see cref="Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// The default value is an empty Dictionary.</param>
-        public DeleteGraphRequest( string graph_name,
-                                   IDictionary<string, string> options = null)
-        {
-            this.graph_name = graph_name ?? "";
-            this.options = options ?? new Dictionary<string, string>();
-        } // end constructor
-    } // end class DeleteGraphRequest
+        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string DELETE_PERSIST = "delete_persist";
 
-    /// <summary>A set of results returned by <see
-    /// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
-    /// </summary>
-    public class DeleteGraphResponse : KineticaData
+        public const string TRUE = "true";
+        public const string FALSE = "false";
+
+        /// <summary>Indicates which graph server(s) to send the request to.
+        /// </summary>
+        /// <remarks><para>Default is to send to get information about all the
+        /// servers.</para></remarks>
+        public const string SERVER_ID = "server_id";
+    } // end struct Options
+
+    /// <summary>Name of the graph to be deleted.</summary>
+    public string graph_name { get; set; }
+
+    /// <summary>Optional parameters.</summary>
+    /// <remarks><list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.DELETE_PERSIST">DELETE_PERSIST</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
+    ///         graph is removed from the server and persist. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, the graph is removed from the
+    ///         server but is left in persist. The graph can be reloaded from
+    ///         persist if it is recreated with the same 'graph_name'.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <description>Indicates which graph server(s) to send the
+    ///         request to. Default is to send to get information about all the
+    ///         servers.</description>
+    ///     </item>
+    /// </list>
+    /// <para>The default value is an empty Dictionary.</para></remarks>
+    public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+
+    /// <summary>Constructs a DeleteGraphRequest object with default
+    /// parameters.</summary>
+    public DeleteGraphRequest() { }
+
+    /// <summary>Constructs a DeleteGraphRequest object with the specified
+    /// parameters.</summary>
+    ///
+    /// <param name="graph_name">Name of the graph to be deleted.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see cref="Options.DELETE_PERSIST">DELETE_PERSIST</see>:
+    ///         </term>
+    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
+    ///         graph is removed from the server and persist. If set to <see
+    ///         cref="Options.FALSE">FALSE</see>, the graph is removed from the
+    ///         server but is left in persist. The graph can be reloaded from
+    ///         persist if it is recreated with the same 'graph_name'.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <description>Indicates which graph server(s) to send the
+    ///         request to. Default is to send to get information about all the
+    ///         servers.</description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    public DeleteGraphRequest( string graph_name,
+                               IDictionary<string, string> options = null)
     {
-        /// <summary>Indicates a successful deletion.</summary>
-        public bool result { get; set; }
+        this.graph_name = graph_name ?? "";
+        this.options = options ?? new Dictionary<string, string>();
+    } // end constructor
+} // end class DeleteGraphRequest
 
-        /// <summary>Additional information.</summary>
-        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-    } // end class DeleteGraphResponse
-} // end namespace kinetica
+/// <summary>A set of results returned by <see
+/// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
+/// </summary>
+public class DeleteGraphResponse : KineticaData
+{
+    /// <summary>Indicates a successful deletion.</summary>
+    public bool result { get; set; }
+
+    /// <summary>Additional information.</summary>
+    public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+} // end class DeleteGraphResponse
