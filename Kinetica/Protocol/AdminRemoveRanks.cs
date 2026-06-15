@@ -9,77 +9,90 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRemoveRanks(AdminRemoveRanksRequest)">Kinetica.adminRemoveRanks</see>.
-/// </summary>
+/// cref="Kinetica.adminRemoveRanks">Kinetica.adminRemoveRanks</see>.</summary>
 /// <remarks><para>Remove one or more ranks from an existing Kinetica cluster.
 /// All data will be rebalanced to other ranks before the rank(s) is removed
 /// unless the <see
-/// cref="Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see> or <see
-/// cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
-/// parameters are set to <see cref="Options.FALSE">FALSE</see> in the <see
-/// cref="options" />, in which case the corresponding <a
-/// href="../../../concepts/tables/#sharding" target="_top">sharded data</a>
+/// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>
+/// or <see
+/// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>
+/// parameters are set to <see
+/// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see> in the <see
+/// cref="AdminRemoveRanksRequest.options" />, in which case the corresponding
+/// <a href="../../../concepts/tables/#sharding" target="_top">sharded data</a>
 /// and/or unsharded data (a.k.a. <a
 /// href="../../../concepts/tables/#random-sharding"
 /// target="_top">randomly-sharded</a>) will be deleted.</para>
 /// <para>The database must be offline for this operation, see <see
-/// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see></para>
+/// cref="Kinetica.adminOffline">Kinetica.adminOffline</see></para>
 /// <para>This endpoint's processing time depends on the amount of data in the
 /// system, thus the API call may time out if run directly.  It is recommended
 /// to run this endpoint asynchronously via <see
-/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
-/// </para></remarks>
+/// cref="Kinetica.createJob">Kinetica.createJob</see>.</para></remarks>
 public class AdminRemoveRanksRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminRemoveRanksRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, <a
+        /// <summary>If <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>, <a
         /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string REBALANCE_SHARDED_DATA = "rebalance_sharded_data";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, unsharded data
-        /// (a.k.a.</summary>
+        /// <summary>If <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>, unsharded
+        /// data (a.k.a.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string REBALANCE_UNSHARDED_DATA = "rebalance_unsharded_data";
 
         /// <summary>Influences how much data is moved at a time during
         /// rebalance.</summary>
         /// <remarks><para> A higher <see
-        /// cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will complete
-        /// the rebalance faster.  A lower <see
-        /// cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will take longer
-        /// but allow for better interleaving between the rebalance and other
-        /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest). The default value is '10'.</para></remarks>
+        /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>
+        /// will complete the rebalance faster.  A lower <see
+        /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>
+        /// will take longer but allow for better interleaving between the
+        /// rebalance and other queries. Valid values are constants from 1
+        /// (lowest) to 10 (highest). The default value is '10'.</para>
+        /// </remarks>
         public const string AGGRESSIVENESS = "aggressiveness";
     } // end struct Options
 
@@ -90,18 +103,19 @@ public class AdminRemoveRanksRequest : KineticaData
     /// the host IP address (hostN.address from the gpub.conf file) which also
     /// removes all ranks on that host. Rank 0 (the head rank) cannot be
     /// removed (but can be moved to another host using <see
-    /// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>).
-    /// At least one worker rank must be left in the cluster after the
-    /// operation.</para></remarks>
+    /// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>). At
+    /// least one worker rank must be left in the cluster after the operation.
+    /// </para></remarks>
     public IList<string> ranks { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:
+    ///         cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, <a
+    ///         <description>If <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>, <a
     ///         href="../../../concepts/tables/#sharding" target="_top">sharded
     ///         data</a> will be rebalanced approximately equally across the
     ///         cluster. Note that for clusters with large amounts of sharded
@@ -110,21 +124,27 @@ public class AdminRemoveRanksRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:
+    ///         cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, unsharded
-    ///         data (a.k.a. <a
+    ///         <description>If <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>,
+    ///         unsharded data (a.k.a. <a
     ///         href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly-sharded</a>) will be rebalanced
     ///         approximately equally across the cluster. Note that for
@@ -134,26 +154,33 @@ public class AdminRemoveRanksRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:
+    ///         <term><see
+    ///         cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:
     ///         </term>
     ///         <description>Influences how much data is moved at a time during
     ///         rebalance.  A higher <see
-    ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
-    ///         complete the rebalance faster.  A lower <see
-    ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will take
-    ///         longer but allow for better interleaving between the rebalance
-    ///         and other queries. Valid values are constants from 1 (lowest)
-    ///         to 10 (highest). The default value is '10'.</description>
+    ///         cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>
+    ///         will complete the rebalance faster.  A lower <see
+    ///         cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>
+    ///         will take longer but allow for better interleaving between the
+    ///         rebalance and other queries. Valid values are constants from 1
+    ///         (lowest) to 10 (highest). The default value is '10'.
+    ///         </description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -172,16 +199,17 @@ public class AdminRemoveRanksRequest : KineticaData
     /// on that host, or the host IP address (hostN.address from the gpub.conf
     /// file) which also removes all ranks on that host. Rank 0 (the head rank)
     /// cannot be removed (but can be moved to another host using <see
-    /// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>).
-    /// At least one worker rank must be left in the cluster after the
-    /// operation.</param>
+    /// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>). At
+    /// least one worker rank must be left in the cluster after the operation.
+    /// </param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:
+    ///         cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, <a
+    ///         <description>If <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>, <a
     ///         href="../../../concepts/tables/#sharding" target="_top">sharded
     ///         data</a> will be rebalanced approximately equally across the
     ///         cluster. Note that for clusters with large amounts of sharded
@@ -190,21 +218,27 @@ public class AdminRemoveRanksRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:
+    ///         cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, unsharded
-    ///         data (a.k.a. <a
+    ///         <description>If <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>,
+    ///         unsharded data (a.k.a. <a
     ///         href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly-sharded</a>) will be rebalanced
     ///         approximately equally across the cluster. Note that for
@@ -214,26 +248,33 @@ public class AdminRemoveRanksRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:
+    ///         <term><see
+    ///         cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:
     ///         </term>
     ///         <description>Influences how much data is moved at a time during
     ///         rebalance.  A higher <see
-    ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will
-    ///         complete the rebalance faster.  A lower <see
-    ///         cref="Options.AGGRESSIVENESS">AGGRESSIVENESS</see> will take
-    ///         longer but allow for better interleaving between the rebalance
-    ///         and other queries. Valid values are constants from 1 (lowest)
-    ///         to 10 (highest). The default value is '10'.</description>
+    ///         cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>
+    ///         will complete the rebalance faster.  A lower <see
+    ///         cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>
+    ///         will take longer but allow for better interleaving between the
+    ///         rebalance and other queries. Valid values are constants from 1
+    ///         (lowest) to 10 (highest). The default value is '10'.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -246,8 +287,7 @@ public class AdminRemoveRanksRequest : KineticaData
 } // end class AdminRemoveRanksRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRemoveRanks(AdminRemoveRanksRequest)">Kinetica.adminRemoveRanks</see>.
-/// </summary>
+/// cref="Kinetica.adminRemoveRanks">Kinetica.adminRemoveRanks</see>.</summary>
 public class AdminRemoveRanksResponse : KineticaData
 {
     /// <summary>The number assigned to each rank removed from the cluster.

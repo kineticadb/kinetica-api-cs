@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.clearTables(ClearTablesRequest)">Kinetica.clearTables</see>.
-/// </summary>
+/// cref="Kinetica.clearTables">Kinetica.clearTables</see>.</summary>
 /// <remarks><para>Clears (drops) tables in the database cluster. The operation
 /// is synchronous meaning that the tables will be cleared before the function
 /// returns. The response payload returns the status of the operation for each
@@ -18,24 +17,28 @@ namespace kinetica;
 public class ClearTablesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ClearTablesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> and if a table
-        /// specified in <see cref="table_names" /> does not exist no error is
+        /// <summary>If <see cref="ClearTablesRequest.Options.TRUE">TRUE</see>
+        /// and if a table specified in <see
+        /// cref="ClearTablesRequest.table_names" /> does not exist no error is
         /// returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ClearTablesRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ClearTablesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ClearTablesRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
@@ -56,23 +59,30 @@ public class ClearTablesRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ClearTablesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if a
-    ///         table specified in <see cref="table_names" /> does not exist no
-    ///         error is returned. If <see cref="Options.FALSE">FALSE</see> and
-    ///         if a table specified in <see cref="table_names" /> does not
-    ///         exist then an error is returned.
+    ///         <description>If <see
+    ///         cref="ClearTablesRequest.Options.TRUE">TRUE</see> and if a
+    ///         table specified in <see cref="ClearTablesRequest.table_names"
+    ///         /> does not exist no error is returned. If <see
+    ///         cref="ClearTablesRequest.Options.FALSE">FALSE</see> and if a
+    ///         table specified in <see cref="ClearTablesRequest.table_names"
+    ///         /> does not exist then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ClearTablesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ClearTablesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ClearTablesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -97,24 +107,30 @@ public class ClearTablesRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ClearTablesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if a
+    ///         <description>If <see
+    ///         cref="ClearTablesRequest.Options.TRUE">TRUE</see> and if a
     ///         table specified in <paramref name="table_names" /> does not
     ///         exist no error is returned. If <see
-    ///         cref="Options.FALSE">FALSE</see> and if a table specified in
-    ///         <paramref name="table_names" /> does not exist then an error is
-    ///         returned.
+    ///         cref="ClearTablesRequest.Options.FALSE">FALSE</see> and if a
+    ///         table specified in <paramref name="table_names" /> does not
+    ///         exist then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ClearTablesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ClearTablesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ClearTablesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -128,8 +144,7 @@ public class ClearTablesRequest : KineticaData
 } // end class ClearTablesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.clearTables(ClearTablesRequest)">Kinetica.clearTables</see>.
-/// </summary>
+/// cref="Kinetica.clearTables">Kinetica.clearTables</see>.</summary>
 public class ClearTablesResponse : KineticaData
 {
     /// <summary>For each table in <see

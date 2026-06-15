@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropCredential(DropCredentialRequest)">Kinetica.dropCredential</see>.
-/// </summary>
+/// cref="Kinetica.dropCredential">Kinetica.dropCredential</see>.</summary>
 /// <remarks><para>Drop an existing <a href="../../../concepts/credentials/"
 /// target="_top">credential</a>.</para></remarks>
 public class DropCredentialRequest : KineticaData
@@ -44,8 +43,7 @@ public class DropCredentialRequest : KineticaData
 } // end class DropCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropCredential(DropCredentialRequest)">Kinetica.dropCredential</see>.
-/// </summary>
+/// cref="Kinetica.dropCredential">Kinetica.dropCredential</see>.</summary>
 public class DropCredentialResponse : KineticaData
 {
     /// <summary>Value of <see

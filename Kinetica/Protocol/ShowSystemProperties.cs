@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSystemProperties(ShowSystemPropertiesRequest)">Kinetica.showSystemProperties</see>.
+/// cref="Kinetica.showSystemProperties">Kinetica.showSystemProperties</see>.
 /// </summary>
 /// <remarks><para>Returns server configuration and version related information
 /// to the caller. The admin tool uses it to present server related information
@@ -17,7 +17,7 @@ namespace kinetica;
 public class ShowSystemPropertiesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowSystemPropertiesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -31,7 +31,9 @@ public class ShowSystemPropertiesRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.PROPERTIES">PROPERTIES</see>:</term>
+    ///         <term><see
+    ///         cref="ShowSystemPropertiesRequest.Options.PROPERTIES">PROPERTIES</see>:
+    ///         </term>
     ///         <description>A list of comma separated names of properties
     ///         requested. If not specified, all properties will be returned.
     ///         </description>
@@ -50,7 +52,9 @@ public class ShowSystemPropertiesRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.PROPERTIES">PROPERTIES</see>:</term>
+    ///         <term><see
+    ///         cref="ShowSystemPropertiesRequest.Options.PROPERTIES">PROPERTIES</see>:
+    ///         </term>
     ///         <description>A list of comma separated names of properties
     ///         requested. If not specified, all properties will be returned.
     ///         </description>
@@ -64,12 +68,12 @@ public class ShowSystemPropertiesRequest : KineticaData
 } // end class ShowSystemPropertiesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSystemProperties(ShowSystemPropertiesRequest)">Kinetica.showSystemProperties</see>.
+/// cref="Kinetica.showSystemProperties">Kinetica.showSystemProperties</see>.
 /// </summary>
 public class ShowSystemPropertiesResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="property_map" />.</summary>
+    /// cref="ShowSystemPropertiesResponse.property_map" />.</summary>
     /// <remarks><para>A map of server configuration parameters and version
     /// information.</para></remarks>
     public struct PropertyMap
@@ -79,12 +83,16 @@ public class ShowSystemPropertiesResponse : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="PropertyMap.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="ShowSystemPropertiesResponse.PropertyMap.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Indicates that the system is configured for
         ///         multi-head ingestion.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="PropertyMap.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="ShowSystemPropertiesResponse.PropertyMap.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Indicates that the system is NOT configured
         ///         for multi-head ingestion.</description>
         ///     </item>
@@ -126,19 +134,23 @@ public class ShowSystemPropertiesResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyMap.CONF_ENABLE_WORKER_HTTP_SERVERS">CONF_ENABLE_WORKER_HTTP_SERVERS</see>:
+    ///         cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_WORKER_HTTP_SERVERS">CONF_ENABLE_WORKER_HTTP_SERVERS</see>:
     ///         </term>
     ///         <description>Boolean value indicating whether the system is
     ///         configured for multi-head ingestion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="PropertyMap.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowSystemPropertiesResponse.PropertyMap.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Indicates that the system is configured
     ///                 for multi-head ingestion.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="PropertyMap.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowSystemPropertiesResponse.PropertyMap.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Indicates that the system is NOT
     ///                 configured for multi-head ingestion.</description>
     ///             </item>
@@ -146,7 +158,7 @@ public class ShowSystemPropertiesResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyMap.CONF_WORKER_HTTP_SERVER_IPS">CONF_WORKER_HTTP_SERVER_IPS</see>:
+    ///         cref="ShowSystemPropertiesResponse.PropertyMap.CONF_WORKER_HTTP_SERVER_IPS">CONF_WORKER_HTTP_SERVER_IPS</see>:
     ///         </term>
     ///         <description>Semicolon (';') separated string of IP addresses
     ///         of all the ingestion-enabled worker heads of the system.
@@ -154,7 +166,7 @@ public class ShowSystemPropertiesResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyMap.CONF_WORKER_HTTP_SERVER_PORTS">CONF_WORKER_HTTP_SERVER_PORTS</see>:
+    ///         cref="ShowSystemPropertiesResponse.PropertyMap.CONF_WORKER_HTTP_SERVER_PORTS">CONF_WORKER_HTTP_SERVER_PORTS</see>:
     ///         </term>
     ///         <description>Semicolon (';') separated string of the port
     ///         numbers of all the ingestion-enabled worker ranks of the
@@ -162,20 +174,21 @@ public class ShowSystemPropertiesResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:
+    ///         cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:
     ///         </term>
     ///         <description>The host manager port number (an integer value).
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:</term>
+    ///         cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:
+    ///         </term>
     ///         <description>Flag indicating whether high availability (HA) is
     ///         set up (a boolean value).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:
+    ///         cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:
     ///         </term>
     ///         <description>A comma-separated string of high availability (HA)
     ///         ring node URLs.  If HA is not set up, then an empty string.

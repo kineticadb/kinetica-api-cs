@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+/// cref="Kinetica.revokePermissionProc">Kinetica.revokePermissionProc</see>.
 /// </summary>
 /// <remarks><para>Revokes a proc-level permission from a user or role.</para>
 /// </remarks>
 public class RevokePermissionProcRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="RevokePermissionProcRequest.permission" />.</summary>
     /// <remarks><para>Permission to revoke from the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -37,12 +37,14 @@ public class RevokePermissionProcRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:
     ///         </term>
     ///         <description>Admin access to the proc.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
     ///         </term>
     ///         <description>Execute access to the proc.</description>
     ///     </item>
@@ -73,12 +75,14 @@ public class RevokePermissionProcRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:
     ///         </term>
     ///         <description>Admin access to the proc.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
     ///         </term>
     ///         <description>Execute access to the proc.</description>
     ///     </item>
@@ -101,7 +105,7 @@ public class RevokePermissionProcRequest : KineticaData
 } // end class RevokePermissionProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionProc(RevokePermissionProcRequest)">Kinetica.revokePermissionProc</see>.
+/// cref="Kinetica.revokePermissionProc">Kinetica.revokePermissionProc</see>.
 /// </summary>
 public class RevokePermissionProcResponse : KineticaData
 {

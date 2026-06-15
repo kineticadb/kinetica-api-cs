@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createProjection(CreateProjectionRequest)">Kinetica.createProjection</see>.
-/// </summary>
+/// cref="Kinetica.createProjection">Kinetica.createProjection</see>.</summary>
 /// <remarks><para>Creates a new <a href="../../../concepts/projections/"
 /// target="_top">projection</a> of an existing table. A projection represents
 /// a subset of the columns (potentially including derived columns) of a
@@ -23,15 +22,17 @@ namespace kinetica;
 /// <para><a href="../../../concepts/window/" target="_top">Window
 /// functions</a>, which can perform operations like moving averages, are
 /// available through this endpoint as well as <see
-/// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.</para>
+/// cref="Kinetica.getRecordsByColumn">Kinetica.getRecordsByColumn</see>.</para>
 /// <para>A projection can be created with a different <a
 /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
 /// than the source table. By specifying <see
-/// cref="Options.SHARD_KEY">SHARD_KEY</see>, the projection will be sharded
-/// according to the specified columns, regardless of how the source table is
-/// sharded.  The source table can even be unsharded or replicated.</para>
-/// <para>If <see cref="table_name" /> is empty, selection is performed against
-/// a single-row virtual table.  This can be useful in executing temporal (<a
+/// cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>, the
+/// projection will be sharded according to the specified columns, regardless
+/// of how the source table is sharded.  The source table can even be unsharded
+/// or replicated.</para>
+/// <para>If <see cref="CreateProjectionRequest.table_name" /> is empty,
+/// selection is performed against a single-row virtual table.  This can be
+/// useful in executing temporal (<a
 /// href="../../../concepts/expressions/#date-time-functions"
 /// target="_top">NOW()</a>), identity (<a
 /// href="../../../concepts/expressions/#user-security-functions"
@@ -41,34 +42,42 @@ namespace kinetica;
 public class CreateProjectionRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateProjectionRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="projection_name" />.</summary>
+        /// <summary>If <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see
+        /// cref="CreateProjectionRequest.projection_name" />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// projection as part of <see cref="projection_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  Name of a schema for the
-        /// projection.</summary>
+        /// projection as part of <see
+        /// cref="CreateProjectionRequest.projection_name" /> and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  Name of a schema for the projection.
+        /// </summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created. The default value is ''.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -80,19 +89,26 @@ public class CreateProjectionRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string EXPRESSION = "expression";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then the projection
-        /// will be replicated even if the source table is not.</summary>
+        /// <summary>If <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see> then the
+        /// projection will be replicated even if the source table is not.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IS_REPLICATED = "is_replicated";
 
         /// <summary>The number of initial results to skip (this can be useful
@@ -107,9 +123,9 @@ public class CreateProjectionRequest : KineticaData
         /// <summary>Comma-separated list of the columns to be sorted by; e.g.
         /// 'timestamp asc, x desc'.</summary>
         /// <remarks><para> The columns specified must be present in <see
-        /// cref="column_names" />.  If any alias is given for any column name,
-        /// the alias must be used, rather than the original column name. The
-        /// default value is ''.</para></remarks>
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name. The default value is ''.</para></remarks>
         public const string ORDER_BY = "order_by";
 
         /// <summary>Indicates the number of records per chunk to be used for
@@ -127,55 +143,69 @@ public class CreateProjectionRequest : KineticaData
         /// <summary>Comma-separated list of columns on which to create indexes
         /// on the projection.</summary>
         /// <remarks><para> The columns specified must be present in <see
-        /// cref="column_names" />.  If any alias is given for any column name,
-        /// the alias must be used, rather than the original column name.
-        /// </para></remarks>
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</para></remarks>
         public const string CREATE_INDEXES = "create_indexes";
 
         /// <summary>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the projection specified in <see
-        /// cref="projection_name" />.</summary>
+        /// cref="CreateProjectionRequest.projection_name" />.</summary>
         public const string TTL = "ttl";
 
         /// <summary>Comma-separated list of the columns to be sharded on; e.g.
         /// 'column1, column2'.</summary>
         /// <remarks><para> The columns specified must be present in <see
-        /// cref="column_names" />.  If any alias is given for any column name,
-        /// the alias must be used, rather than the original column name. The
-        /// default value is ''.</para></remarks>
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name. The default value is ''.</para></remarks>
         public const string SHARD_KEY = "shard_key";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the
-        /// projection specified in <see cref="projection_name" /> will be
-        /// persisted and will not expire unless a <see
-        /// cref="Options.TTL">TTL</see> is specified.</summary>
+        /// <summary>If <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, then the
+        /// projection specified in <see
+        /// cref="CreateProjectionRequest.projection_name" /> will be persisted
+        /// and will not expire unless a <see
+        /// cref="CreateProjectionRequest.Options.TTL">TTL</see> is specified.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string PERSIST = "persist";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then columns that
-        /// were dict encoded in the source table will be dict encoded in the
-        /// projection.</summary>
+        /// <summary>If <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, then
+        /// columns that were dict encoded in the source table will be dict
+        /// encoded in the projection.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
 
         /// <summary>Determines whether the created projection will retain the
@@ -183,14 +213,19 @@ public class CreateProjectionRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RETAIN_PARTITIONS = "retain_partitions";
 
         /// <summary><a href="../../../concepts/tables/#partitioning"
@@ -198,31 +233,41 @@ public class CreateProjectionRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.RANGE">RANGE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.RANGE">RANGE</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-range"
         ///         target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.INTERVAL">INTERVAL</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-interval"
         ///         target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.LIST">LIST</see>:</term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.LIST">LIST</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
         ///         target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.HASH">HASH</see>:</term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.HASH">HASH</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-hash"
         ///         target="_top">hash partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SERIES">SERIES</see>:</term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.SERIES">SERIES</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-series"
         ///         target="_top">series partitioning</a>.</description>
@@ -258,13 +303,14 @@ public class CreateProjectionRequest : KineticaData
         /// <summary>Comma-separated list of partition keys, which are the
         /// columns or column expressions by which records will be assigned to
         /// partitions defined by <see
-        /// cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// cref="CreateProjectionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
         /// </summary>
         public const string PARTITION_KEYS = "partition_keys";
 
         /// <summary>Comma-separated list of partition definitions, whose
         /// format depends on the choice of <see
-        /// cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.</summary>
+        /// cref="CreateProjectionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+        /// </summary>
         /// <remarks><para> See <a
         /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
@@ -279,20 +325,26 @@ public class CreateProjectionRequest : KineticaData
         /// </remarks>
         public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a new partition
-        /// will be created for values which don't fall into an existing
-        /// partition.</summary>
+        /// <summary>If <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a new
+        /// partition will be created for values which don't fall into an
+        /// existing partition.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
         /// <summary>ID of view of which this projection is a member.</summary>
@@ -322,6 +374,16 @@ public class CreateProjectionRequest : KineticaData
         /// separately and joined back together.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string JOIN_WINDOW_FUNCTIONS_THRESHOLD = "join_window_functions_threshold";
+
+        /// <summary>An optional filter <a
+        /// href="../../../concepts/expressions/" target="_top">expression</a>
+        /// applied to the projection after window function evaluation,
+        /// equivalent to a SQL QUALIFY clause.</summary>
+        /// <remarks><para> May reference window function aliases as well as
+        /// any other column in the projection.  Rows for which the expression
+        /// evaluates to false (or NULL) are removed from the projection. The
+        /// default value is ''.</para></remarks>
+        public const string QUALIFY_FILTER = "qualify_filter";
     } // end struct Options
 
     /// <summary>Name of the existing table on which the projection is to be
@@ -341,8 +403,9 @@ public class CreateProjectionRequest : KineticaData
     /// target="_top">table naming criteria</a>.</summary>
     public string projection_name { get; set; }
 
-    /// <summary>List of columns from <see cref="table_name" /> to be included
-    /// in the projection.</summary>
+    /// <summary>List of columns from <see
+    /// cref="CreateProjectionRequest.table_name" /> to be included in the
+    /// projection.</summary>
     /// <remarks><para>Can include derived columns. Can be specified as aliased
     /// via the syntax 'column_name as alias'.</para></remarks>
     public IList<string> column_names { get; set; } = new List<string>();
@@ -351,217 +414,283 @@ public class CreateProjectionRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="CreateProjectionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="projection_name" />. If <see
-    ///         cref="Options.PERSIST">PERSIST</see> is <see
-    ///         cref="Options.FALSE">FALSE</see> (or unspecified), then this is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <see
+    ///         cref="CreateProjectionRequest.projection_name" />. If <see
+    ///         cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see> is
+    ///         <see cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="CreateProjectionResponse.Info.QUALIFIED_PROJECTION_NAME">QUALIFIED_PROJECTION_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the projection as part of <see cref="projection_name" />
-    ///         and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the projection as part of <see
+    ///         cref="CreateProjectionRequest.projection_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
     ///         <description>An optional filter <a
     ///         href="../../../concepts/expressions/"
     ///         target="_top">expression</a> to be applied to the source table
     ///         prior to the projection. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see> then the
     ///         projection will be replicated even if the source table is not.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.OFFSET">OFFSET</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.OFFSET">OFFSET</see>:
+    ///         </term>
     ///         <description>The number of initial results to skip (this can be
     ///         useful for paging through the results). The default value is
     ///         '0'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:
+    ///         </term>
     ///         <description>The number of records to keep. The default value
     ///         is '-9999'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Comma-separated list of the columns to be sorted
     ///         by; e.g. 'timestamp asc, x desc'.  The columns specified must
-    ///         be present in <see cref="column_names" />.  If any alias is
-    ///         given for any column name, the alias must be used, rather than
-    ///         the original column name. The default value is ''.
-    ///         </description>
+    ///         be present in <see cref="CreateProjectionRequest.column_names"
+    ///         />.  If any alias is given for any column name, the alias must
+    ///         be used, rather than the original column name. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this projection.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateProjectionRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this projection.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="CreateProjectionRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this projection.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:
     ///         </term>
     ///         <description>Comma-separated list of columns on which to create
     ///         indexes on the projection.  The columns specified must be
-    ///         present in <see cref="column_names" />.  If any alias is given
-    ///         for any column name, the alias must be used, rather than the
-    ///         original column name.</description>
+    ///         present in <see cref="CreateProjectionRequest.column_names" />.
+    ///         If any alias is given for any column name, the alias must be
+    ///         used, rather than the original column name.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the projection specified in <see
-    ///         cref="projection_name" />.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.SHARD_KEY">SHARD_KEY</see>:</term>
-    ///         <description>Comma-separated list of the columns to be sharded
-    ///         on; e.g. 'column1, column2'.  The columns specified must be
-    ///         present in <see cref="column_names" />.  If any alias is given
-    ///         for any column name, the alias must be used, rather than the
-    ///         original column name. The default value is ''.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
-    ///         projection specified in <see cref="projection_name" /> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the projection will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         cref="CreateProjectionRequest.projection_name" />.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
+    ///         cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         <description>Comma-separated list of the columns to be sharded
+    ///         on; e.g. 'column1, column2'.  The columns specified must be
+    ///         present in <see cref="CreateProjectionRequest.column_names" />.
+    ///         If any alias is given for any column name, the alias must be
+    ///         used, rather than the original column name. The default value
+    ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, then
+    ///         the projection specified in <see
+    ///         cref="CreateProjectionRequest.projection_name" /> will be
+    ///         persisted and will not expire unless a <see
+    ///         cref="CreateProjectionRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>, then
+    ///         the projection will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="CreateProjectionRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, then
     ///         columns that were dict encoded in the source table will be dict
     ///         encoded in the projection.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:
+    ///         cref="CreateProjectionRequest.Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:
     ///         </term>
     ///         <description>Determines whether the created projection will
     ///         retain the partitioning scheme from the source table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
     ///                 target="_top">range partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LIST">LIST</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.LIST">LIST</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.HASH">HASH</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.HASH">HASH</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
     ///                 target="_top">hash partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SERIES">SERIES</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -569,22 +698,23 @@ public class CreateProjectionRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="CreateProjectionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="CreateProjectionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
-    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         cref="CreateProjectionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
     ///         target="_top">interval partitioning</a>, <a
@@ -598,9 +728,10 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="CreateProjectionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a new
     ///         partition will be created for values which don't fall into an
     ///         existing partition.  Currently only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -608,23 +739,30 @@ public class CreateProjectionRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:
+    ///         </term>
     ///         <description>ID of view of which this projection is a member.
     ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateProjectionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -632,7 +770,7 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateProjectionRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -641,7 +779,7 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JOIN_WINDOW_FUNCTIONS">JOIN_WINDOW_FUNCTIONS</see>:
+    ///         cref="CreateProjectionRequest.Options.JOIN_WINDOW_FUNCTIONS">JOIN_WINDOW_FUNCTIONS</see>:
     ///         </term>
     ///         <description>If set, window functions which require a reshard
     ///         will be computed separately and joined back together, if the
@@ -651,12 +789,25 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JOIN_WINDOW_FUNCTIONS_THRESHOLD">JOIN_WINDOW_FUNCTIONS_THRESHOLD</see>:
+    ///         cref="CreateProjectionRequest.Options.JOIN_WINDOW_FUNCTIONS_THRESHOLD">JOIN_WINDOW_FUNCTIONS_THRESHOLD</see>:
     ///         </term>
     ///         <description>If the projection is greater than this width (in
     ///         bytes), then window functions which require a reshard will be
     ///         computed separately and joined back together. The default value
     ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.QUALIFY_FILTER">QUALIFY_FILTER</see>:
+    ///         </term>
+    ///         <description>An optional filter <a
+    ///         href="../../../concepts/expressions/"
+    ///         target="_top">expression</a> applied to the projection after
+    ///         window function evaluation, equivalent to a SQL QUALIFY clause.
+    ///         May reference window function aliases as well as any other
+    ///         column in the projection.  Rows for which the expression
+    ///         evaluates to false (or NULL) are removed from the projection.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -689,76 +840,100 @@ public class CreateProjectionRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="CreateProjectionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <paramref name="projection_name" />. If
-    ///         <see cref="Options.PERSIST">PERSIST</see> is <see
-    ///         cref="Options.FALSE">FALSE</see> (or unspecified), then this is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <paramref name="projection_name"
+    ///         />. If <see
+    ///         cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see> is
+    ///         <see cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="CreateProjectionResponse.Info.QUALIFIED_PROJECTION_NAME">QUALIFIED_PROJECTION_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="projection_name"
     ///         /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
     ///         <description>An optional filter <a
     ///         href="../../../concepts/expressions/"
     ///         target="_top">expression</a> to be applied to the source table
     ///         prior to the projection. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see> then the
     ///         projection will be replicated even if the source table is not.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.OFFSET">OFFSET</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.OFFSET">OFFSET</see>:
+    ///         </term>
     ///         <description>The number of initial results to skip (this can be
     ///         useful for paging through the results). The default value is
     ///         '0'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:
+    ///         </term>
     ///         <description>The number of records to keep. The default value
     ///         is '-9999'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Comma-separated list of the columns to be sorted
     ///         by; e.g. 'timestamp asc, x desc'.  The columns specified must
     ///         be present in <paramref name="column_names" />.  If any alias
@@ -767,26 +942,30 @@ public class CreateProjectionRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this projection.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateProjectionRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this projection.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="CreateProjectionRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this projection.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:
     ///         </term>
     ///         <description>Comma-separated list of columns on which to create
     ///         indexes on the projection.  The columns specified must be
@@ -795,13 +974,16 @@ public class CreateProjectionRequest : KineticaData
     ///         the original column name.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the projection specified in <paramref
     ///         name="projection_name" />.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHARD_KEY">SHARD_KEY</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>:
+    ///         </term>
     ///         <description>Comma-separated list of the columns to be sharded
     ///         on; e.g. 'column1, column2'.  The columns specified must be
     ///         present in <paramref name="column_names" />.  If any alias is
@@ -810,97 +992,129 @@ public class CreateProjectionRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
-    ///         projection specified in <paramref name="projection_name" />
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, then
+    ///         the projection specified in <paramref name="projection_name" />
     ///         will be persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the projection will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="CreateProjectionRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>, then
+    ///         the projection will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="CreateProjectionRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
+    ///         cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, then
     ///         columns that were dict encoded in the source table will be dict
     ///         encoded in the projection.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:
+    ///         cref="CreateProjectionRequest.Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:
     ///         </term>
     ///         <description>Determines whether the created projection will
     ///         retain the partitioning scheme from the source table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
     ///                 target="_top">range partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LIST">LIST</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.LIST">LIST</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.HASH">HASH</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.HASH">HASH</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
     ///                 target="_top">hash partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SERIES">SERIES</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -908,22 +1122,23 @@ public class CreateProjectionRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="CreateProjectionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="CreateProjectionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
-    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         cref="CreateProjectionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
     ///         target="_top">interval partitioning</a>, <a
@@ -937,9 +1152,10 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="CreateProjectionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
+    ///         <description>If <see
+    ///         cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a new
     ///         partition will be created for values which don't fall into an
     ///         existing partition.  Currently only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -947,23 +1163,30 @@ public class CreateProjectionRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateProjectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:
+    ///         </term>
     ///         <description>ID of view of which this projection is a member.
     ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateProjectionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -971,7 +1194,7 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateProjectionRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -980,7 +1203,7 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JOIN_WINDOW_FUNCTIONS">JOIN_WINDOW_FUNCTIONS</see>:
+    ///         cref="CreateProjectionRequest.Options.JOIN_WINDOW_FUNCTIONS">JOIN_WINDOW_FUNCTIONS</see>:
     ///         </term>
     ///         <description>If set, window functions which require a reshard
     ///         will be computed separately and joined back together, if the
@@ -990,12 +1213,25 @@ public class CreateProjectionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JOIN_WINDOW_FUNCTIONS_THRESHOLD">JOIN_WINDOW_FUNCTIONS_THRESHOLD</see>:
+    ///         cref="CreateProjectionRequest.Options.JOIN_WINDOW_FUNCTIONS_THRESHOLD">JOIN_WINDOW_FUNCTIONS_THRESHOLD</see>:
     ///         </term>
     ///         <description>If the projection is greater than this width (in
     ///         bytes), then window functions which require a reshard will be
     ///         computed separately and joined back together. The default value
     ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.QUALIFY_FILTER">QUALIFY_FILTER</see>:
+    ///         </term>
+    ///         <description>An optional filter <a
+    ///         href="../../../concepts/expressions/"
+    ///         target="_top">expression</a> applied to the projection after
+    ///         window function evaluation, equivalent to a SQL QUALIFY clause.
+    ///         May reference window function aliases as well as any other
+    ///         column in the projection.  Rows for which the expression
+    ///         evaluates to false (or NULL) are removed from the projection.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -1012,16 +1248,15 @@ public class CreateProjectionRequest : KineticaData
 } // end class CreateProjectionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createProjection(CreateProjectionRequest)">Kinetica.createProjection</see>.
-/// </summary>
+/// cref="Kinetica.createProjection">Kinetica.createProjection</see>.</summary>
 public class CreateProjectionResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="CreateProjectionResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
-        /// <summary>Number of records in the final table</summary>
+        /// <summary>Number of records in the final table.</summary>
         public const string COUNT = "count";
 
         /// <summary>The fully qualified name of the projection (i.e. including
@@ -1037,12 +1272,14 @@ public class CreateProjectionResponse : KineticaData
     /// <summary>Additional information.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
-    ///         <description>Number of records in the final table</description>
+    ///         <term><see
+    ///         cref="CreateProjectionResponse.Info.COUNT">COUNT</see>:</term>
+    ///         <description>Number of records in the final table.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_PROJECTION_NAME">QUALIFIED_PROJECTION_NAME</see>:
+    ///         cref="CreateProjectionResponse.Info.QUALIFIED_PROJECTION_NAME">QUALIFIED_PROJECTION_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the projection (i.e.
     ///         including the schema).</description>

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createTableExternal(CreateTableExternalRequest)">Kinetica.createTableExternal</see>.
+/// cref="Kinetica.createTableExternal">Kinetica.createTableExternal</see>.
 /// </summary>
 /// <remarks><para>Creates a new <a href="../../../concepts/external_tables/"
 /// target="_top">external table</a>, which is a local database object whose
@@ -19,39 +19,44 @@ namespace kinetica;
 /// pre-defined external <a href="../../../concepts/data_sources/"
 /// target="_top">data source</a>.</para>
 /// <para>The external table can have its structure defined explicitly, via
-/// <see cref="create_table_options" />, which contains many of the options
-/// from <see
-/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>;
-/// or defined implicitly, inferred from the source data.</para></remarks>
+/// <see cref="CreateTableExternalRequest.create_table_options" />, which
+/// contains many of the options from <see
+/// cref="Kinetica.createTable">Kinetica.createTable</see>; or defined
+/// implicitly, inferred from the source data.</para></remarks>
 public class CreateTableExternalRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="create_table_options" />.</summary>
+    /// cref="CreateTableExternalRequest.create_table_options" />.</summary>
     /// <remarks><para>Options from <see
-    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source</para></remarks>
+    /// cref="Kinetica.createTable">Kinetica.createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source
+    /// </para></remarks>
     public struct CreateTableOptions
     {
         /// <summary>ID of a currently registered <a
         /// href="../../../concepts/types/" target="_top">type</a>.</summary>
         public const string TYPE_ID = "type_id";
 
-        /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+        /// <summary>If <see
+        /// cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// prevents an error from occurring if the table already exists and is
         /// of the given type.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
         public const string TRUE = "true";
@@ -64,15 +69,19 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string IS_REPLICATED = "is_replicated";
 
         /// <summary>Semicolon-separated list of <a
@@ -91,7 +100,8 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-range"
@@ -99,27 +109,31 @@ public class CreateTableExternalRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-interval"
         ///         target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.LIST">LIST</see>:
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
         ///         target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.HASH">HASH</see>:
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-hash"
         ///         target="_top">hash partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.SERIES">SERIES</see>:
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.SERIES">SERIES</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-series"
@@ -156,13 +170,13 @@ public class CreateTableExternalRequest : KineticaData
         /// <summary>Comma-separated list of partition keys, which are the
         /// columns or column expressions by which records will be assigned to
         /// partitions defined by <see
-        /// cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
         /// </summary>
         public const string PARTITION_KEYS = "partition_keys";
 
         /// <summary>Comma-separated list of partition definitions, whose
         /// format depends on the choice of <see
-        /// cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+        /// cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
         /// </summary>
         /// <remarks><para> See <a
         /// href="../../../concepts/tables/#partitioning-by-range"
@@ -178,26 +192,31 @@ public class CreateTableExternalRequest : KineticaData
         /// </remarks>
         public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-        /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>, a new
-        /// partition will be created for values which don't fall into an
+        /// <summary>If <see
+        /// cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>,
+        /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
         /// <summary>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <see
-        /// cref="table_name" />.</summary>
+        /// cref="CreateTableExternalRequest.table_name" />.</summary>
         public const string TTL = "ttl";
 
         /// <summary>Indicates the number of records per chunk to be used for
@@ -218,15 +237,19 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string IS_RESULT_TABLE = "is_result_table";
 
         /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
@@ -242,7 +265,7 @@ public class CreateTableExternalRequest : KineticaData
     } // end struct CreateTableOptions
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateTableExternalRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -250,9 +273,11 @@ public class CreateTableExternalRequest : KineticaData
         /// written.</summary>
         /// <remarks><para>The bad-record-table has the following columns:
         /// line_number (long), line_rejected (string), error_message (string).
-        /// When <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see> is
-        /// <see cref="Options.ABORT">ABORT</see>, bad records table is not
-        /// populated.</para></remarks>
+        /// When <see
+        /// cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>
+        /// is <see
+        /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>, bad
+        /// records table is not populated.</para></remarks>
         public const string BAD_RECORD_TABLE_NAME = "bad_record_table_name";
 
         /// <summary>A positive integer indicating the maximum number of
@@ -264,9 +289,9 @@ public class CreateTableExternalRequest : KineticaData
         /// maximum number of records that can be written to the
         /// bad-record-table per file/payload.</summary>
         /// <remarks><para>Default value will be <see
-        /// cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
+        /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
         /// and total size of the table per rank is limited to <see
-        /// cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
+        /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
         /// </para></remarks>
         public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
 
@@ -287,7 +312,7 @@ public class CreateTableExternalRequest : KineticaData
         /// "date" : "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" }
         /// }'.</para>
         /// <para>See <see
-        /// cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+        /// cref="CreateTableExternalRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
         /// for valid format syntax.</para></remarks>
         public const string COLUMN_FORMATS = "column_formats";
 
@@ -314,45 +339,54 @@ public class CreateTableExternalRequest : KineticaData
         /// order.  If the target table exists, the column names must match the
         /// source data field names for a name-mapping to be successful.</para>
         /// <para>Mutually exclusive with <see
-        /// cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.</para>
-        /// </remarks>
+        /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+        /// </para></remarks>
         public const string COLUMNS_TO_LOAD = "columns_to_load";
 
         /// <summary>Specifies a comma-delimited list of columns from the
         /// source data to skip.</summary>
         /// <remarks><para> Mutually exclusive with <see
-        /// cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.</para>
-        /// </remarks>
+        /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
+        /// </para></remarks>
         public const string COLUMNS_TO_SKIP = "columns_to_skip";
 
         /// <summary>Source data compression type.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.NONE">NONE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.NONE">NONE</see>:
+        ///         </term>
         ///         <description>No compression.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.AUTO">AUTO</see>:</term>
-        ///         <description>Auto detect compression type</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:
+        ///         </term>
+        ///         <description>Auto detect compression type.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.GZIP">GZIP</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:
+        ///         </term>
         ///         <description>gzip file compression.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.BZIP2">BZIP2</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:
+        ///         </term>
         ///         <description>bzip2 file compression.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.AUTO">AUTO</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.</para>
+        /// </remarks>
         public const string COMPRESSION_TYPE = "compression_type";
 
         /// <summary>No compression.</summary>
         public const string NONE = "none";
 
-        /// <summary>Auto detect compression type</summary>
+        /// <summary>Auto detect compression type.</summary>
         public const string AUTO = "auto";
 
         /// <summary>gzip file compression.</summary>
@@ -362,7 +396,8 @@ public class CreateTableExternalRequest : KineticaData
         public const string BZIP2 = "bzip2";
 
         /// <summary>Name of an existing external data source from which data
-        /// file(s) specified in <see cref="filepaths" /> will be loaded
+        /// file(s) specified in <see
+        /// cref="CreateTableExternalRequest.filepaths" /> will be loaded.
         /// </summary>
         public const string DATASOURCE_NAME = "datasource_name";
 
@@ -373,11 +408,11 @@ public class CreateTableExternalRequest : KineticaData
         /// time, and datetime.  This default column-property-bound format can
         /// be overridden by specifying a column property and format for a
         /// given target column in <see
-        /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
-        /// specified annotation, the format will apply to all columns with
-        /// that annotation unless a custom <see
-        /// cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
-        /// annotation is specified.</para>
+        /// cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>.
+        /// For each specified annotation, the format will apply to all columns
+        /// with that annotation unless a custom <see
+        /// cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>
+        /// for that annotation is specified.</para>
         /// <para>The parameter value must be formatted as a JSON string that
         /// is a map of column properties to their respective column formats,
         /// e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.  Column
@@ -393,17 +428,17 @@ public class CreateTableExternalRequest : KineticaData
         /// characters. Formats for the 'datetime' annotation meet both the
         /// 'date' and 'time' control character requirements. For example,
         /// '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to interpret
-        /// text as "05/04/2000 12:12:11"</para></remarks>
+        /// text as "05/04/2000 12:12:11".</para></remarks>
         public const string DEFAULT_COLUMN_FORMATS = "default_column_formats";
 
         /// <summary>Name of an existing datalake(iceberg) catalog used in
-        /// loading files</summary>
+        /// loading files.</summary>
         public const string DATALAKE_CATALOG = "datalake_catalog";
 
-        /// <summary>Path of datalake(iceberg) object</summary>
+        /// <summary>Path of datalake(iceberg) object.</summary>
         public const string DATALAKE_PATH = "datalake_path";
 
-        /// <summary>Snapshot ID of datalake(iceberg) object</summary>
+        /// <summary>Snapshot ID of datalake(iceberg) object.</summary>
         public const string DATALAKE_SNAPSHOT = "datalake_snapshot";
 
         /// <summary>Specifies how errors should be handled upon insertion.
@@ -411,7 +446,8 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:
         ///         </term>
         ///         <description>Records with missing columns are populated
         ///         with nulls if possible; otherwise, the malformed records
@@ -419,20 +455,23 @@ public class CreateTableExternalRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
         ///         </term>
         ///         <description>Malformed records are skipped.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.ABORT">ABORT</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:
+        ///         </term>
         ///         <description>Stops current insertion and aborts entire
         ///         operation when an error is encountered.  Primary key
         ///         collisions are considered abortable errors in this mode.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.ABORT">ABORT</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.</para>
+        /// </remarks>
         public const string ERROR_HANDLING = "error_handling";
 
         /// <summary>Records with missing columns are populated with nulls if
@@ -453,30 +492,34 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.MATERIALIZED">MATERIALIZED</see>:
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>:
         ///         </term>
         ///         <description>Loads a copy of the external data into the
-        ///         database, refreshed on demand</description>
+        ///         database, refreshed on demand.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.LOGICAL">LOGICAL</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.LOGICAL">LOGICAL</see>:
+        ///         </term>
         ///         <description>External data will not be loaded into the
         ///         database; the data will be retrieved from the source upon
-        ///         servicing each query against the external table
+        ///         servicing each query against the external table.
         ///         </description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.MATERIALIZED">MATERIALIZED</see>.</para></remarks>
+        /// cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>.
+        /// </para></remarks>
         public const string EXTERNAL_TABLE_TYPE = "external_table_type";
 
         /// <summary>Loads a copy of the external data into the database,
-        /// refreshed on demand</summary>
+        /// refreshed on demand.</summary>
         public const string MATERIALIZED = "materialized";
 
         /// <summary>External data will not be loaded into the database; the
         /// data will be retrieved from the source upon servicing each query
-        /// against the external table</summary>
+        /// against the external table.</summary>
         public const string LOGICAL = "logical";
 
         /// <summary>Specifies the type of the file(s) whose records will be
@@ -484,84 +527,100 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.AVRO">AVRO</see>:</term>
-        ///         <description>Avro file format</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:
+        ///         </term>
+        ///         <description>Avro file format.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+        ///         </term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         ///         PSV, etc.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.GDB">GDB</see>:</term>
-        ///         <description>Esri/GDB file format</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.GDB">GDB</see>:
+        ///         </term>
+        ///         <description>Esri/GDB file format.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.JSON">JSON</see>:
+        ///         </term>
+        ///         <description>JSON file format.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:
+        ///         </term>
+        ///         <description>Apache Parquet file format.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:</term>
-        ///         <description>ShapeFile file format</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.SHAPEFILE">SHAPEFILE</see>:
+        ///         </term>
+        ///         <description>ShapeFile file format.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</para>
-        /// </remarks>
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+        /// </para></remarks>
         public const string FILE_TYPE = "file_type";
 
-        /// <summary>Avro file format</summary>
+        /// <summary>Avro file format.</summary>
         public const string AVRO = "avro";
 
         /// <summary>Delimited text file format; e.g., CSV, TSV, PSV, etc.
         /// </summary>
         public const string DELIMITED_TEXT = "delimited_text";
 
-        /// <summary>Esri/GDB file format</summary>
+        /// <summary>Esri/GDB file format.</summary>
         public const string GDB = "gdb";
 
-        /// <summary>Json file format</summary>
+        /// <summary>JSON file format.</summary>
         public const string JSON = "json";
 
-        /// <summary>Apache Parquet file format</summary>
+        /// <summary>Apache Parquet file format.</summary>
         public const string PARQUET = "parquet";
 
-        /// <summary>ShapeFile file format</summary>
+        /// <summary>ShapeFile file format.</summary>
         public const string SHAPEFILE = "shapefile";
 
         /// <summary>Specifies how to handle nested columns.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///         <description>Break up nested columns to multiple columns
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
+        ///         <description>Break up nested columns to multiple columns.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///         <description>Treat nested columns as json columns instead
-        ///         of flattening</description>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>Treat nested columns as JSON columns instead
+        ///         of flattening.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string FLATTEN_COLUMNS = "flatten_columns";
 
         /// <summary>Upsert new records when primary keys match existing
-        /// records</summary>
+        /// records.</summary>
         public const string TRUE = "true";
 
         /// <summary>Reject new records when primary keys match existing
-        /// records</summary>
+        /// records.</summary>
         public const string FALSE = "false";
 
         /// <summary>Comma separated list of gdal conf options, for the
-        /// specific requests: key=value</summary>
+        /// specific requests: key=value.</summary>
         public const string GDAL_CONFIGURATION_OPTIONS = "gdal_configuration_options";
 
         /// <summary>Specifies the record collision error-suppression policy
@@ -569,24 +628,31 @@ public class CreateTableExternalRequest : KineticaData
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>, only used when not in upsert mode (upsert mode is disabled
         /// when <see
-        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
-        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>).
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Ignore new records whose primary key values
-        ///         collide with those of existing records</description>
+        ///         collide with those of existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Treat as errors any new records whose primary
-        ///         key values collide with those of existing records
+        ///         key values collide with those of existing records.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
         /// <summary>Whether to do a full load, dry run, or perform a type
@@ -594,39 +660,45 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.FULL">FULL</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FULL">FULL</see>:
+        ///         </term>
         ///         <description>Run a type inference on the source data (if
-        ///         needed) and ingest</description>
+        ///         needed) and ingest.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.DRY_RUN">DRY_RUN</see>:
+        ///         </term>
         ///         <description>Does not load data, but walks through the
         ///         source data and determines the number of valid records,
         ///         taking into account the current mode of <see
-        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+        ///         cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
         ///         </term>
         ///         <description>Infer the type of the source data and return,
         ///         without ingesting any data.  The inferred type is returned
         ///         in the response.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FULL">FULL</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FULL">FULL</see>.</para>
+        /// </remarks>
         public const string INGESTION_MODE = "ingestion_mode";
 
         /// <summary>Run a type inference on the source data (if needed) and
-        /// ingest</summary>
+        /// ingest.</summary>
         public const string FULL = "full";
 
         /// <summary>Does not load data, but walks through the source data and
         /// determines the number of valid records, taking into account the
         /// current mode of <see
-        /// cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.</summary>
+        /// cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// </summary>
         public const string DRY_RUN = "dry_run";
 
         /// <summary>Infer the type of the source data and return, without
@@ -654,14 +726,19 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.EARLIEST">EARLIEST</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.LATEST">LATEST</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.LATEST">LATEST</see>
+        ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.EARLIEST">EARLIEST</see>.</para></remarks>
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.
+        /// </para></remarks>
         public const string KAFKA_OFFSET_RESET_POLICY = "kafka_offset_reset_policy";
 
         public const string EARLIEST = "earliest";
@@ -673,14 +750,19 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string KAFKA_OPTIMISTIC_INGEST = "kafka_optimistic_ingest";
 
         /// <summary>Sets the Kafka subscription lifespan (in minutes).
@@ -701,13 +783,15 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.HEAD">HEAD</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.HEAD">HEAD</see>:
+        ///         </term>
         ///         <description>The head node loads all data. All files must
         ///         be available to the head node.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
+        ///         cref="CreateTableExternalRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
         ///         </term>
         ///         <description>The head node coordinates loading data by
         ///         worker processes across all nodes from shared files
@@ -721,7 +805,7 @@ public class CreateTableExternalRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
+        ///         cref="CreateTableExternalRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
         ///         </term>
         ///         <description>A single worker process on each node loads all
         ///         files that are available to it. This option works best when
@@ -742,8 +826,9 @@ public class CreateTableExternalRequest : KineticaData
         ///         loaded.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.HEAD">HEAD</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.HEAD">HEAD</see>.</para>
+        /// </remarks>
         public const string LOADING_MODE = "loading_mode";
 
         /// <summary>The head node loads all data.</summary>
@@ -785,20 +870,38 @@ public class CreateTableExternalRequest : KineticaData
 
         /// <summary>Limit the number of records to load in this request: if
         /// this number is larger than <see
-        /// cref="Options.BATCH_SIZE">BATCH_SIZE</see>, then the number of
-        /// records loaded will be limited to the next whole number of <see
-        /// cref="Options.BATCH_SIZE">BATCH_SIZE</see> (per working thread).
-        /// </summary>
+        /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>,
+        /// then the number of records loaded will be limited to the next whole
+        /// number of <see
+        /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>
+        /// (per working thread).</summary>
         public const string MAX_RECORDS_TO_LOAD = "max_records_to_load";
+
+        /// <summary>Specifies a comma-delimited list of column names to be
+        /// used as the source-data column names.</summary>
+        /// <remarks><para> If the file has a header row (i.e., <see
+        /// cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+        /// is <see cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+        /// these names override the file's header names.  If the file has no
+        /// header row, these names are used as the source-data column names.
+        /// Either way, the i-th name in this list applies to the i-th column
+        /// in the file, enabling name-based matching against the target
+        /// table's columns (and use with <see
+        /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+        /// / <see
+        /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+        /// </para></remarks>
+        public const string NAME_COLUMNS_FROM_FILE = "name_columns_from_file";
 
         /// <summary>Number of tasks for reading file per rank.</summary>
         /// <remarks><para>Default will be system configuration parameter,
         /// external_file_reader_num_tasks.</para></remarks>
         public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, the number of
-        /// seconds between attempts to load external files into the table.
-        /// </summary>
+        /// <summary>If <see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, the
+        /// number of seconds between attempts to load external files into the
+        /// table.</summary>
         /// <remarks><para> If zero, polling will be continuous as long as data
         /// is found.  If no data is found, the interval will steadily increase
         /// to a maximum of 60 seconds. The default value is '0'.</para>
@@ -814,50 +917,55 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.MANUAL">MANUAL</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>:
+        ///         </term>
         ///         <description>Refresh only occurs when manually requested by
         ///         invoking the refresh action of <see
-        ///         cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-        ///         on this table.</description>
+        ///         cref="Kinetica.alterTable">Kinetica.alterTable</see> on
+        ///         this table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.ON_START">ON_START</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.ON_START">ON_START</see>:
+        ///         </term>
         ///         <description>Refresh table on database startup and when
         ///         manually requested by invoking the refresh action of <see
-        ///         cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-        ///         on this table.</description>
+        ///         cref="Kinetica.alterTable">Kinetica.alterTable</see> on
+        ///         this table.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.MANUAL">MANUAL</see>.
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>.
         /// </para></remarks>
         public const string REFRESH_METHOD = "refresh_method";
 
         /// <summary>Refresh only occurs when manually requested by invoking
         /// the refresh action of <see
-        /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-        /// on this table.</summary>
+        /// cref="Kinetica.alterTable">Kinetica.alterTable</see> on this table.
+        /// </summary>
         public const string MANUAL = "manual";
 
         /// <summary>Refresh table on database startup and when manually
         /// requested by invoking the refresh action of <see
-        /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-        /// on this table.</summary>
+        /// cref="Kinetica.alterTable">Kinetica.alterTable</see> on this table.
+        /// </summary>
         public const string ON_START = "on_start";
 
-        /// <summary>Confluent Schema registry connection timeout (in Secs)
+        /// <summary>Confluent Schema registry connection timeout (in secs).
         /// </summary>
         public const string SCHEMA_REGISTRY_CONNECTION_RETRIES = "schema_registry_connection_retries";
 
-        /// <summary>Confluent Schema registry connection timeout (in Secs)
+        /// <summary>Confluent Schema registry connection timeout (in secs).
         /// </summary>
         public const string SCHEMA_REGISTRY_CONNECTION_TIMEOUT = "schema_registry_connection_timeout";
 
         /// <summary>Max records to skip due to SR connection failures, before
-        /// failing</summary>
+        /// failing.</summary>
         public const string SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES = "schema_registry_max_consecutive_connection_failures";
 
         /// <summary>Max records to skip due to schema related errors, before
-        /// failing</summary>
+        /// failing.</summary>
         public const string MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE = "max_consecutive_invalid_schema_failure";
 
         /// <summary>Name of the Avro schema in the schema registry to use when
@@ -883,14 +991,19 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string SUBSCRIBE = "subscribe";
 
         /// <summary>Insertion scheme to use when inserting records from
@@ -898,18 +1011,22 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.SINGLE">SINGLE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>:
+        ///         </term>
         ///         <description>Insert all records into a single table.
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:</term>
+        ///         cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
+        ///         </term>
         ///         <description>Insert records from each file into a new table
         ///         corresponding to that file.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.SINGLE">SINGLE</see>.
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.
         /// </para></remarks>
         public const string TABLE_INSERT_MODE = "table_insert_mode";
 
@@ -924,17 +1041,20 @@ public class CreateTableExternalRequest : KineticaData
         /// as a comment line prefix in the source data.</summary>
         /// <remarks><para> All lines in the data starting with the provided
         /// string are ignored.</para>
-        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-        /// value is '#'.</para></remarks>
+        /// <para>For <see
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only. The default value is '#'.</para></remarks>
         public const string TEXT_COMMENT_STRING = "text_comment_string";
 
         /// <summary>Specifies the character delimiting field values in the
         /// source data and field names in the header (if present).</summary>
         /// <remarks><para> For <see
-        /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-        /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default value is
-        /// ','.</para></remarks>
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only. The default value is ','.</para></remarks>
         public const string TEXT_DELIMITER = "text_delimiter";
 
         /// <summary>Specifies the character that is used to escape other
@@ -948,9 +1068,11 @@ public class CreateTableExternalRequest : KineticaData
         /// <para>The escape character can also be used to escape the quoting
         /// character, and will be treated as an escape character whether it is
         /// within a quoted field value or not.</para>
-        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.</para>
-        /// </remarks>
+        /// <para>For <see
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only.</para></remarks>
         public const string TEXT_ESCAPE_CHARACTER = "text_escape_character";
 
         /// <summary>Indicates whether the source data contains a header row.
@@ -958,14 +1080,19 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string TEXT_HAS_HEADER = "text_has_header";
 
         /// <summary>Specifies the delimiter for <a
@@ -973,18 +1100,21 @@ public class CreateTableExternalRequest : KineticaData
         /// target="_top">column properties</a> in the header row (if present).
         /// </summary>
         /// <remarks><para> Cannot be set to same value as <see
-        /// cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.</para>
-        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-        /// value is '|'.</para></remarks>
+        /// cref="CreateTableExternalRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.</para>
+        /// <para>For <see
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only. The default value is '|'.</para></remarks>
         public const string TEXT_HEADER_PROPERTY_DELIMITER = "text_header_property_delimiter";
 
         /// <summary>Specifies the character string that should be interpreted
         /// as a null value in the source data.</summary>
         /// <remarks><para> For <see
-        /// cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see> <see
-        /// cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default value is
-        /// '\\N'.</para></remarks>
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only. The default value is '\\N'.</para></remarks>
         public const string TEXT_NULL_STRING = "text_null_string";
 
         /// <summary>Specifies the character that should be interpreted as a
@@ -995,9 +1125,11 @@ public class CreateTableExternalRequest : KineticaData
         /// consecutive quote characters will be interpreted as a single
         /// literal quote character, effectively escaping it.  To not have a
         /// quote character, specify an empty string.</para>
-        /// <para>For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-        /// <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-        /// value is '"'.</para></remarks>
+        /// <para>For <see
+        /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only. The default value is '"'.</para></remarks>
         public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
 
         /// <summary>Add 'text_search' property to internally inferenced string
@@ -1005,62 +1137,81 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Comma separated list of column names or '*' for all
         /// columns. To add 'text_search' property only to string columns
         /// greater than or equal to a minimum size, also set the <see
-        /// cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
         /// </para></remarks>
         public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
 
         /// <summary>Set the minimum column size for strings to apply the
         /// 'text_search' property to.</summary>
         /// <remarks><para>Used only when <see
-        /// cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see> has a
-        /// value.</para></remarks>
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
+        /// has a value.</para></remarks>
         public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, remove
+        /// <summary>If set to <see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, remove
         /// leading or trailing space from fields.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRIM_SPACE = "trim_space";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, truncate
+        /// <summary>If set to <see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, truncate
         /// string values that are longer than the column's type size.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRUNCATE_STRINGS = "truncate_strings";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, truncates
-        /// the table specified by <see cref="table_name" /> prior to loading
+        /// <summary>If set to <see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
+        /// truncates the table specified by <see
+        /// cref="CreateTableExternalRequest.table_name" /> prior to loading
         /// the file(s).</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRUNCATE_TABLE = "truncate_table";
 
         public const string TYPE_INFERENCE_MAX_RECORDS_READ = "type_inference_max_records_read";
@@ -1070,19 +1221,24 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:
+        ///         </term>
         ///         <description>Scans data to get exactly-typed and sized
         ///         columns for all data scanned.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SPEED">SPEED</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:
+        ///         </term>
         ///         <description>Scans data and picks the widest possible
         ///         column types so that 'all' values will fit with minimum
-        ///         data scanned</description>
+        ///         data scanned.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.SPEED">SPEED</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</para>
+        /// </remarks>
         public const string TYPE_INFERENCE_MODE = "type_inference_mode";
 
         /// <summary>Scans data to get exactly-typed and sized columns for all
@@ -1090,15 +1246,17 @@ public class CreateTableExternalRequest : KineticaData
         public const string ACCURACY = "accuracy";
 
         /// <summary>Scans data and picks the widest possible column types so
-        /// that 'all' values will fit with minimum data scanned</summary>
+        /// that 'all' values will fit with minimum data scanned.</summary>
         public const string SPEED = "speed";
 
-        /// <summary>Remote SQL query from which data will be sourced</summary>
+        /// <summary>Remote SQL query from which data will be sourced.
+        /// </summary>
         public const string REMOTE_QUERY = "remote_query";
 
         /// <summary>Name of column to be used for splitting <see
-        /// cref="Options.REMOTE_QUERY">REMOTE_QUERY</see> into multiple
-        /// sub-queries using the data distribution of given column</summary>
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>
+        /// into multiple sub-queries using the data distribution of given
+        /// column.</summary>
         public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
 
         /// <summary>Column on subscribed remote query result that will
@@ -1106,9 +1264,29 @@ public class CreateTableExternalRequest : KineticaData
         public const string REMOTE_QUERY_INCREASING_COLUMN = "remote_query_increasing_column";
 
         /// <summary>Alias name for <see
-        /// cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
         /// </summary>
         public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
+
+        /// <summary>Applies only when upserting (when update_on_existing_pk is
+        /// true).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
+        public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
 
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
@@ -1116,18 +1294,23 @@ public class CreateTableExternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Upsert new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Reject new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
     } // end struct Options
 
@@ -1148,11 +1331,11 @@ public class CreateTableExternalRequest : KineticaData
     /// matching is used, the path must start with a full, valid KiFS directory
     /// name.</para>
     /// <para>If an external data source is specified in <see
-    /// cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>, these file paths
-    /// must resolve to accessible files at that data source location. Prefix
-    /// matching is supported. If the data source is hdfs, prefixes must be
-    /// aligned with directories, i.e. partial file names will not
-    /// match.</para>
+    /// cref="CreateTableExternalRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>,
+    /// these file paths must resolve to accessible files at that data source
+    /// location. Prefix matching is supported. If the data source is hdfs,
+    /// prefixes must be aligned with directories, i.e. partial file names will
+    /// not match.</para>
     /// <para>If no data source is specified, the files are assumed to be local
     /// to the database and must all be accessible to the gpudb user, residing
     /// on the path (or relative to the path) specified by the external files
@@ -1172,12 +1355,13 @@ public class CreateTableExternalRequest : KineticaData
     public IDictionary<string, IDictionary<string, string>> modify_columns { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>Options from <see
-    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source.</summary>
+    /// cref="Kinetica.createTable">Kinetica.createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source.
+    /// </summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:
     ///         </term>
     ///         <description>ID of a currently registered <a
     ///         href="../../../concepts/types/" target="_top">type</a>.
@@ -1185,65 +1369,73 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         prevents an error from occurring if the table already exists
     ///         and is of the given type.  If a table with the same name but a
     ///         different type exists, it is still an error.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
     ///         <description>Affects the <a
     ///         href="../../../concepts/tables/#distribution"
     ///         target="_top">distribution scheme</a> for the table's data.  If
-    ///         <see cref="CreateTableOptions.TRUE">TRUE</see> and the given
-    ///         table has no explicit <a
+    ///         <see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
+    ///         and the given table has no explicit <a
     ///         href="../../../concepts/tables/#shard-key" target="_top">shard
     ///         key</a> defined, the table will be <a
     ///         href="../../../concepts/tables/#replication"
     ///         target="_top">replicated</a>.  If <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will be
-    ///         <a href="../../../concepts/tables/#sharding"
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>,
+    ///         the table will be <a href="../../../concepts/tables/#sharding"
     ///         target="_top">sharded</a> according to the shard key specified
     ///         in the given <see
-    ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
-    ///         href="../../../concepts/tables/#random-sharding"
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+    ///         or <a href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly sharded</a>, if no shard key is
     ///         specified. Note that a type containing a shard key cannot be
     ///         used to create a replicated table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-keys"
@@ -1254,7 +1446,7 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key of the format 'source_column
     ///         references shard_by_column from
@@ -1262,14 +1454,15 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
@@ -1277,21 +1470,23 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.LIST">LIST</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.HASH">HASH</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
@@ -1299,7 +1494,8 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.SERIES">SERIES</see>:</term>
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -1308,21 +1504,21 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
     ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
@@ -1337,9 +1533,10 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         a new partition will be created for values which don't fall
     ///         into an existing partition.  Currently, only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -1347,46 +1544,52 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
-    ///         <description>Sets the <a href="../../../concepts/ttl/"
-    ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="table_name" />.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TTL">TTL</see>:
+    ///         </term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="CreateTableExternalRequest.table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
     ///         </term>
     ///         <description>Indicates whether the table is a <a
     ///         href="../../../concepts/tables_memory_only/"
@@ -1398,20 +1601,23 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -1419,7 +1625,7 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -1434,19 +1640,20 @@ public class CreateTableExternalRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
     ///         <description>Name of a table to which records that were
     ///         rejected are written. The bad-record-table has the following
     ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string).  When <see
-    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see> is <see
-    ///         cref="Options.ABORT">ABORT</see>, bad records table is not
-    ///         populated.</description>
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>,
+    ///         bad records table is not populated.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be written to the bad-record-table. The
@@ -1454,23 +1661,26 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
     ///         </term>
     ///         <description>For subscriptions, a positive integer indicating
     ///         the maximum number of records that can be written to the
     ///         bad-record-table per file/payload. Default value will be <see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
     ///         and total size of the table per rank is limited to <see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:
+    ///         </term>
     ///         <description>Number of records to insert per batch when
     ///         inserting data. The default value is '50000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:
     ///         </term>
     ///         <description>For each target column specified, applies the
     ///         column-property-bound format to the source data loaded into
@@ -1483,12 +1693,13 @@ public class CreateTableExternalRequest : KineticaData
     ///         "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
     ///         : "%H:%M:%S" } }'.
     ///         See <see
-    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+    ///         cref="CreateTableExternalRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
     ///         for valid format syntax.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:
+    ///         </term>
     ///         <description>Specifies a comma-delimited list of columns from
     ///         the source data to load.  If more than one file is being
     ///         loaded, this list applies to all files.
@@ -1512,53 +1723,67 @@ public class CreateTableExternalRequest : KineticaData
     ///         column names must match the source data field names for a
     ///         name-mapping to be successful.
     ///         Mutually exclusive with <see
-    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:
+    ///         </term>
     ///         <description>Specifies a comma-delimited list of columns from
     ///         the source data to skip.  Mutually exclusive with <see
-    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
+    ///         </term>
     ///         <description>Source data compression type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.NONE">NONE</see>:
+    ///                 </term>
     ///                 <description>No compression.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
-    ///                 <description>Auto detect compression type</description>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:
+    ///                 </term>
+    ///                 <description>Auto detect compression type.
+    ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.GZIP">GZIP</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:
+    ///                 </term>
     ///                 <description>gzip file compression.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.BZIP2">BZIP2</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:
+    ///                 </term>
     ///                 <description>bzip2 file compression.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.AUTO">AUTO</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
+    ///         </term>
     ///         <description>Name of an existing external data source from
-    ///         which data file(s) specified in <see cref="filepaths" /> will
-    ///         be loaded</description>
+    ///         which data file(s) specified in <see
+    ///         cref="CreateTableExternalRequest.filepaths" /> will be loaded.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
+    ///         cref="CreateTableExternalRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
     ///         </term>
     ///         <description>Specifies the default format to be applied to
     ///         source data loaded into columns with the corresponding column
@@ -1566,11 +1791,11 @@ public class CreateTableExternalRequest : KineticaData
     ///         time, and datetime.  This default column-property-bound format
     ///         can be overridden by specifying a column property and format
     ///         for a given target column in <see
-    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
-    ///         specified annotation, the format will apply to all columns with
-    ///         that annotation unless a custom <see
-    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
-    ///         annotation is specified.
+    ///         cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>.
+    ///         For each specified annotation, the format will apply to all
+    ///         columns with that annotation unless a custom <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>
+    ///         for that annotation is specified.
     ///         The parameter value must be formatted as a JSON string that is
     ///         a map of column properties to their respective column formats,
     ///         e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.  Column
@@ -1586,35 +1811,39 @@ public class CreateTableExternalRequest : KineticaData
     ///         control characters. Formats for the 'datetime' annotation meet
     ///         both the 'date' and 'time' control character requirements. For
     ///         example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
-    ///         interpret text as "05/04/2000 12:12:11"</description>
+    ///         interpret text as "05/04/2000 12:12:11".</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATALAKE_CATALOG">DATALAKE_CATALOG</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.DATALAKE_CATALOG">DATALAKE_CATALOG</see>:
+    ///         </term>
     ///         <description>Name of an existing datalake(iceberg) catalog used
-    ///         in loading files</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.DATALAKE_PATH">DATALAKE_PATH</see>:
-    ///         </term>
-    ///         <description>Path of datalake(iceberg) object</description>
+    ///         in loading files.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATALAKE_SNAPSHOT">DATALAKE_SNAPSHOT</see>:
+    ///         cref="CreateTableExternalRequest.Options.DATALAKE_PATH">DATALAKE_PATH</see>:
     ///         </term>
-    ///         <description>Snapshot ID of datalake(iceberg) object
+    ///         <description>Path of datalake(iceberg) object.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.DATALAKE_SNAPSHOT">DATALAKE_SNAPSHOT</see>:
+    ///         </term>
+    ///         <description>Snapshot ID of datalake(iceberg) object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
     ///         </term>
     ///         <description>Specifies how errors should be handled upon
     ///         insertion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:
     ///                 </term>
     ///                 <description>Records with missing columns are populated
     ///                 with nulls if possible; otherwise, the malformed
@@ -1622,25 +1851,28 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
     ///                 <description>Stops current insertion and aborts entire
     ///                 operation when an error is encountered.  Primary key
     ///                 collisions are considered abortable errors in this
     ///                 mode.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.ABORT">ABORT</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXTERNAL_TABLE_TYPE">EXTERNAL_TABLE_TYPE</see>:
+    ///         cref="CreateTableExternalRequest.Options.EXTERNAL_TABLE_TYPE">EXTERNAL_TABLE_TYPE</see>:
     ///         </term>
     ///         <description>Specifies whether the external table holds a local
     ///         copy of the external data.
@@ -1648,177 +1880,215 @@ public class CreateTableExternalRequest : KineticaData
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.MATERIALIZED">MATERIALIZED</see>:</term>
+    ///                 cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>:
+    ///                 </term>
     ///                 <description>Loads a copy of the external data into the
-    ///                 database, refreshed on demand</description>
+    ///                 database, refreshed on demand.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LOGICAL">LOGICAL</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.LOGICAL">LOGICAL</see>:
+    ///                 </term>
     ///                 <description>External data will not be loaded into the
     ///                 database; the data will be retrieved from the source
-    ///                 upon servicing each query against the external table
+    ///                 upon servicing each query against the external table.
     ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.MATERIALIZED">MATERIALIZED</see>.</description>
+    ///         cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>:
+    ///         </term>
     ///         <description>Specifies the type of the file(s) whose records
     ///         will be inserted.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.AVRO">AVRO</see>:</term>
-    ///                 <description>Avro file format</description>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:
+    ///                 </term>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+    ///                 cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
     ///                 </term>
     ///                 <description>Delimited text file format; e.g., CSV,
     ///                 TSV, PSV, etc.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.GDB">GDB</see>:</term>
-    ///                 <description>Esri/GDB file format</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.JSON">JSON</see>:</term>
-    ///                 <description>Json file format</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.PARQUET">PARQUET</see>:</term>
-    ///                 <description>Apache Parquet file format</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>Esri/GDB file format.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.JSON">JSON</see>:
+    ///                 </term>
+    ///                 <description>JSON file format.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:
+    ///                 </term>
+    ///                 <description>Apache Parquet file format.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.SHAPEFILE">SHAPEFILE</see>:
+    ///                 </term>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
+    ///         </term>
     ///         <description>Specifies how to handle nested columns.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
+    ///         cref="CreateTableExternalRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
     ///         </term>
     ///         <description>Comma separated list of gdal conf options, for the
-    ///         specific requests: key=value</description>
+    ///         specific requests: key=value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-    ///         rejection of any record for having primary key values matching
-    ///         an existing record will result in an error being reported, as
-    ///         determined by <see
-    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
-    ///         specified table does not have a primary key or if upsert mode
-    ///         is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>).
+    ///         If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>,
+    ///         the rejection of any record for having primary key values
+    ///         matching an existing record will result in an error being
+    ///         reported, as determined by <see
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.INGESTION_MODE">INGESTION_MODE</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:
     ///         </term>
     ///         <description>Whether to do a full load, dry run, or perform a
     ///         type inference on the source data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FULL">FULL</see>:
+    ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///                 </term>
     ///                 <description>Does not load data, but walks through the
     ///                 source data and determines the number of valid records,
     ///                 taking into account the current mode of <see
-    ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///                 cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+    ///                 cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
     ///                 </term>
     ///                 <description>Infer the type of the source data and
     ///                 return, without ingesting any data.  The inferred type
     ///                 is returned in the response.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FULL">FULL</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FULL">FULL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:
+    ///         </term>
     ///         <description>The JDBC fetch size, which determines how many
     ///         rows to fetch per round trip. The default value is '50000'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_CONSUMERS_PER_RANK">KAFKA_CONSUMERS_PER_RANK</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_CONSUMERS_PER_RANK">KAFKA_CONSUMERS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of Kafka consumer threads per rank (valid
     ///         range 1-6). The default value is '1'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:
     ///         </term>
     ///         <description>The group id to be used when consuming data from a
     ///         Kafka topic (valid only for Kafka datasource subscriptions).
@@ -1826,26 +2096,30 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:
     ///         </term>
     ///         <description>Policy to determine whether the Kafka data
     ///         consumption starts either at earliest offset or latest offset.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.EARLIEST">EARLIEST</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LATEST">LATEST</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.LATEST">LATEST</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.EARLIEST">EARLIEST</see>.</description>
+    ///         cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_OPTIMISTIC_INGEST">KAFKA_OPTIMISTIC_INGEST</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_OPTIMISTIC_INGEST">KAFKA_OPTIMISTIC_INGEST</see>:
     ///         </term>
     ///         <description>Enable optimistic ingestion where Kafka topic
     ///         offsets and table data are committed independently to achieve
@@ -1853,18 +2127,23 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
     ///         </term>
     ///         <description>Sets the Kafka subscription lifespan (in minutes).
     ///         Expired subscription will be cancelled automatically.
@@ -1872,18 +2151,21 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT">KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT">KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT</see>:
     ///         </term>
     ///         <description>Maximum time to collect Kafka messages before type
     ///         inferencing on the set of them.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.LAYER">LAYER</see>:
+    ///         </term>
     ///         <description>Geo files layer(s) name(s): comma separated.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:
     ///         </term>
     ///         <description>Scheme for distributing the extraction and loading
     ///         of data from the source data file(s). This option applies only
@@ -1891,13 +2173,15 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.HEAD">HEAD</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.HEAD">HEAD</see>:
+    ///                 </term>
     ///                 <description>The head node loads all data. All files
     ///                 must be available to the head node.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
+    ///                 cref="CreateTableExternalRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
     ///                 </term>
     ///                 <description>The head node coordinates loading data by
     ///                 worker processes across all nodes from shared files
@@ -1911,7 +2195,7 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
+    ///                 cref="CreateTableExternalRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
     ///                 </term>
     ///                 <description>A single worker process on each node loads
     ///                 all files that are available to it. This option works
@@ -1932,193 +2216,243 @@ public class CreateTableExternalRequest : KineticaData
     ///                 will be loaded.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.HEAD">HEAD</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.HEAD">HEAD</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
+    ///         cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
     ///         </term>
     ///         <description>Apply an offset to Avro local timestamp columns.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
+    ///         cref="CreateTableExternalRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
     ///         </term>
     ///         <description>Limit the number of records to load in this
     ///         request: if this number is larger than <see
-    ///         cref="Options.BATCH_SIZE">BATCH_SIZE</see>, then the number of
-    ///         records loaded will be limited to the next whole number of <see
-    ///         cref="Options.BATCH_SIZE">BATCH_SIZE</see> (per working
-    ///         thread).</description>
+    ///         cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>,
+    ///         then the number of records loaded will be limited to the next
+    ///         whole number of <see
+    ///         cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>
+    ///         (per working thread).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
+    ///         cref="CreateTableExternalRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the file has a
+    ///         header row (i.e., <see
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the file's header names.  If the file has
+    ///         no header row, these names are used as the source-data column
+    ///         names. Either way, the i-th name in this list applies to the
+    ///         i-th column in the file, enabling name-based matching against
+    ///         the target table's columns (and use with <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of tasks for reading file per rank. Default
     ///         will be system configuration parameter,
     ///         external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.POLL_INTERVAL">POLL_INTERVAL</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, the number
-    ///         of seconds between attempts to load external files into the
-    ///         table.  If zero, polling will be continuous as long as data is
-    ///         found.  If no data is found, the interval will steadily
+    ///         <description>If <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, the
+    ///         number of seconds between attempts to load external files into
+    ///         the table.  If zero, polling will be continuous as long as data
+    ///         is found.  If no data is found, the interval will steadily
     ///         increase to a maximum of 60 seconds. The default value is '0'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
     ///         <description>Comma separated list of column names to set as
     ///         primary keys, when not specified in the type.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.REFRESH_METHOD">REFRESH_METHOD</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:
     ///         </term>
     ///         <description>Method by which the table can be refreshed from
     ///         its source data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MANUAL">MANUAL</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>:
+    ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by invoking the refresh action of <see
-    ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-    ///                 on this table.</description>
+    ///                 cref="Kinetica.alterTable">Kinetica.alterTable</see> on
+    ///                 this table.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ON_START">ON_START</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.ON_START">ON_START</see>:
     ///                 </term>
     ///                 <description>Refresh table on database startup and when
     ///                 manually requested by invoking the refresh action of
     ///                 <see
-    ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-    ///                 on this table.</description>
+    ///                 cref="Kinetica.alterTable">Kinetica.alterTable</see> on
+    ///                 this table.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.MANUAL">MANUAL</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
+    ///         cref="CreateTableExternalRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
     ///         </term>
     ///         <description>Name of the Avro schema in the schema registry to
     ///         use when reading Avro records.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
+    ///         </term>
     ///         <description>Comma separated list of column names to set as
     ///         shard keys, when not specified in the type.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:
+    ///         </term>
     ///         <description>Skip a number of lines from the beginning of the
     ///         file.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.START_OFFSETS">START_OFFSETS</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.START_OFFSETS">START_OFFSETS</see>:
     ///         </term>
     ///         <description>Starting offsets by partition to fetch from kafka.
     ///         A comma separated list of partition:offset pairs.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:
+    ///         </term>
     ///         <description>Continuously poll the data source to check for new
     ///         data and load it into the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
+    ///         cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
     ///         </term>
     ///         <description>Insertion scheme to use when inserting records
     ///         from multiple shapefiles.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.SINGLE">SINGLE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>:
+    ///                 </term>
     ///                 <description>Insert all records into a single table.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
+    ///                 cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
     ///                 </term>
     ///                 <description>Insert records from each file into a new
     ///                 table corresponding to that file.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SINGLE">SINGLE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
     ///         </term>
     ///         <description>Specifies the character string that should be
     ///         interpreted as a comment line prefix in the source data.  All
     ///         lines in the data starting with the provided string are
     ///         ignored.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '#'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:
-    ///         </term>
-    ///         <description>Specifies the character delimiting field values in
-    ///         the source data and field names in the header (if present).
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is ','.</description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '#'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:
+    ///         </term>
+    ///         <description>Specifies the character delimiting field values in
+    ///         the source data and field names in the header (if present).
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is ','.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
     ///         </term>
     ///         <description>Specifies the character that is used to escape
     ///         other characters in the source data.
@@ -2131,54 +2465,70 @@ public class CreateTableExternalRequest : KineticaData
     ///         The escape character can also be used to escape the quoting
     ///         character, and will be treated as an escape character whether
     ///         it is within a quoted field value or not.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
-    ///         </description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:
+    ///         </term>
     ///         <description>Indicates whether the source data contains a
     ///         header row.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
     ///         </term>
     ///         <description>Specifies the delimiter for <a
     ///         href="../../../concepts/types/#column-properties"
     ///         target="_top">column properties</a> in the header row (if
     ///         present).  Cannot be set to same value as <see
-    ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '|'.</description>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '|'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:
+    ///         </term>
     ///         <description>Specifies the character string that should be
     ///         interpreted as a null value in the source data.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '\\N'.</description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '\\N'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
     ///         </term>
     ///         <description>Specifies the character that should be interpreted
     ///         as a field value quoting character in the source data.  The
@@ -2188,176 +2538,241 @@ public class CreateTableExternalRequest : KineticaData
     ///         consecutive quote characters will be interpreted as a single
     ///         literal quote character, effectively escaping it.  To not have
     ///         a quote character, specify an empty string.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '"'.</description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '"'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
     ///         </term>
     ///         <description>Add 'text_search' property to internally
     ///         inferenced string columns. Comma separated list of column names
     ///         or '*' for all columns. To add 'text_search' property only to
     ///         string columns greater than or equal to a minimum size, also
     ///         set the <see
-    ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
     ///         </term>
     ///         <description>Set the minimum column size for strings to apply
     ///         the 'text_search' property to. Used only when <see
-    ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
     ///         has a value.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRIM_SPACE">TRIM_SPACE</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRIM_SPACE">TRIM_SPACE</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
     ///         remove leading or trailing space from fields.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         cref="CreateTableExternalRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
     ///         truncate string values that are longer than the column's type
     ///         size.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         truncates the table specified by <see cref="table_name" />
-    ///         prior to loading the file(s).
+    ///         <description>If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
+    ///         truncates the table specified by <see
+    ///         cref="CreateTableExternalRequest.table_name" /> prior to
+    ///         loading the file(s).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>
+    ///         cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
+    ///         cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
     ///         </term>
     ///         <description>Optimize type inferencing for either speed or
     ///         accuracy.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ACCURACY">ACCURACY</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:
     ///                 </term>
     ///                 <description>Scans data to get exactly-typed and sized
     ///                 columns for all data scanned.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SPEED">SPEED</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:
+    ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SPEED">SPEED</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.REMOTE_QUERY">REMOTE_QUERY</see>:
-    ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
+    ///         </term>
+    ///         <description>Remote SQL query from which data will be sourced.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
     ///         </term>
     ///         <description>Name of column to be used for splitting <see
-    ///         cref="Options.REMOTE_QUERY">REMOTE_QUERY</see> into multiple
-    ///         sub-queries using the data distribution of given column
-    ///         </description>
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>
+    ///         into multiple sub-queries using the data distribution of given
+    ///         column.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
     ///         </term>
     ///         <description>Column on subscribed remote query result that will
     ///         increase for new records (e.g., TIMESTAMP).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
     ///         </term>
     ///         <description>Alias name for <see
-    ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="CreateTableExternalRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         'upserted'). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be 'upserted'). If set to <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>,
     ///         any existing table record with primary key values that match
     ///         those of a record being inserted will remain unchanged, while
     ///         the new record will be rejected and the error handled as
     ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> and
-    ///         <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    ///         and <see
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -2385,10 +2800,11 @@ public class CreateTableExternalRequest : KineticaData
     /// dir/file_1 and dir/file_2. When prefix matching is used, the path must
     /// start with a full, valid KiFS directory name.
     /// If an external data source is specified in <see
-    /// cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>, these file paths
-    /// must resolve to accessible files at that data source location. Prefix
-    /// matching is supported. If the data source is hdfs, prefixes must be
-    /// aligned with directories, i.e. partial file names will not match.
+    /// cref="CreateTableExternalRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>,
+    /// these file paths must resolve to accessible files at that data source
+    /// location. Prefix matching is supported. If the data source is hdfs,
+    /// prefixes must be aligned with directories, i.e. partial file names will
+    /// not match.
     /// If no data source is specified, the files are assumed to be local to
     /// the database and must all be accessible to the gpudb user, residing on
     /// the path (or relative to the path) specified by the external files
@@ -2403,12 +2819,12 @@ public class CreateTableExternalRequest : KineticaData
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source.
+    /// cref="Kinetica.createTable">Kinetica.createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:
     ///         </term>
     ///         <description>ID of a currently registered <a
     ///         href="../../../concepts/types/" target="_top">type</a>.
@@ -2416,65 +2832,73 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         prevents an error from occurring if the table already exists
     ///         and is of the given type.  If a table with the same name but a
     ///         different type exists, it is still an error.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
     ///         <description>Affects the <a
     ///         href="../../../concepts/tables/#distribution"
     ///         target="_top">distribution scheme</a> for the table's data.  If
-    ///         <see cref="CreateTableOptions.TRUE">TRUE</see> and the given
-    ///         table has no explicit <a
+    ///         <see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
+    ///         and the given table has no explicit <a
     ///         href="../../../concepts/tables/#shard-key" target="_top">shard
     ///         key</a> defined, the table will be <a
     ///         href="../../../concepts/tables/#replication"
     ///         target="_top">replicated</a>.  If <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will be
-    ///         <a href="../../../concepts/tables/#sharding"
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>,
+    ///         the table will be <a href="../../../concepts/tables/#sharding"
     ///         target="_top">sharded</a> according to the shard key specified
     ///         in the given <see
-    ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
-    ///         href="../../../concepts/tables/#random-sharding"
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+    ///         or <a href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly sharded</a>, if no shard key is
     ///         specified. Note that a type containing a shard key cannot be
     ///         used to create a replicated table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-keys"
@@ -2485,7 +2909,7 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key of the format 'source_column
     ///         references shard_by_column from
@@ -2493,14 +2917,15 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
@@ -2508,21 +2933,23 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.LIST">LIST</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.HASH">HASH</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
@@ -2530,7 +2957,8 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.SERIES">SERIES</see>:</term>
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -2539,21 +2967,21 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
     ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
@@ -2568,9 +2996,10 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         a new partition will be created for values which don't fall
     ///         into an existing partition.  Currently, only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -2578,46 +3007,52 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the table specified in <paramref
     ///         name="table_name" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
     ///         </term>
     ///         <description>Indicates whether the table is a <a
     ///         href="../../../concepts/tables_memory_only/"
@@ -2629,20 +3064,23 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -2650,7 +3088,7 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateTableExternalRequest.CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -2663,19 +3101,20 @@ public class CreateTableExternalRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
     ///         <description>Name of a table to which records that were
     ///         rejected are written. The bad-record-table has the following
     ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string).  When <see
-    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see> is <see
-    ///         cref="Options.ABORT">ABORT</see>, bad records table is not
-    ///         populated.</description>
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>,
+    ///         bad records table is not populated.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be written to the bad-record-table. The
@@ -2683,23 +3122,26 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:
     ///         </term>
     ///         <description>For subscriptions, a positive integer indicating
     ///         the maximum number of records that can be written to the
     ///         bad-record-table per file/payload. Default value will be <see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>
     ///         and total size of the table per rank is limited to <see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
+    ///         cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:
+    ///         </term>
     ///         <description>Number of records to insert per batch when
     ///         inserting data. The default value is '50000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:
     ///         </term>
     ///         <description>For each target column specified, applies the
     ///         column-property-bound format to the source data loaded into
@@ -2712,12 +3154,13 @@ public class CreateTableExternalRequest : KineticaData
     ///         "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
     ///         : "%H:%M:%S" } }'.
     ///         See <see
-    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
+    ///         cref="CreateTableExternalRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>
     ///         for valid format syntax.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:
+    ///         </term>
     ///         <description>Specifies a comma-delimited list of columns from
     ///         the source data to load.  If more than one file is being
     ///         loaded, this list applies to all files.
@@ -2741,53 +3184,66 @@ public class CreateTableExternalRequest : KineticaData
     ///         column names must match the source data field names for a
     ///         name-mapping to be successful.
     ///         Mutually exclusive with <see
-    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:
+    ///         </term>
     ///         <description>Specifies a comma-delimited list of columns from
     ///         the source data to skip.  Mutually exclusive with <see
-    ///         cref="Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
+    ///         </term>
     ///         <description>Source data compression type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.NONE">NONE</see>:
+    ///                 </term>
     ///                 <description>No compression.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.AUTO">AUTO</see>:</term>
-    ///                 <description>Auto detect compression type</description>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:
+    ///                 </term>
+    ///                 <description>Auto detect compression type.
+    ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.GZIP">GZIP</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:
+    ///                 </term>
     ///                 <description>gzip file compression.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.BZIP2">BZIP2</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:
+    ///                 </term>
     ///                 <description>bzip2 file compression.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.AUTO">AUTO</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
+    ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which data file(s) specified in <paramref name="filepaths" />
-    ///         will be loaded</description>
+    ///         will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
+    ///         cref="CreateTableExternalRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:
     ///         </term>
     ///         <description>Specifies the default format to be applied to
     ///         source data loaded into columns with the corresponding column
@@ -2795,11 +3251,11 @@ public class CreateTableExternalRequest : KineticaData
     ///         time, and datetime.  This default column-property-bound format
     ///         can be overridden by specifying a column property and format
     ///         for a given target column in <see
-    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see>. For each
-    ///         specified annotation, the format will apply to all columns with
-    ///         that annotation unless a custom <see
-    ///         cref="Options.COLUMN_FORMATS">COLUMN_FORMATS</see> for that
-    ///         annotation is specified.
+    ///         cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>.
+    ///         For each specified annotation, the format will apply to all
+    ///         columns with that annotation unless a custom <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>
+    ///         for that annotation is specified.
     ///         The parameter value must be formatted as a JSON string that is
     ///         a map of column properties to their respective column formats,
     ///         e.g., '{ "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }'.  Column
@@ -2815,35 +3271,39 @@ public class CreateTableExternalRequest : KineticaData
     ///         control characters. Formats for the 'datetime' annotation meet
     ///         both the 'date' and 'time' control character requirements. For
     ///         example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
-    ///         interpret text as "05/04/2000 12:12:11"</description>
+    ///         interpret text as "05/04/2000 12:12:11".</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATALAKE_CATALOG">DATALAKE_CATALOG</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.DATALAKE_CATALOG">DATALAKE_CATALOG</see>:
+    ///         </term>
     ///         <description>Name of an existing datalake(iceberg) catalog used
-    ///         in loading files</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.DATALAKE_PATH">DATALAKE_PATH</see>:
-    ///         </term>
-    ///         <description>Path of datalake(iceberg) object</description>
+    ///         in loading files.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATALAKE_SNAPSHOT">DATALAKE_SNAPSHOT</see>:
+    ///         cref="CreateTableExternalRequest.Options.DATALAKE_PATH">DATALAKE_PATH</see>:
     ///         </term>
-    ///         <description>Snapshot ID of datalake(iceberg) object
+    ///         <description>Path of datalake(iceberg) object.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.DATALAKE_SNAPSHOT">DATALAKE_SNAPSHOT</see>:
+    ///         </term>
+    ///         <description>Snapshot ID of datalake(iceberg) object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
     ///         </term>
     ///         <description>Specifies how errors should be handled upon
     ///         insertion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:
     ///                 </term>
     ///                 <description>Records with missing columns are populated
     ///                 with nulls if possible; otherwise, the malformed
@@ -2851,25 +3311,28 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
     ///                 <description>Stops current insertion and aborts entire
     ///                 operation when an error is encountered.  Primary key
     ///                 collisions are considered abortable errors in this
     ///                 mode.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.ABORT">ABORT</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXTERNAL_TABLE_TYPE">EXTERNAL_TABLE_TYPE</see>:
+    ///         cref="CreateTableExternalRequest.Options.EXTERNAL_TABLE_TYPE">EXTERNAL_TABLE_TYPE</see>:
     ///         </term>
     ///         <description>Specifies whether the external table holds a local
     ///         copy of the external data.
@@ -2877,177 +3340,215 @@ public class CreateTableExternalRequest : KineticaData
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.MATERIALIZED">MATERIALIZED</see>:</term>
+    ///                 cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>:
+    ///                 </term>
     ///                 <description>Loads a copy of the external data into the
-    ///                 database, refreshed on demand</description>
+    ///                 database, refreshed on demand.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LOGICAL">LOGICAL</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.LOGICAL">LOGICAL</see>:
+    ///                 </term>
     ///                 <description>External data will not be loaded into the
     ///                 database; the data will be retrieved from the source
-    ///                 upon servicing each query against the external table
+    ///                 upon servicing each query against the external table.
     ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.MATERIALIZED">MATERIALIZED</see>.</description>
+    ///         cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILE_TYPE">FILE_TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>:
+    ///         </term>
     ///         <description>Specifies the type of the file(s) whose records
     ///         will be inserted.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.AVRO">AVRO</see>:</term>
-    ///                 <description>Avro file format</description>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:
+    ///                 </term>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
+    ///                 cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:
     ///                 </term>
     ///                 <description>Delimited text file format; e.g., CSV,
     ///                 TSV, PSV, etc.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.GDB">GDB</see>:</term>
-    ///                 <description>Esri/GDB file format</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.JSON">JSON</see>:</term>
-    ///                 <description>Json file format</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.PARQUET">PARQUET</see>:</term>
-    ///                 <description>Apache Parquet file format</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.SHAPEFILE">SHAPEFILE</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>Esri/GDB file format.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.JSON">JSON</see>:
+    ///                 </term>
+    ///                 <description>JSON file format.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:
+    ///                 </term>
+    ///                 <description>Apache Parquet file format.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.SHAPEFILE">SHAPEFILE</see>:
+    ///                 </term>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.FLATTEN_COLUMNS">FLATTEN_COLUMNS</see>:
+    ///         </term>
     ///         <description>Specifies how to handle nested columns.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
+    ///         cref="CreateTableExternalRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
     ///         </term>
     ///         <description>Comma separated list of gdal conf options, for the
-    ///         specific requests: key=value</description>
+    ///         specific requests: key=value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-    ///         rejection of any record for having primary key values matching
-    ///         an existing record will result in an error being reported, as
-    ///         determined by <see
-    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
-    ///         specified table does not have a primary key or if upsert mode
-    ///         is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>).
+    ///         If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>,
+    ///         the rejection of any record for having primary key values
+    ///         matching an existing record will result in an error being
+    ///         reported, as determined by <see
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.INGESTION_MODE">INGESTION_MODE</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:
     ///         </term>
     ///         <description>Whether to do a full load, dry run, or perform a
     ///         type inference on the source data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FULL">FULL</see>:
+    ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///                 </term>
     ///                 <description>Does not load data, but walks through the
     ///                 source data and determines the number of valid records,
     ///                 taking into account the current mode of <see
-    ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///                 cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+    ///                 cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
     ///                 </term>
     ///                 <description>Infer the type of the source data and
     ///                 return, without ingesting any data.  The inferred type
     ///                 is returned in the response.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FULL">FULL</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FULL">FULL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:
+    ///         </term>
     ///         <description>The JDBC fetch size, which determines how many
     ///         rows to fetch per round trip. The default value is '50000'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_CONSUMERS_PER_RANK">KAFKA_CONSUMERS_PER_RANK</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_CONSUMERS_PER_RANK">KAFKA_CONSUMERS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of Kafka consumer threads per rank (valid
     ///         range 1-6). The default value is '1'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:
     ///         </term>
     ///         <description>The group id to be used when consuming data from a
     ///         Kafka topic (valid only for Kafka datasource subscriptions).
@@ -3055,26 +3556,30 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:
     ///         </term>
     ///         <description>Policy to determine whether the Kafka data
     ///         consumption starts either at earliest offset or latest offset.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.EARLIEST">EARLIEST</see>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LATEST">LATEST</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.LATEST">LATEST</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.EARLIEST">EARLIEST</see>.</description>
+    ///         cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_OPTIMISTIC_INGEST">KAFKA_OPTIMISTIC_INGEST</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_OPTIMISTIC_INGEST">KAFKA_OPTIMISTIC_INGEST</see>:
     ///         </term>
     ///         <description>Enable optimistic ingestion where Kafka topic
     ///         offsets and table data are committed independently to achieve
@@ -3082,18 +3587,23 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:
     ///         </term>
     ///         <description>Sets the Kafka subscription lifespan (in minutes).
     ///         Expired subscription will be cancelled automatically.
@@ -3101,18 +3611,21 @@ public class CreateTableExternalRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT">KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT</see>:
+    ///         cref="CreateTableExternalRequest.Options.KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT">KAFKA_TYPE_INFERENCE_FETCH_TIMEOUT</see>:
     ///         </term>
     ///         <description>Maximum time to collect Kafka messages before type
     ///         inferencing on the set of them.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LAYER">LAYER</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.LAYER">LAYER</see>:
+    ///         </term>
     ///         <description>Geo files layer(s) name(s): comma separated.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LOADING_MODE">LOADING_MODE</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:
     ///         </term>
     ///         <description>Scheme for distributing the extraction and loading
     ///         of data from the source data file(s). This option applies only
@@ -3120,13 +3633,15 @@ public class CreateTableExternalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.HEAD">HEAD</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.HEAD">HEAD</see>:
+    ///                 </term>
     ///                 <description>The head node loads all data. All files
     ///                 must be available to the head node.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
+    ///                 cref="CreateTableExternalRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:
     ///                 </term>
     ///                 <description>The head node coordinates loading data by
     ///                 worker processes across all nodes from shared files
@@ -3140,7 +3655,7 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
+    ///                 cref="CreateTableExternalRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:
     ///                 </term>
     ///                 <description>A single worker process on each node loads
     ///                 all files that are available to it. This option works
@@ -3161,193 +3676,243 @@ public class CreateTableExternalRequest : KineticaData
     ///                 will be loaded.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.HEAD">HEAD</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.HEAD">HEAD</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
+    ///         cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
     ///         </term>
     ///         <description>Apply an offset to Avro local timestamp columns.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
+    ///         cref="CreateTableExternalRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:
     ///         </term>
     ///         <description>Limit the number of records to load in this
     ///         request: if this number is larger than <see
-    ///         cref="Options.BATCH_SIZE">BATCH_SIZE</see>, then the number of
-    ///         records loaded will be limited to the next whole number of <see
-    ///         cref="Options.BATCH_SIZE">BATCH_SIZE</see> (per working
-    ///         thread).</description>
+    ///         cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>,
+    ///         then the number of records loaded will be limited to the next
+    ///         whole number of <see
+    ///         cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>
+    ///         (per working thread).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
+    ///         cref="CreateTableExternalRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the file has a
+    ///         header row (i.e., <see
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the file's header names.  If the file has
+    ///         no header row, these names are used as the source-data column
+    ///         names. Either way, the i-th name in this list applies to the
+    ///         i-th column in the file, enabling name-based matching against
+    ///         the target table's columns (and use with <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of tasks for reading file per rank. Default
     ///         will be system configuration parameter,
     ///         external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.POLL_INTERVAL">POLL_INTERVAL</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, the number
-    ///         of seconds between attempts to load external files into the
-    ///         table.  If zero, polling will be continuous as long as data is
-    ///         found.  If no data is found, the interval will steadily
+    ///         <description>If <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, the
+    ///         number of seconds between attempts to load external files into
+    ///         the table.  If zero, polling will be continuous as long as data
+    ///         is found.  If no data is found, the interval will steadily
     ///         increase to a maximum of 60 seconds. The default value is '0'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
     ///         <description>Comma separated list of column names to set as
     ///         primary keys, when not specified in the type.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.REFRESH_METHOD">REFRESH_METHOD</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:
     ///         </term>
     ///         <description>Method by which the table can be refreshed from
     ///         its source data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MANUAL">MANUAL</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>:
+    ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by invoking the refresh action of <see
-    ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-    ///                 on this table.</description>
+    ///                 cref="Kinetica.alterTable">Kinetica.alterTable</see> on
+    ///                 this table.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ON_START">ON_START</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.ON_START">ON_START</see>:
     ///                 </term>
     ///                 <description>Refresh table on database startup and when
     ///                 manually requested by invoking the refresh action of
     ///                 <see
-    ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
-    ///                 on this table.</description>
+    ///                 cref="Kinetica.alterTable">Kinetica.alterTable</see> on
+    ///                 this table.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.MANUAL">MANUAL</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.MANUAL">MANUAL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
+    ///         cref="CreateTableExternalRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
+    ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_SCHEMA_NAME">SCHEMA_REGISTRY_SCHEMA_NAME</see>:
     ///         </term>
     ///         <description>Name of the Avro schema in the schema registry to
     ///         use when reading Avro records.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
+    ///         </term>
     ///         <description>Comma separated list of column names to set as
     ///         shard keys, when not specified in the type.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SKIP_LINES">SKIP_LINES</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:
+    ///         </term>
     ///         <description>Skip a number of lines from the beginning of the
     ///         file.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.START_OFFSETS">START_OFFSETS</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.START_OFFSETS">START_OFFSETS</see>:
     ///         </term>
     ///         <description>Starting offsets by partition to fetch from kafka.
     ///         A comma separated list of partition:offset pairs.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:
+    ///         </term>
     ///         <description>Continuously poll the data source to check for new
     ///         data and load it into the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
+    ///         cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
     ///         </term>
     ///         <description>Insertion scheme to use when inserting records
     ///         from multiple shapefiles.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.SINGLE">SINGLE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>:
+    ///                 </term>
     ///                 <description>Insert all records into a single table.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
+    ///                 cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see>:
     ///                 </term>
     ///                 <description>Insert records from each file into a new
     ///                 table corresponding to that file.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SINGLE">SINGLE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:
     ///         </term>
     ///         <description>Specifies the character string that should be
     ///         interpreted as a comment line prefix in the source data.  All
     ///         lines in the data starting with the provided string are
     ///         ignored.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '#'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:
-    ///         </term>
-    ///         <description>Specifies the character delimiting field values in
-    ///         the source data and field names in the header (if present).
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is ','.</description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '#'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:
+    ///         </term>
+    ///         <description>Specifies the character delimiting field values in
+    ///         the source data and field names in the header (if present).
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is ','.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:
     ///         </term>
     ///         <description>Specifies the character that is used to escape
     ///         other characters in the source data.
@@ -3360,54 +3925,70 @@ public class CreateTableExternalRequest : KineticaData
     ///         The escape character can also be used to escape the quoting
     ///         character, and will be treated as an escape character whether
     ///         it is within a quoted field value or not.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
-    ///         </description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:
+    ///         </term>
     ///         <description>Indicates whether the source data contains a
     ///         header row.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only.
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:
     ///         </term>
     ///         <description>Specifies the delimiter for <a
     ///         href="../../../concepts/types/#column-properties"
     ///         target="_top">column properties</a> in the header row (if
     ///         present).  Cannot be set to same value as <see
-    ///         cref="Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '|'.</description>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>.
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '|'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:
+    ///         </term>
     ///         <description>Specifies the character string that should be
     ///         interpreted as a null value in the source data.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '\\N'.</description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '\\N'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:
     ///         </term>
     ///         <description>Specifies the character that should be interpreted
     ///         as a field value quoting character in the source data.  The
@@ -3417,176 +3998,240 @@ public class CreateTableExternalRequest : KineticaData
     ///         consecutive quote characters will be interpreted as a single
     ///         literal quote character, effectively escaping it.  To not have
     ///         a quote character, specify an empty string.
-    ///         For <see cref="Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
-    ///         <see cref="Options.FILE_TYPE">FILE_TYPE</see> only. The default
-    ///         value is '"'.</description>
+    ///         For <see
+    ///         cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+    ///         <see
+    ///         cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>
+    ///         only. The default value is '"'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:
     ///         </term>
     ///         <description>Add 'text_search' property to internally
     ///         inferenced string columns. Comma separated list of column names
     ///         or '*' for all columns. To add 'text_search' property only to
     ///         string columns greater than or equal to a minimum size, also
     ///         set the <see
-    ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:
     ///         </term>
     ///         <description>Set the minimum column size for strings to apply
     ///         the 'text_search' property to. Used only when <see
-    ///         cref="Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
+    ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
     ///         has a value.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRIM_SPACE">TRIM_SPACE</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRIM_SPACE">TRIM_SPACE</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
     ///         remove leading or trailing space from fields.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         cref="CreateTableExternalRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
     ///         truncate string values that are longer than the column's type
     ///         size.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         <description>If set to <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>,
     ///         truncates the table specified by <paramref name="table_name" />
     ///         prior to loading the file(s).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>
+    ///         cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MAX_RECORDS_READ">TYPE_INFERENCE_MAX_RECORDS_READ</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
+    ///         cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
     ///         </term>
     ///         <description>Optimize type inferencing for either speed or
     ///         accuracy.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ACCURACY">ACCURACY</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:
     ///                 </term>
     ///                 <description>Scans data to get exactly-typed and sized
     ///                 columns for all data scanned.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SPEED">SPEED</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:
+    ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SPEED">SPEED</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.REMOTE_QUERY">REMOTE_QUERY</see>:
-    ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
+    ///         </term>
+    ///         <description>Remote SQL query from which data will be sourced.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
     ///         </term>
     ///         <description>Name of column to be used for splitting <see
-    ///         cref="Options.REMOTE_QUERY">REMOTE_QUERY</see> into multiple
-    ///         sub-queries using the data distribution of given column
-    ///         </description>
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>
+    ///         into multiple sub-queries using the data distribution of given
+    ///         column.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
     ///         </term>
     ///         <description>Column on subscribed remote query result that will
     ///         increase for new records (e.g., TIMESTAMP).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
     ///         </term>
     ///         <description>Alias name for <see
-    ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="CreateTableExternalRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         'upserted'). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be 'upserted'). If set to <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>,
     ///         any existing table record with primary key values that match
     ///         those of a record being inserted will remain unchanged, while
     ///         the new record will be rejected and the error handled as
     ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> and
-    ///         <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    ///         and <see
+    ///         cref="CreateTableExternalRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -3606,7 +4251,7 @@ public class CreateTableExternalRequest : KineticaData
 } // end class CreateTableExternalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createTableExternal(CreateTableExternalRequest)">Kinetica.createTableExternal</see>.
+/// cref="Kinetica.createTableExternal">Kinetica.createTableExternal</see>.
 /// </summary>
 public class CreateTableExternalResponse : KineticaData
 {
@@ -3617,19 +4262,19 @@ public class CreateTableExternalResponse : KineticaData
 
     /// <summary>ID of the currently registered table structure <a
     /// href="../../../concepts/types/" target="_top">type</a> for this
-    /// external table</summary>
+    /// external table.</summary>
     public string type_id { get; set; }
 
     /// <summary>A JSON string describing the columns of the created external
-    /// table</summary>
+    /// table.</summary>
     public string type_definition { get; set; }
 
     /// <summary>The user-defined description associated with the table's
-    /// structure</summary>
+    /// structure.</summary>
     public string type_label { get; set; }
 
     /// <summary>A mapping of each external table column name to an array of
-    /// column properties associated with that column</summary>
+    /// column properties associated with that column.</summary>
     public IDictionary<string, IList<string>> type_properties { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>Number of records inserted into the external table.</summary>

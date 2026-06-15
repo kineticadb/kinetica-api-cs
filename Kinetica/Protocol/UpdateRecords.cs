@@ -9,14 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.updateRecordsRaw(RawUpdateRecordsRequest)">Kinetica.updateRecordsRaw</see>.
-/// </summary>
+/// cref="Kinetica.updateRecordsRaw">Kinetica.updateRecordsRaw</see>.</summary>
 /// <remarks><para>Runs multiple predicate-based updates in a single call.
 /// With the list of given expressions, any matching record's column values
-/// will be updated as provided in <see cref="new_values_maps" />.  There is
-/// also an optional 'upsert' capability where if a particular predicate
-/// doesn't match any existing record, then a new record can be
-/// inserted.</para>
+/// will be updated as provided in <see
+/// cref="RawUpdateRecordsRequest.new_values_maps" />.  There is also an
+/// optional 'upsert' capability where if a particular predicate doesn't match
+/// any existing record, then a new record can be inserted.</para>
 /// <para>Note that this operation can only be run on an original table and not
 /// on a result view.</para>
 /// <para>This operation can update primary key values.  By default only 'pure
@@ -29,16 +28,16 @@ namespace kinetica;
 /// must appear in an equality predicate in the expressions.  Furthermore each
 /// 'pure primary key' predicate must be unique within a given request.  These
 /// restrictions can be removed by utilizing some available options through
-/// <see cref="options" />.</para>
+/// <see cref="RawUpdateRecordsRequest.options" />.</para>
 /// <para>The <see
-/// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
-/// specifies the record primary key collision policy for tables with a <a
-/// href="../../../concepts/tables/#primary-keys" target="_top">primary
+/// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+/// option specifies the record primary key collision policy for tables with a
+/// <a href="../../../concepts/tables/#primary-keys" target="_top">primary
 /// key</a>, while <see
-/// cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> specifies the
-/// record primary key collision error-suppression policy when those collisions
-/// result in the update being rejected.  Both are ignored on tables with no
-/// primary key.</para></remarks>
+/// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+/// specifies the record primary key collision error-suppression policy when
+/// those collisions result in the update being rejected.  Both are ignored on
+/// tables with no primary key.</para></remarks>
 public class RawUpdateRecordsRequest : KineticaData
 {
 
@@ -59,9 +58,11 @@ public class RawUpdateRecordsRequest : KineticaData
     }";
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="record_encoding" />.</summary>
-    /// <remarks><para>Identifies which of <see cref="records_to_insert" /> and
-    /// <see cref="records_to_insert_str" /> should be used.</para></remarks>
+    /// cref="RawUpdateRecordsRequest.record_encoding" />.</summary>
+    /// <remarks><para>Identifies which of <see
+    /// cref="RawUpdateRecordsRequest.records_to_insert" /> and <see
+    /// cref="RawUpdateRecordsRequest.records_to_insert_str" /> should be used.
+    /// </para></remarks>
     public struct RecordEncoding
     {
         public const string BINARY = "binary";
@@ -69,28 +70,35 @@ public class RawUpdateRecordsRequest : KineticaData
     } // end struct RecordEncoding
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RawUpdateRecordsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
         /// <summary>An optional global expression to reduce the search space
-        /// of the predicates listed in <see cref="expressions" />.</summary>
+        /// of the predicates listed in <see
+        /// cref="RawUpdateRecordsRequest.expressions" />.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string GLOBAL_EXPRESSION = "global_expression";
 
-        /// <summary>When set to <see cref="Options.TRUE">TRUE</see>, all
+        /// <summary>When set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
         /// predicates are available for primary key updates.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string BYPASS_SAFETY_CHECKS = "bypass_safety_checks";
 
         public const string TRUE = "true";
@@ -102,7 +110,9 @@ public class RawUpdateRecordsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Overwrite the collided-into record when
         ///         updating a record's primary key or inserting an alternate
         ///         record causes a primary key collision between the record
@@ -110,14 +120,17 @@ public class RawUpdateRecordsRequest : KineticaData
         ///         table</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Reject updates which cause primary key
         ///         collisions between the record being updated/inserted and an
         ///         existing record in the table</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
         /// <summary>Specifies the record collision error-suppression policy
@@ -125,23 +138,29 @@ public class RawUpdateRecordsRequest : KineticaData
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>, only used when primary key record collisions are rejected
         /// (<see
-        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
-        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Ignore updates that result in primary key
-        ///         collisions with existing records</description>
+        ///         collisions with existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Treat as errors any updates that result in
-        ///         primary key collisions with existing records</description>
+        ///         primary key collisions with existing records.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
         /// <summary>Force qualifying records to be deleted and reinserted so
@@ -149,53 +168,91 @@ public class RawUpdateRecordsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_PARTITION = "update_partition";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any strings
+        /// <summary>If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, qualifying
+        /// records are modified in place.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
+        public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
+
+        /// <summary>If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any strings
         /// which are too long for their charN string fields will be truncated
         /// to fit.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRUNCATE_STRINGS = "truncate_strings";
 
-        /// <summary>When set to <see cref="Options.TRUE">TRUE</see>, all new
-        /// values in <see cref="new_values_maps" /> are considered as
-        /// expression values.</summary>
+        /// <summary>When set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+        /// values in <see cref="RawUpdateRecordsRequest.new_values_maps" />
+        /// are considered as expression values.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string USE_EXPRESSIONS_IN_NEW_VALUES_MAPS = "use_expressions_in_new_values_maps";
 
         /// <summary>ID of a single record to be updated (returned in the call
         /// to <see
-        /// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>
-        /// or <see
-        /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+        /// cref="Kinetica.insertRecordsRaw">Kinetica.insertRecordsRaw</see> or
+        /// <see
+        /// cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
         /// </summary>
         public const string RECORD_ID = "record_id";
     } // end struct Options
@@ -209,23 +266,25 @@ public class RawUpdateRecordsRequest : KineticaData
     public string table_name { get; set; }
 
     /// <summary>A list of the actual predicates, one for each update; format
-    /// should follow the guidelines <see
-    /// cref="Kinetica.filter(FilterRequest)">here</see>.</summary>
+    /// should follow the guidelines <see cref="Kinetica.filter">here</see>.
+    /// </summary>
     public IList<string> expressions { get; set; } = new List<string>();
 
     /// <summary>List of new values for the matching records.</summary>
     /// <remarks><para> Each element is a map with (key, value) pairs where the
     /// keys are the names of the columns whose values are to be updated; the
     /// values are the new values.  The number of elements in the list should
-    /// match the length of <see cref="expressions" />.</para></remarks>
+    /// match the length of <see cref="RawUpdateRecordsRequest.expressions" />.
+    /// </para></remarks>
     public IList<IDictionary<string, string>> new_values_maps { get; set; } = new List<IDictionary<string, string>>();
 
     /// <summary>An *optional* list of new binary-avro encoded records to
     /// insert, one for each update.</summary>
-    /// <remarks><para> If one of <see cref="expressions" /> does not yield a
-    /// matching record to be updated, then the corresponding element from this
-    /// list will be added to the table. The default value is an empty List.
-    /// </para></remarks>
+    /// <remarks><para> If one of <see
+    /// cref="RawUpdateRecordsRequest.expressions" /> does not yield a matching
+    /// record to be updated, then the corresponding element from this list
+    /// will be added to the table. The default value is an empty List.</para>
+    /// </remarks>
     public IList<byte[]> records_to_insert { get; set; } = new List<byte[]>();
 
     /// <summary>An optional list of JSON encoded objects to insert, one for
@@ -234,38 +293,47 @@ public class RawUpdateRecordsRequest : KineticaData
     /// <remarks><para>The default value is an empty List.</para></remarks>
     public IList<string> records_to_insert_str { get; set; } = new List<string>();
 
-    /// <summary>Identifies which of <see cref="records_to_insert" /> and <see
-    /// cref="records_to_insert_str" /> should be used.</summary>
+    /// <summary>Identifies which of <see
+    /// cref="RawUpdateRecordsRequest.records_to_insert" /> and <see
+    /// cref="RawUpdateRecordsRequest.records_to_insert_str" /> should be used.
+    /// </summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="RecordEncoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RecordEncoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.RecordEncoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
     /// <para>The default value is <see
-    /// cref="RecordEncoding.BINARY">BINARY</see>.</para></remarks>
+    /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>.
+    /// </para></remarks>
     public string record_encoding { get; set; } = RecordEncoding.BINARY;
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
-    ///         space of the predicates listed in <see cref="expressions" />.
-    ///         The default value is ''.</description>
+    ///         space of the predicates listed in <see
+    ///         cref="RawUpdateRecordsRequest.expressions" />. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all predicates are available for primary key updates.  Keep in
-    ///         mind that it is possible to destroy data in this case, since a
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
+    ///         predicates are available for primary key updates.  Keep in mind
+    ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
     ///         records of a table), and then updating all of those records to
     ///         have the same primary key will, due to the primary key
@@ -274,18 +342,23 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -296,30 +369,39 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         and that new primary key already exists as the primary key of
     ///         another record in the table.
     ///         The second is an "insert collision", which occurs when a given
-    ///         filter in <see cref="expressions" /> finds no records to
-    ///         update, and the alternate insert record given in <see
-    ///         cref="records_to_insert" /> (or <see
-    ///         cref="records_to_insert_str" />) contains a primary key
-    ///         matching that of an existing record in the table.
+    ///         filter in <see cref="RawUpdateRecordsRequest.expressions" />
+    ///         finds no records to update, and the alternate insert record
+    ///         given in <see cref="RawUpdateRecordsRequest.records_to_insert"
+    ///         /> (or <see
+    ///         cref="RawUpdateRecordsRequest.records_to_insert_str" />)
+    ///         contains a primary key matching that of an existing record in
+    ///         the table.
     ///         If <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is set to <see cref="Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
-    ///         <see cref="new_values_maps" /> taking its place; "insert
-    ///         collisions" will result in the collided-into record being
-    ///         updated with the values in <see cref="records_to_insert" /> /
-    ///         <see cref="records_to_insert_str" /> (if given).
-    ///         If set to <see cref="Options.FALSE">FALSE</see>, the existing
-    ///         collided-into record will remain unchanged, while the update
-    ///         will be rejected and the error handled as determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         <see cref="RawUpdateRecordsRequest.new_values_maps" /> taking
+    ///         its place; "insert collisions" will result in the collided-into
+    ///         record being updated with the values in <see
+    ///         cref="RawUpdateRecordsRequest.records_to_insert" /> / <see
+    ///         cref="RawUpdateRecordsRequest.records_to_insert_str" /> (if
+    ///         given).
+    ///         If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         existing collided-into record will remain unchanged, while the
+    ///         update will be rejected and the error handled as determined by
+    ///         <see
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
     ///                 alternate record causes a primary key collision between
@@ -327,118 +409,182 @@ public class RawUpdateRecordsRequest : KineticaData
     ///                 record in the table</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
     ///                 and an existing record in the table</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record update that is
-    ///         rejected for resulting in a primary key collision with an
-    ///         existing table record will be ignored with no error generated.
-    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
-    ///         update for resulting in a primary key collision will cause an
-    ///         error to be reported.  If the specified table does not have a
-    ///         primary key or if <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
-    ///         effect.
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record update that is rejected for resulting in a primary key
+    ///         collision with an existing table record will be ignored with no
+    ///         error generated.  If <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         rejection of any update for resulting in a primary key
+    ///         collision will cause an error to be reported.  If the specified
+    ///         table does not have a primary key or if <see
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all new values in <see cref="new_values_maps" /> are considered
-    ///         as expression values. When set to <see
-    ///         cref="Options.FALSE">FALSE</see>, all new values in <see
-    ///         cref="new_values_maps" /> are considered as constants.  NOTE:
-    ///         When <see cref="Options.TRUE">TRUE</see>, string constants will
-    ///         need to be quoted to avoid being evaluated as expressions.
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+    ///         values in <see cref="RawUpdateRecordsRequest.new_values_maps"
+    ///         /> are considered as expression values. When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
+    ///         new values in <see
+    ///         cref="RawUpdateRecordsRequest.new_values_maps" /> are
+    ///         considered as constants.  NOTE:  When <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
+    ///         constants will need to be quoted to avoid being evaluated as
+    ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         </term>
     ///         <description>ID of a single record to be updated (returned in
     ///         the call to <see
-    ///         cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>
+    ///         cref="Kinetica.insertRecordsRaw">Kinetica.insertRecordsRaw</see>
     ///         or <see
-    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+    ///         cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -459,7 +605,7 @@ public class RawUpdateRecordsRequest : KineticaData
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="Kinetica.filter(FilterRequest)">here</see>.</param>
+    /// cref="Kinetica.filter">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -474,7 +620,7 @@ public class RawUpdateRecordsRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
     ///         space of the predicates listed in <paramref name="expressions"
@@ -482,11 +628,12 @@ public class RawUpdateRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all predicates are available for primary key updates.  Keep in
-    ///         mind that it is possible to destroy data in this case, since a
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
+    ///         predicates are available for primary key updates.  Keep in mind
+    ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
     ///         records of a table), and then updating all of those records to
     ///         have the same primary key will, due to the primary key
@@ -495,18 +642,23 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -523,24 +675,29 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         name="records_to_insert_str" />) contains a primary key
     ///         matching that of an existing record in the table.
     ///         If <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is set to <see cref="Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
     ///         <paramref name="new_values_maps" /> taking its place; "insert
     ///         collisions" will result in the collided-into record being
     ///         updated with the values in <paramref name="records_to_insert"
     ///         /> / <paramref name="records_to_insert_str" /> (if given).
-    ///         If set to <see cref="Options.FALSE">FALSE</see>, the existing
-    ///         collided-into record will remain unchanged, while the update
-    ///         will be rejected and the error handled as determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         existing collided-into record will remain unchanged, while the
+    ///         update will be rejected and the error handled as determined by
+    ///         <see
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
     ///                 alternate record causes a primary key collision between
@@ -548,118 +705,181 @@ public class RawUpdateRecordsRequest : KineticaData
     ///                 record in the table</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
     ///                 and an existing record in the table</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record update that is
-    ///         rejected for resulting in a primary key collision with an
-    ///         existing table record will be ignored with no error generated.
-    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
-    ///         update for resulting in a primary key collision will cause an
-    ///         error to be reported.  If the specified table does not have a
-    ///         primary key or if <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
-    ///         effect.
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record update that is rejected for resulting in a primary key
+    ///         collision with an existing table record will be ignored with no
+    ///         error generated.  If <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         rejection of any update for resulting in a primary key
+    ///         collision will cause an error to be reported.  If the specified
+    ///         table does not have a primary key or if <see
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all new values in <paramref name="new_values_maps" /> are
-    ///         considered as expression values. When set to <see
-    ///         cref="Options.FALSE">FALSE</see>, all new values in <paramref
-    ///         name="new_values_maps" /> are considered as constants.  NOTE:
-    ///         When <see cref="Options.TRUE">TRUE</see>, string constants will
-    ///         need to be quoted to avoid being evaluated as expressions.
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+    ///         values in <paramref name="new_values_maps" /> are considered as
+    ///         expression values. When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
+    ///         new values in <paramref name="new_values_maps" /> are
+    ///         considered as constants.  NOTE:  When <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
+    ///         constants will need to be quoted to avoid being evaluated as
+    ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         </term>
     ///         <description>ID of a single record to be updated (returned in
     ///         the call to <see
-    ///         cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>
+    ///         cref="Kinetica.insertRecordsRaw">Kinetica.insertRecordsRaw</see>
     ///         or <see
-    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+    ///         cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -689,7 +909,7 @@ public class RawUpdateRecordsRequest : KineticaData
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="Kinetica.filter(FilterRequest)">here</see>.</param>
+    /// cref="Kinetica.filter">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -710,19 +930,24 @@ public class RawUpdateRecordsRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="RecordEncoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RecordEncoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.RecordEncoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// The default value is <see cref="RecordEncoding.BINARY">BINARY</see>.
+    /// The default value is <see
+    /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>.
     /// </param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
     ///         space of the predicates listed in <paramref name="expressions"
@@ -730,11 +955,12 @@ public class RawUpdateRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all predicates are available for primary key updates.  Keep in
-    ///         mind that it is possible to destroy data in this case, since a
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
+    ///         predicates are available for primary key updates.  Keep in mind
+    ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
     ///         records of a table), and then updating all of those records to
     ///         have the same primary key will, due to the primary key
@@ -743,18 +969,23 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -771,24 +1002,29 @@ public class RawUpdateRecordsRequest : KineticaData
     ///         name="records_to_insert_str" />) contains a primary key
     ///         matching that of an existing record in the table.
     ///         If <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is set to <see cref="Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
     ///         <paramref name="new_values_maps" /> taking its place; "insert
     ///         collisions" will result in the collided-into record being
     ///         updated with the values in <paramref name="records_to_insert"
     ///         /> / <paramref name="records_to_insert_str" /> (if given).
-    ///         If set to <see cref="Options.FALSE">FALSE</see>, the existing
-    ///         collided-into record will remain unchanged, while the update
-    ///         will be rejected and the error handled as determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         existing collided-into record will remain unchanged, while the
+    ///         update will be rejected and the error handled as determined by
+    ///         <see
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
     ///                 alternate record causes a primary key collision between
@@ -796,118 +1032,181 @@ public class RawUpdateRecordsRequest : KineticaData
     ///                 record in the table</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
     ///                 and an existing record in the table</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record update that is
-    ///         rejected for resulting in a primary key collision with an
-    ///         existing table record will be ignored with no error generated.
-    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
-    ///         update for resulting in a primary key collision will cause an
-    ///         error to be reported.  If the specified table does not have a
-    ///         primary key or if <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
-    ///         effect.
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record update that is rejected for resulting in a primary key
+    ///         collision with an existing table record will be ignored with no
+    ///         error generated.  If <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         rejection of any update for resulting in a primary key
+    ///         collision will cause an error to be reported.  If the specified
+    ///         table does not have a primary key or if <see
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all new values in <paramref name="new_values_maps" /> are
-    ///         considered as expression values. When set to <see
-    ///         cref="Options.FALSE">FALSE</see>, all new values in <paramref
-    ///         name="new_values_maps" /> are considered as constants.  NOTE:
-    ///         When <see cref="Options.TRUE">TRUE</see>, string constants will
-    ///         need to be quoted to avoid being evaluated as expressions.
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+    ///         values in <paramref name="new_values_maps" /> are considered as
+    ///         expression values. When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
+    ///         new values in <paramref name="new_values_maps" /> are
+    ///         considered as constants.  NOTE:  When <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
+    ///         constants will need to be quoted to avoid being evaluated as
+    ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         </term>
     ///         <description>ID of a single record to be updated (returned in
     ///         the call to <see
-    ///         cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>
+    ///         cref="Kinetica.insertRecordsRaw">Kinetica.insertRecordsRaw</see>
     ///         or <see
-    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+    ///         cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -931,14 +1230,13 @@ public class RawUpdateRecordsRequest : KineticaData
 } // end class RawUpdateRecordsRequest
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.updateRecords{T}(UpdateRecordsRequest{T})">Kinetica.updateRecords</see>.
-/// </summary>
+/// cref="Kinetica.updateRecords">Kinetica.updateRecords</see>.</summary>
 /// <remarks><para>Runs multiple predicate-based updates in a single call.
 /// With the list of given expressions, any matching record's column values
-/// will be updated as provided in <see cref="new_values_maps" />.  There is
-/// also an optional 'upsert' capability where if a particular predicate
-/// doesn't match any existing record, then a new record can be
-/// inserted.</para>
+/// will be updated as provided in <see
+/// cref="RawUpdateRecordsRequest.new_values_maps" />.  There is also an
+/// optional 'upsert' capability where if a particular predicate doesn't match
+/// any existing record, then a new record can be inserted.</para>
 /// <para>Note that this operation can only be run on an original table and not
 /// on a result view.</para>
 /// <para>This operation can update primary key values.  By default only 'pure
@@ -951,43 +1249,50 @@ public class RawUpdateRecordsRequest : KineticaData
 /// must appear in an equality predicate in the expressions.  Furthermore each
 /// 'pure primary key' predicate must be unique within a given request.  These
 /// restrictions can be removed by utilizing some available options through
-/// <see cref="options" />.</para>
+/// <see cref="RawUpdateRecordsRequest.options" />.</para>
 /// <para>The <see
-/// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
-/// specifies the record primary key collision policy for tables with a <a
-/// href="../../../concepts/tables/#primary-keys" target="_top">primary
+/// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+/// option specifies the record primary key collision policy for tables with a
+/// <a href="../../../concepts/tables/#primary-keys" target="_top">primary
 /// key</a>, while <see
-/// cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> specifies the
-/// record primary key collision error-suppression policy when those collisions
-/// result in the update being rejected.  Both are ignored on tables with no
-/// primary key.</para></remarks>
+/// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+/// specifies the record primary key collision error-suppression policy when
+/// those collisions result in the update being rejected.  Both are ignored on
+/// tables with no primary key.</para></remarks>
 ///
 /// <typeparam name="T">The type of object being processed.</typeparam>
 public class UpdateRecordsRequest<T> : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RawUpdateRecordsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
         /// <summary>An optional global expression to reduce the search space
-        /// of the predicates listed in <see cref="expressions" />.</summary>
+        /// of the predicates listed in <see
+        /// cref="RawUpdateRecordsRequest.expressions" />.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string GLOBAL_EXPRESSION = "global_expression";
 
-        /// <summary>When set to <see cref="Options.TRUE">TRUE</see>, all
+        /// <summary>When set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
         /// predicates are available for primary key updates.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string BYPASS_SAFETY_CHECKS = "bypass_safety_checks";
 
         public const string TRUE = "true";
@@ -999,7 +1304,9 @@ public class UpdateRecordsRequest<T> : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Overwrite the collided-into record when
         ///         updating a record's primary key or inserting an alternate
         ///         record causes a primary key collision between the record
@@ -1007,14 +1314,17 @@ public class UpdateRecordsRequest<T> : KineticaData
         ///         table</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Reject updates which cause primary key
         ///         collisions between the record being updated/inserted and an
         ///         existing record in the table</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
         /// <summary>Specifies the record collision error-suppression policy
@@ -1022,23 +1332,29 @@ public class UpdateRecordsRequest<T> : KineticaData
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>, only used when primary key record collisions are rejected
         /// (<see
-        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
-        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Ignore updates that result in primary key
-        ///         collisions with existing records</description>
+        ///         collisions with existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Treat as errors any updates that result in
-        ///         primary key collisions with existing records</description>
+        ///         primary key collisions with existing records.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
         /// <summary>Force qualifying records to be deleted and reinserted so
@@ -1046,53 +1362,90 @@ public class UpdateRecordsRequest<T> : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_PARTITION = "update_partition";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any strings
+        /// <summary>If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, qualifying
+        /// records are modified in place.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
+        public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
+
+        /// <summary>If set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any strings
         /// which are too long for their charN string fields will be truncated
         /// to fit.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRUNCATE_STRINGS = "truncate_strings";
 
-        /// <summary>When set to <see cref="Options.TRUE">TRUE</see>, all new
-        /// values in <see cref="new_values_maps" /> are considered as
-        /// expression values.</summary>
+        /// <summary>When set to <see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+        /// values in <see cref="RawUpdateRecordsRequest.new_values_maps" />
+        /// are considered as expression values.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string USE_EXPRESSIONS_IN_NEW_VALUES_MAPS = "use_expressions_in_new_values_maps";
 
         /// <summary>ID of a single record to be updated (returned in the call
-        /// to <see
-        /// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
+        /// to <see cref="Kinetica.insertRecords">Kinetica.insertRecords</see>
         /// or <see
-        /// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+        /// cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
         /// </summary>
         public const string RECORD_ID = "record_id";
     } // end struct Options
@@ -1106,42 +1459,46 @@ public class UpdateRecordsRequest<T> : KineticaData
     public string table_name { get; set; }
 
     /// <summary>A list of the actual predicates, one for each update; format
-    /// should follow the guidelines <see
-    /// cref="Kinetica.filter(FilterRequest)">here</see>.</summary>
+    /// should follow the guidelines <see cref="Kinetica.filter">here</see>.
+    /// </summary>
     public IList<string> expressions { get; set; } = new List<string>();
 
     /// <summary>List of new values for the matching records.</summary>
     /// <remarks><para> Each element is a map with (key, value) pairs where the
     /// keys are the names of the columns whose values are to be updated; the
     /// values are the new values.  The number of elements in the list should
-    /// match the length of <see cref="expressions" />.</para></remarks>
+    /// match the length of <see cref="RawUpdateRecordsRequest.expressions" />.
+    /// </para></remarks>
     public IList<IDictionary<string, string>> new_values_maps { get; set; } = new List<IDictionary<string, string>>();
 
     /// <summary>An *optional* list of new binary-avro encoded records to
     /// insert, one for each update.</summary>
-    /// <remarks><para> If one of <see cref="expressions" /> does not yield a
-    /// matching record to be updated, then the corresponding element from this
-    /// list will be added to the table. The default value is an empty List.
-    /// </para></remarks>
+    /// <remarks><para> If one of <see
+    /// cref="RawUpdateRecordsRequest.expressions" /> does not yield a matching
+    /// record to be updated, then the corresponding element from this list
+    /// will be added to the table. The default value is an empty List.</para>
+    /// </remarks>
     public IList<T> data { get; set; } = new List<T>();
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
-    ///         space of the predicates listed in <see cref="expressions" />.
-    ///         The default value is ''.</description>
+    ///         space of the predicates listed in <see
+    ///         cref="RawUpdateRecordsRequest.expressions" />. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all predicates are available for primary key updates.  Keep in
-    ///         mind that it is possible to destroy data in this case, since a
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
+    ///         predicates are available for primary key updates.  Keep in mind
+    ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
     ///         records of a table), and then updating all of those records to
     ///         have the same primary key will, due to the primary key
@@ -1150,18 +1507,23 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -1172,29 +1534,36 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///         and that new primary key already exists as the primary key of
     ///         another record in the table.
     ///         The second is an "insert collision", which occurs when a given
-    ///         filter in <see cref="expressions" /> finds no records to
-    ///         update, and the alternate insert record given in <see
-    ///         cref="data" /> (or <c>records_to_insert_str</c>) contains a
-    ///         primary key matching that of an existing record in the table.
+    ///         filter in <see cref="RawUpdateRecordsRequest.expressions" />
+    ///         finds no records to update, and the alternate insert record
+    ///         given in <see cref="RawUpdateRecordsRequest.data" /> (or
+    ///         <c>records_to_insert_str</c>) contains a primary key matching
+    ///         that of an existing record in the table.
     ///         If <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is set to <see cref="Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
-    ///         <see cref="new_values_maps" /> taking its place; "insert
-    ///         collisions" will result in the collided-into record being
-    ///         updated with the values in <see cref="data" /> /
+    ///         <see cref="RawUpdateRecordsRequest.new_values_maps" /> taking
+    ///         its place; "insert collisions" will result in the collided-into
+    ///         record being updated with the values in <see
+    ///         cref="RawUpdateRecordsRequest.data" /> /
     ///         <c>records_to_insert_str</c> (if given).
-    ///         If set to <see cref="Options.FALSE">FALSE</see>, the existing
-    ///         collided-into record will remain unchanged, while the update
-    ///         will be rejected and the error handled as determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         existing collided-into record will remain unchanged, while the
+    ///         update will be rejected and the error handled as determined by
+    ///         <see
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
     ///                 alternate record causes a primary key collision between
@@ -1202,118 +1571,182 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///                 record in the table</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
     ///                 and an existing record in the table</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record update that is
-    ///         rejected for resulting in a primary key collision with an
-    ///         existing table record will be ignored with no error generated.
-    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
-    ///         update for resulting in a primary key collision will cause an
-    ///         error to be reported.  If the specified table does not have a
-    ///         primary key or if <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
-    ///         effect.
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record update that is rejected for resulting in a primary key
+    ///         collision with an existing table record will be ignored with no
+    ///         error generated.  If <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         rejection of any update for resulting in a primary key
+    ///         collision will cause an error to be reported.  If the specified
+    ///         table does not have a primary key or if <see
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all new values in <see cref="new_values_maps" /> are considered
-    ///         as expression values. When set to <see
-    ///         cref="Options.FALSE">FALSE</see>, all new values in <see
-    ///         cref="new_values_maps" /> are considered as constants.  NOTE:
-    ///         When <see cref="Options.TRUE">TRUE</see>, string constants will
-    ///         need to be quoted to avoid being evaluated as expressions.
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+    ///         values in <see cref="RawUpdateRecordsRequest.new_values_maps"
+    ///         /> are considered as expression values. When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
+    ///         new values in <see
+    ///         cref="RawUpdateRecordsRequest.new_values_maps" /> are
+    ///         considered as constants.  NOTE:  When <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
+    ///         constants will need to be quoted to avoid being evaluated as
+    ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         </term>
     ///         <description>ID of a single record to be updated (returned in
     ///         the call to <see
-    ///         cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
-    ///         or <see
-    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+    ///         cref="Kinetica.insertRecords">Kinetica.insertRecords</see> or
+    ///         <see
+    ///         cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -1334,7 +1767,7 @@ public class UpdateRecordsRequest<T> : KineticaData
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="Kinetica.filter(FilterRequest)">here</see>.</param>
+    /// cref="Kinetica.filter">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -1349,7 +1782,7 @@ public class UpdateRecordsRequest<T> : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
     ///         space of the predicates listed in <paramref name="expressions"
@@ -1357,11 +1790,12 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all predicates are available for primary key updates.  Keep in
-    ///         mind that it is possible to destroy data in this case, since a
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
+    ///         predicates are available for primary key updates.  Keep in mind
+    ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
     ///         records of a table), and then updating all of those records to
     ///         have the same primary key will, due to the primary key
@@ -1370,18 +1804,23 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -1397,24 +1836,29 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///         name="data" /> (or <c>records_to_insert_str</c>) contains a
     ///         primary key matching that of an existing record in the table.
     ///         If <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is set to <see cref="Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
     ///         <paramref name="new_values_maps" /> taking its place; "insert
     ///         collisions" will result in the collided-into record being
     ///         updated with the values in <paramref name="data" /> /
     ///         <c>records_to_insert_str</c> (if given).
-    ///         If set to <see cref="Options.FALSE">FALSE</see>, the existing
-    ///         collided-into record will remain unchanged, while the update
-    ///         will be rejected and the error handled as determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         existing collided-into record will remain unchanged, while the
+    ///         update will be rejected and the error handled as determined by
+    ///         <see
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
     ///                 alternate record causes a primary key collision between
@@ -1422,118 +1866,181 @@ public class UpdateRecordsRequest<T> : KineticaData
     ///                 record in the table</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
     ///                 and an existing record in the table</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record update that is
-    ///         rejected for resulting in a primary key collision with an
-    ///         existing table record will be ignored with no error generated.
-    ///         If <see cref="Options.FALSE">FALSE</see>, the rejection of any
-    ///         update for resulting in a primary key collision will cause an
-    ///         error to be reported.  If the specified table does not have a
-    ///         primary key or if <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>, then this option has no
-    ///         effect.
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record update that is rejected for resulting in a primary key
+    ///         collision with an existing table record will be ignored with no
+    ///         error generated.  If <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         rejection of any update for resulting in a primary key
+    ///         collision will cause an error to be reported.  If the specified
+    ///         table does not have a primary key or if <see
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
-    ///         <description>When set to <see cref="Options.TRUE">TRUE</see>,
-    ///         all new values in <paramref name="new_values_maps" /> are
-    ///         considered as expression values. When set to <see
-    ///         cref="Options.FALSE">FALSE</see>, all new values in <paramref
-    ///         name="new_values_maps" /> are considered as constants.  NOTE:
-    ///         When <see cref="Options.TRUE">TRUE</see>, string constants will
-    ///         need to be quoted to avoid being evaluated as expressions.
+    ///         <description>When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
+    ///         values in <paramref name="new_values_maps" /> are considered as
+    ///         expression values. When set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
+    ///         new values in <paramref name="new_values_maps" /> are
+    ///         considered as constants.  NOTE:  When <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
+    ///         constants will need to be quoted to avoid being evaluated as
+    ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECORD_ID">RECORD_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         </term>
     ///         <description>ID of a single record to be updated (returned in
     ///         the call to <see
-    ///         cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
-    ///         or <see
-    ///         cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>).
+    ///         cref="Kinetica.insertRecords">Kinetica.insertRecords</see> or
+    ///         <see
+    ///         cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -1553,15 +2060,14 @@ public class UpdateRecordsRequest<T> : KineticaData
 } // end class UpdateRecordsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.updateRecords{T}(UpdateRecordsRequest{T})">Kinetica.updateRecords</see>.
-/// </summary>
+/// cref="Kinetica.updateRecords">Kinetica.updateRecords</see>.</summary>
 public class UpdateRecordsResponse : KineticaData
 {
     /// <summary>Total number of records updated.</summary>
     public long count_updated { get; set; }
 
     /// <summary>Total number of records updated per predicate in <see
-    /// cref="UpdateRecordsRequest{T}.expressions">expressions</see>.</summary>
+    /// cref="RawUpdateRecordsRequest.expressions">expressions</see>.</summary>
     public IList<long> counts_updated { get; set; } = new List<long>();
 
     /// <summary>Total number of records inserted (due to expressions not
@@ -1569,7 +2075,7 @@ public class UpdateRecordsResponse : KineticaData
     public long count_inserted { get; set; }
 
     /// <summary>Total number of records inserted per predicate in <see
-    /// cref="UpdateRecordsRequest{T}.expressions">expressions</see> (will be
+    /// cref="RawUpdateRecordsRequest.expressions">expressions</see> (will be
     /// either 0 or 1 for each expression).</summary>
     public IList<long> counts_inserted { get; set; } = new List<long>();
 

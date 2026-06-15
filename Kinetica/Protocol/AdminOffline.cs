@@ -9,15 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see>.
-/// </summary>
+/// cref="Kinetica.adminOffline">Kinetica.adminOffline</see>.</summary>
 /// <remarks><para>Take the system offline. When the system is offline, no user
 /// operations can be performed with the exception of a system shutdown.</para>
 /// </remarks>
 public class AdminOfflineRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="offline" />.</summary>
+    /// cref="AdminOfflineRequest.offline" />.</summary>
     /// <remarks><para>Set to true if desired state is offline.</para>
     /// </remarks>
     public struct Offline
@@ -27,7 +26,7 @@ public class AdminOfflineRequest : KineticaData
     } // end struct Offline
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminOfflineRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -35,10 +34,12 @@ public class AdminOfflineRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></remarks>
         public const string FLUSH_TO_DISK = "flush_to_disk";
@@ -62,16 +63,21 @@ public class AdminOfflineRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
+    ///         <term><see
+    ///         cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
     ///         </term>
     ///         <description>Flush to disk when going offline.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminOfflineRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminOfflineRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -99,16 +105,21 @@ public class AdminOfflineRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
+    ///         <term><see
+    ///         cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:
     ///         </term>
     ///         <description>Flush to disk when going offline.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminOfflineRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminOfflineRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -123,8 +134,7 @@ public class AdminOfflineRequest : KineticaData
 } // end class AdminOfflineRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see>.
-/// </summary>
+/// cref="Kinetica.adminOffline">Kinetica.adminOffline</see>.</summary>
 public class AdminOfflineResponse : KineticaData
 {
     /// <summary>Returns true if the system is offline, or false otherwise.

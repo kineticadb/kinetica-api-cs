@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createUnion(CreateUnionRequest)">Kinetica.createUnion</see>.
-/// </summary>
+/// cref="Kinetica.createUnion">Kinetica.createUnion</see>.</summary>
 /// <remarks><para>Merges data from one or more tables with comparable data
 /// types into a new table.</para>
 /// <para>The following merges are supported:</para>
@@ -31,34 +30,39 @@ namespace kinetica;
 public class CreateUnionRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateUnionRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="table_name" />.</summary>
+        /// <summary>If <see cref="CreateUnionRequest.Options.TRUE">TRUE</see>,
+        /// a unique temporary table name will be generated in the sys_temp
+        /// schema and used in place of <see
+        /// cref="CreateUnionRequest.table_name" />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// projection as part of <see cref="table_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  Name of the schema for the
-        /// output table.</summary>
+        /// projection as part of <see cref="CreateUnionRequest.table_name" />
+        /// and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  Name of the schema for the output
+        /// table.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created. The default value is ''.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -68,59 +72,71 @@ public class CreateUnionRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:
+        ///         </term>
         ///         <description>Retains all rows from the specified tables.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.UNION">UNION</see>:</term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
         ///         <description>Retains all unique rows from the specified
         ///         tables (synonym for <see
-        ///         cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+        ///         cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>).
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+        ///         cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:
+        ///         </term>
         ///         <description>Retains all unique rows from the specified
         ///         tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.EXCEPT">EXCEPT</see>:</term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:
+        ///         </term>
         ///         <description>Retains all unique rows from the first table
         ///         that do not appear in the second table (only works on 2
         ///         tables).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.EXCEPT_ALL">EXCEPT_ALL</see>:
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:
         ///         </term>
         ///         <description>Retains all rows(including duplicates) from
         ///         the first table that do not appear in the second table
         ///         (only works on 2 tables).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.INTERSECT">INTERSECT</see>:</term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:
+        ///         </term>
         ///         <description>Retains all unique rows that appear in both of
         ///         the specified tables (only works on 2 tables).
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+        ///         cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:
+        ///         </term>
         ///         <description>Retains all rows(including duplicates) that
         ///         appear in both of the specified tables (only works on 2
         ///         tables).</description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.UNION_ALL">UNION_ALL</see>.</para></remarks>
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</para>
+        /// </remarks>
         public const string MODE = "mode";
 
         /// <summary>Retains all rows from the specified tables.</summary>
         public const string UNION_ALL = "union_all";
 
         /// <summary>Retains all unique rows from the specified tables (synonym
-        /// for <see cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+        /// for <see
+        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>).
         /// </summary>
         public const string UNION = "union";
 
@@ -160,29 +176,148 @@ public class CreateUnionRequest : KineticaData
         /// <summary>Comma-separated list of columns on which to create indexes
         /// on the output table.</summary>
         /// <remarks><para> The columns specified must be present in <see
-        /// cref="output_column_names" />.</para></remarks>
+        /// cref="CreateUnionRequest.output_column_names" />.</para></remarks>
         public const string CREATE_INDEXES = "create_indexes";
 
-        /// <summary>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the output table specified in <see
-        /// cref="table_name" />.</summary>
-        public const string TTL = "ttl";
-
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the output
-        /// table specified in <see cref="table_name" /> will be persisted and
-        /// will not expire unless a <see cref="Options.TTL">TTL</see> is
-        /// specified.</summary>
+        /// <summary><a href="../../../concepts/tables/#partitioning"
+        /// target="_top">Partitioning</a> scheme to use for the output table.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-range"
+        ///         target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.INTERVAL">INTERVAL</see>:
+        ///         </term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-interval"
+        ///         target="_top">interval partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.LIST">LIST</see>:</term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-list"
+        ///         target="_top">list partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-hash"
+        ///         target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.SERIES">SERIES</see>:
+        ///         </term>
+        ///         <description>Use <a
+        ///         href="../../../concepts/tables/#partitioning-by-series"
+        ///         target="_top">series partitioning</a>.</description>
+        ///     </item>
+        /// </list></remarks>
+        public const string PARTITION_TYPE = "partition_type";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>.</summary>
+        public const string RANGE = "RANGE";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>.</summary>
+        public const string INTERVAL = "INTERVAL";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</summary>
+        public const string LIST = "LIST";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</summary>
+        public const string HASH = "HASH";
+
+        /// <summary>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</summary>
+        public const string SERIES = "SERIES";
+
+        /// <summary>Comma-separated list of partition keys, which are the
+        /// columns or column expressions by which records will be assigned to
+        /// partitions defined by <see
+        /// cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// </summary>
+        public const string PARTITION_KEYS = "partition_keys";
+
+        /// <summary>Comma-separated list of partition definitions, whose
+        /// format depends on the choice of <see
+        /// cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+        /// </summary>
+        /// <remarks><para> See <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example formats.</para>
+        /// </remarks>
+        public const string PARTITION_DEFINITIONS = "partition_definitions";
+
+        /// <summary>If <see cref="CreateUnionRequest.Options.TRUE">TRUE</see>,
+        /// a new partition will be created for values which don't fall into an
+        /// existing partition.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
+        public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
+
+        /// <summary>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the output table specified in <see
+        /// cref="CreateUnionRequest.table_name" />.</summary>
+        public const string TTL = "ttl";
+
+        /// <summary>If <see cref="CreateUnionRequest.Options.TRUE">TRUE</see>,
+        /// then the output table specified in <see
+        /// cref="CreateUnionRequest.table_name" /> will be persisted and will
+        /// not expire unless a <see
+        /// cref="CreateUnionRequest.Options.TTL">TTL</see> is specified.
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string PERSIST = "persist";
 
         /// <summary>ID of view of which this output table is a member.
@@ -190,20 +325,24 @@ public class CreateUnionRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string VIEW_ID = "view_id";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the output
-        /// table specified in <see cref="table_name" /> will be replicated
-        /// even if the source tables are not.</summary>
+        /// <summary>If <see cref="CreateUnionRequest.Options.TRUE">TRUE</see>,
+        /// then the output table specified in <see
+        /// cref="CreateUnionRequest.table_name" /> will be replicated even if
+        /// the source tables are not.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string FORCE_REPLICATED = "force_replicated";
 
         /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
@@ -218,8 +357,8 @@ public class CreateUnionRequest : KineticaData
         public const string COMPRESSION_CODEC = "compression_codec";
 
         /// <summary>Return a count of 0 for the union table response to avoid
-        /// the cost of counting; optimization needed for many chunk
-        /// virtual_union's.</summary>
+        /// the cost of counting; optimization needed for many chunk virtual
+        /// unions.</summary>
         /// <remarks><para>The default value is 'false'.</para></remarks>
         public const string NO_COUNT = "no_count";
     } // end struct Options
@@ -252,81 +391,98 @@ public class CreateUnionRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="table_name" />. If <see
-    ///         cref="Options.PERSIST">PERSIST</see> is <see
-    ///         cref="Options.FALSE">FALSE</see> (or unspecified), then this is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         and used in place of <see cref="CreateUnionRequest.table_name"
+    ///         />. If <see
+    ///         cref="CreateUnionRequest.Options.PERSIST">PERSIST</see> is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see> (or
+    ///         unspecified), then this is always allowed even if the caller
+    ///         does not have permission to create tables. The generated name
+    ///         is returned in <see
     ///         cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the projection as part of <see cref="table_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of the schema for
-    ///         the output table. If the schema provided is non-existent, it
-    ///         will be automatically created. The default value is ''.
+    ///         for the projection as part of <see
+    ///         cref="CreateUnionRequest.table_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of the schema for the
+    ///         output table. If the schema provided is non-existent, it will
+    ///         be automatically created. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.MODE">MODE</see>:</term>
+    ///         <term><see cref="CreateUnionRequest.Options.MODE">MODE</see>:
+    ///         </term>
     ///         <description>The mode describes what rows of the tables being
     ///         unioned will be retained.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.UNION_ALL">UNION_ALL</see>:
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:
     ///                 </term>
     ///                 <description>Retains all rows from the specified
     ///                 tables.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.UNION">UNION</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.UNION">UNION</see>:
+    ///                 </term>
     ///                 <description>Retains all unique rows from the specified
     ///                 tables (synonym for <see
-    ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+    ///                 cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>).
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>:
+    ///                 cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:
     ///                 </term>
     ///                 <description>Retains all unique rows from the specified
     ///                 tables.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.EXCEPT">EXCEPT</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:
+    ///                 </term>
     ///                 <description>Retains all unique rows from the first
     ///                 table that do not appear in the second table (only
     ///                 works on 2 tables).</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.EXCEPT_ALL">EXCEPT_ALL</see>:
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:
     ///                 </term>
     ///                 <description>Retains all rows(including duplicates)
     ///                 from the first table that do not appear in the second
     ///                 table (only works on 2 tables).</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERSECT">INTERSECT</see>:
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:
     ///                 </term>
     ///                 <description>Retains all unique rows that appear in
     ///                 both of the specified tables (only works on 2 tables).
@@ -334,7 +490,7 @@ public class CreateUnionRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.INTERSECT_ALL">INTERSECT_ALL</see>:
+    ///                 cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:
     ///                 </term>
     ///                 <description>Retains all rows(including duplicates)
     ///                 that appear in both of the specified tables (only works
@@ -342,16 +498,19 @@ public class CreateUnionRequest : KineticaData
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.UNION_ALL">UNION_ALL</see>.</description>
+    ///         cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this output table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateUnionRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this output table.
@@ -359,71 +518,201 @@ public class CreateUnionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="CreateUnionRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this output table.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:
     ///         </term>
     ///         <description>Comma-separated list of columns on which to create
     ///         indexes on the output table.  The columns specified must be
-    ///         present in <see cref="output_column_names" />.</description>
+    ///         present in <see cref="CreateUnionRequest.output_column_names"
+    ///         />.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
-    ///         <description>Sets the <a href="../../../concepts/ttl/"
-    ///         target="_top">TTL</a> of the output table specified in <see
-    ///         cref="table_name" />.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
-    ///         output table specified in <see cref="table_name" /> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the output table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use for the output
+    ///         table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateUnionRequest.Options.TTL">TTL</see>:
+    ///         </term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the output table specified in <see
+    ///         cref="CreateUnionRequest.table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, then the
+    ///         output table specified in <see
+    ///         cref="CreateUnionRequest.table_name" /> will be persisted and
+    ///         will not expire unless a <see
+    ///         cref="CreateUnionRequest.Options.TTL">TTL</see> is specified.
+    ///         If <see cref="CreateUnionRequest.Options.FALSE">FALSE</see>,
+    ///         then the output table will be an in-memory table and will
+    ///         expire unless a <see
+    ///         cref="CreateUnionRequest.Options.TTL">TTL</see> is specified
+    ///         otherwise.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
     ///         <description>ID of view of which this output table is a member.
     ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
-    ///         output table specified in <see cref="table_name" /> will be
-    ///         replicated even if the source tables are not.
+    ///         cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, then the
+    ///         output table specified in <see
+    ///         cref="CreateUnionRequest.table_name" /> will be replicated even
+    ///         if the source tables are not.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateUnionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -431,7 +720,7 @@ public class CreateUnionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateUnionRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -439,10 +728,12 @@ public class CreateUnionRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.NO_COUNT">NO_COUNT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.NO_COUNT">NO_COUNT</see>:
+    ///         </term>
     ///         <description>Return a count of 0 for the union table response
     ///         to avoid the cost of counting; optimization needed for many
-    ///         chunk virtual_union's. The default value is 'false'.
+    ///         chunk virtual unions. The default value is 'false'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -475,81 +766,97 @@ public class CreateUnionRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="table_name" />. If <see
-    ///         cref="Options.PERSIST">PERSIST</see> is <see
-    ///         cref="Options.FALSE">FALSE</see> (or unspecified), then this is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         cref="CreateUnionRequest.Options.PERSIST">PERSIST</see> is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see> (or
+    ///         unspecified), then this is always allowed even if the caller
+    ///         does not have permission to create tables. The generated name
+    ///         is returned in <see
     ///         cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="table_name" />
     ///         and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of the schema for
-    ///         the output table. If the schema provided is non-existent, it
-    ///         will be automatically created. The default value is ''.
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of the schema for the
+    ///         output table. If the schema provided is non-existent, it will
+    ///         be automatically created. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.MODE">MODE</see>:</term>
+    ///         <term><see cref="CreateUnionRequest.Options.MODE">MODE</see>:
+    ///         </term>
     ///         <description>The mode describes what rows of the tables being
     ///         unioned will be retained.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.UNION_ALL">UNION_ALL</see>:
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:
     ///                 </term>
     ///                 <description>Retains all rows from the specified
     ///                 tables.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.UNION">UNION</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.UNION">UNION</see>:
+    ///                 </term>
     ///                 <description>Retains all unique rows from the specified
     ///                 tables (synonym for <see
-    ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>).
+    ///                 cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>).
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.UNION_DISTINCT">UNION_DISTINCT</see>:
+    ///                 cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:
     ///                 </term>
     ///                 <description>Retains all unique rows from the specified
     ///                 tables.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.EXCEPT">EXCEPT</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:
+    ///                 </term>
     ///                 <description>Retains all unique rows from the first
     ///                 table that do not appear in the second table (only
     ///                 works on 2 tables).</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.EXCEPT_ALL">EXCEPT_ALL</see>:
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:
     ///                 </term>
     ///                 <description>Retains all rows(including duplicates)
     ///                 from the first table that do not appear in the second
     ///                 table (only works on 2 tables).</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERSECT">INTERSECT</see>:
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:
     ///                 </term>
     ///                 <description>Retains all unique rows that appear in
     ///                 both of the specified tables (only works on 2 tables).
@@ -557,7 +864,7 @@ public class CreateUnionRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.INTERSECT_ALL">INTERSECT_ALL</see>:
+    ///                 cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:
     ///                 </term>
     ///                 <description>Retains all rows(including duplicates)
     ///                 that appear in both of the specified tables (only works
@@ -565,16 +872,19 @@ public class CreateUnionRequest : KineticaData
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.UNION_ALL">UNION_ALL</see>.</description>
+    ///         cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this output table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateUnionRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this output table.
@@ -582,13 +892,15 @@ public class CreateUnionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="CreateUnionRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this output table.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CREATE_INDEXES">CREATE_INDEXES</see>:
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:
     ///         </term>
     ///         <description>Comma-separated list of columns on which to create
     ///         indexes on the output table.  The columns specified must be
@@ -596,58 +908,183 @@ public class CreateUnionRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use for the output
+    ///         table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateUnionRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the output table specified in
     ///         <paramref name="table_name" />.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, then the
     ///         output table specified in <paramref name="table_name" /> will
     ///         be persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the output table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="CreateUnionRequest.Options.TTL">TTL</see> is specified.
+    ///         If <see cref="CreateUnionRequest.Options.FALSE">FALSE</see>,
+    ///         then the output table will be an in-memory table and will
+    ///         expire unless a <see
+    ///         cref="CreateUnionRequest.Options.TTL">TTL</see> is specified
+    ///         otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
     ///         <description>ID of view of which this output table is a member.
     ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, then the
     ///         output table specified in <paramref name="table_name" /> will
     ///         be replicated even if the source tables are not.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateUnionRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -655,7 +1092,7 @@ public class CreateUnionRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateUnionRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -663,10 +1100,12 @@ public class CreateUnionRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.NO_COUNT">NO_COUNT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.NO_COUNT">NO_COUNT</see>:
+    ///         </term>
     ///         <description>Return a count of 0 for the union table response
     ///         to avoid the cost of counting; optimization needed for many
-    ///         chunk virtual_union's. The default value is 'false'.
+    ///         chunk virtual unions. The default value is 'false'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -686,20 +1125,19 @@ public class CreateUnionRequest : KineticaData
 } // end class CreateUnionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createUnion(CreateUnionRequest)">Kinetica.createUnion</see>.
-/// </summary>
+/// cref="Kinetica.createUnion">Kinetica.createUnion</see>.</summary>
 public class CreateUnionResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="CreateUnionResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
-        /// <summary>Number of records in the final table</summary>
+        /// <summary>Number of records in the final table.</summary>
         public const string COUNT = "count";
 
         /// <summary>The fully qualified name of the result table (i.e.
-        /// including the schema)</summary>
+        /// including the schema).</summary>
         public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
     } // end struct Info
 
@@ -710,15 +1148,17 @@ public class CreateUnionResponse : KineticaData
     /// <summary>Additional information.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Info.COUNT">COUNT</see>:</term>
-    ///         <description>Number of records in the final table</description>
+    ///         <term><see cref="CreateUnionResponse.Info.COUNT">COUNT</see>:
+    ///         </term>
+    ///         <description>Number of records in the final table.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
+    ///         cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the result table (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

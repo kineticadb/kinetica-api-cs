@@ -9,31 +9,34 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSecurity(ShowSecurityRequest)">Kinetica.showSecurity</see>.
-/// </summary>
+/// cref="Kinetica.showSecurity">Kinetica.showSecurity</see>.</summary>
 /// <remarks><para>Shows security information relating to users and/or roles.
 /// If the caller is not a system administrator, only information relating to
 /// the caller and their roles is returned.</para></remarks>
 public class ShowSecurityRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowSecurityRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, returns only
+        /// <summary>If <see
+        /// cref="ShowSecurityRequest.Options.TRUE">TRUE</see>, returns only
         /// security information for the current user.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ShowSecurityRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowSecurityRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string SHOW_CURRENT_USER = "show_current_user";
 
         public const string TRUE = "true";
@@ -50,20 +53,26 @@ public class ShowSecurityRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:
+    ///         cref="ShowSecurityRequest.Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, returns
+    ///         <description>If <see
+    ///         cref="ShowSecurityRequest.Options.TRUE">TRUE</see>, returns
     ///         only security information for the current user.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSecurityRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSecurityRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -84,20 +93,26 @@ public class ShowSecurityRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:
+    ///         cref="ShowSecurityRequest.Options.SHOW_CURRENT_USER">SHOW_CURRENT_USER</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, returns
+    ///         <description>If <see
+    ///         cref="ShowSecurityRequest.Options.TRUE">TRUE</see>, returns
     ///         only security information for the current user.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSecurityRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSecurityRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowSecurityRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -111,12 +126,11 @@ public class ShowSecurityRequest : KineticaData
 } // end class ShowSecurityRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSecurity(ShowSecurityRequest)">Kinetica.showSecurity</see>.
-/// </summary>
+/// cref="Kinetica.showSecurity">Kinetica.showSecurity</see>.</summary>
 public class ShowSecurityResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="types"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="ShowSecurityResponse.types" />.</summary>
     /// <remarks><para>Map of user/role name to the type of that user/role.
     /// </para></remarks>
     public struct Types
@@ -137,19 +151,22 @@ public class ShowSecurityResponse : KineticaData
     /// <remarks><para>Valid values are:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Types.INTERNAL_USER">INTERNAL_USER</see>:
+    ///         <term><see
+    ///         cref="ShowSecurityResponse.Types.INTERNAL_USER">INTERNAL_USER</see>:
     ///         </term>
     ///         <description>A user whose credentials are managed by the
     ///         database system.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Types.EXTERNAL_USER">EXTERNAL_USER</see>:
+    ///         <term><see
+    ///         cref="ShowSecurityResponse.Types.EXTERNAL_USER">EXTERNAL_USER</see>:
     ///         </term>
     ///         <description>A user whose credentials are managed by an
     ///         external LDAP.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Types.ROLE">ROLE</see>:</term>
+    ///         <term><see cref="ShowSecurityResponse.Types.ROLE">ROLE</see>:
+    ///         </term>
     ///         <description>A role.</description>
     ///     </item>
     /// </list></remarks>

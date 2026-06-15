@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropCatalog(DropCatalogRequest)">Kinetica.dropCatalog</see>.
-/// </summary>
+/// cref="Kinetica.dropCatalog">Kinetica.dropCatalog</see>.</summary>
 /// <remarks><para>Drops an existing catalog.  Any external tables that depend
 /// on the catalog must be dropped before it can be dropped.</para></remarks>
 public class DropCatalogRequest : KineticaData
@@ -44,8 +43,7 @@ public class DropCatalogRequest : KineticaData
 } // end class DropCatalogRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropCatalog(DropCatalogRequest)">Kinetica.dropCatalog</see>.
-/// </summary>
+/// cref="Kinetica.dropCatalog">Kinetica.dropCatalog</see>.</summary>
 public class DropCatalogResponse : KineticaData
 {
     /// <summary>Value of <see cref="DropCatalogRequest.name">name</see>.

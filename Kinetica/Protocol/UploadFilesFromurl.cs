@@ -9,17 +9,17 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.uploadFilesFromurl(UploadFilesFromurlRequest)">Kinetica.uploadFilesFromurl</see>.
+/// cref="Kinetica.uploadFilesFromurl">Kinetica.uploadFilesFromurl</see>.
 /// </summary>
 /// <remarks><para>Uploads one or more files to <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a>.</para>
 /// <para>Each file path must reside in a top-level KiFS directory, i.e. one of
 /// the directories listed in <see
-/// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
-/// The user must have write permission on the directory. Nested directories
-/// are permitted in file name paths. Directories are delineated with the
-/// directory separator of '/'.  For example, given the file path
-/// '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+/// cref="Kinetica.showDirectories">Kinetica.showDirectories</see>. The user
+/// must have write permission on the directory. Nested directories are
+/// permitted in file name paths. Directories are delineated with the directory
+/// separator of '/'.  For example, given the file path '/a/b/c/d.txt', 'a'
+/// must be a KiFS directory.</para>
 /// <para>These characters are allowed in file name paths: letters, numbers,
 /// spaces, the path delimiter of '/', and the characters: '.' '-' ':' '[' ']'
 /// '(' ')' '#' '='.</para></remarks>
@@ -35,7 +35,7 @@ public class UploadFilesFromurlRequest : KineticaData
     public IList<string> file_names { get; set; } = new List<string>();
 
     /// <summary>List of URLs to upload, for each respective file in <see
-    /// cref="file_names" />.</summary>
+    /// cref="UploadFilesFromurlRequest.file_names" />.</summary>
     public IList<string> urls { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
@@ -71,7 +71,7 @@ public class UploadFilesFromurlRequest : KineticaData
 } // end class UploadFilesFromurlRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.uploadFilesFromurl(UploadFilesFromurlRequest)">Kinetica.uploadFilesFromurl</see>.
+/// cref="Kinetica.uploadFilesFromurl">Kinetica.uploadFilesFromurl</see>.
 /// </summary>
 public class UploadFilesFromurlResponse : KineticaData
 {

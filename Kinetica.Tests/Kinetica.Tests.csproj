@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Project-specific settings -->
+    <!-- Multi-target tests to match the Kinetica library TFMs -->
+    <!-- Run with: dotnet test -f net8.0 (or net10.0) -->
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>

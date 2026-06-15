@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createProc(CreateProcRequest)">Kinetica.createProc</see>.
-/// </summary>
+/// cref="Kinetica.createProc">Kinetica.createProc</see>.</summary>
 /// <remarks><para>Creates an instance (proc) of the <a
 /// href="../../../concepts/udf/" target="_top">user-defined functions</a>
 /// (UDF) specified by the given command, options, and files, and makes it
@@ -18,7 +17,7 @@ namespace kinetica;
 public class CreateProcRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="execution_mode" />.</summary>
+    /// cref="CreateProcRequest.execution_mode" />.</summary>
     /// <remarks><para>The execution mode of the proc.</para></remarks>
     public struct ExecutionMode
     {
@@ -33,15 +32,14 @@ public class CreateProcRequest : KineticaData
         /// <summary>The proc command will be invoked only once per execution,
         /// and will not have direct access to any tables named as input or
         /// output table parameters in the call to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        /// </summary>
+        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
         /// <remarks><para> It will, however, be able to access the database
         /// using native API calls.</para></remarks>
         public const string NONDISTRIBUTED = "nondistributed";
     } // end struct ExecutionMode
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateProcRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -67,7 +65,8 @@ public class CreateProcRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:
+    ///         <term><see
+    ///         cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:
     ///         </term>
     ///         <description>Input table data will be divided into data
     ///         segments that are distributed across all nodes in the cluster,
@@ -77,18 +76,19 @@ public class CreateProcRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:
+    ///         cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:
     ///         </term>
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-    ///         It will, however, be able to access the database using native
-    ///         API calls.</description>
+    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>.  It
+    ///         will, however, be able to access the database using native API
+    ///         calls.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is <see
-    /// cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.</para></remarks>
+    /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
+    /// </para></remarks>
     public string execution_mode { get; set; } = ExecutionMode.DISTRIBUTED;
 
     /// <summary>A map of the files that make up the proc.</summary>
@@ -105,19 +105,20 @@ public class CreateProcRequest : KineticaData
     /// <summary>The command (excluding arguments) that will be invoked when
     /// the proc is executed.</summary>
     /// <remarks><para>It will be invoked from the directory containing the
-    /// proc <see cref="files" /> and may be any command that can be resolved
-    /// from that directory. It need not refer to a file actually in that
-    /// directory; for example, it could be 'java' if the proc is a Java
-    /// application; however, any necessary external programs must be
+    /// proc <see cref="CreateProcRequest.files" /> and may be any command that
+    /// can be resolved from that directory. It need not refer to a file
+    /// actually in that directory; for example, it could be 'java' if the proc
+    /// is a Java application; however, any necessary external programs must be
     /// preinstalled on every database node. If the command refers to a file in
     /// that directory, it must be preceded with './' as per Linux convention.
-    /// If not specified, and exactly one file is provided in <see cref="files"
-    /// />, that file will be invoked. The default value is ''.</para>
-    /// </remarks>
+    /// If not specified, and exactly one file is provided in <see
+    /// cref="CreateProcRequest.files" />, that file will be invoked. The
+    /// default value is ''.</para></remarks>
     public string command { get; set; } = "";
 
     /// <summary>An array of command-line arguments that will be passed to <see
-    /// cref="command" /> when the proc is executed.</summary>
+    /// cref="CreateProcRequest.command" /> when the proc is executed.
+    /// </summary>
     /// <remarks><para>The default value is an empty List.</para></remarks>
     public IList<string> args { get; set; } = new List<string>();
 
@@ -125,7 +126,7 @@ public class CreateProcRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:
+    ///         cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:
     ///         </term>
     ///         <description>The maximum number of concurrent instances of the
     ///         proc that will be executed per node. 0 allows unlimited
@@ -133,7 +134,8 @@ public class CreateProcRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+    ///         cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:
+    ///         </term>
     ///         <description>A python environment to use when executing the
     ///         proc. Must be an existing environment, else an error will be
     ///         returned. The default value is ''.</description>
@@ -155,7 +157,8 @@ public class CreateProcRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:
+    ///         <term><see
+    ///         cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:
     ///         </term>
     ///         <description>Input table data will be divided into data
     ///         segments that are distributed across all nodes in the cluster,
@@ -165,18 +168,19 @@ public class CreateProcRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:
+    ///         cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:
     ///         </term>
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-    ///         It will, however, be able to access the database using native
-    ///         API calls.</description>
+    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>.  It
+    ///         will, however, be able to access the database using native API
+    ///         calls.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
-    /// cref="ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.</param>
+    /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
+    /// </param>
     /// <param name="files">A map of the files that make up the proc. The keys
     /// of the map are file names, and the values are the binary contents of
     /// the files. The file names may include subdirectory names (e.g.
@@ -203,7 +207,7 @@ public class CreateProcRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:
+    ///         cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:
     ///         </term>
     ///         <description>The maximum number of concurrent instances of the
     ///         proc that will be executed per node. 0 allows unlimited
@@ -211,7 +215,8 @@ public class CreateProcRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+    ///         cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:
+    ///         </term>
     ///         <description>A python environment to use when executing the
     ///         proc. Must be an existing environment, else an error will be
     ///         returned. The default value is ''.</description>
@@ -235,8 +240,7 @@ public class CreateProcRequest : KineticaData
 } // end class CreateProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createProc(CreateProcRequest)">Kinetica.createProc</see>.
-/// </summary>
+/// cref="Kinetica.createProc">Kinetica.createProc</see>.</summary>
 public class CreateProcResponse : KineticaData
 {
     /// <summary>Value of <see

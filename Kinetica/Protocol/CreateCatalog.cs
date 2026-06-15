@@ -9,15 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createCatalog(CreateCatalogRequest)">Kinetica.createCatalog</see>.
-/// </summary>
+/// cref="Kinetica.createCatalog">Kinetica.createCatalog</see>.</summary>
 /// <remarks><para>Creates a catalog, which contains the location and
 /// connection information for a deltalake catalog that is external to the
 /// database.</para></remarks>
 public class CreateCatalogRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateCatalogRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -26,17 +25,17 @@ public class CreateCatalogRequest : KineticaData
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>
+        ///         cref="CreateCatalogRequest.Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.VENDED_CREDENTIALS">VENDED_CREDENTIALS</see>
+        ///         cref="CreateCatalogRequest.Options.VENDED_CREDENTIALS">VENDED_CREDENTIALS</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>.
+        /// cref="CreateCatalogRequest.Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>.
         /// </para></remarks>
         public const string ACCESS_DELEGATION = "access_delegation";
 
@@ -48,14 +47,18 @@ public class CreateCatalogRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateCatalogRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateCatalogRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateCatalogRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string SKIP_VALIDATION = "skip_validation";
 
         public const string TRUE = "true";
@@ -65,7 +68,7 @@ public class CreateCatalogRequest : KineticaData
     /// <summary>Name of the catalog to be created.</summary>
     public string name { get; set; }
 
-    /// <summary>Table format (iceberg, hudi, deltalake)</summary>
+    /// <summary>Table format (iceberg, hudi, deltalake).</summary>
     public string table_format { get; set; }
 
     /// <summary>Location of the catalog in 'http[s]://[server[:port]]]'
@@ -73,14 +76,14 @@ public class CreateCatalogRequest : KineticaData
     public string location { get; set; }
 
     /// <summary>Type of the catalog (REST (unity, polaris, tabular), nessie,
-    /// hive, glue)</summary>
+    /// hive, glue).</summary>
     public string type { get; set; }
 
     /// <summary>Name of the <a href="../../../concepts/credentials"
-    /// target="_top">credential</a> object to be used in catalog</summary>
+    /// target="_top">credential</a> object to be used in catalog.</summary>
     public string credential { get; set; }
 
-    /// <summary>Password for the remote system user; may be an empty string
+    /// <summary>Password for the remote system user; may be an empty string.
     /// </summary>
     public string datasource { get; set; }
 
@@ -88,40 +91,46 @@ public class CreateCatalogRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ACCESS_DELEGATION">ACCESS_DELEGATION</see>:
+    ///         cref="CreateCatalogRequest.Options.ACCESS_DELEGATION">ACCESS_DELEGATION</see>:
     ///         </term>
     ///         <description>Use access delegation for object store.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>
+    ///                 cref="CreateCatalogRequest.Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.VENDED_CREDENTIALS">VENDED_CREDENTIALS</see>
+    ///                 cref="CreateCatalogRequest.Options.VENDED_CREDENTIALS">VENDED_CREDENTIALS</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>.
+    ///         cref="CreateCatalogRequest.Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+    ///         cref="CreateCatalogRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+    ///         </term>
     ///         <description>Bypass validation of connection to remote source.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateCatalogRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateCatalogRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateCatalogRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -136,55 +145,61 @@ public class CreateCatalogRequest : KineticaData
     /// parameters.</summary>
     ///
     /// <param name="name">Name of the catalog to be created.</param>
-    /// <param name="table_format">Table format (iceberg, hudi, deltalake)
+    /// <param name="table_format">Table format (iceberg, hudi, deltalake).
     /// </param>
     /// <param name="location">Location of the catalog in
     /// 'http[s]://[server[:port]]]' format.</param>
     /// <param name="type">Type of the catalog (REST (unity, polaris, tabular),
-    /// nessie, hive, glue)</param>
+    /// nessie, hive, glue).</param>
     /// <param name="credential">Name of the <a
     /// href="../../../concepts/credentials" target="_top">credential</a>
-    /// object to be used in catalog</param>
+    /// object to be used in catalog.</param>
     /// <param name="datasource">Password for the remote system user; may be an
-    /// empty string</param>
+    /// empty string.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ACCESS_DELEGATION">ACCESS_DELEGATION</see>:
+    ///         cref="CreateCatalogRequest.Options.ACCESS_DELEGATION">ACCESS_DELEGATION</see>:
     ///         </term>
     ///         <description>Use access delegation for object store.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>
+    ///                 cref="CreateCatalogRequest.Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.VENDED_CREDENTIALS">VENDED_CREDENTIALS</see>
+    ///                 cref="CreateCatalogRequest.Options.VENDED_CREDENTIALS">VENDED_CREDENTIALS</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>.
+    ///         cref="CreateCatalogRequest.Options.DATASOURCE_CREDENTIALS">DATASOURCE_CREDENTIALS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+    ///         cref="CreateCatalogRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:
+    ///         </term>
     ///         <description>Bypass validation of connection to remote source.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateCatalogRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateCatalogRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateCatalogRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -208,8 +223,7 @@ public class CreateCatalogRequest : KineticaData
 } // end class CreateCatalogRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createCatalog(CreateCatalogRequest)">Kinetica.createCatalog</see>.
-/// </summary>
+/// cref="Kinetica.createCatalog">Kinetica.createCatalog</see>.</summary>
 public class CreateCatalogResponse : KineticaData
 {
     /// <summary>Value of <see cref="CreateCatalogRequest.name">name</see>.

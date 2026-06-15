@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>.
+/// cref="Kinetica.alterTableColumns">Kinetica.alterTableColumns</see>.
 /// </summary>
 /// <remarks><para>Apply various modifications to columns in a table, view.
 /// The available modifications include the following:</para>
@@ -38,7 +38,7 @@ public class AlterTableColumnsRequest : KineticaData
     /// options as in alter table requests but in the same map as the column
     /// name and the action. For example:
     /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
-    /// 'type':'int','default_value':'1'}]</para></remarks>
+    /// 'type':'int','default_value':'1'}].</para></remarks>
     public IList<IDictionary<string, string>> column_alterations { get; set; } = new List<IDictionary<string, string>>();
 
     /// <summary>Optional parameters.</summary>
@@ -62,7 +62,7 @@ public class AlterTableColumnsRequest : KineticaData
     /// action. Note that the same options as in alter table requests but in
     /// the same map as the column name and the action. For example:
     /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
-    /// 'type':'int','default_value':'1'}]</param>
+    /// 'type':'int','default_value':'1'}].</param>
     /// <param name="options">Optional parameters.</param>
     public AlterTableColumnsRequest( string table_name,
                                      IList<IDictionary<string, string>> column_alterations,
@@ -75,27 +75,27 @@ public class AlterTableColumnsRequest : KineticaData
 } // end class AlterTableColumnsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>.
+/// cref="Kinetica.alterTableColumns">Kinetica.alterTableColumns</see>.
 /// </summary>
 public class AlterTableColumnsResponse : KineticaData
 {
     /// <summary>Table on which the operation was performed.</summary>
     public string table_name { get; set; }
 
-    /// <summary>return the type_id (when changing a table, a new type may be
-    /// created)</summary>
+    /// <summary>Return the type_id (when changing a table, a new type may be
+    /// created).</summary>
     public string type_id { get; set; }
 
-    /// <summary>return the type_definition  (when changing a table, a new type
-    /// may be created)</summary>
+    /// <summary>Return the type_definition  (when changing a table, a new type
+    /// may be created).</summary>
     public string type_definition { get; set; }
 
-    /// <summary>return the type properties  (when changing a table, a new type
-    /// may be created)</summary>
+    /// <summary>Return the type properties  (when changing a table, a new type
+    /// may be created).</summary>
     public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
-    /// <summary>return the type label  (when changing a table, a new type may
-    /// be created)</summary>
+    /// <summary>Return the type label  (when changing a table, a new type may
+    /// be created).</summary>
     public string label { get; set; }
 
     /// <summary>List of alter table add/delete/change column requests - all
@@ -105,7 +105,7 @@ public class AlterTableColumnsResponse : KineticaData
     /// options as in alter table requests but in the same map as the column
     /// name and the action. For example:
     /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
-    /// 'type':'int','default_value':'1'}]</para></remarks>
+    /// 'type':'int','default_value':'1'}].</para></remarks>
     public IList<IDictionary<string, string>> column_alterations { get; set; } = new List<IDictionary<string, string>>();
 
     /// <summary>Additional information.</summary>

@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
-/// </summary>
+/// cref="Kinetica.showDirectories">Kinetica.showDirectories</see>.</summary>
 /// <remarks><para>Shows information about directories in <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used to show a
 /// single directory, or all directories.</para></remarks>
@@ -46,32 +45,35 @@ public class ShowDirectoriesRequest : KineticaData
 } // end class ShowDirectoriesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
-/// </summary>
+/// cref="Kinetica.showDirectories">Kinetica.showDirectories</see>.</summary>
 public class ShowDirectoriesResponse : KineticaData
 {
-    /// <summary>KiFS directory names</summary>
+    /// <summary>KiFS directory names.</summary>
     public IList<string> directories { get; set; } = new List<string>();
 
     /// <summary>User that created each directory for the respective
-    /// directories in <see cref="directories" /></summary>
+    /// directories in <see cref="ShowDirectoriesResponse.directories" />.
+    /// </summary>
     public IList<string> users { get; set; } = new List<string>();
 
     /// <summary>The creation time for each directory in milliseconds since
-    /// epoch, for the respective directories in <see cref="directories" />
-    /// </summary>
+    /// epoch, for the respective directories in <see
+    /// cref="ShowDirectoriesResponse.directories" />.</summary>
     public IList<long> creation_times { get; set; } = new List<long>();
 
     /// <summary>The data usage each directory in bytes, for the respective
-    /// directories in <see cref="directories" /></summary>
+    /// directories in <see cref="ShowDirectoriesResponse.directories" />.
+    /// </summary>
     public IList<long> data_usages { get; set; } = new List<long>();
 
     /// <summary>The data limit for each directory in bytes, for the respective
-    /// directories in <see cref="directories" /></summary>
+    /// directories in <see cref="ShowDirectoriesResponse.directories" />.
+    /// </summary>
     public IList<long> data_limits { get; set; } = new List<long>();
 
     /// <summary>Highest level of permission the calling user has for the
-    /// respective directories in <see cref="directories" />.</summary>
+    /// respective directories in <see
+    /// cref="ShowDirectoriesResponse.directories" />.</summary>
     /// <remarks><para>Will be empty if no permissions. If a user has been
     /// granted both read and write permissions, 'directory_write' will be
     /// listed.</para></remarks>

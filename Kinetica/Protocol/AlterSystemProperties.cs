@@ -9,34 +9,38 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
+/// cref="Kinetica.alterSystemProperties">Kinetica.alterSystemProperties</see>.
 /// </summary>
 /// <remarks><para>The <see
-/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>
+/// cref="Kinetica.alterSystemProperties">Kinetica.alterSystemProperties</see>
 /// endpoint is primarily used to simplify the testing of the system and is not
 /// expected to be used during normal execution.  Commands are given through
-/// the <see cref="property_updates_map" /> whose keys are commands and values
-/// are strings representing integer values (for example '8000') or boolean
-/// values ('true' or 'false').</para></remarks>
+/// the <see cref="AlterSystemPropertiesRequest.property_updates_map" /> whose
+/// keys are commands and values are strings representing integer values (for
+/// example '8000') or boolean values ('true' or 'false').</para></remarks>
 public class AlterSystemPropertiesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="property_updates_map" />.</summary>
+    /// cref="AlterSystemPropertiesRequest.property_updates_map" />.</summary>
     /// <remarks><para>Map containing the properties of the system to be
     /// updated. Error if empty.</para></remarks>
     public struct PropertyUpdatesMap
     {
         /// <summary>Enables concurrent kernel execution if the value is <see
-        /// cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables it if the
-        /// value is <see cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see>
+        /// and disables it if the value is <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see>.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list></remarks>
@@ -67,18 +71,18 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// specified string value.</summary>
         /// <remarks><para>Possible values are host, device, default (engine
         /// decides) or an integer value that indicates max chunk size to exec
-        /// on host</para></remarks>
+        /// on host.</para></remarks>
         public const string EXECUTION_MODE = "execution_mode";
 
         /// <summary>Sets the root directory path where external table data
         /// files are accessed from.</summary>
-        /// <remarks><para> Path must exist on the head node</para></remarks>
+        /// <remarks><para> Path must exist on the head node.</para></remarks>
         public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
 
         /// <summary>Number of minutes after which filtering (e.g., <see
-        /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>) and
-        /// aggregating (e.g., <see
-        /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+        /// cref="Kinetica.filter">Kinetica.filter</see>) and aggregating
+        /// (e.g., <see
+        /// cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>)
         /// queries will timeout.</summary>
         /// <remarks><para>The default value is '20'. The minimum allowed value
         /// is '0'. The maximum allowed value is '1440'.</para></remarks>
@@ -137,13 +141,13 @@ public class AlterSystemPropertiesRequest : KineticaData
         public const string KAFKA_BATCH_SIZE = "kafka_batch_size";
 
         /// <summary>Maximum time (milliseconds) for each poll to get records
-        /// from kafka.</summary>
+        /// from Kafka.</summary>
         /// <remarks><para>The default value is '0'. The minimum allowed value
         /// is '0'. The maximum allowed value is '1000'.</para></remarks>
         public const string KAFKA_POLL_TIMEOUT = "kafka_poll_timeout";
 
         /// <summary>Maximum time (seconds) to buffer records received from
-        /// kafka before ingestion.</summary>
+        /// Kafka before ingestion.</summary>
         /// <remarks><para>The default value is '30'. The minimum allowed value
         /// is '1'. The maximum allowed value is '120'.</para></remarks>
         public const string KAFKA_WAIT_TIME = "kafka_wait_time";
@@ -153,19 +157,23 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see>
+        ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</para></remarks>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
+        /// </para></remarks>
         public const string EGRESS_PARQUET_COMPRESSION = "egress_parquet_compression";
 
         public const string UNCOMPRESSED = "uncompressed";
@@ -227,28 +235,32 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// <remarks><para>The default value is 'false'.</para></remarks>
         public const string AI_ENABLE_RAG = "ai_enable_rag";
 
-        /// <summary>AI API provider type</summary>
+        /// <summary>AI API provider type.</summary>
         public const string AI_API_PROVIDER = "ai_api_provider";
 
-        /// <summary>AI API URL</summary>
+        /// <summary>AI API URL.</summary>
         public const string AI_API_URL = "ai_api_url";
 
-        /// <summary>AI API key</summary>
+        /// <summary>AI API key.</summary>
         public const string AI_API_KEY = "ai_api_key";
 
-        /// <summary>AI API connection timeout in seconds</summary>
+        /// <summary>AI API connection timeout in seconds.</summary>
         public const string AI_API_CONNECTION_TIMEOUT = "ai_api_connection_timeout";
 
-        /// <summary>AI API model name</summary>
+        /// <summary>AI API model name.</summary>
         public const string AI_API_EMBEDDINGS_MODEL = "ai_api_embeddings_model";
 
         /// <summary>Enable or disable persisting of query metrics.</summary>
         public const string TELM_PERSIST_QUERY_METRICS = "telm_persist_query_metrics";
 
-        /// <summary>Idle connection timeout in seconds</summary>
+        /// <summary>Capture metrics for any query exceeding this duration in
+        /// seconds.</summary>
+        public const string TELM_FORCE_METRICS_DURATION = "telm_force_metrics_duration";
+
+        /// <summary>Idle connection timeout in seconds.</summary>
         public const string POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT = "postgres_proxy_idle_connection_timeout";
 
-        /// <summary>Enable  postgres proxy keep alive.</summary>
+        /// <summary>Enable postgres proxy keep alive.</summary>
         /// <remarks><para>The default value is 'false'.</para></remarks>
         public const string POSTGRES_PROXY_KEEP_ALIVE = "postgres_proxy_keep_alive";
 
@@ -261,7 +273,7 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// href="../../../concepts/column_compression/"
         /// target="_top">compression algorithm</a> applied to any column
         /// without a column-level or table-level default compression specified
-        /// at the time it was created</summary>
+        /// at the time it was created.</summary>
         public const string COMPRESSION_CODEC = "compression_codec";
 
         /// <summary>Time interval in seconds after which the database will
@@ -274,23 +286,32 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// milliseconds since unix epoch).</summary>
         /// <remarks><para>The minimum allowed value is '-1'.</para></remarks>
         public const string HA_CONSUMER_REPLAY_OFFSET = "ha_consumer_replay_offset";
+
+        /// <summary>Restricts access to system admin users only.</summary>
+        /// <remarks><para>The default value is 'false'.</para></remarks>
+        public const string ADMIN_ACCESS_ONLY = "admin_access_only";
     } // end struct PropertyUpdatesMap
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AlterSystemPropertiesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> and evict_columns
-        /// is specified, the given objects will be evicted to cold storage (if
-        /// such a tier exists).</summary>
+        /// <summary>If <see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> and
+        /// evict_columns is specified, the given objects will be evicted to
+        /// cold storage (if such a tier exists).</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list></remarks>
         public const string EVICT_TO_COLD = "evict_to_cold";
@@ -298,20 +319,26 @@ public class AlterSystemPropertiesRequest : KineticaData
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> the system
-        /// configuration will be written to disk upon successful application
-        /// of this request.</summary>
+        /// <summary>If <see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> the
+        /// system configuration will be written to disk upon successful
+        /// application of this request.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string PERSIST = "persist";
     } // end struct Options
 
@@ -320,27 +347,30 @@ public class AlterSystemPropertiesRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
     ///         </term>
     ///         <description>Enables concurrent kernel execution if the value
-    ///         is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables
-    ///         it if the value is <see
-    ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+    ///         is <see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see>
+    ///         and disables it if the value is <see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
     ///         </term>
     ///         <description>Sets the maximum number of simultaneous threads
     ///         allocated to a given request, on each rank. Note that thread
@@ -349,57 +379,57 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Sets the number of records per chunk to be used
     ///         for all new tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Sets the target maximum data size for each column
     ///         in a chunk to be used for all new tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for all new tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
     ///         </term>
     ///         <description>Sets the execution_mode for kernel executions to
     ///         the specified string value. Possible values are host, device,
     ///         default (engine decides) or an integer value that indicates max
-    ///         chunk size to exec on host</description>
+    ///         chunk size to exec on host.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
     ///         </term>
     ///         <description>Sets the root directory path where external table
-    ///         data files are accessed from.  Path must exist on the head node
-    ///         </description>
+    ///         data files are accessed from.  Path must exist on the head
+    ///         node.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see
-    ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
-    ///         and aggregating (e.g., <see
-    ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+    ///         <see cref="Kinetica.filter">Kinetica.filter</see>) and
+    ///         aggregating (e.g., <see
+    ///         cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>)
     ///         queries will timeout. The default value is '20'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1440'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
     ///         </term>
     ///         <description>The maximum number of records the database will
     ///         serve for a given data retrieval call. The default value is
@@ -408,39 +438,41 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
     ///         </term>
     ///         <description>Enable or disable auditing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
     ///         </term>
     ///         <description>Enable or disable auditing of request headers.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:
+    ///         </term>
     ///         <description>Enable or disable auditing of request bodies.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:
+    ///         </term>
     ///         <description>Enable or disable auditing of request data.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
     ///         </term>
     ///         <description>Enable or disable auditing of response
     ///         information.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
     ///         </term>
     ///         <description>Size of the shadow aggregate chunk cache in bytes.
     ///         The default value is '10000000'. The minimum allowed value is
@@ -448,7 +480,7 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
     ///         </term>
     ///         <description>Size of the shadow filter chunk cache in bytes.
     ///         The default value is '10000000'. The minimum allowed value is
@@ -456,21 +488,21 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
     ///         </term>
     ///         <description>Enable overlapped-equi-join filter. The default
     ///         value is 'true'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
     ///         </term>
     ///         <description>Enable the one_step compound-equi-join algorithm.
     ///         The default value is 'true'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
     ///         </term>
     ///         <description>Maximum number of records to be ingested in a
     ///         single batch. The default value is '1000'. The minimum allowed
@@ -479,49 +511,52 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
     ///         </term>
     ///         <description>Maximum time (milliseconds) for each poll to get
-    ///         records from kafka. The default value is '0'. The minimum
+    ///         records from Kafka. The default value is '0'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1000'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
     ///         </term>
     ///         <description>Maximum time (seconds) to buffer records received
-    ///         from kafka before ingestion. The default value is '30'. The
+    ///         from Kafka before ingestion. The default value is '30'. The
     ///         minimum allowed value is '1'. The maximum allowed value is
     ///         '120'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
     ///         </term>
     ///         <description>Parquet file compression type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
     ///         </term>
     ///         <description>Max file size (in MB) to allow saving to a single
     ///         file. May be overridden by target limitations. The default
@@ -530,7 +565,7 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
     ///         </term>
     ///         <description>Sets the max_concurrent_kernels value of the conf.
     ///         The minimum allowed value is '0'. The maximum allowed value is
@@ -538,14 +573,15 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
     ///         </term>
     ///         <description>Sets the system_metadata.retention_period value of
     ///         the conf. The minimum allowed value is '1'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
+    ///         </term>
     ///         <description>Size of the worker rank data calculation thread
     ///         pool.  This is primarily used for computation-based operations
     ///         such as aggregates and record retrieval. The minimum allowed
@@ -554,7 +590,8 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
+    ///         </term>
     ///         <description>Size of the worker rank data processing thread
     ///         pool.  This includes operations such as inserts, updates, and
     ///         deletes on table data.  Multi-head inserts are not affected by
@@ -563,7 +600,7 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
     ///         </term>
     ///         <description>Size of the worker rank background thread pool.
     ///         This includes background operations such as watermark evictions
@@ -572,14 +609,14 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
     ///         </term>
     ///         <description>Outputs various job-related information to the
     ///         rank logs. Used for troubleshooting.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
     ///         </term>
     ///         <description>Log a stack trace for any thread that runs longer
     ///         than a defined threshold. Used for troubleshooting. The default
@@ -587,62 +624,72 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
     ///         </term>
     ///         <description>Enable RAG. The default value is 'false'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
     ///         </term>
-    ///         <description>AI API provider type</description>
+    ///         <description>AI API provider type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
-    ///         <description>AI API URL</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
-    ///         <description>AI API key</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
     ///         </term>
-    ///         <description>AI API connection timeout in seconds</description>
+    ///         <description>AI API URL.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
     ///         </term>
-    ///         <description>AI API model name</description>
+    ///         <description>AI API key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>AI API connection timeout in seconds.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+    ///         </term>
+    ///         <description>AI API model name.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
     ///         </term>
     ///         <description>Enable or disable persisting of query metrics.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TELM_FORCE_METRICS_DURATION">TELM_FORCE_METRICS_DURATION</see>:
     ///         </term>
-    ///         <description>Idle connection timeout in seconds</description>
+    ///         <description>Capture metrics for any query exceeding this
+    ///         duration in seconds.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>Enable  postgres proxy keep alive. The default
+    ///         <description>Idle connection timeout in seconds.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+    ///         </term>
+    ///         <description>Enable postgres proxy keep alive. The default
     ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
     ///         </term>
     ///         <description>The default maximum capacity to apply when
     ///         creating a KiFS directory (bytes). The minimum allowed value is
@@ -650,17 +697,17 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
     ///         target="_top">compression algorithm</a> applied to any column
     ///         without a column-level or table-level default compression
-    ///         specified at the time it was created</description>
+    ///         specified at the time it was created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
     ///         </term>
     ///         <description>Time interval in seconds after which the database
     ///         will apply optimizations/transformations to persisted data,
@@ -669,11 +716,18 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
     ///         </term>
     ///         <description>Initializes HA replay from the given timestamp (as
     ///         milliseconds since unix epoch). The minimum allowed value is
     ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ADMIN_ACCESS_ONLY">ADMIN_ACCESS_ONLY</see>:
+    ///         </term>
+    ///         <description>Restricts access to system admin users only. The
+    ///         default value is 'false'.</description>
     ///     </item>
     /// </list></remarks>
     public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
@@ -681,37 +735,51 @@ public class AlterSystemPropertiesRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and
+    ///         <description>If <see
+    ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> and
     ///         evict_columns is specified, the given objects will be evicted
     ///         to cold storage (if such a tier exists).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> the system
-    ///         configuration will be written to disk upon successful
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> the
+    ///         system configuration will be written to disk upon successful
     ///         application of this request. This will commit the changes from
     ///         this request and any additional in-memory modifications.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -730,27 +798,30 @@ public class AlterSystemPropertiesRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
     ///         </term>
     ///         <description>Enables concurrent kernel execution if the value
-    ///         is <see cref="PropertyUpdatesMap.TRUE">TRUE</see> and disables
-    ///         it if the value is <see
-    ///         cref="PropertyUpdatesMap.FALSE">FALSE</see>.
+    ///         is <see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see>
+    ///         and disables it if the value is <see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="PropertyUpdatesMap.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="PropertyUpdatesMap.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:
     ///         </term>
     ///         <description>Sets the maximum number of simultaneous threads
     ///         allocated to a given request, on each rank. Note that thread
@@ -759,57 +830,57 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Sets the number of records per chunk to be used
     ///         for all new tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Sets the target maximum data size for each column
     ///         in a chunk to be used for all new tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for all new tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:
     ///         </term>
     ///         <description>Sets the execution_mode for kernel executions to
     ///         the specified string value. Possible values are host, device,
     ///         default (engine decides) or an integer value that indicates max
-    ///         chunk size to exec on host</description>
+    ///         chunk size to exec on host.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
     ///         </term>
     ///         <description>Sets the root directory path where external table
-    ///         data files are accessed from.  Path must exist on the head node
-    ///         </description>
+    ///         data files are accessed from.  Path must exist on the head
+    ///         node.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see
-    ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
-    ///         and aggregating (e.g., <see
-    ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
+    ///         <see cref="Kinetica.filter">Kinetica.filter</see>) and
+    ///         aggregating (e.g., <see
+    ///         cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>)
     ///         queries will timeout. The default value is '20'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1440'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:
     ///         </term>
     ///         <description>The maximum number of records the database will
     ///         serve for a given data retrieval call. The default value is
@@ -818,39 +889,41 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:
     ///         </term>
     ///         <description>Enable or disable auditing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:
     ///         </term>
     ///         <description>Enable or disable auditing of request headers.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:
+    ///         </term>
     ///         <description>Enable or disable auditing of request bodies.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:
+    ///         </term>
     ///         <description>Enable or disable auditing of request data.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:
     ///         </term>
     ///         <description>Enable or disable auditing of response
     ///         information.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:
     ///         </term>
     ///         <description>Size of the shadow aggregate chunk cache in bytes.
     ///         The default value is '10000000'. The minimum allowed value is
@@ -858,7 +931,7 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:
     ///         </term>
     ///         <description>Size of the shadow filter chunk cache in bytes.
     ///         The default value is '10000000'. The minimum allowed value is
@@ -866,21 +939,21 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:
     ///         </term>
     ///         <description>Enable overlapped-equi-join filter. The default
     ///         value is 'true'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN">ENABLE_ONE_STEP_COMPOUND_EQUI_JOIN</see>:
     ///         </term>
     ///         <description>Enable the one_step compound-equi-join algorithm.
     ///         The default value is 'true'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:
     ///         </term>
     ///         <description>Maximum number of records to be ingested in a
     ///         single batch. The default value is '1000'. The minimum allowed
@@ -889,49 +962,52 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
     ///         </term>
     ///         <description>Maximum time (milliseconds) for each poll to get
-    ///         records from kafka. The default value is '0'. The minimum
+    ///         records from Kafka. The default value is '0'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1000'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
     ///         </term>
     ///         <description>Maximum time (seconds) to buffer records received
-    ///         from kafka before ingestion. The default value is '30'. The
+    ///         from Kafka before ingestion. The default value is '30'. The
     ///         minimum allowed value is '1'. The maximum allowed value is
     ///         '120'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
     ///         </term>
     ///         <description>Parquet file compression type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="PropertyUpdatesMap.GZIP">GZIP</see>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:
     ///         </term>
     ///         <description>Max file size (in MB) to allow saving to a single
     ///         file. May be overridden by target limitations. The default
@@ -940,7 +1016,7 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:
     ///         </term>
     ///         <description>Sets the max_concurrent_kernels value of the conf.
     ///         The minimum allowed value is '0'. The maximum allowed value is
@@ -948,14 +1024,15 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYSTEM_METADATA_RETENTION_PERIOD">SYSTEM_METADATA_RETENTION_PERIOD</see>:
     ///         </term>
     ///         <description>Sets the system_metadata.retention_period value of
     ///         the conf. The minimum allowed value is '1'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:
+    ///         </term>
     ///         <description>Size of the worker rank data calculation thread
     ///         pool.  This is primarily used for computation-based operations
     ///         such as aggregates and record retrieval. The minimum allowed
@@ -964,7 +1041,8 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:
+    ///         </term>
     ///         <description>Size of the worker rank data processing thread
     ///         pool.  This includes operations such as inserts, updates, and
     ///         deletes on table data.  Multi-head inserts are not affected by
@@ -973,7 +1051,7 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BACKGROUND_WORKER_THREADS">BACKGROUND_WORKER_THREADS</see>:
     ///         </term>
     ///         <description>Size of the worker rank background thread pool.
     ///         This includes background operations such as watermark evictions
@@ -982,14 +1060,14 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.LOG_DEBUG_JOB_INFO">LOG_DEBUG_JOB_INFO</see>:
     ///         </term>
     ///         <description>Outputs various job-related information to the
     ///         rank logs. Used for troubleshooting.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_THREAD_HANG_LOGGING">ENABLE_THREAD_HANG_LOGGING</see>:
     ///         </term>
     ///         <description>Log a stack trace for any thread that runs longer
     ///         than a defined threshold. Used for troubleshooting. The default
@@ -997,62 +1075,72 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_ENABLE_RAG">AI_ENABLE_RAG</see>:
     ///         </term>
     ///         <description>Enable RAG. The default value is 'false'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
     ///         </term>
-    ///         <description>AI API provider type</description>
+    ///         <description>AI API provider type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:</term>
-    ///         <description>AI API URL</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:</term>
-    ///         <description>AI API key</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
     ///         </term>
-    ///         <description>AI API connection timeout in seconds</description>
+    ///         <description>AI API URL.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
     ///         </term>
-    ///         <description>AI API model name</description>
+    ///         <description>AI API key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
+    ///         </term>
+    ///         <description>AI API connection timeout in seconds.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
+    ///         </term>
+    ///         <description>AI API model name.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TELM_PERSIST_QUERY_METRICS">TELM_PERSIST_QUERY_METRICS</see>:
     ///         </term>
     ///         <description>Enable or disable persisting of query metrics.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TELM_FORCE_METRICS_DURATION">TELM_FORCE_METRICS_DURATION</see>:
     ///         </term>
-    ///         <description>Idle connection timeout in seconds</description>
+    ///         <description>Capture metrics for any query exceeding this
+    ///         duration in seconds.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>Enable  postgres proxy keep alive. The default
+    ///         <description>Idle connection timeout in seconds.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
+    ///         </term>
+    ///         <description>Enable postgres proxy keep alive. The default
     ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KIFS_DIRECTORY_DATA_LIMIT">KIFS_DIRECTORY_DATA_LIMIT</see>:
     ///         </term>
     ///         <description>The default maximum capacity to apply when
     ///         creating a KiFS directory (bytes). The minimum allowed value is
@@ -1060,17 +1148,17 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
     ///         target="_top">compression algorithm</a> applied to any column
     ///         without a column-level or table-level default compression
-    ///         specified at the time it was created</description>
+    ///         specified at the time it was created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.DISK_AUTO_OPTIMIZE_TIMEOUT">DISK_AUTO_OPTIMIZE_TIMEOUT</see>:
     ///         </term>
     ///         <description>Time interval in seconds after which the database
     ///         will apply optimizations/transformations to persisted data,
@@ -1079,47 +1167,68 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.HA_CONSUMER_REPLAY_OFFSET">HA_CONSUMER_REPLAY_OFFSET</see>:
     ///         </term>
     ///         <description>Initializes HA replay from the given timestamp (as
     ///         milliseconds since unix epoch). The minimum allowed value is
     ///         '-1'.</description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ADMIN_ACCESS_ONLY">ADMIN_ACCESS_ONLY</see>:
+    ///         </term>
+    ///         <description>Restricts access to system admin users only. The
+    ///         default value is 'false'.</description>
+    ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and
+    ///         <description>If <see
+    ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> and
     ///         evict_columns is specified, the given objects will be evicted
     ///         to cold storage (if such a tier exists).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> the system
-    ///         configuration will be written to disk upon successful
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> the
+    ///         system configuration will be written to disk upon successful
     ///         application of this request. This will commit the changes from
     ///         this request and any additional in-memory modifications.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -1133,12 +1242,12 @@ public class AlterSystemPropertiesRequest : KineticaData
 } // end class AlterSystemPropertiesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
+/// cref="Kinetica.alterSystemProperties">Kinetica.alterSystemProperties</see>.
 /// </summary>
 public class AlterSystemPropertiesResponse : KineticaData
 {
     /// <summary>Map of values updated; for speed tests, a map of values
-    /// measured to the measurement</summary>
+    /// measured to the measurement.</summary>
     public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
 
     /// <summary>Additional information.</summary>

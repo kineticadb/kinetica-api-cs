@@ -1,10 +1,5 @@
-using System;
-using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace kinetica;
 
@@ -20,13 +15,20 @@ namespace kinetica;
         /// <summary>
         /// Creates a new HttpClientTransport with configurable timeout and connection pooling.
         /// </summary>
-        /// <param name="timeout">HTTP request timeout</param>
+        /// <param name="timeout">HTTP request timeout (overall, per request)</param>
         /// <param name="pooledConnectionLifetime">Maximum lifetime of pooled connections (default: 2 minutes)</param>
         /// <param name="pooledConnectionIdleTimeout">Idle timeout for pooled connections (default: 2 minutes)</param>
+        /// <param name="connectTimeout">
+        /// Maximum time to establish a TCP connection to the server. Bounds the connection handshake
+        /// specifically (e.g. when a host is unreachable/black-holed), independent of the overall
+        /// <paramref name="timeout"/>. When <c>null</c>, the handler default (no connect-specific
+        /// bound) is used and connection establishment is limited only by <paramref name="timeout"/>.
+        /// </param>
         public HttpClientTransport(
             TimeSpan timeout,
             TimeSpan? pooledConnectionLifetime = null,
-            TimeSpan? pooledConnectionIdleTimeout = null)
+            TimeSpan? pooledConnectionIdleTimeout = null,
+            TimeSpan? connectTimeout = null)
         {
             var handler = new SocketsHttpHandler
             {
@@ -39,6 +41,12 @@ namespace kinetica;
                 UseCookies                  = false,                       // Not needed for API calls
                 AllowAutoRedirect           = false,                       // API endpoints don't redirect
             };
+
+            // Bound connection establishment when a connect timeout is supplied (e.g. from
+            // Options.ServerConnectionTimeout). The SocketsHttpHandler default is infinite, so
+            // without this an unreachable host is bounded only by the overall request timeout.
+            if (connectTimeout.HasValue)
+                handler.ConnectTimeout = connectTimeout.Value;
 
             _client = new HttpClient(handler, disposeHandler: true)
             {

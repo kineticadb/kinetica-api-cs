@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using Kinetica.Tests.Common;
@@ -129,9 +126,16 @@ namespace Kinetica.Tests.IntegrationTests
 
             await inserter.CloseAsync();
 
+            _output.WriteLine($"RecordsQueued: {inserter.TotalRecordsQueued}");
+            _output.WriteLine($"RecordsSubmitted: {inserter.TotalRecordsSubmitted}");
             _output.WriteLine($"Inserted: {inserter.CountInserted}");
             _output.WriteLine($"Batches: {inserter.TotalBatchesSent}");
+            _output.WriteLine($"Workers: {inserter.NumWorkers}");
+            _output.WriteLine($"Errors: {inserter.ErrorCount}");
+            _output.WriteLine($"Failed batches: {inserter.TotalBatchesFailed}");
 
+            Assert.Equal(500, inserter.TotalRecordsQueued);
+            Assert.Equal(500, inserter.TotalRecordsSubmitted);
             Assert.Equal(500, inserter.CountInserted);
 
             // Verify in database

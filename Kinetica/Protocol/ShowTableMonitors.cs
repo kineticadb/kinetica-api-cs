@@ -9,11 +9,11 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTableMonitors(ShowTableMonitorsRequest)">Kinetica.showTableMonitors</see>.
+/// cref="Kinetica.showTableMonitors">Kinetica.showTableMonitors</see>.
 /// </summary>
 /// <remarks><para>Show table monitors and their properties. Table monitors are
 /// created using <see
-/// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+/// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
 /// Returns detailed information about existing table monitors.</para>
 /// </remarks>
 public class ShowTableMonitorsRequest : KineticaData
@@ -49,42 +49,45 @@ public class ShowTableMonitorsRequest : KineticaData
 } // end class ShowTableMonitorsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTableMonitors(ShowTableMonitorsRequest)">Kinetica.showTableMonitors</see>.
+/// cref="Kinetica.showTableMonitors">Kinetica.showTableMonitors</see>.
 /// </summary>
 public class ShowTableMonitorsResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="additional_info" />.</summary>
+    /// cref="ShowTableMonitorsResponse.additional_info" />.</summary>
     /// <remarks><para>Additional information about the respective monitors in
-    /// <see cref="monitor_ids" />.</para></remarks>
+    /// <see cref="ShowTableMonitorsResponse.monitor_ids" />.</para></remarks>
     public struct AdditionalInfo
     {
         /// <summary>Notification type for the respective <see
-        /// cref="monitor_ids" /> and <see cref="table_names" />.</summary>
+        /// cref="ShowTableMonitorsResponse.monitor_ids" /> and <see
+        /// cref="ShowTableMonitorsResponse.table_names" />.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string MONITOR_TYPE = "monitor_type";
 
         /// <summary>Notification type schemas for the respective <see
-        /// cref="monitor_ids" /> and <see cref="table_names" />.</summary>
+        /// cref="ShowTableMonitorsResponse.monitor_ids" /> and <see
+        /// cref="ShowTableMonitorsResponse.table_names" />.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string TYPE_SCHEMA = "type_schema";
 
-        /// <summary>Materialized view that implements the change detector
+        /// <summary>Materialized view that implements the change detector.
         /// </summary>
         public const string MATERIALIZED_VIEW_FOR_CHANGE_DETECTOR = "materialized_view_for_change_detector";
 
         /// <summary>Materialized views created for the <see
-        /// cref="filter_expressions" />.</summary>
+        /// cref="ShowTableMonitorsResponse.filter_expressions" />.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string MATERIALIZED_VIEW_FOR_FILTER = "materialized_view_for_filter";
 
-        /// <summary>Reference count on the respective <see cref="monitor_ids"
-        /// />.</summary>
+        /// <summary>Reference count on the respective <see
+        /// cref="ShowTableMonitorsResponse.monitor_ids" />.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string REFERENCES = "references";
 
         /// <summary>Datasink info in JSON format for the respective <see
-        /// cref="monitor_ids" /> if one is defined.</summary>
+        /// cref="ShowTableMonitorsResponse.monitor_ids" /> if one is defined.
+        /// </summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string DATASINK_JSON = "datasink_json";
     } // end struct AdditionalInfo
@@ -93,104 +96,114 @@ public class ShowTableMonitorsResponse : KineticaData
     public IList<string> monitor_ids { get; set; } = new List<string>();
 
     /// <summary>List of source tables being monitored for the respective <see
-    /// cref="monitor_ids" />.</summary>
+    /// cref="ShowTableMonitorsResponse.monitor_ids" />.</summary>
     public IList<string> table_names { get; set; } = new List<string>();
 
     /// <summary>List of notification events for the respective <see
-    /// cref="monitor_ids" />.</summary>
+    /// cref="ShowTableMonitorsResponse.monitor_ids" />.</summary>
     public IList<string> events { get; set; } = new List<string>();
 
     /// <summary>List of columns used on the respective tables in <see
-    /// cref="table_names" /> that will increase for new records.</summary>
+    /// cref="ShowTableMonitorsResponse.table_names" /> that will increase for
+    /// new records.</summary>
     public IList<string> increasing_columns { get; set; } = new List<string>();
 
     /// <summary>List of filter expressions used on the respective tables in
-    /// <see cref="table_names" /> to limit records for notifications.
-    /// </summary>
+    /// <see cref="ShowTableMonitorsResponse.table_names" /> to limit records
+    /// for notifications.</summary>
     public IList<string> filter_expressions { get; set; } = new List<string>();
 
-    /// <summary>List of join_table_names.</summary>
+    /// <summary>List of join table names.</summary>
     public IList<string> join_table_names { get; set; } = new List<string>();
 
-    /// <summary>List of join_column_names</summary>
+    /// <summary>List of join column names.</summary>
     public IList<string> join_column_names { get; set; } = new List<string>();
 
     /// <summary>List of join expressions.</summary>
     public IList<string> join_expressions { get; set; } = new List<string>();
 
     /// <summary>List of refresh methods used on the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableMonitorsResponse.table_names" />.</summary>
     public IList<string> refresh_method { get; set; } = new List<string>();
 
     /// <summary>List of refresh periods used on the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableMonitorsResponse.table_names" />.</summary>
     public IList<string> refresh_period { get; set; } = new List<string>();
 
     /// <summary>List of refresh start times used on the respective tables in
-    /// <see cref="table_names" />.</summary>
+    /// <see cref="ShowTableMonitorsResponse.table_names" />.</summary>
     public IList<string> refresh_start_time { get; set; } = new List<string>();
 
     /// <summary>List of datasink names for the respective <see
-    /// cref="monitor_ids" /> if one is defined.</summary>
+    /// cref="ShowTableMonitorsResponse.monitor_ids" /> if one is defined.
+    /// </summary>
     public IList<string> datasink_names { get; set; } = new List<string>();
 
     /// <summary>Maximum number of consecutive failures for the respective <see
-    /// cref="monitor_ids" /> before stream is automatically suspended.
-    /// </summary>
+    /// cref="ShowTableMonitorsResponse.monitor_ids" /> before stream is
+    /// automatically suspended.</summary>
     public IList<int> max_consecutive_failures { get; set; } = new List<int>();
 
     /// <summary>List of table names that will hold failed notification events
-    /// when the respective <see cref="monitor_ids" /> is suspended.</summary>
+    /// when the respective <see cref="ShowTableMonitorsResponse.monitor_ids"
+    /// /> is suspended.</summary>
     public IList<string> failed_notifications_table_names { get; set; } = new List<string>();
 
-    /// <summary>Status of stream for the respective <see cref="monitor_ids"
-    /// />.</summary>
+    /// <summary>Status of stream for the respective <see
+    /// cref="ShowTableMonitorsResponse.monitor_ids" />.</summary>
     public IList<string> statuses { get; set; } = new List<string>();
 
     /// <summary>Additional information about the respective monitors in <see
-    /// cref="monitor_ids" />.</summary>
+    /// cref="ShowTableMonitorsResponse.monitor_ids" />.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.MONITOR_TYPE">MONITOR_TYPE</see>:</term>
+    ///         cref="ShowTableMonitorsResponse.AdditionalInfo.MONITOR_TYPE">MONITOR_TYPE</see>:
+    ///         </term>
     ///         <description>Notification type for the respective <see
-    ///         cref="monitor_ids" /> and <see cref="table_names" />. The
-    ///         default value is ''.</description>
+    ///         cref="ShowTableMonitorsResponse.monitor_ids" /> and <see
+    ///         cref="ShowTableMonitorsResponse.table_names" />. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.TYPE_SCHEMA">TYPE_SCHEMA</see>:
+    ///         <term><see
+    ///         cref="ShowTableMonitorsResponse.AdditionalInfo.TYPE_SCHEMA">TYPE_SCHEMA</see>:
     ///         </term>
     ///         <description>Notification type schemas for the respective <see
-    ///         cref="monitor_ids" /> and <see cref="table_names" />. The
+    ///         cref="ShowTableMonitorsResponse.monitor_ids" /> and <see
+    ///         cref="ShowTableMonitorsResponse.table_names" />. The default
+    ///         value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableMonitorsResponse.AdditionalInfo.MATERIALIZED_VIEW_FOR_CHANGE_DETECTOR">MATERIALIZED_VIEW_FOR_CHANGE_DETECTOR</see>:
+    ///         </term>
+    ///         <description>Materialized view that implements the change
+    ///         detector.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableMonitorsResponse.AdditionalInfo.MATERIALIZED_VIEW_FOR_FILTER">MATERIALIZED_VIEW_FOR_FILTER</see>:
+    ///         </term>
+    ///         <description>Materialized views created for the <see
+    ///         cref="ShowTableMonitorsResponse.filter_expressions" />. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.MATERIALIZED_VIEW_FOR_CHANGE_DETECTOR">MATERIALIZED_VIEW_FOR_CHANGE_DETECTOR</see>:
-    ///         </term>
-    ///         <description>Materialized view that implements the change
-    ///         detector</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="AdditionalInfo.MATERIALIZED_VIEW_FOR_FILTER">MATERIALIZED_VIEW_FOR_FILTER</see>:
-    ///         </term>
-    ///         <description>Materialized views created for the <see
-    ///         cref="filter_expressions" />. The default value is ''.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="AdditionalInfo.REFERENCES">REFERENCES</see>:
+    ///         cref="ShowTableMonitorsResponse.AdditionalInfo.REFERENCES">REFERENCES</see>:
     ///         </term>
     ///         <description>Reference count on the respective <see
-    ///         cref="monitor_ids" />. The default value is ''.</description>
+    ///         cref="ShowTableMonitorsResponse.monitor_ids" />. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.DATASINK_JSON">DATASINK_JSON</see>:</term>
+    ///         cref="ShowTableMonitorsResponse.AdditionalInfo.DATASINK_JSON">DATASINK_JSON</see>:
+    ///         </term>
     ///         <description>Datasink info in JSON format for the respective
-    ///         <see cref="monitor_ids" /> if one is defined. The default value
-    ///         is ''.</description>
+    ///         <see cref="ShowTableMonitorsResponse.monitor_ids" /> if one is
+    ///         defined. The default value is ''.</description>
     ///     </item>
     /// </list></remarks>
     public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();

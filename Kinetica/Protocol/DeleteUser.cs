@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteUser(DeleteUserRequest)">Kinetica.deleteUser</see>.
-/// </summary>
+/// cref="Kinetica.deleteUser">Kinetica.deleteUser</see>.</summary>
 /// <remarks><para>Deletes an existing user.</para></remarks>
 public class DeleteUserRequest : KineticaData
 {
@@ -43,8 +42,7 @@ public class DeleteUserRequest : KineticaData
 } // end class DeleteUserRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteUser(DeleteUserRequest)">Kinetica.deleteUser</see>.
-/// </summary>
+/// cref="Kinetica.deleteUser">Kinetica.deleteUser</see>.</summary>
 public class DeleteUserResponse : KineticaData
 {
     /// <summary>Value of <see cref="DeleteUserRequest.name">name</see>.

@@ -9,30 +9,32 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteFiles(DeleteFilesRequest)">Kinetica.deleteFiles</see>.
-/// </summary>
+/// cref="Kinetica.deleteFiles">Kinetica.deleteFiles</see>.</summary>
 /// <remarks><para>Deletes one or more files from <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>.</para></remarks>
 public class DeleteFilesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DeleteFilesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error is
-        /// returned if a specified file does not exist.</summary>
+        /// <summary>If <see cref="DeleteFilesRequest.Options.TRUE">TRUE</see>,
+        /// no error is returned if a specified file does not exist.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DeleteFilesRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DeleteFilesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
@@ -51,20 +53,26 @@ public class DeleteFilesRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DeleteFilesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
-    ///         is returned if a specified file does not exist.
+    ///         <description>If <see
+    ///         cref="DeleteFilesRequest.Options.TRUE">TRUE</see>, no error is
+    ///         returned if a specified file does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteFilesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteFilesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -88,20 +96,26 @@ public class DeleteFilesRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DeleteFilesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
-    ///         is returned if a specified file does not exist.
+    ///         <description>If <see
+    ///         cref="DeleteFilesRequest.Options.TRUE">TRUE</see>, no error is
+    ///         returned if a specified file does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteFilesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteFilesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -115,11 +129,10 @@ public class DeleteFilesRequest : KineticaData
 } // end class DeleteFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteFiles(DeleteFilesRequest)">Kinetica.deleteFiles</see>.
-/// </summary>
+/// cref="Kinetica.deleteFiles">Kinetica.deleteFiles</see>.</summary>
 public class DeleteFilesResponse : KineticaData
 {
-    /// <summary>Names of the files deleted from KiFS</summary>
+    /// <summary>Names of the files deleted from KiFS.</summary>
     public IList<string> file_names { get; set; } = new List<string>();
 
     /// <summary>Additional information.</summary>

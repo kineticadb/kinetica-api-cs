@@ -9,21 +9,22 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>.
-/// </summary>
+/// cref="Kinetica.insertRecordsRaw">Kinetica.insertRecordsRaw</see>.</summary>
 /// <remarks><para>Adds multiple records to the specified table. The operation
 /// is synchronous, meaning that a response will not be returned until all the
 /// records are fully inserted and available. The response payload provides the
 /// counts of the number of records actually inserted and/or updated, and can
 /// provide the unique identifier of each added record.</para>
-/// <para>The <see cref="options" /> parameter can be used to customize this
-/// function's behavior.</para>
+/// <para>The <see cref="RawInsertRecordsRequest.options" /> parameter can be
+/// used to customize this function's behavior.</para>
 /// <para>The <see
-/// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
-/// specifies the record collision policy for inserting into a table with a <a
-/// href="../../../concepts/tables/#primary-keys" target="_top">primary
-/// key</a>, but is ignored if no primary key exists.</para>
-/// <para>The <see cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+/// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+/// option specifies the record collision policy for inserting into a table
+/// with a <a href="../../../concepts/tables/#primary-keys"
+/// target="_top">primary key</a>, but is ignored if no primary key
+/// exists.</para>
+/// <para>The <see
+/// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
 /// option indicates that the database should return the unique identifiers of
 /// inserted records.</para></remarks>
 public class RawInsertRecordsRequest : KineticaData
@@ -44,7 +45,7 @@ public class RawInsertRecordsRequest : KineticaData
     }";
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="list_encoding" />.</summary>
+    /// cref="RawInsertRecordsRequest.list_encoding" />.</summary>
     /// <remarks><para>The encoding of the records to be inserted.</para>
     /// </remarks>
     public struct ListEncoding
@@ -54,7 +55,7 @@ public class RawInsertRecordsRequest : KineticaData
     } // end struct ListEncoding
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RawInsertRecordsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -64,46 +65,79 @@ public class RawInsertRecordsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Upsert new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Reject new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
+
+        /// <summary>Applies only when upserting (when <see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>).
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
+        public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
 
         /// <summary>Specifies the record collision error-suppression policy
         /// for inserting into a table with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>, only used when not in upsert mode (upsert mode is disabled
         /// when <see
-        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
-        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Ignore new records whose primary key values
-        ///         collide with those of existing records</description>
+        ///         collide with those of existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Treat as errors any new records whose primary
-        ///         key values collide with those of existing records
+        ///         key values collide with those of existing records.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
         /// <summary>The record with higher value for the column resolves the
@@ -116,83 +150,136 @@ public class RawInsertRecordsRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
-        /// internal record id along for each inserted record.</summary>
+        /// <summary>If <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then return
+        /// the internal record id along for each inserted record.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RETURN_RECORD_IDS = "return_record_ids";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any strings
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any strings
         /// which are too long for their target charN string columns will be
         /// truncated to fit.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRUNCATE_STRINGS = "truncate_strings";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, success
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
         /// will always be returned, and any errors found will be included in
         /// the info map.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all correct
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all correct
         /// records will be inserted and incorrect records will be rejected and
         /// reported.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, no data
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
         /// will be saved and any errors will be returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
+
+        /// <summary>Type schema of  <see cref="RawInsertRecordsRequest.list"
+        /// /> (when <see cref="RawInsertRecordsRequest.list_encoding" /> is
+        /// <see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>),
+        /// in [["{column_name}","{column_type}"]] format.</summary>
+        /// <remarks><para>When non-empty and different from the table's
+        /// schema, the server remaps the incoming records to the table's full
+        /// schema.  Columns present in the table but absent from this schema
+        /// are filled using their default values, NULL (if nullable), or an
+        /// error is returned.  If empty, records must match the table's full
+        /// schema. The default value is ''.</para></remarks>
+        public const string REQUEST_SCHEMA_STR = "request_schema_str";
+
+        /// <summary>Comma-separated expressions, one per target table column.
+        /// </summary>
+        /// <remarks><para> Each expression is evaluated per record.  Empty
+        /// entries (two consecutive commas) mean no transformation for that
+        /// column -- the value is resolved from the input record, table
+        /// default, NULL, or an error. Expressions may reference input columns
+        /// by name or by position ($1 for the first input column, $2 for the
+        /// second, etc.). The default value is ''.</para></remarks>
+        public const string TRANSFORMATIONS = "transformations";
     } // end struct Options
 
     /// <summary>Name of table to which the records are to be added, in
@@ -205,119 +292,175 @@ public class RawInsertRecordsRequest : KineticaData
     /// <summary>An array of binary-encoded data for the records to be added.
     /// </summary>
     /// <remarks><para>All records must be of the same type as that of the
-    /// table. Empty array if <see cref="list_encoding" /> is <see
-    /// cref="ListEncoding.JSON">JSON</see>.</para></remarks>
+    /// table. Empty array if <see cref="RawInsertRecordsRequest.list_encoding"
+    /// /> is <see cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.
+    /// </para></remarks>
     public IList<byte[]> list { get; set; } = new List<byte[]>();
 
     /// <summary>An array of JSON encoded data for the records to be added.
     /// </summary>
     /// <remarks><para>All records must be of the same type as that of the
-    /// table. Empty array if <see cref="list_encoding" /> is <see
-    /// cref="ListEncoding.BINARY">BINARY</see>.</para></remarks>
+    /// table. Empty array if <see cref="RawInsertRecordsRequest.list_encoding"
+    /// /> is <see
+    /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.</para>
+    /// </remarks>
     public IList<string> list_str { get; set; } = new List<string>();
 
     /// <summary>The encoding of the records to be inserted.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ListEncoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ListEncoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
     /// <para>The default value is <see
-    /// cref="ListEncoding.BINARY">BINARY</see>.</para></remarks>
+    /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.</para>
+    /// </remarks>
     public string list_encoding { get; set; } = ListEncoding.BINARY;
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
-    ///         any existing table record with primary key values that match
-    ///         those of a record being inserted will remain unchanged, while
-    ///         the new record will be rejected and the error handled as
-    ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be "upserted"). If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will remain unchanged, while the new
+    ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
+    ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -325,7 +468,7 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -333,96 +476,158 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record id along for each inserted record.
+    ///         <description>If <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
+    ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         success will always be returned, and any errors found will be
-    ///         included in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
+    ///         will always be returned, and any errors found will be included
+    ///         in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
-    ///         data will be saved and any errors will be returned.
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
+    ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <see
+    ///         cref="RawInsertRecordsRequest.list" /> (when <see
+    ///         cref="RawInsertRecordsRequest.list_encoding" /> is <see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>),
+    ///         in [["{column_name}","{column_type}"]] format. When non-empty
+    ///         and different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -444,95 +649,143 @@ public class RawInsertRecordsRequest : KineticaData
     /// <param name="list">An array of binary-encoded data for the records to
     /// be added. All records must be of the same type as that of the table.
     /// Empty array if <paramref name="list_encoding" /> is <see
-    /// cref="ListEncoding.JSON">JSON</see>.</param>
+    /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
-    ///         any existing table record with primary key values that match
-    ///         those of a record being inserted will remain unchanged, while
-    ///         the new record will be rejected and the error handled as
-    ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be "upserted"). If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will remain unchanged, while the new
+    ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
+    ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -540,7 +793,7 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -548,96 +801,157 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record id along for each inserted record.
+    ///         <description>If <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
+    ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         success will always be returned, and any errors found will be
-    ///         included in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
+    ///         will always be returned, and any errors found will be included
+    ///         in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
-    ///         data will be saved and any errors will be returned.
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
+    ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <paramref name="list" /> (when
+    ///         <paramref name="list_encoding" /> is <see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>),
+    ///         in [["{column_name}","{column_type}"]] format. When non-empty
+    ///         and different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -664,111 +978,165 @@ public class RawInsertRecordsRequest : KineticaData
     /// <param name="list">An array of binary-encoded data for the records to
     /// be added. All records must be of the same type as that of the table.
     /// Empty array if <paramref name="list_encoding" /> is <see
-    /// cref="ListEncoding.JSON">JSON</see>.</param>
+    /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.</param>
     /// <param name="list_str">An array of JSON encoded data for the records to
     /// be added. All records must be of the same type as that of the table.
     /// Empty array if <paramref name="list_encoding" /> is <see
-    /// cref="ListEncoding.BINARY">BINARY</see>.</param>
+    /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
+    /// </param>
     /// <param name="list_encoding">The encoding of the records to be inserted.
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ListEncoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ListEncoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// The default value is <see cref="ListEncoding.BINARY">BINARY</see>.
+    /// The default value is <see
+    /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
     /// </param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
-    ///         any existing table record with primary key values that match
-    ///         those of a record being inserted will remain unchanged, while
-    ///         the new record will be rejected and the error handled as
-    ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be "upserted"). If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will remain unchanged, while the new
+    ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
+    ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -776,7 +1144,7 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -784,96 +1152,157 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record id along for each inserted record.
+    ///         <description>If <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
+    ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         success will always be returned, and any errors found will be
-    ///         included in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
+    ///         will always be returned, and any errors found will be included
+    ///         in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
-    ///         data will be saved and any errors will be returned.
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
+    ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <paramref name="list" /> (when
+    ///         <paramref name="list_encoding" /> is <see
+    ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>),
+    ///         in [["{column_name}","{column_type}"]] format. When non-empty
+    ///         and different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -893,21 +1322,22 @@ public class RawInsertRecordsRequest : KineticaData
 } // end class RawInsertRecordsRequest
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>.
-/// </summary>
+/// cref="Kinetica.insertRecords">Kinetica.insertRecords</see>.</summary>
 /// <remarks><para>Adds multiple records to the specified table. The operation
 /// is synchronous, meaning that a response will not be returned until all the
 /// records are fully inserted and available. The response payload provides the
 /// counts of the number of records actually inserted and/or updated, and can
 /// provide the unique identifier of each added record.</para>
-/// <para>The <see cref="options" /> parameter can be used to customize this
-/// function's behavior.</para>
+/// <para>The <see cref="RawInsertRecordsRequest.options" /> parameter can be
+/// used to customize this function's behavior.</para>
 /// <para>The <see
-/// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> option
-/// specifies the record collision policy for inserting into a table with a <a
-/// href="../../../concepts/tables/#primary-keys" target="_top">primary
-/// key</a>, but is ignored if no primary key exists.</para>
-/// <para>The <see cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+/// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+/// option specifies the record collision policy for inserting into a table
+/// with a <a href="../../../concepts/tables/#primary-keys"
+/// target="_top">primary key</a>, but is ignored if no primary key
+/// exists.</para>
+/// <para>The <see
+/// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
 /// option indicates that the database should return the unique identifiers of
 /// inserted records.</para></remarks>
 ///
@@ -915,7 +1345,7 @@ public class RawInsertRecordsRequest : KineticaData
 public class InsertRecordsRequest<T> : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RawInsertRecordsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -925,46 +1355,79 @@ public class InsertRecordsRequest<T> : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Upsert new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Reject new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
+
+        /// <summary>Applies only when upserting (when <see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>).
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
+        public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
 
         /// <summary>Specifies the record collision error-suppression policy
         /// for inserting into a table with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>, only used when not in upsert mode (upsert mode is disabled
         /// when <see
-        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
-        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Ignore new records whose primary key values
-        ///         collide with those of existing records</description>
+        ///         collide with those of existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Treat as errors any new records whose primary
-        ///         key values collide with those of existing records
+        ///         key values collide with those of existing records.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
         /// <summary>The record with higher value for the column resolves the
@@ -977,83 +1440,134 @@ public class InsertRecordsRequest<T> : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string PK_CONFLICT_PREDICATE_LOWER = "pk_conflict_predicate_lower";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
-        /// internal record id along for each inserted record.</summary>
+        /// <summary>If <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then return
+        /// the internal record id along for each inserted record.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RETURN_RECORD_IDS = "return_record_ids";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, any strings
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any strings
         /// which are too long for their target charN string columns will be
         /// truncated to fit.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string TRUNCATE_STRINGS = "truncate_strings";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, success
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
         /// will always be returned, and any errors found will be included in
         /// the info map.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, all correct
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all correct
         /// records will be inserted and incorrect records will be rejected and
         /// reported.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, no data
+        /// <summary>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
         /// will be saved and any errors will be returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
+
+        /// <summary>Type schema of  <see cref="RawInsertRecordsRequest.data"
+        /// /> (when <c>list_encoding</c> is <c>BINARY</c>), in
+        /// [["{column_name}","{column_type}"]] format.</summary>
+        /// <remarks><para>When non-empty and different from the table's
+        /// schema, the server remaps the incoming records to the table's full
+        /// schema.  Columns present in the table but absent from this schema
+        /// are filled using their default values, NULL (if nullable), or an
+        /// error is returned.  If empty, records must match the table's full
+        /// schema. The default value is ''.</para></remarks>
+        public const string REQUEST_SCHEMA_STR = "request_schema_str";
+
+        /// <summary>Comma-separated expressions, one per target table column.
+        /// </summary>
+        /// <remarks><para> Each expression is evaluated per record.  Empty
+        /// entries (two consecutive commas) mean no transformation for that
+        /// column -- the value is resolved from the input record, table
+        /// default, NULL, or an error. Expressions may reference input columns
+        /// by name or by position ($1 for the first input column, $2 for the
+        /// second, etc.). The default value is ''.</para></remarks>
+        public const string TRANSFORMATIONS = "transformations";
     } // end struct Options
 
     /// <summary>Name of table to which the records are to be added, in
@@ -1074,90 +1588,138 @@ public class InsertRecordsRequest<T> : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
-    ///         any existing table record with primary key values that match
-    ///         those of a record being inserted will remain unchanged, while
-    ///         the new record will be rejected and the error handled as
-    ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be "upserted"). If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will remain unchanged, while the new
+    ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
+    ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -1165,7 +1727,7 @@ public class InsertRecordsRequest<T> : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -1173,96 +1735,157 @@ public class InsertRecordsRequest<T> : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record id along for each inserted record.
+    ///         <description>If <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
+    ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         success will always be returned, and any errors found will be
-    ///         included in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
+    ///         will always be returned, and any errors found will be included
+    ///         in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
-    ///         data will be saved and any errors will be returned.
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
+    ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <see
+    ///         cref="RawInsertRecordsRequest.data" /> (when
+    ///         <c>list_encoding</c> is <c>BINARY</c>), in
+    ///         [["{column_name}","{column_type}"]] format. When non-empty and
+    ///         different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -1288,90 +1911,138 @@ public class InsertRecordsRequest<T> : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
-    ///         any existing table record with primary key values that match
-    ///         those of a record being inserted will remain unchanged, while
-    ///         the new record will be rejected and the error handled as
-    ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will be replaced by that new record
+    ///         (the new data will be "upserted"). If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+    ///         existing table record with primary key values that match those
+    ///         of a record being inserted will remain unchanged, while the new
+    ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
+    ///         set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+    ///         record being inserted that is rejected for having primary key
+    ///         values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
+    ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -1379,7 +2050,7 @@ public class InsertRecordsRequest<T> : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -1387,96 +2058,156 @@ public class InsertRecordsRequest<T> : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record id along for each inserted record.
+    ///         <description>If <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
+    ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         success will always be returned, and any errors found will be
-    ///         included in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
+    ///         will always be returned, and any errors found will be included
+    ///         in the info map.  The "bad_record_indices" entry is a
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, all
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, no
-    ///         data will be saved and any errors will be returned.
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
+    ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <paramref name="data" /> (when
+    ///         <c>list_encoding</c> is <c>BINARY</c>), in
+    ///         [["{column_name}","{column_type}"]] format. When non-empty and
+    ///         different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -1492,21 +2223,20 @@ public class InsertRecordsRequest<T> : KineticaData
 } // end class InsertRecordsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>.
-/// </summary>
+/// cref="Kinetica.insertRecords">Kinetica.insertRecords</see>.</summary>
 public class InsertRecordsResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="InsertRecordsResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>If return_individual_errors option is specified or
         /// implied, returns a comma-separated list of invalid indices
-        /// (0-based)</summary>
+        /// (0-based).</summary>
         public const string BAD_RECORD_INDICES = "bad_record_indices";
 
-        /// <summary>Error message for record at index N (0-based)</summary>
+        /// <summary>Error message for record at index N (0-based).</summary>
         public const string ERROR_N = "error_N";
     } // end struct Info
 
@@ -1524,14 +2254,16 @@ public class InsertRecordsResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.BAD_RECORD_INDICES">BAD_RECORD_INDICES</see>:</term>
+    ///         cref="InsertRecordsResponse.Info.BAD_RECORD_INDICES">BAD_RECORD_INDICES</see>:
+    ///         </term>
     ///         <description>If return_individual_errors option is specified or
     ///         implied, returns a comma-separated list of invalid indices
-    ///         (0-based)</description>
+    ///         (0-based).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Info.ERROR_N">ERROR_N</see>:</term>
-    ///         <description>Error message for record at index N (0-based)
+    ///         <term><see
+    ///         cref="InsertRecordsResponse.Info.ERROR_N">ERROR_N</see>:</term>
+    ///         <description>Error message for record at index N (0-based).
     ///         </description>
     ///     </item>
     /// </list></remarks>

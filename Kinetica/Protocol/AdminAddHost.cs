@@ -9,48 +9,55 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
-/// </summary>
+/// cref="Kinetica.adminAddHost">Kinetica.adminAddHost</see>.</summary>
 /// <remarks><para>Adds a host to an existing cluster.</para></remarks>
 public class AdminAddHostRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminAddHostRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, only
-        /// validation checks will be performed.</summary>
+        /// <summary>If set to <see
+        /// cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, only validation
+        /// checks will be performed.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminAddHostRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminAddHostRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminAddHostRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the host
-        /// will accept processes (ranks, graph server, etc.) in the event of a
+        /// <summary>If set to <see
+        /// cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, the host will
+        /// accept processes (ranks, graph server, etc.) in the event of a
         /// failover on another node in the cluster.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminAddHostRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminAddHostRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminAddHostRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ACCEPTS_FAILOVER = "accepts_failover";
 
         /// <summary>The publicly-accessible IP address for the host being
@@ -74,10 +81,10 @@ public class AdminAddHostRequest : KineticaData
         /// <remarks><para>Supported units: K (thousand), KB (kilobytes), M
         /// (million), MB (megabytes), G (billion), GB (gigabytes); if no unit
         /// is provided, the value is assumed to be in bytes. For example, if
-        /// <see cref="Options.RAM_LIMIT">RAM_LIMIT</see> is set to 10M, the
-        /// resulting RAM limit is 10 million bytes. Set <see
-        /// cref="Options.RAM_LIMIT">RAM_LIMIT</see> to -1 to have no RAM
-        /// limit.</para></remarks>
+        /// <see cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see>
+        /// is set to 10M, the resulting RAM limit is 10 million bytes. Set
+        /// <see cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see>
+        /// to -1 to have no RAM limit.</para></remarks>
         public const string RAM_LIMIT = "ram_limit";
 
         /// <summary>Comma-delimited list of GPU indices (starting at 1) that
@@ -96,41 +103,57 @@ public class AdminAddHostRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         only validation checks will be performed. No host is added.
+    ///         <term><see
+    ///         cref="AdminAddHostRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, only
+    ///         validation checks will be performed. No host is added.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminAddHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         host will accept processes (ranks, graph server, etc.) in the
-    ///         event of a failover on another node in the cluster.
+    ///         cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, the host
+    ///         will accept processes (ranks, graph server, etc.) in the event
+    ///         of a failover on another node in the cluster.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminAddHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PUBLIC_ADDRESS">PUBLIC_ADDRESS</see>:
+    ///         <term><see
+    ///         cref="AdminAddHostRequest.Options.PUBLIC_ADDRESS">PUBLIC_ADDRESS</see>:
     ///         </term>
     ///         <description>The publicly-accessible IP address for the host
     ///         being added, typically specified for clients using multi-head
@@ -139,7 +162,7 @@ public class AdminAddHostRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.HOST_MANAGER_PUBLIC_URL">HOST_MANAGER_PUBLIC_URL</see>:
+    ///         cref="AdminAddHostRequest.Options.HOST_MANAGER_PUBLIC_URL">HOST_MANAGER_PUBLIC_URL</see>:
     ///         </term>
     ///         <description>The publicly-accessible full path URL to the host
     ///         manager on the host being added, e.g.,
@@ -148,20 +171,24 @@ public class AdminAddHostRequest : KineticaData
     ///         target="_top">list of ports</a> used by Kinetica.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RAM_LIMIT">RAM_LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see>:
+    ///         </term>
     ///         <description>The desired RAM limit for the host being added,
     ///         i.e. the sum of RAM usage for all processes on the host will
     ///         not be able to exceed this value. Supported units: K
     ///         (thousand), KB (kilobytes), M (million), MB (megabytes), G
     ///         (billion), GB (gigabytes); if no unit is provided, the value is
     ///         assumed to be in bytes. For example, if <see
-    ///         cref="Options.RAM_LIMIT">RAM_LIMIT</see> is set to 10M, the
-    ///         resulting RAM limit is 10 million bytes. Set <see
-    ///         cref="Options.RAM_LIMIT">RAM_LIMIT</see> to -1 to have no RAM
-    ///         limit.</description>
+    ///         cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see> is
+    ///         set to 10M, the resulting RAM limit is 10 million bytes. Set
+    ///         <see
+    ///         cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see> to
+    ///         -1 to have no RAM limit.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.GPUS">GPUS</see>:</term>
+    ///         <term><see cref="AdminAddHostRequest.Options.GPUS">GPUS</see>:
+    ///         </term>
     ///         <description>Comma-delimited list of GPU indices (starting at
     ///         1) that are eligible for running worker processes. If left
     ///         blank, all GPUs on the host being added will be eligible.
@@ -184,41 +211,57 @@ public class AdminAddHostRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         only validation checks will be performed. No host is added.
+    ///         <term><see
+    ///         cref="AdminAddHostRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, only
+    ///         validation checks will be performed. No host is added.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminAddHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         host will accept processes (ranks, graph server, etc.) in the
-    ///         event of a failover on another node in the cluster.
+    ///         cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, the host
+    ///         will accept processes (ranks, graph server, etc.) in the event
+    ///         of a failover on another node in the cluster.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAddHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminAddHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PUBLIC_ADDRESS">PUBLIC_ADDRESS</see>:
+    ///         <term><see
+    ///         cref="AdminAddHostRequest.Options.PUBLIC_ADDRESS">PUBLIC_ADDRESS</see>:
     ///         </term>
     ///         <description>The publicly-accessible IP address for the host
     ///         being added, typically specified for clients using multi-head
@@ -227,7 +270,7 @@ public class AdminAddHostRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.HOST_MANAGER_PUBLIC_URL">HOST_MANAGER_PUBLIC_URL</see>:
+    ///         cref="AdminAddHostRequest.Options.HOST_MANAGER_PUBLIC_URL">HOST_MANAGER_PUBLIC_URL</see>:
     ///         </term>
     ///         <description>The publicly-accessible full path URL to the host
     ///         manager on the host being added, e.g.,
@@ -236,20 +279,24 @@ public class AdminAddHostRequest : KineticaData
     ///         target="_top">list of ports</a> used by Kinetica.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RAM_LIMIT">RAM_LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see>:
+    ///         </term>
     ///         <description>The desired RAM limit for the host being added,
     ///         i.e. the sum of RAM usage for all processes on the host will
     ///         not be able to exceed this value. Supported units: K
     ///         (thousand), KB (kilobytes), M (million), MB (megabytes), G
     ///         (billion), GB (gigabytes); if no unit is provided, the value is
     ///         assumed to be in bytes. For example, if <see
-    ///         cref="Options.RAM_LIMIT">RAM_LIMIT</see> is set to 10M, the
-    ///         resulting RAM limit is 10 million bytes. Set <see
-    ///         cref="Options.RAM_LIMIT">RAM_LIMIT</see> to -1 to have no RAM
-    ///         limit.</description>
+    ///         cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see> is
+    ///         set to 10M, the resulting RAM limit is 10 million bytes. Set
+    ///         <see
+    ///         cref="AdminAddHostRequest.Options.RAM_LIMIT">RAM_LIMIT</see> to
+    ///         -1 to have no RAM limit.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.GPUS">GPUS</see>:</term>
+    ///         <term><see cref="AdminAddHostRequest.Options.GPUS">GPUS</see>:
+    ///         </term>
     ///         <description>Comma-delimited list of GPU indices (starting at
     ///         1) that are eligible for running worker processes. If left
     ///         blank, all GPUs on the host being added will be eligible.
@@ -266,8 +313,7 @@ public class AdminAddHostRequest : KineticaData
 } // end class AdminAddHostRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
-/// </summary>
+/// cref="Kinetica.adminAddHost">Kinetica.adminAddHost</see>.</summary>
 public class AdminAddHostResponse : KineticaData
 {
     /// <summary>Identifier for the newly added host, of the format 'hostN'

@@ -1,8 +1,5 @@
-using Avro.IO;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using kinetica.Utils;
+using Microsoft.Extensions.Logging;
 
 namespace kinetica;
 
@@ -26,6 +23,7 @@ namespace kinetica;
         private readonly RecordKeyBuilder<T>? _shardKeyBuilder;
         private readonly bool _multiHeadEnabled;
         private readonly Random _random;
+        private readonly ILogger _logger;
 
         // HA Failover fields
         private readonly int _dbHaRingSize;
@@ -85,6 +83,7 @@ namespace kinetica;
             _kinetica = kdb ?? throw new ArgumentNullException(nameof(kdb));
             _tableName = table_name ?? throw new ArgumentNullException(nameof(table_name));
             _ktype = ktype ?? throw new ArgumentNullException(nameof(ktype));
+            _logger = _kinetica.LoggerFactory.CreateLogger("Kinetica.RecordRetriever");
 
             // Initialize HA state
             _dbHaRingSize = kdb.HAManager?.HARingSize ?? 1;
@@ -141,6 +140,10 @@ namespace kinetica;
                     ((List<WorkerQueue<T>>)_workerQueues).Add(worker_queue);
                     _routingTable = null;
                     _multiHeadEnabled = false;
+                    _logger.LogInformation(
+                        "RecordRetriever for table {Table} is running in degraded mode; " +
+                        "requests will be sent to the head node rather than be routed directly to ranks.",
+                        _tableName);
                 }
             }
             catch (Exception ex)

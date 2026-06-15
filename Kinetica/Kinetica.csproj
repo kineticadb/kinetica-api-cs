@@ -1,11 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- ========== Multi-Targeting for Modern .NET Support ========== -->
+  <!--
+    net8.0: Current LTS (most production services)
+    net10.0: New LTS (Nov 2025) - primary target for next 3 years
+
+    Note: netstandard2.0 is NOT supported because the codebase uses modern features:
+    - System.Threading.Channels (Channel<T>)
+    - System.Text.Json
+    - IAsyncDisposable, ValueTask
+    - RequiresUnreferencedCodeAttribute (trimming annotations)
+    For .NET Framework compatibility, use the 7.2.3.x package line.
+  -->
+  <PropertyGroup>
+    <!-- Clear the singular TargetFramework inherited from Directory.Build.props,
+         otherwise it overrides multi-targeting and only net8.0 gets built. -->
+    <TargetFramework></TargetFramework>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- ========== Trimming / AOT Readiness (net8.0+) ========== -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net10.0'">
+    <IsTrimmable>true</IsTrimmable>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <!-- AOT not realistic given Avro reflection requirements -->
+    <IsAotCompatible>false</IsAotCompatible>
+  </PropertyGroup>
+
   <!-- ========== NuGet Package Metadata ========== -->
   <PropertyGroup>
     <PackageId>Kinetica</PackageId>
     <Title>Kinetica C# API</Title>
-    <Description>Official C# API for Kinetica, the real-time analytics database. Provides high-performance data ingestion with BulkInserter, comprehensive database operations, and support for both strongly-typed POCOs and dynamic GenericRecord types.</Description>
-    <PackageTags>kinetica;database;analytics;real-time;gpudb;timeseries;geospatial;bulk-insert;avro</PackageTags>
+    <Description>Official C# API for Kinetica, the real-time analytics database. Provides high-performance data ingestion with BulkInserter, comprehensive database operations, and support for both strongly-typed POCOs and dynamic GenericRecord types. Now with .NET 8 LTS and .NET 10 LTS support.</Description>
+    <PackageTags>kinetica;database;analytics;real-time;gpudb;timeseries;geospatial;bulk-insert;avro;net8;net10</PackageTags>
     <PackageProjectUrl>https://github.com/kineticadb/kinetica-api-cs</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -14,16 +43,23 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReleaseNotes>Adds net8.0 and net10.0 TFMs. Trimming annotations for reflection-heavy APIs. See CHANGELOG for details.</PackageReleaseNotes>
   </PropertyGroup>
 
+  <!-- ========== Common Dependencies (all TFMs) ========== -->
   <ItemGroup>
     <!-- Replaced vendored Avro 0.9.0 with Apache.Avro 1.12.1 NuGet package -->
     <PackageReference Include="Apache.Avro" />
     <PackageReference Include="JDBC.NET.Data" />
     <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" />
-    <PackageReference Include="NetCoreServer" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Snappier" />
+  </ItemGroup>
+
+  <!-- ========== Additional Dependencies ========== -->
+  <ItemGroup>
+    <PackageReference Include="NetCoreServer" />
   </ItemGroup>
 
   <ItemGroup>

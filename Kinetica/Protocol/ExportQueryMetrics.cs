@@ -9,18 +9,18 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.exportQueryMetrics(ExportQueryMetricsRequest)">Kinetica.exportQueryMetrics</see>.
+/// cref="Kinetica.exportQueryMetrics">Kinetica.exportQueryMetrics</see>.
 /// </summary>
 /// <remarks><para>Export query metrics to a given destination.
 /// Returns query metrics.</para></remarks>
 public class ExportQueryMetricsRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ExportQueryMetricsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>Filter for multi query export</summary>
+        /// <summary>Filter for multi query export.</summary>
         public const string EXPRESSION = "expression";
 
         /// <summary>Path to export target specified as a filename or existing
@@ -31,74 +31,90 @@ public class ExportQueryMetricsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.JSON">JSON</see>:</term>
-        ///         <description>Generic json output</description>
+        ///         <term><see
+        ///         cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>:
+        ///         </term>
+        ///         <description>Generic JSON output.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
+        ///         cref="ExportQueryMetricsRequest.Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
         ///         </term>
-        ///         <description>Chromium/Perfetto trace event format
+        ///         <description>Chromium/Perfetto trace event format.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.JSON">JSON</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>.</para>
+        /// </remarks>
         public const string FORMAT = "format";
 
-        /// <summary>Generic json output</summary>
+        /// <summary>Generic JSON output.</summary>
         public const string JSON = "json";
 
-        /// <summary>Chromium/Perfetto trace event format</summary>
+        /// <summary>Chromium/Perfetto trace event format.</summary>
         public const string JSON_TRACE_EVENT = "json_trace_event";
 
-        /// <summary>Export query metrics for the currently running job
+        /// <summary>Export query metrics for the currently running job.
         /// </summary>
         public const string JOB_ID = "job_id";
 
-        /// <summary>Record limit per file for multi query export</summary>
+        /// <summary>Record limit per file for multi query export.</summary>
         public const string LIMIT = "limit";
     } // end struct Options
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Filter for multi query export</description>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter for multi query export.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILEPATH">FILEPATH</see>:</term>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.FILEPATH">FILEPATH</see>:
+    ///         </term>
     ///         <description>Path to export target specified as a filename or
     ///         existing directory.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FORMAT">FORMAT</see>:</term>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.FORMAT">FORMAT</see>:
+    ///         </term>
     ///         <description>Specifies which format to export the metrics.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.JSON">JSON</see>:</term>
-    ///                 <description>Generic json output</description>
+    ///                 <term><see
+    ///                 cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>:
+    ///                 </term>
+    ///                 <description>Generic JSON output.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
+    ///                 cref="ExportQueryMetricsRequest.Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
     ///                 </term>
-    ///                 <description>Chromium/Perfetto trace event format
+    ///                 <description>Chromium/Perfetto trace event format.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.JSON">JSON</see>.
+    ///         The default value is <see
+    ///         cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.JOB_ID">JOB_ID</see>:</term>
-    ///         <description>Export query metrics for the currently running job
-    ///         </description>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.JOB_ID">JOB_ID</see>:
+    ///         </term>
+    ///         <description>Export query metrics for the currently running
+    ///         job.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
-    ///         <description>Record limit per file for multi query export
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.LIMIT">LIMIT</see>:
+    ///         </term>
+    ///         <description>Record limit per file for multi query export.
     ///         </description>
     ///     </item>
     /// </list>
@@ -115,42 +131,55 @@ public class ExportQueryMetricsRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Filter for multi query export</description>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter for multi query export.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILEPATH">FILEPATH</see>:</term>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.FILEPATH">FILEPATH</see>:
+    ///         </term>
     ///         <description>Path to export target specified as a filename or
     ///         existing directory.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FORMAT">FORMAT</see>:</term>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.FORMAT">FORMAT</see>:
+    ///         </term>
     ///         <description>Specifies which format to export the metrics.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.JSON">JSON</see>:</term>
-    ///                 <description>Generic json output</description>
+    ///                 <term><see
+    ///                 cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>:
+    ///                 </term>
+    ///                 <description>Generic JSON output.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
+    ///                 cref="ExportQueryMetricsRequest.Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
     ///                 </term>
-    ///                 <description>Chromium/Perfetto trace event format
+    ///                 <description>Chromium/Perfetto trace event format.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.JSON">JSON</see>.
+    ///         The default value is <see
+    ///         cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.JOB_ID">JOB_ID</see>:</term>
-    ///         <description>Export query metrics for the currently running job
-    ///         </description>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.JOB_ID">JOB_ID</see>:
+    ///         </term>
+    ///         <description>Export query metrics for the currently running
+    ///         job.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
-    ///         <description>Record limit per file for multi query export
+    ///         <term><see
+    ///         cref="ExportQueryMetricsRequest.Options.LIMIT">LIMIT</see>:
+    ///         </term>
+    ///         <description>Record limit per file for multi query export.
     ///         </description>
     ///     </item>
     /// </list>
@@ -162,20 +191,20 @@ public class ExportQueryMetricsRequest : KineticaData
 } // end class ExportQueryMetricsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.exportQueryMetrics(ExportQueryMetricsRequest)">Kinetica.exportQueryMetrics</see>.
+/// cref="Kinetica.exportQueryMetrics">Kinetica.exportQueryMetrics</see>.
 /// </summary>
 public class ExportQueryMetricsResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="ExportQueryMetricsResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
-        /// <summary>Comma separated list of filenames exported if applicable
+        /// <summary>Comma separated list of filenames exported if applicable.
         /// </summary>
         public const string EXPORTED_FILES = "exported_files";
 
-        /// <summary>Exported metrics if no other destination specified
+        /// <summary>Exported metrics if no other destination specified.
         /// </summary>
         public const string OUTPUT = "output";
     } // end struct Info
@@ -183,15 +212,18 @@ public class ExportQueryMetricsResponse : KineticaData
     /// <summary>Additional information.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Info.EXPORTED_FILES">EXPORTED_FILES</see>:
+    ///         <term><see
+    ///         cref="ExportQueryMetricsResponse.Info.EXPORTED_FILES">EXPORTED_FILES</see>:
     ///         </term>
     ///         <description>Comma separated list of filenames exported if
-    ///         applicable</description>
+    ///         applicable.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Info.OUTPUT">OUTPUT</see>:</term>
-    ///         <description>Exported metrics if no other destination specified
-    ///         </description>
+    ///         <term><see
+    ///         cref="ExportQueryMetricsResponse.Info.OUTPUT">OUTPUT</see>:
+    ///         </term>
+    ///         <description>Exported metrics if no other destination
+    ///         specified.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

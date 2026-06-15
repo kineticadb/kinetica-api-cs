@@ -9,30 +9,32 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
-/// </summary>
+/// cref="Kinetica.deleteGraph">Kinetica.deleteGraph</see>.</summary>
 /// <remarks><para>Deletes an existing graph from the graph server and/or
 /// persist.</para></remarks>
 public class DeleteGraphRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DeleteGraphRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the graph
-        /// is removed from the server and persist.</summary>
+        /// <summary>If set to <see
+        /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>, the graph is
+        /// removed from the server and persist.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DeleteGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DeleteGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string DELETE_PERSIST = "delete_persist";
 
         public const string TRUE = "true";
@@ -51,27 +53,37 @@ public class DeleteGraphRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DELETE_PERSIST">DELETE_PERSIST</see>:
+    ///         <term><see
+    ///         cref="DeleteGraphRequest.Options.DELETE_PERSIST">DELETE_PERSIST</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         graph is removed from the server and persist. If set to <see
-    ///         cref="Options.FALSE">FALSE</see>, the graph is removed from the
-    ///         server but is left in persist. The graph can be reloaded from
-    ///         persist if it is recreated with the same 'graph_name'.
+    ///         <description>If set to <see
+    ///         cref="DeleteGraphRequest.Options.TRUE">TRUE</see>, the graph is
+    ///         removed from the server and persist. If set to <see
+    ///         cref="DeleteGraphRequest.Options.FALSE">FALSE</see>, the graph
+    ///         is removed from the server but is left in persist. The graph
+    ///         can be reloaded from persist if it is recreated with the same
+    ///         'graph_name'.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="DeleteGraphRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server(s) to send the
     ///         request to. Default is to send to get information about all the
     ///         servers.</description>
@@ -91,27 +103,37 @@ public class DeleteGraphRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DELETE_PERSIST">DELETE_PERSIST</see>:
+    ///         <term><see
+    ///         cref="DeleteGraphRequest.Options.DELETE_PERSIST">DELETE_PERSIST</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         graph is removed from the server and persist. If set to <see
-    ///         cref="Options.FALSE">FALSE</see>, the graph is removed from the
-    ///         server but is left in persist. The graph can be reloaded from
-    ///         persist if it is recreated with the same 'graph_name'.
+    ///         <description>If set to <see
+    ///         cref="DeleteGraphRequest.Options.TRUE">TRUE</see>, the graph is
+    ///         removed from the server and persist. If set to <see
+    ///         cref="DeleteGraphRequest.Options.FALSE">FALSE</see>, the graph
+    ///         is removed from the server but is left in persist. The graph
+    ///         can be reloaded from persist if it is recreated with the same
+    ///         'graph_name'.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="DeleteGraphRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server(s) to send the
     ///         request to. Default is to send to get information about all the
     ///         servers.</description>
@@ -127,8 +149,7 @@ public class DeleteGraphRequest : KineticaData
 } // end class DeleteGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
-/// </summary>
+/// cref="Kinetica.deleteGraph">Kinetica.deleteGraph</see>.</summary>
 public class DeleteGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful deletion.</summary>

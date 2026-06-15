@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using Kinetica.Tests.Common;
@@ -272,11 +267,21 @@ namespace Kinetica.Tests.IntegrationTests
 
             await inserter.CloseAsync();
 
-            Assert.Equal(1000, inserter.CountInserted);
-
             // Verify shard distribution (if multi-head is enabled)
             _output.WriteLine($"Workers: {inserter.NumWorkers}");
             _output.WriteLine($"Batches sent: {inserter.TotalBatchesSent}");
+            _output.WriteLine($"RecordsQueued: {inserter.TotalRecordsQueued}");
+            _output.WriteLine($"RecordsSubmitted: {inserter.TotalRecordsSubmitted}");
+            _output.WriteLine($"Inserted: {inserter.CountInserted}");
+            _output.WriteLine($"Errors: {inserter.ErrorCount}");
+            _output.WriteLine($"Failed batches: {inserter.TotalBatchesFailed}");
+
+            // Verify records were queued
+            Assert.Equal(1000, inserter.TotalRecordsQueued);
+            // Verify records were submitted to server
+            Assert.Equal(1000, inserter.TotalRecordsSubmitted);
+            // Verify server acknowledged all inserts
+            Assert.Equal(1000, inserter.CountInserted);
         }
 
         #endregion

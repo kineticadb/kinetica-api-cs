@@ -9,14 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createCredential(CreateCredentialRequest)">Kinetica.createCredential</see>.
-/// </summary>
+/// cref="Kinetica.createCredential">Kinetica.createCredential</see>.</summary>
 /// <remarks><para>Create a new <a href="../../../concepts/credentials/"
 /// target="_top">credential</a>.</para></remarks>
 public class CreateCredentialRequest : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="type"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="CreateCredentialRequest.type" />.</summary>
     /// <remarks><para>Type of the credential to be created.</para></remarks>
     public struct Type
     {
@@ -48,60 +47,79 @@ public class CreateCredentialRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
-    ///         </term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AZURE_AD">AZURE_AD</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AZURE_SAS">AZURE_SAS</see></term>
-    ///     </item>
-    ///     <item>
     ///         <term><see
-    ///         cref="Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.DOCKER">DOCKER</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+    ///         cref="CreateCredentialRequest.Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+    ///         cref="CreateCredentialRequest.Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Type.HDFS">HDFS</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.JDBC">JDBC</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.KAFKA">KAFKA</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.NVIDIA_API_KEY">NVIDIA_API_KEY</see>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_AD">AZURE_AD</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Type.OPENAI_API_KEY">OPENAI_API_KEY</see>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_OAUTH">AZURE_OAUTH</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Type.REST">REST</see></term>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_SAS">AZURE_SAS</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.CONFLUENT">CONFLUENT</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.DOCKER">DOCKER</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateCredentialRequest.Type.HDFS">HDFS</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateCredentialRequest.Type.JDBC">JDBC</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.NVIDIA_API_KEY">NVIDIA_API_KEY</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.OPENAI_API_KEY">OPENAI_API_KEY</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateCredentialRequest.Type.REST">REST</see>
+    ///         </term>
     ///     </item>
     /// </list></remarks>
     public string type { get; set; }
@@ -131,60 +149,79 @@ public class CreateCredentialRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
-    ///         </term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AZURE_AD">AZURE_AD</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.AZURE_SAS">AZURE_SAS</see></term>
-    ///     </item>
-    ///     <item>
     ///         <term><see
-    ///         cref="Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.CONFLUENT">CONFLUENT</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.DOCKER">DOCKER</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+    ///         cref="CreateCredentialRequest.Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+    ///         cref="CreateCredentialRequest.Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Type.HDFS">HDFS</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.JDBC">JDBC</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.KAFKA">KAFKA</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Type.NVIDIA_API_KEY">NVIDIA_API_KEY</see>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_AD">AZURE_AD</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Type.OPENAI_API_KEY">OPENAI_API_KEY</see>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_OAUTH">AZURE_OAUTH</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Type.REST">REST</see></term>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_SAS">AZURE_SAS</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.CONFLUENT">CONFLUENT</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.DOCKER">DOCKER</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateCredentialRequest.Type.HDFS">HDFS</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateCredentialRequest.Type.JDBC">JDBC</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.NVIDIA_API_KEY">NVIDIA_API_KEY</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateCredentialRequest.Type.OPENAI_API_KEY">OPENAI_API_KEY</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="CreateCredentialRequest.Type.REST">REST</see>
+    ///         </term>
     ///     </item>
     /// </list></param>
     /// <param name="identity">User of the credential to be created.</param>
@@ -206,8 +243,7 @@ public class CreateCredentialRequest : KineticaData
 } // end class CreateCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createCredential(CreateCredentialRequest)">Kinetica.createCredential</see>.
-/// </summary>
+/// cref="Kinetica.createCredential">Kinetica.createCredential</see>.</summary>
 public class CreateCredentialResponse : KineticaData
 {
     /// <summary>Value of <see

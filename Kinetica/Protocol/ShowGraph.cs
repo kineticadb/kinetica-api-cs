@@ -9,31 +9,33 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see>.
-/// </summary>
+/// cref="Kinetica.showGraph">Kinetica.showGraph</see>.</summary>
 /// <remarks><para>Shows information and characteristics of graphs that exist
 /// on the graph server.</para></remarks>
 public class ShowGraphRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowGraphRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the request
-        /// that was originally used to create the graph is also returned as
-        /// JSON.</summary>
+        /// <summary>If set to <see
+        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>, the request that
+        /// was originally used to create the graph is also returned as JSON.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowGraphRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string SHOW_ORIGINAL_REQUEST = "show_original_request";
 
         public const string TRUE = "true";
@@ -51,14 +53,16 @@ public class ShowGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowGraphRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowGraphRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string EXPORT_GRAPH_SCHEMA = "export_graph_schema";
     } // end struct Options
 
@@ -71,32 +75,38 @@ public class ShowGraphRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:
+    ///         cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         request that was originally used to create the graph is also
-    ///         returned as JSON.
+    ///         <description>If set to <see
+    ///         cref="ShowGraphRequest.Options.TRUE">TRUE</see>, the request
+    ///         that was originally used to create the graph is also returned
+    ///         as JSON.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server(s) to send the
     ///         request to. Default is to send to get information about all the
     ///         servers.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXPORT_GRAPH_SCHEMA">EXPORT_GRAPH_SCHEMA</see>:
+    ///         cref="ShowGraphRequest.Options.EXPORT_GRAPH_SCHEMA">EXPORT_GRAPH_SCHEMA</see>:
     ///         </term>
     ///         <description>If true, generates the graph ontology (schema) as
     ///         a DOT format string in the response info field under the key
@@ -104,13 +114,17 @@ public class ShowGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -131,32 +145,38 @@ public class ShowGraphRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:
+    ///         cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         request that was originally used to create the graph is also
-    ///         returned as JSON.
+    ///         <description>If set to <see
+    ///         cref="ShowGraphRequest.Options.TRUE">TRUE</see>, the request
+    ///         that was originally used to create the graph is also returned
+    ///         as JSON.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server(s) to send the
     ///         request to. Default is to send to get information about all the
     ///         servers.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXPORT_GRAPH_SCHEMA">EXPORT_GRAPH_SCHEMA</see>:
+    ///         cref="ShowGraphRequest.Options.EXPORT_GRAPH_SCHEMA">EXPORT_GRAPH_SCHEMA</see>:
     ///         </term>
     ///         <description>If true, generates the graph ontology (schema) as
     ///         a DOT format string in the response info field under the key
@@ -164,13 +184,17 @@ public class ShowGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -184,8 +208,7 @@ public class ShowGraphRequest : KineticaData
 } // end class ShowGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see>.
-/// </summary>
+/// cref="Kinetica.showGraph">Kinetica.showGraph</see>.</summary>
 public class ShowGraphResponse : KineticaData
 {
     /// <summary>Indicates a success.</summary>

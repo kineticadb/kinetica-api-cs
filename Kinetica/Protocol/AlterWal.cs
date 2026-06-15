@@ -9,19 +9,18 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterWal(AlterWalRequest)">Kinetica.alterWal</see>.
-/// </summary>
+/// cref="Kinetica.alterWal">Kinetica.alterWal</see>.</summary>
 /// <remarks><para>Alters table write-ahead log (WAL) settings.
 /// Returns information about the requested table WAL modifications.</para>
 /// </remarks>
 public class AlterWalRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AlterWalRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>Maximum size of an individual segment file</summary>
+        /// <summary>Maximum size of an individual segment file.</summary>
         public const string MAX_SEGMENT_SIZE = "max_segment_size";
 
         /// <summary>Approximate number of segment files to split the WAL
@@ -33,40 +32,44 @@ public class AlterWalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.NONE">NONE</see>:</term>
-        ///         <description>Disables the WAL</description>
+        ///         <term><see cref="AlterWalRequest.Options.NONE">NONE</see>:
+        ///         </term>
+        ///         <description>Disables the WAL.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.BACKGROUND">BACKGROUND</see>:
+        ///         <term><see
+        ///         cref="AlterWalRequest.Options.BACKGROUND">BACKGROUND</see>:
         ///         </term>
         ///         <description>WAL entries are periodically written instead
-        ///         of immediately after each operation</description>
+        ///         of immediately after each operation.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FLUSH">FLUSH</see>:</term>
+        ///         <term><see
+        ///         cref="AlterWalRequest.Options.FLUSH">FLUSH</see>:</term>
         ///         <description>Protects entries in the event of a database
-        ///         crash</description>
+        ///         crash.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FSYNC">FSYNC</see>:</term>
-        ///         <description>Protects entries in the event of an OS crash
+        ///         <term><see
+        ///         cref="AlterWalRequest.Options.FSYNC">FSYNC</see>:</term>
+        ///         <description>Protects entries in the event of an OS crash.
         ///         </description>
         ///     </item>
         /// </list></remarks>
         public const string SYNC_POLICY = "sync_policy";
 
-        /// <summary>Disables the WAL</summary>
+        /// <summary>Disables the WAL.</summary>
         public const string NONE = "none";
 
         /// <summary>WAL entries are periodically written instead of
-        /// immediately after each operation</summary>
+        /// immediately after each operation.</summary>
         public const string BACKGROUND = "background";
 
-        /// <summary>Protects entries in the event of a database crash
+        /// <summary>Protects entries in the event of a database crash.
         /// </summary>
         public const string FLUSH = "flush";
 
-        /// <summary>Protects entries in the event of an OS crash</summary>
+        /// <summary>Protects entries in the event of an OS crash.</summary>
         public const string FSYNC = "fsync";
 
         /// <summary>Specifies how frequently WAL entries are written with
@@ -75,70 +78,79 @@ public class AlterWalRequest : KineticaData
         /// the system {options.table_names} specifier '*'.</para></remarks>
         public const string FLUSH_FREQUENCY = "flush_frequency";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> each entry will be
-        /// checked against a protective checksum.</summary>
+        /// <summary>If <see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        /// each entry will be checked against a protective checksum.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="AlterWalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AlterWalRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string CHECKSUM = "checksum";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> tables with unique
-        /// WAL settings will be overridden when applying a system level
-        /// change.</summary>
+        /// <summary>If <see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        /// tables with unique WAL settings will be overridden when applying a
+        /// system level change.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="AlterWalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AlterWalRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string OVERRIDE_NON_DEFAULT = "override_non_default";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> tables with unique
-        /// WAL settings will be reverted to the current global settings.
+        /// <summary>If <see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        /// tables with unique WAL settings will be reverted to the current
+        /// global settings.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see cref="AlterWalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="AlterWalRequest.Options.FALSE">FALSE</see>.</para></remarks>
+        public const string RESTORE_SYSTEM_SETTINGS = "restore_system_settings";
+
+        /// <summary>If <see cref="AlterWalRequest.Options.TRUE">TRUE</see> and
+        /// a system-level change was requested, the system configuration will
+        /// be written to disk upon successful application of this request.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="AlterWalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="AlterWalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
-        public const string RESTORE_SYSTEM_SETTINGS = "restore_system_settings";
-
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> and a system-level
-        /// change was requested, the system configuration will be written to
-        /// disk upon successful application of this request.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AlterWalRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string PERSIST = "persist";
     } // end struct Options
 
@@ -151,109 +163,132 @@ public class AlterWalRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_SEGMENT_SIZE">MAX_SEGMENT_SIZE</see>:</term>
-    ///         <description>Maximum size of an individual segment file
+    ///         cref="AlterWalRequest.Options.MAX_SEGMENT_SIZE">MAX_SEGMENT_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum size of an individual segment file.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SEGMENT_COUNT">SEGMENT_COUNT</see>:
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.SEGMENT_COUNT">SEGMENT_COUNT</see>:
     ///         </term>
     ///         <description>Approximate number of segment files to split the
     ///         WAL across. Must be at least two.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SYNC_POLICY">SYNC_POLICY</see>:</term>
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.SYNC_POLICY">SYNC_POLICY</see>:
+    ///         </term>
     ///         <description>Maximum size of an individual segment file.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-    ///                 <description>Disables the WAL</description>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.NONE">NONE</see>:</term>
+    ///                 <description>Disables the WAL.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.BACKGROUND">BACKGROUND</see>:
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.BACKGROUND">BACKGROUND</see>:
     ///                 </term>
     ///                 <description>WAL entries are periodically written
-    ///                 instead of immediately after each operation
+    ///                 instead of immediately after each operation.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FLUSH">FLUSH</see>:</term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FLUSH">FLUSH</see>:
+    ///                 </term>
     ///                 <description>Protects entries in the event of a
-    ///                 database crash</description>
+    ///                 database crash.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FSYNC">FSYNC</see>:</term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FSYNC">FSYNC</see>:
+    ///                 </term>
     ///                 <description>Protects entries in the event of an OS
-    ///                 crash</description>
+    ///                 crash.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FLUSH_FREQUENCY">FLUSH_FREQUENCY</see>:</term>
+    ///         cref="AlterWalRequest.Options.FLUSH_FREQUENCY">FLUSH_FREQUENCY</see>:
+    ///         </term>
     ///         <description>Specifies how frequently WAL entries are written
     ///         with background sync. This is a global setting and can only be
     ///         used with the system {options.table_names} specifier '*'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> each entry
-    ///         will be checked against a protective checksum.
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> each entry will
+    ///         be checked against a protective checksum.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OVERRIDE_NON_DEFAULT">OVERRIDE_NON_DEFAULT</see>:
+    ///         cref="AlterWalRequest.Options.OVERRIDE_NON_DEFAULT">OVERRIDE_NON_DEFAULT</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> tables with
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> tables with
     ///         unique WAL settings will be overridden when applying a system
     ///         level change.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESTORE_SYSTEM_SETTINGS">RESTORE_SYSTEM_SETTINGS</see>:
+    ///         cref="AlterWalRequest.Options.RESTORE_SYSTEM_SETTINGS">RESTORE_SYSTEM_SETTINGS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> tables with
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> tables with
     ///         unique WAL settings will be reverted to the current global
     ///         settings. Cannot be used in conjunction with any other option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and a
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> and a
     ///         system-level change was requested, the system configuration
     ///         will be written to disk upon successful application of this
     ///         request. This will commit the changes from this request and any
@@ -261,14 +296,16 @@ public class AlterWalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -287,109 +324,132 @@ public class AlterWalRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_SEGMENT_SIZE">MAX_SEGMENT_SIZE</see>:</term>
-    ///         <description>Maximum size of an individual segment file
+    ///         cref="AlterWalRequest.Options.MAX_SEGMENT_SIZE">MAX_SEGMENT_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum size of an individual segment file.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SEGMENT_COUNT">SEGMENT_COUNT</see>:
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.SEGMENT_COUNT">SEGMENT_COUNT</see>:
     ///         </term>
     ///         <description>Approximate number of segment files to split the
     ///         WAL across. Must be at least two.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SYNC_POLICY">SYNC_POLICY</see>:</term>
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.SYNC_POLICY">SYNC_POLICY</see>:
+    ///         </term>
     ///         <description>Maximum size of an individual segment file.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-    ///                 <description>Disables the WAL</description>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.NONE">NONE</see>:</term>
+    ///                 <description>Disables the WAL.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.BACKGROUND">BACKGROUND</see>:
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.BACKGROUND">BACKGROUND</see>:
     ///                 </term>
     ///                 <description>WAL entries are periodically written
-    ///                 instead of immediately after each operation
+    ///                 instead of immediately after each operation.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FLUSH">FLUSH</see>:</term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FLUSH">FLUSH</see>:
+    ///                 </term>
     ///                 <description>Protects entries in the event of a
-    ///                 database crash</description>
+    ///                 database crash.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FSYNC">FSYNC</see>:</term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FSYNC">FSYNC</see>:
+    ///                 </term>
     ///                 <description>Protects entries in the event of an OS
-    ///                 crash</description>
+    ///                 crash.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FLUSH_FREQUENCY">FLUSH_FREQUENCY</see>:</term>
+    ///         cref="AlterWalRequest.Options.FLUSH_FREQUENCY">FLUSH_FREQUENCY</see>:
+    ///         </term>
     ///         <description>Specifies how frequently WAL entries are written
     ///         with background sync. This is a global setting and can only be
     ///         used with the system {options.table_names} specifier '*'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> each entry
-    ///         will be checked against a protective checksum.
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> each entry will
+    ///         be checked against a protective checksum.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OVERRIDE_NON_DEFAULT">OVERRIDE_NON_DEFAULT</see>:
+    ///         cref="AlterWalRequest.Options.OVERRIDE_NON_DEFAULT">OVERRIDE_NON_DEFAULT</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> tables with
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> tables with
     ///         unique WAL settings will be overridden when applying a system
     ///         level change.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESTORE_SYSTEM_SETTINGS">RESTORE_SYSTEM_SETTINGS</see>:
+    ///         cref="AlterWalRequest.Options.RESTORE_SYSTEM_SETTINGS">RESTORE_SYSTEM_SETTINGS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> tables with
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> tables with
     ///         unique WAL settings will be reverted to the current global
     ///         settings. Cannot be used in conjunction with any other option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and a
+    ///         <term><see
+    ///         cref="AlterWalRequest.Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see> and a
     ///         system-level change was requested, the system configuration
     ///         will be written to disk upon successful application of this
     ///         request. This will commit the changes from this request and any
@@ -397,14 +457,16 @@ public class AlterWalRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterWalRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -417,8 +479,7 @@ public class AlterWalRequest : KineticaData
 } // end class AlterWalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterWal(AlterWalRequest)">Kinetica.alterWal</see>.
-/// </summary>
+/// cref="Kinetica.alterWal">Kinetica.alterWal</see>.</summary>
 public class AlterWalResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

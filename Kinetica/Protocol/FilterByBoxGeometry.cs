@@ -9,46 +9,54 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByBoxGeometry(FilterByBoxGeometryRequest)">Kinetica.filterByBoxGeometry</see>.
+/// cref="Kinetica.filterByBoxGeometry">Kinetica.filterByBoxGeometry</see>.
 /// </summary>
 /// <remarks><para>Calculates which geospatial geometry objects from a table
 /// intersect a rectangular box. The operation is synchronous, meaning that a
 /// response will not be returned until all the objects are fully available.
 /// The response payload provides the count of the resulting set. A new
 /// resultant set which satisfies the input NAI restriction specification is
-/// also created when a <see cref="view_name" /> is passed in as part of the
-/// input payload.</para></remarks>
+/// also created when a <see cref="FilterByBoxGeometryRequest.view_name" /> is
+/// passed in as part of the input payload.</para></remarks>
 public class FilterByBoxGeometryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByBoxGeometryRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterByBoxGeometryRequest.view_name"
+        /// />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  Name of a schema for the
-        /// newly created view.</summary>
+        /// view as part of <see cref="FilterByBoxGeometryRequest.view_name" />
+        /// and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  Name of a schema for the newly created
+        /// view.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -77,59 +85,68 @@ public class FilterByBoxGeometryRequest : KineticaData
 
     /// <summary>Lower bound for the x-coordinate of the rectangular box.
     /// </summary>
-    /// <remarks><para> Must be less than or equal to <see cref="max_x" />.
-    /// </para></remarks>
+    /// <remarks><para> Must be less than or equal to <see
+    /// cref="FilterByBoxGeometryRequest.max_x" />.</para></remarks>
     public double min_x { get; set; }
 
     /// <summary>Upper bound for the x-coordinate of the rectangular box.
     /// </summary>
-    /// <remarks><para> Must be greater than or equal to <see cref="min_x" />.
-    /// </para></remarks>
+    /// <remarks><para> Must be greater than or equal to <see
+    /// cref="FilterByBoxGeometryRequest.min_x" />.</para></remarks>
     public double max_x { get; set; }
 
     /// <summary>Lower bound for the y-coordinate of the rectangular box.
     /// </summary>
-    /// <remarks><para>Must be less than or equal to <see cref="max_y" />.
-    /// </para></remarks>
+    /// <remarks><para>Must be less than or equal to <see
+    /// cref="FilterByBoxGeometryRequest.max_y" />.</para></remarks>
     public double min_y { get; set; }
 
     /// <summary>Upper bound for the y-coordinate of the rectangular box.
     /// </summary>
-    /// <remarks><para>Must be greater than or equal to <see cref="min_y" />.
-    /// </para></remarks>
+    /// <remarks><para>Must be greater than or equal to <see
+    /// cref="FilterByBoxGeometryRequest.min_y" />.</para></remarks>
     public double max_y { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByBoxGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
+    ///         <description>If <see
+    ///         cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <see
+    ///         cref="FilterByBoxGeometryRequest.view_name" />. This is always
     ///         allowed even if the caller does not have permission to create
     ///         tables. The generated name is returned in <see
     ///         cref="FilterByBoxGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the view as part of <see
+    ///         cref="FilterByBoxGeometryRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
     ///     </item>
@@ -172,33 +189,39 @@ public class FilterByBoxGeometryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByBoxGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <paramref name="view_name" />. This is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         <description>If <see
+    ///         cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <paramref name="view_name" />. This
+    ///         is always allowed even if the caller does not have permission
+    ///         to create tables. The generated name is returned in <see
     ///         cref="FilterByBoxGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
@@ -226,17 +249,17 @@ public class FilterByBoxGeometryRequest : KineticaData
 } // end class FilterByBoxGeometryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByBoxGeometry(FilterByBoxGeometryRequest)">Kinetica.filterByBoxGeometry</see>.
+/// cref="Kinetica.filterByBoxGeometry">Kinetica.filterByBoxGeometry</see>.
 /// </summary>
 public class FilterByBoxGeometryResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByBoxGeometryResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -247,10 +270,10 @@ public class FilterByBoxGeometryResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByBoxGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

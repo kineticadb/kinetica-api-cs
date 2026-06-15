@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTypes(ShowTypesRequest)">Kinetica.showTypes</see>.
-/// </summary>
+/// cref="Kinetica.showTypes">Kinetica.showTypes</see>.</summary>
 /// <remarks><para>Retrieves information for the specified data type ID or type
 /// label. For all data types that match the input criteria, the database
 /// returns the type ID, the type schema, the label (if available), and the
@@ -18,7 +17,7 @@ namespace kinetica;
 public class ShowTypesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowTypesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -27,14 +26,16 @@ public class ShowTypesRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTypesRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTypesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string NO_JOIN_TYPES = "no_join_types";
 
         public const string TRUE = "true";
@@ -42,32 +43,35 @@ public class ShowTypesRequest : KineticaData
     } // end struct Options
 
     /// <summary>Type Id returned in response to a call to <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
-    /// </summary>
+    /// cref="Kinetica.createType">Kinetica.createType</see>.</summary>
     public string type_id { get; set; }
 
     /// <summary>Option string that was supplied by user in a call to <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
-    /// </summary>
+    /// cref="Kinetica.createType">Kinetica.createType</see>.</summary>
     public string label { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:
+    ///         <term><see
+    ///         cref="ShowTypesRequest.Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:
     ///         </term>
     ///         <description>When set to 'true', no join types will be
     ///         included.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTypesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTypesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -82,29 +86,31 @@ public class ShowTypesRequest : KineticaData
     /// parameters.</summary>
     ///
     /// <param name="type_id">Type Id returned in response to a call to <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
-    /// </param>
+    /// cref="Kinetica.createType">Kinetica.createType</see>.</param>
     /// <param name="label">Option string that was supplied by user in a call
-    /// to <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
-    /// </param>
+    /// to <see cref="Kinetica.createType">Kinetica.createType</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:
+    ///         <term><see
+    ///         cref="ShowTypesRequest.Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:
     ///         </term>
     ///         <description>When set to 'true', no join types will be
     ///         included.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTypesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTypesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -120,8 +126,7 @@ public class ShowTypesRequest : KineticaData
 } // end class ShowTypesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTypes(ShowTypesRequest)">Kinetica.showTypes</see>.
-/// </summary>
+/// cref="Kinetica.showTypes">Kinetica.showTypes</see>.</summary>
 public class ShowTypesResponse : KineticaData
 {
     public IList<string> type_ids { get; set; } = new List<string>();

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionCredential(GrantPermissionCredentialRequest)">Kinetica.grantPermissionCredential</see>.
+/// cref="Kinetica.grantPermissionCredential">Kinetica.grantPermissionCredential</see>.
 /// </summary>
 /// <remarks><para>Grants a <a
 /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
@@ -18,7 +18,7 @@ namespace kinetica;
 public class GrantPermissionCredentialRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="GrantPermissionCredentialRequest.permission" />.</summary>
     /// <remarks><para>Permission to grant to the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -41,14 +41,15 @@ public class GrantPermissionCredentialRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
+    ///         cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+    ///         cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:
+    ///         </term>
     ///         <description>Ability to read and use the credential.
     ///         </description>
     ///     </item>
@@ -80,14 +81,15 @@ public class GrantPermissionCredentialRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
+    ///         cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+    ///         cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:
+    ///         </term>
     ///         <description>Ability to read and use the credential.
     ///         </description>
     ///     </item>
@@ -110,7 +112,7 @@ public class GrantPermissionCredentialRequest : KineticaData
 } // end class GrantPermissionCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionCredential(GrantPermissionCredentialRequest)">Kinetica.grantPermissionCredential</see>.
+/// cref="Kinetica.grantPermissionCredential">Kinetica.grantPermissionCredential</see>.
 /// </summary>
 public class GrantPermissionCredentialResponse : KineticaData
 {

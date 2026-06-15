@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterBySeries(FilterBySeriesRequest)">Kinetica.filterBySeries</see>.
-/// </summary>
+/// cref="Kinetica.filterBySeries">Kinetica.filterBySeries</see>.</summary>
 /// <remarks><para>Filters objects matching all points of the given track
 /// (works only on track type data).  It allows users to specify a particular
 /// track to find all other points in the table that fall within specified
@@ -27,32 +26,38 @@ namespace kinetica;
 public class FilterBySeriesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterBySeriesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterBySeriesRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterBySeriesRequest.view_name" />.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterBySeriesRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// view as part of <see cref="FilterBySeriesRequest.view_name" /> and
+        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -78,10 +83,13 @@ public class FilterBySeriesRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.EUCLIDEAN">EUCLIDEAN</see></term>
+        ///         <term><see
+        ///         cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.GREAT_CIRCLE">GREAT_CIRCLE</see>
+        ///         <term><see
+        ///         cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see>
         ///         </term>
         ///     </item>
         /// </list></remarks>
@@ -126,38 +134,48 @@ public class FilterBySeriesRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterBySeriesRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterBySeriesRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
+    ///         and used in place of <see
+    ///         cref="FilterBySeriesRequest.view_name" />. This is always
     ///         allowed even if the caller does not have permission to create
     ///         tables. The generated name is returned in <see
     ///         cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterBySeriesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the view as part of <see
+    ///         cref="FilterBySeriesRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:
+    ///         <term><see
+    ///         cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:
     ///         </term>
     ///         <description>A positive number passed as a string representing
     ///         the radius of the search area centered around each track
@@ -166,7 +184,9 @@ public class FilterBySeriesRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:
+    ///         </term>
     ///         <description>A positive number passed as a string representing
     ///         the maximum allowable time difference between the timestamps of
     ///         a filtered object and the given track's points. The value is
@@ -175,7 +195,7 @@ public class FilterBySeriesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:
+    ///         cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:
     ///         </term>
     ///         <description>A string representing the coordinate system to use
     ///         for the spatial search criteria. Acceptable values are
@@ -184,12 +204,14 @@ public class FilterBySeriesRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.EUCLIDEAN">EUCLIDEAN</see>
+    ///                 <term><see
+    ///                 cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+    ///                 cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -227,9 +249,10 @@ public class FilterBySeriesRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterBySeriesRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterBySeriesRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="view_name" />. This is
     ///         always allowed even if the caller does not have permission to
@@ -238,28 +261,34 @@ public class FilterBySeriesRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterBySeriesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:
+    ///         <term><see
+    ///         cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:
     ///         </term>
     ///         <description>A positive number passed as a string representing
     ///         the radius of the search area centered around each track
@@ -268,7 +297,9 @@ public class FilterBySeriesRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:
+    ///         </term>
     ///         <description>A positive number passed as a string representing
     ///         the maximum allowable time difference between the timestamps of
     ///         a filtered object and the given track's points. The value is
@@ -277,7 +308,7 @@ public class FilterBySeriesRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:
+    ///         cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:
     ///         </term>
     ///         <description>A string representing the coordinate system to use
     ///         for the spatial search criteria. Acceptable values are
@@ -286,12 +317,14 @@ public class FilterBySeriesRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.EUCLIDEAN">EUCLIDEAN</see>
+    ///                 <term><see
+    ///                 cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+    ///                 cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -312,17 +345,16 @@ public class FilterBySeriesRequest : KineticaData
 } // end class FilterBySeriesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterBySeries(FilterBySeriesRequest)">Kinetica.filterBySeries</see>.
-/// </summary>
+/// cref="Kinetica.filterBySeries">Kinetica.filterBySeries</see>.</summary>
 public class FilterBySeriesResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterBySeriesResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -333,10 +365,10 @@ public class FilterBySeriesResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

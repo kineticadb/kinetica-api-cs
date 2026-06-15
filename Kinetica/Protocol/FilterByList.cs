@@ -9,15 +9,15 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByList(FilterByListRequest)">Kinetica.filterByList</see>.
-/// </summary>
+/// cref="Kinetica.filterByList">Kinetica.filterByList</see>.</summary>
 /// <remarks><para>Calculates which records from a table have values in the
 /// given list for the corresponding column. The operation is synchronous,
 /// meaning that a response will not be returned until all the objects are
 /// fully available. The response payload provides the count of the resulting
 /// set. A new resultant set (view) which satisfies the input filter
-/// specification is also created if a <see cref="view_name" /> is passed in as
-/// part of the request.</para>
+/// specification is also created if a <see
+/// cref="FilterByListRequest.view_name" /> is passed in as part of the
+/// request.</para>
 /// <para>For example, if a type definition has the columns 'x' and 'y', then a
 /// filter by list query with the column map {"x":["10.1", "2.3"], "y":["0.0",
 /// "-31.5", "42.0"]} will return the count of all data points whose x and y
@@ -28,32 +28,37 @@ namespace kinetica;
 public class FilterByListRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByListRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByListRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterByListRequest.view_name" />.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByListRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByListRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByListRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// view as part of <see cref="FilterByListRequest.view_name" /> and
+        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
@@ -65,19 +70,23 @@ public class FilterByListRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.IN_LIST">IN_LIST</see>:</term>
+        ///         <term><see
+        ///         cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:
+        ///         </term>
         ///         <description>The filter will match all items that are in
         ///         the provided list(s).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.NOT_IN_LIST">NOT_IN_LIST</see>:
+        ///         <term><see
+        ///         cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:
         ///         </term>
         ///         <description>The filter will match all items that are not
         ///         in the provided list(s).</description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.IN_LIST">IN_LIST</see>.</para></remarks>
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</para>
+        /// </remarks>
         public const string FILTER_MODE = "filter_mode";
 
         /// <summary>The filter will match all items that are in the provided
@@ -107,7 +116,7 @@ public class FilterByListRequest : KineticaData
     /// default value is ''.</para></remarks>
     public string view_name { get; set; } = "";
 
-    /// <summary>List of values for the corresponding column in the table
+    /// <summary>List of values for the corresponding column in the table.
     /// </summary>
     public IDictionary<string, IList<string>> column_values_map { get; set; } = new Dictionary<string, IList<string>>();
 
@@ -115,55 +124,70 @@ public class FilterByListRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByListRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByListRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
-    ///         allowed even if the caller does not have permission to create
-    ///         tables. The generated name is returned in <see
+    ///         and used in place of <see cref="FilterByListRequest.view_name"
+    ///         />. This is always allowed even if the caller does not have
+    ///         permission to create tables. The generated name is returned in
+    ///         <see
     ///         cref="FilterByListResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByListRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByListRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByListRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the view as part of <see
+    ///         cref="FilterByListRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILTER_MODE">FILTER_MODE</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:
+    ///         </term>
     ///         <description>String indicating the filter mode, either
     ///         'in_list' or 'not_in_list'.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.IN_LIST">IN_LIST</see>:</term>
+    ///                 <term><see
+    ///                 cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:
+    ///                 </term>
     ///                 <description>The filter will match all items that are
     ///                 in the provided list(s).</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+    ///                 cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:
+    ///                 </term>
     ///                 <description>The filter will match all items that are
     ///                 not in the provided list(s).</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.IN_LIST">IN_LIST</see>.
+    ///         The default value is <see
+    ///         cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -190,14 +214,15 @@ public class FilterByListRequest : KineticaData
     /// target="_top">table naming criteria</a>.  Must not be an already
     /// existing table or view. The default value is ''.</param>
     /// <param name="column_values_map">List of values for the corresponding
-    /// column in the table</param>
+    /// column in the table.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByListRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByListRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="view_name" />. This is
     ///         always allowed even if the caller does not have permission to
@@ -206,45 +231,56 @@ public class FilterByListRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByListRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByListRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByListRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILTER_MODE">FILTER_MODE</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:
+    ///         </term>
     ///         <description>String indicating the filter mode, either
     ///         'in_list' or 'not_in_list'.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.IN_LIST">IN_LIST</see>:</term>
+    ///                 <term><see
+    ///                 cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:
+    ///                 </term>
     ///                 <description>The filter will match all items that are
     ///                 in the provided list(s).</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+    ///                 cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:
+    ///                 </term>
     ///                 <description>The filter will match all items that are
     ///                 not in the provided list(s).</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.IN_LIST">IN_LIST</see>.
+    ///         The default value is <see
+    ///         cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -262,17 +298,16 @@ public class FilterByListRequest : KineticaData
 } // end class FilterByListRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByList(FilterByListRequest)">Kinetica.filterByList</see>.
-/// </summary>
+/// cref="Kinetica.filterByList">Kinetica.filterByList</see>.</summary>
 public class FilterByListResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByListResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -283,10 +318,10 @@ public class FilterByListResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByListResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

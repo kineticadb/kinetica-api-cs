@@ -9,15 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterCredential(AlterCredentialRequest)">Kinetica.alterCredential</see>.
-/// </summary>
+/// cref="Kinetica.alterCredential">Kinetica.alterCredential</see>.</summary>
 /// <remarks><para>Alter the properties of an existing <a
 /// href="../../../concepts/credentials/" target="_top">credential</a>.</para>
 /// </remarks>
 public class AlterCredentialRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="credential_updates_map" />.</summary>
+    /// cref="AlterCredentialRequest.credential_updates_map" />.</summary>
     /// <remarks><para>Map containing the properties of the credential to be
     /// updated. Error if empty.</para></remarks>
     public struct CredentialUpdatesMap
@@ -27,53 +26,57 @@ public class AlterCredentialRequest : KineticaData
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.AZURE_AD">AZURE_AD</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_AD">AZURE_AD</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="CredentialUpdatesMap.DOCKER">DOCKER</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.DOCKER">DOCKER</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CredentialUpdatesMap.HDFS">HDFS</see>
+        ///         <term><see
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CredentialUpdatesMap.KAFKA">KAFKA</see>
+        ///         <term><see
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see>
         ///         </term>
         ///     </item>
         /// </list></remarks>
@@ -91,18 +94,19 @@ public class AlterCredentialRequest : KineticaData
         public const string HDFS = "hdfs";
         public const string KAFKA = "kafka";
 
-        /// <summary>New user for the credential</summary>
+        /// <summary>New user for the credential.</summary>
         public const string IDENTITY = "identity";
 
-        /// <summary>New password for the credential</summary>
+        /// <summary>New password for the credential.</summary>
         public const string SECRET = "secret";
 
         /// <summary>Updates the schema name.</summary>
         /// <remarks><para> If <see
-        /// cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> doesn't
-        /// exist, an error will be thrown. If <see
-        /// cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is empty,
-        /// then the user's default schema will be used.</para></remarks>
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        /// doesn't exist, an error will be thrown. If <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        /// is empty, then the user's default schema will be used.</para>
+        /// </remarks>
         public const string SCHEMA_NAME = "schema_name";
     } // end struct CredentialUpdatesMap
 
@@ -114,83 +118,90 @@ public class AlterCredentialRequest : KineticaData
     /// </summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="CredentialUpdatesMap.TYPE">TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.TYPE">TYPE</see>:
+    ///         </term>
     ///         <description>New type for the credential.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_AD">AZURE_AD</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_AD">AZURE_AD</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.DOCKER">DOCKER</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.DOCKER">DOCKER</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="CredentialUpdatesMap.HDFS">HDFS</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.KAFKA">KAFKA</see></term>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="CredentialUpdatesMap.IDENTITY">IDENTITY</see>:
+    ///         <term><see
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.IDENTITY">IDENTITY</see>:
     ///         </term>
-    ///         <description>New user for the credential</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="CredentialUpdatesMap.SECRET">SECRET</see>:
-    ///         </term>
-    ///         <description>New password for the credential</description>
+    ///         <description>New user for the credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:
+    ///         </term>
+    ///         <description>New password for the credential.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
     ///         </term>
     ///         <description>Updates the schema name.  If <see
-    ///         cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
     ///         doesn't exist, an error will be thrown. If <see
-    ///         cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
-    ///         empty, then the user's default schema will be used.
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         is empty, then the user's default schema will be used.
     ///         </description>
     ///     </item>
     /// </list></remarks>
@@ -212,83 +223,90 @@ public class AlterCredentialRequest : KineticaData
     /// the credential to be updated. Error if empty.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="CredentialUpdatesMap.TYPE">TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.TYPE">TYPE</see>:
+    ///         </term>
     ///         <description>New type for the credential.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_AD">AZURE_AD</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_AD">AZURE_AD</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.DOCKER">DOCKER</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.DOCKER">DOCKER</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="CredentialUpdatesMap.HDFS">HDFS</see>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CredentialUpdatesMap.KAFKA">KAFKA</see></term>
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="CredentialUpdatesMap.IDENTITY">IDENTITY</see>:
+    ///         <term><see
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.IDENTITY">IDENTITY</see>:
     ///         </term>
-    ///         <description>New user for the credential</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="CredentialUpdatesMap.SECRET">SECRET</see>:
-    ///         </term>
-    ///         <description>New password for the credential</description>
+    ///         <description>New user for the credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:
+    ///         </term>
+    ///         <description>New password for the credential.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
     ///         </term>
     ///         <description>Updates the schema name.  If <see
-    ///         cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
     ///         doesn't exist, an error will be thrown. If <see
-    ///         cref="CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
-    ///         empty, then the user's default schema will be used.
+    ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         is empty, then the user's default schema will be used.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -304,8 +322,7 @@ public class AlterCredentialRequest : KineticaData
 } // end class AlterCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterCredential(AlterCredentialRequest)">Kinetica.alterCredential</see>.
-/// </summary>
+/// cref="Kinetica.alterCredential">Kinetica.alterCredential</see>.</summary>
 public class AlterCredentialResponse : KineticaData
 {
     /// <summary>Value of <see

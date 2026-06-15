@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTablesByType(ShowTablesByTypeRequest)">Kinetica.showTablesByType</see>.
-/// </summary>
+/// cref="Kinetica.showTablesByType">Kinetica.showTablesByType</see>.</summary>
 /// <remarks><para>Gets names of the tables whose type matches the given
 /// criteria. Each table has a particular type. This type comprises the schema
 /// and properties of the table and sometimes a type label. This function
@@ -19,8 +18,7 @@ namespace kinetica;
 public class ShowTablesByTypeRequest : KineticaData
 {
     /// <summary>Type id returned by a call to <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
-    /// </summary>
+    /// cref="Kinetica.createType">Kinetica.createType</see>.</summary>
     public string type_id { get; set; }
 
     /// <summary>Optional user supplied label which can be used instead of the
@@ -40,8 +38,7 @@ public class ShowTablesByTypeRequest : KineticaData
     /// parameters.</summary>
     ///
     /// <param name="type_id">Type id returned by a call to <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
-    /// </param>
+    /// cref="Kinetica.createType">Kinetica.createType</see>.</param>
     /// <param name="label">Optional user supplied label which can be used
     /// instead of the type_id to retrieve all tables with the given label.
     /// </param>
@@ -58,8 +55,7 @@ public class ShowTablesByTypeRequest : KineticaData
 } // end class ShowTablesByTypeRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTablesByType(ShowTablesByTypeRequest)">Kinetica.showTablesByType</see>.
-/// </summary>
+/// cref="Kinetica.showTablesByType">Kinetica.showTablesByType</see>.</summary>
 public class ShowTablesByTypeResponse : KineticaData
 {
     /// <summary>List of tables matching the input criteria.</summary>

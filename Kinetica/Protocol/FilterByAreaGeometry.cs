@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByAreaGeometry(FilterByAreaGeometryRequest)">Kinetica.filterByAreaGeometry</see>.
+/// cref="Kinetica.filterByAreaGeometry">Kinetica.filterByAreaGeometry</see>.
 /// </summary>
 /// <remarks><para>Calculates which geospatial geometry objects from a table
 /// intersect a named area of interest (NAI/polygon). The operation is
@@ -17,27 +17,35 @@ namespace kinetica;
 /// matching objects are fully available. The response payload provides the
 /// count of the resulting set. A new resultant set (view) which satisfies the
 /// input NAI restriction specification is created with the name <see
-/// cref="view_name" /> passed in as part of the input.</para></remarks>
+/// cref="FilterByAreaGeometryRequest.view_name" /> passed in as part of the
+/// input.</para></remarks>
 public class FilterByAreaGeometryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByAreaGeometryRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see>, a
+        /// unique temporary table name will be generated in the sys_temp
+        /// schema and used in place of <see
+        /// cref="FilterByAreaGeometryRequest.view_name" />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
@@ -45,10 +53,11 @@ public class FilterByAreaGeometryRequest : KineticaData
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  The schema for the newly
-        /// created view.</summary>
+        /// view as part of <see cref="FilterByAreaGeometryRequest.view_name"
+        /// /> and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  The schema for the newly created view.
+        /// </summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -88,33 +97,42 @@ public class FilterByAreaGeometryRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByAreaGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
+    ///         <description>If <see
+    ///         cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <see
+    ///         cref="FilterByAreaGeometryRequest.view_name" />. This is always
     ///         allowed even if the caller does not have permission to create
     ///         tables. The generated name is returned in <see
     ///         cref="FilterByAreaGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByAreaGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  The schema for the newly
+    ///         for the view as part of <see
+    ///         cref="FilterByAreaGeometryRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  The schema for the newly
     ///         created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
@@ -151,33 +169,39 @@ public class FilterByAreaGeometryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByAreaGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <paramref name="view_name" />. This is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         <description>If <see
+    ///         cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <paramref name="view_name" />. This
+    ///         is always allowed even if the caller does not have permission
+    ///         to create tables. The generated name is returned in <see
     ///         cref="FilterByAreaGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByAreaGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  The schema for the newly
     ///         created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
@@ -201,17 +225,17 @@ public class FilterByAreaGeometryRequest : KineticaData
 } // end class FilterByAreaGeometryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByAreaGeometry(FilterByAreaGeometryRequest)">Kinetica.filterByAreaGeometry</see>.
+/// cref="Kinetica.filterByAreaGeometry">Kinetica.filterByAreaGeometry</see>.
 /// </summary>
 public class FilterByAreaGeometryResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByAreaGeometryResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -222,10 +246,10 @@ public class FilterByAreaGeometryResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByAreaGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

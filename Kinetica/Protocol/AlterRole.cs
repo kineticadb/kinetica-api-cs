@@ -9,13 +9,12 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
-/// </summary>
+/// cref="Kinetica.alterRole">Kinetica.alterRole</see>.</summary>
 /// <remarks><para>Alters a Role.</para></remarks>
 public class AlterRoleRequest : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="action"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AlterRoleRequest.action" />.</summary>
     /// <remarks><para>Modification operation to be applied to the role.</para>
     /// </remarks>
     public struct Action
@@ -38,13 +37,15 @@ public class AlterRoleRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="AlterRoleRequest.Action.SET_COMMENT">SET_COMMENT</see>:
+    ///         </term>
     ///         <description>Sets the comment for an internal role.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+    ///         cref="AlterRoleRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Sets the resource group for an internal role. The
     ///         resource group must exist, otherwise, an empty string assigns
@@ -53,8 +54,8 @@ public class AlterRoleRequest : KineticaData
     /// </list></remarks>
     public string action { get; set; }
 
-    /// <summary>The value of the modification, depending on <see cref="action"
-    /// />.</summary>
+    /// <summary>The value of the modification, depending on <see
+    /// cref="AlterRoleRequest.action" />.</summary>
     public string _value { get; set; }
 
     /// <summary>Optional parameters.</summary>
@@ -75,13 +76,15 @@ public class AlterRoleRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="AlterRoleRequest.Action.SET_COMMENT">SET_COMMENT</see>:
+    ///         </term>
     ///         <description>Sets the comment for an internal role.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+    ///         cref="AlterRoleRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Sets the resource group for an internal role. The
     ///         resource group must exist, otherwise, an empty string assigns
@@ -105,8 +108,7 @@ public class AlterRoleRequest : KineticaData
 } // end class AlterRoleRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
-/// </summary>
+/// cref="Kinetica.alterRole">Kinetica.alterRole</see>.</summary>
 public class AlterRoleResponse : KineticaData
 {
     /// <summary>Value of <see cref="AlterRoleRequest.name">name</see>.

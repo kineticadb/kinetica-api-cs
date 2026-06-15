@@ -9,49 +9,53 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasRole(HasRoleRequest)">Kinetica.hasRole</see>.</summary>
+/// cref="Kinetica.hasRole">Kinetica.hasRole</see>.</summary>
 /// <remarks><para>Checks if the specified user has the specified role.</para>
 /// </remarks>
 public class HasRoleRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="HasRoleRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.FALSE">FALSE</see> will return an
-        /// error if the provided <see cref="role" /> does not exist or is
-        /// blank.</summary>
+        /// <summary>If <see cref="HasRoleRequest.Options.FALSE">FALSE</see>
+        /// will return an error if the provided <see
+        /// cref="HasRoleRequest.role" /> does not exist or is blank.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="HasRoleRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="HasRoleRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="HasRoleRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.FALSE">FALSE</see> will search
-        /// recursively if the <see cref="principal" /> is a member of <see
-        /// cref="role" />.</summary>
+        /// <summary>If <see cref="HasRoleRequest.Options.FALSE">FALSE</see>
+        /// will search recursively if the <see cref="HasRoleRequest.principal"
+        /// /> is a member of <see cref="HasRoleRequest.role" />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="HasRoleRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="HasRoleRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="HasRoleRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string ONLY_DIRECT = "only_direct";
     } // end struct Options
 
@@ -68,44 +72,53 @@ public class HasRoleRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="HasRoleRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         return an error if the provided <see cref="role" /> does not
-    ///         exist or is blank. If <see cref="Options.TRUE">TRUE</see> then
-    ///         it will return <see
-    ///         cref="HasRoleResponse.HasRole.FALSE">FALSE</see> for <see
-    ///         cref="HasRoleResponse.has_role">has_role</see>.
+    ///         <description>If <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see> will return an
+    ///         error if the provided <see cref="HasRoleRequest.role" /> does
+    ///         not exist or is blank. If <see
+    ///         cref="HasRoleRequest.Options.TRUE">TRUE</see> then it will
+    ///         return <see cref="HasRoleResponse.HasRole.FALSE">FALSE</see>
+    ///         for <see cref="HasRoleResponse.has_role">has_role</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ONLY_DIRECT">ONLY_DIRECT</see>:</term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         search recursively if the <see cref="principal" /> is a member
-    ///         of <see cref="role" />.  If <see cref="Options.TRUE">TRUE</see>
-    ///         then <see cref="principal" /> must directly be a member of <see
-    ///         cref="role" />.
+    ///         <term><see
+    ///         cref="HasRoleRequest.Options.ONLY_DIRECT">ONLY_DIRECT</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see> will search
+    ///         recursively if the <see cref="HasRoleRequest.principal" /> is a
+    ///         member of <see cref="HasRoleRequest.role" />.  If <see
+    ///         cref="HasRoleRequest.Options.TRUE">TRUE</see> then <see
+    ///         cref="HasRoleRequest.principal" /> must directly be a member of
+    ///         <see cref="HasRoleRequest.role" />.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -126,44 +139,53 @@ public class HasRoleRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="HasRoleRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         return an error if the provided <paramref name="role" /> does
-    ///         not exist or is blank. If <see cref="Options.TRUE">TRUE</see>
-    ///         then it will return <see
-    ///         cref="HasRoleResponse.HasRole.FALSE">FALSE</see> for <see
-    ///         cref="HasRoleResponse.has_role">has_role</see>.
+    ///         <description>If <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see> will return an
+    ///         error if the provided <paramref name="role" /> does not exist
+    ///         or is blank. If <see
+    ///         cref="HasRoleRequest.Options.TRUE">TRUE</see> then it will
+    ///         return <see cref="HasRoleResponse.HasRole.FALSE">FALSE</see>
+    ///         for <see cref="HasRoleResponse.has_role">has_role</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ONLY_DIRECT">ONLY_DIRECT</see>:</term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         search recursively if the <paramref name="principal" /> is a
-    ///         member of <paramref name="role" />.  If <see
-    ///         cref="Options.TRUE">TRUE</see> then <paramref name="principal"
-    ///         /> must directly be a member of <paramref name="role" />.
+    ///         <term><see
+    ///         cref="HasRoleRequest.Options.ONLY_DIRECT">ONLY_DIRECT</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see> will search
+    ///         recursively if the <paramref name="principal" /> is a member of
+    ///         <paramref name="role" />.  If <see
+    ///         cref="HasRoleRequest.Options.TRUE">TRUE</see> then <paramref
+    ///         name="principal" /> must directly be a member of <paramref
+    ///         name="role" />.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="HasRoleRequest.Options.FALSE">FALSE</see>.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -178,53 +200,55 @@ public class HasRoleRequest : KineticaData
 } // end class HasRoleRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasRole(HasRoleRequest)">Kinetica.hasRole</see>.</summary>
+/// cref="Kinetica.hasRole">Kinetica.hasRole</see>.</summary>
 public class HasRoleResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="has_role" />.</summary>
+    /// cref="HasRoleResponse.has_role" />.</summary>
     /// <remarks><para>Indicates whether the specified user has membership in
     /// the specified target <see cref="HasRoleRequest.role">role</see>.</para>
     /// </remarks>
     public struct HasRole
     {
-        /// <summary>User has membership in the role</summary>
+        /// <summary>User has membership in the role.</summary>
         public const string TRUE = "true";
 
-        /// <summary>User does not have membership in the role</summary>
+        /// <summary>User does not have membership in the role.</summary>
         public const string FALSE = "false";
     } // end struct HasRole
 
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="HasRoleResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
-        /// <summary><see cref="Info.TRUE">TRUE</see> when principal is
-        /// directly a member of the role.</summary>
+        /// <summary><see cref="HasRoleResponse.Info.TRUE">TRUE</see> when
+        /// principal is directly a member of the role.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Info.TRUE">TRUE</see></term>
+        ///         <term><see cref="HasRoleResponse.Info.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Info.FALSE">FALSE</see></term>
+        ///         <term><see cref="HasRoleResponse.Info.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Info.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="HasRoleResponse.Info.FALSE">FALSE</see>.</para></remarks>
         public const string DIRECT = "direct";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
     } // end struct Info
 
-    /// <summary>Value of <see cref="HasRoleRequest.principal">principal</see>
+    /// <summary>Value of <see cref="HasRoleRequest.principal">principal</see>.
     /// </summary>
     public string principal { get; set; }
 
     /// <summary><see cref="HasRoleRequest.role">role</see> for which
-    /// membership is being checked</summary>
+    /// membership is being checked.</summary>
     public string role { get; set; }
 
     /// <summary>Indicates whether the specified user has membership in the
@@ -233,11 +257,11 @@ public class HasRoleResponse : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term>true:</term>
-    ///         <description>User has membership in the role</description>
+    ///         <description>User has membership in the role.</description>
     ///     </item>
     ///     <item>
     ///         <term>false:</term>
-    ///         <description>User does not have membership in the role
+    ///         <description>User does not have membership in the role.
     ///         </description>
     ///     </item>
     /// </list></remarks>
@@ -246,20 +270,23 @@ public class HasRoleResponse : KineticaData
     /// <summary>Additional information.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Info.DIRECT">DIRECT</see>:</term>
-    ///         <description><see cref="Info.TRUE">TRUE</see> when principal is
-    ///         directly a member of the role.
+    ///         <term><see cref="HasRoleResponse.Info.DIRECT">DIRECT</see>:
+    ///         </term>
+    ///         <description><see cref="HasRoleResponse.Info.TRUE">TRUE</see>
+    ///         when principal is directly a member of the role.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Info.TRUE">TRUE</see></term>
+    ///                 <term><see cref="HasRoleResponse.Info.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Info.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="HasRoleResponse.Info.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Info.FALSE">FALSE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="HasRoleResponse.Info.FALSE">FALSE</see>.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

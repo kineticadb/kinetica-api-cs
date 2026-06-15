@@ -9,46 +9,52 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByTable(FilterByTableRequest)">Kinetica.filterByTable</see>.
-/// </summary>
+/// cref="Kinetica.filterByTable">Kinetica.filterByTable</see>.</summary>
 /// <remarks><para>Filters objects in one table based on objects in another
 /// table. The user must specify matching column types from the two tables
 /// (i.e. the target table from which objects will be filtered and the source
 /// table based on which the filter will be created); the column names need not
-/// be the same. If a <see cref="view_name" /> is specified, then the filtered
-/// objects will then be put in a newly created view. The operation is
-/// synchronous, meaning that a response will not be returned until all objects
-/// are fully available in the result view. The return value contains the count
-/// (i.e. the size) of the resulting view.</para></remarks>
+/// be the same. If a <see cref="FilterByTableRequest.view_name" /> is
+/// specified, then the filtered objects will then be put in a newly created
+/// view. The operation is synchronous, meaning that a response will not be
+/// returned until all objects are fully available in the result view. The
+/// return value contains the count (i.e. the size) of the resulting view.
+/// </para></remarks>
 public class FilterByTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByTableRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterByTableRequest.view_name" />.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// view as part of <see cref="FilterByTableRequest.view_name" /> and
+        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -56,39 +62,49 @@ public class FilterByTableRequest : KineticaData
         public const string COLLECTION_NAME = "collection_name";
 
         /// <summary>String indicating the filter mode, either <see
-        /// cref="Options.IN_TABLE">IN_TABLE</see> or <see
-        /// cref="Options.NOT_IN_TABLE">NOT_IN_TABLE</see>.</summary>
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see> or <see
+        /// cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see>.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.IN_TABLE">IN_TABLE</see></term>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.NOT_IN_TABLE">NOT_IN_TABLE</see>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.IN_TABLE">IN_TABLE</see>.</para></remarks>
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.</para>
+        /// </remarks>
         public const string FILTER_MODE = "filter_mode";
 
         public const string IN_TABLE = "in_table";
         public const string NOT_IN_TABLE = "not_in_table";
 
         /// <summary>Mode - should be either <see
-        /// cref="Options.SPATIAL">SPATIAL</see> or <see
-        /// cref="Options.NORMAL">NORMAL</see>.</summary>
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> or <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.NORMAL">NORMAL</see></term>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SPATIAL">SPATIAL</see></term>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.NORMAL">NORMAL</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</para>
+        /// </remarks>
         public const string MODE = "mode";
 
         public const string NORMAL = "normal";
@@ -96,48 +112,54 @@ public class FilterByTableRequest : KineticaData
 
         /// <summary>Buffer size, in meters.</summary>
         /// <remarks><para>Only relevant for <see
-        /// cref="Options.SPATIAL">SPATIAL</see> mode. The default value is
-        /// '0'.</para></remarks>
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode. The
+        /// default value is '0'.</para></remarks>
         public const string BUFFER = "buffer";
 
         /// <summary>Method used to buffer polygons.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.NORMAL">NORMAL</see></term>
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.GEOS">GEOS</see>:</term>
-        ///         <description>Use geos 1 edge per corner algorithm
+        ///         <term><see
+        ///         cref="FilterByTableRequest.Options.GEOS">GEOS</see>:</term>
+        ///         <description>Use geos 1 edge per corner algorithm.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.NORMAL">NORMAL</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</para>
+        /// </remarks>
         public const string BUFFER_METHOD = "buffer_method";
 
-        /// <summary>Use geos 1 edge per corner algorithm</summary>
+        /// <summary>Use geos 1 edge per corner algorithm.</summary>
         public const string GEOS = "geos";
 
         /// <summary>Maximum number of points in a partition.</summary>
         /// <remarks><para>Only relevant for <see
-        /// cref="Options.SPATIAL">SPATIAL</see> mode. The default value is
-        /// '0'.</para></remarks>
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode. The
+        /// default value is '0'.</para></remarks>
         public const string MAX_PARTITION_SIZE = "max_partition_size";
 
         /// <summary>Maximum number of points * edges in a partition.</summary>
         /// <remarks><para>Only relevant for <see
-        /// cref="Options.SPATIAL">SPATIAL</see> mode. The default value is
-        /// '8000000'.</para></remarks>
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode. The
+        /// default value is '8000000'.</para></remarks>
         public const string MAX_PARTITION_SCORE = "max_partition_score";
 
         /// <summary>Name of column containing x value of point being filtered
-        /// in <see cref="Options.SPATIAL">SPATIAL</see> mode.</summary>
+        /// in <see cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+        /// mode.</summary>
         /// <remarks><para>The default value is 'x'.</para></remarks>
         public const string X_COLUMN_NAME = "x_column_name";
 
         /// <summary>Name of column containing y value of point being filtered
-        /// in <see cref="Options.SPATIAL">SPATIAL</see> mode.</summary>
+        /// in <see cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+        /// mode.</summary>
         /// <remarks><para>The default value is 'y'.</para></remarks>
         public const string Y_COLUMN_NAME = "y_column_name";
     } // end struct Options
@@ -160,149 +182,186 @@ public class FilterByTableRequest : KineticaData
     public string view_name { get; set; } = "";
 
     /// <summary>Name of the column by whose value the data will be filtered
-    /// from the table designated by <see cref="table_name" />.</summary>
+    /// from the table designated by <see
+    /// cref="FilterByTableRequest.table_name" />.</summary>
     public string column_name { get; set; }
 
     /// <summary>Name of the table whose data will be compared against in the
-    /// table called <see cref="table_name" />, in [schema_name.]table_name
-    /// format, using standard <a
+    /// table called <see cref="FilterByTableRequest.table_name" />, in
+    /// [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.</summary>
     /// <remarks><para> Must be an existing table.</para></remarks>
     public string source_table_name { get; set; }
 
-    /// <summary>Name of the column in the <see cref="source_table_name" />
-    /// whose values will be used as the filter for table <see
-    /// cref="table_name" />.</summary>
+    /// <summary>Name of the column in the <see
+    /// cref="FilterByTableRequest.source_table_name" /> whose values will be
+    /// used as the filter for table <see
+    /// cref="FilterByTableRequest.table_name" />.</summary>
     /// <remarks><para>Must be a geospatial geometry column if in 'spatial'
-    /// mode; otherwise, Must match the type of the <see cref="column_name" />.
-    /// </para></remarks>
+    /// mode; otherwise, Must match the type of the <see
+    /// cref="FilterByTableRequest.column_name" />.</para></remarks>
     public string source_table_column_name { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByTableRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
-    ///         allowed even if the caller does not have permission to create
-    ///         tables. The generated name is returned in <see
+    ///         and used in place of <see cref="FilterByTableRequest.view_name"
+    ///         />. This is always allowed even if the caller does not have
+    ///         permission to create tables. The generated name is returned in
+    ///         <see
     ///         cref="FilterByTableResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-    ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.FILTER_MODE">FILTER_MODE</see>:</term>
-    ///         <description>String indicating the filter mode, either <see
-    ///         cref="Options.IN_TABLE">IN_TABLE</see> or <see
-    ///         cref="Options.NOT_IN_TABLE">NOT_IN_TABLE</see>.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.IN_TABLE">IN_TABLE</see>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+    ///                 cref="FilterByTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.IN_TABLE">IN_TABLE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.MODE">MODE</see>:</term>
-    ///         <description>Mode - should be either <see
-    ///         cref="Options.SPATIAL">SPATIAL</see> or <see
-    ///         cref="Options.NORMAL">NORMAL</see>.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.NORMAL">NORMAL</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.SPATIAL">SPATIAL</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.NORMAL">NORMAL</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.BUFFER">BUFFER</see>:</term>
-    ///         <description>Buffer size, in meters. Only relevant for <see
-    ///         cref="Options.SPATIAL">SPATIAL</see> mode. The default value is
-    ///         '0'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.BUFFER_METHOD">BUFFER_METHOD</see>:
-    ///         </term>
-    ///         <description>Method used to buffer polygons.  Only relevant for
-    ///         <see cref="Options.SPATIAL">SPATIAL</see> mode.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.NORMAL">NORMAL</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.GEOS">GEOS</see>:</term>
-    ///                 <description>Use geos 1 edge per corner algorithm
-    ///                 </description>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.NORMAL">NORMAL</see>.
+    ///         cref="FilterByTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:
+    ///         cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
     ///         </term>
-    ///         <description>Maximum number of points in a partition. Only
-    ///         relevant for <see cref="Options.SPATIAL">SPATIAL</see> mode.
+    ///         <description>[DEPRECATED--please specify the containing schema
+    ///         for the view as part of <see
+    ///         cref="FilterByTableRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:
+    ///         </term>
+    ///         <description>String indicating the filter mode, either <see
+    ///         cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see> or
+    ///         <see
+    ///         cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="FilterByTableRequest.Options.MODE">MODE</see>:
+    ///         </term>
+    ///         <description>Mode - should be either <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> or
+    ///         <see cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
+    ///         <description>Buffer size, in meters. Only relevant for <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
     ///         The default value is '0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:
+    ///         cref="FilterByTableRequest.Options.BUFFER_METHOD">BUFFER_METHOD</see>:
+    ///         </term>
+    ///         <description>Method used to buffer polygons.  Only relevant for
+    ///         <see cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+    ///         mode.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.GEOS">GEOS</see>:
+    ///                 </term>
+    ///                 <description>Use geos 1 edge per corner algorithm.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of points in a partition. Only
+    ///         relevant for <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:
     ///         </term>
     ///         <description>Maximum number of points * edges in a partition.
-    ///         Only relevant for <see cref="Options.SPATIAL">SPATIAL</see>
-    ///         mode. The default value is '8000000'.</description>
+    ///         Only relevant for <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is '8000000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:
     ///         </term>
     ///         <description>Name of column containing x value of point being
-    ///         filtered in <see cref="Options.SPATIAL">SPATIAL</see> mode. The
-    ///         default value is 'x'.</description>
+    ///         filtered in <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is 'x'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:
     ///         </term>
     ///         <description>Name of column containing y value of point being
-    ///         filtered in <see cref="Options.SPATIAL">SPATIAL</see> mode. The
-    ///         default value is 'y'.</description>
+    ///         filtered in <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is 'y'.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -345,9 +404,10 @@ public class FilterByTableRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByTableRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="view_name" />. This is
     ///         always allowed even if the caller does not have permission to
@@ -356,116 +416,147 @@ public class FilterByTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FILTER_MODE">FILTER_MODE</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:
+    ///         </term>
     ///         <description>String indicating the filter mode, either <see
-    ///         cref="Options.IN_TABLE">IN_TABLE</see> or <see
-    ///         cref="Options.NOT_IN_TABLE">NOT_IN_TABLE</see>.
+    ///         cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see> or
+    ///         <see
+    ///         cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.IN_TABLE">IN_TABLE</see>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+    ///                 cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.IN_TABLE">IN_TABLE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.MODE">MODE</see>:</term>
-    ///         <description>Mode - should be either <see
-    ///         cref="Options.SPATIAL">SPATIAL</see> or <see
-    ///         cref="Options.NORMAL">NORMAL</see>.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.NORMAL">NORMAL</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.SPATIAL">SPATIAL</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.NORMAL">NORMAL</see>.
+    ///         cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BUFFER">BUFFER</see>:</term>
-    ///         <description>Buffer size, in meters. Only relevant for <see
-    ///         cref="Options.SPATIAL">SPATIAL</see> mode. The default value is
-    ///         '0'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.BUFFER_METHOD">BUFFER_METHOD</see>:
+    ///         <term><see cref="FilterByTableRequest.Options.MODE">MODE</see>:
     ///         </term>
-    ///         <description>Method used to buffer polygons.  Only relevant for
-    ///         <see cref="Options.SPATIAL">SPATIAL</see> mode.
+    ///         <description>Mode - should be either <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> or
+    ///         <see cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NORMAL">NORMAL</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.GEOS">GEOS</see>:</term>
-    ///                 <description>Use geos 1 edge per corner algorithm
-    ///                 </description>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NORMAL">NORMAL</see>.
+    ///         The default value is <see
+    ///         cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:
-    ///         </term>
-    ///         <description>Maximum number of points in a partition. Only
-    ///         relevant for <see cref="Options.SPATIAL">SPATIAL</see> mode.
+    ///         cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
+    ///         <description>Buffer size, in meters. Only relevant for <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
     ///         The default value is '0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:
+    ///         cref="FilterByTableRequest.Options.BUFFER_METHOD">BUFFER_METHOD</see>:
+    ///         </term>
+    ///         <description>Method used to buffer polygons.  Only relevant for
+    ///         <see cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see>
+    ///         mode.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="FilterByTableRequest.Options.GEOS">GEOS</see>:
+    ///                 </term>
+    ///                 <description>Use geos 1 edge per corner algorithm.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of points in a partition. Only
+    ///         relevant for <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:
     ///         </term>
     ///         <description>Maximum number of points * edges in a partition.
-    ///         Only relevant for <see cref="Options.SPATIAL">SPATIAL</see>
-    ///         mode. The default value is '8000000'.</description>
+    ///         Only relevant for <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is '8000000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:
     ///         </term>
     ///         <description>Name of column containing x value of point being
-    ///         filtered in <see cref="Options.SPATIAL">SPATIAL</see> mode. The
-    ///         default value is 'x'.</description>
+    ///         filtered in <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is 'x'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:
+    ///         <term><see
+    ///         cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:
     ///         </term>
     ///         <description>Name of column containing y value of point being
-    ///         filtered in <see cref="Options.SPATIAL">SPATIAL</see> mode. The
-    ///         default value is 'y'.</description>
+    ///         filtered in <see
+    ///         cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+    ///         The default value is 'y'.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -486,17 +577,16 @@ public class FilterByTableRequest : KineticaData
 } // end class FilterByTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByTable(FilterByTableRequest)">Kinetica.filterByTable</see>.
-/// </summary>
+/// cref="Kinetica.filterByTable">Kinetica.filterByTable</see>.</summary>
 public class FilterByTableResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByTableResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -514,10 +604,10 @@ public class FilterByTableResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByTableResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

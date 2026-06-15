@@ -9,15 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminSendAlert(AdminSendAlertRequest)">Kinetica.adminSendAlert</see>.
-/// </summary>
+/// cref="Kinetica.adminSendAlert">Kinetica.adminSendAlert</see>.</summary>
 /// <remarks><para>Sends a user generated alert to the monitoring system.
 /// </para></remarks>
 public class AdminSendAlertRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="log_level" />.</summary>
-    /// <remarks><para>Alert message logging criteria</para></remarks>
+    /// cref="AdminSendAlertRequest.log_level" />.</summary>
+    /// <remarks><para>Alert message logging criteria.</para></remarks>
     public struct LogLevel
     {
         public const string FATAL = "fatal";
@@ -39,19 +38,24 @@ public class AdminSendAlertRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="LogLevel.FATAL">FATAL</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.FATAL">FATAL</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.ERROR">ERROR</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.ERROR">ERROR</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.WARN">WARN</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.WARN">WARN</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.INFO">INFO</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.INFO">INFO</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.DEBUG">DEBUG</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.DEBUG">DEBUG</see></term>
     ///     </item>
     /// </list></remarks>
     public string log_level { get; set; }
@@ -76,19 +80,24 @@ public class AdminSendAlertRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="LogLevel.FATAL">FATAL</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.FATAL">FATAL</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.ERROR">ERROR</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.ERROR">ERROR</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.WARN">WARN</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.WARN">WARN</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.INFO">INFO</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.INFO">INFO</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="LogLevel.DEBUG">DEBUG</see></term>
+    ///         <term><see
+    ///         cref="AdminSendAlertRequest.LogLevel.DEBUG">DEBUG</see></term>
     ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters. The default value is an
@@ -106,8 +115,7 @@ public class AdminSendAlertRequest : KineticaData
 } // end class AdminSendAlertRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminSendAlert(AdminSendAlertRequest)">Kinetica.adminSendAlert</see>.
-/// </summary>
+/// cref="Kinetica.adminSendAlert">Kinetica.adminSendAlert</see>.</summary>
 public class AdminSendAlertResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

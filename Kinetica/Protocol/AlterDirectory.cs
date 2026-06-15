@@ -9,14 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterDirectory(AlterDirectoryRequest)">Kinetica.alterDirectory</see>.
-/// </summary>
+/// cref="Kinetica.alterDirectory">Kinetica.alterDirectory</see>.</summary>
 /// <remarks><para>Alters an existing directory in <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>.</para></remarks>
 public class AlterDirectoryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="directory_updates_map" />.</summary>
+    /// cref="AlterDirectoryRequest.directory_updates_map" />.</summary>
     /// <remarks><para>Map containing the properties of the directory to be
     /// altered. Error if empty.</para></remarks>
     public struct DirectoryUpdatesMap
@@ -36,7 +35,8 @@ public class AlterDirectoryRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="DirectoryUpdatesMap.DATA_LIMIT">DATA_LIMIT</see>:</term>
+    ///         cref="AlterDirectoryRequest.DirectoryUpdatesMap.DATA_LIMIT">DATA_LIMIT</see>:
+    ///         </term>
     ///         <description>The maximum capacity, in bytes, to apply to the
     ///         directory. Set to -1 to indicate no upper limit.</description>
     ///     </item>
@@ -62,7 +62,8 @@ public class AlterDirectoryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="DirectoryUpdatesMap.DATA_LIMIT">DATA_LIMIT</see>:</term>
+    ///         cref="AlterDirectoryRequest.DirectoryUpdatesMap.DATA_LIMIT">DATA_LIMIT</see>:
+    ///         </term>
     ///         <description>The maximum capacity, in bytes, to apply to the
     ///         directory. Set to -1 to indicate no upper limit.</description>
     ///     </item>
@@ -80,8 +81,7 @@ public class AlterDirectoryRequest : KineticaData
 } // end class AlterDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterDirectory(AlterDirectoryRequest)">Kinetica.alterDirectory</see>.
-/// </summary>
+/// cref="Kinetica.alterDirectory">Kinetica.alterDirectory</see>.</summary>
 public class AlterDirectoryResponse : KineticaData
 {
     /// <summary>Value of <see

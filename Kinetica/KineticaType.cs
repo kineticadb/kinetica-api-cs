@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Avro;
 using Newtonsoft.Json.Linq;
@@ -291,6 +289,11 @@ public class KineticaType
         /// <param name="columnHeaders">List of column names.</param>
         /// <param name="columnTypes">List of column types.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method parses dynamic JSON schemas at runtime and creates types dynamically.
+        /// It is not compatible with trimming or Native AOT compilation.
+        /// </remarks>
+        [RequiresUnreferencedCode("Dynamic schema parsing uses JSON reflection which may be incompatible with trimming.")]
         public static KineticaType fromDynamicSchema( string dynamicTableSchemaString,
                                                       Object[] columnHeaders, Object[] columnTypes )
         {
@@ -396,6 +399,14 @@ public class KineticaType
                         columnProperty.Add( columnTypeString );
                         break;
 
+                    // Geometry type returned by spatial SQL functions (ST_GeomFromText, ST_Intersection, etc.)
+                    // Server returns geometry values as WKT strings in the dynamic response payload
+                    // Note: Using string literal to match Java API and avoid modifying auto-generated ColumnProperty.cs
+                    case "geometry":
+                        columnType = Column.ColumnType.STRING;
+                        columnProperty.Add( ColumnProperty.WKT );  // Mark as WKT geometry for downstream detection
+                        break;
+
                     // Primitive type integer
                     case "int":
                         columnType = Column.ColumnType.INT;
@@ -485,17 +496,22 @@ public class KineticaType
         /// Create a KineticaType object from properties of a record class and Kinetica column properties.
         /// It ignores any properties inherited from base classes, and also ignores any member fields of
         /// the class.
-        /// 
+        ///
         /// For integer, long, float, and double column types, the user can use the nullable type (e.g. int?)
         /// to declare the column to be nullable.  The <paramref name="properties"/> does not need to contain
         /// the <see cref="ColumnProperty.NULLABLE"/> property.  However, for string type columns, instead of
         /// using nullable type, use the regular string type; additionally, add the
         /// <see cref="ColumnProperty.NULLABLE"/> in <paramref name="properties"/>.
-        /// 
+        ///
         /// </summary>
         /// <param name="recordClass">A class type.</param>
         /// <param name="properties">Properties for the columns.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method uses reflection to inspect the record class properties.
+        /// It is not compatible with trimming or Native AOT compilation.
+        /// </remarks>
+        [RequiresUnreferencedCode("Uses reflection to inspect record class properties. Not compatible with trimming.")]
         public static KineticaType fromClass( Type recordClass, IDictionary<string, IList<string>> properties = null )
         {
             return fromClass( recordClass, "", properties );
@@ -511,6 +527,11 @@ public class KineticaType
         /// <param name="label">Any label for the type.</param>
         /// <param name="properties">Properties for the columns.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method uses reflection to inspect the record class properties.
+        /// It is not compatible with trimming or Native AOT compilation.
+        /// </remarks>
+        [RequiresUnreferencedCode("Uses reflection to inspect record class properties. Not compatible with trimming.")]
         public static KineticaType fromClass( Type recordClass, string label, IDictionary<string, IList<string>>? properties = null )
         {
             // Get the fields in order (******skipping properties inherited from base classes******)
@@ -621,6 +642,11 @@ public class KineticaType
         /// <param name="recordObj">A record object.</param>
         /// <param name="properties">Properties for the columns.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method uses reflection to inspect the record object's type.
+        /// It is not compatible with trimming or Native AOT compilation.
+        /// </remarks>
+        [RequiresUnreferencedCode("Uses reflection to inspect record object type. Not compatible with trimming.")]
         public static KineticaType fromObject( Object recordObj, IDictionary<string, IList<string>> properties = null )
         {
             return fromObject( recordObj, "", properties );
@@ -636,6 +662,11 @@ public class KineticaType
         /// <param name="label">Any label for the type.</param>
         /// <param name="properties">Properties for the columns.</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method uses reflection to inspect the record object's type.
+        /// It is not compatible with trimming or Native AOT compilation.
+        /// </remarks>
+        [RequiresUnreferencedCode("Uses reflection to inspect record object type. Not compatible with trimming.")]
         public static KineticaType fromObject(Object recordObj, string label = "", IDictionary<string, IList<string>> properties = null)
         {
             // Create the type schema from the object

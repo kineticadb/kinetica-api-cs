@@ -9,39 +9,42 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>.
-/// </summary>
+/// cref="Kinetica.showTable">Kinetica.showTable</see>.</summary>
 /// <remarks><para>Retrieves detailed information about a table, view, or
-/// schema, specified in <see cref="table_name" />. If the supplied <see
-/// cref="table_name" /> is a schema the call can return information about
-/// either the schema itself or the tables and views it contains. If <see
-/// cref="table_name" /> is empty, information about all schemas will be
-/// returned.</para>
-/// <para>If the option <see cref="Options.GET_SIZES">GET_SIZES</see> is set to
-/// <see cref="Options.TRUE">TRUE</see>, then the number of records in each
-/// table is returned (in <see cref="ShowTableResponse.sizes">sizes</see> and
-/// <see cref="ShowTableResponse.full_sizes">full_sizes</see>), along with the
-/// total number of objects across all requested tables (in <see
+/// schema, specified in <see cref="ShowTableRequest.table_name" />. If the
+/// supplied <see cref="ShowTableRequest.table_name" /> is a schema the call
+/// can return information about either the schema itself or the tables and
+/// views it contains. If <see cref="ShowTableRequest.table_name" /> is empty,
+/// information about all schemas will be returned.</para>
+/// <para>If the option <see
+/// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is set to <see
+/// cref="ShowTableRequest.Options.TRUE">TRUE</see>, then the number of records
+/// in each table is returned (in <see
+/// cref="ShowTableResponse.sizes">sizes</see> and <see
+/// cref="ShowTableResponse.full_sizes">full_sizes</see>), along with the total
+/// number of objects across all requested tables (in <see
 /// cref="ShowTableResponse.total_size">total_size</see> and <see
 /// cref="ShowTableResponse.total_full_size">total_full_size</see>).</para>
 /// <para>For a schema, setting the <see
-/// cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see> option to <see
-/// cref="Options.FALSE">FALSE</see> returns only information about the schema
-/// itself; setting <see cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see> to
-/// <see cref="Options.TRUE">TRUE</see> returns a list of tables and views
-/// contained in the schema, along with their corresponding detail.</para>
+/// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see> option to
+/// <see cref="ShowTableRequest.Options.FALSE">FALSE</see> returns only
+/// information about the schema itself; setting <see
+/// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see> to <see
+/// cref="ShowTableRequest.Options.TRUE">TRUE</see> returns a list of tables
+/// and views contained in the schema, along with their corresponding
+/// detail.</para>
 /// <para>To retrieve a list of every table, view, and schema in the database,
-/// set <see cref="table_name" /> to '*' and <see
-/// cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see> to <see
-/// cref="Options.TRUE">TRUE</see>.  When doing this, the returned <see
-/// cref="ShowTableResponse.total_size">total_size</see> and <see
+/// set <see cref="ShowTableRequest.table_name" /> to '*' and <see
+/// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see> to <see
+/// cref="ShowTableRequest.Options.TRUE">TRUE</see>.  When doing this, the
+/// returned <see cref="ShowTableResponse.total_size">total_size</see> and <see
 /// cref="ShowTableResponse.total_full_size">total_full_size</see> will not
 /// include the sizes of non-base tables (e.g., filters, views, joins, etc.).
 /// </para></remarks>
 public class ShowTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -49,79 +52,91 @@ public class ShowTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string DEPENDENCIES = "dependencies";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then the table
-        /// sizes will wait for read lock before returning.</summary>
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then the table sizes will wait for read lock before returning.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string FORCE_SYNCHRONOUS = "force_synchronous";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then data about the
-        /// last read, write, alter and create will be returned.</summary>
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then data about the last read, write, alter and create will be
+        /// returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string GET_ACCESS_DATA = "get_access_data";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then the number of
-        /// records in each table, along with a cumulative count, will be
-        /// returned; blank, otherwise.</summary>
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then the number of records in each table, along with a cumulative
+        /// count, will be returned; blank, otherwise.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string GET_CACHED_SIZES = "get_cached_sizes";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then the number of
-        /// records in each table, along with a cumulative count, will be
-        /// returned; blank, otherwise.</summary>
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then the number of records in each table, along with a cumulative
+        /// count, will be returned; blank, otherwise.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string GET_SIZES = "get_sizes";
 
         /// <summary>Include materialized views using this table as a source in
@@ -129,94 +144,107 @@ public class ShowTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string REFERENCING_MATERIALIZED_VIEWS = "referencing_materialized_views";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then the response
-        /// will not populate the additional_info field.</summary>
-        /// <remarks><para>Supported values:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
-        public const string SKIP_ADDITIONAL_INFO = "skip_additional_info";
-
-        /// <summary>If <see cref="Options.FALSE">FALSE</see> will return an
-        /// error if the provided <see cref="table_name" /> does not exist.
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then the response will not populate the additional_info field.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
+        public const string SKIP_ADDITIONAL_INFO = "skip_additional_info";
+
+        /// <summary>If <see cref="ShowTableRequest.Options.FALSE">FALSE</see>
+        /// will return an error if the provided <see
+        /// cref="ShowTableRequest.table_name" /> does not exist.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then the table list
-        /// will not include tables from SYS_TEMP and other system temporary
-        /// schemas.</summary>
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then the table list will not include tables from SYS_TEMP and other
+        /// system temporary schemas.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string SKIP_TEMP_SCHEMAS = "skip_temp_schemas";
 
-        /// <summary>If <see cref="table_name" /> is a schema, then <see
-        /// cref="Options.TRUE">TRUE</see> will return information about the
-        /// tables and views in the schema, and <see
-        /// cref="Options.FALSE">FALSE</see> will return information about the
-        /// schema itself.</summary>
+        /// <summary>If <see cref="ShowTableRequest.table_name" /> is a schema,
+        /// then <see cref="ShowTableRequest.Options.TRUE">TRUE</see> will
+        /// return information about the tables and views in the schema, and
+        /// <see cref="ShowTableRequest.Options.FALSE">FALSE</see> will return
+        /// information about the schema itself.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string SHOW_CHILDREN = "show_children";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then column info
-        /// (memory usage, etc) will be returned.</summary>
+        /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        /// then column info (memory usage, etc) will be returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string GET_COLUMN_INFO = "get_column_info";
     } // end struct Options
 
@@ -231,209 +259,270 @@ public class ShowTableRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DEPENDENCIES">DEPENDENCIES</see>:
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.DEPENDENCIES">DEPENDENCIES</see>:
     ///         </term>
     ///         <description>Include view dependencies in the output.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
+    ///         cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         table sizes will wait for read lock before returning.
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the table
+    ///         sizes will wait for read lock before returning.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.GET_ACCESS_DATA">GET_ACCESS_DATA</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then data about
+    ///         the last read, write, alter and create will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GET_ACCESS_DATA">GET_ACCESS_DATA</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then data
-    ///         about the last read, write, alter and create will be returned.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         number of records in each table, along with a cumulative count,
-    ///         will be returned; blank, otherwise. This version will return
-    ///         the sizes cached at rank 0, which may be stale if there is a
+    ///         cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the number
+    ///         of records in each table, along with a cumulative count, will
+    ///         be returned; blank, otherwise. This version will return the
+    ///         sizes cached at rank 0, which may be stale if there is a
     ///         multihead insert occurring.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.GET_SIZES">GET_SIZES</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         number of records in each table, along with a cumulative count,
-    ///         will be returned; blank, otherwise.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REFERENCING_MATERIALIZED_VIEWS">REFERENCING_MATERIALIZED_VIEWS</see>:
+    ///         cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the number
+    ///         of records in each table, along with a cumulative count, will
+    ///         be returned; blank, otherwise.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.REFERENCING_MATERIALIZED_VIEWS">REFERENCING_MATERIALIZED_VIEWS</see>:
     ///         </term>
     ///         <description>Include materialized views using this table as a
     ///         source in the output.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SKIP_ADDITIONAL_INFO">SKIP_ADDITIONAL_INFO</see>:
+    ///         cref="ShowTableRequest.Options.SKIP_ADDITIONAL_INFO">SKIP_ADDITIONAL_INFO</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the
     ///         response will not populate the additional_info field.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         return an error if the provided <see cref="table_name" /> does
-    ///         not exist. If <see cref="Options.TRUE">TRUE</see> then it will
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see> will return
+    ///         an error if the provided <see
+    ///         cref="ShowTableRequest.table_name" /> does not exist. If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then it will
     ///         return an empty result.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SKIP_TEMP_SCHEMAS">SKIP_TEMP_SCHEMAS</see>:
+    ///         cref="ShowTableRequest.Options.SKIP_TEMP_SCHEMAS">SKIP_TEMP_SCHEMAS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         table list will not include tables from SYS_TEMP and other
-    ///         system temporary schemas.  This is the default behavior for
-    ///         non-admin users.
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the table
+    ///         list will not include tables from SYS_TEMP and other system
+    ///         temporary schemas.  This is the default behavior for non-admin
+    ///         users.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:
-    ///         </term>
-    ///         <description>If <see cref="table_name" /> is a schema, then
-    ///         <see cref="Options.TRUE">TRUE</see> will return information
-    ///         about the tables and views in the schema, and <see
-    ///         cref="Options.FALSE">FALSE</see> will return information about
-    ///         the schema itself. If <see cref="table_name" /> is a table or
-    ///         view, <see cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
-    ///         must be <see cref="Options.FALSE">FALSE</see>. If <see
-    ///         cref="table_name" /> is empty, then <see
-    ///         cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see> must be <see
-    ///         cref="Options.TRUE">TRUE</see>.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then column
+    ///         cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:
+    ///         </term>
+    ///         <description>If <see cref="ShowTableRequest.table_name" /> is a
+    ///         schema, then <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> will return
+    ///         information about the tables and views in the schema, and <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see> will return
+    ///         information about the schema itself. If <see
+    ///         cref="ShowTableRequest.table_name" /> is a table or view, <see
+    ///         cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
+    ///         must be <see cref="ShowTableRequest.Options.FALSE">FALSE</see>.
+    ///         If <see cref="ShowTableRequest.table_name" /> is empty, then
+    ///         <see
+    ///         cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
+    ///         must be <see cref="ShowTableRequest.Options.TRUE">TRUE</see>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then column
     ///         info (memory usage, etc) will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -455,209 +544,268 @@ public class ShowTableRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DEPENDENCIES">DEPENDENCIES</see>:
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.DEPENDENCIES">DEPENDENCIES</see>:
     ///         </term>
     ///         <description>Include view dependencies in the output.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
+    ///         cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         table sizes will wait for read lock before returning.
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the table
+    ///         sizes will wait for read lock before returning.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.GET_ACCESS_DATA">GET_ACCESS_DATA</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then data about
+    ///         the last read, write, alter and create will be returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GET_ACCESS_DATA">GET_ACCESS_DATA</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then data
-    ///         about the last read, write, alter and create will be returned.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         number of records in each table, along with a cumulative count,
-    ///         will be returned; blank, otherwise. This version will return
-    ///         the sizes cached at rank 0, which may be stale if there is a
+    ///         cref="ShowTableRequest.Options.GET_CACHED_SIZES">GET_CACHED_SIZES</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the number
+    ///         of records in each table, along with a cumulative count, will
+    ///         be returned; blank, otherwise. This version will return the
+    ///         sizes cached at rank 0, which may be stale if there is a
     ///         multihead insert occurring.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.GET_SIZES">GET_SIZES</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         number of records in each table, along with a cumulative count,
-    ///         will be returned; blank, otherwise.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REFERENCING_MATERIALIZED_VIEWS">REFERENCING_MATERIALIZED_VIEWS</see>:
+    ///         cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the number
+    ///         of records in each table, along with a cumulative count, will
+    ///         be returned; blank, otherwise.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.REFERENCING_MATERIALIZED_VIEWS">REFERENCING_MATERIALIZED_VIEWS</see>:
     ///         </term>
     ///         <description>Include materialized views using this table as a
     ///         source in the output.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SKIP_ADDITIONAL_INFO">SKIP_ADDITIONAL_INFO</see>:
+    ///         cref="ShowTableRequest.Options.SKIP_ADDITIONAL_INFO">SKIP_ADDITIONAL_INFO</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the
     ///         response will not populate the additional_info field.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         return an error if the provided <paramref name="table_name" />
-    ///         does not exist. If <see cref="Options.TRUE">TRUE</see> then it
-    ///         will return an empty result.
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see> will return
+    ///         an error if the provided <paramref name="table_name" /> does
+    ///         not exist. If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then it will
+    ///         return an empty result.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SKIP_TEMP_SCHEMAS">SKIP_TEMP_SCHEMAS</see>:
+    ///         cref="ShowTableRequest.Options.SKIP_TEMP_SCHEMAS">SKIP_TEMP_SCHEMAS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then the
-    ///         table list will not include tables from SYS_TEMP and other
-    ///         system temporary schemas.  This is the default behavior for
-    ///         non-admin users.
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then the table
+    ///         list will not include tables from SYS_TEMP and other system
+    ///         temporary schemas.  This is the default behavior for non-admin
+    ///         users.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:
+    ///         <term><see
+    ///         cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:
     ///         </term>
     ///         <description>If <paramref name="table_name" /> is a schema,
-    ///         then <see cref="Options.TRUE">TRUE</see> will return
-    ///         information about the tables and views in the schema, and <see
-    ///         cref="Options.FALSE">FALSE</see> will return information about
-    ///         the schema itself. If <paramref name="table_name" /> is a table
-    ///         or view, <see cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
-    ///         must be <see cref="Options.FALSE">FALSE</see>. If <paramref
-    ///         name="table_name" /> is empty, then <see
-    ///         cref="Options.SHOW_CHILDREN">SHOW_CHILDREN</see> must be <see
-    ///         cref="Options.TRUE">TRUE</see>.
+    ///         then <see cref="ShowTableRequest.Options.TRUE">TRUE</see> will
+    ///         return information about the tables and views in the schema,
+    ///         and <see cref="ShowTableRequest.Options.FALSE">FALSE</see> will
+    ///         return information about the schema itself. If <paramref
+    ///         name="table_name" /> is a table or view, <see
+    ///         cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
+    ///         must be <see cref="ShowTableRequest.Options.FALSE">FALSE</see>.
+    ///         If <paramref name="table_name" /> is empty, then <see
+    ///         cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
+    ///         must be <see cref="ShowTableRequest.Options.TRUE">TRUE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then column
+    ///         cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowTableRequest.Options.TRUE">TRUE</see> then column
     ///         info (memory usage, etc) will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -671,14 +819,13 @@ public class ShowTableRequest : KineticaData
 } // end class ShowTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>.
-/// </summary>
+/// cref="Kinetica.showTable">Kinetica.showTable</see>.</summary>
 public class ShowTableResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="table_descriptions" />.</summary>
+    /// cref="ShowTableResponse.table_descriptions" />.</summary>
     /// <remarks><para>List of descriptions for the respective tables in <see
-    /// cref="table_names" />.</para></remarks>
+    /// cref="ShowTableResponse.table_names" />.</para></remarks>
     public struct TableDescriptions
     {
         public const string COLLECTION = "COLLECTION";
@@ -696,9 +843,9 @@ public class ShowTableResponse : KineticaData
     } // end struct TableDescriptions
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="additional_info" />.</summary>
+    /// cref="ShowTableResponse.additional_info" />.</summary>
     /// <remarks><para>Additional information about the respective tables in
-    /// <see cref="table_names" />.</para></remarks>
+    /// <see cref="ShowTableResponse.table_names" />.</para></remarks>
     public struct AdditionalInfo
     {
         /// <summary>Method by which this table was created.</summary>
@@ -706,17 +853,17 @@ public class ShowTableResponse : KineticaData
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="AdditionalInfo.CREATE_TABLE">CREATE_TABLE</see>
+        ///         cref="ShowTableResponse.AdditionalInfo.CREATE_TABLE">CREATE_TABLE</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="AdditionalInfo.CREATE_PROJECTION">CREATE_PROJECTION</see>
+        ///         cref="ShowTableResponse.AdditionalInfo.CREATE_PROJECTION">CREATE_PROJECTION</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="AdditionalInfo.CREATE_UNION">CREATE_UNION</see>
+        ///         cref="ShowTableResponse.AdditionalInfo.CREATE_UNION">CREATE_UNION</see>
         ///         </term>
         ///     </item>
         /// </list></remarks>
@@ -735,10 +882,14 @@ public class ShowTableResponse : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list></remarks>
         public const string PROTECTED = "protected";
@@ -781,21 +932,24 @@ public class ShowTableResponse : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.MEMORY">MEMORY</see>:
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.MEMORY">MEMORY</see>:
         ///         </term>
-        ///         <description>In-memory primary key</description>
+        ///         <description>In-memory primary key.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.DISK">DISK</see>:</term>
-        ///         <description>On-disk primary key</description>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.DISK">DISK</see>:
+        ///         </term>
+        ///         <description>On-disk primary key.</description>
         ///     </item>
         /// </list></remarks>
         public const string PRIMARY_KEY_TYPE = "primary_key_type";
 
-        /// <summary>In-memory primary key</summary>
+        /// <summary>In-memory primary key.</summary>
         public const string MEMORY = "memory";
 
-        /// <summary>On-disk primary key</summary>
+        /// <summary>On-disk primary key.</summary>
         public const string DISK = "disk";
 
         /// <summary>Semicolon-separated list of <a
@@ -819,59 +973,70 @@ public class ShowTableResponse : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.RANGE">RANGE</see>:</term>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.RANGE">RANGE</see>:
+        ///         </term>
         ///         <description>Using <a
         ///         href="../../../concepts/tables/#partitioning-by-range"
-        ///         target="_top">range partitioning</a></description>
+        ///         target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.INTERVAL">INTERVAL</see>:
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.INTERVAL">INTERVAL</see>:
         ///         </term>
         ///         <description>Using <a
         ///         href="../../../concepts/tables/#partitioning-by-interval"
-        ///         target="_top">interval partitioning</a></description>
+        ///         target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.LIST">LIST</see>:</term>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.LIST">LIST</see>:
+        ///         </term>
         ///         <description>Using <a
         ///         href="../../../concepts/tables/#partitioning-by-list-manual"
-        ///         target="_top">manual list partitioning</a></description>
+        ///         target="_top">manual list partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.HASH">HASH</see>:</term>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.HASH">HASH</see>:
+        ///         </term>
         ///         <description>Using <a
         ///         href="../../../concepts/tables/#partitioning-by-hash"
         ///         target="_top">hash partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.SERIES">SERIES</see>:
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.SERIES">SERIES</see>:
         ///         </term>
         ///         <description>Using <a
         ///         href="../../../concepts/tables/#partitioning-by-series"
         ///         target="_top">series partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.NONE">NONE</see>:</term>
-        ///         <description>Using no partitioning</description>
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>:
+        ///         </term>
+        ///         <description>Using no partitioning.</description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="AdditionalInfo.NONE">NONE</see>.</para></remarks>
+        /// cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>.</para>
+        /// </remarks>
         public const string PARTITION_TYPE = "partition_type";
 
         /// <summary>Using <a
         /// href="../../../concepts/tables/#partitioning-by-range"
-        /// target="_top">range partitioning</a></summary>
+        /// target="_top">range partitioning</a>.</summary>
         public const string RANGE = "RANGE";
 
         /// <summary>Using <a
         /// href="../../../concepts/tables/#partitioning-by-interval"
-        /// target="_top">interval partitioning</a></summary>
+        /// target="_top">interval partitioning</a>.</summary>
         public const string INTERVAL = "INTERVAL";
 
         /// <summary>Using <a
         /// href="../../../concepts/tables/#partitioning-by-list-manual"
-        /// target="_top">manual list partitioning</a></summary>
+        /// target="_top">manual list partitioning</a>.</summary>
         public const string LIST = "LIST";
 
         /// <summary>Using <a
@@ -884,7 +1049,7 @@ public class ShowTableResponse : KineticaData
         /// target="_top">series partitioning</a>.</summary>
         public const string SERIES = "SERIES";
 
-        /// <summary>Using no partitioning</summary>
+        /// <summary>Using no partitioning.</summary>
         public const string NONE = "NONE";
 
         /// <summary>Comma-separated list of partition keys.</summary>
@@ -928,26 +1093,30 @@ public class ShowTableResponse : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.NO_ACCESS">NO_ACCESS</see>:
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.NO_ACCESS">NO_ACCESS</see>:
         ///         </term>
         ///         <description>No read/write operations are allowed on this
         ///         table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="AdditionalInfo.READ_ONLY">READ_ONLY</see>:
+        ///         <term><see
+        ///         cref="ShowTableResponse.AdditionalInfo.READ_ONLY">READ_ONLY</see>:
         ///         </term>
         ///         <description>Only read operations are allowed on this
         ///         table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="AdditionalInfo.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         cref="ShowTableResponse.AdditionalInfo.WRITE_ONLY">WRITE_ONLY</see>:
+        ///         </term>
         ///         <description>Only write operations are allowed on this
         ///         table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="AdditionalInfo.READ_WRITE">READ_WRITE</see>:</term>
+        ///         cref="ShowTableResponse.AdditionalInfo.READ_WRITE">READ_WRITE</see>:
+        ///         </term>
         ///         <description>All read/write operations are allowed on this
         ///         table.</description>
         ///     </item>
@@ -1124,157 +1293,175 @@ public class ShowTableResponse : KineticaData
     public IList<string> table_names { get; set; } = new List<string>();
 
     /// <summary>List of descriptions for the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableResponse.table_names" />.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="TableDescriptions.COLLECTION">COLLECTION</see>
-    ///         </term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="TableDescriptions.JOIN">JOIN</see></term>
-    ///     </item>
-    ///     <item>
     ///         <term><see
-    ///         cref="TableDescriptions.LOGICAL_EXTERNAL_TABLE">LOGICAL_EXTERNAL_TABLE</see>
+    ///         cref="ShowTableResponse.TableDescriptions.COLLECTION">COLLECTION</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="TableDescriptions.LOGICAL_VIEW">LOGICAL_VIEW</see></term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="TableDescriptions.MATERIALIZED_EXTERNAL_TABLE">MATERIALIZED_EXTERNAL_TABLE</see>
+    ///         cref="ShowTableResponse.TableDescriptions.JOIN">JOIN</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="TableDescriptions.MATERIALIZED_VIEW">MATERIALIZED_VIEW</see>
+    ///         cref="ShowTableResponse.TableDescriptions.LOGICAL_EXTERNAL_TABLE">LOGICAL_EXTERNAL_TABLE</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="TableDescriptions.MATERIALIZED_VIEW_MEMBER">MATERIALIZED_VIEW_MEMBER</see>
+    ///         cref="ShowTableResponse.TableDescriptions.LOGICAL_VIEW">LOGICAL_VIEW</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see>
-    ///         </term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="TableDescriptions.REPLICATED">REPLICATED</see>
+    ///         cref="ShowTableResponse.TableDescriptions.MATERIALIZED_EXTERNAL_TABLE">MATERIALIZED_EXTERNAL_TABLE</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+    ///         cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW">MATERIALIZED_VIEW</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="TableDescriptions.SCHEMA">SCHEMA</see></term>
+    ///         <term><see
+    ///         cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_MEMBER">MATERIALIZED_VIEW_MEMBER</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="TableDescriptions.VIEW">VIEW</see></term>
+    ///         <term><see
+    ///         cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableResponse.TableDescriptions.SCHEMA">SCHEMA</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see>
+    ///         </term>
     ///     </item>
     /// </list></remarks>
     public IList<IList<string>> table_descriptions { get; set; } = new List<IList<string>>();
 
-    /// <summary>Type IDs of the respective tables in <see cref="table_names"
-    /// />.</summary>
+    /// <summary>Type IDs of the respective tables in <see
+    /// cref="ShowTableResponse.table_names" />.</summary>
     public IList<string> type_ids { get; set; } = new List<string>();
 
     /// <summary>Type schemas of the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableResponse.table_names" />.</summary>
     public IList<string> type_schemas { get; set; } = new List<string>();
 
     /// <summary>Type labels of the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableResponse.table_names" />.</summary>
     public IList<string> type_labels { get; set; } = new List<string>();
 
     /// <summary>Property maps of the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableResponse.table_names" />.</summary>
     public IList<IDictionary<string, IList<string>>> properties { get; set; } = new List<IDictionary<string, IList<string>>>();
 
     /// <summary>Additional information about the respective tables in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableResponse.table_names" />.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REQUEST_AVRO_TYPE">REQUEST_AVRO_TYPE</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REQUEST_AVRO_TYPE">REQUEST_AVRO_TYPE</see>:
     ///         </term>
     ///         <description>Method by which this table was created.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.CREATE_TABLE">CREATE_TABLE</see>
+    ///                 cref="ShowTableResponse.AdditionalInfo.CREATE_TABLE">CREATE_TABLE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.CREATE_PROJECTION">CREATE_PROJECTION</see>
+    ///                 cref="ShowTableResponse.AdditionalInfo.CREATE_PROJECTION">CREATE_PROJECTION</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.CREATE_UNION">CREATE_UNION</see>
+    ///                 cref="ShowTableResponse.AdditionalInfo.CREATE_UNION">CREATE_UNION</see>
     ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REQUEST_AVRO_JSON">REQUEST_AVRO_JSON</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REQUEST_AVRO_JSON">REQUEST_AVRO_JSON</see>:
     ///         </term>
     ///         <description>The JSON representation of request creating this
     ///         table. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.PROTECTED">PROTECTED</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.PROTECTED">PROTECTED</see>:
     ///         </term>
     ///         <description>No longer used.  Indicated whether the respective
     ///         table was protected or not.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.RECORD_BYTES">RECORD_BYTES</see>:</term>
+    ///         cref="ShowTableResponse.AdditionalInfo.RECORD_BYTES">RECORD_BYTES</see>:
+    ///         </term>
     ///         <description>The number of in-memory bytes per record which is
     ///         the sum of the byte sizes of all columns with property  'data'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.TOTAL_BYTES">TOTAL_BYTES</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.TOTAL_BYTES">TOTAL_BYTES</see>:
     ///         </term>
     ///         <description>The total size in bytes of all data stored in the
     ///         table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.COLLECTION_NAMES">COLLECTION_NAMES</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.COLLECTION_NAMES">COLLECTION_NAMES</see>:
     ///         </term>
     ///         <description>[DEPRECATED--use schema_name instead]  This will
     ///         now contain the name of the schema for the table.  There can
     ///         only be one schema for a table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.SCHEMA_NAME">SCHEMA_NAME</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.SCHEMA_NAME">SCHEMA_NAME</see>:
     ///         </term>
     ///         <description>The name of the schema for the table.  There can
     ///         only be one schema for a table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.TABLE_TTL">TABLE_TTL</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.TABLE_TTL">TABLE_TTL</see>:
     ///         </term>
     ///         <description>The value of the <a href="../../../concepts/ttl/"
     ///         target="_top">time-to-live</a> setting.  Not present for
@@ -1282,7 +1469,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REMAINING_TABLE_TTL">REMAINING_TABLE_TTL</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REMAINING_TABLE_TTL">REMAINING_TABLE_TTL</see>:
     ///         </term>
     ///         <description>The remaining <a href="../../../concepts/ttl/"
     ///         target="_top">time-to-live</a>, in minutes, before the
@@ -1291,27 +1478,30 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.PRIMARY_KEY_TYPE">PRIMARY_KEY_TYPE</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.PRIMARY_KEY_TYPE">PRIMARY_KEY_TYPE</see>:
     ///         </term>
     ///         <description>The primary key type of the table (if it has a
     ///         primary key).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.MEMORY">MEMORY</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.MEMORY">MEMORY</see>:
     ///                 </term>
-    ///                 <description>In-memory primary key</description>
+    ///                 <description>In-memory primary key.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.DISK">DISK</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.DISK">DISK</see>:
     ///                 </term>
-    ///                 <description>On-disk primary key</description>
+    ///                 <description>On-disk primary key.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
+    ///         cref="ShowTableResponse.AdditionalInfo.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-key"
     ///         target="_top">foreign keys</a>, of the format 'source_column
@@ -1320,7 +1510,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key description of the format:
     ///         &lt;fk_foreign_key&gt; references &lt;pk_column_name&gt; from
@@ -1329,67 +1519,74 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme used for this table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.RANGE">RANGE</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.RANGE">RANGE</see>:
     ///                 </term>
     ///                 <description>Using <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
-    ///                 target="_top">range partitioning</a></description>
+    ///                 target="_top">range partitioning</a>.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.INTERVAL">INTERVAL</see>:</term>
+    ///                 cref="ShowTableResponse.AdditionalInfo.INTERVAL">INTERVAL</see>:
+    ///                 </term>
     ///                 <description>Using <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
-    ///                 target="_top">interval partitioning</a></description>
+    ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.LIST">LIST</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.LIST">LIST</see>:
     ///                 </term>
     ///                 <description>Using <a
     ///                 href="../../../concepts/tables/#partitioning-by-list-manual"
-    ///                 target="_top">manual list partitioning</a>
+    ///                 target="_top">manual list partitioning</a>.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.HASH">HASH</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.HASH">HASH</see>:
     ///                 </term>
     ///                 <description>Using <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
     ///                 target="_top">hash partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.SERIES">SERIES</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.SERIES">SERIES</see>:
     ///                 </term>
     ///                 <description>Using <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="AdditionalInfo.NONE">NONE</see>:
+    ///                 <term><see
+    ///                 cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>:
     ///                 </term>
-    ///                 <description>Using no partitioning</description>
+    ///                 <description>Using no partitioning.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="AdditionalInfo.NONE">NONE</see>.</description>
+    ///         cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the partition_type.  See <a
@@ -1399,7 +1596,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
     ///         <description>True if partitions will be created for LIST VALUES
     ///         which don't fall into existing partitions. The default value is
@@ -1407,7 +1604,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.ATTRIBUTE_INDEXES">ATTRIBUTE_INDEXES</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.ATTRIBUTE_INDEXES">ATTRIBUTE_INDEXES</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of indexes. For <a
     ///         href="../../../concepts/indexes/#column-index"
@@ -1419,7 +1616,8 @@ public class ShowTableResponse : KineticaData
     ///         Not present for schemas. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.COLUMN_INFO">COLUMN_INFO</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.COLUMN_INFO">COLUMN_INFO</see>:
     ///         </term>
     ///         <description>JSON-encoded string representing a map of column
     ///         name to information including memory usage if the <see
@@ -1429,7 +1627,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.GLOBAL_ACCESS_MODE">GLOBAL_ACCESS_MODE</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.GLOBAL_ACCESS_MODE">GLOBAL_ACCESS_MODE</see>:
     ///         </term>
     ///         <description>Returns the global access mode (i.e. lock status)
     ///         for the table.
@@ -1437,26 +1635,28 @@ public class ShowTableResponse : KineticaData
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.NO_ACCESS">NO_ACCESS</see>:</term>
+    ///                 cref="ShowTableResponse.AdditionalInfo.NO_ACCESS">NO_ACCESS</see>:
+    ///                 </term>
     ///                 <description>No read/write operations are allowed on
     ///                 this table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.READ_ONLY">READ_ONLY</see>:</term>
+    ///                 cref="ShowTableResponse.AdditionalInfo.READ_ONLY">READ_ONLY</see>:
+    ///                 </term>
     ///                 <description>Only read operations are allowed on this
     ///                 table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.WRITE_ONLY">WRITE_ONLY</see>:
+    ///                 cref="ShowTableResponse.AdditionalInfo.WRITE_ONLY">WRITE_ONLY</see>:
     ///                 </term>
     ///                 <description>Only write operations are allowed on this
     ///                 table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="AdditionalInfo.READ_WRITE">READ_WRITE</see>:
+    ///                 cref="ShowTableResponse.AdditionalInfo.READ_WRITE">READ_WRITE</see>:
     ///                 </term>
     ///                 <description>All read/write operations are allowed on
     ///                 this table.</description>
@@ -1465,7 +1665,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.VIEW_TABLE_NAME">VIEW_TABLE_NAME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.VIEW_TABLE_NAME">VIEW_TABLE_NAME</see>:
     ///         </term>
     ///         <description>For materialized view the name of the view this
     ///         member table is part of - if same as the table_name then this
@@ -1473,7 +1673,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.IS_VIEW_PERSISTED">IS_VIEW_PERSISTED</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.IS_VIEW_PERSISTED">IS_VIEW_PERSISTED</see>:
     ///         </term>
     ///         <description>True if the view named view_table_name is
     ///         persisted - reported for each view member.  Means method of
@@ -1481,7 +1681,8 @@ public class ShowTableResponse : KineticaData
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.IS_DIRTY">IS_DIRTY</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.IS_DIRTY">IS_DIRTY</see>:
     ///         </term>
     ///         <description>True if some input table of the materialized view
     ///         that affects this member table has been modified since the last
@@ -1489,7 +1690,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REFRESH_METHOD">REFRESH_METHOD</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REFRESH_METHOD">REFRESH_METHOD</see>:
     ///         </term>
     ///         <description>For materialized view current refresh_method - one
     ///         of manual, periodic, on_change. The default value is ''.
@@ -1497,7 +1698,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REFRESH_START_TIME">REFRESH_START_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REFRESH_START_TIME">REFRESH_START_TIME</see>:
     ///         </term>
     ///         <description>For materialized view with periodic refresh_method
     ///         the initial datetime string that periodic refreshes began. The
@@ -1505,14 +1706,14 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:
     ///         </term>
     ///         <description>Time at which the periodic view refresh stops. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.REFRESH_PERIOD">REFRESH_PERIOD</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.REFRESH_PERIOD">REFRESH_PERIOD</see>:
     ///         </term>
     ///         <description>For materialized view with periodic refresh_method
     ///         the current refresh period in seconds. The default value is ''.
@@ -1520,7 +1721,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_REFRESH_TIME">LAST_REFRESH_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_REFRESH_TIME">LAST_REFRESH_TIME</see>:
     ///         </term>
     ///         <description>For materialized view the datetime string
     ///         indicating the last time the view was refreshed. The default
@@ -1528,7 +1729,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.NEXT_REFRESH_TIME">NEXT_REFRESH_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.NEXT_REFRESH_TIME">NEXT_REFRESH_TIME</see>:
     ///         </term>
     ///         <description>For materialized view with periodic refresh_method
     ///         a datetime string indicating the next time the view is to be
@@ -1536,7 +1737,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.USER_CHUNK_SIZE">USER_CHUNK_SIZE</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.USER_CHUNK_SIZE">USER_CHUNK_SIZE</see>:
     ///         </term>
     ///         <description>User-specified number of records per chunk, if
     ///         provided at table creation time. The default value is ''.
@@ -1544,7 +1745,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.USER_CHUNK_COLUMN_MAX_MEMORY">USER_CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.USER_CHUNK_COLUMN_MAX_MEMORY">USER_CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>User-specified target max bytes per column in a
     ///         chunk, if provided at table creation time. The default value is
@@ -1552,7 +1753,7 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.USER_CHUNK_MAX_MEMORY">USER_CHUNK_MAX_MEMORY</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.USER_CHUNK_MAX_MEMORY">USER_CHUNK_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>User-specified target max bytes for all columns in
     ///         a chunk, if provided at table creation time. The default value
@@ -1560,14 +1761,14 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of the owner resource group. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.ALTERNATE_SHARD_KEYS">ALTERNATE_SHARD_KEYS</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.ALTERNATE_SHARD_KEYS">ALTERNATE_SHARD_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of shard keys that were
     ///         equated in joins (applicable for join tables). The default
@@ -1575,21 +1776,21 @@ public class ShowTableResponse : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.DATASOURCE_SUBSCRIPTIONS">DATASOURCE_SUBSCRIPTIONS</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.DATASOURCE_SUBSCRIPTIONS">DATASOURCE_SUBSCRIPTIONS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of datasource names the
     ///         table has subscribed to. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.NULL_MODIFYING_COLUMNS">NULL_MODIFYING_COLUMNS</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.NULL_MODIFYING_COLUMNS">NULL_MODIFYING_COLUMNS</see>:
     ///         </term>
     ///         <description>Comma-separated list of null modifying column
     ///         names. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>Default <a
     ///         href="../../../concepts/column_compression/"
@@ -1597,70 +1798,78 @@ public class ShowTableResponse : KineticaData
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.CREATED_BY">CREATED_BY</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.CREATED_BY">CREATED_BY</see>:
     ///         </term>
     ///         <description>User that created this table or view. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.CREATED_TIME">CREATED_TIME</see>:</term>
+    ///         cref="ShowTableResponse.AdditionalInfo.CREATED_TIME">CREATED_TIME</see>:
+    ///         </term>
     ///         <description>Time (UTC) when this table or view was created.
     ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_READ_BY">LAST_READ_BY</see>:</term>
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_READ_BY">LAST_READ_BY</see>:
+    ///         </term>
     ///         <description>User that last read this table or view. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_READ_TIME">LAST_READ_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_READ_TIME">LAST_READ_TIME</see>:
     ///         </term>
     ///         <description>Time (UTC) when this table or view was last read.
     ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.READ_COUNT">READ_COUNT</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.READ_COUNT">READ_COUNT</see>:
     ///         </term>
     ///         <description>Count of times this table or view was read. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_WRITE_BY">LAST_WRITE_BY</see>:</term>
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_WRITE_BY">LAST_WRITE_BY</see>:
+    ///         </term>
     ///         <description>User that last wrote to this table. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_WRITE_TIME">LAST_WRITE_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_WRITE_TIME">LAST_WRITE_TIME</see>:
     ///         </term>
     ///         <description>Time (UTC) when this table was last written. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.WRITE_COUNT">WRITE_COUNT</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.WRITE_COUNT">WRITE_COUNT</see>:
     ///         </term>
     ///         <description>Count of times this table was written. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_ALTER_BY">LAST_ALTER_BY</see>:</term>
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_ALTER_BY">LAST_ALTER_BY</see>:
+    ///         </term>
     ///         <description>User that last altered this table or view. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.LAST_ALTER_TIME">LAST_ALTER_TIME</see>:
+    ///         cref="ShowTableResponse.AdditionalInfo.LAST_ALTER_TIME">LAST_ALTER_TIME</see>:
     ///         </term>
     ///         <description>Time (UTC) when this table or view was last
     ///         altered. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.ALTER_COUNT">ALTER_COUNT</see>:
+    ///         <term><see
+    ///         cref="ShowTableResponse.AdditionalInfo.ALTER_COUNT">ALTER_COUNT</see>:
     ///         </term>
     ///         <description>Count of times this table or view was altered. The
     ///         default value is ''.</description>
@@ -1672,7 +1881,7 @@ public class ShowTableResponse : KineticaData
     /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is <see
     /// cref="ShowTableRequest.Options.TRUE">TRUE</see>, an array containing
     /// the number of records of each corresponding table in <see
-    /// cref="table_names" />.</summary>
+    /// cref="ShowTableResponse.table_names" />.</summary>
     /// <remarks><para> Otherwise, an empty array.</para></remarks>
     public IList<long> sizes { get; set; } = new List<long>();
 
@@ -1680,7 +1889,8 @@ public class ShowTableResponse : KineticaData
     /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is <see
     /// cref="ShowTableRequest.Options.TRUE">TRUE</see>, an array containing
     /// the number of records of each corresponding table in <see
-    /// cref="table_names" /> (same values as <see cref="sizes" />).</summary>
+    /// cref="ShowTableResponse.table_names" /> (same values as <see
+    /// cref="ShowTableResponse.sizes" />).</summary>
     /// <remarks><para> Otherwise, an empty array.</para></remarks>
     public IList<long> full_sizes { get; set; } = new List<long>();
 
@@ -1688,12 +1898,12 @@ public class ShowTableResponse : KineticaData
     /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is <see
     /// cref="ShowTableRequest.Options.TRUE">TRUE</see>, an array containing
     /// the number of unfiltered records in the cross product of the sub-tables
-    /// of each corresponding join-table in <see cref="table_names" />.
-    /// </summary>
+    /// of each corresponding join-table in <see
+    /// cref="ShowTableResponse.table_names" />.</summary>
     /// <remarks><para>For simple tables, this number will be the same as <see
-    /// cref="sizes" />.  For join-tables, this value gives the number of
-    /// joined-table rows that must be processed by any aggregate functions
-    /// operating on the table.  Otherwise, (if <see
+    /// cref="ShowTableResponse.sizes" />.  For join-tables, this value gives
+    /// the number of joined-table rows that must be processed by any aggregate
+    /// functions operating on the table.  Otherwise, (if <see
     /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is <see
     /// cref="ShowTableRequest.Options.FALSE">FALSE</see>), an empty array.
     /// </para></remarks>
@@ -1702,15 +1912,15 @@ public class ShowTableResponse : KineticaData
     /// <summary>If <see
     /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is <see
     /// cref="ShowTableRequest.Options.TRUE">TRUE</see>, the sum of the
-    /// elements of <see cref="sizes" />.</summary>
+    /// elements of <see cref="ShowTableResponse.sizes" />.</summary>
     /// <remarks><para> Otherwise, -1.</para></remarks>
     public long total_size { get; set; }
 
     /// <summary>If <see
     /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see> is <see
     /// cref="ShowTableRequest.Options.TRUE">TRUE</see>, the sum of the
-    /// elements of <see cref="full_sizes" /> (same value as <see
-    /// cref="total_size" />).</summary>
+    /// elements of <see cref="ShowTableResponse.full_sizes" /> (same value as
+    /// <see cref="ShowTableResponse.total_size" />).</summary>
     /// <remarks><para> Otherwise, -1.</para></remarks>
     public long total_full_size { get; set; }
 

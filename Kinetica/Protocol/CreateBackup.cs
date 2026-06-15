@@ -9,18 +9,17 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
-/// </summary>
+/// cref="Kinetica.createBackup">Kinetica.createBackup</see>.</summary>
 /// <remarks><para>Creates a database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup</a>, containing a snapshot of existing objects, at the
 /// remote file store accessible via the <a
 /// href="../../../concepts/data_sinks/" target="_top">data sink</a> specified
-/// by <see cref="datasink_name" />.</para></remarks>
+/// by <see cref="CreateBackupRequest.datasink_name" />.</para></remarks>
 public class CreateBackupRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="backup_type" />.</summary>
+    /// cref="CreateBackupRequest.backup_type" />.</summary>
     /// <remarks><para>Type of snapshot to create.</para></remarks>
     public struct BackupType
     {
@@ -37,7 +36,7 @@ public class CreateBackupRequest : KineticaData
     } // end struct BackupType
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="backup_objects_map" />.</summary>
+    /// cref="CreateBackupRequest.backup_objects_map" />.</summary>
     /// <remarks><para>Map of objects to be captured in the backup; must be
     /// specified when creating a full snapshot and left unspecified when
     /// creating an incremental or differential snapshot.</para></remarks>
@@ -47,6 +46,10 @@ public class CreateBackupRequest : KineticaData
         /// href="../../../concepts/schemas/" target="_top">schema(s)</a>.
         /// </summary>
         public const string ALL = "all";
+
+        /// <summary>Data Lake catalog that is external to the database.
+        /// </summary>
+        public const string CATALOG = "catalog";
 
         /// <summary><a href="../../../sql-gpt/concepts/#sql-gpt-context"
         /// target="_top">Context(s)</a>.</summary>
@@ -69,7 +72,7 @@ public class CreateBackupRequest : KineticaData
         public const string FUNCTION_ENVIRONMENT = "function_environment";
 
         /// <summary><a href="../../../graph_solver/network_graph_solver/"
-        /// target="_top">Graph(s)</a>.</summary>
+        /// target="_top">Graph(s)</a> definition.</summary>
         public const string GRAPH = "graph";
 
         /// <summary><a href="../../../concepts/table_monitors/"
@@ -95,6 +98,9 @@ public class CreateBackupRequest : KineticaData
         /// target="_top">Table(s)</a> and <a
         /// href="../../../sql/ddl/#create-view" target="_top">SQL view(s)</a>.
         /// </summary>
+        /// <remarks><para> Active subscriptions on any tables to be backed up
+        /// will be temporarily suspended while the backup is active.</para>
+        /// </remarks>
         public const string TABLE = "table";
 
         /// <summary><a
@@ -109,7 +115,7 @@ public class CreateBackupRequest : KineticaData
     } // end struct BackupObjectsMap
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateBackupRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -118,14 +124,17 @@ public class CreateBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CHECKSUM = "checksum";
 
         public const string TRUE = "true";
@@ -139,34 +148,42 @@ public class CreateBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.TRUE">TRUE</see>:</term>
         ///         <description>For tables, only back up DDL, not data.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>For tables, back up DDL and data.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DDL_ONLY = "ddl_only";
 
         /// <summary>Whether or not to delete any intermediate snapshots when
-        /// the <see cref="backup_type" /> is set to <see
-        /// cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.</summary>
+        /// the <see cref="CreateBackupRequest.backup_type" /> is set to <see
+        /// cref="CreateBackupRequest.BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DELETE_INTERMEDIATE_BACKUPS = "delete_intermediate_backups";
 
         /// <summary>Whether or not to perform a dry run of a backup operation.
@@ -174,14 +191,17 @@ public class CreateBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
 
         /// <summary>Maximum number of incremental snapshots to keep.</summary>
@@ -193,40 +213,47 @@ public class CreateBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RECREATE = "recreate";
     } // end struct Options
 
     /// <summary>Name for this backup.</summary>
     /// <remarks><para>If the backup already exists, only an incremental or
     /// differential backup can be made, unless <see
-    /// cref="Options.RECREATE">RECREATE</see> is set to <see
-    /// cref="Options.TRUE">TRUE</see>.</para></remarks>
+    /// cref="CreateBackupRequest.Options.RECREATE">RECREATE</see> is set to
+    /// <see cref="CreateBackupRequest.Options.TRUE">TRUE</see>.</para>
+    /// </remarks>
     public string backup_name { get; set; }
 
     /// <summary>Type of snapshot to create.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupType.DIFFERENTIAL">DIFFERENTIAL</see>:
     ///         </term>
     ///         <description>Snapshot of changes in the database objects and
     ///         data since the last full snapshot.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupType.FULL">FULL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupType.FULL">FULL</see>:</term>
     ///         <description>Snapshot of the given database objects and data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupType.INCREMENTAL">INCREMENTAL</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupType.INCREMENTAL">INCREMENTAL</see>:
     ///         </term>
     ///         <description>Snapshot of changes in the database objects and
     ///         data since the last snapshot of any kind.</description>
@@ -239,39 +266,52 @@ public class CreateBackupRequest : KineticaData
     /// incremental or differential snapshot.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.ALL">ALL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.ALL">ALL</see>:
+    ///         </term>
     ///         <description>All object types and data contained in the given
     ///         <a href="../../../concepts/schemas/"
     ///         target="_top">schema(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
     ///         target="_top">Context(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/credentials/"
     ///         target="_top">Credential(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.DATASINK">DATASINK</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DATASINK">DATASINK</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/data_sinks/"
     ///         target="_top">Data sink(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.DATASOURCE">DATASOURCE</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DATASOURCE">DATASOURCE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/data_sources/"
     ///         target="_top">Data source(s)</a>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../udf/python/writing/#udf-python-func-env"
@@ -279,13 +319,16 @@ public class CreateBackupRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.MONITOR">MONITOR</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.MONITOR">MONITOR</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/table_monitors/"
     ///         target="_top">Table monitor(s)</a> / <a
@@ -294,33 +337,41 @@ public class CreateBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description><a href="../../../rm/concepts/#resource-groups"
     ///         target="_top">Resource group(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.ROLE">ROLE</see>:
+    ///         </term>
     ///         <description><a href="../../../security/sec_concepts/#roles"
     ///         target="_top">Role(s)</a>, role members (roles or users,
     ///         recursively), and associated permissions.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
     ///         </term>
     ///         <description><a href="../../../sql/procedure/"
     ///         target="_top">SQL procedure(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Active subscriptions on any tables to be backed up
+    ///         will be temporarily suspended while the backup is active.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.USER">USER</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.USER">USER</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../security/sec_concepts/#security-concepts-users"
     ///         target="_top">User(s)</a> (internal and external) and
@@ -328,7 +379,7 @@ public class CreateBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
     ///         </term>
     ///         <description><a href="../../../udf_overview"
     ///         target="_top">UDF(s)</a>.</description>
@@ -343,102 +394,138 @@ public class CreateBackupRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
+    ///         </term>
     ///         <description>Whether or not to calculate checksums for backup
     ///         files.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.COMMENT">COMMENT</see>:
+    ///         </term>
     ///         <description>Comments to store with this backup.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.DDL_ONLY">DDL_ONLY</see>:
+    ///         </term>
     ///         <description>Whether or not, for tables, to only backup DDL and
     ///         not table data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>For tables, only back up DDL, not data.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>For tables, back up DDL and data.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
+    ///         cref="CreateBackupRequest.Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
     ///         </term>
     ///         <description>Whether or not to delete any intermediate
-    ///         snapshots when the <see cref="backup_type" /> is set to <see
-    ///         cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
+    ///         snapshots when the <see cref="CreateBackupRequest.backup_type"
+    ///         /> is set to <see
+    ///         cref="CreateBackupRequest.BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
     ///         <description>Whether or not to perform a dry run of a backup
     ///         operation.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         cref="CreateBackupRequest.Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
     ///         </term>
     ///         <description>Maximum number of incremental snapshots to keep.
     ///         The default value is '-1'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.RECREATE">RECREATE</see>:
+    ///         </term>
     ///         <description>Whether or not to replace an existing backup
     ///         object with a new backup with a full snapshot, if one already
     ///         exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -454,24 +541,27 @@ public class CreateBackupRequest : KineticaData
     ///
     /// <param name="backup_name">Name for this backup. If the backup already
     /// exists, only an incremental or differential backup can be made, unless
-    /// <see cref="Options.RECREATE">RECREATE</see> is set to <see
-    /// cref="Options.TRUE">TRUE</see>.</param>
+    /// <see cref="CreateBackupRequest.Options.RECREATE">RECREATE</see> is set
+    /// to <see cref="CreateBackupRequest.Options.TRUE">TRUE</see>.</param>
     /// <param name="backup_type">Type of snapshot to create.
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupType.DIFFERENTIAL">DIFFERENTIAL</see>:
     ///         </term>
     ///         <description>Snapshot of changes in the database objects and
     ///         data since the last full snapshot.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupType.FULL">FULL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupType.FULL">FULL</see>:</term>
     ///         <description>Snapshot of the given database objects and data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupType.INCREMENTAL">INCREMENTAL</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupType.INCREMENTAL">INCREMENTAL</see>:
     ///         </term>
     ///         <description>Snapshot of changes in the database objects and
     ///         data since the last snapshot of any kind.</description>
@@ -482,39 +572,52 @@ public class CreateBackupRequest : KineticaData
     /// unspecified when creating an incremental or differential snapshot.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.ALL">ALL</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.ALL">ALL</see>:
+    ///         </term>
     ///         <description>All object types and data contained in the given
     ///         <a href="../../../concepts/schemas/"
     ///         target="_top">schema(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
     ///         target="_top">Context(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CREDENTIAL">CREDENTIAL</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/credentials/"
     ///         target="_top">Credential(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.DATASINK">DATASINK</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DATASINK">DATASINK</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/data_sinks/"
     ///         target="_top">Data sink(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.DATASOURCE">DATASOURCE</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DATASOURCE">DATASOURCE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/data_sources/"
     ///         target="_top">Data source(s)</a>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../udf/python/writing/#udf-python-func-env"
@@ -522,13 +625,16 @@ public class CreateBackupRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.MONITOR">MONITOR</see>:
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.MONITOR">MONITOR</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/table_monitors/"
     ///         target="_top">Table monitor(s)</a> / <a
@@ -537,33 +643,41 @@ public class CreateBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description><a href="../../../rm/concepts/#resource-groups"
     ///         target="_top">Resource group(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.ROLE">ROLE</see>:
+    ///         </term>
     ///         <description><a href="../../../security/sec_concepts/#roles"
     ///         target="_top">Role(s)</a>, role members (roles or users,
     ///         recursively), and associated permissions.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
     ///         </term>
     ///         <description><a href="../../../sql/procedure/"
     ///         target="_top">SQL procedure(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Active subscriptions on any tables to be backed up
+    ///         will be temporarily suspended while the backup is active.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="BackupObjectsMap.USER">USER</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.USER">USER</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../security/sec_concepts/#security-concepts-users"
     ///         target="_top">User(s)</a> (internal and external) and
@@ -571,7 +685,7 @@ public class CreateBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="BackupObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         cref="CreateBackupRequest.BackupObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
     ///         </term>
     ///         <description><a href="../../../udf_overview"
     ///         target="_top">UDF(s)</a>.</description>
@@ -583,102 +697,138 @@ public class CreateBackupRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
+    ///         </term>
     ///         <description>Whether or not to calculate checksums for backup
     ///         files.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.COMMENT">COMMENT</see>:
+    ///         </term>
     ///         <description>Comments to store with this backup.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.DDL_ONLY">DDL_ONLY</see>:
+    ///         </term>
     ///         <description>Whether or not, for tables, to only backup DDL and
     ///         not table data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>For tables, only back up DDL, not data.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>For tables, back up DDL and data.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
+    ///         cref="CreateBackupRequest.Options.DELETE_INTERMEDIATE_BACKUPS">DELETE_INTERMEDIATE_BACKUPS</see>:
     ///         </term>
     ///         <description>Whether or not to delete any intermediate
     ///         snapshots when the <paramref name="backup_type" /> is set to
-    ///         <see cref="BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
+    ///         <see
+    ///         cref="CreateBackupRequest.BackupType.DIFFERENTIAL">DIFFERENTIAL</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
     ///         <description>Whether or not to perform a dry run of a backup
     ///         operation.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         cref="CreateBackupRequest.Options.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
     ///         </term>
     ///         <description>Maximum number of incremental snapshots to keep.
     ///         The default value is '-1'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RECREATE">RECREATE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.RECREATE">RECREATE</see>:
+    ///         </term>
     ///         <description>Whether or not to replace an existing backup
     ///         object with a new backup with a full snapshot, if one already
     ///         exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -698,8 +848,7 @@ public class CreateBackupRequest : KineticaData
 } // end class CreateBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
-/// </summary>
+/// cref="Kinetica.createBackup">Kinetica.createBackup</see>.</summary>
 public class CreateBackupResponse : KineticaData
 {
     /// <summary>Value of <see

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionDatasource(GrantPermissionDatasourceRequest)">Kinetica.grantPermissionDatasource</see>.
+/// cref="Kinetica.grantPermissionDatasource">Kinetica.grantPermissionDatasource</see>.
 /// </summary>
 /// <remarks><para>Grants a <a href="../../../concepts/data_sources/"
 /// target="_top">data source</a> permission to a user or role.</para>
@@ -17,14 +17,15 @@ namespace kinetica;
 public class GrantPermissionDatasourceRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
-    /// <remarks><para>Permission to grant to the user or role</para></remarks>
+    /// cref="GrantPermissionDatasourceRequest.permission" />.</summary>
+    /// <remarks><para>Permission to grant to the user or role.</para>
+    /// </remarks>
     public struct Permission
     {
-        /// <summary>Admin access on the given data source</summary>
+        /// <summary>Admin access on the given data source.</summary>
         public const string ADMIN = "admin";
 
-        /// <summary>Connect access on the given data source</summary>
+        /// <summary>Connect access on the given data source.</summary>
         public const string CONNECT = "connect";
     } // end struct Permission
 
@@ -37,13 +38,17 @@ public class GrantPermissionDatasourceRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
-    ///         <description>Admin access on the given data source
+    ///         <term><see
+    ///         cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
-    ///         <description>Connect access on the given data source
+    ///         <term><see
+    ///         cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></remarks>
@@ -73,13 +78,17 @@ public class GrantPermissionDatasourceRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
-    ///         <description>Admin access on the given data source
+    ///         <term><see
+    ///         cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
-    ///         <description>Connect access on the given data source
+    ///         <term><see
+    ///         cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -101,7 +110,7 @@ public class GrantPermissionDatasourceRequest : KineticaData
 } // end class GrantPermissionDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionDatasource(GrantPermissionDatasourceRequest)">Kinetica.grantPermissionDatasource</see>.
+/// cref="Kinetica.grantPermissionDatasource">Kinetica.grantPermissionDatasource</see>.
 /// </summary>
 public class GrantPermissionDatasourceResponse : KineticaData
 {

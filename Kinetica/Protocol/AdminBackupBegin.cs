@@ -9,14 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminBackupBegin(AdminBackupBeginRequest)">Kinetica.adminBackupBegin</see>.
-/// </summary>
+/// cref="Kinetica.adminBackupBegin">Kinetica.adminBackupBegin</see>.</summary>
 /// <remarks><para>Prepares the system for a backup by closing all open file
 /// handles after allowing current active jobs to complete. When the database
 /// is in backup mode, queries that result in a disk write operation will be
 /// blocked until backup mode has been completed by using <see
-/// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
-/// </para></remarks>
+/// cref="Kinetica.adminBackupEnd">Kinetica.adminBackupEnd</see>.</para>
+/// </remarks>
 public class AdminBackupBeginRequest : KineticaData
 {
     /// <summary>Optional parameters.</summary>
@@ -40,8 +39,7 @@ public class AdminBackupBeginRequest : KineticaData
 } // end class AdminBackupBeginRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminBackupBegin(AdminBackupBeginRequest)">Kinetica.adminBackupBegin</see>.
-/// </summary>
+/// cref="Kinetica.adminBackupBegin">Kinetica.adminBackupBegin</see>.</summary>
 public class AdminBackupBeginResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

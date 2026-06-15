@@ -9,31 +9,37 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropEnvironment(DropEnvironmentRequest)">Kinetica.dropEnvironment</see>.
-/// </summary>
+/// cref="Kinetica.dropEnvironment">Kinetica.dropEnvironment</see>.</summary>
 /// <remarks><para>Drop an existing <a href="../../../concepts/udf/"
 /// target="_top">user-defined function</a> (UDF) environment.</para></remarks>
 public class DropEnvironmentRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DropEnvironmentRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the
-        /// environment specified in <see cref="environment_name" /> does not
-        /// exist, no error is returned.</summary>
+        /// <summary>If <see
+        /// cref="DropEnvironmentRequest.Options.TRUE">TRUE</see> and if the
+        /// environment specified in <see
+        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
+        /// no error is returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DropEnvironmentRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
@@ -48,24 +54,32 @@ public class DropEnvironmentRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DropEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
-    ///         environment specified in <see cref="environment_name" /> does
-    ///         not exist, no error is returned. If <see
-    ///         cref="Options.FALSE">FALSE</see> and if the environment
-    ///         specified in <see cref="environment_name" /> does not exist,
-    ///         then an error is returned.
+    ///         <description>If <see
+    ///         cref="DropEnvironmentRequest.Options.TRUE">TRUE</see> and if
+    ///         the environment specified in <see
+    ///         cref="DropEnvironmentRequest.environment_name" /> does not
+    ///         exist, no error is returned. If <see
+    ///         cref="DropEnvironmentRequest.Options.FALSE">FALSE</see> and if
+    ///         the environment specified in <see
+    ///         cref="DropEnvironmentRequest.environment_name" /> does not
+    ///         exist, then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropEnvironmentRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -85,24 +99,30 @@ public class DropEnvironmentRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DropEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
-    ///         environment specified in <paramref name="environment_name" />
-    ///         does not exist, no error is returned. If <see
-    ///         cref="Options.FALSE">FALSE</see> and if the environment
-    ///         specified in <paramref name="environment_name" /> does not
-    ///         exist, then an error is returned.
+    ///         <description>If <see
+    ///         cref="DropEnvironmentRequest.Options.TRUE">TRUE</see> and if
+    ///         the environment specified in <paramref name="environment_name"
+    ///         /> does not exist, no error is returned. If <see
+    ///         cref="DropEnvironmentRequest.Options.FALSE">FALSE</see> and if
+    ///         the environment specified in <paramref name="environment_name"
+    ///         /> does not exist, then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropEnvironmentRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -116,8 +136,7 @@ public class DropEnvironmentRequest : KineticaData
 } // end class DropEnvironmentRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropEnvironment(DropEnvironmentRequest)">Kinetica.dropEnvironment</see>.
-/// </summary>
+/// cref="Kinetica.dropEnvironment">Kinetica.dropEnvironment</see>.</summary>
 public class DropEnvironmentResponse : KineticaData
 {
     /// <summary>Value of <see

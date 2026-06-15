@@ -9,17 +9,16 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
-/// </summary>
+/// cref="Kinetica.alterBackup">Kinetica.alterBackup</see>.</summary>
 /// <remarks><para>Alters an existing database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup</a>, accessible via the <a
 /// href="../../../concepts/data_sinks/" target="_top">data sink</a> specified
-/// by <see cref="datasink_name" />.</para></remarks>
+/// by <see cref="AlterBackupRequest.datasink_name" />.</para></remarks>
 public class AlterBackupRequest : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="action"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AlterBackupRequest.action" />.</summary>
     /// <remarks><para>Operation to be applied.</para></remarks>
     public struct Action
     {
@@ -27,27 +26,28 @@ public class AlterBackupRequest : KineticaData
         public const string CHECKSUM = "checksum";
 
         /// <summary>Whether or not to only save DDL and not back up table
-        /// data, when taking future snapshots; set <see cref="_value" /> to
-        /// 'true' or 'false' for DDL only or DDL and table data, respectively.
-        /// </summary>
+        /// data, when taking future snapshots; set <see
+        /// cref="AlterBackupRequest._value" /> to 'true' or 'false' for DDL
+        /// only or DDL and table data, respectively.</summary>
         public const string DDL_ONLY = "ddl_only";
 
         /// <summary>Maximum number of incremental snapshots to keep, when
-        /// taking future snapshots; set <see cref="_value" /> to the number of
-        /// snapshots to keep.</summary>
+        /// taking future snapshots; set <see cref="AlterBackupRequest._value"
+        /// /> to the number of snapshots to keep.</summary>
         public const string MAX_INCREMENTAL_BACKUPS_TO_KEEP = "max_incremental_backups_to_keep";
 
         /// <summary>Merges all snapshots within a backup and creates a single
         /// full snapshot.</summary>
         public const string MERGE = "merge";
 
-        /// <summary>Deletes a snapshot from a backup; set <see cref="_value"
-        /// /> to the snapshot ID to purge.</summary>
+        /// <summary>Deletes a snapshot from a backup; set <see
+        /// cref="AlterBackupRequest._value" /> to the snapshot ID to purge.
+        /// </summary>
         public const string PURGE = "purge";
     } // end struct Action
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AlterBackupRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -59,14 +59,17 @@ public class AlterBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AlterBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AlterBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AlterBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
 
         public const string TRUE = "true";
@@ -80,40 +83,48 @@ public class AlterBackupRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Action.CHECKSUM">CHECKSUM</see>:
+    ///         </term>
     ///         <description>Calculate checksum for backed-up files.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Action.DDL_ONLY">DDL_ONLY</see>:
+    ///         </term>
     ///         <description>Whether or not to only save DDL and not back up
     ///         table data, when taking future snapshots; set <see
-    ///         cref="_value" /> to 'true' or 'false' for DDL only or DDL and
-    ///         table data, respectively.</description>
+    ///         cref="AlterBackupRequest._value" /> to 'true' or 'false' for
+    ///         DDL only or DDL and table data, respectively.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         cref="AlterBackupRequest.Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
     ///         </term>
     ///         <description>Maximum number of incremental snapshots to keep,
-    ///         when taking future snapshots; set <see cref="_value" /> to the
-    ///         number of snapshots to keep.</description>
+    ///         when taking future snapshots; set <see
+    ///         cref="AlterBackupRequest._value" /> to the number of snapshots
+    ///         to keep.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.MERGE">MERGE</see>:</term>
+    ///         <term><see cref="AlterBackupRequest.Action.MERGE">MERGE</see>:
+    ///         </term>
     ///         <description>Merges all snapshots within a backup and creates a
     ///         single full snapshot.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.PURGE">PURGE</see>:</term>
+    ///         <term><see cref="AlterBackupRequest.Action.PURGE">PURGE</see>:
+    ///         </term>
     ///         <description>Deletes a snapshot from a backup; set <see
-    ///         cref="_value" /> to the snapshot ID to purge.</description>
+    ///         cref="AlterBackupRequest._value" /> to the snapshot ID to
+    ///         purge.</description>
     ///     </item>
     /// </list></remarks>
     public string action { get; set; }
 
-    /// <summary>Value of the modification, depending on <see cref="action" />.
-    /// </summary>
+    /// <summary>Value of the modification, depending on <see
+    /// cref="AlterBackupRequest.action" />.</summary>
     public string _value { get; set; }
 
     /// <summary>Data sink through which the backup is accessible.</summary>
@@ -122,23 +133,30 @@ public class AlterBackupRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Options.COMMENT">COMMENT</see>:</term>
     ///         <description>Comments to store with the backup.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
     ///         <description>Whether or not to perform a dry run of a backup
     ///         alteration.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AlterBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -157,12 +175,16 @@ public class AlterBackupRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Action.CHECKSUM">CHECKSUM</see>:
+    ///         </term>
     ///         <description>Calculate checksum for backed-up files.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Action.DDL_ONLY">DDL_ONLY</see>:
+    ///         </term>
     ///         <description>Whether or not to only save DDL and not back up
     ///         table data, when taking future snapshots; set <paramref
     ///         name="_value" /> to 'true' or 'false' for DDL only or DDL and
@@ -170,19 +192,21 @@ public class AlterBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
+    ///         cref="AlterBackupRequest.Action.MAX_INCREMENTAL_BACKUPS_TO_KEEP">MAX_INCREMENTAL_BACKUPS_TO_KEEP</see>:
     ///         </term>
     ///         <description>Maximum number of incremental snapshots to keep,
     ///         when taking future snapshots; set <paramref name="_value" /> to
     ///         the number of snapshots to keep.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.MERGE">MERGE</see>:</term>
+    ///         <term><see cref="AlterBackupRequest.Action.MERGE">MERGE</see>:
+    ///         </term>
     ///         <description>Merges all snapshots within a backup and creates a
     ///         single full snapshot.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.PURGE">PURGE</see>:</term>
+    ///         <term><see cref="AlterBackupRequest.Action.PURGE">PURGE</see>:
+    ///         </term>
     ///         <description>Deletes a snapshot from a backup; set <paramref
     ///         name="_value" /> to the snapshot ID to purge.</description>
     ///     </item>
@@ -194,23 +218,30 @@ public class AlterBackupRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COMMENT">COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Options.COMMENT">COMMENT</see>:</term>
     ///         <description>Comments to store with the backup.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="AlterBackupRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
     ///         <description>Whether or not to perform a dry run of a backup
     ///         alteration.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AlterBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -230,8 +261,7 @@ public class AlterBackupRequest : KineticaData
 } // end class AlterBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
-/// </summary>
+/// cref="Kinetica.alterBackup">Kinetica.alterBackup</see>.</summary>
 public class AlterBackupResponse : KineticaData
 {
     /// <summary>Value of <see

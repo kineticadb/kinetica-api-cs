@@ -9,14 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
-/// </summary>
+/// cref="Kinetica.adminRepairTable">Kinetica.adminRepairTable</see>.</summary>
 /// <remarks><para>Manually repair a corrupted table.
 /// Returns information about affected tables.</para></remarks>
 public class AdminRepairTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminRepairTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -25,23 +24,27 @@ public class AdminRepairTableRequest : KineticaData
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        ///         cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:</term>
-        ///         <description>Deletes any corrupted chunks</description>
+        ///         cref="AdminRepairTableRequest.Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
+        ///         </term>
+        ///         <description>Deletes any corrupted chunks.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:</term>
+        ///         cref="AdminRepairTableRequest.Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
+        ///         </term>
         ///         <description>Shrinks corrupted chunks to the shortest
-        ///         column</description>
+        ///         column.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
+        ///         <term><see
+        ///         cref="AdminRepairTableRequest.Options.REPLAY_WAL">REPLAY_WAL</see>:
         ///         </term>
         ///         <description>Manually invokes write-ahead log (WAL) replay
-        ///         on the table</description>
+        ///         on the table.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.ALTER_TABLE">ALTER_TABLE</see>:
+        ///         <term><see
+        ///         cref="AdminRepairTableRequest.Options.ALTER_TABLE">ALTER_TABLE</see>:
         ///         </term>
         ///         <description>Reset columns modification after incomplete
         ///         alter column.</description>
@@ -49,33 +52,40 @@ public class AdminRepairTableRequest : KineticaData
         /// </list></remarks>
         public const string REPAIR_POLICY = "repair_policy";
 
-        /// <summary>Deletes any corrupted chunks</summary>
+        /// <summary>Deletes any corrupted chunks.</summary>
         public const string DELETE_CHUNKS = "delete_chunks";
 
-        /// <summary>Shrinks corrupted chunks to the shortest column</summary>
+        /// <summary>Shrinks corrupted chunks to the shortest column.</summary>
         public const string SHRINK_COLUMNS = "shrink_columns";
 
-        /// <summary>Manually invokes write-ahead log (WAL) replay on the table
-        /// </summary>
+        /// <summary>Manually invokes write-ahead log (WAL) replay on the
+        /// table.</summary>
         public const string REPLAY_WAL = "replay_wal";
 
         /// <summary>Reset columns modification after incomplete alter column.
         /// </summary>
         public const string ALTER_TABLE = "alter_table";
 
-        /// <summary>If <see cref="Options.FALSE">FALSE</see> only table chunk
-        /// data already known to be corrupted will be repaired.</summary>
+        /// <summary>If <see
+        /// cref="AdminRepairTableRequest.Options.FALSE">FALSE</see> only table
+        /// chunk data already known to be corrupted will be repaired.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminRepairTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string VERIFY_ALL = "verify_all";
 
         public const string TRUE = "true";
@@ -86,60 +96,72 @@ public class AdminRepairTableRequest : KineticaData
     /// <remarks><para>An asterisk returns all tables.</para></remarks>
     public IList<string> table_names { get; set; } = new List<string>();
 
-    /// <summary>internal: type_id per table.</summary>
+    /// <summary>ID of the type per table.</summary>
     public IDictionary<string, string> table_types { get; set; } = new Dictionary<string, string>();
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.REPAIR_POLICY">REPAIR_POLICY</see>:
+    ///         <term><see
+    ///         cref="AdminRepairTableRequest.Options.REPAIR_POLICY">REPAIR_POLICY</see>:
     ///         </term>
     ///         <description>Corrective action to take.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
+    ///                 cref="AdminRepairTableRequest.Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
     ///                 </term>
-    ///                 <description>Deletes any corrupted chunks</description>
+    ///                 <description>Deletes any corrupted chunks.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
+    ///                 cref="AdminRepairTableRequest.Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
     ///                 </term>
     ///                 <description>Shrinks corrupted chunks to the shortest
-    ///                 column</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
-    ///                 </term>
-    ///                 <description>Manually invokes write-ahead log (WAL)
-    ///                 replay on the table</description>
+    ///                 column.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.ALTER_TABLE">ALTER_TABLE</see>:</term>
+    ///                 cref="AdminRepairTableRequest.Options.REPLAY_WAL">REPLAY_WAL</see>:
+    ///                 </term>
+    ///                 <description>Manually invokes write-ahead log (WAL)
+    ///                 replay on the table.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AdminRepairTableRequest.Options.ALTER_TABLE">ALTER_TABLE</see>:
+    ///                 </term>
     ///                 <description>Reset columns modification after
     ///                 incomplete alter column.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:</term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> only
+    ///         <term><see
+    ///         cref="AdminRepairTableRequest.Options.VERIFY_ALL">VERIFY_ALL</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see> only
     ///         table chunk data already known to be corrupted will be
     ///         repaired. Otherwise the database will perform a full table scan
     ///         to check for correctness.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRepairTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -155,58 +177,70 @@ public class AdminRepairTableRequest : KineticaData
     ///
     /// <param name="table_names">List of tables to query. An asterisk returns
     /// all tables.</param>
-    /// <param name="table_types">internal: type_id per table.</param>
+    /// <param name="table_types">ID of the type per table.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.REPAIR_POLICY">REPAIR_POLICY</see>:
+    ///         <term><see
+    ///         cref="AdminRepairTableRequest.Options.REPAIR_POLICY">REPAIR_POLICY</see>:
     ///         </term>
     ///         <description>Corrective action to take.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
+    ///                 cref="AdminRepairTableRequest.Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
     ///                 </term>
-    ///                 <description>Deletes any corrupted chunks</description>
+    ///                 <description>Deletes any corrupted chunks.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
+    ///                 cref="AdminRepairTableRequest.Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
     ///                 </term>
     ///                 <description>Shrinks corrupted chunks to the shortest
-    ///                 column</description>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.REPLAY_WAL">REPLAY_WAL</see>:
-    ///                 </term>
-    ///                 <description>Manually invokes write-ahead log (WAL)
-    ///                 replay on the table</description>
+    ///                 column.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.ALTER_TABLE">ALTER_TABLE</see>:</term>
+    ///                 cref="AdminRepairTableRequest.Options.REPLAY_WAL">REPLAY_WAL</see>:
+    ///                 </term>
+    ///                 <description>Manually invokes write-ahead log (WAL)
+    ///                 replay on the table.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AdminRepairTableRequest.Options.ALTER_TABLE">ALTER_TABLE</see>:
+    ///                 </term>
     ///                 <description>Reset columns modification after
     ///                 incomplete alter column.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VERIFY_ALL">VERIFY_ALL</see>:</term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> only
+    ///         <term><see
+    ///         cref="AdminRepairTableRequest.Options.VERIFY_ALL">VERIFY_ALL</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see> only
     ///         table chunk data already known to be corrupted will be
     ///         repaired. Otherwise the database will perform a full table scan
     ///         to check for correctness.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRepairTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRepairTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -222,8 +256,7 @@ public class AdminRepairTableRequest : KineticaData
 } // end class AdminRepairTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
-/// </summary>
+/// cref="Kinetica.adminRepairTable">Kinetica.adminRepairTable</see>.</summary>
 public class AdminRepairTableResponse : KineticaData
 {
     /// <summary>List of repaired tables.</summary>

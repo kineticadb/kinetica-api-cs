@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>.
-/// </summary>
+/// cref="Kinetica.showSystemStatus">Kinetica.showSystemStatus</see>.</summary>
 /// <remarks><para>Provides server configuration and health related status to
 /// the caller. The admin tool uses it to present server related information to
 /// the user.</para></remarks>
@@ -37,8 +36,7 @@ public class ShowSystemStatusRequest : KineticaData
 } // end class ShowSystemStatusRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>.
-/// </summary>
+/// cref="Kinetica.showSystemStatus">Kinetica.showSystemStatus</see>.</summary>
 public class ShowSystemStatusResponse : KineticaData
 {
     /// <summary>A map of server configuration and health related status.

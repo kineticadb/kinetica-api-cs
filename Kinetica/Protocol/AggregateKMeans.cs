@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateKMeans(AggregateKMeansRequest)">Kinetica.aggregateKMeans</see>.
-/// </summary>
+/// cref="Kinetica.aggregateKMeans">Kinetica.aggregateKMeans</see>.</summary>
 /// <remarks><para>This endpoint runs the k-means algorithm - a heuristic
 /// algorithm that attempts to do k-means clustering.  An ideal k-means
 /// clustering algorithm selects k points such that the sum of the mean squared
@@ -25,7 +24,7 @@ namespace kinetica;
 public class AggregateKMeansRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AggregateKMeansRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -43,21 +42,28 @@ public class AggregateKMeansRequest : KineticaData
         /// <remarks><para>Default is 1.</para></remarks>
         public const string NUM_TRIES = "num_tries";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        /// <summary>If <see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
@@ -73,27 +79,35 @@ public class AggregateKMeansRequest : KineticaData
         /// returned in the response.</para></remarks>
         public const string RESULT_TABLE = "result_table";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the result
-        /// table specified in <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be persisted
-        /// and will not expire unless a <see cref="Options.TTL">TTL</see> is
-        /// specified.</summary>
+        /// <summary>If <see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>, then the
+        /// result table specified in <see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// will be persisted and will not expire unless a <see
+        /// cref="AggregateKMeansRequest.Options.TTL">TTL</see> is specified.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RESULT_TABLE_PERSIST = "result_table_persist";
 
         /// <summary>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+        /// </summary>
         public const string TTL = "ttl";
     } // end struct Options
 
@@ -123,50 +137,64 @@ public class AggregateKMeansRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.WHITEN">WHITEN</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.WHITEN">WHITEN</see>:
+    ///         </term>
     ///         <description>When set to 1 each of the columns is first
     ///         normalized by its stdv - default is not to whiten.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.MAX_ITERS">MAX_ITERS</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.MAX_ITERS">MAX_ITERS</see>:
+    ///         </term>
     ///         <description>Number of times to try to hit the tolerance limit
     ///         before giving up - default is 10.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.NUM_TRIES">NUM_TRIES</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.NUM_TRIES">NUM_TRIES</see>:
+    ///         </term>
     ///         <description>Number of times to run the k-means algorithm with
     ///         a different randomly selected starting points - helps avoid
     ///         local minimum. Default is 1.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="AggregateKMeansRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
-    ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified), then
-    ///         this is always allowed even if the caller does not have
-    ///         permission to create tables. The generated name is returned in
-    ///         <see
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If <see
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+    ///         is <see cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="AggregateKMeansResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:
     ///         </term>
     ///         <description>The name of a table used to store the results, in
     ///         [schema_name.]table_name format, using standard <a
@@ -179,33 +207,44 @@ public class AggregateKMeansRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         <description>If <see
+    ///         cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>, then the
     ///         result table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the result table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         will be persisted and will not expire unless a <see
+    ///         cref="AggregateKMeansRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>, then
+    ///         the result table will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="AggregateKMeansRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see cref="AggregateKMeansRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</description>
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -233,50 +272,64 @@ public class AggregateKMeansRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.WHITEN">WHITEN</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.WHITEN">WHITEN</see>:
+    ///         </term>
     ///         <description>When set to 1 each of the columns is first
     ///         normalized by its stdv - default is not to whiten.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.MAX_ITERS">MAX_ITERS</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.MAX_ITERS">MAX_ITERS</see>:
+    ///         </term>
     ///         <description>Number of times to try to hit the tolerance limit
     ///         before giving up - default is 10.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.NUM_TRIES">NUM_TRIES</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.NUM_TRIES">NUM_TRIES</see>:
+    ///         </term>
     ///         <description>Number of times to run the k-means algorithm with
     ///         a different randomly selected starting points - helps avoid
     ///         local minimum. Default is 1.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="AggregateKMeansRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
-    ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified), then
-    ///         this is always allowed even if the caller does not have
-    ///         permission to create tables. The generated name is returned in
-    ///         <see
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If <see
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+    ///         is <see cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="AggregateKMeansResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+    ///         <term><see
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:
     ///         </term>
     ///         <description>The name of a table used to store the results, in
     ///         [schema_name.]table_name format, using standard <a
@@ -289,33 +342,44 @@ public class AggregateKMeansRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         <description>If <see
+    ///         cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>, then the
     ///         result table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the result table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         will be persisted and will not expire unless a <see
+    ///         cref="AggregateKMeansRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>, then
+    ///         the result table will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="AggregateKMeansRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see cref="AggregateKMeansRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</description>
+    ///         cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -334,12 +398,11 @@ public class AggregateKMeansRequest : KineticaData
 } // end class AggregateKMeansRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateKMeans(AggregateKMeansRequest)">Kinetica.aggregateKMeans</see>.
-/// </summary>
+/// cref="Kinetica.aggregateKMeans">Kinetica.aggregateKMeans</see>.</summary>
 public class AggregateKMeansResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AggregateKMeansResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -379,7 +442,7 @@ public class AggregateKMeansResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+    ///         cref="AggregateKMeansResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the result table (i.e.
     ///         including the schema) used to store the results.</description>

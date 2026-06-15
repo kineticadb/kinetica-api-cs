@@ -9,17 +9,17 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showBackup(ShowBackupRequest)">Kinetica.showBackup</see>.
-/// </summary>
+/// cref="Kinetica.showBackup">Kinetica.showBackup</see>.</summary>
 /// <remarks><para>Shows information about one or more <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backups</a> accessible via the <a
 /// href="../../../concepts/data_sources/" target="_top">data source</a>
-/// specified by <see cref="datasource_name" />.</para></remarks>
+/// specified by <see cref="ShowBackupRequest.datasource_name" />.</para>
+/// </remarks>
 public class ShowBackupRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowBackupRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -32,26 +32,30 @@ public class ShowBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ALL">ALL</see>:</term>
+        ///         <term><see cref="ShowBackupRequest.Options.ALL">ALL</see>:
+        ///         </term>
         ///         <description>Show all backup types.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FULL">FULL</see>:</term>
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.FULL">FULL</see>:</term>
         ///         <description>Show full backups only.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.INCREMENTAL">INCREMENTAL</see>:
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.INCREMENTAL">INCREMENTAL</see>:
         ///         </term>
         ///         <description>Show incremental backups only.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.DIFFERENTIAL">DIFFERENTIAL</see>:
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.DIFFERENTIAL">DIFFERENTIAL</see>:
         ///         </term>
         ///         <description>Show differential backups only.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.ALL">ALL</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowBackupRequest.Options.ALL">ALL</see>.</para></remarks>
         public const string BACKUP_TYPE = "backup_type";
 
         /// <summary>Show all backup types.</summary>
@@ -70,24 +74,27 @@ public class ShowBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.NONE">NONE</see>:</term>
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.NONE">NONE</see>:</term>
         ///         <description>Don't show snapshot contents.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.OBJECT_NAMES">OBJECT_NAMES</see>:
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.OBJECT_NAMES">OBJECT_NAMES</see>:
         ///         </term>
         ///         <description>Show backed-up object names, and for tables,
         ///         sizing detail.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.OBJECT_FILES">OBJECT_FILES</see>:
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.OBJECT_FILES">OBJECT_FILES</see>:
         ///         </term>
         ///         <description>Show backed-up object names, and for tables,
         ///         sizing detail and associated files.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.NONE">NONE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowBackupRequest.Options.NONE">NONE</see>.</para></remarks>
         public const string SHOW_CONTENTS = "show_contents";
 
         /// <summary>Don't show snapshot contents.</summary>
@@ -106,14 +113,17 @@ public class ShowBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowBackupRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
@@ -132,85 +142,104 @@ public class ShowBackupRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
+    ///         <term><see
+    ///         cref="ShowBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
+    ///         </term>
     ///         <description>ID of the snapshot to show. Leave empty to show
     ///         information from the most recent snapshot in the backup. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BACKUP_TYPE">BACKUP_TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="ShowBackupRequest.Options.BACKUP_TYPE">BACKUP_TYPE</see>:
+    ///         </term>
     ///         <description>Show backups by type. This option is ignored if
-    ///         <see cref="Options.BACKUP_ID">BACKUP_ID</see> is non-empty.
+    ///         <see cref="ShowBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>
+    ///         is non-empty.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ALL">ALL</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.ALL">ALL</see>:</term>
     ///                 <description>Show all backup types.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.FULL">FULL</see>:
+    ///                 </term>
     ///                 <description>Show full backups only.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.INCREMENTAL">INCREMENTAL</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.INCREMENTAL">INCREMENTAL</see>:
+    ///                 </term>
     ///                 <description>Show incremental backups only.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DIFFERENTIAL">DIFFERENTIAL</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.DIFFERENTIAL">DIFFERENTIAL</see>:
+    ///                 </term>
     ///                 <description>Show differential backups only.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.ALL">ALL</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowBackupRequest.Options.ALL">ALL</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHOW_CONTENTS">SHOW_CONTENTS</see>:
+    ///         <term><see
+    ///         cref="ShowBackupRequest.Options.SHOW_CONTENTS">SHOW_CONTENTS</see>:
     ///         </term>
     ///         <description>Show the contents of the backed-up snapshots.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.NONE">NONE</see>:
+    ///                 </term>
     ///                 <description>Don't show snapshot contents.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.OBJECT_NAMES">OBJECT_NAMES</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.OBJECT_NAMES">OBJECT_NAMES</see>:
+    ///                 </term>
     ///                 <description>Show backed-up object names, and for
     ///                 tables, sizing detail.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.OBJECT_FILES">OBJECT_FILES</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.OBJECT_FILES">OBJECT_FILES</see>:
+    ///                 </term>
     ///                 <description>Show backed-up object names, and for
     ///                 tables, sizing detail and associated files.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NONE">NONE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowBackupRequest.Options.NONE">NONE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowBackupRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
     ///         <description>Whether or not to suppress the error if the
     ///         specified backup does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -233,85 +262,104 @@ public class ShowBackupRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
+    ///         <term><see
+    ///         cref="ShowBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
+    ///         </term>
     ///         <description>ID of the snapshot to show. Leave empty to show
     ///         information from the most recent snapshot in the backup. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BACKUP_TYPE">BACKUP_TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="ShowBackupRequest.Options.BACKUP_TYPE">BACKUP_TYPE</see>:
+    ///         </term>
     ///         <description>Show backups by type. This option is ignored if
-    ///         <see cref="Options.BACKUP_ID">BACKUP_ID</see> is non-empty.
+    ///         <see cref="ShowBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>
+    ///         is non-empty.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ALL">ALL</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.ALL">ALL</see>:</term>
     ///                 <description>Show all backup types.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.FULL">FULL</see>:
+    ///                 </term>
     ///                 <description>Show full backups only.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.INCREMENTAL">INCREMENTAL</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.INCREMENTAL">INCREMENTAL</see>:
+    ///                 </term>
     ///                 <description>Show incremental backups only.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.DIFFERENTIAL">DIFFERENTIAL</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.DIFFERENTIAL">DIFFERENTIAL</see>:
+    ///                 </term>
     ///                 <description>Show differential backups only.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.ALL">ALL</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowBackupRequest.Options.ALL">ALL</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHOW_CONTENTS">SHOW_CONTENTS</see>:
+    ///         <term><see
+    ///         cref="ShowBackupRequest.Options.SHOW_CONTENTS">SHOW_CONTENTS</see>:
     ///         </term>
     ///         <description>Show the contents of the backed-up snapshots.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.NONE">NONE</see>:
+    ///                 </term>
     ///                 <description>Don't show snapshot contents.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.OBJECT_NAMES">OBJECT_NAMES</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.OBJECT_NAMES">OBJECT_NAMES</see>:
+    ///                 </term>
     ///                 <description>Show backed-up object names, and for
     ///                 tables, sizing detail.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.OBJECT_FILES">OBJECT_FILES</see>:</term>
+    ///                 cref="ShowBackupRequest.Options.OBJECT_FILES">OBJECT_FILES</see>:
+    ///                 </term>
     ///                 <description>Show backed-up object names, and for
     ///                 tables, sizing detail and associated files.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NONE">NONE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowBackupRequest.Options.NONE">NONE</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowBackupRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
     ///         <description>Whether or not to suppress the error if the
     ///         specified backup does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -327,8 +375,7 @@ public class ShowBackupRequest : KineticaData
 } // end class ShowBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showBackup(ShowBackupRequest)">Kinetica.showBackup</see>.
-/// </summary>
+/// cref="Kinetica.showBackup">Kinetica.showBackup</see>.</summary>
 public class ShowBackupResponse : KineticaData
 {
     /// <summary>Value of <see

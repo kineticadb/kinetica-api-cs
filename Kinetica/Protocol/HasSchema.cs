@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
-/// </summary>
+/// cref="Kinetica.hasSchema">Kinetica.hasSchema</see>.</summary>
 /// <remarks><para>Checks for the existence of a schema with the given name.
 /// </para></remarks>
 public class HasSchemaRequest : KineticaData
@@ -47,12 +46,11 @@ public class HasSchemaRequest : KineticaData
 } // end class HasSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasSchema(HasSchemaRequest)">Kinetica.hasSchema</see>.
-/// </summary>
+/// cref="Kinetica.hasSchema">Kinetica.hasSchema</see>.</summary>
 public class HasSchemaResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="schema_exists" />.</summary>
+    /// cref="HasSchemaResponse.schema_exists" />.</summary>
     /// <remarks><para>Indicates whether the schema exists or not.</para>
     /// </remarks>
     public struct SchemaExists
@@ -62,7 +60,7 @@ public class HasSchemaResponse : KineticaData
     } // end struct SchemaExists
 
     /// <summary>Value of <see
-    /// cref="HasSchemaRequest.schema_name">schema_name</see></summary>
+    /// cref="HasSchemaRequest.schema_name">schema_name</see>.</summary>
     public string schema_name { get; set; }
 
     /// <summary>Indicates whether the schema exists or not.</summary>

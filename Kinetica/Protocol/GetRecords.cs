@@ -9,26 +9,26 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getRecords{T}(GetRecordsRequest)">Kinetica.getRecords</see>.
-/// </summary>
+/// cref="Kinetica.getRecords">Kinetica.getRecords</see>.</summary>
 /// <remarks><para>Retrieves records from a given table, optionally filtered by
 /// an expression and/or sorted by a column. This operation can be performed on
 /// tables and views. Records can be returned encoded as binary, json, or
 /// geojson.</para>
 /// <para>This operation supports paging through the data via the <see
-/// cref="offset" /> and <see cref="limit" /> parameters.  Note that when
-/// paging through a table, if the table (or the underlying table in case of a
-/// view) is updated (records are inserted, deleted or modified) the records
-/// retrieved may differ between calls based on the updates applied.</para>
-/// </remarks>
+/// cref="GetRecordsRequest.offset" /> and <see cref="GetRecordsRequest.limit"
+/// /> parameters.  Note that when paging through a table, if the table (or the
+/// underlying table in case of a view) is updated (records are inserted,
+/// deleted or modified) the records retrieved may differ between calls based
+/// on the updates applied.</para></remarks>
 public class GetRecordsRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="encoding" />.</summary>
+    /// cref="GetRecordsRequest.encoding" />.</summary>
     /// <remarks><para>Specifies the encoding for returned records; one of <see
-    /// cref="Encoding.BINARY">BINARY</see>, <see
-    /// cref="Encoding.JSON">JSON</see>, or <see
-    /// cref="Encoding.GEOJSON">GEOJSON</see>.</para></remarks>
+    /// cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>, <see
+    /// cref="GetRecordsRequest.Encoding.JSON">JSON</see>, or <see
+    /// cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see>.</para>
+    /// </remarks>
     public struct Encoding
     {
         public const string BINARY = "binary";
@@ -38,11 +38,10 @@ public class GetRecordsRequest : KineticaData
     } // end struct Encoding
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="GetRecordsRequest.options" />.</summary>
     public struct Options
     {
-        /// <summary>Optional filter expression to apply to the table.
-        /// </summary>
+        /// <summary>Filter expression to apply to the table.</summary>
         public const string EXPRESSION = "expression";
 
         /// <summary>Indicates if indexes should be used to perform the lookup
@@ -50,21 +49,22 @@ public class GetRecordsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="GetRecordsRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="GetRecordsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="GetRecordsRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string FAST_INDEX_LOOKUP = "fast_index_lookup";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>Optional column that the data should be sorted by.
-        /// </summary>
+        /// <summary>Column that the data should be sorted by.</summary>
         /// <remarks><para>Empty by default (i.e. no sorting is applied).
         /// </para></remarks>
         public const string SORT_BY = "sort_by";
@@ -74,15 +74,19 @@ public class GetRecordsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ASCENDING">ASCENDING</see></term>
+        ///         <term><see
+        ///         cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.DESCENDING">DESCENDING</see>
+        ///         <term><see
+        ///         cref="GetRecordsRequest.Options.DESCENDING">DESCENDING</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.ASCENDING">ASCENDING</see>.</para></remarks>
+        /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</para>
+        /// </remarks>
         public const string SORT_ORDER = "sort_order";
 
         public const string ASCENDING = "ascending";
@@ -109,44 +113,51 @@ public class GetRecordsRequest : KineticaData
     /// href="../../../config/#config-main-general"
     /// target="_top">max_get_records_size</a> parameter in the server
     /// configuration. Use <see
-    /// cref="GetRecordsResponse{T}.has_more_records">has_more_records</see> to
+    /// cref="RawGetRecordsResponse.has_more_records">has_more_records</see> to
     /// see if more records exist in the result to be fetched, and <see
-    /// cref="offset" /> and <see cref="limit" /> to request subsequent pages
-    /// of results. The default value is -9999.</para></remarks>
+    /// cref="GetRecordsRequest.offset" /> and <see
+    /// cref="GetRecordsRequest.limit" /> to request subsequent pages of
+    /// results. The default value is -9999.</para></remarks>
     public long limit { get; set; } = -9999;
 
     /// <summary>Specifies the encoding for returned records; one of <see
-    /// cref="Encoding.BINARY">BINARY</see>, <see
-    /// cref="Encoding.JSON">JSON</see>, or <see
-    /// cref="Encoding.GEOJSON">GEOJSON</see>.</summary>
+    /// cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>, <see
+    /// cref="GetRecordsRequest.Encoding.JSON">JSON</see>, or <see
+    /// cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see>.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Encoding.BINARY">BINARY</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///         <term><see cref="GetRecordsRequest.Encoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.GEOJSON">GEOJSON</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.ARROW">ARROW</see></term>
+    ///         <term><see cref="GetRecordsRequest.Encoding.ARROW">ARROW</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
-    /// </para></remarks>
+    /// <para>The default value is <see
+    /// cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>.</para></remarks>
     public string encoding { get; set; } = Encoding.BINARY;
 
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:
+    ///         cref="GetRecordsRequest.Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:
     ///         </term>
     ///         <description>Indicates if indexes should be used to perform the
     ///         lookup for a given expression if possible. Only applicable if
@@ -156,38 +167,47 @@ public class GetRecordsRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="GetRecordsRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Empty by default (i.e. no sorting is applied).</description>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.SORT_BY">SORT_BY</see>:</term>
+    ///         <description>Column that the data should be sorted by. Empty by
+    ///         default (i.e. no sorting is applied).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:</term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.SORT_ORDER">SORT_ORDER</see>:
+    ///         </term>
     ///         <description>String indicating how the returned values should
     ///         be sorted - ascending or descending. If sort_order is provided,
     ///         sort_by has to be provided.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DESCENDING">DESCENDING</see>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.DESCENDING">DESCENDING</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+    ///         cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -215,19 +235,21 @@ public class GetRecordsRequest : KineticaData
     /// limit, defined by the <a href="../../../config/#config-main-general"
     /// target="_top">max_get_records_size</a> parameter in the server
     /// configuration. Use <see
-    /// cref="GetRecordsResponse{T}.has_more_records">has_more_records</see> to
+    /// cref="RawGetRecordsResponse.has_more_records">has_more_records</see> to
     /// see if more records exist in the result to be fetched, and <paramref
     /// name="offset" /> and <paramref name="limit" /> to request subsequent
     /// pages of results. The default value is -9999.</param>
     /// <param name="options"><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:
+    ///         cref="GetRecordsRequest.Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:
     ///         </term>
     ///         <description>Indicates if indexes should be used to perform the
     ///         lookup for a given expression if possible. Only applicable if
@@ -237,38 +259,47 @@ public class GetRecordsRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="GetRecordsRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Empty by default (i.e. no sorting is applied).</description>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.SORT_BY">SORT_BY</see>:</term>
+    ///         <description>Column that the data should be sorted by. Empty by
+    ///         default (i.e. no sorting is applied).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:</term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.SORT_ORDER">SORT_ORDER</see>:
+    ///         </term>
     ///         <description>String indicating how the returned values should
     ///         be sorted - ascending or descending. If sort_order is provided,
     ///         sort_by has to be provided.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DESCENDING">DESCENDING</see>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.DESCENDING">DESCENDING</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+    ///         cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -302,39 +333,46 @@ public class GetRecordsRequest : KineticaData
     /// limit, defined by the <a href="../../../config/#config-main-general"
     /// target="_top">max_get_records_size</a> parameter in the server
     /// configuration. Use <see
-    /// cref="GetRecordsResponse{T}.has_more_records">has_more_records</see> to
+    /// cref="RawGetRecordsResponse.has_more_records">has_more_records</see> to
     /// see if more records exist in the result to be fetched, and <paramref
     /// name="offset" /> and <paramref name="limit" /> to request subsequent
     /// pages of results. The default value is -9999.</param>
     /// <param name="encoding">Specifies the encoding for returned records; one
-    /// of <see cref="Encoding.BINARY">BINARY</see>, <see
-    /// cref="Encoding.JSON">JSON</see>, or <see
-    /// cref="Encoding.GEOJSON">GEOJSON</see>.
+    /// of <see cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>, <see
+    /// cref="GetRecordsRequest.Encoding.JSON">JSON</see>, or <see
+    /// cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see>.
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Encoding.BINARY">BINARY</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///         <term><see cref="GetRecordsRequest.Encoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.GEOJSON">GEOJSON</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see></term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.ARROW">ARROW</see></term>
+    ///         <term><see cref="GetRecordsRequest.Encoding.ARROW">ARROW</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// The default value is <see
+    /// cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>.</param>
     /// <param name="options"><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:
+    ///         cref="GetRecordsRequest.Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:
     ///         </term>
     ///         <description>Indicates if indexes should be used to perform the
     ///         lookup for a given expression if possible. Only applicable if
@@ -344,38 +382,47 @@ public class GetRecordsRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="GetRecordsRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SORT_BY">SORT_BY</see>:</term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Empty by default (i.e. no sorting is applied).</description>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.SORT_BY">SORT_BY</see>:</term>
+    ///         <description>Column that the data should be sorted by. Empty by
+    ///         default (i.e. no sorting is applied).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:</term>
+    ///         <term><see
+    ///         cref="GetRecordsRequest.Options.SORT_ORDER">SORT_ORDER</see>:
+    ///         </term>
     ///         <description>String indicating how the returned values should
     ///         be sorted - ascending or descending. If sort_order is provided,
     ///         sort_by has to be provided.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DESCENDING">DESCENDING</see>
+    ///                 <term><see
+    ///                 cref="GetRecordsRequest.Options.DESCENDING">DESCENDING</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+    ///         cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -394,8 +441,7 @@ public class GetRecordsRequest : KineticaData
 } // end class GetRecordsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecords{T}(GetRecordsRequest)">Kinetica.getRecords</see>.
-/// </summary>
+/// cref="Kinetica.getRecords">Kinetica.getRecords</see>.</summary>
 public class RawGetRecordsResponse : KineticaData
 {
     /// <summary>Value of <see
@@ -404,8 +450,9 @@ public class RawGetRecordsResponse : KineticaData
 
     public string type_name { get; set; }
 
-    /// <summary>Avro schema of <see cref="records_binary" /> or <see
-    /// cref="records_json" /></summary>
+    /// <summary>Avro schema of <see
+    /// cref="RawGetRecordsResponse.records_binary" /> or <see
+    /// cref="RawGetRecordsResponse.records_json" />.</summary>
     public string type_schema { get; set; }
 
     /// <summary>If the <see cref="GetRecordsRequest.encoding">encoding</see>
@@ -435,8 +482,7 @@ public class RawGetRecordsResponse : KineticaData
 } // end class RawGetRecordsResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecords{T}(GetRecordsRequest)">Kinetica.getRecords</see>.
-/// </summary>
+/// cref="Kinetica.getRecords">Kinetica.getRecords</see>.</summary>
 ///
 /// <typeparam name="T">The type of object being processed.</typeparam>
 public class GetRecordsResponse<T> : KineticaData
@@ -447,8 +493,8 @@ public class GetRecordsResponse<T> : KineticaData
 
     public string type_name { get; set; }
 
-    /// <summary>Avro schema of <see cref="data" /> or <c>records_json</c>
-    /// </summary>
+    /// <summary>Avro schema of <see cref="RawGetRecordsResponse.data" /> or
+    /// <c>records_json</c>.</summary>
     public string type_schema { get; set; }
 
     /// <summary>If the <see cref="GetRecordsRequest.encoding">encoding</see>

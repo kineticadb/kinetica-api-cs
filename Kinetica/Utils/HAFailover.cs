@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace kinetica;
 
@@ -234,6 +231,11 @@ namespace kinetica;
         public Regex? HostnameRegex { get; set; }
 
         /// <summary>
+        /// Optional logger (category "Kinetica.HAFailover"). Defaults to no-op when unset.
+        /// </summary>
+        public ILogger Logger { get; set; } = Microsoft.Extensions.Logging.Abstractions.NullLogger.Instance;
+
+        /// <summary>
         /// Creates a new HAFailoverManager.
         /// </summary>
         public HAFailoverManager()
@@ -412,15 +414,56 @@ namespace kinetica;
                                 }
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            // Failed to get system properties, use minimal info
+                            Logger.LogWarning(ex,
+                                "Adding failed connectivity check cluster to cluster list with URL: {URL}.",
+                                url);
                             clusterInfo = new ClusterAddressInfo(url, HostManagerPort);
                         }
                     }
                     else
                     {
                         clusterInfo = new ClusterAddressInfo(url, HostManagerPort);
+                    }
+
+                    // For a user-given URL with auto-discovery enabled, verify the cluster is also
+                    // reachable at the server-known head node URL we just learned via auto-discovery.
+                    // The server advertises its ranks via conf.worker_http_server_urls (see
+                    // CreateClusterAddressInfo); when the client connected with an external/global-DNS
+                    // URL but the server returns internal/LAN URLs, the client can still talk to the
+                    // head node via the user-given URL but cannot reach any rank directly. That
+                    // implicitly eliminates multi-head operations. Mirror the Java client: warn, then
+                    // throw so the connection is reprocessed with auto-discovery disabled (i.e.
+                    // degraded mode).
+                    if (isUserGivenUrl && !DisableAutoDiscovery && kinetica != null)
+                    {
+                        Uri clusterHeadNodeUrl = clusterInfo.ActiveHeadNodeUrl;
+                        if (clusterHeadNodeUrl != null && !url.Equals(clusterHeadNodeUrl))
+                        {
+                            if (!kinetica.IsSystemRunning(clusterHeadNodeUrl))
+                            {
+                                Logger.LogWarning(
+                                    "Disabling auto-discovery & multi-head operations: cluster reachable with " +
+                                    "user-given URL <{UserUrl}> but not with server-known URL <{ServerUrl}>. " +
+                                    "Reprocessing the connection without auto-discovery; database commands will " +
+                                    "still work via the head node, but multi-head operations (BulkInserter, " +
+                                    "RecordRetriever) will be unavailable.",
+                                    url, clusterHeadNodeUrl);
+
+                                // Deliberately do NOT set DisableAutoDiscovery here. Unlike the Java client
+                                // (which sets the flag before throwing), the C# InitializeWithRetry loop owns
+                                // that state transition: it catches this exception, flips DisableAutoDiscovery,
+                                // and retries using only the user-given URLs. Pre-setting the flag would make
+                                // the retry loop treat this as a second failure and give up.
+                                throw new KineticaException(
+                                    $"Could not connect to user-given URL {url} via server-known head node URL {clusterHeadNodeUrl}");
+                            }
+
+                            Logger.LogDebug(
+                                "Verified connectivity with user-given URL {UserUrl} at server-known URL {ServerUrl}",
+                                url, clusterHeadNodeUrl);
+                        }
                     }
 
                     if (isUserGivenUrl)

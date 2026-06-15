@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionSystem(GrantPermissionSystemRequest)">Kinetica.grantPermissionSystem</see>.
+/// cref="Kinetica.grantPermissionSystem">Kinetica.grantPermissionSystem</see>.
 /// </summary>
 /// <remarks><para>Grants a system-level permission to a user or role.</para>
 /// </remarks>
 public class GrantPermissionSystemRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="GrantPermissionSystemRequest.permission" />.</summary>
     /// <remarks><para>Permission to grant to the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -47,31 +47,34 @@ public class GrantPermissionSystemRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
     ///         </term>
     ///         <description>Full access to all data and system functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
     ///         </term>
     ///         <description>Read and write access to all tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_READ">SYSTEM_READ</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:
     ///         </term>
     ///         <description>Read-only access to all tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
     ///         </term>
     ///         <description>Send system alerts.</description>
     ///     </item>
@@ -96,31 +99,34 @@ public class GrantPermissionSystemRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
     ///         </term>
     ///         <description>Full access to all data and system functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
     ///         </term>
     ///         <description>Read and write access to all tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_READ">SYSTEM_READ</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:
     ///         </term>
     ///         <description>Read-only access to all tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
+    ///         cref="GrantPermissionSystemRequest.Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
     ///         </term>
     ///         <description>Send system alerts.</description>
     ///     </item>
@@ -138,7 +144,7 @@ public class GrantPermissionSystemRequest : KineticaData
 } // end class GrantPermissionSystemRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionSystem(GrantPermissionSystemRequest)">Kinetica.grantPermissionSystem</see>.
+/// cref="Kinetica.grantPermissionSystem">Kinetica.grantPermissionSystem</see>.
 /// </summary>
 public class GrantPermissionSystemResponse : KineticaData
 {

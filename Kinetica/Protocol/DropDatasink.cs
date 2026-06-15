@@ -9,36 +9,40 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropDatasink(DropDatasinkRequest)">Kinetica.dropDatasink</see>.
-/// </summary>
+/// cref="Kinetica.dropDatasink">Kinetica.dropDatasink</see>.</summary>
 /// <remarks><para>Drops an existing <a href="../../../concepts/data_sinks/"
 /// target="_top">data sink</a>.</para>
 /// <para>By default, if any <a href="../../../concepts/table_monitors"
 /// target="_top">table monitors</a> use this sink as a destination, the
 /// request will be blocked unless option <see
-/// cref="Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see> is <see
-/// cref="Options.TRUE">TRUE</see>.</para></remarks>
+/// cref="DropDatasinkRequest.Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see>
+/// is <see cref="DropDatasinkRequest.Options.TRUE">TRUE</see>.</para>
+/// </remarks>
 public class DropDatasinkRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DropDatasinkRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, any <a
+        /// <summary>If <see
+        /// cref="DropDatasinkRequest.Options.TRUE">TRUE</see>, any <a
         /// href="../../../concepts/table_monitors/" target="_top">table
         /// monitors</a> that use this data sink will be cleared.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DropDatasinkRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropDatasinkRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropDatasinkRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CLEAR_TABLE_MONITORS = "clear_table_monitors";
 
         public const string TRUE = "true";
@@ -53,21 +57,27 @@ public class DropDatasinkRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see>:
+    ///         cref="DropDatasinkRequest.Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, any <a
+    ///         <description>If <see
+    ///         cref="DropDatasinkRequest.Options.TRUE">TRUE</see>, any <a
     ///         href="../../../concepts/table_monitors/" target="_top">table
     ///         monitors</a> that use this data sink will be cleared.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropDatasinkRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropDatasinkRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropDatasinkRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -87,21 +97,27 @@ public class DropDatasinkRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see>:
+    ///         cref="DropDatasinkRequest.Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, any <a
+    ///         <description>If <see
+    ///         cref="DropDatasinkRequest.Options.TRUE">TRUE</see>, any <a
     ///         href="../../../concepts/table_monitors/" target="_top">table
     ///         monitors</a> that use this data sink will be cleared.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropDatasinkRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropDatasinkRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropDatasinkRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -115,8 +131,7 @@ public class DropDatasinkRequest : KineticaData
 } // end class DropDatasinkRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropDatasink(DropDatasinkRequest)">Kinetica.dropDatasink</see>.
-/// </summary>
+/// cref="Kinetica.dropDatasink">Kinetica.dropDatasink</see>.</summary>
 public class DropDatasinkResponse : KineticaData
 {
     /// <summary>Value of <see cref="DropDatasinkRequest.name">name</see>.

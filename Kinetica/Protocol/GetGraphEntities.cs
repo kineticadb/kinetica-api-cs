@@ -9,16 +9,15 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getGraphEntities(GetGraphEntitiesRequest)">Kinetica.getGraphEntities</see>.
-/// </summary>
+/// cref="Kinetica.getGraphEntities">Kinetica.getGraphEntities</see>.</summary>
 /// <remarks><para>Retrieves node or edge entities from an existing graph, with
 /// pagination support via offset and limit. Use <see
-/// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see> to
-/// obtain the total number of nodes and edges.</para></remarks>
+/// cref="Kinetica.showGraph">Kinetica.showGraph</see> to obtain the total
+/// number of nodes and edges.</para></remarks>
 public class GetGraphEntitiesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="GetGraphEntitiesRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -26,17 +25,22 @@ public class GetGraphEntitiesRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.EDGE">EDGE</see>:</term>
+        ///         <term><see
+        ///         cref="GetGraphEntitiesRequest.Options.EDGE">EDGE</see>:
+        ///         </term>
         ///         <description>Retrieve edge entities (default).
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.NODE">NODE</see>:</term>
+        ///         <term><see
+        ///         cref="GetGraphEntitiesRequest.Options.NODE">NODE</see>:
+        ///         </term>
         ///         <description>Retrieve node entities.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.EDGE">EDGE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="GetGraphEntitiesRequest.Options.EDGE">EDGE</see>.</para>
+        /// </remarks>
         public const string ENTITY_TYPE = "entity_type";
 
         /// <summary>Retrieve edge entities (default).</summary>
@@ -50,6 +54,79 @@ public class GetGraphEntitiesRequest : KineticaData
         /// <remarks><para>Required when the graph is distributed across
         /// multiple servers. The default value is '0'.</para></remarks>
         public const string SERVER_ID = "server_id";
+
+        /// <summary>When true, edges are emitted in a compact connectivity
+        /// form regardless of the graph's identifier type: <see
+        /// cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+        /// contains stride-4 records [edge_id, node1_index, node2_index,
+        /// edge_label_index] where node1_index/node2_index are 0-based
+        /// positions into the node array (obtained from a node-entity call on
+        /// the same graph).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
+        ///         <description>Compact integer connectivity for edges;
+        ///         deleted node slots included in node output.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>Default: edges emit node identifiers
+        ///         (int/string/WKT) matching the graph; deleted nodes are
+        ///         skipped.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
+        public const string CONCISE_EDGE_CONNECTIVITY = "concise_edge_connectivity";
+
+        /// <summary>Populate <see
+        /// cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+        /// with per-edge weights (edge requests only).</summary>
+        public const string TRUE = "true";
+
+        /// <summary>Default: <see
+        /// cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+        /// is empty.</summary>
+        public const string FALSE = "false";
+
+        /// <summary>When true and <c>options entity_type</c> is 'edge', the
+        /// response <see
+        /// cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+        /// array is populated with one float weight per emitted edge (aligned
+        /// 1:1 with the edge records in <see
+        /// cref="GetGraphEntitiesResponse.entities_int">entities_int</see> or
+        /// <see
+        /// cref="GetGraphEntitiesResponse.entities_string">entities_string</see>).
+        /// </summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
+        ///         <description>Populate <see
+        ///         cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+        ///         with per-edge weights (edge requests only).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>Default: <see
+        ///         cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+        ///         is empty.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
+        public const string INCLUDE_WEIGHTS = "include_weights";
     } // end struct Options
 
     /// <summary>Name of the graph from which to retrieve entities.</summary>
@@ -61,7 +138,7 @@ public class GetGraphEntitiesRequest : KineticaData
     public long offset { get; set; } = 0;
 
     /// <summary>Number of entities to retrieve starting from <see
-    /// cref="offset" />.</summary>
+    /// cref="GetGraphEntitiesRequest.offset" />.</summary>
     /// <remarks><para>A value of -1 returns all entities from the offset to
     /// the end. Note: the <see
     /// cref="GetGraphEntitiesResponse.entities_int">entities_int</see> or <see
@@ -73,28 +150,116 @@ public class GetGraphEntitiesRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.ENTITY_TYPE">ENTITY_TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.ENTITY_TYPE">ENTITY_TYPE</see>:
+    ///         </term>
     ///         <description>The type of entity to retrieve.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.EDGE">EDGE</see>:</term>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.EDGE">EDGE</see>:
+    ///                 </term>
     ///                 <description>Retrieve edge entities (default).
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.NODE">NODE</see>:</term>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.NODE">NODE</see>:
+    ///                 </term>
     ///                 <description>Retrieve node entities.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.EDGE">EDGE</see>.
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.EDGE">EDGE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server to send the request
     ///         to. Required when the graph is distributed across multiple
     ///         servers. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.CONCISE_EDGE_CONNECTIVITY">CONCISE_EDGE_CONNECTIVITY</see>:
+    ///         </term>
+    ///         <description>When true, edges are emitted in a compact
+    ///         connectivity form regardless of the graph's identifier type:
+    ///         <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         contains stride-4 records [edge_id, node1_index, node2_index,
+    ///         edge_label_index] where node1_index/node2_index are 0-based
+    ///         positions into the node array (obtained from a node-entity call
+    ///         on the same graph). When requesting nodes with this option, the
+    ///         response includes tombstoned (deleted) slots in order to keep
+    ///         position indices stable so edge indices resolve correctly;
+    ///         deleted slots carry id=0 for integer graphs or an empty
+    ///         identifier for string/WKT graphs. For paginated node calls,
+    ///         subtract <see cref="GetGraphEntitiesRequest.offset" /> from an
+    ///         edge endpoint index to locate it within the returned page.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Compact integer connectivity for edges;
+    ///                 deleted node slots included in node output.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: edges emit node identifiers
+    ///                 (int/string/WKT) matching the graph; deleted nodes are
+    ///                 skipped.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.INCLUDE_WEIGHTS">INCLUDE_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>When true and <c>options entity_type</c> is
+    ///         'edge', the response <see
+    ///         cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///         array is populated with one float weight per emitted edge
+    ///         (aligned 1:1 with the edge records in <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         or <see
+    ///         cref="GetGraphEntitiesResponse.entities_string">entities_string</see>).
+    ///         Empty when the graph has no weights component or when
+    ///         requesting nodes.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Populate <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 with per-edge weights (edge requests only).
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 is empty.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -121,28 +286,116 @@ public class GetGraphEntitiesRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.ENTITY_TYPE">ENTITY_TYPE</see>:</term>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.ENTITY_TYPE">ENTITY_TYPE</see>:
+    ///         </term>
     ///         <description>The type of entity to retrieve.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.EDGE">EDGE</see>:</term>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.EDGE">EDGE</see>:
+    ///                 </term>
     ///                 <description>Retrieve edge entities (default).
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.NODE">NODE</see>:</term>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.NODE">NODE</see>:
+    ///                 </term>
     ///                 <description>Retrieve node entities.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.EDGE">EDGE</see>.
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.EDGE">EDGE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server to send the request
     ///         to. Required when the graph is distributed across multiple
     ///         servers. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.CONCISE_EDGE_CONNECTIVITY">CONCISE_EDGE_CONNECTIVITY</see>:
+    ///         </term>
+    ///         <description>When true, edges are emitted in a compact
+    ///         connectivity form regardless of the graph's identifier type:
+    ///         <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         contains stride-4 records [edge_id, node1_index, node2_index,
+    ///         edge_label_index] where node1_index/node2_index are 0-based
+    ///         positions into the node array (obtained from a node-entity call
+    ///         on the same graph). When requesting nodes with this option, the
+    ///         response includes tombstoned (deleted) slots in order to keep
+    ///         position indices stable so edge indices resolve correctly;
+    ///         deleted slots carry id=0 for integer graphs or an empty
+    ///         identifier for string/WKT graphs. For paginated node calls,
+    ///         subtract <paramref name="offset" /> from an edge endpoint index
+    ///         to locate it within the returned page.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Compact integer connectivity for edges;
+    ///                 deleted node slots included in node output.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: edges emit node identifiers
+    ///                 (int/string/WKT) matching the graph; deleted nodes are
+    ///                 skipped.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.INCLUDE_WEIGHTS">INCLUDE_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>When true and <c>options entity_type</c> is
+    ///         'edge', the response <see
+    ///         cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///         array is populated with one float weight per emitted edge
+    ///         (aligned 1:1 with the edge records in <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         or <see
+    ///         cref="GetGraphEntitiesResponse.entities_string">entities_string</see>).
+    ///         Empty when the graph has no weights component or when
+    ///         requesting nodes.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Populate <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 with per-edge weights (edge requests only).
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 is empty.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -159,8 +412,7 @@ public class GetGraphEntitiesRequest : KineticaData
 } // end class GetGraphEntitiesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getGraphEntities(GetGraphEntitiesRequest)">Kinetica.getGraphEntities</see>.
-/// </summary>
+/// cref="Kinetica.getGraphEntities">Kinetica.getGraphEntities</see>.</summary>
 public class GetGraphEntitiesResponse : KineticaData
 {
     /// <summary>Indicates a successful retrieval.</summary>
@@ -172,37 +424,90 @@ public class GetGraphEntitiesResponse : KineticaData
     /// ...]. For edge entities (stride 4): [edge_id, node1_id, node2_id,
     /// label_index, ...]. Populated when the graph uses integer identifiers;
     /// empty otherwise. The label_index is a 1-based index into the <see
-    /// cref="labels" /> array; 0 indicates no label.</para></remarks>
+    /// cref="GetGraphEntitiesResponse.labels" /> array; 0 indicates no label.
+    /// When the request option 'concise_edge_connectivity' is 'true', this
+    /// array is also used (regardless of graph identifier type) for edge
+    /// entities and carries [edge_id, node1_index, node2_index,
+    /// edge_label_index] where node1_index/node2_index are 0-based positions
+    /// into the node array returned from a paired node call on the same graph.
+    /// </para></remarks>
     public IList<long> entities_int { get; set; } = new List<long>();
 
-    /// <summary>Flat array of entity data for name-identifier or
-    /// WKT-identifier (geo/XY) graphs with a repeating stride.</summary>
+    /// <summary>Flat array of entity data for name-identifier (string) graphs
+    /// only.</summary>
     /// <remarks><para>For node entities (stride 2): [node_name, label_index,
-    /// ...] or [wkt_point, label_index, ...]. For edge entities (stride 4):
-    /// [edge_id, node1_name, node2_name, label_index, ...] or [edge_id,
-    /// node1_wkt, node2_wkt, label_index, ...]. Populated when the graph uses
-    /// string/name identifiers or geo/XY coordinate identifiers; empty
-    /// otherwise. For geo/XY graphs, node identifiers are formatted as
-    /// 'POINT(x y)' WKT strings. The label_index is a string representation of
-    /// a 1-based index into the <see cref="labels" /> array; '0' indicates no
-    /// label.</para></remarks>
+    /// ...]. For edge entities (stride 4): [edge_id, node1_name, node2_name,
+    /// label_index, ...]. Populated only when the graph uses string
+    /// identifiers. Empty for integer-identifier graphs (data goes to <see
+    /// cref="GetGraphEntitiesResponse.entities_int" />) and for WKT/geo-XY
+    /// graphs (data always goes to <see
+    /// cref="GetGraphEntitiesResponse.entities_double" /> — 'POINT(x y)'
+    /// strings are never emitted). The label_index is a string representation
+    /// of a 1-based index into the <see cref="GetGraphEntitiesResponse.labels"
+    /// /> array; '0' indicates no label.</para></remarks>
     public IList<string> entities_string { get; set; } = new List<string>();
 
+    /// <summary>Compact double-packed payload for WKT (geo/XY) graphs.
+    /// </summary>
+    /// <remarks><para>WKT graphs ALWAYS use this array — 'POINT(x y)' strings
+    /// are never emitted anywhere. Stride 3 for nodes: [x, y, label_index,
+    /// ...]. Stride 6 for edges (non-concise): [edge_id, x0, y0, x1, y1,
+    /// label_index, ...]. Empty for non-WKT graphs and when concise mode emits
+    /// edges into <see cref="GetGraphEntitiesResponse.entities_int" />
+    /// instead. label_index/edge_id occupy double slots (representable exactly
+    /// up to 2^53). When 'concise_edge_connectivity' is 'true' and entity_type
+    /// is 'node', tombstoned (deleted) WKT slots emit [0.0, 0.0, 0.0] to keep
+    /// position indices stable. Roughly 4x smaller on the wire than 'POINT(x
+    /// y)' strings and avoids any client-side regex parse.</para></remarks>
+    public IList<double> entities_double { get; set; } = new List<double>();
+
+    /// <summary>Per-edge weight values, populated only when the request option
+    /// 'include_weights' is 'true' and <c>options entity_type</c> is 'edge'.
+    /// </summary>
+    /// <remarks><para>Stride 1, aligned 1:1 with the edge records emitted in
+    /// <see cref="GetGraphEntitiesResponse.entities_int" /> or <see
+    /// cref="GetGraphEntitiesResponse.entities_string" /> (i.e. the i-th
+    /// weight corresponds to the i-th edge record). Empty when the graph has
+    /// no weights component, when requesting nodes, or when the option is not
+    /// set. Single-precision float matches the graph server's native weight
+    /// storage.</para></remarks>
+    public IList<float> entities_weight { get; set; } = new List<float>();
+
     /// <summary>Array of distinct label strings.</summary>
-    /// <remarks><para>The label_index values in <see cref="entities_int" /> or
-    /// <see cref="entities_string" /> are 1-based indexes into this array;
-    /// index 0 means no label.</para></remarks>
+    /// <remarks><para>The label_index values in <see
+    /// cref="GetGraphEntitiesResponse.entities_int" />, <see
+    /// cref="GetGraphEntitiesResponse.entities_string" />, or <see
+    /// cref="GetGraphEntitiesResponse.entities_double" /> are 1-based indexes
+    /// into this array; index 0 means no label.</para></remarks>
     public IList<string> labels { get; set; } = new List<string>();
 
     /// <summary>Additional information map.</summary>
-    /// <remarks><para>Contains the following keys: 'identifier_type' — set to
-    /// 'int' (integer node IDs in <see cref="entities_int" />), 'string'
-    /// (name-based node IDs in <see cref="entities_string" />), or 'wkt'
-    /// (geo/XY graph with 'POINT(x y)' node identifiers in <see
-    /// cref="entities_string" />). 'total_count' — total number of live
-    /// (non-deleted) entities available in the graph for the requested
-    /// entity_type, used for pagination. 'status_message' — set to 'Cancelled'
-    /// if the request was cancelled mid-iteration (with <see cref="result" />
-    /// set to false).</para></remarks>
+    /// <remarks><para>Contains the following keys: 'identifier_type' —
+    /// describes the graph's native node identifier type: 'int', 'string', or
+    /// 'wkt' (geo/XY graph). 'payload_type' — describes which array actually
+    /// holds this response payload: 'int' (<see
+    /// cref="GetGraphEntitiesResponse.entities_int" />), 'string' (<see
+    /// cref="GetGraphEntitiesResponse.entities_string" />), or 'double' (<see
+    /// cref="GetGraphEntitiesResponse.entities_double" />). WKT graphs ALWAYS
+    /// use 'double' for both nodes and edges — 'POINT(x y)' strings are never
+    /// emitted. In concise edge mode payload_type is 'int' regardless of graph
+    /// type. Clients should dispatch on 'payload_type', not 'identifier_type',
+    /// to parse the response. 'total_count' — total number of entities
+    /// available in the graph for the requested entity_type, used for
+    /// pagination; this is the live (non-deleted) count by default, or the raw
+    /// count (including deleted slots) when 'concise_edge_connectivity' is
+    /// true for a node request. 'status_message' — set to 'Cancelled' if the
+    /// request was cancelled mid-iteration (with <see
+    /// cref="GetGraphEntitiesResponse.result" /> set to false).
+    /// 'concise_edge_connectivity' — set to 'true' when the response was
+    /// produced with the concise option (edges emitted as [edge_id, v0_index,
+    /// v1_index, label_idx] in <see
+    /// cref="GetGraphEntitiesResponse.entities_int" />; WKT-graph nodes
+    /// emitted as [x, y, label_idx] in <see
+    /// cref="GetGraphEntitiesResponse.entities_double" />; non-WKT nodes still
+    /// in their native array; node output includes deleted slots to keep
+    /// indices stable). 'include_weights' — set to 'true' when <see
+    /// cref="GetGraphEntitiesResponse.entities_weight" /> is populated.</para>
+    /// </remarks>
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class GetGraphEntitiesResponse

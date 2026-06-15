@@ -9,26 +9,30 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+/// cref="Kinetica.getRecordsBySeries">Kinetica.getRecordsBySeries</see>.
 /// </summary>
 /// <remarks><para>Retrieves the complete series/track records from the given
-/// <see cref="world_table_name" /> based on the partial track information
-/// contained in the <see cref="table_name" />.</para>
+/// <see cref="GetRecordsBySeriesRequest.world_table_name" /> based on the
+/// partial track information contained in the <see
+/// cref="GetRecordsBySeriesRequest.table_name" />.</para>
 /// <para>This operation supports paging through the data via the <see
-/// cref="offset" /> and <see cref="limit" /> parameters.</para>
+/// cref="GetRecordsBySeriesRequest.offset" /> and <see
+/// cref="GetRecordsBySeriesRequest.limit" /> parameters.</para>
 /// <para>In contrast to <see
-/// cref="Kinetica.getRecords{T}(GetRecordsRequest)">Kinetica.getRecords</see>
-/// this returns records grouped by series/track. So if <see cref="offset" />
-/// is 0 and <see cref="limit" /> is 5 this operation would return the first 5
-/// series/tracks in <see cref="table_name" />. Each series/track will be
+/// cref="Kinetica.getRecords">Kinetica.getRecords</see> this returns records
+/// grouped by series/track. So if <see cref="GetRecordsBySeriesRequest.offset"
+/// /> is 0 and <see cref="GetRecordsBySeriesRequest.limit" /> is 5 this
+/// operation would return the first 5 series/tracks in <see
+/// cref="GetRecordsBySeriesRequest.table_name" />. Each series/track will be
 /// returned sorted by their TIMESTAMP column.</para></remarks>
 public class GetRecordsBySeriesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="encoding" />.</summary>
+    /// cref="GetRecordsBySeriesRequest.encoding" />.</summary>
     /// <remarks><para>Specifies the encoding for returned records; either <see
-    /// cref="Encoding.BINARY">BINARY</see> or <see
-    /// cref="Encoding.JSON">JSON</see>.</para></remarks>
+    /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see> or <see
+    /// cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see>.</para>
+    /// </remarks>
     public struct Encoding
     {
         public const string BINARY = "binary";
@@ -43,8 +47,9 @@ public class GetRecordsBySeriesRequest : KineticaData
 
     /// <summary>Name of the table containing the complete series/track
     /// information to be returned for the tracks present in the <see
-    /// cref="table_name" />, in [schema_name.]table_name format, using
-    /// standard <a href="../../../concepts/tables/#table-name-resolution"
+    /// cref="GetRecordsBySeriesRequest.table_name" />, in
+    /// [schema_name.]table_name format, using standard <a
+    /// href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.</summary>
     /// <remarks><para> Typically this is used when retrieving series/tracks
     /// from a view (which contains partial series/tracks) but the user wants
@@ -66,19 +71,24 @@ public class GetRecordsBySeriesRequest : KineticaData
     public int limit { get; set; } = 250;
 
     /// <summary>Specifies the encoding for returned records; either <see
-    /// cref="Encoding.BINARY">BINARY</see> or <see
-    /// cref="Encoding.JSON">JSON</see>.</summary>
+    /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see> or <see
+    /// cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see>.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
-    /// </para></remarks>
+    /// <para>The default value is <see
+    /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>.</para>
+    /// </remarks>
     public string encoding { get; set; } = Encoding.BINARY;
 
     /// <summary>Optional parameters.</summary>
@@ -157,18 +167,24 @@ public class GetRecordsBySeriesRequest : KineticaData
     /// the max number of results should be returned. The default value is 250.
     /// </param>
     /// <param name="encoding">Specifies the encoding for returned records;
-    /// either <see cref="Encoding.BINARY">BINARY</see> or <see
-    /// cref="Encoding.JSON">JSON</see>.
+    /// either <see
+    /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see> or <see
+    /// cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see>.
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// The default value is <see
+    /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     public GetRecordsBySeriesRequest( string table_name,
@@ -188,7 +204,7 @@ public class GetRecordsBySeriesRequest : KineticaData
 } // end class GetRecordsBySeriesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+/// cref="Kinetica.getRecordsBySeries">Kinetica.getRecordsBySeries</see>.
 /// </summary>
 public class RawGetRecordsBySeriesResponse : KineticaData
 {
@@ -211,7 +227,7 @@ public class RawGetRecordsBySeriesResponse : KineticaData
     public IList<IList<byte[]>> list_records_binary { get; set; } = new List<IList<byte[]>>();
 
     /// <summary>If the encoding parameter of the request was 'json' then this
-    /// list-of-lists contains the json encoded records for each object (inner
+    /// list-of-lists contains the JSON-encoded records for each object (inner
     /// list) in each series/track (outer list).</summary>
     /// <remarks><para>Otherwise, empty list-of-lists.</para></remarks>
     public IList<IList<string>> list_records_json { get; set; } = new List<IList<string>>();
@@ -221,7 +237,7 @@ public class RawGetRecordsBySeriesResponse : KineticaData
 } // end class RawGetRecordsBySeriesResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecordsBySeries{T}(GetRecordsBySeriesRequest)">Kinetica.getRecordsBySeries</see>.
+/// cref="Kinetica.getRecordsBySeries">Kinetica.getRecordsBySeries</see>.
 /// </summary>
 ///
 /// <typeparam name="T">The type of object being processed.</typeparam>

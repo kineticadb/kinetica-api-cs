@@ -9,20 +9,19 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</summary>
+/// cref="Kinetica.getJob">Kinetica.getJob</see>.</summary>
 /// <remarks><para>Get the status and result of asynchronously running job.
-/// See the <see
-/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see> for
+/// See the <see cref="Kinetica.createJob">Kinetica.createJob</see> for
 /// starting an asynchronous job.  Some fields of the response are filled only
 /// after the submitted job has finished execution.</para></remarks>
 public class GetJobRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="GetJobRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>Job tag returned in call to create the job</summary>
+        /// <summary>Job tag returned in call to create the job.</summary>
         public const string JOB_TAG = "job_tag";
     } // end struct Options
 
@@ -33,8 +32,9 @@ public class GetJobRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <term><see cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:
+    ///         </term>
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -53,8 +53,9 @@ public class GetJobRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <term><see cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:
+    ///         </term>
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -68,11 +69,11 @@ public class GetJobRequest : KineticaData
 } // end class GetJobRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</summary>
+/// cref="Kinetica.getJob">Kinetica.getJob</see>.</summary>
 public class GetJobResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="job_status" />.</summary>
+    /// cref="GetJobResponse.job_status" />.</summary>
     /// <remarks><para>Status of the submitted job.</para></remarks>
     public struct JobStatus
     {
@@ -80,14 +81,16 @@ public class GetJobResponse : KineticaData
         public const string RUNNING = "RUNNING";
 
         /// <summary>The job execution has successfully completed and the
-        /// response is included in the <see cref="job_response" /> or <see
-        /// cref="job_response_str" /> field</summary>
+        /// response is included in the <see cref="GetJobResponse.job_response"
+        /// /> or <see cref="GetJobResponse.job_response_str" /> field.
+        /// </summary>
         public const string DONE = "DONE";
 
         /// <summary>The job was attempted, but an error was encountered.
         /// </summary>
-        /// <remarks><para> The <see cref="status_map" /> contains the details
-        /// of the error in error_message</para></remarks>
+        /// <remarks><para> The <see cref="GetJobResponse.status_map" />
+        /// contains the details of the error in error_message.</para>
+        /// </remarks>
         public const string ERROR = "ERROR";
 
         /// <summary>Job cancellation was requested while the execution was in
@@ -96,25 +99,25 @@ public class GetJobResponse : KineticaData
     } // end struct JobStatus
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="response_encoding" />.</summary>
+    /// cref="GetJobResponse.response_encoding" />.</summary>
     /// <remarks><para>The encoding of the job result (contained in <see
-    /// cref="job_response" /> or <see cref="job_response_str" />.</para>
-    /// </remarks>
+    /// cref="GetJobResponse.job_response" /> or <see
+    /// cref="GetJobResponse.job_response_str" />.</para></remarks>
     public struct ResponseEncoding
     {
         /// <summary>The job result is binary-encoded.</summary>
-        /// <remarks><para> It is contained in <see cref="job_response" />.
-        /// </para></remarks>
+        /// <remarks><para> It is contained in <see
+        /// cref="GetJobResponse.job_response" />.</para></remarks>
         public const string BINARY = "binary";
 
-        /// <summary>The job result is json-encoded.</summary>
-        /// <remarks><para> It is contained in <see cref="job_response_str" />.
-        /// </para></remarks>
+        /// <summary>The job result is JSON-encoded.</summary>
+        /// <remarks><para> It is contained in <see
+        /// cref="GetJobResponse.job_response_str" />.</para></remarks>
         public const string JSON = "json";
     } // end struct ResponseEncoding
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="status_map" />.</summary>
+    /// cref="GetJobResponse.status_map" />.</summary>
     /// <remarks><para>Map of various status strings for the executed job.
     /// </para></remarks>
     public struct StatusMap
@@ -122,7 +125,7 @@ public class GetJobResponse : KineticaData
         /// <summary>Explains what error occurred while running the job
         /// asynchronously.</summary>
         /// <remarks><para> This entry only exists when the job status is <see
-        /// cref="JobStatus.ERROR">ERROR</see>.</para></remarks>
+        /// cref="GetJobResponse.JobStatus.ERROR">ERROR</see>.</para></remarks>
         public const string ERROR_MESSAGE = "error_message";
     } // end struct StatusMap
 
@@ -134,23 +137,30 @@ public class GetJobResponse : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="JobStatus.RUNNING">RUNNING</see>:</term>
+    ///         <term><see
+    ///         cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
     ///         <description>The job is currently executing.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="JobStatus.DONE">DONE</see>:</term>
+    ///         <term><see cref="GetJobResponse.JobStatus.DONE">DONE</see>:
+    ///         </term>
     ///         <description>The job execution has successfully completed and
-    ///         the response is included in the <see cref="job_response" /> or
-    ///         <see cref="job_response_str" /> field</description>
+    ///         the response is included in the <see
+    ///         cref="GetJobResponse.job_response" /> or <see
+    ///         cref="GetJobResponse.job_response_str" /> field.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="JobStatus.ERROR">ERROR</see>:</term>
+    ///         <term><see cref="GetJobResponse.JobStatus.ERROR">ERROR</see>:
+    ///         </term>
     ///         <description>The job was attempted, but an error was
-    ///         encountered.  The <see cref="status_map" /> contains the
-    ///         details of the error in error_message</description>
+    ///         encountered.  The <see cref="GetJobResponse.status_map" />
+    ///         contains the details of the error in error_message.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="JobStatus.CANCELLED">CANCELLED</see>:</term>
+    ///         <term><see
+    ///         cref="GetJobResponse.JobStatus.CANCELLED">CANCELLED</see>:
+    ///         </term>
     ///         <description>Job cancellation was requested while the execution
     ///         was in progress.</description>
     ///     </item>
@@ -168,42 +178,51 @@ public class GetJobResponse : KineticaData
     public bool successful { get; set; }
 
     /// <summary>The encoding of the job result (contained in <see
-    /// cref="job_response" /> or <see cref="job_response_str" />.</summary>
+    /// cref="GetJobResponse.job_response" /> or <see
+    /// cref="GetJobResponse.job_response_str" />.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ResponseEncoding.BINARY">BINARY</see>:</term>
+    ///         <term><see
+    ///         cref="GetJobResponse.ResponseEncoding.BINARY">BINARY</see>:
+    ///         </term>
     ///         <description>The job result is binary-encoded.  It is contained
-    ///         in <see cref="job_response" />.</description>
+    ///         in <see cref="GetJobResponse.job_response" />.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ResponseEncoding.JSON">JSON</see>:</term>
-    ///         <description>The job result is json-encoded.  It is contained
-    ///         in <see cref="job_response_str" />.</description>
+    ///         <term><see
+    ///         cref="GetJobResponse.ResponseEncoding.JSON">JSON</see>:</term>
+    ///         <description>The job result is JSON-encoded.  It is contained
+    ///         in <see cref="GetJobResponse.job_response_str" />.
+    ///         </description>
     ///     </item>
     /// </list></remarks>
     public string response_encoding { get; set; }
 
     /// <summary>The binary-encoded response of the job.</summary>
     /// <remarks><para> This field is populated only when the job has completed
-    /// and <see cref="response_encoding" /> is <see
-    /// cref="ResponseEncoding.BINARY">BINARY</see></para></remarks>
+    /// and <see cref="GetJobResponse.response_encoding" /> is <see
+    /// cref="GetJobResponse.ResponseEncoding.BINARY">BINARY</see>.</para>
+    /// </remarks>
     public byte[] job_response { get; set; }
 
     /// <summary>The json-encoded response of the job.</summary>
     /// <remarks><para> This field is populated only when the job has completed
-    /// and <see cref="response_encoding" /> is <see
-    /// cref="ResponseEncoding.JSON">JSON</see></para></remarks>
+    /// and <see cref="GetJobResponse.response_encoding" /> is <see
+    /// cref="GetJobResponse.ResponseEncoding.JSON">JSON</see>.</para>
+    /// </remarks>
     public string job_response_str { get; set; }
 
     /// <summary>Map of various status strings for the executed job.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="StatusMap.ERROR_MESSAGE">ERROR_MESSAGE</see>:
+    ///         <term><see
+    ///         cref="GetJobResponse.StatusMap.ERROR_MESSAGE">ERROR_MESSAGE</see>:
     ///         </term>
     ///         <description>Explains what error occurred while running the job
     ///         asynchronously.  This entry only exists when the job status is
-    ///         <see cref="JobStatus.ERROR">ERROR</see>.</description>
+    ///         <see cref="GetJobResponse.JobStatus.ERROR">ERROR</see>.
+    ///         </description>
     ///     </item>
     /// </list></remarks>
     public IDictionary<string, string> status_map { get; set; } = new Dictionary<string, string>();

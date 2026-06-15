@@ -9,92 +9,117 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
-/// </summary>
+/// cref="Kinetica.deleteDirectory">Kinetica.deleteDirectory</see>.</summary>
 /// <remarks><para>Deletes a directory from <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a>.</para></remarks>
 public class DeleteDirectoryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DeleteDirectoryRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, will delete
+        /// <summary>If <see
+        /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, will delete
         /// directory and all files residing in it.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RECURSIVE = "recursive";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error is
+        /// <summary>If <see
+        /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, no error is
         /// returned if specified directory does not exist.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
     } // end struct Options
 
     /// <summary>Name of the directory in KiFS to be deleted.</summary>
     /// <remarks><para>The directory must contain no files, unless <see
-    /// cref="Options.RECURSIVE">RECURSIVE</see> is <see
-    /// cref="Options.TRUE">TRUE</see></para></remarks>
+    /// cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see> is <see
+    /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>.</para></remarks>
     public string directory_name { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.RECURSIVE">RECURSIVE</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, will
+    ///         <term><see
+    ///         cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, will
     ///         delete directory and all files residing in it. If false,
     ///         directory must be empty for deletion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DeleteDirectoryRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         <description>If <see
+    ///         cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, no error
     ///         is returned if specified directory does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -110,43 +135,57 @@ public class DeleteDirectoryRequest : KineticaData
     ///
     /// <param name="directory_name">Name of the directory in KiFS to be
     /// deleted. The directory must contain no files, unless <see
-    /// cref="Options.RECURSIVE">RECURSIVE</see> is <see
-    /// cref="Options.TRUE">TRUE</see></param>
+    /// cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see> is <see
+    /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.RECURSIVE">RECURSIVE</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, will
+    ///         <term><see
+    ///         cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, will
     ///         delete directory and all files residing in it. If false,
     ///         directory must be empty for deletion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DeleteDirectoryRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         <description>If <see
+    ///         cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, no error
     ///         is returned if specified directory does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -160,8 +199,7 @@ public class DeleteDirectoryRequest : KineticaData
 } // end class DeleteDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
-/// </summary>
+/// cref="Kinetica.deleteDirectory">Kinetica.deleteDirectory</see>.</summary>
 public class DeleteDirectoryResponse : KineticaData
 {
     /// <summary>Value of <see
