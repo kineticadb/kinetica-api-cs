@@ -9,23 +9,22 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createTriggerByArea(CreateTriggerByAreaRequest)">Kinetica.createTriggerByArea</see>.
+/// cref="Kinetica.createTriggerByArea">Kinetica.createTriggerByArea</see>.
 /// </summary>
 /// <remarks><para>Sets up an area trigger mechanism for two column_names for
 /// one or more tables. (This function is essentially the two-dimensional
 /// version of <see
-/// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.)
+/// cref="Kinetica.createTriggerByRange">Kinetica.createTriggerByRange</see>.)
 /// Once the trigger has been activated, any record added to the listed
 /// tables(s) via <see
-/// cref="Kinetica.insertRecords{T}(InsertRecordsRequest{T})">Kinetica.insertRecords</see>
-/// with the chosen columns' values falling within the specified region will
-/// trip the trigger. All such records will be queued at the trigger port (by
-/// default '9001' but able to be retrieved via <see
-/// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>)
-/// for any listening client to collect. Active triggers can be cancelled by
-/// using the <see
-/// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>
-/// endpoint or by clearing all relevant tables.</para>
+/// cref="Kinetica.insertRecords">Kinetica.insertRecords</see> with the chosen
+/// columns' values falling within the specified region will trip the trigger.
+/// All such records will be queued at the trigger port (by default '9001' but
+/// able to be retrieved via <see
+/// cref="Kinetica.showSystemStatus">Kinetica.showSystemStatus</see>) for any
+/// listening client to collect. Active triggers can be cancelled by using the
+/// <see cref="Kinetica.clearTrigger">Kinetica.clearTrigger</see> endpoint or
+/// by clearing all relevant tables.</para>
 /// <para>The output returns the trigger handle as well as indicating success
 /// or failure of the trigger activation.</para></remarks>
 public class CreateTriggerByAreaRequest : KineticaData
@@ -116,7 +115,7 @@ public class CreateTriggerByAreaRequest : KineticaData
 } // end class CreateTriggerByAreaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createTriggerByArea(CreateTriggerByAreaRequest)">Kinetica.createTriggerByArea</see>.
+/// cref="Kinetica.createTriggerByArea">Kinetica.createTriggerByArea</see>.
 /// </summary>
 public class CreateTriggerByAreaResponse : KineticaData
 {

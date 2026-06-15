@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionDirectory(RevokePermissionDirectoryRequest)">Kinetica.revokePermissionDirectory</see>.
+/// cref="Kinetica.revokePermissionDirectory">Kinetica.revokePermissionDirectory</see>.
 /// </summary>
 /// <remarks><para>Revokes a <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a> directory-level permission from a user or role.
@@ -17,7 +17,7 @@ namespace kinetica;
 public class RevokePermissionDirectoryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="RevokePermissionDirectoryRequest.permission" />.</summary>
     /// <remarks><para>Permission to revoke from the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -43,14 +43,16 @@ public class RevokePermissionDirectoryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+    ///         cref="RevokePermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:
+    ///         </term>
     ///         <description>For files in the directory, access to list files,
     ///         download files, or use files in server side functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+    ///         cref="RevokePermissionDirectoryRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:
+    ///         </term>
     ///         <description>Access to upload files to, or delete files from,
     ///         the directory. A user or role with write access automatically
     ///         has read access.</description>
@@ -59,7 +61,7 @@ public class RevokePermissionDirectoryRequest : KineticaData
     public string permission { get; set; }
 
     /// <summary>Name of the KiFS directory to which the permission revokes
-    /// access</summary>
+    /// access.</summary>
     public string directory_name { get; set; }
 
     /// <summary>Optional parameters.</summary>
@@ -81,21 +83,23 @@ public class RevokePermissionDirectoryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+    ///         cref="RevokePermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:
+    ///         </term>
     ///         <description>For files in the directory, access to list files,
     ///         download files, or use files in server side functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+    ///         cref="RevokePermissionDirectoryRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:
+    ///         </term>
     ///         <description>Access to upload files to, or delete files from,
     ///         the directory. A user or role with write access automatically
     ///         has read access.</description>
     ///     </item>
     /// </list></param>
     /// <param name="directory_name">Name of the KiFS directory to which the
-    /// permission revokes access</param>
+    /// permission revokes access.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     public RevokePermissionDirectoryRequest( string name,
@@ -111,7 +115,7 @@ public class RevokePermissionDirectoryRequest : KineticaData
 } // end class RevokePermissionDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionDirectory(RevokePermissionDirectoryRequest)">Kinetica.revokePermissionDirectory</see>.
+/// cref="Kinetica.revokePermissionDirectory">Kinetica.revokePermissionDirectory</see>.
 /// </summary>
 public class RevokePermissionDirectoryResponse : KineticaData
 {

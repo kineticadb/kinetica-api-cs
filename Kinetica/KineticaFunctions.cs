@@ -14,7 +14,7 @@ namespace kinetica;
 public partial class Kinetica
 {
     // Kinetica Version
-    public const string API_VERSION = "7.2.3.0";
+    public const string API_VERSION = "7.2.3.2";
 
     /// <summary>Adds a host to an existing cluster.</summary>
     /// <remarks><para>This method should be used for on-premise deployments
@@ -279,9 +279,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see>.</para>
+    /// cref="adminRebalance">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -299,7 +299,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -319,9 +319,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see>.</para>
+    /// cref="adminRebalance">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -339,7 +339,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -362,9 +362,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance(IDictionary{string,string})">adminRebalance</see>.</para>
+    /// cref="adminRebalance">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(bool,IDictionary{string,string})">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -381,7 +381,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -390,14 +390,13 @@ public partial class Kinetica
     /// 'host0' from the gpudb.conf file), on which to add ranks to the
     /// cluster. The hosts must already be in the cluster. If needed
     /// beforehand, to add a new host to the cluster use <see
-    /// cref="adminAddHost(string,IDictionary{string,string})">adminAddHost</see>.
-    /// Include the same entry as many times as there are ranks to add to the
-    /// cluster, e.g., if two ranks on host 172.123.45.67 should be added,
-    /// <paramref name="hosts" /> could look like '["172.123.45.67",
-    /// "172.123.45.67"]'. All ranks will be added simultaneously, i.e. they're
-    /// not added in the order of this array. Each entry in this array
-    /// corresponds to the entry at the same index in the <paramref
-    /// name="config_params" />.</param>
+    /// cref="adminAddHost">adminAddHost</see>. Include the same entry as many
+    /// times as there are ranks to add to the cluster, e.g., if two ranks on
+    /// host 172.123.45.67 should be added, <paramref name="hosts" /> could
+    /// look like '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
+    /// simultaneously, i.e. they're not added in the order of this array. Each
+    /// entry in this array corresponds to the entry at the same index in the
+    /// <paramref name="config_params" />.</param>
     /// <param name="config_params">Array of maps containing configuration
     /// parameters to apply to the new ranks found in <paramref name="hosts"
     /// />. For example, '{"rank.gpu":"2",
@@ -462,9 +461,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance(IDictionary{string,string})">adminRebalance</see>.</para>
+    /// cref="adminRebalance">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(bool,IDictionary{string,string})">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -481,7 +480,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -490,14 +489,13 @@ public partial class Kinetica
     /// 'host0' from the gpudb.conf file), on which to add ranks to the
     /// cluster. The hosts must already be in the cluster. If needed
     /// beforehand, to add a new host to the cluster use <see
-    /// cref="adminAddHost(string,IDictionary{string,string})">adminAddHost</see>.
-    /// Include the same entry as many times as there are ranks to add to the
-    /// cluster, e.g., if two ranks on host 172.123.45.67 should be added,
-    /// <paramref name="hosts" /> could look like '["172.123.45.67",
-    /// "172.123.45.67"]'. All ranks will be added simultaneously, i.e. they're
-    /// not added in the order of this array. Each entry in this array
-    /// corresponds to the entry at the same index in the <paramref
-    /// name="config_params" />.</param>
+    /// cref="adminAddHost">adminAddHost</see>. Include the same entry as many
+    /// times as there are ranks to add to the cluster, e.g., if two ranks on
+    /// host 172.123.45.67 should be added, <paramref name="hosts" /> could
+    /// look like '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
+    /// simultaneously, i.e. they're not added in the order of this array. Each
+    /// entry in this array corresponds to the entry at the same index in the
+    /// <paramref name="config_params" />.</param>
     /// <param name="config_params">Array of maps containing configuration
     /// parameters to apply to the new ranks found in <paramref name="hosts"
     /// />. For example, '{"rank.gpu":"2",
@@ -601,7 +599,7 @@ public partial class Kinetica
     ///
     /// <param name="host">Identifies the host this applies to. Can be the host
     /// address, or formatted as 'hostN' where N is the host number as
-    /// specified in gpudb.conf</param>
+    /// specified in gpudb.conf.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -646,7 +644,7 @@ public partial class Kinetica
     ///
     /// <param name="host">Identifies the host this applies to. Can be the host
     /// address, or formatted as 'hostN' where N is the host number as
-    /// specified in gpudb.conf</param>
+    /// specified in gpudb.conf.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -755,7 +753,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:
     ///         </term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -794,7 +792,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:
     ///         </term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -816,8 +814,7 @@ public partial class Kinetica
     /// handles after allowing current active jobs to complete.</summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see
-    /// cref="adminBackupEnd(AdminBackupEndRequest)">adminBackupEnd</see>.
+    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -836,8 +833,7 @@ public partial class Kinetica
     /// </summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see
-    /// cref="adminBackupEnd(AdminBackupEndRequest)">adminBackupEnd</see>.
+    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -858,8 +854,7 @@ public partial class Kinetica
     /// handles after allowing current active jobs to complete.</summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see
-    /// cref="adminBackupEnd(IDictionary{string,string})">adminBackupEnd</see>.
+    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="options">Optional parameters. The default value is an
@@ -876,8 +871,7 @@ public partial class Kinetica
     /// </summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see
-    /// cref="adminBackupEnd(IDictionary{string,string})">adminBackupEnd</see>.
+    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="options">Optional parameters. The default value is an
@@ -1239,17 +1233,15 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks.
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
-    /// <para>* If <see
-    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
-    /// invoked after a change is made to the cluster, e.g., a host was added
-    /// or removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline">adminOffline</see></para>
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// after a change is made to the cluster, e.g., a host was added or
+    /// removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see
-    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
-    /// invoked at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1259,7 +1251,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(CreateJobRequest)">createJob</see>.</para></remarks>
+    /// cref="createJob">createJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -1277,17 +1269,15 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks. (async)
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
-    /// <para>* If <see
-    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
-    /// invoked after a change is made to the cluster, e.g., a host was added
-    /// or removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline">adminOffline</see></para>
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// after a change is made to the cluster, e.g., a host was added or
+    /// removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see
-    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
-    /// invoked at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1297,7 +1287,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(CreateJobRequest)">createJob</see>.</para></remarks>
+    /// cref="createJob">createJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -1318,18 +1308,15 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks.
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see
-    /// cref="adminOffline(bool,IDictionary{string,string})">adminOffline</see></para>
-    /// <para>* If <see
-    /// cref="adminRebalance(IDictionary{string,string})">adminRebalance</see>
-    /// is invoked after a change is made to the cluster, e.g., a host was
-    /// added or removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline">adminOffline</see></para>
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// after a change is made to the cluster, e.g., a host was added or
+    /// removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see
-    /// cref="adminRebalance(IDictionary{string,string})">adminRebalance</see>
-    /// is invoked at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1339,8 +1326,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>.
-    /// </para></remarks>
+    /// cref="createJob">createJob</see>.</para></remarks>
     ///
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
@@ -1502,14 +1488,12 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Scans for any data sharded incorrectly and
     ///         re-routes the data to the correct location. Only necessary if
-    ///         <see
-    ///         cref="adminVerifyDb(IDictionary{string,string})">adminVerifyDb</see>
-    ///         reports an error in sharding alignment. This can be done as
-    ///         part of a typical rebalance after expanding the cluster or in a
-    ///         standalone fashion when it is believed that data is sharded
-    ///         incorrectly somewhere in the cluster. Compaction will not be
-    ///         performed by default when this is enabled. If this option is
-    ///         set to <see
+    ///         <see cref="adminVerifyDb">adminVerifyDb</see> reports an error
+    ///         in sharding alignment. This can be done as part of a typical
+    ///         rebalance after expanding the cluster or in a standalone
+    ///         fashion when it is believed that data is sharded incorrectly
+    ///         somewhere in the cluster. Compaction will not be performed by
+    ///         default when this is enabled. If this option is set to <see
     ///         cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, the time
     ///         necessary to rebalance and the memory used by the rebalance may
     ///         increase.
@@ -1544,18 +1528,15 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks. (async)
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see
-    /// cref="adminOffline(bool,IDictionary{string,string})">adminOffline</see></para>
-    /// <para>* If <see
-    /// cref="adminRebalance(IDictionary{string,string})">adminRebalance</see>
-    /// is invoked after a change is made to the cluster, e.g., a host was
-    /// added or removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline">adminOffline</see></para>
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// after a change is made to the cluster, e.g., a host was added or
+    /// removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see
-    /// cref="adminRebalance(IDictionary{string,string})">adminRebalance</see>
-    /// is invoked at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
+    /// at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1565,8 +1546,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>.
-    /// </para></remarks>
+    /// cref="createJob">createJob</see>.</para></remarks>
     ///
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
@@ -1728,14 +1708,12 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Scans for any data sharded incorrectly and
     ///         re-routes the data to the correct location. Only necessary if
-    ///         <see
-    ///         cref="adminVerifyDb(IDictionary{string,string})">adminVerifyDb</see>
-    ///         reports an error in sharding alignment. This can be done as
-    ///         part of a typical rebalance after expanding the cluster or in a
-    ///         standalone fashion when it is believed that data is sharded
-    ///         incorrectly somewhere in the cluster. Compaction will not be
-    ///         performed by default when this is enabled. If this option is
-    ///         set to <see
+    ///         <see cref="adminVerifyDb">adminVerifyDb</see> reports an error
+    ///         in sharding alignment. This can be done as part of a typical
+    ///         rebalance after expanding the cluster or in a standalone
+    ///         fashion when it is believed that data is sharded incorrectly
+    ///         somewhere in the cluster. Compaction will not be performed by
+    ///         default when this is enabled. If this option is set to <see
     ///         cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, the time
     ///         necessary to rebalance and the memory used by the rebalance may
     ///         increase.
@@ -1771,13 +1749,12 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster.</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks(AdminRemoveRanksRequest)">adminRemoveRanks</see>
-    /// or manually switched over to a new host using <see
-    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>
-    /// prior to host removal. If the host to be removed has the graph server
-    /// or SQL planner running on it, these must be manually switched over to a
-    /// new host using <see
-    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
+    /// over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
+    /// the host to be removed has the graph server or SQL planner running on
+    /// it, these must be manually switched over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1795,13 +1772,12 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster. (async)</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks(AdminRemoveRanksRequest)">adminRemoveRanks</see>
-    /// or manually switched over to a new host using <see
-    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>
-    /// prior to host removal. If the host to be removed has the graph server
-    /// or SQL planner running on it, these must be manually switched over to a
-    /// new host using <see
-    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
+    /// over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
+    /// the host to be removed has the graph server or SQL planner running on
+    /// it, these must be manually switched over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1822,19 +1798,18 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster.</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks(IList{string},IDictionary{string,string})">adminRemoveRanks</see>
-    /// or manually switched over to a new host using <see
-    /// cref="adminSwitchover(IList{string},IList{string},IDictionary{string,string})">adminSwitchover</see>
-    /// prior to host removal. If the host to be removed has the graph server
-    /// or SQL planner running on it, these must be manually switched over to a
-    /// new host using <see
-    /// cref="adminSwitchover(IList{string},IList{string},IDictionary{string,string})">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
+    /// over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
+    /// the host to be removed has the graph server or SQL planner running on
+    /// it, these must be manually switched over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
     /// <param name="host">Identifies the host this applies to. Can be the host
     /// address, or formatted as 'hostN' where N is the host number as
-    /// specified in gpudb.conf</param>
+    /// specified in gpudb.conf.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -1874,19 +1849,18 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster. (async)</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks(IList{string},IDictionary{string,string})">adminRemoveRanks</see>
-    /// or manually switched over to a new host using <see
-    /// cref="adminSwitchover(IList{string},IList{string},IDictionary{string,string})">adminSwitchover</see>
-    /// prior to host removal. If the host to be removed has the graph server
-    /// or SQL planner running on it, these must be manually switched over to a
-    /// new host using <see
-    /// cref="adminSwitchover(IList{string},IList{string},IDictionary{string,string})">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
+    /// over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
+    /// the host to be removed has the graph server or SQL planner running on
+    /// it, these must be manually switched over to a new host using <see
+    /// cref="adminSwitchover">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
     /// <param name="host">Identifies the host this applies to. Can be the host
     /// address, or formatted as 'hostN' where N is the host number as
-    /// specified in gpudb.conf</param>
+    /// specified in gpudb.conf.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -1941,11 +1915,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1975,11 +1949,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -2012,11 +1986,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(bool,IDictionary{string,string})">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -2026,9 +2000,8 @@ public partial class Kinetica
     /// on that host, or the host IP address (hostN.address from the gpub.conf
     /// file) which also removes all ranks on that host. Rank 0 (the head rank)
     /// cannot be removed (but can be moved to another host using <see
-    /// cref="adminSwitchover(IList{string},IList{string},IDictionary{string,string})">adminSwitchover</see>).
-    /// At least one worker rank must be left in the cluster after the
-    /// operation.</param>
+    /// cref="adminSwitchover">adminSwitchover</see>). At least one worker rank
+    /// must be left in the cluster after the operation.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -2128,11 +2101,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline(bool,IDictionary{string,string})">adminOffline</see></para>
+    /// cref="adminOffline">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>.</para>
+    /// cref="createJob">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -2142,9 +2115,8 @@ public partial class Kinetica
     /// on that host, or the host IP address (hostN.address from the gpub.conf
     /// file) which also removes all ranks on that host. Rank 0 (the head rank)
     /// cannot be removed (but can be moved to another host using <see
-    /// cref="adminSwitchover(IList{string},IList{string},IDictionary{string,string})">adminSwitchover</see>).
-    /// At least one worker rank must be left in the cluster after the
-    /// operation.</param>
+    /// cref="adminSwitchover">adminSwitchover</see>). At least one worker rank
+    /// must be left in the cluster after the operation.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -2268,7 +2240,7 @@ public partial class Kinetica
     ///
     /// <param name="table_names">List of tables to query. An asterisk returns
     /// all tables.</param>
-    /// <param name="table_types">internal: type_id per table.</param>
+    /// <param name="table_types">ID of the type per table.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -2282,21 +2254,22 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AdminRepairTableRequest.Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
     ///                 </term>
-    ///                 <description>Deletes any corrupted chunks</description>
+    ///                 <description>Deletes any corrupted chunks.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AdminRepairTableRequest.Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
     ///                 </term>
     ///                 <description>Shrinks corrupted chunks to the shortest
-    ///                 column</description>
+    ///                 column.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AdminRepairTableRequest.Options.REPLAY_WAL">REPLAY_WAL</see>:
     ///                 </term>
     ///                 <description>Manually invokes write-ahead log (WAL)
-    ///                 replay on the table</description>
+    ///                 replay on the table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -2350,7 +2323,7 @@ public partial class Kinetica
     ///
     /// <param name="table_names">List of tables to query. An asterisk returns
     /// all tables.</param>
-    /// <param name="table_types">internal: type_id per table.</param>
+    /// <param name="table_types">ID of the type per table.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -2364,21 +2337,22 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AdminRepairTableRequest.Options.DELETE_CHUNKS">DELETE_CHUNKS</see>:
     ///                 </term>
-    ///                 <description>Deletes any corrupted chunks</description>
+    ///                 <description>Deletes any corrupted chunks.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AdminRepairTableRequest.Options.SHRINK_COLUMNS">SHRINK_COLUMNS</see>:
     ///                 </term>
     ///                 <description>Shrinks corrupted chunks to the shortest
-    ///                 column</description>
+    ///                 column.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AdminRepairTableRequest.Options.REPLAY_WAL">REPLAY_WAL</see>:
     ///                 </term>
     ///                 <description>Manually invokes write-ahead log (WAL)
-    ///                 replay on the table</description>
+    ///                 replay on the table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -3207,8 +3181,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:
     ///         </term>
-    ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
-    ///         GAdmin instead.].
+    ///         <description>[DEPRECATED]  Use the Rebuild DB feature of GAdmin
+    ///         instead.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -3424,8 +3398,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:
     ///         </term>
-    ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
-    ///         GAdmin instead.].
+    ///         <description>[DEPRECATED]  Use the Rebuild DB feature of GAdmin
+    ///         instead.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -4016,10 +3990,9 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of a schema which is to
+    ///         contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -4035,7 +4008,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.PIPELINED_EXPRESSION_EVALUATION">PIPELINED_EXPRESSION_EVALUATION</see>:
     ///         </term>
-    ///         <description>evaluate the group-by during last JoinedSet filter
+    ///         <description>Evaluate the group-by during last JoinedSet filter
     ///         plan step.
     ///         Supported values:
     ///         <list type="bullet">
@@ -4327,6 +4300,113 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use for the result
+    ///         table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AggregateGroupByRequest.Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
     ///         <description>ID of view of which the result table will be a
@@ -4336,15 +4416,16 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:
     ///         </term>
-    ///         <description>pivot column</description>
+    ///         <description>Pivot column.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:
     ///         </term>
-    ///         <description>The value list provided will become the column
-    ///         headers in the output. Should be the values from the
-    ///         pivot_column.</description>
+    ///         <description>Comma-separated list of the values in the <see
+    ///         cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>
+    ///         column.  The list provided will become the column header
+    ///         prefixes in the output.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -4520,10 +4601,9 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of a schema which is to
+    ///         contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -4539,7 +4619,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.PIPELINED_EXPRESSION_EVALUATION">PIPELINED_EXPRESSION_EVALUATION</see>:
     ///         </term>
-    ///         <description>evaluate the group-by during last JoinedSet filter
+    ///         <description>Evaluate the group-by during last JoinedSet filter
     ///         plan step.
     ///         Supported values:
     ///         <list type="bullet">
@@ -4831,6 +4911,113 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use for the result
+    ///         table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="AggregateGroupByRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateGroupByRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AggregateGroupByRequest.Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
     ///         <description>ID of view of which the result table will be a
@@ -4840,15 +5027,16 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:
     ///         </term>
-    ///         <description>pivot column</description>
+    ///         <description>Pivot column.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:
     ///         </term>
-    ///         <description>The value list provided will become the column
-    ///         headers in the output. Should be the values from the
-    ///         pivot_column.</description>
+    ///         <description>Comma-separated list of the values in the <see
+    ///         cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>
+    ///         column.  The list provided will become the column header
+    ///         prefixes in the output.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -5954,7 +6142,8 @@ public partial class Kinetica
     ///         <description>Estimate (via t-digest) of the given percentile of
     ///         the column(s) (percentile(50.0) will be an approximation of the
     ///         median). Add a second, comma-separated value to calculate
-    ///         percentile resolution, e.g., 'percentile(75,150)'</description>
+    ///         percentile resolution, e.g., 'percentile(75,150)'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -6155,7 +6344,8 @@ public partial class Kinetica
     ///         <description>Estimate (via t-digest) of the given percentile of
     ///         the column(s) (percentile(50.0) will be an approximation of the
     ///         median). Add a second, comma-separated value to calculate
-    ///         percentile resolution, e.g., 'percentile(75,150)'</description>
+    ///         percentile resolution, e.g., 'percentile(75,150)'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -6340,7 +6530,7 @@ public partial class Kinetica
     /// <param name="interval">The interval of a bin. Set members fall into bin
     /// i if the binning-column falls in the range [start+interval*i,
     /// start+interval*(i+1)).</param>
-    /// <param name="options">Map of optional parameters:
+    /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -6447,7 +6637,7 @@ public partial class Kinetica
     /// <param name="interval">The interval of a bin. Set members fall into bin
     /// i if the binning-column falls in the range [start+interval*i,
     /// start+interval*(i+1)).</param>
-    /// <param name="options">Map of optional parameters:
+    /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -6708,10 +6898,9 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of a schema which is to
+    ///         contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -6720,7 +6909,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateUniqueRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -7014,10 +7203,9 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of a schema which is to
+    ///         contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -7026,7 +7214,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateUniqueRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -7378,10 +7566,9 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of a schema which is to
+    ///         contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -7506,7 +7693,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
-    ///         <description>view this result table is part of. The default
+    ///         <description>View this result table is part of. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
@@ -7637,10 +7824,9 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of a schema which is to
+    ///         contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -7765,7 +7951,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
-    ///         <description>view this result table is part of. The default
+    ///         <description>View this result table is part of. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
@@ -8168,13 +8354,13 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterCredentialRequest.CredentialUpdatesMap.IDENTITY">IDENTITY</see>:
     ///         </term>
-    ///         <description>New user for the credential</description>
+    ///         <description>New user for the credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:
     ///         </term>
-    ///         <description>New password for the credential</description>
+    ///         <description>New password for the credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8277,13 +8463,13 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterCredentialRequest.CredentialUpdatesMap.IDENTITY">IDENTITY</see>:
     ///         </term>
-    ///         <description>New user for the credential</description>
+    ///         <description>New user for the credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:
     ///         </term>
-    ///         <description>New password for the credential</description>
+    ///         <description>New password for the credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8313,7 +8499,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>
+    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>.
     /// </summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -8328,7 +8514,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>
+    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>.
     /// (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -8346,7 +8532,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>
+    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>.
     /// </summary>
     ///
     /// <param name="name">Name of the data sink to be altered. Must be an
@@ -8367,7 +8553,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>Timeout in seconds for connecting to this sink
+    ///         <description>Timeout in seconds for connecting to this sink.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8375,7 +8561,7 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for waiting for a response from
-    ///         this sink</description>
+    ///         this sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8384,21 +8570,21 @@ public partial class Kinetica
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials/"
     ///         target="_top">credential</a> object to be used in this data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8411,7 +8597,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -8460,34 +8646,34 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
     ///         </term>
-    ///         <description>Server side encryption type</description>
+    ///         <description>Server side encryption type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
     ///         </term>
-    ///         <description>KMS key</description>
+    ///         <description>KMS key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8500,7 +8686,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8531,7 +8717,7 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data sink, this is valid only if tenant_id is specified
+    ///         data sink, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8539,13 +8725,13 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8553,13 +8739,41 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data sink</description>
+    ///         account to use as the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>Oauth token to access given storage container
+    ///         <description>OAuth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8567,21 +8781,21 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data sink</description>
+    ///         the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data sink</description>
+    ///         authenticating the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8594,7 +8808,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8608,7 +8822,7 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
     ///         <description>Name of the Kafka topic to use for this data sink,
-    ///         if it references a Kafka broker</description>
+    ///         if it references a Kafka broker.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8662,8 +8876,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasink if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasink if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -8707,7 +8921,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>:
     ///                 </term>
-    ///                 <description>A single record is returned per message
+    ///                 <description>A single record is returned per message.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -8715,7 +8929,7 @@ public partial class Kinetica
     ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see>:
     ///                 </term>
     ///                 <description>Records are returned as an array per
-    ///                 message</description>
+    ///                 message.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -8768,7 +8982,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>
+    /// href="../../../concepts/data_sinks/" target="_top">data sink</a>.
     /// (async)</summary>
     ///
     /// <param name="name">Name of the data sink to be altered. Must be an
@@ -8789,7 +9003,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>Timeout in seconds for connecting to this sink
+    ///         <description>Timeout in seconds for connecting to this sink.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8797,7 +9011,7 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for waiting for a response from
-    ///         this sink</description>
+    ///         this sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8806,21 +9020,21 @@ public partial class Kinetica
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials/"
     ///         target="_top">credential</a> object to be used in this data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8833,7 +9047,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -8882,34 +9096,34 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
     ///         </term>
-    ///         <description>Server side encryption type</description>
+    ///         <description>Server side encryption type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
     ///         </term>
-    ///         <description>KMS key</description>
+    ///         <description>KMS key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -8922,7 +9136,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8953,7 +9167,7 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data sink, this is valid only if tenant_id is specified
+    ///         data sink, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8961,13 +9175,13 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8975,13 +9189,41 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data sink</description>
+    ///         account to use as the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>Oauth token to access given storage container
+    ///         <description>OAuth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -8989,21 +9231,21 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data sink</description>
+    ///         the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data sink</description>
+    ///         authenticating the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9016,7 +9258,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9030,7 +9272,7 @@ public partial class Kinetica
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
     ///         <description>Name of the Kafka topic to use for this data sink,
-    ///         if it references a Kafka broker</description>
+    ///         if it references a Kafka broker.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9084,8 +9326,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasink if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasink if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -9129,7 +9371,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>:
     ///                 </term>
-    ///                 <description>A single record is returned per message
+    ///                 <description>A single record is returned per message.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -9137,7 +9379,7 @@ public partial class Kinetica
     ///                 cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see>:
     ///                 </term>
     ///                 <description>Records are returned as an array per
-    ///                 message</description>
+    ///                 message.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -9194,7 +9436,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sources/" target="_top">data source</a>
+    /// href="../../../concepts/data_sources/" target="_top">data source</a>.
     /// </summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -9209,7 +9451,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sources/" target="_top">data source</a>
+    /// href="../../../concepts/data_sources/" target="_top">data source</a>.
     /// (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -9227,7 +9469,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sources/" target="_top">data source</a>
+    /// href="../../../concepts/data_sources/" target="_top">data source</a>.
     /// </summary>
     ///
     /// <param name="name">Name of the data source to be altered. Must be an
@@ -9249,14 +9491,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:
     ///         </term>
     ///         <description>Name of the remote system user; may be an empty
-    ///         string</description>
+    ///         string.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:
     ///         </term>
     ///         <description>Password for the remote system user; may be an
-    ///         empty string</description>
+    ///         empty string.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9285,14 +9527,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for connecting to this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for reading from this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9300,7 +9542,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials"
-    ///         target="_top">credential</a> object to be used in data source
+    ///         target="_top">credential</a> object to be used in data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9308,14 +9550,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         source</description>
+    ///         source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9328,7 +9570,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -9377,22 +9619,22 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9405,7 +9647,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9436,7 +9678,7 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data source, this is valid only if tenant_id is specified
+    ///         data source, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9444,13 +9686,13 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9458,13 +9700,41 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data source</description>
+    ///         account to use as the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>OAuth token to access given storage container
+    ///         <description>OAuth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9472,21 +9742,21 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data source</description>
+    ///         the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data source</description>
+    ///         authenticating the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9499,7 +9769,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9512,7 +9782,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
-    ///         <description>Name of the Kafka topic to use as the data source
+    ///         <description>Name of the Kafka topic to use as the data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9567,8 +9837,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasource if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasource if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -9602,14 +9872,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9646,7 +9916,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters the properties of an existing <a
-    /// href="../../../concepts/data_sources/" target="_top">data source</a>
+    /// href="../../../concepts/data_sources/" target="_top">data source</a>.
     /// (async)</summary>
     ///
     /// <param name="name">Name of the data source to be altered. Must be an
@@ -9668,14 +9938,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.USER_NAME">USER_NAME</see>:
     ///         </term>
     ///         <description>Name of the remote system user; may be an empty
-    ///         string</description>
+    ///         string.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.PASSWORD">PASSWORD</see>:
     ///         </term>
     ///         <description>Password for the remote system user; may be an
-    ///         empty string</description>
+    ///         empty string.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9704,14 +9974,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for connecting to this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for reading from this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9719,7 +9989,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials"
-    ///         target="_top">credential</a> object to be used in data source
+    ///         target="_top">credential</a> object to be used in data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9727,14 +9997,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         source</description>
+    ///         source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9747,7 +10017,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -9796,22 +10066,22 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9824,7 +10094,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9855,7 +10125,7 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data source, this is valid only if tenant_id is specified
+    ///         data source, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9863,13 +10133,13 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9877,13 +10147,41 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data source</description>
+    ///         account to use as the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>OAuth token to access given storage container
+    ///         <description>OAuth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9891,21 +10189,21 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data source</description>
+    ///         the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data source</description>
+    ///         authenticating the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9918,7 +10216,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -9931,7 +10229,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
-    ///         <description>Name of the Kafka topic to use as the data source
+    ///         <description>Name of the Kafka topic to use as the data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -9986,8 +10284,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasource if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasource if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -10021,14 +10319,14 @@ public partial class Kinetica
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -10206,13 +10504,13 @@ public partial class Kinetica
     ///         cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:
     ///         </term>
     ///         <description>Install a python package from PyPI, an external
-    ///         data source or KiFS</description>
+    ///         data source or KiFS.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterEnvironmentRequest.Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:
     ///         </term>
-    ///         <description>Install packages from a requirements file
+    ///         <description>Install packages from a requirements file.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -10225,14 +10523,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterEnvironmentRequest.Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:
     ///         </term>
-    ///         <description>Uninstall packages from a requirements file
+    ///         <description>Uninstall packages from a requirements file.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
     ///         <description>Uninstalls all packages in the environment and
-    ///         resets it to the original state at time of creation
+    ///         resets it to the original state at time of creation.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -10241,7 +10539,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Recreates the environment and re-installs all
     ///         packages, upgrades the packages if necessary based on
-    ///         dependencies</description>
+    ///         dependencies.</description>
     ///     </item>
     /// </list></param>
     /// <param name="_value">The value of the modification, depending on
@@ -10267,7 +10565,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which packages specified in <paramref name="_value" /> can be
-    ///         loaded</description>
+    ///         loaded.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -10296,13 +10594,13 @@ public partial class Kinetica
     ///         cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:
     ///         </term>
     ///         <description>Install a python package from PyPI, an external
-    ///         data source or KiFS</description>
+    ///         data source or KiFS.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterEnvironmentRequest.Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:
     ///         </term>
-    ///         <description>Install packages from a requirements file
+    ///         <description>Install packages from a requirements file.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -10315,14 +10613,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterEnvironmentRequest.Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:
     ///         </term>
-    ///         <description>Uninstall packages from a requirements file
+    ///         <description>Uninstall packages from a requirements file.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
     ///         <description>Uninstalls all packages in the environment and
-    ///         resets it to the original state at time of creation
+    ///         resets it to the original state at time of creation.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -10331,7 +10629,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Recreates the environment and re-installs all
     ///         packages, upgrades the packages if necessary based on
-    ///         dependencies</description>
+    ///         dependencies.</description>
     ///     </item>
     /// </list></param>
     /// <param name="_value">The value of the modification, depending on
@@ -10357,7 +10655,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which packages specified in <paramref name="_value" /> can be
-    ///         loaded</description>
+    ///         loaded.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -10525,37 +10823,37 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.EMPTY_STRING">EMPTY_STRING</see>:
     ///         </term>
-    ///         <description>Don't change the ranking</description>
+    ///         <description>Don't change the ranking.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.FIRST">FIRST</see>:
     ///         </term>
     ///         <description>Make this resource group the new first one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.LAST">LAST</see>:
     ///         </term>
     ///         <description>Make this resource group the new last one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.BEFORE">BEFORE</see>:
     ///         </term>
     ///         <description>Place this resource group before the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.AFTER">AFTER</see>:
     ///         </term>
     ///         <description>Place this resource group after the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -10708,37 +11006,37 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.EMPTY_STRING">EMPTY_STRING</see>:
     ///         </term>
-    ///         <description>Don't change the ranking</description>
+    ///         <description>Don't change the ranking.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.FIRST">FIRST</see>:
     ///         </term>
     ///         <description>Make this resource group the new first one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.LAST">LAST</see>:
     ///         </term>
     ///         <description>Make this resource group the new last one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.BEFORE">BEFORE</see>:
     ///         </term>
     ///         <description>Place this resource group before the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.Ranking.AFTER">AFTER</see>:
     ///         </term>
     ///         <description>Place this resource group after the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -11012,7 +11310,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterSchemaRequest.Action.ADD_COMMENT">ADD_COMMENT</see>:
     ///         </term>
-    ///         <description>Adds a comment describing the schema</description>
+    ///         <description>Adds a comment describing the schema.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11053,7 +11352,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterSchemaRequest.Action.ADD_COMMENT">ADD_COMMENT</see>:
     ///         </term>
-    ///         <description>Adds a comment describing the schema</description>
+    ///         <description>Adds a comment describing the schema.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11087,9 +11387,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties(AlterSystemPropertiesRequest)">alterSystemProperties</see>
-    /// endpoint is primarily used to simplify the testing of the system and is
-    /// not expected to be used during normal execution.</summary>
+    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
+    /// primarily used to simplify the testing of the system and is not
+    /// expected to be used during normal execution.</summary>
     /// <remarks><para> Commands are given through the <see
     /// cref="AlterSystemPropertiesRequest.property_updates_map">property_updates_map</see>
     /// whose keys are commands and values are strings representing integer
@@ -11108,9 +11408,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties(AlterSystemPropertiesRequest)">alterSystemProperties</see>
-    /// endpoint is primarily used to simplify the testing of the system and is
-    /// not expected to be used during normal execution. (async)</summary>
+    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
+    /// primarily used to simplify the testing of the system and is not
+    /// expected to be used during normal execution. (async)</summary>
     /// <remarks><para> Commands are given through the <see
     /// cref="AlterSystemPropertiesRequest.property_updates_map">property_updates_map</see>
     /// whose keys are commands and values are strings representing integer
@@ -11132,9 +11432,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties(IDictionary{string,string},IDictionary{string,string})">alterSystemProperties</see>
-    /// endpoint is primarily used to simplify the testing of the system and is
-    /// not expected to be used during normal execution.</summary>
+    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
+    /// primarily used to simplify the testing of the system and is not
+    /// expected to be used during normal execution.</summary>
     /// <remarks><para> Commands are given through the <paramref
     /// name="property_updates_map" /> whose keys are commands and values are
     /// strings representing integer values (for example '8000') or boolean
@@ -11203,28 +11503,25 @@ public partial class Kinetica
     ///         <description>Sets the execution_mode for kernel executions to
     ///         the specified string value. Possible values are host, device,
     ///         default (engine decides) or an integer value that indicates max
-    ///         chunk size to exec on host</description>
+    ///         chunk size to exec on host.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
     ///         </term>
     ///         <description>Sets the root directory path where external table
-    ///         data files are accessed from.  Path must exist on the head node
-    ///         </description>
+    ///         data files are accessed from.  Path must exist on the head
+    ///         node.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see
-    ///         cref="filter(string,string,string,IDictionary{string,string})">filter</see>)
-    ///         and aggregating (e.g., <see
-    ///         cref="aggregateGroupBy(string,IList{string},long,long,IDictionary{string,string})">aggregateGroupBy</see>)
-    ///         queries will timeout. The default value is '20'. The minimum
-    ///         allowed value is '0'. The maximum allowed value is '1440'.
-    ///         </description>
+    ///         <see cref="filter">filter</see>) and aggregating (e.g., <see
+    ///         cref="aggregateGroupBy">aggregateGroupBy</see>) queries will
+    ///         timeout. The default value is '20'. The minimum allowed value
+    ///         is '0'. The maximum allowed value is '1440'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11313,7 +11610,7 @@ public partial class Kinetica
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
     ///         </term>
     ///         <description>Maximum time (milliseconds) for each poll to get
-    ///         records from kafka. The default value is '0'. The minimum
+    ///         records from Kafka. The default value is '0'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1000'.
     ///         </description>
     ///     </item>
@@ -11322,7 +11619,7 @@ public partial class Kinetica
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
     ///         </term>
     ///         <description>Maximum time (seconds) to buffer records received
-    ///         from kafka before ingestion. The default value is '30'. The
+    ///         from Kafka before ingestion. The default value is '30'. The
     ///         minimum allowed value is '1'. The maximum allowed value is
     ///         '120'.</description>
     ///     </item>
@@ -11432,31 +11729,32 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
     ///         </term>
-    ///         <description>AI API provider type</description>
+    ///         <description>AI API provider type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
     ///         </term>
-    ///         <description>AI API URL</description>
+    ///         <description>AI API URL.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
     ///         </term>
-    ///         <description>AI API key</description>
+    ///         <description>AI API key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>AI API connection timeout in seconds</description>
+    ///         <description>AI API connection timeout in seconds.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
     ///         </term>
-    ///         <description>AI API model name</description>
+    ///         <description>AI API model name.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11467,15 +11765,22 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TELM_FORCE_METRICS_DURATION">TELM_FORCE_METRICS_DURATION</see>:
+    ///         </term>
+    ///         <description>Capture metrics for any query exceeding this
+    ///         duration in seconds.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>Idle connection timeout in seconds</description>
+    ///         <description>Idle connection timeout in seconds.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
     ///         </term>
-    ///         <description>Enable  postgres proxy keep alive. The default
+    ///         <description>Enable postgres proxy keep alive. The default
     ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
@@ -11494,7 +11799,7 @@ public partial class Kinetica
     ///         href="../../../concepts/column_compression/"
     ///         target="_top">compression algorithm</a> applied to any column
     ///         without a column-level or table-level default compression
-    ///         specified at the time it was created</description>
+    ///         specified at the time it was created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11512,6 +11817,13 @@ public partial class Kinetica
     ///         <description>Initializes HA replay from the given timestamp (as
     ///         milliseconds since unix epoch). The minimum allowed value is
     ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ADMIN_ACCESS_ONLY">ADMIN_ACCESS_ONLY</see>:
+    ///         </term>
+    ///         <description>Restricts access to system admin users only. The
+    ///         default value is 'false'.</description>
     ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters.
@@ -11576,9 +11888,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties(IDictionary{string,string},IDictionary{string,string})">alterSystemProperties</see>
-    /// endpoint is primarily used to simplify the testing of the system and is
-    /// not expected to be used during normal execution. (async)</summary>
+    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
+    /// primarily used to simplify the testing of the system and is not
+    /// expected to be used during normal execution. (async)</summary>
     /// <remarks><para> Commands are given through the <paramref
     /// name="property_updates_map" /> whose keys are commands and values are
     /// strings representing integer values (for example '8000') or boolean
@@ -11647,28 +11959,25 @@ public partial class Kinetica
     ///         <description>Sets the execution_mode for kernel executions to
     ///         the specified string value. Possible values are host, device,
     ///         default (engine decides) or an integer value that indicates max
-    ///         chunk size to exec on host</description>
+    ///         chunk size to exec on host.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:
     ///         </term>
     ///         <description>Sets the root directory path where external table
-    ///         data files are accessed from.  Path must exist on the head node
-    ///         </description>
+    ///         data files are accessed from.  Path must exist on the head
+    ///         node.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see
-    ///         cref="filter(string,string,string,IDictionary{string,string})">filter</see>)
-    ///         and aggregating (e.g., <see
-    ///         cref="aggregateGroupBy(string,IList{string},long,long,IDictionary{string,string})">aggregateGroupBy</see>)
-    ///         queries will timeout. The default value is '20'. The minimum
-    ///         allowed value is '0'. The maximum allowed value is '1440'.
-    ///         </description>
+    ///         <see cref="filter">filter</see>) and aggregating (e.g., <see
+    ///         cref="aggregateGroupBy">aggregateGroupBy</see>) queries will
+    ///         timeout. The default value is '20'. The minimum allowed value
+    ///         is '0'. The maximum allowed value is '1440'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11757,7 +12066,7 @@ public partial class Kinetica
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:
     ///         </term>
     ///         <description>Maximum time (milliseconds) for each poll to get
-    ///         records from kafka. The default value is '0'. The minimum
+    ///         records from Kafka. The default value is '0'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1000'.
     ///         </description>
     ///     </item>
@@ -11766,7 +12075,7 @@ public partial class Kinetica
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:
     ///         </term>
     ///         <description>Maximum time (seconds) to buffer records received
-    ///         from kafka before ingestion. The default value is '30'. The
+    ///         from Kafka before ingestion. The default value is '30'. The
     ///         minimum allowed value is '1'. The maximum allowed value is
     ///         '120'.</description>
     ///     </item>
@@ -11876,31 +12185,32 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_PROVIDER">AI_API_PROVIDER</see>:
     ///         </term>
-    ///         <description>AI API provider type</description>
+    ///         <description>AI API provider type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_URL">AI_API_URL</see>:
     ///         </term>
-    ///         <description>AI API URL</description>
+    ///         <description>AI API URL.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_KEY">AI_API_KEY</see>:
     ///         </term>
-    ///         <description>AI API key</description>
+    ///         <description>AI API key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_CONNECTION_TIMEOUT">AI_API_CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>AI API connection timeout in seconds</description>
+    ///         <description>AI API connection timeout in seconds.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AI_API_EMBEDDINGS_MODEL">AI_API_EMBEDDINGS_MODEL</see>:
     ///         </term>
-    ///         <description>AI API model name</description>
+    ///         <description>AI API model name.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11911,15 +12221,22 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TELM_FORCE_METRICS_DURATION">TELM_FORCE_METRICS_DURATION</see>:
+    ///         </term>
+    ///         <description>Capture metrics for any query exceeding this
+    ///         duration in seconds.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT">POSTGRES_PROXY_IDLE_CONNECTION_TIMEOUT</see>:
     ///         </term>
-    ///         <description>Idle connection timeout in seconds</description>
+    ///         <description>Idle connection timeout in seconds.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.POSTGRES_PROXY_KEEP_ALIVE">POSTGRES_PROXY_KEEP_ALIVE</see>:
     ///         </term>
-    ///         <description>Enable  postgres proxy keep alive. The default
+    ///         <description>Enable postgres proxy keep alive. The default
     ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
@@ -11938,7 +12255,7 @@ public partial class Kinetica
     ///         href="../../../concepts/column_compression/"
     ///         target="_top">compression algorithm</a> applied to any column
     ///         without a column-level or table-level default compression
-    ///         specified at the time it was created</description>
+    ///         specified at the time it was created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11956,6 +12273,13 @@ public partial class Kinetica
     ///         <description>Initializes HA replay from the given timestamp (as
     ///         milliseconds since unix epoch). The minimum allowed value is
     ///         '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ADMIN_ACCESS_ONLY">ADMIN_ACCESS_ONLY</see>:
+    ///         </term>
+    ///         <description>Restricts access to system admin users only. The
+    ///         default value is 'false'.</description>
     ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters.
@@ -12256,10 +12580,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
     ///         cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Moves a table or view
-    ///         into a schema named <paramref name="_value" />.  If the schema
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Moves a table or view into a
+    ///         schema named <paramref name="_value" />.  If the schema
     ///         provided is non-existent, it will be automatically created.
     ///         </description>
     ///     </item>
@@ -12345,6 +12668,24 @@ public partial class Kinetica
     ///         <description>Deletes the column specified in <paramref
     ///         name="_value" /> from the table specified in <paramref
     ///         name="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.SET_DEFAULT">SET_DEFAULT</see>:
+    ///         </term>
+    ///         <description>Sets or replaces the default value expression for
+    ///         the column specified in <paramref name="_value" />.  The new
+    ///         default is taken from <see
+    ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>.
+    ///         Existing properties on the column are preserved.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.DELETE_DEFAULT">DELETE_DEFAULT</see>:
+    ///         </term>
+    ///         <description>Removes the default value expression from the
+    ///         column specified in <paramref name="_value" />.  Other column
+    ///         properties are preserved.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12555,9 +12896,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup data loading scheme for the table; see
     ///         description of 'load_vectors_policy' in <see
-    ///         cref="createTable(string,string,IDictionary{string,string})">createTable</see>
-    ///         for possible values for <paramref name="_value" />
-    ///         </description>
+    ///         cref="createTable">createTable</see> for possible values for
+    ///         <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12565,9 +12905,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup primary key generation scheme for the
     ///         table; see description of 'build_pk_index_policy' in <see
-    ///         cref="createTable(string,string,IDictionary{string,string})">createTable</see>
-    ///         for possible values for <paramref name="_value" />
-    ///         </description>
+    ///         cref="createTable">createTable</see> for possible values for
+    ///         <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12575,9 +12914,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup rebuilding scheme for the materialized
     ///         view; see description of 'build_materialized_view_policy' in
-    ///         <see
-    ///         cref="createMaterializedView(string,IDictionary{string,string})">createMaterializedView</see>
-    ///         for possible values for <paramref name="_value" />
+    ///         <see cref="createMaterializedView">createMaterializedView</see>
+    ///         for possible values for <paramref name="_value" />.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -12617,9 +12955,11 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
     ///         </term>
-    ///         <description>When adding a column, set a default value for
-    ///         existing records.  For nullable columns, the default value will
-    ///         be null, regardless of data type.</description>
+    ///         <description>When adding a column, set a literal default value
+    ///         for existing records.  For nullable columns, the default value
+    ///         will be null, regardless of data type.  Also persisted as the
+    ///         column's default for future inserts that omit the column.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12641,9 +12981,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
     ///         </term>
-    ///         <description>[DEPRECATED--please use <see
+    ///         <description>[DEPRECATED]  Please use <see
     ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
-    ///         instead.]</description>
+    ///         instead.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12712,16 +13052,32 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
     ///         </term>
-    ///         <description>When adding a column, an optional expression to
-    ///         use for the new column's values. Any valid expression may be
-    ///         used, including one containing references to existing columns
-    ///         in the same table.</description>
+    ///         <description>When adding a column or setting a new default with
+    ///         <paramref name="action" /> set to <see
+    ///         cref="AlterTableRequest.Action.SET_DEFAULT">SET_DEFAULT</see>,
+    ///         the new default expression (GPUdb-syntax) for the column.  Any
+    ///         valid expression may be used, including one containing
+    ///         references to existing columns in the same table.  Persisted as
+    ///         the column's default for future inserts that omit the column;
+    ///         for add_column, also used to backfill existing rows.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION_SQL">ADD_COLUMN_EXPRESSION_SQL</see>:
+    ///         </term>
+    ///         <description>Optional SQL-syntax form of <see
+    ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>,
+    ///         used only when the SQL syntax differs from the GPUdb syntax.
+    ///         Persisted alongside the GPUdb form so SHOW CREATE TABLE /
+    ///         information_schema can reproduce the original SQL.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
-    ///         <description>Optional parameter for specifying the <a
+    ///         <description>Parameter for specifying the <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
     ///         strategy</a> for the table and its columns when <paramref
     ///         name="action" /> is <see
@@ -12774,7 +13130,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Create or delete a <a
     ///                 href="../../../concepts/indexes/#geospatial-index"
-    ///                 target="_top">geospatial index</a></description>
+    ///                 target="_top">geospatial index</a>.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -12784,7 +13140,7 @@ public partial class Kinetica
     ///                 href="../../../concepts/indexes/#cagra-index"
     ///                 target="_top">CAGRA index</a> on a <a
     ///                 href="../../../vector_search/#vector-type"
-    ///                 target="_top">vector column</a></description>
+    ///                 target="_top">vector column</a>.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -12794,7 +13150,7 @@ public partial class Kinetica
     ///                 href="../../../concepts/indexes/#hnsw-index"
     ///                 target="_top">HNSW index</a> on a <a
     ///                 href="../../../vector_search/#vector-type"
-    ///                 target="_top">vector column</a></description>
+    ///                 target="_top">vector column</a>.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -12936,10 +13292,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
     ///         cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Moves a table or view
-    ///         into a schema named <paramref name="_value" />.  If the schema
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Moves a table or view into a
+    ///         schema named <paramref name="_value" />.  If the schema
     ///         provided is non-existent, it will be automatically created.
     ///         </description>
     ///     </item>
@@ -13025,6 +13380,24 @@ public partial class Kinetica
     ///         <description>Deletes the column specified in <paramref
     ///         name="_value" /> from the table specified in <paramref
     ///         name="table_name" />.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.SET_DEFAULT">SET_DEFAULT</see>:
+    ///         </term>
+    ///         <description>Sets or replaces the default value expression for
+    ///         the column specified in <paramref name="_value" />.  The new
+    ///         default is taken from <see
+    ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>.
+    ///         Existing properties on the column are preserved.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.DELETE_DEFAULT">DELETE_DEFAULT</see>:
+    ///         </term>
+    ///         <description>Removes the default value expression from the
+    ///         column specified in <paramref name="_value" />.  Other column
+    ///         properties are preserved.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13235,9 +13608,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup data loading scheme for the table; see
     ///         description of 'load_vectors_policy' in <see
-    ///         cref="createTable(string,string,IDictionary{string,string})">createTable</see>
-    ///         for possible values for <paramref name="_value" />
-    ///         </description>
+    ///         cref="createTable">createTable</see> for possible values for
+    ///         <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13245,9 +13617,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup primary key generation scheme for the
     ///         table; see description of 'build_pk_index_policy' in <see
-    ///         cref="createTable(string,string,IDictionary{string,string})">createTable</see>
-    ///         for possible values for <paramref name="_value" />
-    ///         </description>
+    ///         cref="createTable">createTable</see> for possible values for
+    ///         <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13255,9 +13626,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup rebuilding scheme for the materialized
     ///         view; see description of 'build_materialized_view_policy' in
-    ///         <see
-    ///         cref="createMaterializedView(string,IDictionary{string,string})">createMaterializedView</see>
-    ///         for possible values for <paramref name="_value" />
+    ///         <see cref="createMaterializedView">createMaterializedView</see>
+    ///         for possible values for <paramref name="_value" />.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -13297,9 +13667,11 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:
     ///         </term>
-    ///         <description>When adding a column, set a default value for
-    ///         existing records.  For nullable columns, the default value will
-    ///         be null, regardless of data type.</description>
+    ///         <description>When adding a column, set a literal default value
+    ///         for existing records.  For nullable columns, the default value
+    ///         will be null, regardless of data type.  Also persisted as the
+    ///         column's default for future inserts that omit the column.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13321,9 +13693,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:
     ///         </term>
-    ///         <description>[DEPRECATED--please use <see
+    ///         <description>[DEPRECATED]  Please use <see
     ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>
-    ///         instead.]</description>
+    ///         instead.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13392,16 +13764,32 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:
     ///         </term>
-    ///         <description>When adding a column, an optional expression to
-    ///         use for the new column's values. Any valid expression may be
-    ///         used, including one containing references to existing columns
-    ///         in the same table.</description>
+    ///         <description>When adding a column or setting a new default with
+    ///         <paramref name="action" /> set to <see
+    ///         cref="AlterTableRequest.Action.SET_DEFAULT">SET_DEFAULT</see>,
+    ///         the new default expression (GPUdb-syntax) for the column.  Any
+    ///         valid expression may be used, including one containing
+    ///         references to existing columns in the same table.  Persisted as
+    ///         the column's default for future inserts that omit the column;
+    ///         for add_column, also used to backfill existing rows.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION_SQL">ADD_COLUMN_EXPRESSION_SQL</see>:
+    ///         </term>
+    ///         <description>Optional SQL-syntax form of <see
+    ///         cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>,
+    ///         used only when the SQL syntax differs from the GPUdb syntax.
+    ///         Persisted alongside the GPUdb form so SHOW CREATE TABLE /
+    ///         information_schema can reproduce the original SQL.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
-    ///         <description>Optional parameter for specifying the <a
+    ///         <description>Parameter for specifying the <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
     ///         strategy</a> for the table and its columns when <paramref
     ///         name="action" /> is <see
@@ -13454,7 +13842,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Create or delete a <a
     ///                 href="../../../concepts/indexes/#geospatial-index"
-    ///                 target="_top">geospatial index</a></description>
+    ///                 target="_top">geospatial index</a>.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -13464,7 +13852,7 @@ public partial class Kinetica
     ///                 href="../../../concepts/indexes/#cagra-index"
     ///                 target="_top">CAGRA index</a> on a <a
     ///                 href="../../../vector_search/#vector-type"
-    ///                 target="_top">vector column</a></description>
+    ///                 target="_top">vector column</a>.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -13474,7 +13862,7 @@ public partial class Kinetica
     ///                 href="../../../concepts/indexes/#hnsw-index"
     ///                 target="_top">HNSW index</a> on a <a
     ///                 href="../../../vector_search/#vector-type"
-    ///                 target="_top">vector column</a></description>
+    ///                 target="_top">vector column</a>.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -13586,7 +13974,7 @@ public partial class Kinetica
     /// action. Note that the same options as in alter table requests but in
     /// the same map as the column name and the action. For example:
     /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
-    /// 'type':'int','default_value':'1'}]</param>
+    /// 'type':'int','default_value':'1'}].</param>
     /// <param name="options">Optional parameters.</param>
     /// <returns>Response object containing the result of the operation.
     /// </returns>
@@ -13625,7 +14013,7 @@ public partial class Kinetica
     /// action. Note that the same options as in alter table requests but in
     /// the same map as the column name and the action. For example:
     /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
-    /// 'type':'int','default_value':'1'}]</param>
+    /// 'type':'int','default_value':'1'}].</param>
     /// <param name="options">Optional parameters.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
     /// operation.</param>
@@ -13741,8 +14129,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
-    /// </summary>
+    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -13756,8 +14143,7 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
-    /// (async)</summary>
+    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -13774,12 +14160,10 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// </summary>
+    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// </param>
+    /// cref="createTableMonitor">createTableMonitor</see>.</param>
     /// <param name="monitor_updates_map">Map containing the properties of the
     /// table monitor to be updated. Error if empty.
     /// <list type="bullet">
@@ -13838,12 +14222,10 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// (async)</summary>
+    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// </param>
+    /// cref="createTableMonitor">createTableMonitor</see>.</param>
     /// <param name="monitor_updates_map">Map containing the properties of the
     /// table monitor to be updated. Error if empty.
     /// <list type="bullet">
@@ -14177,12 +14559,12 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see cref="AlterUserRequest.Action.TRUE">TRUE</see>:
     ///         </term>
-    ///         <description>User may login</description>
+    ///         <description>User may login.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="AlterUserRequest.Action.FALSE">FALSE</see>:
     ///         </term>
-    ///         <description>User may not login</description>
+    ///         <description>User may not login.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -14245,12 +14627,12 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see cref="AlterUserRequest.Action.TRUE">TRUE</see>:
     ///         </term>
-    ///         <description>User may login</description>
+    ///         <description>User may login.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="AlterUserRequest.Action.FALSE">FALSE</see>:
     ///         </term>
-    ///         <description>User may not login</description>
+    ///         <description>User may not login.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -14419,7 +14801,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterWalRequest.Options.MAX_SEGMENT_SIZE">MAX_SEGMENT_SIZE</see>:
     ///         </term>
-    ///         <description>Maximum size of an individual segment file
+    ///         <description>Maximum size of an individual segment file.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -14439,14 +14821,14 @@ public partial class Kinetica
     ///             <item>
     ///                 <term><see
     ///                 cref="AlterWalRequest.Options.NONE">NONE</see>:</term>
-    ///                 <description>Disables the WAL</description>
+    ///                 <description>Disables the WAL.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AlterWalRequest.Options.BACKGROUND">BACKGROUND</see>:
     ///                 </term>
     ///                 <description>WAL entries are periodically written
-    ///                 instead of immediately after each operation
+    ///                 instead of immediately after each operation.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -14454,14 +14836,14 @@ public partial class Kinetica
     ///                 cref="AlterWalRequest.Options.FLUSH">FLUSH</see>:
     ///                 </term>
     ///                 <description>Protects entries in the event of a
-    ///                 database crash</description>
+    ///                 database crash.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AlterWalRequest.Options.FSYNC">FSYNC</see>:
     ///                 </term>
     ///                 <description>Protects entries in the event of an OS
-    ///                 crash</description>
+    ///                 crash.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -14583,7 +14965,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AlterWalRequest.Options.MAX_SEGMENT_SIZE">MAX_SEGMENT_SIZE</see>:
     ///         </term>
-    ///         <description>Maximum size of an individual segment file
+    ///         <description>Maximum size of an individual segment file.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -14603,14 +14985,14 @@ public partial class Kinetica
     ///             <item>
     ///                 <term><see
     ///                 cref="AlterWalRequest.Options.NONE">NONE</see>:</term>
-    ///                 <description>Disables the WAL</description>
+    ///                 <description>Disables the WAL.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AlterWalRequest.Options.BACKGROUND">BACKGROUND</see>:
     ///                 </term>
     ///                 <description>WAL entries are periodically written
-    ///                 instead of immediately after each operation
+    ///                 instead of immediately after each operation.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -14618,14 +15000,14 @@ public partial class Kinetica
     ///                 cref="AlterWalRequest.Options.FLUSH">FLUSH</see>:
     ///                 </term>
     ///                 <description>Protects entries in the event of a
-    ///                 database crash</description>
+    ///                 database crash.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AlterWalRequest.Options.FSYNC">FSYNC</see>:
     ///                 </term>
     ///                 <description>Protects entries in the event of an OS
-    ///                 crash</description>
+    ///                 crash.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -14833,8 +15215,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the
-    ///         <paramref name="source_table_name" />. The default value is ''.
+    ///         <description>Filter expression to apply to the <paramref
+    ///         name="source_table_name" />. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -14878,18 +15260,51 @@ public partial class Kinetica
     ///                 cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
     ///         cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AppendRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="AppendRecordsRequest.Options.TRUE">TRUE</see>).
+    ///         If set to <see
+    ///         cref="AppendRecordsRequest.Options.TRUE">TRUE</see>, an
+    ///         existing record matched by primary key is modified in place. If
+    ///         set to <see
+    ///         cref="AppendRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AppendRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AppendRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AppendRecordsRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -14925,7 +15340,7 @@ public partial class Kinetica
     ///                 cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore source table records whose primary
-    ///                 key values collide with those of target table records
+    ///                 key values collide with those of target table records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -14934,7 +15349,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Raise an error for any source table record
     ///                 whose primary key values collide with those of a target
-    ///                 table record</description>
+    ///                 table record.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -15044,8 +15459,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the
-    ///         <paramref name="source_table_name" />. The default value is ''.
+    ///         <description>Filter expression to apply to the <paramref
+    ///         name="source_table_name" />. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -15089,18 +15504,51 @@ public partial class Kinetica
     ///                 cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
     ///         cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AppendRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="AppendRecordsRequest.Options.TRUE">TRUE</see>).
+    ///         If set to <see
+    ///         cref="AppendRecordsRequest.Options.TRUE">TRUE</see>, an
+    ///         existing record matched by primary key is modified in place. If
+    ///         set to <see
+    ///         cref="AppendRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AppendRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AppendRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AppendRecordsRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -15136,7 +15584,7 @@ public partial class Kinetica
     ///                 cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore source table records whose primary
-    ///                 key values collide with those of target table records
+    ///                 key values collide with those of target table records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -15145,7 +15593,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Raise an error for any source table record
     ///                 whose primary key values collide with those of a target
-    ///                 table record</description>
+    ///                 table record.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -15210,8 +15658,9 @@ public partial class Kinetica
                                                                    field_map, options ), cancellationToken );
     }
 
-    /// <summary>Scans the requested tables as specified in <c>table_name</c>
-    /// for integrity.</summary>
+    /// <summary>Scans the requested tables as specified in <see
+    /// cref="CheckTableRequest.table_names">table_names</see> for integrity.
+    /// </summary>
     /// <remarks><para>Any table chunks which fail the check will be marked as
     /// corrupt. By default the database will automatically repair corrupt
     /// tables (via truncating). Note that since this reads every table column
@@ -15231,8 +15680,9 @@ public partial class Kinetica
         return actualResponse_;
     }
 
-    /// <summary>Scans the requested tables as specified in <c>table_name</c>
-    /// for integrity. (async)</summary>
+    /// <summary>Scans the requested tables as specified in <see
+    /// cref="CheckTableRequest.table_names">table_names</see> for integrity.
+    /// (async)</summary>
     /// <remarks><para>Any table chunks which fail the check will be marked as
     /// corrupt. By default the database will automatically repair corrupt
     /// tables (via truncating). Note that since this reads every table column
@@ -15255,8 +15705,8 @@ public partial class Kinetica
         return actualResponse_;
     }
 
-    /// <summary>Scans the requested tables as specified in <c>table_name</c>
-    /// for integrity.</summary>
+    /// <summary>Scans the requested tables as specified in <paramref
+    /// name="table_names" /> for integrity.</summary>
     /// <remarks><para>Any table chunks which fail the check will be marked as
     /// corrupt. By default the database will automatically repair corrupt
     /// tables (via truncating). Note that since this reads every table column
@@ -15324,8 +15774,8 @@ public partial class Kinetica
         return checkTable( new CheckTableRequest( table_names, options ) );
     }
 
-    /// <summary>Scans the requested tables as specified in <c>table_name</c>
-    /// for integrity. (async)</summary>
+    /// <summary>Scans the requested tables as specified in <paramref
+    /// name="table_names" /> for integrity. (async)</summary>
     /// <remarks><para>Any table chunks which fail the check will be marked as
     /// corrupt. By default the database will automatically repair corrupt
     /// tables (via truncating). Note that since this reads every table column
@@ -15635,8 +16085,7 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
-    /// </summary>
+    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -15650,8 +16099,7 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
-    /// (async)</summary>
+    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -15668,12 +16116,10 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// </summary>
+    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// </param>
+    /// cref="createTableMonitor">createTableMonitor</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -15741,12 +16187,10 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// (async)</summary>
+    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
-    /// </param>
+    /// cref="createTableMonitor">createTableMonitor</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -16076,11 +16520,15 @@ public partial class Kinetica
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  Must be an existing table.
-    /// </param>
+    /// target="_top">name resolution rules</a>.  Must be an existing table.  A
+    /// value of <c>_*</c> collects statistics on every user table the caller
+    /// may read (excluding system schemas, views, and temporary tables); when
+    /// used, <paramref name="column_names" /> must be <c>_["*"]</c>.</param>
     /// <param name="column_names">List of one or more column names in
     /// <paramref name="table_name" /> for which to collect statistics
-    /// (cardinality, mean value, etc.).</param>
+    /// (cardinality, mean value, etc.).  A single entry of <c>_*</c> expands
+    /// to every collectable column on the table (geometry, vector, JSON, and
+    /// array columns are skipped).</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -16099,11 +16547,15 @@ public partial class Kinetica
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  Must be an existing table.
-    /// </param>
+    /// target="_top">name resolution rules</a>.  Must be an existing table.  A
+    /// value of <c>_*</c> collects statistics on every user table the caller
+    /// may read (excluding system schemas, views, and temporary tables); when
+    /// used, <paramref name="column_names" /> must be <c>_["*"]</c>.</param>
     /// <param name="column_names">List of one or more column names in
     /// <paramref name="table_name" /> for which to collect statistics
-    /// (cardinality, mean value, etc.).</param>
+    /// (cardinality, mean value, etc.).  A single entry of <c>_*</c> expands
+    /// to every collectable column on the table (geometry, vector, JSON, and
+    /// array columns are skipped).</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -16211,6 +16663,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateBackupRequest.BackupObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
@@ -16253,7 +16712,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -16293,7 +16752,9 @@ public partial class Kinetica
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Active subscriptions on any tables to be backed up
+    ///         will be temporarily suspended while the backup is active.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -16516,6 +16977,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateBackupRequest.BackupObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
@@ -16558,7 +17026,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -16598,7 +17066,9 @@ public partial class Kinetica
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Active subscriptions on any tables to be backed up
+    ///         will be temporarily suspended while the backup is active.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -16813,17 +17283,17 @@ public partial class Kinetica
     /// </summary>
     ///
     /// <param name="name">Name of the catalog to be created.</param>
-    /// <param name="table_format">Table format (iceberg, hudi, deltalake)
+    /// <param name="table_format">Table format (iceberg, hudi, deltalake).
     /// </param>
     /// <param name="location">Location of the catalog in
     /// 'http[s]://[server[:port]]]' format.</param>
     /// <param name="type">Type of the catalog (REST (unity, polaris, tabular),
-    /// nessie, hive, glue)</param>
+    /// nessie, hive, glue).</param>
     /// <param name="credential">Name of the <a
     /// href="../../../concepts/credentials" target="_top">credential</a>
-    /// object to be used in catalog</param>
+    /// object to be used in catalog.</param>
     /// <param name="datasource">Password for the remote system user; may be an
-    /// empty string</param>
+    /// empty string.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -16892,17 +17362,17 @@ public partial class Kinetica
     /// (async)</summary>
     ///
     /// <param name="name">Name of the catalog to be created.</param>
-    /// <param name="table_format">Table format (iceberg, hudi, deltalake)
+    /// <param name="table_format">Table format (iceberg, hudi, deltalake).
     /// </param>
     /// <param name="location">Location of the catalog in
     /// 'http[s]://[server[:port]]]' format.</param>
     /// <param name="type">Type of the catalog (REST (unity, polaris, tabular),
-    /// nessie, hive, glue)</param>
+    /// nessie, hive, glue).</param>
     /// <param name="credential">Name of the <a
     /// href="../../../concepts/credentials" target="_top">credential</a>
-    /// object to be used in catalog</param>
+    /// object to be used in catalog.</param>
     /// <param name="datasource">Password for the remote system user; may be an
-    /// empty string</param>
+    /// empty string.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -17302,14 +17772,14 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for connecting to this data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for waiting for a response from
-    ///         this data sink</description>
+    ///         this data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17318,21 +17788,21 @@ public partial class Kinetica
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials/"
     ///         target="_top">credential</a> object to be used in this data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17345,7 +17815,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -17394,34 +17864,34 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
     ///         </term>
-    ///         <description>Server side encryption type</description>
+    ///         <description>Server side encryption type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
     ///         </term>
-    ///         <description>KMS key</description>
+    ///         <description>KMS key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17434,7 +17904,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17465,7 +17935,7 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data sink, this is valid only if tenant_id is specified
+    ///         data sink, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17473,13 +17943,13 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17487,13 +17957,41 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data sink</description>
+    ///         account to use as the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>Oauth token to access given storage container
+    ///         <description>Oauth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateDatasinkRequest.Options.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17501,40 +17999,40 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data sink</description>
+    ///         the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data sink</description>
+    ///         authenticating the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
     ///         </term>
-    ///         <description>JDBC driver jar file location</description>
+    ///         <description>JDBC driver jar file location.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
     ///         <description>Name of the Kafka topic to publish to if <paramref
-    ///         name="destination" /> is a Kafka broker</description>
+    ///         name="destination" /> is a Kafka broker.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17562,7 +18060,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>:
     ///                 </term>
-    ///                 <description>A single record is returned per message
+    ///                 <description>A single record is returned per message.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -17570,7 +18068,7 @@ public partial class Kinetica
     ///                 cref="CreateDatasinkRequest.Options.NESTED">NESTED</see>:
     ///                 </term>
     ///                 <description>Records are returned as an array per
-    ///                 message</description>
+    ///                 message.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -17605,8 +18103,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasink if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasink if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -17673,14 +18171,14 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for connecting to this data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for waiting for a response from
-    ///         this data sink</description>
+    ///         this data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17689,21 +18187,21 @@ public partial class Kinetica
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials/"
     ///         target="_top">credential</a> object to be used in this data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         sink</description>
+    ///         sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17716,7 +18214,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -17765,34 +18263,34 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_TYPE">S3_ENCRYPTION_TYPE</see>:
     ///         </term>
-    ///         <description>Server side encryption type</description>
+    ///         <description>Server side encryption type.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.S3_KMS_KEY_ID">S3_KMS_KEY_ID</see>:
     ///         </term>
-    ///         <description>KMS key</description>
+    ///         <description>KMS key.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17805,7 +18303,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17836,7 +18334,7 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data sink, this is valid only if tenant_id is specified
+    ///         data sink, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17844,13 +18342,13 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17858,13 +18356,41 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data sink</description>
+    ///         account to use as the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>Oauth token to access given storage container
+    ///         <description>Oauth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateDatasinkRequest.Options.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -17872,40 +18398,40 @@ public partial class Kinetica
     ///         cref="CreateDatasinkRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data sink</description>
+    ///         the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data sink</description>
+    ///         data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data sink</description>
+    ///         authenticating the data sink.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:
     ///         </term>
-    ///         <description>JDBC driver jar file location</description>
+    ///         <description>JDBC driver jar file location.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
     ///         <description>Name of the Kafka topic to publish to if <paramref
-    ///         name="destination" /> is a Kafka broker</description>
+    ///         name="destination" /> is a Kafka broker.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17933,7 +18459,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>:
     ///                 </term>
-    ///                 <description>A single record is returned per message
+    ///                 <description>A single record is returned per message.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -17941,7 +18467,7 @@ public partial class Kinetica
     ///                 cref="CreateDatasinkRequest.Options.NESTED">NESTED</see>:
     ///                 </term>
     ///                 <description>Records are returned as an array per
-    ///                 message</description>
+    ///                 message.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -17976,8 +18502,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasinkRequest.Options.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasink if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasink if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -18078,9 +18604,9 @@ public partial class Kinetica
     /// Supported storage provider types are 'azure', 'gcs', 'hdfs', 'jdbc',
     /// 'kafka', 'confluent', and 's3'.</param>
     /// <param name="user_name">Name of the remote system user; may be an empty
-    /// string</param>
+    /// string.</param>
     /// <param name="password">Password for the remote system user; may be an
-    /// empty string</param>
+    /// empty string.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -18110,14 +18636,14 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for connecting to this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for reading from this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18125,7 +18651,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials"
-    ///         target="_top">credential</a> object to be used in data source
+    ///         target="_top">credential</a> object to be used in data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18133,14 +18659,14 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         source</description>
+    ///         source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18153,7 +18679,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -18202,22 +18728,22 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18230,7 +18756,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18261,7 +18787,7 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data source, this is valid only if tenant_id is specified
+    ///         data source, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18269,13 +18795,13 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18283,13 +18809,41 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data source</description>
+    ///         account to use as the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>OAuth token to access given storage container
+    ///         <description>OAuth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateDatasourceRequest.Options.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18297,21 +18851,21 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data source</description>
+    ///         the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data source</description>
+    ///         authenticating the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18340,7 +18894,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
-    ///         <description>Name of the Kafka topic to use as the data source
+    ///         <description>Name of the Kafka topic to use as the data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18354,7 +18908,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18408,8 +18962,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasource if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasource if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -18454,14 +19008,14 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -18488,9 +19042,9 @@ public partial class Kinetica
     /// Supported storage provider types are 'azure', 'gcs', 'hdfs', 'jdbc',
     /// 'kafka', 'confluent', and 's3'.</param>
     /// <param name="user_name">Name of the remote system user; may be an empty
-    /// string</param>
+    /// string.</param>
     /// <param name="password">Password for the remote system user; may be an
-    /// empty string</param>
+    /// empty string.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -18520,14 +19074,14 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for connecting to this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for reading from this storage
-    ///         provider</description>
+    ///         provider.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18535,7 +19089,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of the <a
     ///         href="../../../concepts/credentials"
-    ///         target="_top">credential</a> object to be used in data source
+    ///         target="_top">credential</a> object to be used in data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18543,14 +19097,14 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 bucket to use as the data
-    ///         source</description>
+    ///         source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:
     ///         </term>
     ///         <description>Name of the Amazon S3 region where the given
-    ///         bucket is located</description>
+    ///         bucket is located.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18563,7 +19117,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>Connect with SSL verification
+    ///                 <description>Connect with SSL verification.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -18612,22 +19166,22 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:
     ///         </term>
     ///         <description>Amazon IAM Role ARN which has required S3
-    ///         permissions that can be assumed for the given S3 IAM user
+    ///         permissions that can be assumed for the given S3 IAM user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:
     ///         </term>
-    ///         <description>Customer encryption algorithm used encrypting data
-    ///         </description>
+    ///         <description>Customer encryption algorithm used encrypting
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:
     ///         </term>
-    ///         <description>Customer encryption key to encrypt or decrypt data
-    ///         </description>
+    ///         <description>Customer encryption key to encrypt or decrypt
+    ///         data.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18640,7 +19194,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:
     ///         </term>
-    ///         <description>Delegation token for the given HDFS user
+    ///         <description>Delegation token for the given HDFS user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18671,7 +19225,7 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage account to use as the
-    ///         data source, this is valid only if tenant_id is specified
+    ///         data source, this is valid only if tenant_id is specified.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18679,13 +19233,13 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:
     ///         </term>
     ///         <description>Name of the Azure storage container to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:
     ///         </term>
-    ///         <description>Active Directory tenant ID (or directory ID)
+    ///         <description>Active Directory tenant ID (or directory ID).
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18693,13 +19247,41 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:
     ///         </term>
     ///         <description>Shared access signature token for Azure storage
-    ///         account to use as the data source</description>
+    ///         account to use as the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:
     ///         </term>
-    ///         <description>OAuth token to access given storage container
+    ///         <description>OAuth token to access given storage container.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateDatasourceRequest.Options.AZURE_USE_VIRTUAL_ADDRESSING">AZURE_USE_VIRTUAL_ADDRESSING</see>:
+    ///         </term>
+    ///         <description>Whether to use virtual addressing when referencing
+    ///         the Azure source.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>The requests URI should be specified in
+    ///                 virtual-hosted-style format where the bucket name is
+    ///                 part of the domain name in the URL.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Use path-style URI for requests.
+    ///                 </description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18707,21 +19289,21 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud Storage bucket to use as
-    ///         the data source</description>
+    ///         the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:
     ///         </term>
     ///         <description>Name of the Google Cloud project to use as the
-    ///         data source</description>
+    ///         data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:
     ///         </term>
     ///         <description>Google Cloud service account keys to use for
-    ///         authenticating the data source</description>
+    ///         authenticating the data source.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18750,7 +19332,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
-    ///         <description>Name of the Kafka topic to use as the data source
+    ///         <description>Name of the Kafka topic to use as the data source.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -18764,7 +19346,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:
     ///         </term>
-    ///         <description>Name of the JDBC driver class</description>
+    ///         <description>Name of the JDBC driver class.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -18818,8 +19400,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.USE_HTTPS">USE_HTTPS</see>:
     ///         </term>
-    ///         <description>Use https to connect to datasource if true,
-    ///         otherwise use http.
+    ///         <description>Use HTTPS to connect to datasource if true,
+    ///         otherwise use HTTP.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -18864,14 +19446,14 @@ public partial class Kinetica
     ///         cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateDatasourceRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -18935,9 +19517,8 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see
-    /// cref="uploadFiles(UploadFilesRequest)">uploadFiles</see>.</para>
-    /// </remarks>
+    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
+    /// </para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -18953,9 +19534,8 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see
-    /// cref="uploadFiles(UploadFilesRequest)">uploadFiles</see>.</para>
-    /// </remarks>
+    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
+    /// </para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -18974,8 +19554,7 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see
-    /// cref="uploadFiles(IList{string},IList{byte[]},IDictionary{string,string})">uploadFiles</see>.
+    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
     /// </para></remarks>
     ///
     /// <param name="directory_name">Name of the directory in KiFS to be
@@ -19036,8 +19615,7 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see
-    /// cref="uploadFiles(IList{string},IList{byte[]},IDictionary{string,string})">uploadFiles</see>.
+    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
     /// </para></remarks>
     ///
     /// <param name="directory_name">Name of the directory in KiFS to be
@@ -19368,7 +19946,7 @@ public partial class Kinetica
     ///         cref="CreateGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
+    ///         cref="createTableMonitor">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -19691,7 +20269,7 @@ public partial class Kinetica
     ///         cref="CreateGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
+    ///         cref="createTableMonitor">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -19867,7 +20445,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob(GetJobRequest)">getJob</see>.</para></remarks>
+    /// cref="getJob">getJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -19884,7 +20462,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob(GetJobRequest)">getJob</see>.</para></remarks>
+    /// cref="getJob">getJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -19904,8 +20482,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob(long,IDictionary{string,string})">getJob</see>.</para>
-    /// </remarks>
+    /// cref="getJob">getJob</see>.</para></remarks>
     ///
     /// <param name="endpoint">Indicates which endpoint to execute, e.g.
     /// '/alter/table'.</param>
@@ -19952,7 +20529,7 @@ public partial class Kinetica
     ///         cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
     ///         <description>Tag to use for submitted job. The same tag could
     ///         be used on backup cluster to retrieve response for the job.
-    ///         Tags can use letter, numbers, '_' and '-'</description>
+    ///         Tags can use letter, numbers, '_' and '-'.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -19972,8 +20549,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob(long,IDictionary{string,string})">getJob</see>.</para>
-    /// </remarks>
+    /// cref="getJob">getJob</see>.</para></remarks>
     ///
     /// <param name="endpoint">Indicates which endpoint to execute, e.g.
     /// '/alter/table'.</param>
@@ -20020,7 +20596,7 @@ public partial class Kinetica
     ///         cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
     ///         <description>Tag to use for submitted job. The same tag could
     ///         be used on backup cluster to retrieve response for the job.
-    ///         Tags can use letter, numbers, '_' and '-'</description>
+    ///         Tags can use letter, numbers, '_' and '-'.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -20147,11 +20723,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the join as part of <paramref name="join_table_name" /> and
-    ///         use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         join. If the schema is non-existent, it will be automatically
-    ///         created. The default value is ''.</description>
+    ///         use <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the join. If the
+    ///         schema is non-existent, it will be automatically created. The
+    ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20178,7 +20753,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
-    ///         <description>view this projection is part of. The default value
+    ///         <description>View this projection is part of. The default value
     ///         is ''.</description>
     ///     </item>
     ///     <item>
@@ -20186,17 +20761,16 @@ public partial class Kinetica
     ///         cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:
     ///         </term>
     ///         <description>Return a count of 0 for the join table for logging
-    ///         and for <see
-    ///         cref="showTable(string,IDictionary{string,string})">showTable</see>;
-    ///         optimization needed for large overlapped equi-join stencils.
-    ///         The default value is 'false'.</description>
+    ///         and for <see cref="showTable">showTable</see>; optimization
+    ///         needed for large overlapped equi-join stencils. The default
+    ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
     ///         </term>
     ///         <description>Maximum number of records per joined-chunk for
-    ///         this table. Defaults to the gpudb.conf file chunk size
+    ///         this table. Defaults to the gpudb.conf file chunk size.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -20227,7 +20801,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.ENABLE_SPARSE_VIRTUAL_CHUNKING">ENABLE_SPARSE_VIRTUAL_CHUNKING</see>:
     ///         </term>
-    ///         <description>materialize virtual chunks with only non-deleted
+    ///         <description>Materialize virtual chunks with only non-deleted
     ///         values. The default value is 'false'.</description>
     ///     </item>
     ///     <item>
@@ -20237,7 +20811,7 @@ public partial class Kinetica
     ///         <description>Allow using the lazy result store to cache
     ///         computation of one side of a multichunk equi-join.  Reduces
     ///         computation but also reduces parallelism to the number of
-    ///         chunks on the other side of the equi-join</description>
+    ///         chunks on the other side of the equi-join.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20246,14 +20820,14 @@ public partial class Kinetica
     ///         <description>Allow using the lazy result store to cache
     ///         computation of one side of a multichunk predicate-equi-join.
     ///         Reduces computation but also reduces parallelism to the number
-    ///         of chunks on the other side of the equi-join</description>
+    ///         of chunks on the other side of the equi-join.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.ENABLE_PK_EQUI_JOIN">ENABLE_PK_EQUI_JOIN</see>:
     ///         </term>
     ///         <description>Use equi-join to do primary key joins rather than
-    ///         using primary-key-index</description>
+    ///         using primary key index.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -20339,11 +20913,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the join as part of <paramref name="join_table_name" /> and
-    ///         use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         join. If the schema is non-existent, it will be automatically
-    ///         created. The default value is ''.</description>
+    ///         use <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the join. If the
+    ///         schema is non-existent, it will be automatically created. The
+    ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20370,7 +20943,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
-    ///         <description>view this projection is part of. The default value
+    ///         <description>View this projection is part of. The default value
     ///         is ''.</description>
     ///     </item>
     ///     <item>
@@ -20378,17 +20951,16 @@ public partial class Kinetica
     ///         cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:
     ///         </term>
     ///         <description>Return a count of 0 for the join table for logging
-    ///         and for <see
-    ///         cref="showTable(string,IDictionary{string,string})">showTable</see>;
-    ///         optimization needed for large overlapped equi-join stencils.
-    ///         The default value is 'false'.</description>
+    ///         and for <see cref="showTable">showTable</see>; optimization
+    ///         needed for large overlapped equi-join stencils. The default
+    ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
     ///         </term>
     ///         <description>Maximum number of records per joined-chunk for
-    ///         this table. Defaults to the gpudb.conf file chunk size
+    ///         this table. Defaults to the gpudb.conf file chunk size.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -20419,7 +20991,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.ENABLE_SPARSE_VIRTUAL_CHUNKING">ENABLE_SPARSE_VIRTUAL_CHUNKING</see>:
     ///         </term>
-    ///         <description>materialize virtual chunks with only non-deleted
+    ///         <description>Materialize virtual chunks with only non-deleted
     ///         values. The default value is 'false'.</description>
     ///     </item>
     ///     <item>
@@ -20429,7 +21001,7 @@ public partial class Kinetica
     ///         <description>Allow using the lazy result store to cache
     ///         computation of one side of a multichunk equi-join.  Reduces
     ///         computation but also reduces parallelism to the number of
-    ///         chunks on the other side of the equi-join</description>
+    ///         chunks on the other side of the equi-join.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20438,14 +21010,14 @@ public partial class Kinetica
     ///         <description>Allow using the lazy result store to cache
     ///         computation of one side of a multichunk predicate-equi-join.
     ///         Reduces computation but also reduces parallelism to the number
-    ///         of chunks on the other side of the equi-join</description>
+    ///         of chunks on the other side of the equi-join.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateJoinTableRequest.Options.ENABLE_PK_EQUI_JOIN">ENABLE_PK_EQUI_JOIN</see>:
     ///         </term>
     ///         <description>Use equi-join to do primary key joins rather than
-    ///         using primary-key-index</description>
+    ///         using primary key index.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -20541,16 +21113,16 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the materialized view as part of <paramref
     ///         name="table_name" /> and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created view. If the schema provided is
-    ///         non-existent, it will be automatically created.</description>
+    ///         cref="createSchema">createSchema</see> to create the schema if
+    ///         non-existent]  Name of a schema which is to contain the newly
+    ///         created view. If the schema provided is non-existent, it will
+    ///         be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:
     ///         </term>
-    ///         <description>User name to use to run the refresh job
+    ///         <description>User name to use to run the refresh job.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -20628,10 +21200,38 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateMaterializedViewRequest.Options.ENABLE_MV_INPUT_WRAPPERS">ENABLE_MV_INPUT_WRAPPERS</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see>,
+    ///         each base table the view reads is accessed through a wrapper
+    ///         view so an in-progress out-of-place update cannot make a record
+    ///         momentarily disappear from the view, and a long refresh does
+    ///         not block updates to the base tables.  Overrides the
+    ///         {gaia.enable_mv_input_wrappers} configuration default when set.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:
     ///         </term>
     ///         <description>Sets the future time-offset(in seconds) at which
-    ///         periodic refresh stops</description>
+    ///         periodic refresh stops.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20659,8 +21259,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by calling <see
-    ///                 cref="alterTable(string,string,string,IDictionary{string,string})">alterTable</see>
-    ///                 with an 'action' of 'refresh'</description>
+    ///                 cref="alterTable">alterTable</see> with an 'action' of
+    ///                 'refresh'.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -20685,7 +21285,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh table periodically at rate
     ///                 specified by <see
-    ///                 cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>
+    ///                 cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -20701,7 +21301,7 @@ public partial class Kinetica
     ///         cref="CreateMaterializedViewRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>
     ///         is <see
     ///         cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>,
-    ///         specifies the period in seconds at which refresh occurs
+    ///         specifies the period in seconds at which refresh occurs.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -20762,16 +21362,16 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the materialized view as part of <paramref
     ///         name="table_name" /> and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created view. If the schema provided is
-    ///         non-existent, it will be automatically created.</description>
+    ///         cref="createSchema">createSchema</see> to create the schema if
+    ///         non-existent]  Name of a schema which is to contain the newly
+    ///         created view. If the schema provided is non-existent, it will
+    ///         be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:
     ///         </term>
-    ///         <description>User name to use to run the refresh job
+    ///         <description>User name to use to run the refresh job.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -20849,10 +21449,38 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateMaterializedViewRequest.Options.ENABLE_MV_INPUT_WRAPPERS">ENABLE_MV_INPUT_WRAPPERS</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see>,
+    ///         each base table the view reads is accessed through a wrapper
+    ///         view so an in-progress out-of-place update cannot make a record
+    ///         momentarily disappear from the view, and a long refresh does
+    ///         not block updates to the base tables.  Overrides the
+    ///         {gaia.enable_mv_input_wrappers} configuration default when set.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:
     ///         </term>
     ///         <description>Sets the future time-offset(in seconds) at which
-    ///         periodic refresh stops</description>
+    ///         periodic refresh stops.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20880,8 +21508,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by calling <see
-    ///                 cref="alterTable(string,string,string,IDictionary{string,string})">alterTable</see>
-    ///                 with an 'action' of 'refresh'</description>
+    ///                 cref="alterTable">alterTable</see> with an 'action' of
+    ///                 'refresh'.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -20906,7 +21534,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh table periodically at rate
     ///                 specified by <see
-    ///                 cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>
+    ///                 cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -20922,7 +21550,7 @@ public partial class Kinetica
     ///         cref="CreateMaterializedViewRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>
     ///         is <see
     ///         cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>,
-    ///         specifies the period in seconds at which refresh occurs
+    ///         specifies the period in seconds at which refresh occurs.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -21021,9 +21649,9 @@ public partial class Kinetica
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         It will, however, be able to access the database using native
-    ///         API calls.</description>
+    ///         cref="executeProc">executeProc</see>.  It will, however, be
+    ///         able to access the database using native API calls.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -21111,9 +21739,9 @@ public partial class Kinetica
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         It will, however, be able to access the database using native
-    ///         API calls.</description>
+    ///         cref="executeProc">executeProc</see>.  It will, however, be
+    ///         able to access the database using native API calls.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -21189,7 +21817,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn(GetRecordsByColumnRequest)">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21232,7 +21860,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn(GetRecordsByColumnRequest)">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21278,7 +21906,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn(string,IList{string},long,long,IDictionary{string,string})">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21353,9 +21981,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="projection_name"
-    ///         /> and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         /> and use <see cref="createSchema">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
     ///     </item>
@@ -21696,6 +22323,19 @@ public partial class Kinetica
     ///         bytes), then window functions which require a reshard will be
     ///         computed separately and joined back together. The default value
     ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.QUALIFY_FILTER">QUALIFY_FILTER</see>:
+    ///         </term>
+    ///         <description>An optional filter <a
+    ///         href="../../../concepts/expressions/"
+    ///         target="_top">expression</a> applied to the projection after
+    ///         window function evaluation, equivalent to a SQL QUALIFY clause.
+    ///         May reference window function aliases as well as any other
+    ///         column in the projection.  Rows for which the expression
+    ///         evaluates to false (or NULL) are removed from the projection.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -21722,7 +22362,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn(string,IList{string},long,long,IDictionary{string,string})">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21797,9 +22437,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="projection_name"
-    ///         /> and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         /> and use <see cref="createSchema">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
     ///     </item>
@@ -22140,6 +22779,19 @@ public partial class Kinetica
     ///         bytes), then window functions which require a reshard will be
     ///         computed separately and joined back together. The default value
     ///         is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateProjectionRequest.Options.QUALIFY_FILTER">QUALIFY_FILTER</see>:
+    ///         </term>
+    ///         <description>An optional filter <a
+    ///         href="../../../concepts/expressions/"
+    ///         target="_top">expression</a> applied to the projection after
+    ///         window function evaluation, equivalent to a SQL QUALIFY clause.
+    ///         May reference window function aliases as well as any other
+    ///         column in the projection.  Rows for which the expression
+    ///         evaluates to false (or NULL) are removed from the projection.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -22224,30 +22876,30 @@ public partial class Kinetica
     ///         cref="CreateResourceGroupRequest.Ranking.FIRST">FIRST</see>:
     ///         </term>
     ///         <description>Make this resource group the new first one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.Ranking.LAST">LAST</see>:
     ///         </term>
     ///         <description>Make this resource group the new last one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.Ranking.BEFORE">BEFORE</see>:
     ///         </term>
     ///         <description>Place this resource group before the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see>:
     ///         </term>
     ///         <description>Place this resource group after the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     /// </list></param>
     /// <param name="adjoining_resource_group">If <paramref name="ranking" />
@@ -22341,30 +22993,30 @@ public partial class Kinetica
     ///         cref="CreateResourceGroupRequest.Ranking.FIRST">FIRST</see>:
     ///         </term>
     ///         <description>Make this resource group the new first one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.Ranking.LAST">LAST</see>:
     ///         </term>
     ///         <description>Make this resource group the new last one in the
-    ///         ordering</description>
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.Ranking.BEFORE">BEFORE</see>:
     ///         </term>
     ///         <description>Place this resource group before the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see>:
     ///         </term>
     ///         <description>Place this resource group after the one specified
-    ///         by <paramref name="adjoining_resource_group" /> in the ordering
-    ///         </description>
+    ///         by <paramref name="adjoining_resource_group" /> in the
+    ///         ordering.</description>
     ///     </item>
     /// </list></param>
     /// <param name="adjoining_resource_group">If <paramref name="ranking" />
@@ -22475,7 +23127,7 @@ public partial class Kinetica
     ///         cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -22501,7 +23153,7 @@ public partial class Kinetica
     ///         cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -22695,10 +23347,9 @@ public partial class Kinetica
     /// columns).</summary>
     /// <remarks><para> The type is specified in <see
     /// cref="CreateTableRequest.type_id">type_id</see> as either a numerical
-    /// type ID (as returned by <see
-    /// cref="createType(CreateTypeRequest)">createType</see>) or as a list of
-    /// columns, each specified as a list of the column name, data type, and
-    /// any column attributes.</para>
+    /// type ID (as returned by <see cref="createType">createType</see>) or as
+    /// a list of columns, each specified as a list of the column name, data
+    /// type, and any column attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -22717,13 +23368,12 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see
-    /// cref="createType(CreateTypeRequest)">createType</see>), and any <a
-    /// href="../../../concepts/types/#types-data-handling" target="_top">data
-    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
-    /// target="_top">data key</a>, or <a
-    /// href="../../../concepts/types/#types-data-replace" target="_top">data
-    /// replacement</a> properties.</para>
+    /// properties map values from <see cref="createType">createType</see>),
+    /// and any <a href="../../../concepts/types/#types-data-handling"
+    /// target="_top">data handling</a>, <a
+    /// href="../../../concepts/types/#types-data-keys" target="_top">data
+    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
+    /// target="_top">data replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -22749,10 +23399,9 @@ public partial class Kinetica
     /// columns). (async)</summary>
     /// <remarks><para> The type is specified in <see
     /// cref="CreateTableRequest.type_id">type_id</see> as either a numerical
-    /// type ID (as returned by <see
-    /// cref="createType(CreateTypeRequest)">createType</see>) or as a list of
-    /// columns, each specified as a list of the column name, data type, and
-    /// any column attributes.</para>
+    /// type ID (as returned by <see cref="createType">createType</see>) or as
+    /// a list of columns, each specified as a list of the column name, data
+    /// type, and any column attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -22771,13 +23420,12 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see
-    /// cref="createType(CreateTypeRequest)">createType</see>), and any <a
-    /// href="../../../concepts/types/#types-data-handling" target="_top">data
-    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
-    /// target="_top">data key</a>, or <a
-    /// href="../../../concepts/types/#types-data-replace" target="_top">data
-    /// replacement</a> properties.</para>
+    /// properties map values from <see cref="createType">createType</see>),
+    /// and any <a href="../../../concepts/types/#types-data-handling"
+    /// target="_top">data handling</a>, <a
+    /// href="../../../concepts/types/#types-data-keys" target="_top">data
+    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
+    /// target="_top">data replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -22806,9 +23454,9 @@ public partial class Kinetica
     /// columns).</summary>
     /// <remarks><para> The type is specified in <paramref name="type_id" /> as
     /// either a numerical type ID (as returned by <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>)
-    /// or as a list of columns, each specified as a list of the column name,
-    /// data type, and any column attributes.</para>
+    /// cref="createType">createType</see>) or as a list of columns, each
+    /// specified as a list of the column name, data type, and any column
+    /// attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -22827,8 +23475,7 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>),
+    /// properties map values from <see cref="createType">createType</see>),
     /// and any <a href="../../../concepts/types/#types-data-handling"
     /// target="_top">data handling</a>, <a
     /// href="../../../concepts/types/#types-data-keys" target="_top">data
@@ -22856,8 +23503,8 @@ public partial class Kinetica
     /// option.</param>
     /// <param name="type_id">The type for the table, specified as either an
     /// existing table's numerical type ID (as returned by <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>)
-    /// or a type definition (as described above).</param>
+    /// cref="createType">createType</see>) or a type definition (as described
+    /// above).</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -22923,19 +23570,19 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <paramref name="table_name" /> and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created table. If the schema is
-    ///         non-existent, it will be automatically created.</description>
+    ///         cref="createSchema">createSchema</see> to create the schema if
+    ///         non-existent]  Name of a schema which is to contain the newly
+    ///         created table. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create a schema instead]  Indicates whether to create a
-    ///         schema instead of a table.
+    ///         cref="createSchema">createSchema</see> to create a schema
+    ///         instead]  Indicates whether to create a schema instead of a
+    ///         table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -23286,9 +23933,9 @@ public partial class Kinetica
     /// columns). (async)</summary>
     /// <remarks><para> The type is specified in <paramref name="type_id" /> as
     /// either a numerical type ID (as returned by <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>)
-    /// or as a list of columns, each specified as a list of the column name,
-    /// data type, and any column attributes.</para>
+    /// cref="createType">createType</see>) or as a list of columns, each
+    /// specified as a list of the column name, data type, and any column
+    /// attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -23307,8 +23954,7 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>),
+    /// properties map values from <see cref="createType">createType</see>),
     /// and any <a href="../../../concepts/types/#types-data-handling"
     /// target="_top">data handling</a>, <a
     /// href="../../../concepts/types/#types-data-keys" target="_top">data
@@ -23336,8 +23982,8 @@ public partial class Kinetica
     /// option.</param>
     /// <param name="type_id">The type for the table, specified as either an
     /// existing table's numerical type ID (as returned by <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>)
-    /// or a type definition (as described above).</param>
+    /// cref="createType">createType</see>) or a type definition (as described
+    /// above).</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -23403,19 +24049,19 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <paramref name="table_name" /> and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created table. If the schema is
-    ///         non-existent, it will be automatically created.</description>
+    ///         cref="createSchema">createSchema</see> to create the schema if
+    ///         non-existent]  Name of a schema which is to contain the newly
+    ///         created table. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create a schema instead]  Indicates whether to create a
-    ///         schema instead of a table.
+    ///         cref="createSchema">createSchema</see> to create a schema
+    ///         instead]  Indicates whether to create a schema instead of a
+    ///         table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -23778,8 +24424,8 @@ public partial class Kinetica
     /// <see
     /// cref="CreateTableExternalRequest.create_table_options">create_table_options</see>,
     /// which contains many of the options from <see
-    /// cref="createTable(CreateTableRequest)">createTable</see>; or defined
-    /// implicitly, inferred from the source data.</para></remarks>
+    /// cref="createTable">createTable</see>; or defined implicitly, inferred
+    /// from the source data.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -23805,8 +24451,8 @@ public partial class Kinetica
     /// <see
     /// cref="CreateTableExternalRequest.create_table_options">create_table_options</see>,
     /// which contains many of the options from <see
-    /// cref="createTable(CreateTableRequest)">createTable</see>; or defined
-    /// implicitly, inferred from the source data.</para></remarks>
+    /// cref="createTable">createTable</see>; or defined implicitly, inferred
+    /// from the source data.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -23832,9 +24478,8 @@ public partial class Kinetica
     /// source</a>.</para>
     /// <para>The external table can have its structure defined explicitly, via
     /// <paramref name="create_table_options" />, which contains many of the
-    /// options from <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>;
-    /// or defined implicitly, inferred from the source data.</para></remarks>
+    /// options from <see cref="createTable">createTable</see>; or defined
+    /// implicitly, inferred from the source data.</para></remarks>
     ///
     /// <param name="table_name">Name of the table to be created, in
     /// [schema_name.]table_name format, using standard <a
@@ -23869,9 +24514,8 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source.
+    /// cref="createTable">createTable</see>, allowing the structure of the
+    /// table to be defined independently of the data source.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -24264,7 +24908,8 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:
     ///                 </term>
-    ///                 <description>Auto detect compression type</description>
+    ///                 <description>Auto detect compression type.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -24289,7 +24934,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which data file(s) specified in <paramref name="filepaths" />
-    ///         will be loaded</description>
+    ///         will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -24321,26 +24966,26 @@ public partial class Kinetica
     ///         control characters. Formats for the 'datetime' annotation meet
     ///         both the 'date' and 'time' control character requirements. For
     ///         example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
-    ///         interpret text as "05/04/2000 12:12:11"</description>
+    ///         interpret text as "05/04/2000 12:12:11".</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.DATALAKE_CATALOG">DATALAKE_CATALOG</see>:
     ///         </term>
     ///         <description>Name of an existing datalake(iceberg) catalog used
-    ///         in loading files</description>
+    ///         in loading files.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.DATALAKE_PATH">DATALAKE_PATH</see>:
     ///         </term>
-    ///         <description>Path of datalake(iceberg) object</description>
+    ///         <description>Path of datalake(iceberg) object.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.DATALAKE_SNAPSHOT">DATALAKE_SNAPSHOT</see>:
     ///         </term>
-    ///         <description>Snapshot ID of datalake(iceberg) object
+    ///         <description>Snapshot ID of datalake(iceberg) object.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -24393,7 +25038,7 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>:
     ///                 </term>
     ///                 <description>Loads a copy of the external data into the
-    ///                 database, refreshed on demand</description>
+    ///                 database, refreshed on demand.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -24401,7 +25046,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>External data will not be loaded into the
     ///                 database; the data will be retrieved from the source
-    ///                 upon servicing each query against the external table
+    ///                 upon servicing each query against the external table.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -24421,7 +25066,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:
     ///                 </term>
-    ///                 <description>Avro file format</description>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -24434,25 +25079,25 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>Esri/GDB file format</description>
+    ///                 <description>Esri/GDB file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Json file format</description>
+    ///                 <description>JSON file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:
     ///                 </term>
-    ///                 <description>Apache Parquet file format</description>
+    ///                 <description>Apache Parquet file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.SHAPEFILE">SHAPEFILE</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -24471,14 +25116,14 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -24490,7 +25135,7 @@ public partial class Kinetica
     ///         cref="CreateTableExternalRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
     ///         </term>
     ///         <description>Comma separated list of gdal conf options, for the
-    ///         specific requests: key=value</description>
+    ///         specific requests: key=value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -24527,7 +25172,7 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -24536,7 +25181,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -24556,7 +25201,7 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -24751,6 +25396,26 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the file has a
+    ///         header row (i.e., <see
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the file's header names.  If the file has
+    ///         no header row, these names are used as the source-data column
+    ///         names. Either way, the i-th name in this list applies to the
+    ///         i-th column in the file, enabling name-based matching against
+    ///         the target table's columns (and use with <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of tasks for reading file per rank. Default
@@ -24790,8 +25455,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by invoking the refresh action of <see
-    ///                 cref="alterTable(string,string,string,IDictionary{string,string})">alterTable</see>
-    ///                 on this table.</description>
+    ///                 cref="alterTable">alterTable</see> on this table.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -24799,9 +25464,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh table on database startup and when
     ///                 manually requested by invoking the refresh action of
-    ///                 <see
-    ///                 cref="alterTable(string,string,string,IDictionary{string,string})">alterTable</see>
-    ///                 on this table.</description>
+    ///                 <see cref="alterTable">alterTable</see> on this table.
+    ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -24813,28 +25477,28 @@ public partial class Kinetica
     ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -25155,7 +25819,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -25166,7 +25830,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
     ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         <description>Remote SQL query from which data will be sourced.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -25176,7 +25840,7 @@ public partial class Kinetica
     ///         <description>Name of column to be used for splitting <see
     ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>
     ///         into multiple sub-queries using the data distribution of given
-    ///         column</description>
+    ///         column.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -25191,6 +25855,34 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Alias name for <see
     ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -25222,14 +25914,14 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -25263,9 +25955,8 @@ public partial class Kinetica
     /// source</a>.</para>
     /// <para>The external table can have its structure defined explicitly, via
     /// <paramref name="create_table_options" />, which contains many of the
-    /// options from <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>;
-    /// or defined implicitly, inferred from the source data.</para></remarks>
+    /// options from <see cref="createTable">createTable</see>; or defined
+    /// implicitly, inferred from the source data.</para></remarks>
     ///
     /// <param name="table_name">Name of the table to be created, in
     /// [schema_name.]table_name format, using standard <a
@@ -25300,9 +25991,8 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source.
+    /// cref="createTable">createTable</see>, allowing the structure of the
+    /// table to be defined independently of the data source.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -25695,7 +26385,8 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:
     ///                 </term>
-    ///                 <description>Auto detect compression type</description>
+    ///                 <description>Auto detect compression type.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -25720,7 +26411,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which data file(s) specified in <paramref name="filepaths" />
-    ///         will be loaded</description>
+    ///         will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -25752,26 +26443,26 @@ public partial class Kinetica
     ///         control characters. Formats for the 'datetime' annotation meet
     ///         both the 'date' and 'time' control character requirements. For
     ///         example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
-    ///         interpret text as "05/04/2000 12:12:11"</description>
+    ///         interpret text as "05/04/2000 12:12:11".</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.DATALAKE_CATALOG">DATALAKE_CATALOG</see>:
     ///         </term>
     ///         <description>Name of an existing datalake(iceberg) catalog used
-    ///         in loading files</description>
+    ///         in loading files.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.DATALAKE_PATH">DATALAKE_PATH</see>:
     ///         </term>
-    ///         <description>Path of datalake(iceberg) object</description>
+    ///         <description>Path of datalake(iceberg) object.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.DATALAKE_SNAPSHOT">DATALAKE_SNAPSHOT</see>:
     ///         </term>
-    ///         <description>Snapshot ID of datalake(iceberg) object
+    ///         <description>Snapshot ID of datalake(iceberg) object.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -25824,7 +26515,7 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.MATERIALIZED">MATERIALIZED</see>:
     ///                 </term>
     ///                 <description>Loads a copy of the external data into the
-    ///                 database, refreshed on demand</description>
+    ///                 database, refreshed on demand.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -25832,7 +26523,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>External data will not be loaded into the
     ///                 database; the data will be retrieved from the source
-    ///                 upon servicing each query against the external table
+    ///                 upon servicing each query against the external table.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -25852,7 +26543,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:
     ///                 </term>
-    ///                 <description>Avro file format</description>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -25865,25 +26556,25 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>Esri/GDB file format</description>
+    ///                 <description>Esri/GDB file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Json file format</description>
+    ///                 <description>JSON file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:
     ///                 </term>
-    ///                 <description>Apache Parquet file format</description>
+    ///                 <description>Apache Parquet file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.SHAPEFILE">SHAPEFILE</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -25902,14 +26593,14 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -25921,7 +26612,7 @@ public partial class Kinetica
     ///         cref="CreateTableExternalRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
     ///         </term>
     ///         <description>Comma separated list of gdal conf options, for the
-    ///         specific requests: key=value</description>
+    ///         specific requests: key=value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -25958,7 +26649,7 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -25967,7 +26658,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -25987,7 +26678,7 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -26182,6 +26873,26 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the file has a
+    ///         header row (i.e., <see
+    ///         cref="CreateTableExternalRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the file's header names.  If the file has
+    ///         no header row, these names are used as the source-data column
+    ///         names. Either way, the i-th name in this list applies to the
+    ///         i-th column in the file, enabling name-based matching against
+    ///         the target table's columns (and use with <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of tasks for reading file per rank. Default
@@ -26221,8 +26932,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by invoking the refresh action of <see
-    ///                 cref="alterTable(string,string,string,IDictionary{string,string})">alterTable</see>
-    ///                 on this table.</description>
+    ///                 cref="alterTable">alterTable</see> on this table.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -26230,9 +26941,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh table on database startup and when
     ///                 manually requested by invoking the refresh action of
-    ///                 <see
-    ///                 cref="alterTable(string,string,string,IDictionary{string,string})">alterTable</see>
-    ///                 on this table.</description>
+    ///                 <see cref="alterTable">alterTable</see> on this table.
+    ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -26244,28 +26954,28 @@ public partial class Kinetica
     ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26586,7 +27296,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -26597,7 +27307,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
     ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         <description>Remote SQL query from which data will be sourced.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -26607,7 +27317,7 @@ public partial class Kinetica
     ///         <description>Name of column to be used for splitting <see
     ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>
     ///         into multiple sub-queries using the data distribution of given
-    ///         column</description>
+    ///         column.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26622,6 +27332,34 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Alias name for <see
     ///         cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -26653,14 +27391,14 @@ public partial class Kinetica
     ///                 cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -26702,7 +27440,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor(ClearTableMonitorRequest)">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -26733,7 +27471,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor(ClearTableMonitorRequest)">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -26766,7 +27504,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor(string,IDictionary{string,string})">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -26819,7 +27557,7 @@ public partial class Kinetica
     ///         cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:
     ///         </term>
     ///         <description>ID to use for this monitor instead of a randomly
-    ///         generated one</description>
+    ///         generated one.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26827,7 +27565,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing <a
     ///         href="../../../concepts/data_sinks/" target="_top">data
-    ///         sink</a> to send change data notifications to</description>
+    ///         sink</a> to send change data notifications to.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26866,7 +27604,7 @@ public partial class Kinetica
     ///         <description>Name of the Kafka topic to publish to if <see
     ///         cref="CreateTableMonitorRequest.Options.DESTINATION">DESTINATION</see>
     ///         in <paramref name="options" /> is specified and is a Kafka
-    ///         broker</description>
+    ///         broker.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26880,7 +27618,7 @@ public partial class Kinetica
     ///         cref="CreateTableMonitorRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
     ///         <description>Filter expression to limit records for
-    ///         notification</description>
+    ///         notification.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26908,12 +27646,12 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateTableMonitorRequest.Options.JOIN_EXPRESSIONS">JOIN_EXPRESSIONS</see>:
     ///         </term>
-    ///         <description>Optional filter or join expressions to apply when
-    ///         combining the tables. Expressions are standard SQL-style
-    ///         conditions and can reference any table or alias listed in
-    ///         'join_table_names'. This corresponds to the WHERE clause of the
-    ///         underlying join, and can include conditions to filter the delta
-    ///         rows.</description>
+    ///         <description>Filter or join expressions to apply when combining
+    ///         the tables. Expressions are standard SQL-style conditions and
+    ///         can reference any table or alias listed in 'join_table_names'.
+    ///         This corresponds to the WHERE clause of the underlying join,
+    ///         and can include conditions to filter the delta rows.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26991,7 +27729,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor(string,IDictionary{string,string})">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -27044,7 +27782,7 @@ public partial class Kinetica
     ///         cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:
     ///         </term>
     ///         <description>ID to use for this monitor instead of a randomly
-    ///         generated one</description>
+    ///         generated one.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -27052,7 +27790,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing <a
     ///         href="../../../concepts/data_sinks/" target="_top">data
-    ///         sink</a> to send change data notifications to</description>
+    ///         sink</a> to send change data notifications to.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -27091,7 +27829,7 @@ public partial class Kinetica
     ///         <description>Name of the Kafka topic to publish to if <see
     ///         cref="CreateTableMonitorRequest.Options.DESTINATION">DESTINATION</see>
     ///         in <paramref name="options" /> is specified and is a Kafka
-    ///         broker</description>
+    ///         broker.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -27105,7 +27843,7 @@ public partial class Kinetica
     ///         cref="CreateTableMonitorRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
     ///         <description>Filter expression to limit records for
-    ///         notification</description>
+    ///         notification.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -27133,12 +27871,12 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateTableMonitorRequest.Options.JOIN_EXPRESSIONS">JOIN_EXPRESSIONS</see>:
     ///         </term>
-    ///         <description>Optional filter or join expressions to apply when
-    ///         combining the tables. Expressions are standard SQL-style
-    ///         conditions and can reference any table or alias listed in
-    ///         'join_table_names'. This corresponds to the WHERE clause of the
-    ///         underlying join, and can include conditions to filter the delta
-    ///         rows.</description>
+    ///         <description>Filter or join expressions to apply when combining
+    ///         the tables. Expressions are standard SQL-style conditions and
+    ///         can reference any table or alias listed in 'join_table_names'.
+    ///         This corresponds to the WHERE clause of the underlying join,
+    ///         and can include conditions to filter the delta rows.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -27210,18 +27948,16 @@ public partial class Kinetica
     /// or more tables.</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange(CreateTriggerByRangeRequest)">createTriggerByRange</see>.)
-    /// Once the trigger has been activated, any record added to the listed
-    /// tables(s) via <see
-    /// cref="insertRecords{T}(InsertRecordsRequest{T})">insertRecords</see>
-    /// with the chosen columns' values falling within the specified region
-    /// will trip the trigger. All such records will be queued at the trigger
-    /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
-    /// by clearing all relevant tables.</para>
+    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
+    /// trigger has been activated, any record added to the listed tables(s)
+    /// via <see cref="insertRecords">insertRecords</see> with the chosen
+    /// columns' values falling within the specified region will trip the
+    /// trigger. All such records will be queued at the trigger port (by
+    /// default '9001' but able to be retrieved via <see
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27240,18 +27976,16 @@ public partial class Kinetica
     /// or more tables. (async)</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange(CreateTriggerByRangeRequest)">createTriggerByRange</see>.)
-    /// Once the trigger has been activated, any record added to the listed
-    /// tables(s) via <see
-    /// cref="insertRecords{T}(InsertRecordsRequest{T})">insertRecords</see>
-    /// with the chosen columns' values falling within the specified region
-    /// will trip the trigger. All such records will be queued at the trigger
-    /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
-    /// by clearing all relevant tables.</para>
+    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
+    /// trigger has been activated, any record added to the listed tables(s)
+    /// via <see cref="insertRecords">insertRecords</see> with the chosen
+    /// columns' values falling within the specified region will trip the
+    /// trigger. All such records will be queued at the trigger port (by
+    /// default '9001' but able to be retrieved via <see
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27273,18 +28007,16 @@ public partial class Kinetica
     /// or more tables.</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange(string,IList{string},string,double,double,IDictionary{string,string})">createTriggerByRange</see>.)
-    /// Once the trigger has been activated, any record added to the listed
-    /// tables(s) via <see
-    /// cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertRecords</see>
-    /// with the chosen columns' values falling within the specified region
-    /// will trip the trigger. All such records will be queued at the trigger
-    /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(IDictionary{string,string})">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(string,IDictionary{string,string})">clearTrigger</see>
-    /// endpoint or by clearing all relevant tables.</para>
+    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
+    /// trigger has been activated, any record added to the listed tables(s)
+    /// via <see cref="insertRecords">insertRecords</see> with the chosen
+    /// columns' values falling within the specified region will trip the
+    /// trigger. All such records will be queued at the trigger port (by
+    /// default '9001' but able to be retrieved via <see
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27332,18 +28064,16 @@ public partial class Kinetica
     /// or more tables. (async)</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange(string,IList{string},string,double,double,IDictionary{string,string})">createTriggerByRange</see>.)
-    /// Once the trigger has been activated, any record added to the listed
-    /// tables(s) via <see
-    /// cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertRecords</see>
-    /// with the chosen columns' values falling within the specified region
-    /// will trip the trigger. All such records will be queued at the trigger
-    /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(IDictionary{string,string})">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(string,IDictionary{string,string})">clearTrigger</see>
-    /// endpoint or by clearing all relevant tables.</para>
+    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
+    /// trigger has been activated, any record added to the listed tables(s)
+    /// via <see cref="insertRecords">insertRecords</see> with the chosen
+    /// columns' values falling within the specified region will trip the
+    /// trigger. All such records will be queued at the trigger port (by
+    /// default '9001' but able to be retrieved via <see
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27394,16 +28124,14 @@ public partial class Kinetica
     /// <summary>Sets up a simple range trigger for a column_name for one or
     /// more tables.</summary>
     /// <remarks><para>Once the trigger has been activated, any record added to
-    /// the listed tables(s) via <see
-    /// cref="insertRecords{T}(InsertRecordsRequest{T})">insertRecords</see>
+    /// the listed tables(s) via <see cref="insertRecords">insertRecords</see>
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
-    /// by clearing all relevant tables.</para>
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27421,16 +28149,14 @@ public partial class Kinetica
     /// <summary>Sets up a simple range trigger for a column_name for one or
     /// more tables. (async)</summary>
     /// <remarks><para>Once the trigger has been activated, any record added to
-    /// the listed tables(s) via <see
-    /// cref="insertRecords{T}(InsertRecordsRequest{T})">insertRecords</see>
+    /// the listed tables(s) via <see cref="insertRecords">insertRecords</see>
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
-    /// by clearing all relevant tables.</para>
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27451,16 +28177,14 @@ public partial class Kinetica
     /// <summary>Sets up a simple range trigger for a column_name for one or
     /// more tables.</summary>
     /// <remarks><para>Once the trigger has been activated, any record added to
-    /// the listed tables(s) via <see
-    /// cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertRecords</see>
+    /// the listed tables(s) via <see cref="insertRecords">insertRecords</see>
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(IDictionary{string,string})">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(string,IDictionary{string,string})">clearTrigger</see>
-    /// endpoint or by clearing all relevant tables.</para>
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27497,16 +28221,14 @@ public partial class Kinetica
     /// <summary>Sets up a simple range trigger for a column_name for one or
     /// more tables. (async)</summary>
     /// <remarks><para>Once the trigger has been activated, any record added to
-    /// the listed tables(s) via <see
-    /// cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertRecords</see>
+    /// the listed tables(s) via <see cref="insertRecords">insertRecords</see>
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus(IDictionary{string,string})">showSystemStatus</see>)
-    /// for any listening client to collect. Active triggers can be cancelled
-    /// by using the <see
-    /// cref="clearTrigger(string,IDictionary{string,string})">clearTrigger</see>
-    /// endpoint or by clearing all relevant tables.</para>
+    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
+    /// client to collect. Active triggers can be cancelled by using the <see
+    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
+    /// relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27587,11 +28309,11 @@ public partial class Kinetica
     /// then a uniqueness constraint is enforced, in that only a single object
     /// can exist with a given primary key column value (or set of values for
     /// the key columns, if using a composite primary key). When <see
-    /// cref="insertRecords{T}(InsertRecordsRequest{T})">inserting</see> data
-    /// into a table with a primary key, depending on the parameters in the
-    /// request, incoming objects with primary key values that match existing
-    /// objects will either overwrite (i.e. update) the existing object or will
-    /// be skipped and not added into the set.</para></remarks>
+    /// cref="insertRecords">inserting</see> data into a table with a primary
+    /// key, depending on the parameters in the request, incoming objects with
+    /// primary key values that match existing objects will either overwrite
+    /// (i.e. update) the existing object or will be skipped and not added into
+    /// the set.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -27651,11 +28373,11 @@ public partial class Kinetica
     /// then a uniqueness constraint is enforced, in that only a single object
     /// can exist with a given primary key column value (or set of values for
     /// the key columns, if using a composite primary key). When <see
-    /// cref="insertRecords{T}(InsertRecordsRequest{T})">inserting</see> data
-    /// into a table with a primary key, depending on the parameters in the
-    /// request, incoming objects with primary key values that match existing
-    /// objects will either overwrite (i.e. update) the existing object or will
-    /// be skipped and not added into the set.</para></remarks>
+    /// cref="insertRecords">inserting</see> data into a table with a primary
+    /// key, depending on the parameters in the request, incoming objects with
+    /// primary key values that match existing objects will either overwrite
+    /// (i.e. update) the existing object or will be skipped and not added into
+    /// the set.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -27717,14 +28439,14 @@ public partial class Kinetica
     /// then a uniqueness constraint is enforced, in that only a single object
     /// can exist with a given primary key column value (or set of values for
     /// the key columns, if using a composite primary key). When <see
-    /// cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">inserting</see>
-    /// data into a table with a primary key, depending on the parameters in
-    /// the request, incoming objects with primary key values that match
-    /// existing objects will either overwrite (i.e. update) the existing
-    /// object or will be skipped and not added into the set.</para></remarks>
+    /// cref="insertRecords">inserting</see> data into a table with a primary
+    /// key, depending on the parameters in the request, incoming objects with
+    /// primary key values that match existing objects will either overwrite
+    /// (i.e. update) the existing object or will be skipped and not added into
+    /// the set.</para></remarks>
     ///
-    /// <param name="type_definition">a JSON string describing the columns of
-    /// the type to be registered, as described above.</param>
+    /// <param name="type_definition">JSON string defining the columns of the
+    /// type to be registered, as described above.</param>
     /// <param name="label">A user-defined description string which can be used
     /// to differentiate between tables and types with otherwise identical
     /// schemas.</param>
@@ -28042,8 +28764,35 @@ public partial class Kinetica
     ///         cref="CreateTypeRequest.Properties.UPDATE_WITH_NOW">UPDATE_WITH_NOW</see>:
     ///         </term>
     ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
-    ///         column types, always update the field with 'NOW()' upon any
-    ///         update.</description>
+    ///         column types, update the field with 'NOW()' upon any update.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTypeRequest.Properties.UPDATE_WITH_USER">UPDATE_WITH_USER</see>:
+    ///         </term>
+    ///         <description>For 'charN' or 'string' column types, update the
+    ///         field with the current user's name upon any update.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTypeRequest.Properties.DEFAULT">DEFAULT</see>:
+    ///         </term>
+    ///         <description>Sets a default value expression for this column,
+    ///         e.g. 'default(0)', 'default(''pending'')', or 'default(NOW())'.
+    ///         When the column is omitted from an insert via
+    ///         request_schema_str, the expression is evaluated and the result
+    ///         is used as the column value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTypeRequest.Properties.DEFAULT_SQL">DEFAULT_SQL</see>:
+    ///         </term>
+    ///         <description>Sets a default value expression for this column
+    ///         with SQL syntax, e.g. 'default(0)', 'default(''pending'')', or
+    ///         'default(NOW())'.  Only used for showing the expression when
+    ///         generating SQL DDL.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -28113,14 +28862,14 @@ public partial class Kinetica
     /// then a uniqueness constraint is enforced, in that only a single object
     /// can exist with a given primary key column value (or set of values for
     /// the key columns, if using a composite primary key). When <see
-    /// cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">inserting</see>
-    /// data into a table with a primary key, depending on the parameters in
-    /// the request, incoming objects with primary key values that match
-    /// existing objects will either overwrite (i.e. update) the existing
-    /// object or will be skipped and not added into the set.</para></remarks>
+    /// cref="insertRecords">inserting</see> data into a table with a primary
+    /// key, depending on the parameters in the request, incoming objects with
+    /// primary key values that match existing objects will either overwrite
+    /// (i.e. update) the existing object or will be skipped and not added into
+    /// the set.</para></remarks>
     ///
-    /// <param name="type_definition">a JSON string describing the columns of
-    /// the type to be registered, as described above.</param>
+    /// <param name="type_definition">JSON string defining the columns of the
+    /// type to be registered, as described above.</param>
     /// <param name="label">A user-defined description string which can be used
     /// to differentiate between tables and types with otherwise identical
     /// schemas.</param>
@@ -28438,8 +29187,35 @@ public partial class Kinetica
     ///         cref="CreateTypeRequest.Properties.UPDATE_WITH_NOW">UPDATE_WITH_NOW</see>:
     ///         </term>
     ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
-    ///         column types, always update the field with 'NOW()' upon any
-    ///         update.</description>
+    ///         column types, update the field with 'NOW()' upon any update.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTypeRequest.Properties.UPDATE_WITH_USER">UPDATE_WITH_USER</see>:
+    ///         </term>
+    ///         <description>For 'charN' or 'string' column types, update the
+    ///         field with the current user's name upon any update.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTypeRequest.Properties.DEFAULT">DEFAULT</see>:
+    ///         </term>
+    ///         <description>Sets a default value expression for this column,
+    ///         e.g. 'default(0)', 'default(''pending'')', or 'default(NOW())'.
+    ///         When the column is omitted from an insert via
+    ///         request_schema_str, the expression is evaluated and the result
+    ///         is used as the column value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTypeRequest.Properties.DEFAULT_SQL">DEFAULT_SQL</see>:
+    ///         </term>
+    ///         <description>Sets a default value expression for this column
+    ///         with SQL syntax, e.g. 'default(0)', 'default(''pending'')', or
+    ///         'default(NOW())'.  Only used for showing the expression when
+    ///         generating SQL DDL.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -28606,12 +29382,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="table_name" />
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of the schema for
-    ///         the output table. If the schema provided is non-existent, it
-    ///         will be automatically created. The default value is ''.
-    ///         </description>
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of the schema for the output
+    ///         table. If the schema provided is non-existent, it will be
+    ///         automatically created. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="CreateUnionRequest.Options.MODE">MODE</see>:
@@ -28713,6 +29487,113 @@ public partial class Kinetica
     ///         </description>
     ///     </item>
     ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use for the output
+    ///         table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
     ///         <term><see cref="CreateUnionRequest.Options.TTL">TTL</see>:
     ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
@@ -28803,7 +29684,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Return a count of 0 for the union table response
     ///         to avoid the cost of counting; optimization needed for many
-    ///         chunk virtual_union's. The default value is 'false'.
+    ///         chunk virtual unions. The default value is 'false'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -28894,12 +29775,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="table_name" />
-    ///         and use <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of the schema for
-    ///         the output table. If the schema provided is non-existent, it
-    ///         will be automatically created. The default value is ''.
-    ///         </description>
+    ///         and use <see cref="createSchema">createSchema</see> to create
+    ///         the schema if non-existent]  Name of the schema for the output
+    ///         table. If the schema provided is non-existent, it will be
+    ///         automatically created. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="CreateUnionRequest.Options.MODE">MODE</see>:
@@ -29001,6 +29880,113 @@ public partial class Kinetica
     ///         </description>
     ///     </item>
     ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         </term>
+    ///         <description><a href="../../../concepts/tables/#partitioning"
+    ///         target="_top">Partitioning</a> scheme to use for the output
+    ///         table.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-range"
+    ///                 target="_top">range partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.INTERVAL">INTERVAL</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-interval"
+    ///                 target="_top">interval partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.LIST">LIST</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-list"
+    ///                 target="_top">list partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.HASH">HASH</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-hash"
+    ///                 target="_top">hash partitioning</a>.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
+    ///                 <description>Use <a
+    ///                 href="../../../concepts/tables/#partitioning-by-series"
+    ///                 target="_top">series partitioning</a>.</description>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition keys, which are
+    ///         the columns or column expressions by which records will be
+    ///         assigned to partitions defined by <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated list of partition definitions,
+    ///         whose format depends on the choice of <see
+    ///         cref="CreateUnionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
+    ///         target="_top">range partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-interval"
+    ///         target="_top">interval partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitioning</a>, <a
+    ///         href="../../../concepts/tables/#partitioning-by-hash"
+    ///         target="_top">hash partitioning</a>, or <a
+    ///         href="../../../concepts/tables/#partitioning-by-series"
+    ///         target="_top">series partitioning</a> for example formats.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUnionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CreateUnionRequest.Options.TRUE">TRUE</see>, a new
+    ///         partition will be created for values which don't fall into an
+    ///         existing partition.  Currently only supported for <a
+    ///         href="../../../concepts/tables/#partitioning-by-list"
+    ///         target="_top">list partitions</a>.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateUnionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateUnionRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
     ///         <term><see cref="CreateUnionRequest.Options.TTL">TTL</see>:
     ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
@@ -29091,7 +30077,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Return a count of 0 for the union table response
     ///         to avoid the cost of counting; optimization needed for many
-    ///         chunk virtual_union's. The default value is 'false'.
+    ///         chunk virtual unions. The default value is 'false'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -29169,13 +30155,13 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>User may login</description>
+    ///                 <description>User may login.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateUserExternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>User may not login</description>
+    ///                 <description>User may not login.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -29210,7 +30196,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
     ///         </term>
-    ///         <description>Default schema to associate with this user
+    ///         <description>Default schema to associate with this user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -29230,7 +30216,7 @@ public partial class Kinetica
     ///         cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -29263,13 +30249,13 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>User may login</description>
+    ///                 <description>User may login.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateUserExternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>User may not login</description>
+    ///                 <description>User may not login.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -29304,7 +30290,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
     ///         </term>
-    ///         <description>Default schema to associate with this user
+    ///         <description>Default schema to associate with this user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -29324,7 +30310,7 @@ public partial class Kinetica
     ///         cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -29391,13 +30377,13 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>User may login</description>
+    ///                 <description>User may login.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>User may not login</description>
+    ///                 <description>User may not login.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -29432,7 +30418,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
     ///         </term>
-    ///         <description>Default schema to associate with this user
+    ///         <description>Default schema to associate with this user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -29452,7 +30438,7 @@ public partial class Kinetica
     ///         cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -29486,13 +30472,13 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>User may login</description>
+    ///                 <description>User may login.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>User may not login</description>
+    ///                 <description>User may not login.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -29527,7 +30513,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
     ///         </term>
-    ///         <description>Default schema to associate with this user
+    ///         <description>Default schema to associate with this user.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -29547,7 +30533,7 @@ public partial class Kinetica
     ///         cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -29604,7 +30590,7 @@ public partial class Kinetica
     /// This is often a time-related field but may be any numeric type.</param>
     /// <param name="begin">The start point for the video. Accepts an
     /// expression evaluable over the <paramref name="attribute" />.</param>
-    /// <param name="duration_seconds">Seconds of video to produce</param>
+    /// <param name="duration_seconds">Seconds of video to produce.</param>
     /// <param name="end">The end point for the video. Accepts an expression
     /// evaluable over the <paramref name="attribute" />.</param>
     /// <param name="frames_per_second">The presentation frame rate of the
@@ -29745,7 +30731,7 @@ public partial class Kinetica
     /// This is often a time-related field but may be any numeric type.</param>
     /// <param name="begin">The start point for the video. Accepts an
     /// expression evaluable over the <paramref name="attribute" />.</param>
-    /// <param name="duration_seconds">Seconds of video to produce</param>
+    /// <param name="duration_seconds">Seconds of video to produce.</param>
     /// <param name="end">The end point for the video. Accepts an expression
     /// evaluable over the <paramref name="attribute" />.</param>
     /// <param name="frames_per_second">The presentation frame rate of the
@@ -29920,7 +30906,7 @@ public partial class Kinetica
     /// <param name="directory_name">Name of the directory in KiFS to be
     /// deleted. The directory must contain no files, unless <see
     /// cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see> is <see
-    /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see></param>
+    /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -29988,7 +30974,7 @@ public partial class Kinetica
     /// <param name="directory_name">Name of the directory in KiFS to be
     /// deleted. The directory must contain no files, unless <see
     /// cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see> is <see
-    /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see></param>
+    /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -30478,10 +31464,9 @@ public partial class Kinetica
     ///         cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
     ///         </term>
     ///         <description>A record ID identifying a single record, obtained
-    ///         at the time of <see
-    ///         cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertion
-    ///         of the record</see> or by calling <see
-    ///         cref="getRecordsFromCollection{T}(string,long,long,IDictionary{string,string})">getRecordsFromCollection</see>
+    ///         at the time of <see cref="insertRecords">insertion of the
+    ///         record</see> or by calling <see
+    ///         cref="getRecordsFromCollection">getRecordsFromCollection</see>
     ///         with the *return_record_ids* option. This option cannot be used
     ///         to delete records from <a
     ///         href="../../../concepts/tables/#replication"
@@ -30565,10 +31550,9 @@ public partial class Kinetica
     ///         cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
     ///         </term>
     ///         <description>A record ID identifying a single record, obtained
-    ///         at the time of <see
-    ///         cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertion
-    ///         of the record</see> or by calling <see
-    ///         cref="getRecordsFromCollection{T}(string,long,long,IDictionary{string,string})">getRecordsFromCollection</see>
+    ///         at the time of <see cref="insertRecords">insertion of the
+    ///         record</see> or by calling <see
+    ///         cref="getRecordsFromCollection">getRecordsFromCollection</see>
     ///         with the *return_record_ids* option. This option cannot be used
     ///         to delete records from <a
     ///         href="../../../concepts/tables/#replication"
@@ -32158,11 +33142,9 @@ public partial class Kinetica
     ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="showProcStatus(string,IDictionary{string,string})">showProcStatus</see>
-    ///         or <see
-    ///         cref="killProc(string,IDictionary{string,string})">killProc</see>
-    ///         to identify the proc instance. The default value is ''.
-    ///         </description>
+    ///         cref="showProcStatus">showProcStatus</see> or <see
+    ///         cref="killProc">killProc</see> to identify the proc instance.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -32170,9 +33152,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="showProcStatus(string,IDictionary{string,string})">showProcStatus</see>.
-    ///         If the number of lines output exceeds the maximum, earlier
-    ///         lines are discarded. The default value is '100'.</description>
+    ///         cref="showProcStatus">showProcStatus</see>. If the number of
+    ///         lines output exceeds the maximum, earlier lines are discarded.
+    ///         The default value is '100'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -32183,10 +33165,8 @@ public partial class Kinetica
     ///         of the proc will run when the database is started instead of
     ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see
-    ///         cref="showProc(string,IDictionary{string,string})">showProc</see>
-    ///         and used in <see
-    ///         cref="showProcStatus(string,IDictionary{string,string})">showProcStatus</see>.
+    ///         using <see cref="showProc">showProc</see> and used in <see
+    ///         cref="showProcStatus">showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -32301,11 +33281,9 @@ public partial class Kinetica
     ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="showProcStatus(string,IDictionary{string,string})">showProcStatus</see>
-    ///         or <see
-    ///         cref="killProc(string,IDictionary{string,string})">killProc</see>
-    ///         to identify the proc instance. The default value is ''.
-    ///         </description>
+    ///         cref="showProcStatus">showProcStatus</see> or <see
+    ///         cref="killProc">killProc</see> to identify the proc instance.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -32313,9 +33291,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="showProcStatus(string,IDictionary{string,string})">showProcStatus</see>.
-    ///         If the number of lines output exceeds the maximum, earlier
-    ///         lines are discarded. The default value is '100'.</description>
+    ///         cref="showProcStatus">showProcStatus</see>. If the number of
+    ///         lines output exceeds the maximum, earlier lines are discarded.
+    ///         The default value is '100'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -32326,10 +33304,8 @@ public partial class Kinetica
     ///         of the proc will run when the database is started instead of
     ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see
-    ///         cref="showProc(string,IDictionary{string,string})">showProc</see>
-    ///         and used in <see
-    ///         cref="showProcStatus(string,IDictionary{string,string})">showProcStatus</see>.
+    ///         using <see cref="showProc">showProc</see> and used in <see
+    ///         cref="showProcStatus">showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -32496,7 +33472,7 @@ public partial class Kinetica
     /// results were returned in the first call).</para></remarks>
     ///
     /// <param name="statement">SQL statement (query, DML, or DDL) to be
-    /// executed</param>
+    /// executed.</param>
     /// <param name="offset">A positive integer indicating the number of
     /// initial results to skip (this can be useful for paging through the
     /// results). The default value is 0. The minimum allowed value is 0. The
@@ -32626,7 +33602,7 @@ public partial class Kinetica
     ///                 cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore inserts/updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -32634,7 +33610,7 @@ public partial class Kinetica
     ///                 cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Treat as errors any inserts/updates that
-    ///                 result in primary key collisions with existing records
+    ///                 result in primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -32903,7 +33879,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Replace the collided-into record with the
     ///                 record inserted or updated when a new/modified record
-    ///                 causes a primary key collision with an existing record
+    ///                 causes a primary key collision with an existing record.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -32912,7 +33888,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Reject the insert or update when it
     ///                 results in a primary key collision with an existing
-    ///                 record</description>
+    ///                 record.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -32995,7 +33971,7 @@ public partial class Kinetica
     /// results were returned in the first call).</para></remarks>
     ///
     /// <param name="statement">SQL statement (query, DML, or DDL) to be
-    /// executed</param>
+    /// executed.</param>
     /// <param name="offset">A positive integer indicating the number of
     /// initial results to skip (this can be useful for paging through the
     /// results). The default value is 0. The minimum allowed value is 0. The
@@ -33125,7 +34101,7 @@ public partial class Kinetica
     ///                 cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore inserts/updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -33133,7 +34109,7 @@ public partial class Kinetica
     ///                 cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Treat as errors any inserts/updates that
-    ///                 result in primary key collisions with existing records
+    ///                 result in primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -33402,7 +34378,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Replace the collided-into record with the
     ///                 record inserted or updated when a new/modified record
-    ///                 causes a primary key collision with an existing record
+    ///                 causes a primary key collision with an existing record.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -33411,7 +34387,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Reject the insert or update when it
     ///                 results in a primary key collision with an existing
-    ///                 record</description>
+    ///                 record.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -33512,7 +34488,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="ExportQueryMetricsRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Filter for multi query export</description>
+    ///         <description>Filter for multi query export.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -33532,13 +34508,13 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Generic json output</description>
+    ///                 <description>Generic JSON output.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="ExportQueryMetricsRequest.Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
     ///                 </term>
-    ///                 <description>Chromium/Perfetto trace event format
+    ///                 <description>Chromium/Perfetto trace event format.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -33550,14 +34526,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="ExportQueryMetricsRequest.Options.JOB_ID">JOB_ID</see>:
     ///         </term>
-    ///         <description>Export query metrics for the currently running job
-    ///         </description>
+    ///         <description>Export query metrics for the currently running
+    ///         job.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="ExportQueryMetricsRequest.Options.LIMIT">LIMIT</see>:
     ///         </term>
-    ///         <description>Record limit per file for multi query export
+    ///         <description>Record limit per file for multi query export.
     ///         </description>
     ///     </item>
     /// </list>
@@ -33578,7 +34554,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="ExportQueryMetricsRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Filter for multi query export</description>
+    ///         <description>Filter for multi query export.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -33598,13 +34574,13 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="ExportQueryMetricsRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Generic json output</description>
+    ///                 <description>Generic JSON output.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="ExportQueryMetricsRequest.Options.JSON_TRACE_EVENT">JSON_TRACE_EVENT</see>:
     ///                 </term>
-    ///                 <description>Chromium/Perfetto trace event format
+    ///                 <description>Chromium/Perfetto trace event format.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -33616,14 +34592,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="ExportQueryMetricsRequest.Options.JOB_ID">JOB_ID</see>:
     ///         </term>
-    ///         <description>Export query metrics for the currently running job
-    ///         </description>
+    ///         <description>Export query metrics for the currently running
+    ///         job.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="ExportQueryMetricsRequest.Options.LIMIT">LIMIT</see>:
     ///         </term>
-    ///         <description>Record limit per file for multi query export
+    ///         <description>Record limit per file for multi query export.
     ///         </description>
     ///     </item>
     /// </list>
@@ -33647,8 +34623,7 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see
-    /// cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.</para>
+    /// see <see cref="createDatasink">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -33678,8 +34653,7 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see
-    /// cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.</para>
+    /// see <see cref="createDatasink">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -33712,8 +34686,7 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see
-    /// cref="createDatasink(string,string,IDictionary{string,string})">createDatasink</see>.</para>
+    /// see <see cref="createDatasink">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -33793,8 +34766,7 @@ public partial class Kinetica
     ///         cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Datasink name, created using <see
-    ///         cref="createDatasink(string,string,IDictionary{string,string})">createDatasink</see>.
-    ///         </description>
+    ///         cref="createDatasink">createDatasink</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -34035,8 +35007,7 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see
-    /// cref="createDatasink(string,string,IDictionary{string,string})">createDatasink</see>.</para>
+    /// see <see cref="createDatasink">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -34116,8 +35087,7 @@ public partial class Kinetica
     ///         cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Datasink name, created using <see
-    ///         cref="createDatasink(string,string,IDictionary{string,string})">createDatasink</see>.
-    ///         </description>
+    ///         cref="createDatasink">createDatasink</see>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -34354,7 +35324,7 @@ public partial class Kinetica
     }
 
     /// <summary>Exports records from source table to the specified target
-    /// table in an external database</summary>
+    /// table in an external database.</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -34368,7 +35338,7 @@ public partial class Kinetica
     }
 
     /// <summary>Exports records from source table to the specified target
-    /// table in an external database (async)</summary>
+    /// table in an external database. (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -34385,7 +35355,7 @@ public partial class Kinetica
     }
 
     /// <summary>Exports records from source table to the specified target
-    /// table in an external database</summary>
+    /// table in an external database.</summary>
     ///
     /// <param name="table_name">Name of the table from which the data will be
     /// exported to remote database, in [schema_name.]table_name format, using
@@ -34409,7 +35379,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data sink to which
     ///         table name specified in <paramref name="table_name" /> will be
-    ///         exported</description>
+    ///         exported.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -34494,7 +35464,7 @@ public partial class Kinetica
     }
 
     /// <summary>Exports records from source table to the specified target
-    /// table in an external database (async)</summary>
+    /// table in an external database. (async)</summary>
     ///
     /// <param name="table_name">Name of the table from which the data will be
     /// exported to remote database, in [schema_name.]table_name format, using
@@ -34518,7 +35488,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data sink to which
     ///         table name specified in <paramref name="table_name" /> will be
-    ///         exported</description>
+    ///         exported.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -34711,16 +35681,15 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
-    ///         <description>view this filtered-view is part of. The default
+    ///         <description>View this filtered-view is part of. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
@@ -34800,16 +35769,15 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:
     ///         </term>
-    ///         <description>view this filtered-view is part of. The default
+    ///         <description>View this filtered-view is part of. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
@@ -34944,11 +35912,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35032,11 +35999,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35167,11 +36133,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  The schema for the newly
-    ///         created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  The schema for the newly created view.
+    ///         If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35254,11 +36219,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  The schema for the newly
-    ///         created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  The schema for the newly created view.
+    ///         If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35397,11 +36361,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35492,11 +36455,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35635,11 +36597,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35729,11 +36690,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35917,11 +36877,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36058,11 +37017,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36177,7 +37135,7 @@ public partial class Kinetica
     /// target="_top">table naming criteria</a>.  Must not be an already
     /// existing table or view. The default value is ''.</param>
     /// <param name="column_values_map">List of values for the corresponding
-    /// column in the table</param>
+    /// column in the table.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -36214,11 +37172,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -36290,7 +37247,7 @@ public partial class Kinetica
     /// target="_top">table naming criteria</a>.  Must not be an already
     /// existing table or view. The default value is ''.</param>
     /// <param name="column_values_map">List of values for the corresponding
-    /// column in the table</param>
+    /// column in the table.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -36327,11 +37284,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -36504,11 +37460,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created view. If the schema is
-    ///         non-existent, it will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema which is to contain
+    ///         the newly created view. If the schema is non-existent, it will
+    ///         be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36605,11 +37560,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created view. If the schema is
-    ///         non-existent, it will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema which is to contain
+    ///         the newly created view. If the schema is non-existent, it will
+    ///         be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36754,11 +37708,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36851,11 +37804,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema provided is non-existent, it
-    ///         will be automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37003,11 +37955,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37090,11 +38041,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37244,11 +38194,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -37377,11 +38326,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -37596,11 +38544,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -37750,11 +38697,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -37926,11 +38872,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38005,7 +38950,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="FilterByTableRequest.Options.GEOS">GEOS</see>:
     ///                 </term>
-    ///                 <description>Use geos 1 edge per corner algorithm
+    ///                 <description>Use geos 1 edge per corner algorithm.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -38139,11 +39084,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38218,7 +39162,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="FilterByTableRequest.Options.GEOS">GEOS</see>:
     ///                 </term>
-    ///                 <description>Use geos 1 edge per corner algorithm
+    ///                 <description>Use geos 1 edge per corner algorithm.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -38402,11 +39346,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -38493,11 +39436,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="createSchema(string,IDictionary{string,string})">createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
-    ///         newly created view. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see cref="createSchema">createSchema</see> to create the
+    ///         schema if non-existent]  Name of a schema for the newly created
+    ///         view. If the schema is non-existent, it will be automatically
+    ///         created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -38522,9 +39464,8 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit.</summary>
-    /// <remarks><para>Use <see
-    /// cref="showGraph(ShowGraphRequest)">showGraph</see> to obtain the total
-    /// number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
+    /// total number of nodes and edges.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -38539,9 +39480,8 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit. (async)</summary>
-    /// <remarks><para>Use <see
-    /// cref="showGraph(ShowGraphRequest)">showGraph</see> to obtain the total
-    /// number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
+    /// total number of nodes and edges.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -38559,9 +39499,8 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit.</summary>
-    /// <remarks><para>Use <see
-    /// cref="showGraph(string,IDictionary{string,string})">showGraph</see> to
-    /// obtain the total number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
+    /// total number of nodes and edges.</para></remarks>
     ///
     /// <param name="graph_name">Name of the graph from which to retrieve
     /// entities.</param>
@@ -38608,6 +39547,85 @@ public partial class Kinetica
     ///         <description>Indicates which graph server to send the request
     ///         to. Required when the graph is distributed across multiple
     ///         servers. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.CONCISE_EDGE_CONNECTIVITY">CONCISE_EDGE_CONNECTIVITY</see>:
+    ///         </term>
+    ///         <description>When true, edges are emitted in a compact
+    ///         connectivity form regardless of the graph's identifier type:
+    ///         <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         contains stride-4 records [edge_id, node1_index, node2_index,
+    ///         edge_label_index] where node1_index/node2_index are 0-based
+    ///         positions into the node array (obtained from a node-entity call
+    ///         on the same graph). When requesting nodes with this option, the
+    ///         response includes tombstoned (deleted) slots in order to keep
+    ///         position indices stable so edge indices resolve correctly;
+    ///         deleted slots carry id=0 for integer graphs or an empty
+    ///         identifier for string/WKT graphs. For paginated node calls,
+    ///         subtract <paramref name="offset" /> from an edge endpoint index
+    ///         to locate it within the returned page.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Compact integer connectivity for edges;
+    ///                 deleted node slots included in node output.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: edges emit node identifiers
+    ///                 (int/string/WKT) matching the graph; deleted nodes are
+    ///                 skipped.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.INCLUDE_WEIGHTS">INCLUDE_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>When true and <c>options entity_type</c> is
+    ///         'edge', the response <see
+    ///         cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///         array is populated with one float weight per emitted edge
+    ///         (aligned 1:1 with the edge records in <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         or <see
+    ///         cref="GetGraphEntitiesResponse.entities_string">entities_string</see>).
+    ///         Empty when the graph has no weights component or when
+    ///         requesting nodes.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Populate <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 with per-edge weights (edge requests only).
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 is empty.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -38624,9 +39642,8 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit. (async)</summary>
-    /// <remarks><para>Use <see
-    /// cref="showGraph(string,IDictionary{string,string})">showGraph</see> to
-    /// obtain the total number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
+    /// total number of nodes and edges.</para></remarks>
     ///
     /// <param name="graph_name">Name of the graph from which to retrieve
     /// entities.</param>
@@ -38673,6 +39690,85 @@ public partial class Kinetica
     ///         <description>Indicates which graph server to send the request
     ///         to. Required when the graph is distributed across multiple
     ///         servers. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.CONCISE_EDGE_CONNECTIVITY">CONCISE_EDGE_CONNECTIVITY</see>:
+    ///         </term>
+    ///         <description>When true, edges are emitted in a compact
+    ///         connectivity form regardless of the graph's identifier type:
+    ///         <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         contains stride-4 records [edge_id, node1_index, node2_index,
+    ///         edge_label_index] where node1_index/node2_index are 0-based
+    ///         positions into the node array (obtained from a node-entity call
+    ///         on the same graph). When requesting nodes with this option, the
+    ///         response includes tombstoned (deleted) slots in order to keep
+    ///         position indices stable so edge indices resolve correctly;
+    ///         deleted slots carry id=0 for integer graphs or an empty
+    ///         identifier for string/WKT graphs. For paginated node calls,
+    ///         subtract <paramref name="offset" /> from an edge endpoint index
+    ///         to locate it within the returned page.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Compact integer connectivity for edges;
+    ///                 deleted node slots included in node output.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: edges emit node identifiers
+    ///                 (int/string/WKT) matching the graph; deleted nodes are
+    ///                 skipped.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="GetGraphEntitiesRequest.Options.INCLUDE_WEIGHTS">INCLUDE_WEIGHTS</see>:
+    ///         </term>
+    ///         <description>When true and <c>options entity_type</c> is
+    ///         'edge', the response <see
+    ///         cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///         array is populated with one float weight per emitted edge
+    ///         (aligned 1:1 with the edge records in <see
+    ///         cref="GetGraphEntitiesResponse.entities_int">entities_int</see>
+    ///         or <see
+    ///         cref="GetGraphEntitiesResponse.entities_string">entities_string</see>).
+    ///         Empty when the graph has no weights component or when
+    ///         requesting nodes.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Populate <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 with per-edge weights (edge requests only).
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Default: <see
+    ///                 cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
+    ///                 is empty.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="GetGraphEntitiesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -38693,10 +39789,9 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// </summary>
-    /// <remarks><para> See the <see
-    /// cref="createJob(CreateJobRequest)">createJob</see> for starting an
-    /// asynchronous job.  Some fields of the response are filled only after
-    /// the submitted job has finished execution.</para></remarks>
+    /// <remarks><para> See the <see cref="createJob">createJob</see> for
+    /// starting an asynchronous job.  Some fields of the response are filled
+    /// only after the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -38711,10 +39806,9 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// (async)</summary>
-    /// <remarks><para> See the <see
-    /// cref="createJob(CreateJobRequest)">createJob</see> for starting an
-    /// asynchronous job.  Some fields of the response are filled only after
-    /// the submitted job has finished execution.</para></remarks>
+    /// <remarks><para> See the <see cref="createJob">createJob</see> for
+    /// starting an asynchronous job.  Some fields of the response are filled
+    /// only after the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -38732,11 +39826,9 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// </summary>
-    /// <remarks><para> See the <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>
-    /// for starting an asynchronous job.  Some fields of the response are
-    /// filled only after the submitted job has finished execution.</para>
-    /// </remarks>
+    /// <remarks><para> See the <see cref="createJob">createJob</see> for
+    /// starting an asynchronous job.  Some fields of the response are filled
+    /// only after the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="job_id">A unique identifier for the job whose status and
     /// result is to be fetched.</param>
@@ -38745,7 +39837,7 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:
     ///         </term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -38760,11 +39852,9 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// (async)</summary>
-    /// <remarks><para> See the <see
-    /// cref="createJob(string,string,byte[],string,IDictionary{string,string})">createJob</see>
-    /// for starting an asynchronous job.  Some fields of the response are
-    /// filled only after the submitted job has finished execution.</para>
-    /// </remarks>
+    /// <remarks><para> See the <see cref="createJob">createJob</see> for
+    /// starting an asynchronous job.  Some fields of the response are filled
+    /// only after the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="job_id">A unique identifier for the job whose status and
     /// result is to be fetched.</param>
@@ -38773,7 +39863,7 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:
     ///         </term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -38888,7 +39978,7 @@ public partial class Kinetica
     /// limit, defined by the <a href="../../../config/#config-main-general"
     /// target="_top">max_get_records_size</a> parameter in the server
     /// configuration. Use <see
-    /// cref="GetRecordsResponse{T}.has_more_records">has_more_records</see> to
+    /// cref="RawGetRecordsResponse.has_more_records">has_more_records</see> to
     /// see if more records exist in the result to be fetched, and <paramref
     /// name="offset" /> and <paramref name="limit" /> to request subsequent
     /// pages of results. The default value is -9999.</param>
@@ -38897,7 +39987,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GetRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -38927,8 +40017,8 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see
     ///         cref="GetRecordsRequest.Options.SORT_BY">SORT_BY</see>:</term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Empty by default (i.e. no sorting is applied).</description>
+    ///         <description>Column that the data should be sorted by. Empty by
+    ///         default (i.e. no sorting is applied).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38994,7 +40084,7 @@ public partial class Kinetica
     /// limit, defined by the <a href="../../../config/#config-main-general"
     /// target="_top">max_get_records_size</a> parameter in the server
     /// configuration. Use <see
-    /// cref="GetRecordsResponse{T}.has_more_records">has_more_records</see> to
+    /// cref="RawGetRecordsResponse.has_more_records">has_more_records</see> to
     /// see if more records exist in the result to be fetched, and <paramref
     /// name="offset" /> and <paramref name="limit" /> to request subsequent
     /// pages of results. The default value is -9999.</param>
@@ -39003,7 +40093,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GetRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -39033,8 +40123,8 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see
     ///         cref="GetRecordsRequest.Options.SORT_BY">SORT_BY</see>:</term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Empty by default (i.e. no sorting is applied).</description>
+    ///         <description>Column that the data should be sorted by. Empty by
+    ///         default (i.e. no sorting is applied).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -39086,7 +40176,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection(CreateProjectionRequest)">createProjection</see>.</para>
+    /// cref="createProjection">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -39133,7 +40223,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection(CreateProjectionRequest)">createProjection</see>.</para>
+    /// cref="createProjection">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -39182,7 +40272,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection(string,string,IList{string},IDictionary{string,string})">createProjection</see>.</para>
+    /// cref="createProjection">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -39229,15 +40319,15 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:
     ///         </term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Used in conjunction with <see
+    ///         <description>Column that the data should be sorted by. Used in
+    ///         conjunction with <see
     ///         cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>.
     ///         The <see
     ///         cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>
@@ -39342,7 +40432,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection(string,string,IList{string},IDictionary{string,string})">createProjection</see>.</para>
+    /// cref="createProjection">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -39389,15 +40479,15 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:
     ///         </term>
-    ///         <description>Optional column that the data should be sorted by.
-    ///         Used in conjunction with <see
+    ///         <description>Column that the data should be sorted by. Used in
+    ///         conjunction with <see
     ///         cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>.
     ///         The <see
     ///         cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>
@@ -39506,9 +40596,8 @@ public partial class Kinetica
     /// <remarks><para> This operation supports paging through the data via the
     /// <see cref="GetRecordsBySeriesRequest.offset">offset</see> and <see
     /// cref="GetRecordsBySeriesRequest.limit">limit</see> parameters.</para>
-    /// <para>In contrast to <see
-    /// cref="getRecords{T}(GetRecordsRequest)">getRecords</see> this returns
-    /// records grouped by series/track. So if <see
+    /// <para>In contrast to <see cref="getRecords">getRecords</see> this
+    /// returns records grouped by series/track. So if <see
     /// cref="GetRecordsBySeriesRequest.offset">offset</see> is 0 and <see
     /// cref="GetRecordsBySeriesRequest.limit">limit</see> is 5 this operation
     /// would return the first 5 series/tracks in <see
@@ -39545,9 +40634,8 @@ public partial class Kinetica
     /// <remarks><para> This operation supports paging through the data via the
     /// <see cref="GetRecordsBySeriesRequest.offset">offset</see> and <see
     /// cref="GetRecordsBySeriesRequest.limit">limit</see> parameters.</para>
-    /// <para>In contrast to <see
-    /// cref="getRecords{T}(GetRecordsRequest)">getRecords</see> this returns
-    /// records grouped by series/track. So if <see
+    /// <para>In contrast to <see cref="getRecords">getRecords</see> this
+    /// returns records grouped by series/track. So if <see
     /// cref="GetRecordsBySeriesRequest.offset">offset</see> is 0 and <see
     /// cref="GetRecordsBySeriesRequest.limit">limit</see> is 5 this operation
     /// would return the first 5 series/tracks in <see
@@ -39584,13 +40672,12 @@ public partial class Kinetica
     /// <remarks><para> This operation supports paging through the data via the
     /// <paramref name="offset" /> and <paramref name="limit" />
     /// parameters.</para>
-    /// <para>In contrast to <see
-    /// cref="getRecords{T}(string,long,long,IDictionary{string,string})">getRecords</see>
-    /// this returns records grouped by series/track. So if <paramref
-    /// name="offset" /> is 0 and <paramref name="limit" /> is 5 this operation
-    /// would return the first 5 series/tracks in <paramref name="table_name"
-    /// />. Each series/track will be returned sorted by their TIMESTAMP
-    /// column.</para></remarks>
+    /// <para>In contrast to <see cref="getRecords">getRecords</see> this
+    /// returns records grouped by series/track. So if <paramref name="offset"
+    /// /> is 0 and <paramref name="limit" /> is 5 this operation would return
+    /// the first 5 series/tracks in <paramref name="table_name" />. Each
+    /// series/track will be returned sorted by their TIMESTAMP column.</para>
+    /// </remarks>
     ///
     /// <typeparam name="T">The type of object being retrieved.</typeparam>
     ///
@@ -39639,13 +40726,12 @@ public partial class Kinetica
     /// <remarks><para> This operation supports paging through the data via the
     /// <paramref name="offset" /> and <paramref name="limit" />
     /// parameters.</para>
-    /// <para>In contrast to <see
-    /// cref="getRecords{T}(string,long,long,IDictionary{string,string})">getRecords</see>
-    /// this returns records grouped by series/track. So if <paramref
-    /// name="offset" /> is 0 and <paramref name="limit" /> is 5 this operation
-    /// would return the first 5 series/tracks in <paramref name="table_name"
-    /// />. Each series/track will be returned sorted by their TIMESTAMP
-    /// column.</para></remarks>
+    /// <para>In contrast to <see cref="getRecords">getRecords</see> this
+    /// returns records grouped by series/track. So if <paramref name="offset"
+    /// /> is 0 and <paramref name="limit" /> is 5 this operation would return
+    /// the first 5 series/tracks in <paramref name="table_name" />. Each
+    /// series/track will be returned sorted by their TIMESTAMP column.</para>
+    /// </remarks>
     ///
     /// <typeparam name="T">The type of object being retrieved.</typeparam>
     ///
@@ -39694,7 +40780,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection.</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords(DeleteRecordsRequest)">deleteRecords</see>.</para>
+    /// cref="deleteRecords">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <see
     /// cref="GetRecordsFromCollectionRequest.offset">offset</see> and <see
     /// cref="GetRecordsFromCollectionRequest.limit">limit</see>
@@ -39726,7 +40812,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection. (async)</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords(DeleteRecordsRequest)">deleteRecords</see>.</para>
+    /// cref="deleteRecords">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <see
     /// cref="GetRecordsFromCollectionRequest.offset">offset</see> and <see
     /// cref="GetRecordsFromCollectionRequest.limit">limit</see>
@@ -39761,7 +40847,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection.</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords(string,IList{string},IDictionary{string,string})">deleteRecords</see>.</para>
+    /// cref="deleteRecords">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <paramref
     /// name="offset" /> and <paramref name="limit" /> parameters.</para>
     /// <para>Note that when using the Java API, it is not possible to retrieve
@@ -39818,8 +40904,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         The default value is ''.</description>
+    ///         <description>Filter expression to apply to the table. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -39839,7 +40925,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection. (async)</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords(string,IList{string},IDictionary{string,string})">deleteRecords</see>.</para>
+    /// cref="deleteRecords">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <paramref
     /// name="offset" /> and <paramref name="limit" /> parameters.</para>
     /// <para>Note that when using the Java API, it is not possible to retrieve
@@ -39896,8 +40982,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         The default value is ''.</description>
+    ///         <description>Filter expression to apply to the table. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -40184,9 +41270,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to this grant.
-    ///         Only rows that match the filter will be affected. The default
-    ///         value is ''.</description>
+    ///         <description>Filter expression to apply to this grant.  Only
+    ///         rows that match the filter will be affected. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -40412,9 +41498,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to this grant.
-    ///         Only rows that match the filter will be affected. The default
-    ///         value is ''.</description>
+    ///         <description>Filter expression to apply to this grant.  Only
+    ///         rows that match the filter will be affected. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -40625,14 +41711,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
     ///         </term>
-    ///         <description>Admin access on the given data source
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
     ///         </term>
-    ///         <description>Connect access on the given data source
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -40667,14 +41753,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="GrantPermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
     ///         </term>
-    ///         <description>Admin access on the given data source
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="GrantPermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
     ///         </term>
-    ///         <description>Connect access on the given data source
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -40743,7 +41829,7 @@ public partial class Kinetica
     ///         cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:
     ///         </term>
     ///         <description>For files in the directory, access to list files,
-    ///         download files, or use files in server side functions
+    ///         download files, or use files in server side functions.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -40752,12 +41838,12 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Access to upload files to, or delete files from,
     ///         the directory. A user or role with write access automatically
-    ///         has read access</description>
+    ///         has read access.</description>
     ///     </item>
     /// </list></param>
     /// <param name="directory_name">Name of the KiFS directory to which the
     /// permission grants access. An empty directory name grants access to all
-    /// KiFS directories</param>
+    /// KiFS directories.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -40786,7 +41872,7 @@ public partial class Kinetica
     ///         cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:
     ///         </term>
     ///         <description>For files in the directory, access to list files,
-    ///         download files, or use files in server side functions
+    ///         download files, or use files in server side functions.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -40795,12 +41881,12 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Access to upload files to, or delete files from,
     ///         the directory. A user or role with write access automatically
-    ///         has read access</description>
+    ///         has read access.</description>
     ///     </item>
     /// </list></param>
     /// <param name="directory_name">Name of the KiFS directory to which the
     /// permission grants access. An empty directory name grants access to all
-    /// KiFS directories</param>
+    /// KiFS directories.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -42190,8 +43276,7 @@ public partial class Kinetica
     /// <summary>Check for the existence of a type.</summary>
     ///
     /// <param name="type_id">Id of the type returned in response to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>
-    /// request.</param>
+    /// cref="createType">createType</see> request.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -42205,8 +43290,7 @@ public partial class Kinetica
     /// <summary>Check for the existence of a type. (async)</summary>
     ///
     /// <param name="type_id">Id of the type returned in response to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>
-    /// request.</param>
+    /// cref="createType">createType</see> request.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -42337,16 +43421,16 @@ public partial class Kinetica
     /// available. The response payload provides the counts of the number of
     /// records actually inserted and/or updated, and can provide the unique
     /// identifier of each added record.</para>
-    /// <para>The <see cref="InsertRecordsRequest{T}.options">options</see>
+    /// <para>The <see cref="RawInsertRecordsRequest.options">options</see>
     /// parameter can be used to customize this function's behavior.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record collision policy for inserting into a table
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, but is ignored if no primary key
     /// exists.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+    /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
     /// option indicates that the database should return the unique identifiers
     /// of inserted records.</para></remarks>
     ///
@@ -42374,16 +43458,16 @@ public partial class Kinetica
     /// available. The response payload provides the counts of the number of
     /// records actually inserted and/or updated, and can provide the unique
     /// identifier of each added record.</para>
-    /// <para>The <see cref="InsertRecordsRequest{T}.options">options</see>
+    /// <para>The <see cref="RawInsertRecordsRequest.options">options</see>
     /// parameter can be used to customize this function's behavior.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record collision policy for inserting into a table
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, but is ignored if no primary key
     /// exists.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+    /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
     /// option indicates that the database should return the unique identifiers
     /// of inserted records.</para></remarks>
     ///
@@ -42416,13 +43500,13 @@ public partial class Kinetica
     /// <para>The <paramref name="options" /> parameter can be used to
     /// customize this function's behavior.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record collision policy for inserting into a table
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, but is ignored if no primary key
     /// exists.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+    /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
     /// option indicates that the database should return the unique identifiers
     /// of inserted records.</para></remarks>
     ///
@@ -42440,105 +43524,138 @@ public partial class Kinetica
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         existing table record with primary key values that match those
     ///         of a record being inserted will be replaced by that new record
     ///         (the new data will be "upserted"). If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.FALSE">FALSE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
     ///         existing table record with primary key values that match those
     ///         of a record being inserted will remain unchanged, while the new
     ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="InsertRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
     ///         <see
-    ///         cref="InsertRecordsRequest{T}.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="InsertRecordsRequest{T}.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is <see
-    ///         cref="InsertRecordsRequest{T}.Options.FALSE">FALSE</see>).  If
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
     ///         set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         record being inserted that is rejected for having primary key
     ///         values that match those of an existing table record will be
     ///         ignored with no error generated.  If <see
-    ///         cref="InsertRecordsRequest{T}.Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="InsertRecordsRequest{T}.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="InsertRecordsRequest{T}.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>), then
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
     ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -42546,7 +43663,7 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -42554,87 +43671,87 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
     ///         <description>If <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see> then
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
     ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, success
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
     ///         will always be returned, and any errors found will be included
     ///         in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, all
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
@@ -42642,41 +43759,68 @@ public partial class Kinetica
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, no data
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
     ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <paramref name="data" /> (when
+    ///         <c>list_encoding</c> is <c>BINARY</c>), in
+    ///         [["{column_name}","{column_type}"]] format. When non-empty and
+    ///         different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -42700,13 +43844,13 @@ public partial class Kinetica
     /// <para>The <paramref name="options" /> parameter can be used to
     /// customize this function's behavior.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record collision policy for inserting into a table
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, but is ignored if no primary key
     /// exists.</para>
     /// <para>The <see
-    /// cref="InsertRecordsRequest{T}.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
+    /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>
     /// option indicates that the database should return the unique identifiers
     /// of inserted records.</para></remarks>
     ///
@@ -42724,105 +43868,138 @@ public partial class Kinetica
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         existing table record with primary key values that match those
     ///         of a record being inserted will be replaced by that new record
     ///         (the new data will be "upserted"). If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.FALSE">FALSE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
     ///         existing table record with primary key values that match those
     ///         of a record being inserted will remain unchanged, while the new
     ///         record will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="InsertRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
     ///         <see
-    ///         cref="InsertRecordsRequest{T}.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
     ///         and <see
-    ///         cref="InsertRecordsRequest{T}.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when <see
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>). If set
+    ///         to <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to <see
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+    ///         updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is <see
-    ///         cref="InsertRecordsRequest{T}.Options.FALSE">FALSE</see>).  If
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).  If
     ///         set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         record being inserted that is rejected for having primary key
     ///         values that match those of an existing table record will be
     ///         ignored with no error generated.  If <see
-    ///         cref="InsertRecordsRequest{T}.Options.FALSE">FALSE</see>, the
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any record for having primary key values matching
     ///         an existing record will result in an error being reported, as
     ///         determined by <see
-    ///         cref="InsertRecordsRequest{T}.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
     ///         and <see
-    ///         cref="InsertRecordsRequest{T}.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
     ///         If the specified table does not have a primary key or if upsert
     ///         mode is in effect (<see
-    ///         cref="InsertRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>), then
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>), then
     ///         this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_HIGHER">PK_CONFLICT_PREDICATE_HIGHER</see>:
     ///         </term>
     ///         <description>The record with higher value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -42830,7 +44007,7 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
+    ///         cref="RawInsertRecordsRequest.Options.PK_CONFLICT_PREDICATE_LOWER">PK_CONFLICT_PREDICATE_LOWER</see>:
     ///         </term>
     ///         <description>The record with lower value for the column
     ///         resolves the primary-key insert conflict. The default value is
@@ -42838,87 +44015,87 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
     ///         <description>If <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see> then
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see> then
     ///         return the internal record id along for each inserted record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their target charN string
     ///         columns will be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
+    ///         cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, success
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
     ///         will always be returned, and any errors found will be included
     ///         in the info map.  The "bad_record_indices" entry is a
-    ///         comma-separated list of bad records (0-based).  And if so,
-    ///         there will also be an "error_N" entry for each record with an
-    ///         error, where N is the index (0-based).
+    ///         comma-separated list of bad records (0-based).  If so, there
+    ///         will also be an "error_N" entry for each record with an error,
+    ///         where N is the index (0-based).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, all
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         correct records will be inserted and incorrect records will be
     ///         rejected and reported.  Otherwise, the entire batch will be
     ///         rejected if any records are incorrect.
@@ -42926,41 +44103,68 @@ public partial class Kinetica
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="InsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="InsertRecordsRequest{T}.Options.TRUE">TRUE</see>, no data
+    ///         cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
     ///         will be saved and any errors will be returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="InsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
+    ///         </term>
+    ///         <description>Type schema of  <paramref name="data" /> (when
+    ///         <c>list_encoding</c> is <c>BINARY</c>), in
+    ///         [["{column_name}","{column_type}"]] format. When non-empty and
+    ///         different from the table's schema, the server remaps the
+    ///         incoming records to the table's full schema.  Columns present
+    ///         in the table but absent from this schema are filled using their
+    ///         default values, NULL (if nullable), or an error is returned.
+    ///         If empty, records must match the table's full schema. The
+    ///         default value is ''.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -43132,9 +44336,9 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source, when creating the target table.
+    /// cref="createTable">createTable</see>, allowing the structure of the
+    /// table to be defined independently of the data source, when creating the
+    /// target table.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -43527,7 +44731,8 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.AUTO">AUTO</see>:
     ///                 </term>
-    ///                 <description>Auto detect compression type</description>
+    ///                 <description>Auto detect compression type.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -43552,7 +44757,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which data file(s) specified in <paramref name="filepaths" />
-    ///         will be loaded</description>
+    ///         will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -43635,7 +44840,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:
     ///                 </term>
-    ///                 <description>Avro file format</description>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -43648,25 +44853,25 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>Esri/GDB file format</description>
+    ///                 <description>Esri/GDB file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Json file format</description>
+    ///                 <description>JSON file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:
     ///                 </term>
-    ///                 <description>Apache Parquet file format</description>
+    ///                 <description>Apache Parquet file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.SHAPEFILE">SHAPEFILE</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -43685,14 +44890,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -43704,7 +44909,7 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromFilesRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
     ///         </term>
     ///         <description>Comma separated list of gdal conf options, for the
-    ///         specific requests: key=value</description>
+    ///         specific requests: key=value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -43741,7 +44946,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -43750,7 +44955,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -43770,7 +44975,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -43957,6 +45162,26 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the file has a
+    ///         header row (i.e., <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the file's header names.  If the file has
+    ///         no header row, these names are used as the source-data column
+    ///         names. Either way, the i-th name in this list applies to the
+    ///         i-th column in the file, enabling name-based matching against
+    ///         the target table's columns (and use with <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of tasks for reading file per rank. Default
@@ -43987,28 +45212,28 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -44329,11 +45554,39 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromFilesRequest.Options.ACCURACY">ACCURACY</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -44365,14 +45618,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -44463,9 +45716,9 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>,
-    /// allowing the structure of the table to be defined independently of the
-    /// data source, when creating the target table.
+    /// cref="createTable">createTable</see>, allowing the structure of the
+    /// table to be defined independently of the data source, when creating the
+    /// target table.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -44858,7 +46111,8 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.AUTO">AUTO</see>:
     ///                 </term>
-    ///                 <description>Auto detect compression type</description>
+    ///                 <description>Auto detect compression type.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -44883,7 +46137,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Name of an existing external data source from
     ///         which data file(s) specified in <paramref name="filepaths" />
-    ///         will be loaded</description>
+    ///         will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -44966,7 +46220,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:
     ///                 </term>
-    ///                 <description>Avro file format</description>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -44979,25 +46233,25 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>Esri/GDB file format</description>
+    ///                 <description>Esri/GDB file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Json file format</description>
+    ///                 <description>JSON file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:
     ///                 </term>
-    ///                 <description>Apache Parquet file format</description>
+    ///                 <description>Apache Parquet file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.SHAPEFILE">SHAPEFILE</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -45016,14 +46270,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -45035,7 +46289,7 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromFilesRequest.Options.GDAL_CONFIGURATION_OPTIONS">GDAL_CONFIGURATION_OPTIONS</see>:
     ///         </term>
     ///         <description>Comma separated list of gdal conf options, for the
-    ///         specific requests: key=value</description>
+    ///         specific requests: key=value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -45072,7 +46326,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -45081,7 +46335,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -45101,7 +46355,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -45288,6 +46542,26 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the file has a
+    ///         header row (i.e., <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the file's header names.  If the file has
+    ///         no header row, these names are used as the source-data column
+    ///         names. Either way, the i-th name in this list applies to the
+    ///         i-th column in the file, enabling name-based matching against
+    ///         the target table's columns (and use with <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
     ///         <description>Number of tasks for reading file per rank. Default
@@ -45318,28 +46592,28 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromFilesRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -45660,11 +46934,39 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromFilesRequest.Options.ACCURACY">ACCURACY</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -45696,14 +46998,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -45783,14 +47085,13 @@ public partial class Kinetica
     /// to meet standard <a
     /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>.</param>
-    /// <param name="data_text">Records formatted as delimited text</param>
-    /// <param name="data_bytes">Records formatted as binary data</param>
+    /// <param name="data_text">Records formatted as delimited text.</param>
+    /// <param name="data_bytes">Records formatted as binary data.</param>
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
     /// target table. Includes type to use. The other options match those in
-    /// <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>.
+    /// <see cref="createTable">createTable</see>.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -46073,9 +47374,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
-    ///         <description>Optional name of a table to which records that
-    ///         were rejected are written.  The bad-record-table has the
-    ///         following columns: line_number (long), line_rejected (string),
+    ///         <description>Name of a table to which records that were
+    ///         rejected are written.  The bad-record-table has the following
+    ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string).</description>
     ///     </item>
     ///     <item>
@@ -46084,7 +47385,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be  written to the bad-record-table.
-    ///         Default value is 10000</description>
+    ///         Default value is 10000.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46094,7 +47395,7 @@ public partial class Kinetica
     ///         the maximum number of records that can be written to the
     ///         bad-record-table per file/payload. Default value will be
     ///         'bad_record_table_limit' and total size of the table per rank
-    ///         is limited to 'bad_record_table_limit'</description>
+    ///         is limited to 'bad_record_table_limit'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46164,20 +47465,20 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
     ///         </term>
-    ///         <description>Optional: payload compression type.
+    ///         <description>Payload compression type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.NONE">NONE</see>:
     ///                 </term>
-    ///                 <description>Uncompressed</description>
+    ///                 <description>Uncompressed.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.AUTO">AUTO</see>:
     ///                 </term>
-    ///                 <description>Default. Auto detect compression type
+    ///                 <description>Default. Auto detect compression type.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -46278,7 +47579,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:
     ///                 </term>
-    ///                 <description>Avro file format</description>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -46291,25 +47592,25 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>Esri/GDB file format</description>
+    ///                 <description>Esri/GDB file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Json file format</description>
+    ///                 <description>JSON file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:
     ///                 </term>
-    ///                 <description>Apache Parquet file format</description>
+    ///                 <description>Apache Parquet file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -46328,14 +47629,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -46385,7 +47686,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -46394,7 +47695,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -46414,7 +47715,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -46443,8 +47744,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.LAYER">LAYER</see>:
     ///         </term>
-    ///         <description>Optional: geo files layer(s) name(s): comma
-    ///         separated. The default value is ''.</description>
+    ///         <description>Geo files layer(s) name(s): comma separated. The
+    ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46507,7 +47808,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
     ///         </term>
-    ///         <description>For Avro local timestamp columns</description>
+    ///         <description>For Avro local timestamp columns.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46521,11 +47822,31 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the payload has
+    ///         a header row (i.e., <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the payload's header names.  If the
+    ///         payload has no header row, these names are used as the
+    ///         source-data column names. Either way, the i-th name in this
+    ///         list applies to the i-th column in the payload, enabling
+    ///         name-based matching against the target table's columns (and use
+    ///         with <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of tasks for reading file per
-    ///         rank. Default will be external_file_reader_num_tasks
-    ///         </description>
+    ///         <description>Number of tasks for reading file per rank. Default
+    ///         will be external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46542,37 +47863,37 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         primary keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46585,9 +47906,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         shard keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46623,10 +47944,11 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
     ///         </term>
-    ///         <description>Optional: table_insert_mode. When inserting
-    ///         records from multiple files: if table_per_file then insert from
-    ///         each file into a new table. Currently supported only for
-    ///         shapefiles.
+    ///         <description>When inserting records from multiple files: if
+    ///         <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see>,
+    ///         then insert from each file into a new table. Currently
+    ///         supported only for shapefiles.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -46772,7 +48094,7 @@ public partial class Kinetica
     ///         inferenced string columns. Comma separated list of column names
     ///         or '*' for all columns. To add text_search property only to
     ///         string columns of minimum size, set also the option
-    ///         'text_search_min_column_length'</description>
+    ///         'text_search_min_column_length'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -46865,7 +48187,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
     ///         </term>
-    ///         <description>optimize type inference for:
+    ///         <description>Optimize type inference mode.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -46881,11 +48203,39 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -46917,14 +48267,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -46966,14 +48316,13 @@ public partial class Kinetica
     /// to meet standard <a
     /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>.</param>
-    /// <param name="data_text">Records formatted as delimited text</param>
-    /// <param name="data_bytes">Records formatted as binary data</param>
+    /// <param name="data_text">Records formatted as delimited text.</param>
+    /// <param name="data_bytes">Records formatted as binary data.</param>
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
     /// target table. Includes type to use. The other options match those in
-    /// <see
-    /// cref="createTable(string,string,IDictionary{string,string})">createTable</see>.
+    /// <see cref="createTable">createTable</see>.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -47256,9 +48605,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
-    ///         <description>Optional name of a table to which records that
-    ///         were rejected are written.  The bad-record-table has the
-    ///         following columns: line_number (long), line_rejected (string),
+    ///         <description>Name of a table to which records that were
+    ///         rejected are written.  The bad-record-table has the following
+    ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string).</description>
     ///     </item>
     ///     <item>
@@ -47267,7 +48616,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be  written to the bad-record-table.
-    ///         Default value is 10000</description>
+    ///         Default value is 10000.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47277,7 +48626,7 @@ public partial class Kinetica
     ///         the maximum number of records that can be written to the
     ///         bad-record-table per file/payload. Default value will be
     ///         'bad_record_table_limit' and total size of the table per rank
-    ///         is limited to 'bad_record_table_limit'</description>
+    ///         is limited to 'bad_record_table_limit'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47347,20 +48696,20 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:
     ///         </term>
-    ///         <description>Optional: payload compression type.
+    ///         <description>Payload compression type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.NONE">NONE</see>:
     ///                 </term>
-    ///                 <description>Uncompressed</description>
+    ///                 <description>Uncompressed.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.AUTO">AUTO</see>:
     ///                 </term>
-    ///                 <description>Default. Auto detect compression type
+    ///                 <description>Default. Auto detect compression type.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -47461,7 +48810,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:
     ///                 </term>
-    ///                 <description>Avro file format</description>
+    ///                 <description>Avro file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -47474,25 +48823,25 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.GDB">GDB</see>:
     ///                 </term>
-    ///                 <description>Esri/GDB file format</description>
+    ///                 <description>Esri/GDB file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:
     ///                 </term>
-    ///                 <description>Json file format</description>
+    ///                 <description>JSON file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:
     ///                 </term>
-    ///                 <description>Apache Parquet file format</description>
+    ///                 <description>Apache Parquet file format.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:
     ///                 </term>
-    ///                 <description>ShapeFile file format</description>
+    ///                 <description>ShapeFile file format.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -47511,14 +48860,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Break up nested columns to multiple
-    ///                 columns</description>
+    ///                 columns.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Treat nested columns as json columns
-    ///                 instead of flattening</description>
+    ///                 <description>Treat nested columns as JSON columns
+    ///                 instead of flattening.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -47568,7 +48917,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -47577,7 +48926,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -47597,7 +48946,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -47626,8 +48975,8 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.LAYER">LAYER</see>:
     ///         </term>
-    ///         <description>Optional: geo files layer(s) name(s): comma
-    ///         separated. The default value is ''.</description>
+    ///         <description>Geo files layer(s) name(s): comma separated. The
+    ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47690,7 +49039,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:
     ///         </term>
-    ///         <description>For Avro local timestamp columns</description>
+    ///         <description>For Avro local timestamp columns.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47704,11 +49053,31 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.NAME_COLUMNS_FROM_FILE">NAME_COLUMNS_FROM_FILE</see>:
+    ///         </term>
+    ///         <description>Specifies a comma-delimited list of column names
+    ///         to be used as the source-data column names.  If the payload has
+    ///         a header row (i.e., <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>),
+    ///         these names override the payload's header names.  If the
+    ///         payload has no header row, these names are used as the
+    ///         source-data column names. Either way, the i-th name in this
+    ///         list applies to the i-th column in the payload, enabling
+    ///         name-based matching against the target table's columns (and use
+    ///         with <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>
+    ///         / <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>).
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of tasks for reading file per
-    ///         rank. Default will be external_file_reader_num_tasks
-    ///         </description>
+    ///         <description>Number of tasks for reading file per rank. Default
+    ///         will be external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47725,37 +49094,37 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         primary keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_CONNECTION_RETRIES">SCHEMA_REGISTRY_CONNECTION_RETRIES</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_CONNECTION_TIMEOUT">SCHEMA_REGISTRY_CONNECTION_TIMEOUT</see>:
     ///         </term>
     ///         <description>Confluent Schema registry connection timeout (in
-    ///         Secs)</description>
+    ///         secs).</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES">SCHEMA_REGISTRY_MAX_CONSECUTIVE_CONNECTION_FAILURES</see>:
     ///         </term>
     ///         <description>Max records to skip due to SR connection failures,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE">MAX_CONSECUTIVE_INVALID_SCHEMA_FAILURE</see>:
     ///         </term>
     ///         <description>Max records to skip due to schema related errors,
-    ///         before failing</description>
+    ///         before failing.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47768,9 +49137,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         shard keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -47806,10 +49175,11 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:
     ///         </term>
-    ///         <description>Optional: table_insert_mode. When inserting
-    ///         records from multiple files: if table_per_file then insert from
-    ///         each file into a new table. Currently supported only for
-    ///         shapefiles.
+    ///         <description>When inserting records from multiple files: if
+    ///         <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see>,
+    ///         then insert from each file into a new table. Currently
+    ///         supported only for shapefiles.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -47955,7 +49325,7 @@ public partial class Kinetica
     ///         inferenced string columns. Comma separated list of column names
     ///         or '*' for all columns. To add text_search property only to
     ///         string columns of minimum size, set also the option
-    ///         'text_search_min_column_length'</description>
+    ///         'text_search_min_column_length'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -48048,7 +49418,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:
     ///         </term>
-    ///         <description>optimize type inference for:
+    ///         <description>Optimize type inference mode.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -48064,11 +49434,39 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Scans data and picks the widest possible
     ///                 column types so that 'all' values will fit with minimum
-    ///                 data scanned</description>
+    ///                 data scanned.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -48100,14 +49498,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -48137,7 +49535,7 @@ public partial class Kinetica
     }
 
     /// <summary>Computes remote query result and inserts the result data into
-    /// a new or existing table</summary>
+    /// a new or existing table.</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -48151,7 +49549,7 @@ public partial class Kinetica
     }
 
     /// <summary>Computes remote query result and inserts the result data into
-    /// a new or existing table (async)</summary>
+    /// a new or existing table. (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -48168,7 +49566,7 @@ public partial class Kinetica
     }
 
     /// <summary>Computes remote query result and inserts the result data into
-    /// a new or existing table</summary>
+    /// a new or existing table.</summary>
     ///
     /// <param name="table_name">Name of the table into which the data will be
     /// inserted, in [schema_name.]table_name format, using standard <a
@@ -48181,7 +49579,7 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>.</param>
     /// <param name="remote_query">Query for which result data needs to be
-    /// imported</param>
+    /// imported.</param>
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
@@ -48454,9 +49852,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
-    ///         <description>Optional name of a table to which records that
-    ///         were rejected are written.  The bad-record-table has the
-    ///         following columns: line_number (long), line_rejected (string),
+    ///         <description>Name of a table to which records that were
+    ///         rejected are written.  The bad-record-table has the following
+    ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string). When error handling is Abort, bad
     ///         records table is not populated.</description>
     ///     </item>
@@ -48466,7 +49864,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be  written to the bad-record-table.
-    ///         Default value is 10000</description>
+    ///         Default value is 10000.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -48480,7 +49878,7 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromQueryRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
     ///         </term>
     ///         <description>Name of an existing external data source from
-    ///         which table will be loaded</description>
+    ///         which table will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -48554,7 +49952,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -48563,7 +49961,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -48583,7 +49981,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -48619,7 +50017,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
     ///         </term>
-    ///         <description>Executes the statement per each jdbc session
+    ///         <description>Executes the statement per each JDBC session
     ///         before doing actual load. The default value is ''.
     ///         </description>
     ///     </item>
@@ -48627,33 +50025,32 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of splits for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks. The
-    ///         default value is ''.</description>
+    ///         <description>Number of splits for reading data per rank.
+    ///         Default will be external_file_reader_num_tasks. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of tasks for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks
-    ///         </description>
+    ///         <description>Number of tasks for reading data per rank. Default
+    ///         will be external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         primary keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         shard keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -48707,7 +50104,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
     ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         <description>Remote SQL query from which data will be sourced.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -48738,8 +50135,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
     ///         </term>
-    ///         <description>Alias name for remote_query_filter_column. The
-    ///         default value is ''.</description>
+    ///         <description>Alias name for <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -48764,6 +50162,34 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -48795,14 +50221,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -48827,7 +50253,7 @@ public partial class Kinetica
     }
 
     /// <summary>Computes remote query result and inserts the result data into
-    /// a new or existing table (async)</summary>
+    /// a new or existing table. (async)</summary>
     ///
     /// <param name="table_name">Name of the table into which the data will be
     /// inserted, in [schema_name.]table_name format, using standard <a
@@ -48840,7 +50266,7 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>.</param>
     /// <param name="remote_query">Query for which result data needs to be
-    /// imported</param>
+    /// imported.</param>
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
@@ -49113,9 +50539,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
-    ///         <description>Optional name of a table to which records that
-    ///         were rejected are written.  The bad-record-table has the
-    ///         following columns: line_number (long), line_rejected (string),
+    ///         <description>Name of a table to which records that were
+    ///         rejected are written.  The bad-record-table has the following
+    ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string). When error handling is Abort, bad
     ///         records table is not populated.</description>
     ///     </item>
@@ -49125,7 +50551,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be  written to the bad-record-table.
-    ///         Default value is 10000</description>
+    ///         Default value is 10000.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -49139,7 +50565,7 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromQueryRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
     ///         </term>
     ///         <description>Name of an existing external data source from
-    ///         which table will be loaded</description>
+    ///         which table will be loaded.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -49213,7 +50639,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -49222,7 +50648,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -49242,7 +50668,7 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>:
     ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -49278,7 +50704,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
     ///         </term>
-    ///         <description>Executes the statement per each jdbc session
+    ///         <description>Executes the statement per each JDBC session
     ///         before doing actual load. The default value is ''.
     ///         </description>
     ///     </item>
@@ -49286,33 +50712,32 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of splits for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks. The
-    ///         default value is ''.</description>
+    ///         <description>Number of splits for reading data per rank.
+    ///         Default will be external_file_reader_num_tasks. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of tasks for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks
-    ///         </description>
+    ///         <description>Number of tasks for reading data per rank. Default
+    ///         will be external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         primary keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         shard keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -49366,7 +50791,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
     ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         <description>Remote SQL query from which data will be sourced.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -49397,8 +50822,9 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
     ///         </term>
-    ///         <description>Alias name for remote_query_filter_column. The
-    ///         default value is ''.</description>
+    ///         <description>Alias name for <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -49423,6 +50849,34 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -49454,14 +50908,14 @@ public partial class Kinetica
     ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -49559,8 +51013,7 @@ public partial class Kinetica
     /// In this map, the top level keys represent which column's parameters are
     /// being specified, while the internal keys represents which parameter is
     /// being specified.  These parameters take on different meanings depending
-    /// on the type of the column.  Below follows a more detailed description
-    /// of the map:
+    /// on the type of the column.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -49580,7 +51033,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:
     ///                 </term>
-    ///                 <description>The seed value to use</description>
+    ///                 <description>The seed value to use.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -49844,8 +51297,7 @@ public partial class Kinetica
     /// In this map, the top level keys represent which column's parameters are
     /// being specified, while the internal keys represents which parameter is
     /// being specified.  These parameters take on different meanings depending
-    /// on the type of the column.  Below follows a more detailed description
-    /// of the map:
+    /// on the type of the column.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -49865,7 +51317,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:
     ///                 </term>
-    ///                 <description>The seed value to use</description>
+    ///                 <description>The seed value to use.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -50172,7 +51624,7 @@ public partial class Kinetica
     ///
     /// <param name="symbol_id">The id of the symbol being added. This is the
     /// same id that should be in the 'SYMBOLCODE' column for objects using
-    /// this symbol</param>
+    /// this symbol.</param>
     /// <param name="symbol_format">Specifies the symbol format. Must be either
     /// 'svg' or 'svg_path'.
     /// Supported values:
@@ -50190,8 +51642,8 @@ public partial class Kinetica
     /// <param name="symbol_data">The actual symbol data. If <paramref
     /// name="symbol_format" /> is 'svg' then this should be the raw bytes
     /// representing an svg file. If <paramref name="symbol_format" /> is svg
-    /// path then this should be an svg path string, for example:
-    /// 'M25.979,12.896,5.979,12.896,5.979,19.562,25.979,19.562z'</param>
+    /// path then this should be an svg path string; for example:
+    /// 'M25.979,12.896,5.979,12.896,5.979,19.562,25.979,19.562z'.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -50231,7 +51683,7 @@ public partial class Kinetica
     ///
     /// <param name="symbol_id">The id of the symbol being added. This is the
     /// same id that should be in the 'SYMBOLCODE' column for objects using
-    /// this symbol</param>
+    /// this symbol.</param>
     /// <param name="symbol_format">Specifies the symbol format. Must be either
     /// 'svg' or 'svg_path'.
     /// Supported values:
@@ -50249,8 +51701,8 @@ public partial class Kinetica
     /// <param name="symbol_data">The actual symbol data. If <paramref
     /// name="symbol_format" /> is 'svg' then this should be the raw bytes
     /// representing an svg file. If <paramref name="symbol_format" /> is svg
-    /// path then this should be an svg path string, for example:
-    /// 'M25.979,12.896,5.979,12.896,5.979,19.562,25.979,19.562z'</param>
+    /// path then this should be an svg path string; for example:
+    /// 'M25.979,12.896,5.979,12.896,5.979,19.562,25.979,19.562z'.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -50322,11 +51774,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, kill
     ///         the proc instance that has a matching run ID and a matching run
     ///         tag that was provided to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         If <paramref name="run_id" /> is not specified, kill the proc
-    ///         instance(s) where a matching run tag was provided to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         The default value is ''.</description>
+    ///         cref="executeProc">executeProc</see>. If <paramref
+    ///         name="run_id" /> is not specified, kill the proc instance(s)
+    ///         where a matching run tag was provided to <see
+    ///         cref="executeProc">executeProc</see>. The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -50337,9 +51789,8 @@ public partial class Kinetica
     ///         the instance of the proc matching the auto-start run ID that
     ///         was created to run when the database is started. The auto-start
     ///         run ID was returned from <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>
-    ///         and can be retrieved using <see
-    ///         cref="showProc(string,IDictionary{string,string})">showProc</see>.
+    ///         cref="executeProc">executeProc</see> and can be retrieved using
+    ///         <see cref="showProc">showProc</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -50378,11 +51829,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, kill
     ///         the proc instance that has a matching run ID and a matching run
     ///         tag that was provided to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         If <paramref name="run_id" /> is not specified, kill the proc
-    ///         instance(s) where a matching run tag was provided to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         The default value is ''.</description>
+    ///         cref="executeProc">executeProc</see>. If <paramref
+    ///         name="run_id" /> is not specified, kill the proc instance(s)
+    ///         where a matching run tag was provided to <see
+    ///         cref="executeProc">executeProc</see>. The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -50393,9 +51844,8 @@ public partial class Kinetica
     ///         the instance of the proc matching the auto-start run ID that
     ///         was created to run when the database is started. The auto-start
     ///         run ID was returned from <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>
-    ///         and can be retrieved using <see
-    ///         cref="showProc(string,IDictionary{string,string})">showProc</see>.
+    ///         cref="executeProc">executeProc</see> and can be retrieved using
+    ///         <see cref="showProc">showProc</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -50543,31 +51993,31 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
-    ///         <description>Show locked status</description>
+    ///         <description>Show locked status.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:
     ///         </term>
-    ///         <description>Allow no read/write operations</description>
+    ///         <description>Allow no read/write operations.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:
     ///         </term>
-    ///         <description>Allow only read operations</description>
+    ///         <description>Allow only read operations.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:
     ///         </term>
-    ///         <description>Allow only write operations</description>
+    ///         <description>Allow only write operations.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:
     ///         </term>
-    ///         <description>Allow all read/write operations</description>
+    ///         <description>Allow all read/write operations.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -50610,31 +52060,31 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
-    ///         <description>Show locked status</description>
+    ///         <description>Show locked status.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:
     ///         </term>
-    ///         <description>Allow no read/write operations</description>
+    ///         <description>Allow no read/write operations.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:
     ///         </term>
-    ///         <description>Allow only read operations</description>
+    ///         <description>Allow only read operations.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:
     ///         </term>
-    ///         <description>Allow only write operations</description>
+    ///         <description>Allow only write operations.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:
     ///         </term>
-    ///         <description>Allow all read/write operations</description>
+    ///         <description>Allow all read/write operations.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -50803,32 +52253,32 @@ public partial class Kinetica
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:
     ///         </term>
     ///         <description>Matches the pickups and dropoffs by optimizing the
-    ///         total trip costs</description>
+    ///         total trip costs.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:
     ///         </term>
     ///         <description>Matches the graph nodes with a cluster index using
-    ///         Louvain clustering algorithm</description>
+    ///         Louvain clustering algorithm.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:
     ///         </term>
-    ///         <description>Matches a pattern in the graph</description>
+    ///         <description>Matches a pattern in the graph.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
     ///         </term>
-    ///         <description>Creates vector node embeddings</description>
+    ///         <description>Creates vector node embeddings.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
     ///         </term>
-    ///         <description>Solves for isochrones for a set of input sources
+    ///         <description>Solves for isochrones for a set of input sources.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -50898,7 +52348,7 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.Options.SOURCE">SOURCE</see>:</term>
-    ///         <description>Optional WKT starting point from <paramref
+    ///         <description>WKT starting point from <paramref
     ///         name="sample_points" /> for the solver. The default behavior
     ///         for the endpoint is to use time to determine the starting
     ///         point. The default value is 'POINT NULL'.</description>
@@ -50907,7 +52357,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="MatchGraphRequest.Options.DESTINATION">DESTINATION</see>:
     ///         </term>
-    ///         <description>Optional WKT ending point from <paramref
+    ///         <description>WKT ending point from <paramref
     ///         name="sample_points" /> for the solver. The default behavior
     ///         for the endpoint is to use time to determine the destination
     ///         point. The default value is 'POINT NULL'.</description>
@@ -50928,7 +52378,7 @@ public partial class Kinetica
     ///                 cref="MatchGraphRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Partial off-loading at multiple store
-    ///                 (demand) locations</description>
+    ///                 (demand) locations.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -50968,10 +52418,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -50979,10 +52427,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -50990,10 +52436,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -51001,9 +52445,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -51068,7 +52511,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="MatchGraphRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Do not filter out the folded paths
+    ///                 <description>Do not filter out the folded paths.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -51186,7 +52629,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Generates sequences over supply side
     ///                 permutations if total supply is less than twice the
-    ///                 total demand</description>
+    ///                 total demand.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -51194,7 +52637,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Permutations are not performed, rather a
     ///                 specific order of supplies based on capacity is
-    ///                 computed</description>
+    ///                 computed.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -51216,13 +52659,13 @@ public partial class Kinetica
     ///                 cref="MatchGraphRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Sets only one visit per demand location by
-    ///                 a salesman (TSM mode)</description>
+    ///                 a salesman (TSM mode).</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="MatchGraphRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>No preset limit (usual MSDO mode)
+    ///                 <description>No preset limit (usual MSDO mode).
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -51246,7 +52689,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>The optimization is done for trips in
     ///                 round trip manner always returning to originating
-    ///                 locations</description>
+    ///                 locations.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -51321,14 +52764,14 @@ public partial class Kinetica
     ///                 cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:
     ///                 </term>
     ///                 <description>Uses the Newman Girvan quality metric for
-    ///                 cluster solver</description>
+    ///                 cluster solver.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:
     ///                 </term>
     ///                 <description>Applies recursive spectral bisection (RSB)
-    ///                 partitioning solver</description>
+    ///                 partitioning solver.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -51833,32 +53276,32 @@ public partial class Kinetica
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:
     ///         </term>
     ///         <description>Matches the pickups and dropoffs by optimizing the
-    ///         total trip costs</description>
+    ///         total trip costs.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:
     ///         </term>
     ///         <description>Matches the graph nodes with a cluster index using
-    ///         Louvain clustering algorithm</description>
+    ///         Louvain clustering algorithm.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_PATTERN">MATCH_PATTERN</see>:
     ///         </term>
-    ///         <description>Matches a pattern in the graph</description>
+    ///         <description>Matches a pattern in the graph.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>:
     ///         </term>
-    ///         <description>Creates vector node embeddings</description>
+    ///         <description>Creates vector node embeddings.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.SolveMethod.MATCH_ISOCHRONE">MATCH_ISOCHRONE</see>:
     ///         </term>
-    ///         <description>Solves for isochrones for a set of input sources
+    ///         <description>Solves for isochrones for a set of input sources.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -51928,7 +53371,7 @@ public partial class Kinetica
     ///     <item>
     ///         <term><see
     ///         cref="MatchGraphRequest.Options.SOURCE">SOURCE</see>:</term>
-    ///         <description>Optional WKT starting point from <paramref
+    ///         <description>WKT starting point from <paramref
     ///         name="sample_points" /> for the solver. The default behavior
     ///         for the endpoint is to use time to determine the starting
     ///         point. The default value is 'POINT NULL'.</description>
@@ -51937,7 +53380,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="MatchGraphRequest.Options.DESTINATION">DESTINATION</see>:
     ///         </term>
-    ///         <description>Optional WKT ending point from <paramref
+    ///         <description>WKT ending point from <paramref
     ///         name="sample_points" /> for the solver. The default behavior
     ///         for the endpoint is to use time to determine the destination
     ///         point. The default value is 'POINT NULL'.</description>
@@ -51958,7 +53401,7 @@ public partial class Kinetica
     ///                 cref="MatchGraphRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Partial off-loading at multiple store
-    ///                 (demand) locations</description>
+    ///                 (demand) locations.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -51998,10 +53441,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -52009,10 +53450,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -52020,10 +53459,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -52031,9 +53468,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -52098,7 +53534,7 @@ public partial class Kinetica
     ///                 <term><see
     ///                 cref="MatchGraphRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>Do not filter out the folded paths
+    ///                 <description>Do not filter out the folded paths.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -52216,7 +53652,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Generates sequences over supply side
     ///                 permutations if total supply is less than twice the
-    ///                 total demand</description>
+    ///                 total demand.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -52224,7 +53660,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Permutations are not performed, rather a
     ///                 specific order of supplies based on capacity is
-    ///                 computed</description>
+    ///                 computed.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -52246,13 +53682,13 @@ public partial class Kinetica
     ///                 cref="MatchGraphRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Sets only one visit per demand location by
-    ///                 a salesman (TSM mode)</description>
+    ///                 a salesman (TSM mode).</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="MatchGraphRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>No preset limit (usual MSDO mode)
+    ///                 <description>No preset limit (usual MSDO mode).
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -52276,7 +53712,7 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>The optimization is done for trips in
     ///                 round trip manner always returning to originating
-    ///                 locations</description>
+    ///                 locations.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -52351,14 +53787,14 @@ public partial class Kinetica
     ///                 cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:
     ///                 </term>
     ///                 <description>Uses the Newman Girvan quality metric for
-    ///                 cluster solver</description>
+    ///                 cluster solver.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:
     ///                 </term>
     ///                 <description>Applies recursive spectral bisection (RSB)
-    ///                 partitioning solver</description>
+    ///                 partitioning solver.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -52988,7 +54424,7 @@ public partial class Kinetica
     ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
+    ///         cref="createTableMonitor">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -53347,7 +54783,7 @@ public partial class Kinetica
     ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.
+    ///         cref="createTableMonitor">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -53528,11 +54964,10 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see cref="createGraph(CreateGraphRequest)">createGraph</see> and
-    /// returns a list of adjacent edge(s) or node(s), also known as an
-    /// adjacency list, depending on what's been provided to the endpoint;
-    /// providing edges will return nodes and providing nodes will return
-    /// edges.</summary>
+    /// <see cref="createGraph">createGraph</see> and returns a list of
+    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
+    /// on what's been provided to the endpoint; providing edges will return
+    /// nodes and providing nodes will return edges.</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <see
     /// cref="QueryGraphRequest.queries">queries</see>. This field can be
@@ -53563,11 +54998,10 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see cref="createGraph(CreateGraphRequest)">createGraph</see> and
-    /// returns a list of adjacent edge(s) or node(s), also known as an
-    /// adjacency list, depending on what's been provided to the endpoint;
-    /// providing edges will return nodes and providing nodes will return
-    /// edges. (async)</summary>
+    /// <see cref="createGraph">createGraph</see> and returns a list of
+    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
+    /// on what's been provided to the endpoint; providing edges will return
+    /// nodes and providing nodes will return edges. (async)</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <see
     /// cref="QueryGraphRequest.queries">queries</see>. This field can be
@@ -53601,12 +55035,10 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see
-    /// cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    /// and returns a list of adjacent edge(s) or node(s), also known as an
-    /// adjacency list, depending on what's been provided to the endpoint;
-    /// providing edges will return nodes and providing nodes will return
-    /// edges.</summary>
+    /// <see cref="createGraph">createGraph</see> and returns a list of
+    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
+    /// on what's been provided to the endpoint; providing edges will return
+    /// nodes and providing nodes will return edges.</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <paramref
     /// name="queries" />. This field can be populated with column values from
@@ -53815,12 +55247,10 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see
-    /// cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    /// and returns a list of adjacent edge(s) or node(s), also known as an
-    /// adjacency list, depending on what's been provided to the endpoint;
-    /// providing edges will return nodes and providing nodes will return
-    /// edges. (async)</summary>
+    /// <see cref="createGraph">createGraph</see> and returns a list of
+    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
+    /// on what's been provided to the endpoint; providing edges will return
+    /// nodes and providing nodes will return edges. (async)</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <paramref
     /// name="queries" />. This field can be populated with column values from
@@ -54325,7 +55755,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -54365,7 +55795,11 @@ public partial class Kinetica
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Tables with subscriptions will by default be
+    ///         restored in the state they were in at the time of the snapshot.
+    ///         See <see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>
+    ///         for options to override the default behavior.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -54494,6 +55928,39 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when restoring datasource
+    ///         subscriptions on tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.RESUME">RESUME</see>:
+    ///                 </term>
+    ///                 <description>Resume subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.PAUSE">PAUSE</see>:
+    ///                 </term>
+    ///                 <description>Pause subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.CANCEL">CANCEL</see>:
+    ///                 </term>
+    ///                 <description>Cancel active subscriptions.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.RESUME">RESUME</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -54651,7 +56118,7 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -54691,7 +56158,11 @@ public partial class Kinetica
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Tables with subscriptions will by default be
+    ///         restored in the state they were in at the time of the snapshot.
+    ///         See <see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>
+    ///         for options to override the default behavior.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -54820,6 +56291,39 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when restoring datasource
+    ///         subscriptions on tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.RESUME">RESUME</see>:
+    ///                 </term>
+    ///                 <description>Resume subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.PAUSE">PAUSE</see>:
+    ///                 </term>
+    ///                 <description>Pause subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.CANCEL">CANCEL</see>:
+    ///                 </term>
+    ///                 <description>Cancel active subscriptions.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.RESUME">RESUME</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -55517,14 +57021,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
     ///         </term>
-    ///         <description>Admin access on the given data source
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
     ///         </term>
-    ///         <description>Connect access on the given data source
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -55559,14 +57063,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
     ///         </term>
-    ///         <description>Admin access on the given data source
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
     ///         </term>
-    ///         <description>Connect access on the given data source
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -55651,7 +57155,7 @@ public partial class Kinetica
     ///     </item>
     /// </list></param>
     /// <param name="directory_name">Name of the KiFS directory to which the
-    /// permission revokes access</param>
+    /// permission revokes access.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -55694,7 +57198,7 @@ public partial class Kinetica
     ///     </item>
     /// </list></param>
     /// <param name="directory_name">Name of the KiFS directory to which the
-    /// permission revokes access</param>
+    /// permission revokes access.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -57497,9 +59001,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// </summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc(ExecuteProcRequest)">executeProc</see>) and data
-    /// segment ID (each invocation of the proc command on a data segment is
-    /// assigned a data segment ID).</para></remarks>
+    /// cref="executeProc">executeProc</see>) and data segment ID (each
+    /// invocation of the proc command on a data segment is assigned a data
+    /// segment ID).</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -57515,9 +59019,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// (async)</summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc(ExecuteProcRequest)">executeProc</see>) and data
-    /// segment ID (each invocation of the proc command on a data segment is
-    /// assigned a data segment ID).</para></remarks>
+    /// cref="executeProc">executeProc</see>) and data segment ID (each
+    /// invocation of the proc command on a data segment is assigned a data
+    /// segment ID).</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -57536,9 +59040,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// </summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>)
-    /// and data segment ID (each invocation of the proc command on a data
-    /// segment is assigned a data segment ID).</para></remarks>
+    /// cref="executeProc">executeProc</see>) and data segment ID (each
+    /// invocation of the proc command on a data segment is assigned a data
+    /// segment ID).</para></remarks>
     ///
     /// <param name="run_id">The run ID of a specific proc instance for which
     /// the status will be returned. If a proc with a matching run ID is not
@@ -57580,12 +59084,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, return
     ///         the status for a proc instance that has a matching run ID and a
     ///         matching run tag that was provided to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         If <paramref name="run_id" /> is not specified, return statuses
-    ///         for all proc instances where a matching run tag was provided to
-    ///         <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         The default value is ''.</description>
+    ///         cref="executeProc">executeProc</see>. If <paramref
+    ///         name="run_id" /> is not specified, return statuses for all proc
+    ///         instances where a matching run tag was provided to <see
+    ///         cref="executeProc">executeProc</see>. The default value is ''.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -57600,9 +59103,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// (async)</summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>)
-    /// and data segment ID (each invocation of the proc command on a data
-    /// segment is assigned a data segment ID).</para></remarks>
+    /// cref="executeProc">executeProc</see>) and data segment ID (each
+    /// invocation of the proc command on a data segment is assigned a data
+    /// segment ID).</para></remarks>
     ///
     /// <param name="run_id">The run ID of a specific proc instance for which
     /// the status will be returned. If a proc with a matching run ID is not
@@ -57644,12 +59147,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, return
     ///         the status for a proc instance that has a matching run ID and a
     ///         matching run tag that was provided to <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         If <paramref name="run_id" /> is not specified, return statuses
-    ///         for all proc instances where a matching run tag was provided to
-    ///         <see
-    ///         cref="executeProc(string,IDictionary{string,string},IDictionary{string,byte[]},IList{string},IDictionary{string,IList{string}},IList{string},IDictionary{string,string})">executeProc</see>.
-    ///         The default value is ''.</description>
+    ///         cref="executeProc">executeProc</see>. If <paramref
+    ///         name="run_id" /> is not specified, return statuses for all proc
+    ///         instances where a matching run tag was provided to <see
+    ///         cref="executeProc">executeProc</see>. The default value is ''.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -58643,7 +60145,9 @@ public partial class Kinetica
     /// fetched, each in [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.  All provided tables must
-    /// exist, or an error is returned.</param>
+    /// exist, or an error is returned.  A single entry of <c>_*</c> expands to
+    /// every user table the caller may read (excluding system schemas, views,
+    /// and temporary tables); when used it must be the only entry.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -58657,6 +60161,50 @@ public partial class Kinetica
     ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see> and if
     ///         the table names specified in <paramref name="table_names" />
     ///         does not exist, then an error is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowStatisticsRequest.Options.COLUMN_NAMES">COLUMN_NAMES</see>:
+    ///         </term>
+    ///         <description>Columns, per table in <paramref name="table_names"
+    ///         />, to collect statistics for when @{input.key
+    ///         options.collect_now} is <see
+    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
+    ///         otherwise.  Encoded as a ';'-separated parallel array aligned
+    ///         with <paramref name="table_names" /> (e.g. <c>X,Y;Z</c>
+    ///         requests columns x,y for the first table and z for the second).
+    ///         A value of <c>_*</c> expands to every collectable column on
+    ///         each table (geometry, vector, JSON, and array columns are
+    ///         skipped).  An explicit list may not be combined with a
+    ///         <c>_*</c> table_names wildcard. The default value is ''.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowStatisticsRequest.Options.COLLECT_NOW">COLLECT_NOW</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the
+    ///         columns named by @{input.key options.column_names} are
+    ///         collected synchronously during this request and reflected in
+    ///         the response.  Default <see
+    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -58691,7 +60239,9 @@ public partial class Kinetica
     /// fetched, each in [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.  All provided tables must
-    /// exist, or an error is returned.</param>
+    /// exist, or an error is returned.  A single entry of <c>_*</c> expands to
+    /// every user table the caller may read (excluding system schemas, views,
+    /// and temporary tables); when used it must be the only entry.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -58705,6 +60255,50 @@ public partial class Kinetica
     ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see> and if
     ///         the table names specified in <paramref name="table_names" />
     ///         does not exist, then an error is returned.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowStatisticsRequest.Options.COLUMN_NAMES">COLUMN_NAMES</see>:
+    ///         </term>
+    ///         <description>Columns, per table in <paramref name="table_names"
+    ///         />, to collect statistics for when @{input.key
+    ///         options.collect_now} is <see
+    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
+    ///         otherwise.  Encoded as a ';'-separated parallel array aligned
+    ///         with <paramref name="table_names" /> (e.g. <c>X,Y;Z</c>
+    ///         requests columns x,y for the first table and z for the second).
+    ///         A value of <c>_*</c> expands to every collectable column on
+    ///         each table (geometry, vector, JSON, and array columns are
+    ///         skipped).  An explicit list may not be combined with a
+    ///         <c>_*</c> table_names wildcard. The default value is ''.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="ShowStatisticsRequest.Options.COLLECT_NOW">COLLECT_NOW</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the
+    ///         columns named by @{input.key options.column_names} are
+    ///         collected synchronously during this request and reflected in
+    ///         the response.  Default <see
+    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -59772,8 +61366,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties.</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.Returns
-    /// detailed information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
+    /// information about existing table monitors.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -59788,8 +61382,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties. (async)</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.Returns
-    /// detailed information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
+    /// information about existing table monitors.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -59807,8 +61401,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties.</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.Returns
-    /// detailed information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
+    /// information about existing table monitors.</para></remarks>
     ///
     /// <param name="monitor_ids">List of monitors to be shown. An empty list
     /// or a single entry with an empty string returns all table monitors.
@@ -59825,8 +61419,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties. (async)</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor(string,IDictionary{string,string})">createTableMonitor</see>.Returns
-    /// detailed information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
+    /// information about existing table monitors.</para></remarks>
     ///
     /// <param name="monitor_ids">List of monitors to be shown. An empty list
     /// or a single entry with an empty string returns all table monitors.
@@ -59895,8 +61489,7 @@ public partial class Kinetica
     /// </remarks>
     ///
     /// <param name="type_id">Type id returned by a call to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>.
-    /// </param>
+    /// cref="createType">createType</see>.</param>
     /// <param name="label">Optional user supplied label which can be used
     /// instead of the type_id to retrieve all tables with the given label.
     /// </param>
@@ -59920,8 +61513,7 @@ public partial class Kinetica
     /// </remarks>
     ///
     /// <param name="type_id">Type id returned by a call to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>.
-    /// </param>
+    /// cref="createType">createType</see>.</param>
     /// <param name="label">Optional user supplied label which can be used
     /// instead of the type_id to retrieve all tables with the given label.
     /// </param>
@@ -60068,12 +61660,9 @@ public partial class Kinetica
     /// available), and the type's column properties.</para></remarks>
     ///
     /// <param name="type_id">Type Id returned in response to a call to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>.
-    /// </param>
+    /// cref="createType">createType</see>.</param>
     /// <param name="label">Option string that was supplied by user in a call
-    /// to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>.
-    /// </param>
+    /// to <see cref="createType">createType</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -60116,12 +61705,9 @@ public partial class Kinetica
     /// available), and the type's column properties.</para></remarks>
     ///
     /// <param name="type_id">Type Id returned in response to a call to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>.
-    /// </param>
+    /// cref="createType">createType</see>.</param>
     /// <param name="label">Option string that was supplied by user in a call
-    /// to <see
-    /// cref="createType(string,string,IDictionary{string,IList{string}},IDictionary{string,string})">createType</see>.
-    /// </param>
+    /// to <see cref="createType">createType</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -60602,10 +62188,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -60613,10 +62197,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -60624,10 +62206,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -60635,9 +62215,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -60766,14 +62345,14 @@ public partial class Kinetica
     ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>An additional column 'CLUSTER' will be
-    ///                 added for each node</description>
+    ///                 added for each node.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>No extra cluster info per node will be
-    ///                 available in the output</description>
+    ///                 available in the output.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -60793,13 +62372,13 @@ public partial class Kinetica
     ///                 cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:
     ///                 </term>
     ///                 <description>Employs A-STAR heuristics to speed up the
-    ///                 shortest path traversal</description>
+    ///                 shortest path traversal.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="SolveGraphRequest.Options.NONE">NONE</see>:
     ///                 </term>
-    ///                 <description>No heuristics are applied</description>
+    ///                 <description>No heuristics are applied.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -61052,10 +62631,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -61063,10 +62640,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -61074,10 +62649,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
-    ///         </description>
+    ///         the <see cref="createGraph">createGraph</see> was invoked at
+    ///         graph creation. The default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -61085,9 +62658,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see
-    ///         cref="createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string,string})">createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -61216,14 +62788,14 @@ public partial class Kinetica
     ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>An additional column 'CLUSTER' will be
-    ///                 added for each node</description>
+    ///                 added for each node.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>No extra cluster info per node will be
-    ///                 available in the output</description>
+    ///                 available in the output.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -61243,13 +62815,13 @@ public partial class Kinetica
     ///                 cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:
     ///                 </term>
     ///                 <description>Employs A-STAR heuristics to speed up the
-    ///                 shortest path traversal</description>
+    ///                 shortest path traversal.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="SolveGraphRequest.Options.NONE">NONE</see>:
     ///                 </term>
-    ///                 <description>No heuristics are applied</description>
+    ///                 <description>No heuristics are applied.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -61380,7 +62952,7 @@ public partial class Kinetica
     /// </summary>
     /// <remarks><para> With the list of given expressions, any matching
     /// record's column values will be updated as provided in <see
-    /// cref="UpdateRecordsRequest{T}.new_values_maps">new_values_maps</see>.
+    /// cref="RawUpdateRecordsRequest.new_values_maps">new_values_maps</see>.
     /// There is also an optional 'upsert' capability where if a particular
     /// predicate doesn't match any existing record, then a new record can be
     /// inserted.</para>
@@ -61397,13 +62969,13 @@ public partial class Kinetica
     /// in the expressions.  Furthermore each 'pure primary key' predicate must
     /// be unique within a given request.  These restrictions can be removed by
     /// utilizing some available options through <see
-    /// cref="UpdateRecordsRequest{T}.options">options</see>.</para>
+    /// cref="RawUpdateRecordsRequest.options">options</see>.</para>
     /// <para>The <see
-    /// cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record primary key collision policy for tables
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, while <see
-    /// cref="UpdateRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
     /// specifies the record primary key collision error-suppression policy
     /// when those collisions result in the update being rejected.  Both are
     /// ignored on tables with no primary key.</para></remarks>
@@ -61431,7 +63003,7 @@ public partial class Kinetica
     /// (async)</summary>
     /// <remarks><para> With the list of given expressions, any matching
     /// record's column values will be updated as provided in <see
-    /// cref="UpdateRecordsRequest{T}.new_values_maps">new_values_maps</see>.
+    /// cref="RawUpdateRecordsRequest.new_values_maps">new_values_maps</see>.
     /// There is also an optional 'upsert' capability where if a particular
     /// predicate doesn't match any existing record, then a new record can be
     /// inserted.</para>
@@ -61448,13 +63020,13 @@ public partial class Kinetica
     /// in the expressions.  Furthermore each 'pure primary key' predicate must
     /// be unique within a given request.  These restrictions can be removed by
     /// utilizing some available options through <see
-    /// cref="UpdateRecordsRequest{T}.options">options</see>.</para>
+    /// cref="RawUpdateRecordsRequest.options">options</see>.</para>
     /// <para>The <see
-    /// cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record primary key collision policy for tables
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, while <see
-    /// cref="UpdateRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
     /// specifies the record primary key collision error-suppression policy
     /// when those collisions result in the update being rejected.  Both are
     /// ignored on tables with no primary key.</para></remarks>
@@ -61503,11 +63075,11 @@ public partial class Kinetica
     /// utilizing some available options through <paramref name="options"
     /// />.</para>
     /// <para>The <see
-    /// cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record primary key collision policy for tables
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, while <see
-    /// cref="UpdateRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
     /// specifies the record primary key collision error-suppression policy
     /// when those collisions result in the update being rejected.  Both are
     /// ignored on tables with no primary key.</para></remarks>
@@ -61521,8 +63093,7 @@ public partial class Kinetica
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="filter(string,string,string,IDictionary{string,string})">here</see>.
-    /// </param>
+    /// cref="filter">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -61537,7 +63108,7 @@ public partial class Kinetica
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
     ///         space of the predicates listed in <paramref name="expressions"
@@ -61545,10 +63116,10 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
     ///         <description>When set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, all
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         predicates are available for primary key updates.  Keep in mind
     ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
@@ -61560,22 +63131,22 @@ public partial class Kinetica
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -61591,9 +63162,9 @@ public partial class Kinetica
     ///         name="data" /> (or <c>records_to_insert_str</c>) contains a
     ///         primary key matching that of an existing record in the table.
     ///         If <see
-    ///         cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
     ///         <paramref name="new_values_maps" /> taking its place; "insert
@@ -61601,18 +63172,18 @@ public partial class Kinetica
     ///         updated with the values in <paramref name="data" /> /
     ///         <c>records_to_insert_str</c> (if given).
     ///         If set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>, the
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         existing collided-into record will remain unchanged, while the
     ///         update will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="UpdateRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
@@ -61622,7 +63193,7 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
@@ -61630,58 +63201,58 @@ public partial class Kinetica
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>).  If
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
     ///         set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         record update that is rejected for resulting in a primary key
     ///         collision with an existing table record will be ignored with no
     ///         error generated.  If <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>, the
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any update for resulting in a primary key
     ///         collision will cause an error to be reported.  If the specified
     ///         table does not have a primary key or if <see
-    ///         cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>,
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
     ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
     ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
@@ -61689,84 +63260,112 @@ public partial class Kinetica
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
     ///         <description>When set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, all new
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
     ///         values in <paramref name="new_values_maps" /> are considered as
     ///         expression values. When set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>, all
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
     ///         new values in <paramref name="new_values_maps" /> are
     ///         considered as constants.  NOTE:  When <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, string
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
     ///         constants will need to be quoted to avoid being evaluated as
     ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
     ///         </term>
     ///         <description>ID of a single record to be updated (returned in
-    ///         the call to <see
-    ///         cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertRecords</see>
-    ///         or <see
-    ///         cref="getRecordsFromCollection{T}(string,long,long,IDictionary{string,string})">getRecordsFromCollection</see>).
+    ///         the call to <see cref="insertRecords">insertRecords</see> or
+    ///         <see
+    ///         cref="getRecordsFromCollection">getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -61806,11 +63405,11 @@ public partial class Kinetica
     /// utilizing some available options through <paramref name="options"
     /// />.</para>
     /// <para>The <see
-    /// cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     /// option specifies the record primary key collision policy for tables
     /// with a <a href="../../../concepts/tables/#primary-keys"
     /// target="_top">primary key</a>, while <see
-    /// cref="UpdateRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
     /// specifies the record primary key collision error-suppression policy
     /// when those collisions result in the update being rejected.  Both are
     /// ignored on tables with no primary key.</para></remarks>
@@ -61824,8 +63423,7 @@ public partial class Kinetica
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="filter(string,string,string,IDictionary{string,string})">here</see>.
-    /// </param>
+    /// cref="filter">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -61840,7 +63438,7 @@ public partial class Kinetica
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:
     ///         </term>
     ///         <description>An optional global expression to reduce the search
     ///         space of the predicates listed in <paramref name="expressions"
@@ -61848,10 +63446,10 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:
     ///         </term>
     ///         <description>When set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, all
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all
     ///         predicates are available for primary key updates.  Keep in mind
     ///         that it is possible to destroy data in this case, since a
     ///         single predicate may match multiple objects (potentially all of
@@ -61863,22 +63461,22 @@ public partial class Kinetica
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for updating
     ///         a table with a <a href="../../../concepts/tables/#primary-keys"
@@ -61894,9 +63492,9 @@ public partial class Kinetica
     ///         name="data" /> (or <c>records_to_insert_str</c>) contains a
     ///         primary key matching that of an existing record in the table.
     ///         If <see
-    ///         cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, "update
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, "update
     ///         collisions" will result in the existing record collided into
     ///         being removed and the record updated with values specified in
     ///         <paramref name="new_values_maps" /> taking its place; "insert
@@ -61904,18 +63502,18 @@ public partial class Kinetica
     ///         updated with the values in <paramref name="data" /> /
     ///         <c>records_to_insert_str</c> (if given).
     ///         If set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>, the
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         existing collided-into record will remain unchanged, while the
     ///         update will be rejected and the error handled as determined by
     ///         <see
-    ///         cref="UpdateRecordsRequest{T}.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
     ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Overwrite the collided-into record when
     ///                 updating a record's primary key or inserting an
@@ -61925,7 +63523,7 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Reject updates which cause primary key
     ///                 collisions between the record being updated/inserted
@@ -61933,58 +63531,58 @@ public partial class Kinetica
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for updating a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when primary key
     ///         record collisions are rejected (<see
-    ///         cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
     ///         is <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>).  If
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>).  If
     ///         set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         record update that is rejected for resulting in a primary key
     ///         collision with an existing table record will be ignored with no
     ///         error generated.  If <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>, the
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
     ///         rejection of any update for resulting in a primary key
     ///         collision will cause an error to be reported.  If the specified
     ///         table does not have a primary key or if <see
-    ///         cref="UpdateRecordsRequest{T}.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>,
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
     ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
     ///                 <description>Ignore updates that result in primary key
-    ///                 collisions with existing records</description>
+    ///                 collisions with existing records.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>:
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
     ///                 <description>Treat as errors any updates that result in
-    ///                 primary key collisions with existing records
+    ///                 primary key collisions with existing records.
     ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:
     ///         </term>
     ///         <description>Force qualifying records to be deleted and
     ///         reinserted so their partition membership will be reevaluated.
@@ -61992,84 +63590,112 @@ public partial class Kinetica
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, any
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         qualifying records are modified in place. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, they
+    ///         are updated by deleting the existing record and inserting a
+    ///         replacement (delete and insert), which prevents the change from
+    ///         being reflected in dependent materialized views until they are
+    ///         refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, any
     ///         strings which are too long for their charN string fields will
     ///         be truncated to fit.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:
     ///         </term>
     ///         <description>When set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, all new
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, all new
     ///         values in <paramref name="new_values_maps" /> are considered as
     ///         expression values. When set to <see
-    ///         cref="UpdateRecordsRequest{T}.Options.FALSE">FALSE</see>, all
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, all
     ///         new values in <paramref name="new_values_maps" /> are
     ///         considered as constants.  NOTE:  When <see
-    ///         cref="UpdateRecordsRequest{T}.Options.TRUE">TRUE</see>, string
+    ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>, string
     ///         constants will need to be quoted to avoid being evaluated as
     ///         expressions.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="UpdateRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="UpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
+    ///         cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:
     ///         </term>
     ///         <description>ID of a single record to be updated (returned in
-    ///         the call to <see
-    ///         cref="insertRecords{T}(string,IList{T},IDictionary{string,string})">insertRecords</see>
-    ///         or <see
-    ///         cref="getRecordsFromCollection{T}(string,long,long,IDictionary{string,string})">getRecordsFromCollection</see>).
+    ///         the call to <see cref="insertRecords">insertRecords</see> or
+    ///         <see
+    ///         cref="getRecordsFromCollection">getRecordsFromCollection</see>).
     ///         </description>
     ///     </item>
     /// </list>
@@ -62135,18 +63761,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see cref="showFiles(ShowFilesRequest)">showFiles</see>.</para>
+    /// in <see cref="showFiles">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62206,18 +63832,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see cref="showFiles(ShowFilesRequest)">showFiles</see>.</para>
+    /// in <see cref="showFiles">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62277,19 +63903,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see
-    /// cref="showFiles(IList{string},IDictionary{string,string})">showFiles</see>.</para>
+    /// in <see cref="showFiles">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories(string,IDictionary{string,string})">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62347,13 +63972,13 @@ public partial class Kinetica
     ///                 cref="UploadFilesRequest.Options.NONE">NONE</see>:
     ///                 </term>
     ///                 <description>Default, indicates this is not a multipart
-    ///                 upload</description>
+    ///                 upload.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="UploadFilesRequest.Options.INIT">INIT</see>:
     ///                 </term>
-    ///                 <description>Initialize a multipart file upload
+    ///                 <description>Initialize a multipart file upload.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -62361,21 +63986,21 @@ public partial class Kinetica
     ///                 cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:
     ///                 </term>
     ///                 <description>Uploads a part of the specified multipart
-    ///                 file upload</description>
+    ///                 file upload.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:
     ///                 </term>
     ///                 <description>Complete the specified multipart file
-    ///                 upload</description>
+    ///                 upload.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:
     ///                 </term>
-    ///                 <description>Cancel the specified multipart file upload
-    ///                 </description>
+    ///                 <description>Cancel the specified multipart file
+    ///                 upload.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -62386,7 +64011,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:
     ///         </term>
-    ///         <description>UUID to uniquely identify a multipart upload
+    ///         <description>UUID to uniquely identify a multipart upload.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -62477,19 +64102,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see
-    /// cref="showFiles(IList{string},IDictionary{string,string})">showFiles</see>.</para>
+    /// in <see cref="showFiles">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories(string,IDictionary{string,string})">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62547,13 +64171,13 @@ public partial class Kinetica
     ///                 cref="UploadFilesRequest.Options.NONE">NONE</see>:
     ///                 </term>
     ///                 <description>Default, indicates this is not a multipart
-    ///                 upload</description>
+    ///                 upload.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="UploadFilesRequest.Options.INIT">INIT</see>:
     ///                 </term>
-    ///                 <description>Initialize a multipart file upload
+    ///                 <description>Initialize a multipart file upload.
     ///                 </description>
     ///             </item>
     ///             <item>
@@ -62561,21 +64185,21 @@ public partial class Kinetica
     ///                 cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:
     ///                 </term>
     ///                 <description>Uploads a part of the specified multipart
-    ///                 file upload</description>
+    ///                 file upload.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:
     ///                 </term>
     ///                 <description>Complete the specified multipart file
-    ///                 upload</description>
+    ///                 upload.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:
     ///                 </term>
-    ///                 <description>Cancel the specified multipart file upload
-    ///                 </description>
+    ///                 <description>Cancel the specified multipart file
+    ///                 upload.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -62586,7 +64210,7 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:
     ///         </term>
-    ///         <description>UUID to uniquely identify a multipart upload
+    ///         <description>UUID to uniquely identify a multipart upload.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -62644,11 +64268,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62668,11 +64292,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62695,11 +64319,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories(string,IDictionary{string,string})">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62728,11 +64352,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories(string,IDictionary{string,string})">showDirectories</see>.
-    /// The user must have write permission on the directory. Nested
-    /// directories are permitted in file name paths. Directories are
-    /// delineated with the directory separator of '/'.  For example, given the
-    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
+    /// cref="showDirectories">showDirectories</see>. The user must have write
+    /// permission on the directory. Nested directories are permitted in file
+    /// name paths. Directories are delineated with the directory separator of
+    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
+    /// KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -62758,6 +64382,138 @@ public partial class Kinetica
     {
         return await UploadFilesFromurlAsync( new UploadFilesFromurlRequest( file_names,
                                                                              urls, options ), cancellationToken );
+    }
+
+    /// <summary>Inspects the requested database <a
+    /// href="../../../admin/backup_restore/#database-backup"
+    /// target="_top">backup(s)</a> for conformity at the remote file store
+    /// accessible via the <a href="../../../concepts/data_sources/"
+    /// target="_top">data source</a> specified by <see
+    /// cref="VerifyBackupRequest.datasource_name">datasource_name</see>.
+    /// </summary>
+    /// <remarks><para>By default all snapshots are inspected unless the option
+    /// <see cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see> is
+    /// used to target a specific instance.Returns backup verification results.
+    /// </para></remarks>
+    ///
+    /// <param name="request_">Request object containing the parameters for the
+    /// operation.</param>
+    /// <returns>Response object containing the result of the operation.
+    /// </returns>
+    public VerifyBackupResponse verifyBackup( VerifyBackupRequest request_ )
+    {
+        VerifyBackupResponse actualResponse_ = SubmitRequest<VerifyBackupResponse>("/verify/backup", request_, false);
+
+        return actualResponse_;
+    }
+
+    /// <summary>Inspects the requested database <a
+    /// href="../../../admin/backup_restore/#database-backup"
+    /// target="_top">backup(s)</a> for conformity at the remote file store
+    /// accessible via the <a href="../../../concepts/data_sources/"
+    /// target="_top">data source</a> specified by <see
+    /// cref="VerifyBackupRequest.datasource_name">datasource_name</see>.
+    /// (async)</summary>
+    /// <remarks><para>By default all snapshots are inspected unless the option
+    /// <see cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see> is
+    /// used to target a specific instance.Returns backup verification results.
+    /// </para></remarks>
+    ///
+    /// <param name="request_">Request object containing the parameters for the
+    /// operation.</param>
+    /// <param name="cancellationToken">Cancellation token to cancel the
+    /// operation.</param>
+    /// <returns>Task that returns the response object containing the result of
+    /// the operation.</returns>
+    public async System.Threading.Tasks.Task<VerifyBackupResponse> VerifyBackupAsync( VerifyBackupRequest request_,
+                                                                                      System.Threading.CancellationToken cancellationToken = default )
+    {
+        VerifyBackupResponse actualResponse_ = await SubmitRequestAsync<VerifyBackupResponse>("/verify/backup", request_, false, true, cancellationToken);
+
+        return actualResponse_;
+    }
+
+    /// <summary>Inspects the requested database <a
+    /// href="../../../admin/backup_restore/#database-backup"
+    /// target="_top">backup(s)</a> for conformity at the remote file store
+    /// accessible via the <a href="../../../concepts/data_sources/"
+    /// target="_top">data source</a> specified by <paramref
+    /// name="datasource_name" />.</summary>
+    /// <remarks><para>By default all snapshots are inspected unless the option
+    /// <see cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see> is
+    /// used to target a specific instance.Returns backup verification results.
+    /// </para></remarks>
+    ///
+    /// <param name="backup_name">Name of the backup. An empty string or '*'
+    /// will check all existing backups. Any text followed by a '*' will
+    /// inspect backups whose name starts with that text. The default value is
+    /// ''.</param>
+    /// <param name="datasource_name">Data source through which the backup is
+    /// accessible.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
+    ///         </term>
+    ///         <description>ID of the snapshot to verify. Set to '-1' to
+    ///         verify only the most recent snapshot in the backup. Leave empty
+    ///         to verify all snapshots. The default value is '-1'.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    /// <returns>Response object containing the result of the operation.
+    /// </returns>
+    public VerifyBackupResponse verifyBackup( string backup_name,
+                                              string datasource_name,
+                                              IDictionary<string, string> options = null )
+    {
+        return verifyBackup( new VerifyBackupRequest( backup_name, datasource_name,
+                                                      options ) );
+    }
+
+    /// <summary>Inspects the requested database <a
+    /// href="../../../admin/backup_restore/#database-backup"
+    /// target="_top">backup(s)</a> for conformity at the remote file store
+    /// accessible via the <a href="../../../concepts/data_sources/"
+    /// target="_top">data source</a> specified by <paramref
+    /// name="datasource_name" />. (async)</summary>
+    /// <remarks><para>By default all snapshots are inspected unless the option
+    /// <see cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see> is
+    /// used to target a specific instance.Returns backup verification results.
+    /// </para></remarks>
+    ///
+    /// <param name="backup_name">Name of the backup. An empty string or '*'
+    /// will check all existing backups. Any text followed by a '*' will
+    /// inspect backups whose name starts with that text. The default value is
+    /// ''.</param>
+    /// <param name="datasource_name">Data source through which the backup is
+    /// accessible.</param>
+    /// <param name="options">Optional parameters.
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
+    ///         </term>
+    ///         <description>ID of the snapshot to verify. Set to '-1' to
+    ///         verify only the most recent snapshot in the backup. Leave empty
+    ///         to verify all snapshots. The default value is '-1'.
+    ///         </description>
+    ///     </item>
+    /// </list>
+    /// The default value is an empty Dictionary.</param>
+    /// <param name="cancellationToken">Cancellation token to cancel the
+    /// operation.</param>
+    /// <returns>Task that returns the response object containing the result of
+    /// the operation.</returns>
+    public async System.Threading.Tasks.Task<VerifyBackupResponse> VerifyBackupAsync( string backup_name,
+                                                                                      string datasource_name,
+                                                                                      IDictionary<string, string> options = null,
+                                                                                      System.Threading.CancellationToken cancellationToken = default )
+    {
+        return await VerifyBackupAsync( new VerifyBackupRequest( backup_name,
+                                                                 datasource_name, options ), cancellationToken );
     }
 
     /// @cond NO_DOCS
@@ -63196,14 +64952,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:
     ///         </term>
-    ///         <description>If this options is set to "false", this endpoint
-    ///         expects request's min/max values are not yet scaled. They will
-    ///         be scaled according to scale_type_x or scale_type_y for
-    ///         response. If this options is set to "true", this endpoint
-    ///         expects request's min/max values are already scaled according
-    ///         to scale_type_x/scale_type_y. Response's min/max values will be
-    ///         equal to request's min/max values. The default value is
-    ///         'false'.</description>
+    ///         <description>If this options is set to <c>FALSE</c>, this
+    ///         endpoint expects request's min/max values are not yet scaled.
+    ///         They will be scaled according to scale_type_x or scale_type_y
+    ///         for response. If this options is set to <c>TRUE</c>, this
+    ///         endpoint expects request's min/max values are already scaled
+    ///         according to scale_type_x/scale_type_y. Response's min/max
+    ///         values will be equal to request's min/max values. The default
+    ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -63225,9 +64981,10 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:
     ///         </term>
-    ///         <description>If this options is set to "true", all non-numeric
-    ///         column values are plotted ignoring min_x, max_x, min_y and
-    ///         max_y parameters. The default value is 'false'.</description>
+    ///         <description>If this options is set to <c>TRUE</c>, all
+    ///         non-numeric column values are plotted ignoring min_x, max_x,
+    ///         min_y and max_y parameters. The default value is 'false'.
+    ///         </description>
     ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters.
@@ -63500,14 +65257,14 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:
     ///         </term>
-    ///         <description>If this options is set to "false", this endpoint
-    ///         expects request's min/max values are not yet scaled. They will
-    ///         be scaled according to scale_type_x or scale_type_y for
-    ///         response. If this options is set to "true", this endpoint
-    ///         expects request's min/max values are already scaled according
-    ///         to scale_type_x/scale_type_y. Response's min/max values will be
-    ///         equal to request's min/max values. The default value is
-    ///         'false'.</description>
+    ///         <description>If this options is set to <c>FALSE</c>, this
+    ///         endpoint expects request's min/max values are not yet scaled.
+    ///         They will be scaled according to scale_type_x or scale_type_y
+    ///         for response. If this options is set to <c>TRUE</c>, this
+    ///         endpoint expects request's min/max values are already scaled
+    ///         according to scale_type_x/scale_type_y. Response's min/max
+    ///         values will be equal to request's min/max values. The default
+    ///         value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -63529,9 +65286,10 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:
     ///         </term>
-    ///         <description>If this options is set to "true", all non-numeric
-    ///         column values are plotted ignoring min_x, max_x, min_y and
-    ///         max_y parameters. The default value is 'false'.</description>
+    ///         <description>If this options is set to <c>TRUE</c>, all
+    ///         non-numeric column values are plotted ignoring min_x, max_x,
+    ///         min_y and max_y parameters. The default value is 'false'.
+    ///         </description>
     ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters.
@@ -64621,7 +66379,7 @@ public partial class Kinetica
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
-    /// <param name="contour_options">Solver specific parameters.
+    /// <param name="contour_options">Contour specific parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -64934,23 +66692,26 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="VisualizeIsochroneRequest.Options.USE_PRIORITY_QUEUE_SOLVERS">USE_PRIORITY_QUEUE_SOLVERS</see>:
     ///         </term>
-    ///         <description>sets the solver methods explicitly if true.
+    ///         <description>Sets the solver methods explicitly if true.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
     ///                 cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>uses the solvers scheduled for
+    ///                 <description>Uses the solvers scheduled for
     ///                 'shortest_path' and 'inverse_shortest_path' based on
-    ///                 solve_direction</description>
+    ///                 <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>uses the solvers 'priority_queue' and
-    ///                 'inverse_priority_queue' based on solve_direction
+    ///                 <description>Uses the solvers 'priority_queue' and
+    ///                 'inverse_priority_queue' based on <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -64971,13 +66732,13 @@ public partial class Kinetica
     ///                 cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:
     ///                 </term>
     ///                 <description>Shortest path to get to the source
-    ///                 (inverse Dijkstra)</description>
+    ///                 (inverse Dijkstra).</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:
     ///                 </term>
-    ///                 <description>Shortest path to source (Dijkstra)
+    ///                 <description>Shortest path to source (Dijkstra).
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -65564,7 +67325,7 @@ public partial class Kinetica
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
-    /// <param name="contour_options">Solver specific parameters.
+    /// <param name="contour_options">Contour specific parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -65877,23 +67638,26 @@ public partial class Kinetica
     ///         <term><see
     ///         cref="VisualizeIsochroneRequest.Options.USE_PRIORITY_QUEUE_SOLVERS">USE_PRIORITY_QUEUE_SOLVERS</see>:
     ///         </term>
-    ///         <description>sets the solver methods explicitly if true.
+    ///         <description>Sets the solver methods explicitly if true.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
     ///                 cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>:
     ///                 </term>
-    ///                 <description>uses the solvers scheduled for
+    ///                 <description>Uses the solvers scheduled for
     ///                 'shortest_path' and 'inverse_shortest_path' based on
-    ///                 solve_direction</description>
+    ///                 <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
+    ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>:
     ///                 </term>
-    ///                 <description>uses the solvers 'priority_queue' and
-    ///                 'inverse_priority_queue' based on solve_direction
+    ///                 <description>Uses the solvers 'priority_queue' and
+    ///                 'inverse_priority_queue' based on <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
     ///                 </description>
     ///             </item>
     ///         </list>
@@ -65914,13 +67678,13 @@ public partial class Kinetica
     ///                 cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:
     ///                 </term>
     ///                 <description>Shortest path to get to the source
-    ///                 (inverse Dijkstra)</description>
+    ///                 (inverse Dijkstra).</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
     ///                 cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:
     ///                 </term>
-    ///                 <description>Shortest path to source (Dijkstra)
+    ///                 <description>Shortest path to source (Dijkstra).
     ///                 </description>
     ///             </item>
     ///         </list>

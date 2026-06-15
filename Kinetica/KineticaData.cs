@@ -1,17 +1,19 @@
 ﻿using Avro;
-using Avro.IO;
 using Avro.Specific;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace kinetica;
 
 /// <summary>
-/// KineticaData - class to help with Avro Encoding for Kinetica
-    /// </summary>
-    public class KineticaData : ISpecificRecord
+/// KineticaData - class to help with Avro Encoding for Kinetica.
+/// </summary>
+/// <remarks>
+/// This class uses reflection for Avro serialization and is not compatible
+/// with trimming or Native AOT compilation.
+/// </remarks>
+[RequiresUnreferencedCode("KineticaData uses reflection for Avro serialization. Not compatible with trimming.")]
+public class KineticaData : ISpecificRecord
     {
         private RecordSchema m_schema;
         private PropertyInfo[] m_properties;
@@ -89,6 +91,11 @@ namespace kinetica;
         /// <param name="t">System.Type to be processed.</param>
         /// <param name="ktype">KineticaType to be processed;</param>
         /// <returns></returns>
+        /// <remarks>
+        /// This method uses reflection to inspect type properties and create Avro schemas.
+        /// It is not compatible with trimming or Native AOT compilation.
+        /// </remarks>
+        [RequiresUnreferencedCode("Uses reflection to create Avro schemas from types. Not compatible with trimming.")]
         public static RecordSchema? SchemaFromType( System.Type t, KineticaType? ktype = null )
         {
             string? jsonType = GetEmbeddedSchema(t);

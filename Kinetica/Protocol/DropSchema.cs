@@ -9,50 +9,56 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
-/// </summary>
+/// cref="Kinetica.dropSchema">Kinetica.dropSchema</see>.</summary>
 /// <remarks><para>Drops an existing SQL-style <a
 /// href="../../../concepts/schemas/" target="_top">schema</a>, specified in
-/// <see cref="schema_name" />.</para></remarks>
+/// <see cref="DropSchemaRequest.schema_name" />.</para></remarks>
 public class DropSchemaRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DropSchemaRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the schema
-        /// specified in <see cref="schema_name" /> does not exist, no error is
+        /// <summary>If <see cref="DropSchemaRequest.Options.TRUE">TRUE</see>
+        /// and if the schema specified in <see
+        /// cref="DropSchemaRequest.schema_name" /> does not exist, no error is
         /// returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="DropSchemaRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropSchemaRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, all tables within
-        /// the schema will be dropped.</summary>
+        /// <summary>If <see cref="DropSchemaRequest.Options.TRUE">TRUE</see>,
+        /// all tables within the schema will be dropped.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="DropSchemaRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropSchemaRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CASCADE = "cascade";
     } // end struct Options
 
@@ -64,41 +70,53 @@ public class DropSchemaRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DropSchemaRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
-    ///         schema specified in <see cref="schema_name" /> does not exist,
-    ///         no error is returned. If <see cref="Options.FALSE">FALSE</see>
-    ///         and if the schema specified in <see cref="schema_name" /> does
-    ///         not exist, then an error is returned.
+    ///         <description>If <see
+    ///         cref="DropSchemaRequest.Options.TRUE">TRUE</see> and if the
+    ///         schema specified in <see cref="DropSchemaRequest.schema_name"
+    ///         /> does not exist, no error is returned. If <see
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see> and if the
+    ///         schema specified in <see cref="DropSchemaRequest.schema_name"
+    ///         /> does not exist, then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CASCADE">CASCADE</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, all tables
+    ///         <term><see
+    ///         cref="DropSchemaRequest.Options.CASCADE">CASCADE</see>:</term>
+    ///         <description>If <see
+    ///         cref="DropSchemaRequest.Options.TRUE">TRUE</see>, all tables
     ///         within the schema will be dropped. If <see
-    ///         cref="Options.FALSE">FALSE</see>, the schema will be dropped
-    ///         only if empty.
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see>, the schema
+    ///         will be dropped only if empty.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -118,42 +136,53 @@ public class DropSchemaRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DropSchemaRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
+    ///         <description>If <see
+    ///         cref="DropSchemaRequest.Options.TRUE">TRUE</see> and if the
     ///         schema specified in <paramref name="schema_name" /> does not
     ///         exist, no error is returned. If <see
-    ///         cref="Options.FALSE">FALSE</see> and if the schema specified in
-    ///         <paramref name="schema_name" /> does not exist, then an error
-    ///         is returned.
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see> and if the
+    ///         schema specified in <paramref name="schema_name" /> does not
+    ///         exist, then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CASCADE">CASCADE</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, all tables
+    ///         <term><see
+    ///         cref="DropSchemaRequest.Options.CASCADE">CASCADE</see>:</term>
+    ///         <description>If <see
+    ///         cref="DropSchemaRequest.Options.TRUE">TRUE</see>, all tables
     ///         within the schema will be dropped. If <see
-    ///         cref="Options.FALSE">FALSE</see>, the schema will be dropped
-    ///         only if empty.
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see>, the schema
+    ///         will be dropped only if empty.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -167,8 +196,7 @@ public class DropSchemaRequest : KineticaData
 } // end class DropSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
-/// </summary>
+/// cref="Kinetica.dropSchema">Kinetica.dropSchema</see>.</summary>
 public class DropSchemaResponse : KineticaData
 {
     /// <summary>Value of <see

@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionProc(GrantPermissionProcRequest)">Kinetica.grantPermissionProc</see>.
+/// cref="Kinetica.grantPermissionProc">Kinetica.grantPermissionProc</see>.
 /// </summary>
 /// <remarks><para>Grants a proc-level permission to a user or role.</para>
 /// </remarks>
 public class GrantPermissionProcRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="GrantPermissionProcRequest.permission" />.</summary>
     /// <remarks><para>Permission to grant to the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -37,12 +37,14 @@ public class GrantPermissionProcRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:
     ///         </term>
     ///         <description>Admin access to the proc.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
     ///         </term>
     ///         <description>Execute access to the proc.</description>
     ///     </item>
@@ -73,12 +75,14 @@ public class GrantPermissionProcRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.PROC_ADMIN">PROC_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionProcRequest.Permission.PROC_ADMIN">PROC_ADMIN</see>:
     ///         </term>
     ///         <description>Admin access to the proc.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:
     ///         </term>
     ///         <description>Execute access to the proc.</description>
     ///     </item>
@@ -101,7 +105,7 @@ public class GrantPermissionProcRequest : KineticaData
 } // end class GrantPermissionProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionProc(GrantPermissionProcRequest)">Kinetica.grantPermissionProc</see>.
+/// cref="Kinetica.grantPermissionProc">Kinetica.grantPermissionProc</see>.
 /// </summary>
 public class GrantPermissionProcResponse : KineticaData
 {

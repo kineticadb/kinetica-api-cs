@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.repartitionGraph(RepartitionGraphRequest)">Kinetica.repartitionGraph</see>.
-/// </summary>
+/// cref="Kinetica.repartitionGraph">Kinetica.repartitionGraph</see>.</summary>
 /// <remarks><para>Rebalances an existing partitioned graph.</para>
 /// <para>IMPORTANT: It's highly recommended that you review the <a
 /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs and
@@ -22,7 +21,7 @@ namespace kinetica;
 public class RepartitionGraphRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RepartitionGraphRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -50,7 +49,8 @@ public class RepartitionGraphRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:
+    ///         <term><see
+    ///         cref="RepartitionGraphRequest.Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:
     ///         </term>
     ///         <description>If a non-empty value is specified, the original
     ///         graph will be kept (non-default behavior) and a new balanced
@@ -60,7 +60,9 @@ public class RepartitionGraphRequest : KineticaData
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SOURCE_NODE">SOURCE_NODE</see>:</term>
+    ///         <term><see
+    ///         cref="RepartitionGraphRequest.Options.SOURCE_NODE">SOURCE_NODE</see>:
+    ///         </term>
     ///         <description>The distributed shortest path solve is run from
     ///         this source node to all the nodes in the graph to create
     ///         balanced partitions using the iso-distance levels of the
@@ -85,7 +87,8 @@ public class RepartitionGraphRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:
+    ///         <term><see
+    ///         cref="RepartitionGraphRequest.Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:
     ///         </term>
     ///         <description>If a non-empty value is specified, the original
     ///         graph will be kept (non-default behavior) and a new balanced
@@ -95,7 +98,9 @@ public class RepartitionGraphRequest : KineticaData
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SOURCE_NODE">SOURCE_NODE</see>:</term>
+    ///         <term><see
+    ///         cref="RepartitionGraphRequest.Options.SOURCE_NODE">SOURCE_NODE</see>:
+    ///         </term>
     ///         <description>The distributed shortest path solve is run from
     ///         this source node to all the nodes in the graph to create
     ///         balanced partitions using the iso-distance levels of the
@@ -115,8 +120,7 @@ public class RepartitionGraphRequest : KineticaData
 } // end class RepartitionGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.repartitionGraph(RepartitionGraphRequest)">Kinetica.repartitionGraph</see>.
-/// </summary>
+/// cref="Kinetica.repartitionGraph">Kinetica.repartitionGraph</see>.</summary>
 public class RepartitionGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful rebalancing on all servers.</summary>

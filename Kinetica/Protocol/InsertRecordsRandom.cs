@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
+/// cref="Kinetica.insertRecordsRandom">Kinetica.insertRecordsRandom</see>.
 /// </summary>
 /// <remarks><para>Generates a specified number of random records and adds them
 /// to the given table. There is an optional parameter that allows the user to
@@ -22,7 +22,7 @@ namespace kinetica;
 public class InsertRecordsRandomRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="InsertRecordsRandomRequest.options" />.</summary>
     /// <remarks><para>Optional parameter to pass in specifications for the
     /// randomness of the values.  This map is different from the *options*
     /// parameter of most other endpoints in that it is a map of string to map
@@ -30,21 +30,22 @@ public class InsertRecordsRandomRequest : KineticaData
     /// In this map, the top level keys represent which column's parameters are
     /// being specified, while the internal keys represents which parameter is
     /// being specified.  These parameters take on different meanings depending
-    /// on the type of the column.  Below follows a more detailed description
-    /// of the map:</para></remarks>
+    /// on the type of the column.</para></remarks>
     public struct Options
     {
         /// <summary>If provided, the internal random number generator will be
         /// initialized with the given value.</summary>
         /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.VALUE">VALUE</see>:</term>
-        ///         <description>The seed value to use</description>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:
+        ///         </term>
+        ///         <description>The seed value to use.</description>
         ///     </item>
         /// </list></remarks>
         public const string SEED = "seed";
 
-        /// <summary>The seed value to use</summary>
+        /// <summary>The seed value to use.</summary>
         public const string VALUE = "value";
 
         /// <summary>This key indicates that the specifications relayed in the
@@ -52,7 +53,9 @@ public class InsertRecordsRandomRequest : KineticaData
         /// </summary>
         /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.MIN">MIN</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+        ///         </term>
         ///         <description>For numerical columns, the minimum of the
         ///         generated values is set to this value.  Default is -99999.
         ///         For point, shape, and track columns, min for numeric 'x'
@@ -69,11 +72,14 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         columns and 'x' and 'y' columns for point/shape/track, then
         ///         those parameters will not be set; however, an error will
         ///         not be thrown in such a case. It is the responsibility of
-        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         the user to use the <see
+        ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
         ///         parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.MAX">MAX</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+        ///         </term>
         ///         <description>For numerical columns, the maximum of the
         ///         generated values is set to this value. Default is 99999.
         ///         For point, shape, and track columns, max for numeric 'x'
@@ -87,11 +93,14 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         columns and 'x' and 'y' columns for point/shape/track, then
         ///         those parameters will not be set; however, an error will
         ///         not be thrown in such a case. It is the responsibility of
-        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         the user to use the <see
+        ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
         ///         parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:
+        ///         </term>
         ///         <description>If specified, generate values for all columns
         ///         evenly spaced with the given interval value. If a max value
         ///         is specified for a given column the data is randomly
@@ -109,7 +118,7 @@ public class InsertRecordsRandomRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+        ///         cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
         ///         </term>
         ///         <description>If specified, then generate the given
         ///         percentage of the count as nulls for all nullable columns.
@@ -118,7 +127,8 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         is 5% (0.05).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.CARDINALITY">CARDINALITY</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:
         ///         </term>
         ///         <description>If specified, limit the randomly generated
         ///         values to a fixed set. Not allowed on a column with
@@ -173,11 +183,14 @@ public class InsertRecordsRandomRequest : KineticaData
         public const string CARDINALITY = "cardinality";
 
         /// <summary>Use the desired column name in place of <see
-        /// cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
-        /// parameters for the column specified.</summary>
+        /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>,
+        /// and set the following parameters for the column specified.
+        /// </summary>
         /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.MIN">MIN</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+        ///         </term>
         ///         <description>For numerical columns, the minimum of the
         ///         generated values is set to this value.  Default is -99999.
         ///         For point, shape, and track columns, min for numeric 'x'
@@ -194,11 +207,14 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         columns and 'x' and 'y' columns for point/shape/track, then
         ///         those parameters will not be set; however, an error will
         ///         not be thrown in such a case. It is the responsibility of
-        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         the user to use the <see
+        ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
         ///         parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.MAX">MAX</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+        ///         </term>
         ///         <description>For numerical columns, the maximum of the
         ///         generated values is set to this value. Default is 99999.
         ///         For point, shape, and track columns, max for numeric 'x'
@@ -212,11 +228,14 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         columns and 'x' and 'y' columns for point/shape/track, then
         ///         those parameters will not be set; however, an error will
         ///         not be thrown in such a case. It is the responsibility of
-        ///         the user to use the <see cref="Options.ALL">ALL</see>
+        ///         the user to use the <see
+        ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
         ///         parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:
+        ///         </term>
         ///         <description>If specified, generate values for all columns
         ///         evenly spaced with the given interval value. If a max value
         ///         is specified for a given column the data is randomly
@@ -234,7 +253,7 @@ public class InsertRecordsRandomRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+        ///         cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
         ///         </term>
         ///         <description>If specified and if this column is nullable,
         ///         then generate the given percentage of the count as nulls.
@@ -243,7 +262,8 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         The default value is 5% (0.05).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.CARDINALITY">CARDINALITY</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:
         ///         </term>
         ///         <description>If specified, limit the randomly generated
         ///         values to a fixed set. Not allowed on a column with
@@ -258,7 +278,9 @@ public class InsertRecordsRandomRequest : KineticaData
         /// error is thrown otherwise).</summary>
         /// <remarks><list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.MIN">MIN</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+        ///         </term>
         ///         <description>Minimum possible length for generated series;
         ///         default is 100 records per series. Must be an integral
         ///         value within the range [1, 500]. If both min and max are
@@ -267,7 +289,9 @@ public class InsertRecordsRandomRequest : KineticaData
         ///         500.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.MAX">MAX</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+        ///         </term>
         ///         <description>Maximum possible length for generated series;
         ///         default is 500 records per series. Must be an integral
         ///         value within the range [1, 500]. If both min and max are
@@ -293,31 +317,39 @@ public class InsertRecordsRandomRequest : KineticaData
     /// randomness of the values.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.SEED">SEED</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:
+    ///         </term>
     ///         <description>If provided, the internal random number generator
     ///         will be initialized with the given value.  The minimum is 0.
     ///         This allows for the same set of random numbers to be generated
     ///         across invocation of this endpoint in case the user wants to
-    ///         repeat the test.  Since <see cref="options" />, is a map of
-    ///         maps, we need an internal map to provide the seed value.  For
+    ///         repeat the test.  Since <see
+    ///         cref="InsertRecordsRandomRequest.options" />, is a map of maps,
+    ///         we need an internal map to provide the seed value.  For
     ///         example, to pass 100 as the seed value through this parameter,
     ///         you need something equivalent to: 'options' = {'seed': {
     ///         'value': 100 } }.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
-    ///                 <description>The seed value to use</description>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:
+    ///                 </term>
+    ///                 <description>The seed value to use.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ALL">ALL</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>:</term>
     ///         <description>This key indicates that the specifications relayed
     ///         in the internal map are to be applied to all columns of the
     ///         records.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the minimum of the
     ///                 generated values is set to this value.  Default is
     ///                 -99999.  For point, shape, and track columns, min for
@@ -335,11 +367,13 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the maximum of the
     ///                 generated values is set to this value. Default is
     ///                 99999. For point, shape, and track columns, max for
@@ -355,11 +389,12 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>If specified, generate values for all
     ///                 columns evenly spaced with the given interval value. If
@@ -378,7 +413,7 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
     ///                 </term>
     ///                 <description>If specified, then generate the given
     ///                 percentage of the count as nulls for all nullable
@@ -388,7 +423,8 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:
+    ///                 </term>
     ///                 <description>If specified, limit the randomly generated
     ///                 values to a fixed set. Not allowed on a column with
     ///                 interval specified, and is not applicable to WKT or
@@ -398,14 +434,19 @@ public class InsertRecordsRandomRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ATTR_NAME">ATTR_NAME</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:
+    ///         </term>
     ///         <description>Use the desired column name in place of <see
-    ///         cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
-    ///         parameters for the column specified. This overrides any
-    ///         parameter set by <see cref="Options.ALL">ALL</see>.
+    ///         cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>,
+    ///         and set the following parameters for the column specified. This
+    ///         overrides any parameter set by <see
+    ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the minimum of the
     ///                 generated values is set to this value.  Default is
     ///                 -99999.  For point, shape, and track columns, min for
@@ -423,11 +464,13 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the maximum of the
     ///                 generated values is set to this value. Default is
     ///                 99999. For point, shape, and track columns, max for
@@ -443,11 +486,12 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>If specified, generate values for all
     ///                 columns evenly spaced with the given interval value. If
@@ -466,7 +510,7 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
     ///                 </term>
     ///                 <description>If specified and if this column is
     ///                 nullable, then generate the given percentage of the
@@ -477,7 +521,8 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:
+    ///                 </term>
     ///                 <description>If specified, limit the randomly generated
     ///                 values to a fixed set. Not allowed on a column with
     ///                 interval specified, and is not applicable to WKT or
@@ -487,14 +532,17 @@ public class InsertRecordsRandomRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRACK_LENGTH">TRACK_LENGTH</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:
     ///         </term>
     ///         <description>This key-map pair is only valid for track data
     ///         sets (an error is thrown otherwise).  No nulls would be
     ///         generated for nullable columns.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+    ///                 </term>
     ///                 <description>Minimum possible length for generated
     ///                 series; default is 100 records per series. Must be an
     ///                 integral value within the range [1, 500]. If both min
@@ -503,7 +551,9 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 allowed value is 500.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+    ///                 </term>
     ///                 <description>Maximum possible length for generated
     ///                 series; default is 500 records per series. Must be an
     ///                 integral value within the range [1, 500]. If both min
@@ -537,11 +587,12 @@ public class InsertRecordsRandomRequest : KineticaData
     /// In this map, the top level keys represent which column's parameters are
     /// being specified, while the internal keys represents which parameter is
     /// being specified.  These parameters take on different meanings depending
-    /// on the type of the column.  Below follows a more detailed description
-    /// of the map:
+    /// on the type of the column.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.SEED">SEED</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:
+    ///         </term>
     ///         <description>If provided, the internal random number generator
     ///         will be initialized with the given value.  The minimum is 0.
     ///         This allows for the same set of random numbers to be generated
@@ -553,19 +604,24 @@ public class InsertRecordsRandomRequest : KineticaData
     ///         {'seed': { 'value': 100 } }.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.VALUE">VALUE</see>:</term>
-    ///                 <description>The seed value to use</description>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:
+    ///                 </term>
+    ///                 <description>The seed value to use.</description>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ALL">ALL</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>:</term>
     ///         <description>This key indicates that the specifications relayed
     ///         in the internal map are to be applied to all columns of the
     ///         records.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the minimum of the
     ///                 generated values is set to this value.  Default is
     ///                 -99999.  For point, shape, and track columns, min for
@@ -583,11 +639,13 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the maximum of the
     ///                 generated values is set to this value. Default is
     ///                 99999. For point, shape, and track columns, max for
@@ -603,11 +661,12 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>If specified, generate values for all
     ///                 columns evenly spaced with the given interval value. If
@@ -626,7 +685,7 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
     ///                 </term>
     ///                 <description>If specified, then generate the given
     ///                 percentage of the count as nulls for all nullable
@@ -636,7 +695,8 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:
+    ///                 </term>
     ///                 <description>If specified, limit the randomly generated
     ///                 values to a fixed set. Not allowed on a column with
     ///                 interval specified, and is not applicable to WKT or
@@ -646,14 +706,19 @@ public class InsertRecordsRandomRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ATTR_NAME">ATTR_NAME</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:
+    ///         </term>
     ///         <description>Use the desired column name in place of <see
-    ///         cref="Options.ATTR_NAME">ATTR_NAME</see>, and set the following
-    ///         parameters for the column specified. This overrides any
-    ///         parameter set by <see cref="Options.ALL">ALL</see>.
+    ///         cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>,
+    ///         and set the following parameters for the column specified. This
+    ///         overrides any parameter set by <see
+    ///         cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the minimum of the
     ///                 generated values is set to this value.  Default is
     ///                 -99999.  For point, shape, and track columns, min for
@@ -671,11 +736,13 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+    ///                 </term>
     ///                 <description>For numerical columns, the maximum of the
     ///                 generated values is set to this value. Default is
     ///                 99999. For point, shape, and track columns, max for
@@ -691,11 +758,12 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 then those parameters will not be set; however, an
     ///                 error will not be thrown in such a case. It is the
     ///                 responsibility of the user to use the <see
-    ///                 cref="Options.ALL">ALL</see> parameter judiciously.
-    ///                 </description>
+    ///                 cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>
+    ///                 parameter judiciously.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>If specified, generate values for all
     ///                 columns evenly spaced with the given interval value. If
@@ -714,7 +782,7 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
+    ///                 cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:
     ///                 </term>
     ///                 <description>If specified and if this column is
     ///                 nullable, then generate the given percentage of the
@@ -725,7 +793,8 @@ public class InsertRecordsRandomRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.CARDINALITY">CARDINALITY</see>:</term>
+    ///                 cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:
+    ///                 </term>
     ///                 <description>If specified, limit the randomly generated
     ///                 values to a fixed set. Not allowed on a column with
     ///                 interval specified, and is not applicable to WKT or
@@ -735,14 +804,17 @@ public class InsertRecordsRandomRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRACK_LENGTH">TRACK_LENGTH</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:
     ///         </term>
     ///         <description>This key-map pair is only valid for track data
     ///         sets (an error is thrown otherwise).  No nulls would be
     ///         generated for nullable columns.
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.MIN">MIN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
+    ///                 </term>
     ///                 <description>Minimum possible length for generated
     ///                 series; default is 100 records per series. Must be an
     ///                 integral value within the range [1, 500]. If both min
@@ -751,7 +823,9 @@ public class InsertRecordsRandomRequest : KineticaData
     ///                 allowed value is 500.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.MAX">MAX</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:
+    ///                 </term>
     ///                 <description>Maximum possible length for generated
     ///                 series; default is 500 records per series. Must be an
     ///                 integral value within the range [1, 500]. If both min
@@ -774,7 +848,7 @@ public class InsertRecordsRandomRequest : KineticaData
 } // end class InsertRecordsRandomRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
+/// cref="Kinetica.insertRecordsRandom">Kinetica.insertRecordsRandom</see>.
 /// </summary>
 public class InsertRecordsRandomResponse : KineticaData
 {

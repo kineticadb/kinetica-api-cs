@@ -1,6 +1,3 @@
-using System;
-
-
 namespace kinetica;
 
 public class KineticaException : System.Exception

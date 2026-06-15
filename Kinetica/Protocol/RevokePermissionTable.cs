@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
+/// cref="Kinetica.revokePermissionTable">Kinetica.revokePermissionTable</see>.
 /// </summary>
 /// <remarks><para>Revokes a table-level permission from a user or role.</para>
 /// </remarks>
 public class RevokePermissionTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="RevokePermissionTableRequest.permission" />.</summary>
     /// <remarks><para>Permission to revoke from the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -39,7 +39,7 @@ public class RevokePermissionTableRequest : KineticaData
     } // end struct Permission
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RevokePermissionTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -58,28 +58,33 @@ public class RevokePermissionTableRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access to the
     ///         table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:
     ///         </term>
     ///         <description>Insert access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
     ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:
     ///         </term>
     ///         <description>Delete access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:
     ///         </term>
     ///         <description>Read access to the table.</description>
     ///     </item>
@@ -97,7 +102,9 @@ public class RevokePermissionTableRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Apply security to these columns, comma-separated.
     ///         The default value is ''.</description>
     ///     </item>
@@ -118,28 +125,33 @@ public class RevokePermissionTableRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access to the
     ///         table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:
     ///         </term>
     ///         <description>Insert access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
     ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:
     ///         </term>
     ///         <description>Delete access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:
     ///         </term>
     ///         <description>Read access to the table.</description>
     ///     </item>
@@ -152,7 +164,9 @@ public class RevokePermissionTableRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionTableRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Apply security to these columns, comma-separated.
     ///         The default value is ''.</description>
     ///     </item>
@@ -171,7 +185,7 @@ public class RevokePermissionTableRequest : KineticaData
 } // end class RevokePermissionTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
+/// cref="Kinetica.revokePermissionTable">Kinetica.revokePermissionTable</see>.
 /// </summary>
 public class RevokePermissionTableResponse : KineticaData
 {

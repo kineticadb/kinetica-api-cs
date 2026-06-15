@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSystemTiming(ShowSystemTimingRequest)">Kinetica.showSystemTiming</see>.
-/// </summary>
+/// cref="Kinetica.showSystemTiming">Kinetica.showSystemTiming</see>.</summary>
 /// <remarks><para>Returns the last 100 database requests along with the
 /// request timing and internal job ID. The admin tool uses it to present
 /// request timing information to the user.</para></remarks>
@@ -37,8 +36,7 @@ public class ShowSystemTimingRequest : KineticaData
 } // end class ShowSystemTimingRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSystemTiming(ShowSystemTimingRequest)">Kinetica.showSystemTiming</see>.
-/// </summary>
+/// cref="Kinetica.showSystemTiming">Kinetica.showSystemTiming</see>.</summary>
 public class ShowSystemTimingResponse : KineticaData
 {
     /// <summary>List of recently called endpoints, most recent first.

@@ -9,15 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermission(RevokePermissionRequest)">Kinetica.revokePermission</see>.
-/// </summary>
+/// cref="Kinetica.revokePermission">Kinetica.revokePermission</see>.</summary>
 /// <remarks><para>Revoke user or role the specified permission on the
 /// specified object.</para></remarks>
 public class RevokePermissionRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="object_type" />.</summary>
-    /// <remarks><para>The type of object being revoked</para></remarks>
+    /// cref="RevokePermissionRequest.object_type" />.</summary>
+    /// <remarks><para>The type of object being revoked.</para></remarks>
     public struct ObjectType
     {
         /// <summary>Catalog</summary>
@@ -61,7 +60,7 @@ public class RevokePermissionRequest : KineticaData
     } // end struct ObjectType
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="RevokePermissionRequest.permission" />.</summary>
     /// <remarks><para>Permission being revoked.</para></remarks>
     public struct Permission
     {
@@ -106,7 +105,7 @@ public class RevokePermissionRequest : KineticaData
     } // end struct Permission
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RevokePermissionRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -131,57 +130,80 @@ public class RevokePermissionRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ObjectType.CATALOG">CATALOG</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.CATALOG">CATALOG</see>:
+    ///         </term>
     ///         <description>Catalog</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CONTEXT">CONTEXT</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:
+    ///         </term>
     ///         <description>Context</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CREDENTIAL">CREDENTIAL</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:
     ///         </term>
     ///         <description>Credential</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASINK">DATASINK</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.DATASINK">DATASINK</see>:
+    ///         </term>
     ///         <description>Data Sink</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASOURCE">DATASOURCE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:
     ///         </term>
     ///         <description>Data Source</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
     ///         <description>KIFS File Directory</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description>A Graph object</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.PROC">PROC</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.PROC">PROC</see>:
+    ///         </term>
     ///         <description>UDF Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SCHEMA">SCHEMA</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:
+    ///         </term>
     ///         <description>Schema</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:
+    ///         </term>
     ///         <description>SQL Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SYSTEM">SYSTEM</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:
+    ///         </term>
     ///         <description>System-level access</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description>Database Table</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
     ///         </term>
     ///         <description>Table monitor</description>
     ///     </item>
@@ -192,59 +214,81 @@ public class RevokePermissionRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         object.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
     ///         <description>Connect access on the given data source or data
     ///         sink.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CREATE">CREATE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.CREATE">CREATE</see>:
+    ///         </term>
     ///         <description>Ability to create new objects of this type.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.DELETE">DELETE</see>:
+    ///         </term>
     ///         <description>Delete rows from tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.EXECUTE">EXECUTE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.EXECUTE">EXECUTE</see>:
+    ///         </term>
     ///         <description>Ability to Execute the Procedure object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.INSERT">INSERT</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.INSERT">INSERT</see>:
+    ///         </term>
     ///         <description>Insert access to tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.MONITOR">MONITOR</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.MONITOR">MONITOR</see>:
+    ///         </term>
     ///         <description>Monitor logs and statistics.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.READ">READ</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.READ">READ</see>:
+    ///         </term>
     ///         <description>Ability to read, list and use the object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SEND_ALERT">SEND_ALERT</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.SEND_ALERT">SEND_ALERT</see>:
     ///         </term>
     ///         <description>Ability to send system alerts.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.UPDATE">UPDATE</see>:
+    ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.USER_ADMIN">USER_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.WRITE">WRITE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.WRITE">WRITE</see>:
+    ///         </term>
     ///         <description>Access to write, change and delete objects.
     ///         </description>
     ///     </item>
@@ -254,7 +298,9 @@ public class RevokePermissionRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Revoke table security from these columns,
     ///         comma-separated. The default value is ''.</description>
     ///     </item>
@@ -278,57 +324,80 @@ public class RevokePermissionRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ObjectType.CATALOG">CATALOG</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.CATALOG">CATALOG</see>:
+    ///         </term>
     ///         <description>Catalog</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CONTEXT">CONTEXT</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:
+    ///         </term>
     ///         <description>Context</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CREDENTIAL">CREDENTIAL</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:
     ///         </term>
     ///         <description>Credential</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASINK">DATASINK</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.DATASINK">DATASINK</see>:
+    ///         </term>
     ///         <description>Data Sink</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASOURCE">DATASOURCE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:
     ///         </term>
     ///         <description>Data Source</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
     ///         <description>KIFS File Directory</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description>A Graph object</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.PROC">PROC</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.PROC">PROC</see>:
+    ///         </term>
     ///         <description>UDF Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SCHEMA">SCHEMA</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:
+    ///         </term>
     ///         <description>Schema</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:
+    ///         </term>
     ///         <description>SQL Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SYSTEM">SYSTEM</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:
+    ///         </term>
     ///         <description>System-level access</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description>Database Table</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
     ///         </term>
     ///         <description>Table monitor</description>
     ///     </item>
@@ -337,59 +406,81 @@ public class RevokePermissionRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         object.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
     ///         <description>Connect access on the given data source or data
     ///         sink.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CREATE">CREATE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.CREATE">CREATE</see>:
+    ///         </term>
     ///         <description>Ability to create new objects of this type.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.DELETE">DELETE</see>:
+    ///         </term>
     ///         <description>Delete rows from tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.EXECUTE">EXECUTE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.EXECUTE">EXECUTE</see>:
+    ///         </term>
     ///         <description>Ability to Execute the Procedure object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.INSERT">INSERT</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.INSERT">INSERT</see>:
+    ///         </term>
     ///         <description>Insert access to tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.MONITOR">MONITOR</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.MONITOR">MONITOR</see>:
+    ///         </term>
     ///         <description>Monitor logs and statistics.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.READ">READ</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.READ">READ</see>:
+    ///         </term>
     ///         <description>Ability to read, list and use the object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SEND_ALERT">SEND_ALERT</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.SEND_ALERT">SEND_ALERT</see>:
     ///         </term>
     ///         <description>Ability to send system alerts.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.UPDATE">UPDATE</see>:
+    ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.USER_ADMIN">USER_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.WRITE">WRITE</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Permission.WRITE">WRITE</see>:
+    ///         </term>
     ///         <description>Access to write, change and delete objects.
     ///         </description>
     ///     </item>
@@ -397,7 +488,9 @@ public class RevokePermissionRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="RevokePermissionRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Revoke table security from these columns,
     ///         comma-separated. The default value is ''.</description>
     ///     </item>
@@ -418,8 +511,7 @@ public class RevokePermissionRequest : KineticaData
 } // end class RevokePermissionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermission(RevokePermissionRequest)">Kinetica.revokePermission</see>.
-/// </summary>
+/// cref="Kinetica.revokePermission">Kinetica.revokePermission</see>.</summary>
 public class RevokePermissionResponse : KineticaData
 {
     /// <summary>Value of <see

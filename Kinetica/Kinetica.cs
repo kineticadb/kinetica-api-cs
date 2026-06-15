@@ -1,8 +1,9 @@
 ﻿using Avro.IO;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using Snappier;
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text;
 using kinetica.Utils;
 
@@ -20,7 +21,7 @@ using kinetica.Utils;
 /// <br/>
 ///
 /// The Kinetica project contains the main client source code in the kinetica namespace.
-/// The <see cref="kinetica.Kinetica">Kinetica</see> class implements the interface for the API.  The Protocol
+/// The <see cref="Kinetica"/> class implements the interface for the API.  The Protocol
 /// subdirectory contains classes for each endpoint of the database server.
 ///
 /// <br/>
@@ -74,13 +75,58 @@ public partial class Kinetica : IDisposable
             public int ThreadCount { get; set; } = 1;
 
             /// <summary>
-            /// Whether to disable failover upon failures
+            /// Whether to disable failing over to a secondary cluster when a
+            /// failure event is encountered on the current cluster that is
+            /// appropriate for retrying on another cluster.
             /// </summary>
+            /// <remarks>
+            /// <para>
+            /// Failover operates between the cluster URLs known to the client &mdash;
+            /// those the user specified plus any discovered via auto-discovery
+            /// (see <see cref="DisableAutoDiscovery"/>). This flag controls whether
+            /// cluster rotation happens on failure; it doesn't prevent the initial
+            /// polling of the server for other known HA clusters.
+            /// </para>
+            /// <para>
+            /// When only a single URL is available, this flag has no observable effect.
+            /// When multiple URLs are available (user-specified, discovered, or both),
+            /// setting this to <c>true</c> short-circuits cluster rotation: failed
+            /// requests are retried against the same cluster but won't be rerouted to peers.
+            /// </para>
+            /// </remarks>
             public bool DisableFailover { get; set; } = false;
 
             /// <summary>
-            /// Whether to disable automatic discovery of clusters and worker ranks
+            /// Whether to disable automatic discovery of HA clusters and worker ranks.
             /// </summary>
+            /// <remarks>
+            /// <para>
+            /// "Auto-discovery" encompasses two independent server-side queries the client
+            /// makes during construction: HA ring topology (peer cluster URLs) and worker
+            /// rank URLs (used by multi-head operations like <see cref="BulkInserter{T}"/>
+            /// and <see cref="RecordRetriever{T}"/>). When this flag is <c>true</c>, both
+            /// queries are suppressed and multi-head operations become unavailable as a
+            /// consequence.
+            /// </para>
+            /// <para>
+            /// When set to <c>false</c> (default), the constructor will attempt to call
+            /// <c>showSystemProperties()</c> to discover HA ring topology and worker rank URLs.
+            /// This network call can block if the server is slow or unreachable.
+            /// </para>
+            /// <para>
+            /// If auto-discovery fails and <see cref="InitialConnectionAttemptTimeout"/> is 0 (default),
+            /// the constructor will automatically disable auto-discovery and retry once using only 
+            /// the provided URLs (without discovering additional cluster information).
+            /// </para>
+            /// <para>
+            /// If auto-discovery fails and <see cref="InitialConnectionAttemptTimeout"/> is greater than 0,
+            /// the constructor will retry with exponential backoff until the timeout is exceeded.
+            /// </para>
+            /// <para>
+            /// For single-node deployments or when constructor blocking is unacceptable, set this to <c>true</c>
+            /// along with <see cref="DisableFailover"/> = <c>true</c> to skip all network I/O during construction.
+            /// </para>
+            /// </remarks>
             public bool DisableAutoDiscovery { get; set; } = false;
 
             /// <summary>
@@ -89,8 +135,16 @@ public partial class Kinetica : IDisposable
             public HAFailoverOrder HAFailoverOrder { get; set; } = HAFailoverOrder.Random;
 
             /// <summary>
-            /// Request timeout in milliseconds (0 = infinite)
+            /// Overall request timeout in milliseconds. <c>0</c> (the default) means infinite — no
+            /// overall timeout, matching the Java API.
             /// </summary>
+            /// <remarks>
+            /// This is the end-to-end per-request cap. Connection establishment is bounded separately
+            /// by <see cref="ServerConnectionTimeout"/>, so even with an infinite request timeout an
+            /// unreachable host fails when the connection attempt times out rather than hanging
+            /// forever; an infinite value only allows an already-connected, slow-responding server to
+            /// block without limit.
+            /// </remarks>
             public int Timeout { get; set; } = 0;
 
             /// <summary>
@@ -110,18 +164,55 @@ public partial class Kinetica : IDisposable
 
             /// <summary>
             /// Initial connection attempt timeout in milliseconds.
-            /// If the initial connection fails, the client will retry with exponential backoff
-            /// until this timeout is reached.
-            /// Default: 0 (no retry, fail immediately)
             /// </summary>
+            /// <remarks>
+            /// <para>
+            /// Controls retry behavior when auto-discovery fails during initialization.
+            /// Auto-discovery (calling <c>showSystemProperties()</c>) is always attempted first
+            /// unless <see cref="DisableAutoDiscovery"/> is set to <c>true</c>.
+            /// </para>
+            /// <para>
+            /// When set to 0 (default): If auto-discovery fails, the client will disable
+            /// auto-discovery and retry once using only the provided URLs without further
+            /// cluster discovery. No exponential backoff is used.
+            /// </para>
+            /// <para>
+            /// When set to a positive value (e.g., 300000 for 5 minutes): If auto-discovery fails,
+            /// the client will retry with exponential backoff (starting at 1 minute, doubling each time)
+            /// until this timeout is exceeded. If multiple URLs are given, the API will try all of them
+            /// once before sleeping and retrying. After the timeout is exceeded, the client falls back
+            /// to initialization without auto-discovery.
+            /// </para>
+            /// </remarks>
             public int InitialConnectionAttemptTimeout { get; set; } = 0;
 
             /// <summary>
-            /// Server connection timeout in milliseconds.
-            /// Used for individual connection attempts during initialization.
-            /// Default: 60000 (60 seconds)
+            /// Default value (milliseconds) for <see cref="ServerConnectionTimeout"/>. Also used
+            /// directly as the timeout for the <see cref="Kinetica.IsKineticaRunning(Uri)"/> liveness
+            /// ping.
             /// </summary>
-            public int ServerConnectionTimeout { get; set; } = 60000;
+            public const int DefaultServerConnectionTimeout = 5000;
+
+            /// <summary>
+            /// Maximum time, in milliseconds, to establish a TCP connection to the server.
+            /// Default: <see cref="DefaultServerConnectionTimeout"/> (5 seconds); 0 leaves connection
+            /// establishment unbounded.
+            /// </summary>
+            /// <remarks>
+            /// <para>
+            /// Maps to <see cref="System.Net.Http.SocketsHttpHandler.ConnectTimeout"/>. It bounds the
+            /// connection handshake specifically — most visibly when a host is unreachable/black-holed
+            /// during initial discovery — and is independent of <see cref="Timeout"/>, which caps the
+            /// overall request. For an unreachable host the client gives up after whichever of the two
+            /// elapses first; since <see cref="Timeout"/> defaults to infinite, this is the effective
+            /// bound on how long a connection attempt to an unreachable host blocks by default.
+            /// </para>
+            /// <para>
+            /// This is distinct from <see cref="InitialConnectionAttemptTimeout"/>, which is the
+            /// overall budget across discovery retries rather than a per-connection bound.
+            /// </para>
+            /// </remarks>
+            public int ServerConnectionTimeout { get; set; } = DefaultServerConnectionTimeout;
 
             /// <summary>
             /// Maximum lifetime of pooled HTTP connections. Lower values improve DNS refresh
@@ -133,6 +224,27 @@ public partial class Kinetica : IDisposable
             /// Idle timeout for pooled HTTP connections. Default: 2 minutes.
             /// </summary>
             public TimeSpan PooledConnectionIdleTimeout { get; set; } = TimeSpan.FromMinutes(2);
+
+            /// <summary>
+            /// Optional logger factory used by the client to report diagnostics.
+            /// </summary>
+            /// <remarks>
+            /// <para>
+            /// When supplied, the client creates per-component category loggers (e.g.
+            /// <c>"Kinetica"</c>, <c>"Kinetica.HAFailover"</c>, <c>"Kinetica.BulkInserter"</c>)
+            /// and emits messages through the standard <see cref="ILogger"/> abstraction. This is
+            /// the channel through which non-fatal conditions &mdash; such as auto-discovery
+            /// failing and the connection falling back to a degraded, single-head mode &mdash;
+            /// are surfaced without throwing.
+            /// </para>
+            /// <para>
+            /// When left <c>null</c> (default), logging is a no-op (<see cref="NullLoggerFactory"/>);
+            /// no output is produced and behavior is unchanged. Pass an <see cref="ILoggerFactory"/>
+            /// (e.g. obtained from dependency injection) to route messages into the host's logging
+            /// pipeline.
+            /// </para>
+            /// </remarks>
+            public ILoggerFactory? LoggerFactory { get; set; } = null;
         }
 
         /// <summary>
@@ -223,6 +335,24 @@ public partial class Kinetica : IDisposable
         /// </summary>
         private readonly IHttpTransport _transport;
 
+        /// <summary>
+        /// Logger factory for the client (defaults to a no-op factory when none is supplied).
+        /// </summary>
+        private readonly ILoggerFactory _loggerFactory = NullLoggerFactory.Instance;
+
+        /// <summary>
+        /// Logger for the top-level "Kinetica" category.
+        /// </summary>
+        private readonly ILogger _logger = NullLogger.Instance;
+
+        /// <summary>
+        /// Gets the logger factory configured for this client. Components such as
+        /// <see cref="BulkInserter{T}"/> and <see cref="RecordRetriever{T}"/> use this to create
+        /// their own category loggers. Never <c>null</c> &mdash; a no-op factory is used when the
+        /// caller supplies none.
+        /// </summary>
+        internal ILoggerFactory LoggerFactory => _loggerFactory;
+
         // private object class type to KineticaType lookup table
         private Dictionary<Type, KineticaType> kineticaTypeLookup = [];
 
@@ -248,6 +378,11 @@ public partial class Kinetica : IDisposable
             if (urls == null || urls.Count == 0)
                 throw new KineticaException("At least one URL must be provided");
 
+            // Treat null options as defaults; behavior is identical to passing
+            // `new Options()`. Auto-discovery is on by default, which is correct for
+            // Kinetica deployments that don't require authentication.
+            options ??= new Options();
+
             // Use the first URL as the primary
             Url = urls[0].TrimEnd('/');
             URL = new Uri(Url);
@@ -255,44 +390,39 @@ public partial class Kinetica : IDisposable
             // Use the provided transport (for testing)
             _transport = transport;
 
+            // Set up logging (no-op factory when the caller supplies none)
+            _loggerFactory = options.LoggerFactory ?? NullLoggerFactory.Instance;
+            _logger = _loggerFactory.CreateLogger("Kinetica");
+
             // Initialize other properties from options
-            if (options != null)
+            Username = options.Username;
+            Password = options.Password;
+            OauthToken = options.OauthToken;
+            UseSnappy = options.UseSnappy;
+            ThreadCount = options.ThreadCount;
+
+            // Create authorization header
+            Authorization = CreateAuthorizationHeader();
+
+            // Initialize HA failover manager
+            // (always construct when options are provided; gating on URL count
+            // would skip discovery of additional HA clusters and worker ranks)
+            _haFailoverManager = new HAFailoverManager
             {
-                Username = options.Username;
-                Password = options.Password;
-                OauthToken = options.OauthToken;
-                UseSnappy = options.UseSnappy;
-                ThreadCount = options.ThreadCount;
+                DisableFailover = options.DisableFailover,
+                DisableAutoDiscovery = options.DisableAutoDiscovery,
+                HostManagerPort = options.HostManagerPort,
+                FailoverOrder = options.HAFailoverOrder,
+                Logger = _loggerFactory.CreateLogger("Kinetica.HAFailover")
+            };
 
-                // Create authorization header
-                Authorization = CreateAuthorizationHeader();
-
-                // Initialize HA failover manager if multiple URLs or options require it
-                if (urls.Count > 1 || !options.DisableFailover)
-                {
-                    _haFailoverManager = new HAFailoverManager
-                    {
-                        DisableFailover = options.DisableFailover,
-                        DisableAutoDiscovery = options.DisableAutoDiscovery,
-                        HostManagerPort = options.HostManagerPort,
-                        FailoverOrder = options.HAFailoverOrder
-                    };
-
-                    if (!string.IsNullOrEmpty(options.HostnameRegex))
-                    {
-                        _haFailoverManager.HostnameRegex = new System.Text.RegularExpressions.Regex(options.HostnameRegex);
-                    }
-
-                    var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
-                    _haFailoverManager.Initialize(uriList, this);
-                }
-            }
-            else
+            if (!string.IsNullOrEmpty(options.HostnameRegex))
             {
-                _haFailoverManager = new HAFailoverManager { DisableAutoDiscovery = true };
-                var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
-                _haFailoverManager.Initialize(uriList, null);
+                _haFailoverManager.HostnameRegex = new System.Text.RegularExpressions.Regex(options.HostnameRegex);
             }
+
+            var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
+            _haFailoverManager.Initialize(uriList, this);
         }
 
         /// <summary>
@@ -315,78 +445,85 @@ public partial class Kinetica : IDisposable
             if (urls == null || urls.Count == 0)
                 throw new KineticaException("At least one URL must be provided");
 
+            // Treat null options as defaults so behavior is identical to passing
+            // `new Options()`. Auto-discovery is on by default, which is correct for
+            // Kinetica deployments that don't require authentication.
+            options ??= new Options();
+
             // Use the first URL as the primary
             Url = urls[0].TrimEnd('/');
             URL = new Uri(Url);
 
-            // Initialize HTTP transport layer
-            var timeout = options?.Timeout > 0
+            // Initialize HTTP transport layer.
+            var timeout = options.Timeout > 0
                 ? TimeSpan.FromMilliseconds(options.Timeout)
-                : TimeSpan.FromSeconds(30); // Default timeout
+                : System.Threading.Timeout.InfiniteTimeSpan;
+
+            // Bound connection establishment (e.g. for unreachable hosts during initial discovery)
+            // by ServerConnectionTimeout; 0 leaves it unbounded (limited only by the request timeout).
+            TimeSpan? connectTimeout = options.ServerConnectionTimeout > 0
+                ? TimeSpan.FromMilliseconds(options.ServerConnectionTimeout)
+                : null;
 
             _transport = new HttpClientTransport(
                 timeout,
-                options?.PooledConnectionLifetime,
-                options?.PooledConnectionIdleTimeout);
+                options.PooledConnectionLifetime,
+                options.PooledConnectionIdleTimeout,
+                connectTimeout);
 
-            if ( null != options ) // If caller specified options
+            // Set up logging (no-op factory when the caller supplies none)
+            _loggerFactory = options.LoggerFactory ?? NullLoggerFactory.Instance;
+            _logger = _loggerFactory.CreateLogger("Kinetica");
+
+            Username = options.Username;
+            Password = options.Password;
+            OauthToken = options.OauthToken;
+
+            // Handle authorization
+            Authorization = CreateAuthorizationHeader();
+
+            UseSnappy = options.UseSnappy;
+            ThreadCount = options.ThreadCount;
+
+            // Convert string URLs to Uri objects
+            var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
+
+            // Initialize HA failover manager
+            // Match Java: DisableAutoDiscovery is set from options, may be changed during initialization
+            _haFailoverManager = new HAFailoverManager
             {
-                Username = options.Username;
-                Password = options.Password;
-                OauthToken = options.OauthToken;
+                DisableFailover = options.DisableFailover,
+                DisableAutoDiscovery = options.DisableAutoDiscovery,
+                HostManagerPort = options.HostManagerPort,
+                FailoverOrder = options.HAFailoverOrder,
+                Logger = _loggerFactory.CreateLogger("Kinetica.HAFailover")
+            };
 
-                // Handle authorization
-                Authorization = CreateAuthorizationHeader();
-
-                UseSnappy = options.UseSnappy;
-                ThreadCount = options.ThreadCount;
-
-                // Initialize HA failover manager if there are multiple URLs or HA options are set
-                if (urls.Count > 1 || !options.DisableAutoDiscovery)
-                {
-                    _haFailoverManager = new HAFailoverManager
-                    {
-                        DisableFailover = options.DisableFailover,
-                        DisableAutoDiscovery = options.DisableAutoDiscovery,
-                        HostManagerPort = options.HostManagerPort,
-                        FailoverOrder = options.HAFailoverOrder
-                    };
-
-                    if (!string.IsNullOrEmpty(options.HostnameRegex))
-                    {
-                        _haFailoverManager.HostnameRegex = new System.Text.RegularExpressions.Regex(options.HostnameRegex);
-                    }
-
-                    // Convert string URLs to Uri objects
-                    var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
-
-                    // Initialize with retry logic and exponential backoff (matching Rust implementation)
-                    InitializeWithRetry(uriList, options);
-
-                    // Update the URL to the current active cluster
-                    var currentUrl = _haFailoverManager.GetUrl();
-                    if (currentUrl != null)
-                    {
-                        Url = currentUrl.ToString().TrimEnd('/');
-                        URL = currentUrl;
-                    }
-                }
+            if (!string.IsNullOrEmpty(options.HostnameRegex))
+            {
+                _haFailoverManager.HostnameRegex = new System.Text.RegularExpressions.Regex(options.HostnameRegex);
             }
-            else
+
+            // Match Java pattern: always attempt initialization, handle failures based on InitialConnectionAttemptTimeout
+            InitializeWithRetry(uriList, options);
+
+            // Update the URL to the current active cluster
+            var currentUrl = _haFailoverManager.GetUrl();
+            if (currentUrl != null)
             {
-                // No options provided, initialize with a single URL
-                _haFailoverManager = new HAFailoverManager
-                {
-                    DisableAutoDiscovery = true
-                };
-                var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
-                _haFailoverManager.Initialize(uriList, null);
+                Url = currentUrl.ToString().TrimEnd('/');
+                URL = currentUrl;
             }
         }
 
         /// <summary>
-        /// Initializes the HA failover manager with retry logic and exponential backoff.
-        /// Matches the Rust implementation's process_urls() initialization pattern.
+        /// Initializes the HA failover manager following Java's processUrls() pattern.
+        ///
+        /// Java behavior:
+        /// 1. Always attempt auto-discovery first (unless DisableAutoDiscovery is true)
+        /// 2. If auto-discovery fails and InitialConnectionAttemptTimeout == 0 (default),
+        ///    set DisableAutoDiscovery = true and retry once without auto-discovery
+        /// 3. If InitialConnectionAttemptTimeout > 0, retry with exponential backoff
         /// </summary>
         /// <param name="uriList">List of URLs to initialize with</param>
         /// <param name="options">Connection options</param>
@@ -395,91 +532,111 @@ public partial class Kinetica : IDisposable
             if (_haFailoverManager == null)
                 throw new InvalidOperationException("HAFailoverManager not initialized");
 
-            var startTime = DateTime.UtcNow;
-            int attemptNumber = 0;
-            int baseTimeoutMs = options.ServerConnectionTimeout > 0 ? options.ServerConnectionTimeout : 60000;
-            int maxTotalTimeMs = options.InitialConnectionAttemptTimeout;
-            Exception? lastException = null;
+            // use nanoseconds internally for precision
+            long initialConnectionAttemptTimeoutNs = options.InitialConnectionAttemptTimeout * 1_000_000L;
+            long startTimeNs = DateTime.UtcNow.Ticks * 100; // Ticks are 100ns each
+            int reattemptWaitIntervalMs = 60_000; // Java: starts at 1 minute
 
-            while (true)
+            bool keepTrying = true;
+            while (keepTrying)
             {
-                attemptNumber++;
-                int currentTimeout = baseTimeoutMs * (1 << Math.Min(attemptNumber - 1, 5)); // Exponential backoff, cap at 32x
-
                 try
                 {
-                    // Try to initialize with auto-discovery
-                    _haFailoverManager.Initialize(uriList, this);
+                    // Attempt to initialize (with or without auto-discovery based on current flag)
+                    _logger.LogDebug(
+                        "[Kinetica] Attempting to parse URLs (DisableAutoDiscovery={DisableAutoDiscovery})",
+                        _haFailoverManager.DisableAutoDiscovery);
+
+                    _haFailoverManager.Initialize(uriList, _haFailoverManager.DisableAutoDiscovery ? null : this);
+
+                    _logger.LogDebug("[Kinetica] Processed cluster URLs successfully");
                     return; // Success
+                }
+                catch (Exception ex) when (ex.Message.Contains("hostname", StringComparison.OrdinalIgnoreCase) &&
+                                           ex.Message.Contains("regex", StringComparison.OrdinalIgnoreCase))
+                {
+                    // GPUdbHostnameRegexFailureException - no point retrying
+                    throw new KineticaException(
+                        $"Could not connect to any working Kinetica server due to hostname regex mismatch: {ex.Message}", ex);
+                }
+                catch (Exception ex) when (ex.Message.Contains("Unauthorized", StringComparison.OrdinalIgnoreCase) ||
+                                           ex.Message.Contains("401", StringComparison.OrdinalIgnoreCase))
+                {
+                    // GPUdbUnauthorizedAccessException - cannot proceed
+                    _logger.LogError("[Kinetica] Got Unauthorized while communicating to server, cannot proceed");
+                    throw;
                 }
                 catch (Exception ex)
                 {
-                    lastException = ex;
+                    _logger.LogWarning(ex, "[Kinetica] Attempt at parsing URLs failed: {Message}", ex.Message);
 
-                    // Check if this is a non-retriable error (like hostname regex mismatch or authorization failure)
-                    if (IsNonRetriableInitializationError(ex))
+                    // if timeout is 0 (default), disable auto-discovery and retry once
+                    if (initialConnectionAttemptTimeoutNs == 0)
                     {
-                        // Fall back to initialization without auto-discovery
-                        try
+                        if (!_haFailoverManager.DisableAutoDiscovery)
                         {
+                            // First failure with timeout=0: disable auto-discovery and try again.
+                            // Note: a failed showSystemProperties() call is absorbed inside
+                            // HAFailoverManager.Initialize (minimal cluster info), so it does not reach
+                            // here; the failure that does reach here is typically the post-discovery
+                            // connectivity check (the server-advertised head node URL was unreachable)
+                            // or an otherwise-unusable cluster. The specific cause is in the preceding
+                            // warning.
+                            _logger.LogWarning(
+                                "[Kinetica] Initialization with auto-discovery enabled did not succeed " +
+                                "and InitialConnectionAttemptTimeout " +
+                                "is 0; retrying once without auto-discovery. The connection will then operate in " +
+                                "degraded mode: it uses only the user-given URLs and skips HA ring/worker-rank " +
+                                "discovery, so multi-head operations (BulkInserter, RecordRetriever) will fall " +
+                                "back to single-head via the head node.");
                             _haFailoverManager.DisableAutoDiscovery = true;
-                            _haFailoverManager.Initialize(uriList, null);
-                            return;
+                            // Continue loop - will retry with auto-discovery disabled
                         }
-                        catch
+                        else
                         {
-                            throw new KineticaException($"Failed to initialize connection: {ex.Message}", ex);
+                            // Already tried without auto-discovery, give up
+                            throw new KineticaException(
+                                $"Could not connect to any working Kinetica server: {ex.Message}", ex);
                         }
                     }
-
-                    // Check if we've exceeded the total timeout
-                    var elapsed = (DateTime.UtcNow - startTime).TotalMilliseconds;
-                    if (maxTotalTimeMs <= 0 || elapsed >= maxTotalTimeMs)
+                    else
                     {
-                        // No more retries - fall back to initialization without auto-discovery
-                        try
+                        // Check if we should keep trying
+                        long elapsedNs = (DateTime.UtcNow.Ticks * 100) - startTimeNs;
+                        keepTrying = elapsedNs <= initialConnectionAttemptTimeoutNs;
+
+                        _logger.LogDebug("[Kinetica] Keep trying to parse URLs?: {KeepTrying}", keepTrying);
+
+                        if (keepTrying)
                         {
+                            _logger.LogInformation(
+                                "[Kinetica] Attempt at parsing URLs failed; waiting for {Minutes} minute(s) before retrying",
+                                reattemptWaitIntervalMs / 60000);
+
+                            Thread.Sleep(reattemptWaitIntervalMs);
+
+                            // Double the wait interval for next time (Java pattern)
+                            reattemptWaitIntervalMs *= 2;
+                        }
+                        else
+                        {
+                            // Timeout exceeded - fall back to initialization without auto-discovery
+                            _logger.LogWarning(
+                                "[Kinetica] InitialConnectionAttemptTimeout exceeded; falling back to initialization without " +
+                                "auto-discovery. The connection will operate in degraded mode: multi-head operations " +
+                                "(BulkInserter, RecordRetriever) will fall back to single-head via the head node.");
                             _haFailoverManager.DisableAutoDiscovery = true;
-                            _haFailoverManager.Initialize(uriList, null);
-                            return;
+                            // One more try without auto-discovery
                         }
-                        catch
-                        {
-                            throw new KineticaException($"Failed to initialize connection after {attemptNumber} attempts: {ex.Message}", ex);
-                        }
-                    }
-
-                    // Wait before retrying (exponential backoff)
-                    int waitTime = Math.Min(currentTimeout, (int)(maxTotalTimeMs - elapsed));
-                    if (waitTime > 0)
-                    {
-                        Thread.Sleep(Math.Min(waitTime, 5000)); // Cap wait at 5 seconds per attempt
                     }
                 }
             }
-        }
 
-        /// <summary>
-        /// Checks if an initialization error is non-retriable.
-        /// </summary>
-        private static bool IsNonRetriableInitializationError(Exception ex)
-        {
-            // Hostname regex failures won't change with retries
-            if (ex.Message.Contains("hostname", StringComparison.OrdinalIgnoreCase) &&
-                ex.Message.Contains("regex", StringComparison.OrdinalIgnoreCase))
+            // Should not reach here, but just in case
+            if (_haFailoverManager.HARingSize == 0)
             {
-                return true;
+                throw new KineticaException("Could not connect to any working Kinetica server");
             }
-
-            // Authorization failures won't change with retries
-            if (ex.Message.Contains("Unauthorized", StringComparison.OrdinalIgnoreCase) ||
-                ex.Message.Contains("401", StringComparison.OrdinalIgnoreCase) ||
-                ex.Message.Contains("credentials", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -805,7 +962,7 @@ public partial class Kinetica : IDisposable
             }
         }  // DecodeRawBinaryDataUsingTypeIDs
 
-        #region Request Submission API (Matches Rust gpudb.rs design)
+        #region Request Submission API
 
         /// <summary>
         /// Submit a request to a Kinetica endpoint with HA failover support.
@@ -994,6 +1151,44 @@ public partial class Kinetica : IDisposable
             return SubmitRequestToUrlInternal(url.ToString(), requestBytes, UseSnappy, true);
         }
 
+        /// <summary>
+        /// Authenticated API-reachability probe: returns <c>true</c> if the client can make API
+        /// calls against the Kinetica server at the given URL, <c>false</c> otherwise.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Used during connection initialization to verify that a server-advertised head node URL
+        /// (derived from the <c>conf.worker_http_server_urls</c> system property) is actually
+        /// reachable from the client before committing to multi-head operations. A cheap
+        /// <c>/show/system/status</c> request is issued directly to <paramref name="url"/> (no HA
+        /// failover) through the client's configured <see cref="IHttpTransport"/>, so it carries the
+        /// client's authorization and transport settings; any failure is treated as "not reachable".
+        /// Mirrors the Java client's <c>isSystemRunning()</c> check.
+        /// </para>
+        /// <para>
+        /// This differs from <see cref="IsKineticaRunning(Uri)"/>, which is an <em>unauthenticated</em>
+        /// liveness ping (a raw <c>GET</c> on its own <c>HttpClient</c>) used as the failover
+        /// candidate-selection predicate. This method answers "can I actually issue API requests
+        /// here?" rather than "is a Kinetica process up?", which is the question that matters when
+        /// deciding whether multi-head operations are viable. It also goes through the injected
+        /// transport, so it is exercisable in unit tests with a fake transport.
+        /// </para>
+        /// </remarks>
+        /// <param name="url">The server URL to probe.</param>
+        /// <returns><c>true</c> if the server responds; <c>false</c> on any error.</returns>
+        internal bool IsSystemRunning(Uri url)
+        {
+            try
+            {
+                SubmitRequestRaw<ShowSystemStatusResponse>(url, new ShowSystemStatusRequest());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Internal HTTP Helpers
@@ -1015,8 +1210,22 @@ public partial class Kinetica : IDisposable
         }
 
         /// <summary>
-        /// Checks if Kinetica is running at the given URL.
+        /// Unauthenticated liveness ping: checks whether a Kinetica process is up at the given URL.
         /// </summary>
+        /// <remarks>
+        /// Issues a raw <c>GET</c> on its own short-lived <see cref="HttpClient"/> (no authorization,
+        /// independent of the configured <see cref="IHttpTransport"/>) and looks for the server's
+        /// "Kinetica is running!" landing response. This is the predicate passed to
+        /// <c>HAFailoverManager.SwitchUrl</c> for failover candidate selection: it answers "is there
+        /// a live server to fail over to?" cheaply, without depending on valid credentials or a
+        /// functioning API endpoint.
+        /// <para>
+        /// For the stronger, authenticated "can I actually make API calls here?" check used when
+        /// deciding multi-head viability during initialization, see <see cref="IsSystemRunning(Uri)"/>.
+        /// The two are intentionally distinct probes; do not collapse one into the other without
+        /// accounting for the auth/transport and failover-behavior differences.
+        /// </para>
+        /// </remarks>
         /// <param name="url">The URL to check</param>
         /// <returns>True if Kinetica is running, false otherwise</returns>
         public bool IsKineticaRunning(Uri url)
@@ -1025,8 +1234,12 @@ public partial class Kinetica : IDisposable
             {
                 // Simple GET request to check if server is running
                 // We can't use the transport layer here as it only supports POST
-                // So we'll create a temporary HttpClient for this check
-                using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+                // So we'll create a temporary HttpClient for this check, bounded by the default
+                // server-connection timeout.
+                using var client = new HttpClient
+                {
+                    Timeout = TimeSpan.FromMilliseconds(Options.DefaultServerConnectionTimeout)
+                };
                 using var response = client.GetAsync(url).Result;
 
                 if (response.IsSuccessStatusCode)

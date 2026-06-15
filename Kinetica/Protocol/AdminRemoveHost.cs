@@ -9,38 +9,42 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRemoveHost(AdminRemoveHostRequest)">Kinetica.adminRemoveHost</see>.
-/// </summary>
+/// cref="Kinetica.adminRemoveHost">Kinetica.adminRemoveHost</see>.</summary>
 /// <remarks><para>Removes a host from an existing cluster. If the host to be
 /// removed has any ranks running on it, the ranks must be removed using <see
-/// cref="Kinetica.adminRemoveRanks(AdminRemoveRanksRequest)">Kinetica.adminRemoveRanks</see>
-/// or manually switched over to a new host using <see
-/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>
-/// prior to host removal. If the host to be removed has the graph server or
-/// SQL planner running on it, these must be manually switched over to a new
-/// host using <see
-/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
-/// </para></remarks>
+/// cref="Kinetica.adminRemoveRanks">Kinetica.adminRemoveRanks</see> or
+/// manually switched over to a new host using <see
+/// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see> prior to
+/// host removal. If the host to be removed has the graph server or SQL planner
+/// running on it, these must be manually switched over to a new host using
+/// <see cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>.</para>
+/// </remarks>
 public class AdminRemoveHostRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminRemoveHostRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, only
+        /// <summary>If set to <see
+        /// cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>, only
         /// validation checks will be performed.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminRemoveHostRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminRemoveHostRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
 
         public const string TRUE = "true";
@@ -49,25 +53,33 @@ public class AdminRemoveHostRequest : KineticaData
 
     /// <summary>Identifies the host this applies to.</summary>
     /// <remarks><para>Can be the host address, or formatted as 'hostN' where N
-    /// is the host number as specified in gpudb.conf</para></remarks>
+    /// is the host number as specified in gpudb.conf.</para></remarks>
     public string host { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         only validation checks will be performed. No host is removed.
+    ///         <term><see
+    ///         cref="AdminRemoveHostRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>, only
+    ///         validation checks will be performed. No host is removed.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRemoveHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -83,23 +95,31 @@ public class AdminRemoveHostRequest : KineticaData
     ///
     /// <param name="host">Identifies the host this applies to. Can be the host
     /// address, or formatted as 'hostN' where N is the host number as
-    /// specified in gpudb.conf</param>
+    /// specified in gpudb.conf.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         only validation checks will be performed. No host is removed.
+    ///         <term><see
+    ///         cref="AdminRemoveHostRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>, only
+    ///         validation checks will be performed. No host is removed.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminRemoveHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminRemoveHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -113,8 +133,7 @@ public class AdminRemoveHostRequest : KineticaData
 } // end class AdminRemoveHostRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRemoveHost(AdminRemoveHostRequest)">Kinetica.adminRemoveHost</see>.
-/// </summary>
+/// cref="Kinetica.adminRemoveHost">Kinetica.adminRemoveHost</see>.</summary>
 public class AdminRemoveHostResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

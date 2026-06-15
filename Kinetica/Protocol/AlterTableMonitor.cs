@@ -9,25 +9,26 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTableMonitor(AlterTableMonitorRequest)">Kinetica.alterTableMonitor</see>.
+/// cref="Kinetica.alterTableMonitor">Kinetica.alterTableMonitor</see>.
 /// </summary>
 /// <remarks><para>Alters a table monitor previously created with <see
-/// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+/// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
 /// </para></remarks>
 public class AlterTableMonitorRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="monitor_updates_map" />.</summary>
+    /// cref="AlterTableMonitorRequest.monitor_updates_map" />.</summary>
     /// <remarks><para>Map containing the properties of the table monitor to be
     /// updated. Error if empty.</para></remarks>
     public struct MonitorUpdatesMap
     {
         /// <summary>Updates the schema name.</summary>
         /// <remarks><para> If <see
-        /// cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> doesn't
-        /// exist, an error will be thrown. If <see
-        /// cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is empty,
-        /// then the user's default schema will be used.</para></remarks>
+        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        /// doesn't exist, an error will be thrown. If <see
+        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+        /// is empty, then the user's default schema will be used.</para>
+        /// </remarks>
         public const string SCHEMA_NAME = "schema_name";
 
         /// <summary>Updates the maximum number of consecutive failures before
@@ -40,11 +41,13 @@ public class AlterTableMonitorRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="MonitorUpdatesMap.RESUME">RESUME</see>
+        ///         <term><see
+        ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.RESUME">RESUME</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="MonitorUpdatesMap.SUSPEND">SUSPEND</see>
+        ///         <term><see
+        ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SUSPEND">SUSPEND</see>
         ///         </term>
         ///     </item>
         /// </list>
@@ -56,7 +59,7 @@ public class AlterTableMonitorRequest : KineticaData
     } // end struct MonitorUpdatesMap
 
     /// <summary>The topic ID returned by <see
-    /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    /// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
     /// </summary>
     public string topic_id { get; set; }
 
@@ -65,17 +68,18 @@ public class AlterTableMonitorRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+    ///         </term>
     ///         <description>Updates the schema name.  If <see
-    ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> doesn't
-    ///         exist, an error will be thrown. If <see
-    ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
-    ///         empty, then the user's default schema will be used.
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         doesn't exist, an error will be thrown. If <see
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         is empty, then the user's default schema will be used.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="MonitorUpdatesMap.MAX_CONSECUTIVE_FAILURES">MAX_CONSECUTIVE_FAILURES</see>:
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.MAX_CONSECUTIVE_FAILURES">MAX_CONSECUTIVE_FAILURES</see>:
     ///         </term>
     ///         <description>Updates the maximum number of consecutive failures
     ///         before suspending the stream. A value of '-1' to disables
@@ -84,18 +88,20 @@ public class AlterTableMonitorRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="MonitorUpdatesMap.NOTIFICATIONS">NOTIFICATIONS</see>:
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.NOTIFICATIONS">NOTIFICATIONS</see>:
     ///         </term>
     ///         <description>Updates the state of the monitor.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="MonitorUpdatesMap.RESUME">RESUME</see>
+    ///                 <term><see
+    ///                 cref="AlterTableMonitorRequest.MonitorUpdatesMap.RESUME">RESUME</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="MonitorUpdatesMap.SUSPEND">SUSPEND</see></term>
+    ///                 cref="AlterTableMonitorRequest.MonitorUpdatesMap.SUSPEND">SUSPEND</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is an empty Dictionary.</description>
@@ -116,24 +122,25 @@ public class AlterTableMonitorRequest : KineticaData
     /// specified parameters.</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    /// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
     /// </param>
     /// <param name="monitor_updates_map">Map containing the properties of the
     /// table monitor to be updated. Error if empty.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
+    ///         </term>
     ///         <description>Updates the schema name.  If <see
-    ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> doesn't
-    ///         exist, an error will be thrown. If <see
-    ///         cref="MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see> is
-    ///         empty, then the user's default schema will be used.
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         doesn't exist, an error will be thrown. If <see
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>
+    ///         is empty, then the user's default schema will be used.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="MonitorUpdatesMap.MAX_CONSECUTIVE_FAILURES">MAX_CONSECUTIVE_FAILURES</see>:
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.MAX_CONSECUTIVE_FAILURES">MAX_CONSECUTIVE_FAILURES</see>:
     ///         </term>
     ///         <description>Updates the maximum number of consecutive failures
     ///         before suspending the stream. A value of '-1' to disables
@@ -142,18 +149,20 @@ public class AlterTableMonitorRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="MonitorUpdatesMap.NOTIFICATIONS">NOTIFICATIONS</see>:
+    ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.NOTIFICATIONS">NOTIFICATIONS</see>:
     ///         </term>
     ///         <description>Updates the state of the monitor.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="MonitorUpdatesMap.RESUME">RESUME</see>
+    ///                 <term><see
+    ///                 cref="AlterTableMonitorRequest.MonitorUpdatesMap.RESUME">RESUME</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="MonitorUpdatesMap.SUSPEND">SUSPEND</see></term>
+    ///                 cref="AlterTableMonitorRequest.MonitorUpdatesMap.SUSPEND">SUSPEND</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is an empty Dictionary.</description>
@@ -172,7 +181,7 @@ public class AlterTableMonitorRequest : KineticaData
 } // end class AlterTableMonitorRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTableMonitor(AlterTableMonitorRequest)">Kinetica.alterTableMonitor</see>.
+/// cref="Kinetica.alterTableMonitor">Kinetica.alterTableMonitor</see>.
 /// </summary>
 public class AlterTableMonitorResponse : KineticaData
 {

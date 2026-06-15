@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasProc(HasProcRequest)">Kinetica.hasProc</see>.</summary>
+/// cref="Kinetica.hasProc">Kinetica.hasProc</see>.</summary>
 /// <remarks><para>Checks the existence of a proc with the given name.</para>
 /// </remarks>
 public class HasProcRequest : KineticaData
@@ -42,11 +42,11 @@ public class HasProcRequest : KineticaData
 } // end class HasProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasProc(HasProcRequest)">Kinetica.hasProc</see>.</summary>
+/// cref="Kinetica.hasProc">Kinetica.hasProc</see>.</summary>
 public class HasProcResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="proc_exists" />.</summary>
+    /// cref="HasProcResponse.proc_exists" />.</summary>
     /// <remarks><para>Indicates whether the proc exists or not.</para>
     /// </remarks>
     public struct ProcExists
@@ -55,7 +55,7 @@ public class HasProcResponse : KineticaData
         public const string FALSE = "false";
     } // end struct ProcExists
 
-    /// <summary>Value of <see cref="HasProcRequest.proc_name">proc_name</see>
+    /// <summary>Value of <see cref="HasProcRequest.proc_name">proc_name</see>.
     /// </summary>
     public string proc_name { get; set; }
 

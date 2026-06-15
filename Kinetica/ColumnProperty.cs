@@ -234,6 +234,24 @@ public struct ColumnProperty
     public const string INIT_WITH_UUID = "init_with_uuid";
 
     /// <summary>For 'date', 'time', 'datetime', or 'timestamp' column types,
-    /// always update the field with 'NOW()' upon any update.</summary>
+    /// update the field with 'NOW()' upon any update.</summary>
     public const string UPDATE_WITH_NOW = "update_with_now";
+
+    /// <summary>For 'charN' or 'string' column types, update the field with
+    /// the current user's name upon any update.</summary>
+    public const string UPDATE_WITH_USER = "update_with_user";
+
+    /// <summary>Sets a default value expression for this column, e.g.
+    /// 'default(0)', 'default(''pending'')', or 'default(NOW())'.</summary>
+    /// <remarks><para> When the column is omitted from an insert via
+    /// request_schema_str, the expression is evaluated and the result is used
+    /// as the column value.</para></remarks>
+    public const string DEFAULT = "default";
+
+    /// <summary>Sets a default value expression for this column with SQL
+    /// syntax, e.g. 'default(0)', 'default(''pending'')', or 'default(NOW())'.
+    /// </summary>
+    /// <remarks><para> Only used for showing the expression when generating
+    /// SQL DDL.</para></remarks>
+    public const string DEFAULT_SQL = "default_sql";
 } // end struct ColumnProperty

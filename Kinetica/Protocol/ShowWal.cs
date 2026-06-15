@@ -9,29 +9,32 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.</summary>
+/// cref="Kinetica.showWal">Kinetica.showWal</see>.</summary>
 /// <remarks><para>Requests table write-ahead log (WAL) properties.
 /// Returns information about the requested table WAL entries.</para></remarks>
 public class ShowWalRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowWalRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> include a map of
-        /// the WAL settings for the requested tables.</summary>
+        /// <summary>If <see cref="ShowWalRequest.Options.TRUE">TRUE</see>
+        /// include a map of the WAL settings for the requested tables.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowWalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see cref="ShowWalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowWalRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string SHOW_SETTINGS = "show_settings";
 
         public const string TRUE = "true";
@@ -45,21 +48,25 @@ public class ShowWalRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:
+    ///         <term><see
+    ///         cref="ShowWalRequest.Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> include a
-    ///         map of the WAL settings for the requested tables.
+    ///         <description>If <see
+    ///         cref="ShowWalRequest.Options.TRUE">TRUE</see> include a map of
+    ///         the WAL settings for the requested tables.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowWalRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -77,21 +84,25 @@ public class ShowWalRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:
+    ///         <term><see
+    ///         cref="ShowWalRequest.Options.SHOW_SETTINGS">SHOW_SETTINGS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> include a
-    ///         map of the WAL settings for the requested tables.
+    ///         <description>If <see
+    ///         cref="ShowWalRequest.Options.TRUE">TRUE</see> include a map of
+    ///         the WAL settings for the requested tables.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowWalRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowWalRequest.Options.FALSE">FALSE</see></term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="ShowWalRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -104,7 +115,7 @@ public class ShowWalRequest : KineticaData
 } // end class ShowWalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.</summary>
+/// cref="Kinetica.showWal">Kinetica.showWal</see>.</summary>
 public class ShowWalResponse : KineticaData
 {
     /// <summary>List of returned tables.</summary>

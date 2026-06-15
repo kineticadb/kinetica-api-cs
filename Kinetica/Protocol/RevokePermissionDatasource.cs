@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionDatasource(RevokePermissionDatasourceRequest)">Kinetica.revokePermissionDatasource</see>.
+/// cref="Kinetica.revokePermissionDatasource">Kinetica.revokePermissionDatasource</see>.
 /// </summary>
 /// <remarks><para>Revokes a <a href="../../../concepts/data_sources/"
 /// target="_top">data source</a> permission from a user or role.</para>
@@ -17,15 +17,15 @@ namespace kinetica;
 public class RevokePermissionDatasourceRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
-    /// <remarks><para>Permission to revoke from the user or role</para>
+    /// cref="RevokePermissionDatasourceRequest.permission" />.</summary>
+    /// <remarks><para>Permission to revoke from the user or role.</para>
     /// </remarks>
     public struct Permission
     {
-        /// <summary>Admin access on the given data source</summary>
+        /// <summary>Admin access on the given data source.</summary>
         public const string ADMIN = "admin";
 
-        /// <summary>Connect access on the given data source</summary>
+        /// <summary>Connect access on the given data source.</summary>
         public const string CONNECT = "connect";
     } // end struct Permission
 
@@ -38,13 +38,17 @@ public class RevokePermissionDatasourceRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
-    ///         <description>Admin access on the given data source
+    ///         <term><see
+    ///         cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
-    ///         <description>Connect access on the given data source
+    ///         <term><see
+    ///         cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></remarks>
@@ -74,13 +78,17 @@ public class RevokePermissionDatasourceRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
-    ///         <description>Admin access on the given data source
+    ///         <term><see
+    ///         cref="RevokePermissionDatasourceRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
+    ///         <description>Admin access on the given data source.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
-    ///         <description>Connect access on the given data source
+    ///         <term><see
+    ///         cref="RevokePermissionDatasourceRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
+    ///         <description>Connect access on the given data source.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -102,7 +110,7 @@ public class RevokePermissionDatasourceRequest : KineticaData
 } // end class RevokePermissionDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionDatasource(RevokePermissionDatasourceRequest)">Kinetica.revokePermissionDatasource</see>.
+/// cref="Kinetica.revokePermissionDatasource">Kinetica.revokePermissionDatasource</see>.
 /// </summary>
 public class RevokePermissionDatasourceResponse : KineticaData
 {

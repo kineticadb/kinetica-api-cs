@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showEnvironment(ShowEnvironmentRequest)">Kinetica.showEnvironment</see>.
-/// </summary>
+/// cref="Kinetica.showEnvironment">Kinetica.showEnvironment</see>.</summary>
 /// <remarks><para>Shows information about a specified <a
 /// href="../../../concepts/udf/" target="_top">user-defined function</a> (UDF)
 /// environment or all environments.
@@ -18,43 +17,56 @@ namespace kinetica;
 public class ShowEnvironmentRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowEnvironmentRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> and if the
-        /// environment specified in <see cref="environment_name" /> does not
-        /// exist, no error is returned.</summary>
+        /// <summary>If <see
+        /// cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see> and if the
+        /// environment specified in <see
+        /// cref="ShowEnvironmentRequest.environment_name" /> does not exist,
+        /// no error is returned.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> only return the
-        /// names of the installed environments and omit package listing.
+        /// <summary>If <see
+        /// cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see> only return
+        /// the names of the installed environments and omit package listing.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string SHOW_NAMES_ONLY = "show_names_only";
     } // end struct Options
 
@@ -70,42 +82,57 @@ public class ShowEnvironmentRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
-    ///         environment specified in <see cref="environment_name" /> does
-    ///         not exist, no error is returned. If <see
-    ///         cref="Options.FALSE">FALSE</see> and if the environment
-    ///         specified in <see cref="environment_name" /> does not exist,
-    ///         then an error is returned.
+    ///         <description>If <see
+    ///         cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see> and if
+    ///         the environment specified in <see
+    ///         cref="ShowEnvironmentRequest.environment_name" /> does not
+    ///         exist, no error is returned. If <see
+    ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see> and if
+    ///         the environment specified in <see
+    ///         cref="ShowEnvironmentRequest.environment_name" /> does not
+    ///         exist, then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHOW_NAMES_ONLY">SHOW_NAMES_ONLY</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> only return
-    ///         the names of the installed environments and omit package
+    ///         cref="ShowEnvironmentRequest.Options.SHOW_NAMES_ONLY">SHOW_NAMES_ONLY</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see> only
+    ///         return the names of the installed environments and omit package
     ///         listing.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -127,42 +154,55 @@ public class ShowEnvironmentRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> and if the
-    ///         environment specified in <paramref name="environment_name" />
-    ///         does not exist, no error is returned. If <see
-    ///         cref="Options.FALSE">FALSE</see> and if the environment
-    ///         specified in <paramref name="environment_name" /> does not
-    ///         exist, then an error is returned.
+    ///         <description>If <see
+    ///         cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see> and if
+    ///         the environment specified in <paramref name="environment_name"
+    ///         /> does not exist, no error is returned. If <see
+    ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see> and if
+    ///         the environment specified in <paramref name="environment_name"
+    ///         /> does not exist, then an error is returned.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHOW_NAMES_ONLY">SHOW_NAMES_ONLY</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> only return
-    ///         the names of the installed environments and omit package
+    ///         cref="ShowEnvironmentRequest.Options.SHOW_NAMES_ONLY">SHOW_NAMES_ONLY</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see> only
+    ///         return the names of the installed environments and omit package
     ///         listing.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -176,15 +216,15 @@ public class ShowEnvironmentRequest : KineticaData
 } // end class ShowEnvironmentRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showEnvironment(ShowEnvironmentRequest)">Kinetica.showEnvironment</see>.
-/// </summary>
+/// cref="Kinetica.showEnvironment">Kinetica.showEnvironment</see>.</summary>
 public class ShowEnvironmentResponse : KineticaData
 {
     /// <summary>A list of all environment names.</summary>
     public IList<string> environment_names { get; set; } = new List<string>();
 
     /// <summary>Information about the installed packages in the respective
-    /// environments in <see cref="environment_names" />.</summary>
+    /// environments in <see cref="ShowEnvironmentResponse.environment_names"
+    /// />.</summary>
     public IList<IList<string>> packages { get; set; } = new List<IList<string>>();
 
     /// <summary>Additional information.</summary>

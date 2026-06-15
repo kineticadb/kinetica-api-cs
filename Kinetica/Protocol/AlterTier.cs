@@ -9,20 +9,20 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
-/// </summary>
+/// cref="Kinetica.alterTier">Kinetica.alterTier</see>.</summary>
 /// <remarks><para>Alters properties of an existing <a
 /// href="../../../rm/concepts/#storage-tiers" target="_top">tier</a> to
 /// facilitate <a href="../../../rm/concepts/" target="_top">resource
 /// management</a>.</para>
 /// <para>To disable <a href="../../../rm/concepts/#watermark-based-eviction"
 /// target="_top">watermark-based eviction</a>, set both <see
-/// cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see> and <see
-/// cref="Options.LOW_WATERMARK">LOW_WATERMARK</see> to 100.</para></remarks>
+/// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see> and
+/// <see cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see> to
+/// 100.</para></remarks>
 public class AlterTierRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AlterTierRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -39,8 +39,8 @@ public class AlterTierRequest : KineticaData
 
         /// <summary>Threshold of resource usage that once fallen below after
         /// crossing the <see
-        /// cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>, will cease
-        /// watermark-based eviction from this tier.</summary>
+        /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>,
+        /// will cease watermark-based eviction from this tier.</summary>
         /// <remarks><para>The minimum allowed value is '0'. The maximum
         /// allowed value is '100'.</para></remarks>
         public const string LOW_WATERMARK = "low_watermark";
@@ -50,20 +50,22 @@ public class AlterTierRequest : KineticaData
         /// <remarks><para>Applies to cold storage tiers only.</para></remarks>
         public const string WAIT_TIMEOUT = "wait_timeout";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> the system
-        /// configuration will be written to disk upon successful application
-        /// of this request.</summary>
+        /// <summary>If <see cref="AlterTierRequest.Options.TRUE">TRUE</see>
+        /// the system configuration will be written to disk upon successful
+        /// application of this request.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="AlterTierRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string PERSIST = "persist";
 
         public const string TRUE = "true";
@@ -84,12 +86,14 @@ public class AlterTierRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CAPACITY">CAPACITY</see>:</term>
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.CAPACITY">CAPACITY</see>:</term>
     ///         <description>Maximum size in bytes this tier may hold at once,
     ///         per rank.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:
     ///         </term>
     ///         <description>Threshold of usage of this tier's resource that
     ///         once exceeded, will trigger watermark-based eviction from this
@@ -97,41 +101,50 @@ public class AlterTierRequest : KineticaData
     ///         value is '100'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LOW_WATERMARK">LOW_WATERMARK</see>:
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:
     ///         </term>
     ///         <description>Threshold of resource usage that once fallen below
     ///         after crossing the <see
-    ///         cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>, will cease
-    ///         watermark-based eviction from this tier. The minimum allowed
-    ///         value is '0'. The maximum allowed value is '100'.</description>
+    ///         cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>,
+    ///         will cease watermark-based eviction from this tier. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '100'.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for reading from or writing to
     ///         this resource. Applies to cold storage tiers only.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> the system
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see
+    ///         cref="AlterTierRequest.Options.TRUE">TRUE</see> the system
     ///         configuration will be written to disk upon successful
     ///         application of this request. This will commit the changes from
     ///         this request and any additional in-memory modifications.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterTierRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RANK">RANK</see>:</term>
+    ///         <term><see cref="AlterTierRequest.Options.RANK">RANK</see>:
+    ///         </term>
     ///         <description>Apply the requested change only to a specific
     ///         rank. The minimum allowed value is '0'. The maximum allowed
     ///         value is '10000'.</description>
@@ -152,12 +165,14 @@ public class AlterTierRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CAPACITY">CAPACITY</see>:</term>
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.CAPACITY">CAPACITY</see>:</term>
     ///         <description>Maximum size in bytes this tier may hold at once,
     ///         per rank.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:
     ///         </term>
     ///         <description>Threshold of usage of this tier's resource that
     ///         once exceeded, will trigger watermark-based eviction from this
@@ -165,41 +180,50 @@ public class AlterTierRequest : KineticaData
     ///         value is '100'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LOW_WATERMARK">LOW_WATERMARK</see>:
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:
     ///         </term>
     ///         <description>Threshold of resource usage that once fallen below
     ///         after crossing the <see
-    ///         cref="Options.HIGH_WATERMARK">HIGH_WATERMARK</see>, will cease
-    ///         watermark-based eviction from this tier. The minimum allowed
-    ///         value is '0'. The maximum allowed value is '100'.</description>
+    ///         cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>,
+    ///         will cease watermark-based eviction from this tier. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '100'.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:
     ///         </term>
     ///         <description>Timeout in seconds for reading from or writing to
     ///         this resource. Applies to cold storage tiers only.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PERSIST">PERSIST</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> the system
+    ///         <term><see
+    ///         cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
+    ///         <description>If <see
+    ///         cref="AlterTierRequest.Options.TRUE">TRUE</see> the system
     ///         configuration will be written to disk upon successful
     ///         application of this request. This will commit the changes from
     ///         this request and any additional in-memory modifications.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AlterTierRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RANK">RANK</see>:</term>
+    ///         <term><see cref="AlterTierRequest.Options.RANK">RANK</see>:
+    ///         </term>
     ///         <description>Apply the requested change only to a specific
     ///         rank. The minimum allowed value is '0'. The maximum allowed
     ///         value is '10000'.</description>
@@ -215,8 +239,7 @@ public class AlterTierRequest : KineticaData
 } // end class AlterTierRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
-/// </summary>
+/// cref="Kinetica.alterTier">Kinetica.alterTier</see>.</summary>
 public class AlterTierResponse : KineticaData
 {
     /// <summary>Value of <see cref="AlterTierRequest.name">name</see>.

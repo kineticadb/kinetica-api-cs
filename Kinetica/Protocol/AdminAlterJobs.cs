@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAlterJobs(AdminAlterJobsRequest)">Kinetica.adminAlterJobs</see>.
-/// </summary>
+/// cref="Kinetica.adminAlterJobs">Kinetica.adminAlterJobs</see>.</summary>
 /// <remarks><para>Perform the requested action on a list of one or more
 /// job(s). Based on the type of job and the current state of execution, the
 /// action may not be successfully executed. The final result of the attempted
@@ -19,8 +18,8 @@ namespace kinetica;
 /// Manager</a> for more information.</para></remarks>
 public class AdminAlterJobsRequest : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="action"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AdminAlterJobsRequest.action" />.</summary>
     /// <remarks><para>Action to be performed on the jobs specified by job_ids.
     /// </para></remarks>
     public struct Action
@@ -29,11 +28,11 @@ public class AdminAlterJobsRequest : KineticaData
     } // end struct Action
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminAlterJobsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>Job tag returned in call to create the job</summary>
+        /// <summary>Job tag returned in call to create the job.</summary>
         public const string JOB_TAG = "job_tag";
     } // end struct Options
 
@@ -45,7 +44,8 @@ public class AdminAlterJobsRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.CANCEL">CANCEL</see></term>
+    ///         <term><see
+    ///         cref="AdminAlterJobsRequest.Action.CANCEL">CANCEL</see></term>
     ///     </item>
     /// </list></remarks>
     public string action { get; set; }
@@ -53,8 +53,10 @@ public class AdminAlterJobsRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <term><see
+    ///         cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:
+    ///         </term>
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -74,14 +76,17 @@ public class AdminAlterJobsRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.CANCEL">CANCEL</see></term>
+    ///         <term><see
+    ///         cref="AdminAlterJobsRequest.Action.CANCEL">CANCEL</see></term>
     ///     </item>
     /// </list></param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.JOB_TAG">JOB_TAG</see>:</term>
-    ///         <description>Job tag returned in call to create the job
+    ///         <term><see
+    ///         cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:
+    ///         </term>
+    ///         <description>Job tag returned in call to create the job.
     ///         </description>
     ///     </item>
     /// </list>
@@ -97,8 +102,7 @@ public class AdminAlterJobsRequest : KineticaData
 } // end class AdminAlterJobsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAlterJobs(AdminAlterJobsRequest)">Kinetica.adminAlterJobs</see>.
-/// </summary>
+/// cref="Kinetica.adminAlterJobs">Kinetica.adminAlterJobs</see>.</summary>
 public class AdminAlterJobsResponse : KineticaData
 {
     /// <summary>Jobs on which the action was performed.</summary>

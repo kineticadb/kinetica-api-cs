@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createUserInternal(CreateUserInternalRequest)">Kinetica.createUserInternal</see>.
+/// cref="Kinetica.createUserInternal">Kinetica.createUserInternal</see>.
 /// </summary>
 /// <remarks><para>Creates a new internal user (a user whose credentials are
 /// managed by the database system).</para></remarks>
 public class CreateUserInternalRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateUserInternalRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -24,49 +24,61 @@ public class CreateUserInternalRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///         <description>User may login</description>
+        ///         <term><see
+        ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
+        ///         <description>User may login.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///         <description>User may not login</description>
+        ///         <term><see
+        ///         cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>User may not login.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string ACTIVATED = "activated";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>When <see cref="Options.TRUE">TRUE</see>, a home directory
-        /// in KiFS is created for this user.</summary>
+        /// <summary>When <see
+        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>, a home
+        /// directory in KiFS is created for this user.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string CREATE_HOME_DIRECTORY = "create_home_directory";
 
-        /// <summary>Default schema to associate with this user</summary>
+        /// <summary>Default schema to associate with this user.</summary>
         public const string DEFAULT_SCHEMA = "default_schema";
 
         /// <summary>The maximum capacity to apply to the created directory if
         /// <see
-        /// cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see> is
-        /// <see cref="Options.TRUE">TRUE</see>.</summary>
+        /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+        /// is <see cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
+        /// </summary>
         /// <remarks><para>Set to -1 to indicate no upper limit. If empty, the
         /// system default limit is applied.</para></remarks>
         public const string DIRECTORY_DATA_LIMIT = "directory_data_limit";
 
         /// <summary>Name of an existing resource group to associate with this
-        /// user</summary>
+        /// user.</summary>
         public const string RESOURCE_GROUP = "resource_group";
     } // end struct Options
 
@@ -83,62 +95,78 @@ public class CreateUserInternalRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.ACTIVATED">ACTIVATED</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUserInternalRequest.Options.ACTIVATED">ACTIVATED</see>:
+    ///         </term>
     ///         <description>Is the user allowed to login.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-    ///                 <description>User may login</description>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>User may login.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-    ///                 <description>User may not login</description>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>User may not login.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+    ///         cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
     ///         </term>
-    ///         <description>When <see cref="Options.TRUE">TRUE</see>, a home
-    ///         directory in KiFS is created for this user.
+    ///         <description>When <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>, a
+    ///         home directory in KiFS is created for this user.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
-    ///         </term>
-    ///         <description>Default schema to associate with this user
+    ///         The default value is <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+    ///         cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
     ///         </term>
-    ///         <description>The maximum capacity to apply to the created
-    ///         directory if <see
-    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>. Set to -1 to indicate
-    ///         no upper limit. If empty, the system default limit is applied.
+    ///         <description>Default schema to associate with this user.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         <term><see
+    ///         cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+    ///         </term>
+    ///         <description>The maximum capacity to apply to the created
+    ///         directory if <see
+    ///         cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+    ///         is <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>. Set
+    ///         to -1 to indicate no upper limit. If empty, the system default
+    ///         limit is applied.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -159,62 +187,78 @@ public class CreateUserInternalRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.ACTIVATED">ACTIVATED</see>:</term>
+    ///         <term><see
+    ///         cref="CreateUserInternalRequest.Options.ACTIVATED">ACTIVATED</see>:
+    ///         </term>
     ///         <description>Is the user allowed to login.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-    ///                 <description>User may login</description>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>User may login.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-    ///                 <description>User may not login</description>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>User may not login.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+    ///         cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
     ///         </term>
-    ///         <description>When <see cref="Options.TRUE">TRUE</see>, a home
-    ///         directory in KiFS is created for this user.
+    ///         <description>When <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>, a
+    ///         home directory in KiFS is created for this user.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateUserInternalRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
-    ///         </term>
-    ///         <description>Default schema to associate with this user
+    ///         The default value is <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+    ///         cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:
     ///         </term>
-    ///         <description>The maximum capacity to apply to the created
-    ///         directory if <see
-    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>. Set to -1 to indicate
-    ///         no upper limit. If empty, the system default limit is applied.
+    ///         <description>Default schema to associate with this user.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         <term><see
+    ///         cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:
+    ///         </term>
+    ///         <description>The maximum capacity to apply to the created
+    ///         directory if <see
+    ///         cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>
+    ///         is <see
+    ///         cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>. Set
+    ///         to -1 to indicate no upper limit. If empty, the system default
+    ///         limit is applied.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -229,7 +273,7 @@ public class CreateUserInternalRequest : KineticaData
 } // end class CreateUserInternalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createUserInternal(CreateUserInternalRequest)">Kinetica.createUserInternal</see>.
+/// cref="Kinetica.createUserInternal">Kinetica.createUserInternal</see>.
 /// </summary>
 public class CreateUserInternalResponse : KineticaData
 {

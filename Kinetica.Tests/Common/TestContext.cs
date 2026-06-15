@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using kinetica;
-
 namespace Kinetica.Tests.Common
 {
     /// <summary>
@@ -20,7 +16,11 @@ namespace Kinetica.Tests.Common
         /// </summary>
         public static (string url, string username, string password) GetConnectionConfig()
         {
-            var url = Environment.GetEnvironmentVariable("KINETICA_URL") ?? "http://localhost:9191";
+            // Default to 127.0.0.1 (not "localhost"): a single-node server advertises its head/worker
+            // URLs as 127.0.0.1 (conf.worker_http_server_urls), and auto-discovery re-verifies the
+            // user-given URL against that advertised URL. Connecting via "localhost" fails that match
+            // and silently degrades to DisableAutoDiscovery, breaking the HA-options tests.
+            var url = Environment.GetEnvironmentVariable("KINETICA_URL") ?? "http://127.0.0.1:9191";
             var username = Environment.GetEnvironmentVariable("KINETICA_USER") ?? "admin";
             var password = Environment.GetEnvironmentVariable("KINETICA_PASSWORD") ?? "secret";
 
@@ -31,16 +31,32 @@ namespace Kinetica.Tests.Common
         /// Create a new test context with an isolated schema.
         /// </summary>
         /// <param name="testName">Name of the test (used for schema naming)</param>
-        public TestContext(string testName)
+        /// <param name="options">
+        /// Optional connection options. When omitted, a default set is built from the
+        /// environment configuration. When supplied, any unset credentials are filled in
+        /// from the environment so callers can override only the settings they care about.
+        /// </param>
+        public TestContext(string testName, kinetica.Kinetica.Options options = null)
         {
             var (url, username, password) = GetConnectionConfig();
 
-            var options = new kinetica.Kinetica.Options
+            if (options == null)
             {
-                Username = username,
-                Password = password,
-                UseSnappy = false
-            };
+                options = new kinetica.Kinetica.Options
+                {
+                    Username = username,
+                    Password = password,
+                    UseSnappy = false
+                };
+            }
+            else
+            {
+                // Fall back to the environment credentials when the caller left them unset.
+                if (string.IsNullOrEmpty(options.Username))
+                    options.Username = username;
+                if (string.IsNullOrEmpty(options.Password))
+                    options.Password = password;
+            }
 
             Kinetica = new kinetica.Kinetica(url, options);
             SchemaName = $"test_{testName}";

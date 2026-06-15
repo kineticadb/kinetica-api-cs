@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.modifyGraph(ModifyGraphRequest)">Kinetica.modifyGraph</see>.
-/// </summary>
+/// cref="Kinetica.modifyGraph">Kinetica.modifyGraph</see>.</summary>
 /// <remarks><para>Update an existing graph network using given nodes, edges,
 /// weights, restrictions, and options.</para>
 /// <para>IMPORTANT: It's highly recommended that you review the <a
@@ -21,70 +20,82 @@ namespace kinetica;
 public class ModifyGraphRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ModifyGraphRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
         /// <summary>Value-based restriction comparison.</summary>
         /// <remarks><para>Any node or edge with a RESTRICTIONS_VALUECOMPARED
         /// value greater than the <see
-        /// cref="Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
+        /// cref="ModifyGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
         /// will not be included in the graph.</para></remarks>
         public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, returns the
+        /// <summary>If set to <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, returns the
         /// graph topology in the response as arrays.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string EXPORT_CREATE_RESULTS = "export_create_results";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, adds a
+        /// <summary>If set to <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, adds a
         /// 'EDGE_WKTLINE' column identifier to the specified <see
-        /// cref="Options.GRAPH_TABLE">GRAPH_TABLE</see> so the graph can be
-        /// viewed via WMS; for social and non-geospatial graphs, the
-        /// 'EDGE_WKTLINE' column identifier will be populated with spatial
-        /// coordinates derived from a flattening layout algorithm so the graph
-        /// can still be viewed.</summary>
+        /// cref="ModifyGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see> so
+        /// the graph can be viewed via WMS; for social and non-geospatial
+        /// graphs, the 'EDGE_WKTLINE' column identifier will be populated with
+        /// spatial coordinates derived from a flattening layout algorithm so
+        /// the graph can still be viewed.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ENABLE_GRAPH_DRAW = "enable_graph_draw";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the graph
-        /// will be saved in the persist directory (see the <a
+        /// <summary>If set to <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph will
+        /// be saved in the persist directory (see the <a
         /// href="../../../config/" target="_top">config reference</a> for more
         /// information).</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string SAVE_PERSIST = "save_persist";
 
         /// <summary>Adds a table monitor to every table used in the creation
@@ -93,14 +104,17 @@ public class ModifyGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ADD_TABLE_MONITOR = "add_table_monitor";
 
         /// <summary>If specified, the created graph is also created as a table
@@ -121,14 +135,17 @@ public class ModifyGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string REMOVE_LABEL_ONLY = "remove_label_only";
 
         /// <summary>Adds dummy 'pillowed' edges around intersection nodes
@@ -137,14 +154,17 @@ public class ModifyGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ADD_TURNS = "add_turns";
 
         /// <summary>Value in degrees modifies the thresholds for attributing
@@ -161,14 +181,16 @@ public class ModifyGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string USE_RTREE = "use_rtree";
 
         /// <summary>If provided the label string will be split according to
@@ -183,14 +205,16 @@ public class ModifyGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string ALLOW_MULTIPLE_EDGES = "allow_multiple_edges";
 
         /// <summary>If table exists (should be generated by the match/graph
@@ -203,8 +227,9 @@ public class ModifyGraphRequest : KineticaData
     /// <summary>Name of the graph resource to modify.</summary>
     public string graph_name { get; set; }
 
-    /// <summary>Nodes with which to update existing <see cref="nodes" /> in
-    /// graph specified by <see cref="graph_name" />.</summary>
+    /// <summary>Nodes with which to update existing <see
+    /// cref="ModifyGraphRequest.nodes" /> in graph specified by <see
+    /// cref="ModifyGraphRequest.graph_name" />.</summary>
     /// <remarks><para>Review <a
     /// href="../../../graph_solver/network_graph_solver/#nodes"
     /// target="_top">Nodes</a> for more information. Nodes must be specified
@@ -222,8 +247,9 @@ public class ModifyGraphRequest : KineticaData
     /// modify the graph.</para></remarks>
     public IList<string> nodes { get; set; } = new List<string>();
 
-    /// <summary>Edges with which to update existing <see cref="edges" /> in
-    /// graph specified by <see cref="graph_name" />.</summary>
+    /// <summary>Edges with which to update existing <see
+    /// cref="ModifyGraphRequest.edges" /> in graph specified by <see
+    /// cref="ModifyGraphRequest.graph_name" />.</summary>
     /// <remarks><para>Review <a
     /// href="../../../graph_solver/network_graph_solver/#edges"
     /// target="_top">Edges</a> for more information. Edges must be specified
@@ -241,8 +267,9 @@ public class ModifyGraphRequest : KineticaData
     /// used to modify the graph.</para></remarks>
     public IList<string> edges { get; set; } = new List<string>();
 
-    /// <summary>Weights with which to update existing <see cref="weights" />
-    /// in graph specified by <see cref="graph_name" />.</summary>
+    /// <summary>Weights with which to update existing <see
+    /// cref="ModifyGraphRequest.weights" /> in graph specified by <see
+    /// cref="ModifyGraphRequest.graph_name" />.</summary>
     /// <remarks><para>Review <a
     /// href="../../../graph_solver/network_graph_solver/#graph-weights"
     /// target="_top">Weights</a> for more information. Weights must be
@@ -262,8 +289,8 @@ public class ModifyGraphRequest : KineticaData
     public IList<string> weights { get; set; } = new List<string>();
 
     /// <summary>Restrictions with which to update existing <see
-    /// cref="restrictions" /> in graph specified by <see cref="graph_name" />.
-    /// </summary>
+    /// cref="ModifyGraphRequest.restrictions" /> in graph specified by <see
+    /// cref="ModifyGraphRequest.graph_name" />.</summary>
     /// <remarks><para>Review <a
     /// href="../../../graph_solver/network_graph_solver/#graph-restrictions"
     /// target="_top">Restrictions</a> for more information. Restrictions must
@@ -286,103 +313,130 @@ public class ModifyGraphRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
+    ///         cref="ModifyGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
     ///         </term>
     ///         <description>Value-based restriction comparison. Any node or
     ///         edge with a RESTRICTIONS_VALUECOMPARED value greater than the
     ///         <see
-    ///         cref="Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
+    ///         cref="ModifyGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
     ///         will not be included in the graph.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:
+    ///         cref="ModifyGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         returns the graph topology in the response as arrays.
+    ///         <description>If set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, returns the
+    ///         graph topology in the response as arrays.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:
+    ///         cref="ModifyGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         adds a 'EDGE_WKTLINE' column identifier to the specified <see
-    ///         cref="Options.GRAPH_TABLE">GRAPH_TABLE</see> so the graph can
-    ///         be viewed via WMS; for social and non-geospatial graphs, the
-    ///         'EDGE_WKTLINE' column identifier will be populated with spatial
-    ///         coordinates derived from a flattening layout algorithm so the
-    ///         graph can still be viewed.
+    ///         <description>If set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, adds a
+    ///         'EDGE_WKTLINE' column identifier to the specified <see
+    ///         cref="ModifyGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>
+    ///         so the graph can be viewed via WMS; for social and
+    ///         non-geospatial graphs, the 'EDGE_WKTLINE' column identifier
+    ///         will be populated with spatial coordinates derived from a
+    ///         flattening layout algorithm so the graph can still be viewed.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SAVE_PERSIST">SAVE_PERSIST</see>:
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         graph will be saved in the persist directory (see the <a
+    ///         <description>If set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
+    ///         will be saved in the persist directory (see the <a
     ///         href="../../../config/" target="_top">config reference</a> for
     ///         more information). If set to <see
-    ///         cref="Options.FALSE">FALSE</see>, the graph will be removed
-    ///         when the graph server is shutdown.
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>, the graph
+    ///         will be removed when the graph server is shutdown.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
+    ///         cref="ModifyGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
     ///         </term>
     ///         <description>Adds a table monitor to every table used in the
     ///         creation of the graph; this table monitor will trigger the
     ///         graph to update dynamically upon inserts to the source
     ///         table(s). Note that upon database restart, if <see
-    ///         cref="Options.SAVE_PERSIST">SAVE_PERSIST</see> is also set to
-    ///         <see cref="Options.TRUE">TRUE</see>, the graph will be fully
-    ///         reconstructed and the table monitors will be reattached. For
-    ///         more details on table monitors, see <see
-    ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    ///         cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>
+    ///         is also set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
+    ///         will be fully reconstructed and the table monitors will be
+    ///         reattached. For more details on table monitors, see <see
+    ///         cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:
+    ///         </term>
     ///         <description>If specified, the created graph is also created as
     ///         a table with the given name, in [schema_name.]table_name
     ///         format, using standard <a
@@ -396,7 +450,7 @@ public class ModifyGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:
+    ///         cref="ModifyGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:
     ///         </term>
     ///         <description>When RESTRICTIONS on labeled entities requested,
     ///         if set to true this will NOT delete the entity but only the
@@ -405,17 +459,24 @@ public class ModifyGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ADD_TURNS">ADD_TURNS</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:
+    ///         </term>
     ///         <description>Adds dummy 'pillowed' edges around intersection
     ///         nodes where there are more than three edges so that additional
     ///         weight penalties can be imposed by the solve endpoints.
@@ -423,17 +484,24 @@ public class ModifyGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:
+    ///         </term>
     ///         <description>Value in degrees modifies the thresholds for
     ///         attributing right, left, sharp turns, and intersections. It is
     ///         the vertical deviation angle from the incoming edge to the
@@ -444,24 +512,32 @@ public class ModifyGraphRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.USE_RTREE">USE_RTREE</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:
+    ///         </term>
     ///         <description>Use an range tree structure to accelerate and
     ///         improve the accuracy of snapping, especially to edges.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+    ///         cref="ModifyGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:
+    ///         </term>
     ///         <description>If provided the label string will be split
     ///         according to this delimiter and each sub-string will be applied
     ///         as a separate label onto the specified edge. The default value
@@ -469,7 +545,7 @@ public class ModifyGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
+    ///         cref="ModifyGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
     ///         </term>
     ///         <description>Multigraph choice; allowing multiple edges with
     ///         the same node pairs if set to true, otherwise, new edges with
@@ -477,18 +553,24 @@ public class ModifyGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:</term>
+    ///         cref="ModifyGraphRequest.Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:
+    ///         </term>
     ///         <description>If table exists (should be generated by the
     ///         match/graph match_embedding solver), the vector embeddings for
     ///         the newly inserted nodes will be appended into this table. The
@@ -578,103 +660,130 @@ public class ModifyGraphRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
+    ///         cref="ModifyGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
     ///         </term>
     ///         <description>Value-based restriction comparison. Any node or
     ///         edge with a RESTRICTIONS_VALUECOMPARED value greater than the
     ///         <see
-    ///         cref="Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
+    ///         cref="ModifyGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
     ///         will not be included in the graph.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:
+    ///         cref="ModifyGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         returns the graph topology in the response as arrays.
+    ///         <description>If set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, returns the
+    ///         graph topology in the response as arrays.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:
+    ///         cref="ModifyGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         adds a 'EDGE_WKTLINE' column identifier to the specified <see
-    ///         cref="Options.GRAPH_TABLE">GRAPH_TABLE</see> so the graph can
-    ///         be viewed via WMS; for social and non-geospatial graphs, the
-    ///         'EDGE_WKTLINE' column identifier will be populated with spatial
-    ///         coordinates derived from a flattening layout algorithm so the
-    ///         graph can still be viewed.
+    ///         <description>If set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, adds a
+    ///         'EDGE_WKTLINE' column identifier to the specified <see
+    ///         cref="ModifyGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>
+    ///         so the graph can be viewed via WMS; for social and
+    ///         non-geospatial graphs, the 'EDGE_WKTLINE' column identifier
+    ///         will be populated with spatial coordinates derived from a
+    ///         flattening layout algorithm so the graph can still be viewed.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SAVE_PERSIST">SAVE_PERSIST</see>:
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         graph will be saved in the persist directory (see the <a
+    ///         <description>If set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
+    ///         will be saved in the persist directory (see the <a
     ///         href="../../../config/" target="_top">config reference</a> for
     ///         more information). If set to <see
-    ///         cref="Options.FALSE">FALSE</see>, the graph will be removed
-    ///         when the graph server is shutdown.
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>, the graph
+    ///         will be removed when the graph server is shutdown.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
+    ///         cref="ModifyGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:
     ///         </term>
     ///         <description>Adds a table monitor to every table used in the
     ///         creation of the graph; this table monitor will trigger the
     ///         graph to update dynamically upon inserts to the source
     ///         table(s). Note that upon database restart, if <see
-    ///         cref="Options.SAVE_PERSIST">SAVE_PERSIST</see> is also set to
-    ///         <see cref="Options.TRUE">TRUE</see>, the graph will be fully
-    ///         reconstructed and the table monitors will be reattached. For
-    ///         more details on table monitors, see <see
-    ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+    ///         cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>
+    ///         is also set to <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
+    ///         will be fully reconstructed and the table monitors will be
+    ///         reattached. For more details on table monitors, see <see
+    ///         cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:
+    ///         </term>
     ///         <description>If specified, the created graph is also created as
     ///         a table with the given name, in [schema_name.]table_name
     ///         format, using standard <a
@@ -688,7 +797,7 @@ public class ModifyGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:
+    ///         cref="ModifyGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:
     ///         </term>
     ///         <description>When RESTRICTIONS on labeled entities requested,
     ///         if set to true this will NOT delete the entity but only the
@@ -697,17 +806,24 @@ public class ModifyGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ADD_TURNS">ADD_TURNS</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:
+    ///         </term>
     ///         <description>Adds dummy 'pillowed' edges around intersection
     ///         nodes where there are more than three edges so that additional
     ///         weight penalties can be imposed by the solve endpoints.
@@ -715,17 +831,24 @@ public class ModifyGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:
+    ///         </term>
     ///         <description>Value in degrees modifies the thresholds for
     ///         attributing right, left, sharp turns, and intersections. It is
     ///         the vertical deviation angle from the incoming edge to the
@@ -736,24 +859,32 @@ public class ModifyGraphRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.USE_RTREE">USE_RTREE</see>:</term>
+    ///         <term><see
+    ///         cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:
+    ///         </term>
     ///         <description>Use an range tree structure to accelerate and
     ///         improve the accuracy of snapping, especially to edges.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+    ///         cref="ModifyGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:
+    ///         </term>
     ///         <description>If provided the label string will be split
     ///         according to this delimiter and each sub-string will be applied
     ///         as a separate label onto the specified edge. The default value
@@ -761,7 +892,7 @@ public class ModifyGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
+    ///         cref="ModifyGraphRequest.Options.ALLOW_MULTIPLE_EDGES">ALLOW_MULTIPLE_EDGES</see>:
     ///         </term>
     ///         <description>Multigraph choice; allowing multiple edges with
     ///         the same node pairs if set to true, otherwise, new edges with
@@ -769,18 +900,24 @@ public class ModifyGraphRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ModifyGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:</term>
+    ///         cref="ModifyGraphRequest.Options.EMBEDDING_TABLE">EMBEDDING_TABLE</see>:
+    ///         </term>
     ///         <description>If table exists (should be generated by the
     ///         match/graph match_embedding solver), the vector embeddings for
     ///         the newly inserted nodes will be appended into this table. The
@@ -805,8 +942,7 @@ public class ModifyGraphRequest : KineticaData
 } // end class ModifyGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.modifyGraph(ModifyGraphRequest)">Kinetica.modifyGraph</see>.
-/// </summary>
+/// cref="Kinetica.modifyGraph">Kinetica.modifyGraph</see>.</summary>
 public class ModifyGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful modification on all servers.</summary>

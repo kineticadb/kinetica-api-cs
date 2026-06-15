@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.solveGraph(SolveGraphRequest)">Kinetica.solveGraph</see>.
-/// </summary>
+/// cref="Kinetica.solveGraph">Kinetica.solveGraph</see>.</summary>
 /// <remarks><para>Solves an existing graph for a type of problem (e.g.,
 /// shortest path, page rank, traveling salesman, etc.) using source nodes,
 /// destination nodes, and additional, optional weights and
@@ -25,7 +24,7 @@ namespace kinetica;
 public class SolveGraphRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="solver_type" />.</summary>
+    /// cref="SolveGraphRequest.solver_type" />.</summary>
     /// <remarks><para>The type of solver to use for the graph.</para>
     /// </remarks>
     public struct SolverType
@@ -88,84 +87,91 @@ public class SolveGraphRequest : KineticaData
     } // end struct SolverType
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
-    /// <remarks><para>Additional parameters</para></remarks>
+    /// cref="SolveGraphRequest.options" />.</summary>
+    /// <remarks><para>Additional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>For <see cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-        /// cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-        /// cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+        /// <summary>For <see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>, <see
+        /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+        /// and <see
+        /// cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
         /// solvers only.</summary>
         /// <remarks><para>Sets the maximum solution cost radius, which ignores
-        /// the <see cref="destination_nodes" /> list and instead outputs the
-        /// nodes within the radius sorted by ascending cost. If set to '0.0',
-        /// the setting is ignored. The default value is '0.0'.</para>
-        /// </remarks>
+        /// the <see cref="SolveGraphRequest.destination_nodes" /> list and
+        /// instead outputs the nodes within the radius sorted by ascending
+        /// cost. If set to '0.0', the setting is ignored. The default value is
+        /// '0.0'.</para></remarks>
         public const string MAX_SOLUTION_RADIUS = "max_solution_radius";
 
-        /// <summary>For <see cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-        /// cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-        /// cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+        /// <summary>For <see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>, <see
+        /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+        /// and <see
+        /// cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
         /// solvers only.</summary>
         /// <remarks><para>Applicable only when <see
-        /// cref="Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see> is
-        /// set. Sets the minimum solution cost radius, which ignores the <see
-        /// cref="destination_nodes" /> list and instead outputs the nodes
-        /// within the radius sorted by ascending cost. If set to '0.0', the
-        /// setting is ignored. The default value is '0.0'.</para></remarks>
+        /// cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>
+        /// is set. Sets the minimum solution cost radius, which ignores the
+        /// <see cref="SolveGraphRequest.destination_nodes" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored. The default value is '0.0'.
+        /// </para></remarks>
         public const string MIN_SOLUTION_RADIUS = "min_solution_radius";
 
-        /// <summary>For <see cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-        /// cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-        /// cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+        /// <summary>For <see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>, <see
+        /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+        /// and <see
+        /// cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
         /// solvers only.</summary>
         /// <remarks><para>Sets the maximum number of solution targets, which
-        /// ignores the <see cref="destination_nodes" /> list and instead
-        /// outputs no more than n number of nodes sorted by ascending cost
-        /// where n is equal to the setting value. If set to 0, the setting is
-        /// ignored. The default value is '1000'.</para></remarks>
+        /// ignores the <see cref="SolveGraphRequest.destination_nodes" /> list
+        /// and instead outputs no more than n number of nodes sorted by
+        /// ascending cost where n is equal to the setting value. If set to 0,
+        /// the setting is ignored. The default value is '1000'.</para>
+        /// </remarks>
         public const string MAX_SOLUTION_TARGETS = "max_solution_targets";
 
         /// <summary>When specified, assigns the given value to all the edges
         /// in the graph.</summary>
         /// <remarks><para>Note that weights provided in <see
-        /// cref="weights_on_edges" /> will override this value.</para>
-        /// </remarks>
+        /// cref="SolveGraphRequest.weights_on_edges" /> will override this
+        /// value.</para></remarks>
         public const string UNIFORM_WEIGHTS = "uniform_weights";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'left turn' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        /// was invoked at graph creation.</summary>
+        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
+        /// at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string LEFT_TURN_PENALTY = "left_turn_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as' right turn' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        /// was invoked at graph creation.</summary>
+        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
+        /// at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'intersection' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        /// was invoked at graph creation.</summary>
+        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
+        /// at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string INTERSECTION_PENALTY = "intersection_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'sharp turn' or 'u-turn' if the 'add_turn' option parameter of
-        /// the <see
-        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-        /// was invoked at graph creation.</summary>
+        /// the <see cref="Kinetica.createGraph">Kinetica.createGraph</see> was
+        /// invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
 
         /// <summary>For <see
-        /// cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see> solvers
-        /// only; sets the number of shortest paths computed from each node.
-        /// </summary>
+        /// cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
+        /// solvers only; sets the number of shortest paths computed from each
+        /// node.</summary>
         /// <remarks><para>This is the heuristic criterion. Default value of
         /// zero allows the number to be computed automatically by the solver.
         /// The user may want to override this parameter to speed-up the
@@ -173,9 +179,9 @@ public class SolveGraphRequest : KineticaData
         public const string NUM_BEST_PATHS = "num_best_paths";
 
         /// <summary>For <see
-        /// cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see> solvers
-        /// only; sets the cap on the combinatorial sequences generated.
-        /// </summary>
+        /// cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
+        /// solvers only; sets the cap on the combinatorial sequences
+        /// generated.</summary>
         /// <remarks><para>If the default value of two millions is overridden
         /// to a lesser value, it can potentially speed up the solver. The
         /// default value is '2000000'.</para></remarks>
@@ -187,22 +193,25 @@ public class SolveGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="SolveGraphRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string OUTPUT_EDGE_PATH = "output_edge_path";
 
-        /// <summary>An additional column 'CLUSTER' will be added for each node
-        /// </summary>
+        /// <summary>An additional column 'CLUSTER' will be added for each
+        /// node.</summary>
         public const string TRUE = "true";
 
         /// <summary>No extra cluster info per node will be available in the
-        /// output</summary>
+        /// output.</summary>
         public const string FALSE = "false";
 
         /// <summary>If true then concatenated wkt line segments will be added
@@ -211,14 +220,16 @@ public class SolveGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="SolveGraphRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string OUTPUT_WKT_PATH = "output_wkt_path";
 
         /// <summary>Indicates which graph server(s) to send the request to.
@@ -230,7 +241,8 @@ public class SolveGraphRequest : KineticaData
         /// </remarks>
         public const string SERVER_ID = "server_id";
 
-        /// <summary>For <see cref="SolverType.PAGE_RANK">PAGE_RANK</see>
+        /// <summary>For <see
+        /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>
         /// solvers only; Maximum percent relative threshold on the page rank
         /// scores of each node between consecutive iterations to satisfy
         /// convergence.</summary>
@@ -238,14 +250,16 @@ public class SolveGraphRequest : KineticaData
         /// is '1.0'.</para></remarks>
         public const string CONVERGENCE_LIMIT = "convergence_limit";
 
-        /// <summary>For <see cref="SolverType.PAGE_RANK">PAGE_RANK</see>
+        /// <summary>For <see
+        /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>
         /// solvers only; Maximum number of page rank iterations for satisfying
         /// convergence.</summary>
         /// <remarks><para>Default value is 100. The default value is '100'.
         /// </para></remarks>
         public const string MAX_ITERATIONS = "max_iterations";
 
-        /// <summary>For all <see cref="SolverType.CENTRALITY">CENTRALITY</see>
+        /// <summary>For all <see
+        /// cref="SolveGraphRequest.SolverType.CENTRALITY">CENTRALITY</see>
         /// solvers only; Sets the maximum number of shortest path runs;
         /// maximum possible value is the number of nodes in the graph.
         /// </summary>
@@ -253,24 +267,28 @@ public class SolveGraphRequest : KineticaData
         /// computed by the solver. The default value is '0'.</para></remarks>
         public const string MAX_RUNS = "max_runs";
 
-        /// <summary>For <see cref="SolverType.STATS_ALL">STATS_ALL</see>
+        /// <summary>For <see
+        /// cref="SolveGraphRequest.SolverType.STATS_ALL">STATS_ALL</see>
         /// solvers only; the cluster index for each node will be inserted as
         /// an additional column in the output.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="SolveGraphRequest.Options.TRUE">TRUE</see>:</term>
         ///         <description>An additional column 'CLUSTER' will be added
-        ///         for each node</description>
+        ///         for each node.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>No extra cluster info per node will be
-        ///         available in the output</description>
+        ///         available in the output.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string OUTPUT_CLUSTERS = "output_clusters";
 
         /// <summary>Specify heuristic search criterion only for the geo graphs
@@ -278,24 +296,26 @@ public class SolveGraphRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ASTAR">ASTAR</see>:</term>
+        ///         <term><see
+        ///         cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:</term>
         ///         <description>Employs A-STAR heuristics to speed up the
-        ///         shortest path traversal</description>
+        ///         shortest path traversal.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.NONE">NONE</see>:</term>
-        ///         <description>No heuristics are applied</description>
+        ///         <term><see
+        ///         cref="SolveGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>No heuristics are applied.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.NONE">NONE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>.</para></remarks>
         public const string SOLVE_HEURISTIC = "solve_heuristic";
 
         /// <summary>Employs A-STAR heuristics to speed up the shortest path
-        /// traversal</summary>
+        /// traversal.</summary>
         public const string ASTAR = "astar";
 
-        /// <summary>No heuristics are applied</summary>
+        /// <summary>No heuristics are applied.</summary>
         public const string NONE = "none";
 
         /// <summary>For path solvers only when 'solve_heuristic' option is
@@ -350,28 +370,32 @@ public class SolveGraphRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>:
     ///         </term>
     ///         <description>Solves for the optimal (shortest) path based on
     ///         weights and restrictions from one source to destinations nodes.
     ///         Also known as the Dijkstra solver.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:
+    ///         </term>
     ///         <description>Solves for the probability of each destination
     ///         node being visited based on the links of the graph topology.
     ///         Weights are not required to use this solver.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:
+    ///         cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:
     ///         </term>
     ///         <description>Solves for the transitional probability (Hidden
     ///         Markov) for each node based on the weights (probability
     ///         assigned over given edges).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.CENTRALITY">CENTRALITY</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.CENTRALITY">CENTRALITY</see>:
     ///         </term>
     ///         <description>Solves for the degree of a node to depict how many
     ///         pairs of individuals that would have to go through the node to
@@ -380,7 +404,7 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>:
+    ///         cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>:
     ///         </term>
     ///         <description>Solves for finding the minimum cost cumulative
     ///         path for a round-trip starting from the given source and
@@ -390,7 +414,7 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>:
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>:
     ///         </term>
     ///         <description>Solves for finding the optimal path cost for each
     ///         destination node to route to the source node. Also known as
@@ -399,49 +423,56 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:
+    ///         cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:
     ///         </term>
     ///         <description>Solves for optimal routes that connect remote
     ///         asset nodes to the fixed (backbone) asset nodes.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.ALLPATHS">ALLPATHS</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>:
+    ///         </term>
     ///         <description>Solves for paths that would give costs between max
     ///         and min solution radia - Make sure to limit by the
     ///         'max_solution_targets' option. Min cost should be &gt;=
     ///         shortest_path cost.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.STATS_ALL">STATS_ALL</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.STATS_ALL">STATS_ALL</see>:
+    ///         </term>
     ///         <description>Solves for graph statistics such as graph
     ///         diameter, longest pairs, vertex valences, topology numbers,
     ///         average and max cluster sizes, etc.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.CLOSENESS">CLOSENESS</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.CLOSENESS">CLOSENESS</see>:
+    ///         </term>
     ///         <description>Solves for the centrality closeness score per node
     ///         as the sum of the inverse shortest path costs to all nodes in
     ///         the graph.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is <see
-    /// cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.</para></remarks>
+    /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.
+    /// </para></remarks>
     public string solver_type { get; set; } = SolverType.SHORTEST_PATH;
 
     /// <summary>It can be one of the nodal identifiers - e.g: 'NODE_WKTPOINT'
     /// for source nodes.</summary>
     /// <remarks><para>For <see
-    /// cref="SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>, this list
-    /// depicts the fixed assets. The default value is an empty List.</para>
-    /// </remarks>
+    /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>,
+    /// this list depicts the fixed assets. The default value is an empty List.
+    /// </para></remarks>
     public IList<string> source_nodes { get; set; } = new List<string>();
 
     /// <summary>It can be one of the nodal identifiers - e.g: 'NODE_WKTPOINT'
     /// for destination (target) nodes.</summary>
     /// <remarks><para>For <see
-    /// cref="SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>, this list
-    /// depicts the remote assets. The default value is an empty List.</para>
-    /// </remarks>
+    /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>,
+    /// this list depicts the remote assets. The default value is an empty
+    /// List.</para></remarks>
     public IList<string> destination_nodes { get; set; } = new List<string>();
 
     /// <summary>Name of the table to store the solution, in
@@ -455,106 +486,111 @@ public class SolveGraphRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>:
+    ///         cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-    ///         cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>,
+    ///         <see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+    ///         and <see
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
     ///         solvers only. Sets the maximum solution cost radius, which
-    ///         ignores the <see cref="destination_nodes" /> list and instead
-    ///         outputs the nodes within the radius sorted by ascending cost.
-    ///         If set to '0.0', the setting is ignored. The default value is
-    ///         '0.0'.</description>
+    ///         ignores the <see cref="SolveGraphRequest.destination_nodes" />
+    ///         list and instead outputs the nodes within the radius sorted by
+    ///         ascending cost. If set to '0.0', the setting is ignored. The
+    ///         default value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:
+    ///         cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-    ///         cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>,
+    ///         <see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+    ///         and <see
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
     ///         solvers only. Applicable only when <see
-    ///         cref="Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see> is
-    ///         set. Sets the minimum solution cost radius, which ignores the
-    ///         <see cref="destination_nodes" /> list and instead outputs the
-    ///         nodes within the radius sorted by ascending cost. If set to
-    ///         '0.0', the setting is ignored. The default value is '0.0'.
-    ///         </description>
+    ///         cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>
+    ///         is set. Sets the minimum solution cost radius, which ignores
+    ///         the <see cref="SolveGraphRequest.destination_nodes" /> list and
+    ///         instead outputs the nodes within the radius sorted by ascending
+    ///         cost. If set to '0.0', the setting is ignored. The default
+    ///         value is '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:
+    ///         cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-    ///         cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>,
+    ///         <see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+    ///         and <see
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
     ///         solvers only. Sets the maximum number of solution targets,
-    ///         which ignores the <see cref="destination_nodes" /> list and
-    ///         instead outputs no more than n number of nodes sorted by
-    ///         ascending cost where n is equal to the setting value. If set to
-    ///         0, the setting is ignored. The default value is '1000'.
-    ///         </description>
+    ///         which ignores the <see
+    ///         cref="SolveGraphRequest.destination_nodes" /> list and instead
+    ///         outputs no more than n number of nodes sorted by ascending cost
+    ///         where n is equal to the setting value. If set to 0, the setting
+    ///         is ignored. The default value is '1000'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+    ///         cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:
+    ///         </term>
     ///         <description>When specified, assigns the given value to all the
     ///         edges in the graph. Note that weights provided in <see
-    ///         cref="weights_on_edges" /> will override this value.
-    ///         </description>
+    ///         cref="SolveGraphRequest.weights_on_edges" /> will override this
+    ///         value.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
     ///         parameter of the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         cref="Kinetica.createGraph">Kinetica.createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
+    ///         cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
     ///         solvers only; sets the number of shortest paths computed from
     ///         each node. This is the heuristic criterion. Default value of
     ///         zero allows the number to be computed automatically by the
@@ -563,10 +599,10 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:
+    ///         cref="SolveGraphRequest.Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
+    ///         cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
     ///         solvers only; sets the cap on the combinatorial sequences
     ///         generated. If the default value of two millions is overridden
     ///         to a lesser value, it can potentially speed up the solver. The
@@ -574,42 +610,53 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:</term>
+    ///         cref="SolveGraphRequest.Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:
+    ///         </term>
     ///         <description>If true then concatenated edge IDs will be added
     ///         as the EDGE path column of the solution table for each source
     ///         and target pair in shortest path solves.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+    ///         cref="SolveGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:
+    ///         </term>
     ///         <description>If true then concatenated wkt line segments will
     ///         be added as the Wktroute column of the solution table for each
     ///         source and target pair in shortest path solves.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server(s) to send the
     ///         request to. Default is to send to the server, amongst those
     ///         containing the corresponding graph, that has the most
@@ -619,78 +666,93 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CONVERGENCE_LIMIT">CONVERGENCE_LIMIT</see>:
+    ///         cref="SolveGraphRequest.Options.CONVERGENCE_LIMIT">CONVERGENCE_LIMIT</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-    ///         Maximum percent relative threshold on the page rank scores of
-    ///         each node between consecutive iterations to satisfy
-    ///         convergence. Default value is 1 (one) percent. The default
-    ///         value is '1.0'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:
-    ///         </term>
-    ///         <description>For <see
-    ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-    ///         Maximum number of page rank iterations for satisfying
-    ///         convergence. Default value is 100. The default value is '100'.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.MAX_RUNS">MAX_RUNS</see>:</term>
-    ///         <description>For all <see
-    ///         cref="SolverType.CENTRALITY">CENTRALITY</see> solvers only;
-    ///         Sets the maximum number of shortest path runs; maximum possible
-    ///         value is the number of nodes in the graph. Default value of 0
-    ///         enables this value to be auto computed by the solver. The
-    ///         default value is '0'.</description>
+    ///         cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>
+    ///         solvers only; Maximum percent relative threshold on the page
+    ///         rank scores of each node between consecutive iterations to
+    ///         satisfy convergence. Default value is 1 (one) percent. The
+    ///         default value is '1.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OUTPUT_CLUSTERS">OUTPUT_CLUSTERS</see>:</term>
+    ///         cref="SolveGraphRequest.Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:
+    ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.STATS_ALL">STATS_ALL</see> solvers only; the
-    ///         cluster index for each node will be inserted as an additional
-    ///         column in the output.
+    ///         cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>
+    ///         solvers only; Maximum number of page rank iterations for
+    ///         satisfying convergence. Default value is 100. The default value
+    ///         is '100'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.MAX_RUNS">MAX_RUNS</see>:
+    ///         </term>
+    ///         <description>For all <see
+    ///         cref="SolveGraphRequest.SolverType.CENTRALITY">CENTRALITY</see>
+    ///         solvers only; Sets the maximum number of shortest path runs;
+    ///         maximum possible value is the number of nodes in the graph.
+    ///         Default value of 0 enables this value to be auto computed by
+    ///         the solver. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.OUTPUT_CLUSTERS">OUTPUT_CLUSTERS</see>:
+    ///         </term>
+    ///         <description>For <see
+    ///         cref="SolveGraphRequest.SolverType.STATS_ALL">STATS_ALL</see>
+    ///         solvers only; the cluster index for each node will be inserted
+    ///         as an additional column in the output.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>An additional column 'CLUSTER' will be
-    ///                 added for each node</description>
+    ///                 added for each node.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>No extra cluster info per node will be
-    ///                 available in the output</description>
+    ///                 available in the output.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:</term>
+    ///         cref="SolveGraphRequest.Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:
+    ///         </term>
     ///         <description>Specify heuristic search criterion only for the
     ///         geo graphs and shortest path solves towards a single target.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASTAR">ASTAR</see>:</term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:
+    ///                 </term>
     ///                 <description>Employs A-STAR heuristics to speed up the
-    ///                 shortest path traversal</description>
+    ///                 shortest path traversal.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-    ///                 <description>No heuristics are applied</description>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.NONE">NONE</see>:
+    ///                 </term>
+    ///                 <description>No heuristics are applied.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NONE">NONE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.NONE">NONE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:
     ///         </term>
     ///         <description>For path solvers only when 'solve_heuristic'
     ///         option is 'astar'. The shortest path traversal front includes
@@ -744,28 +806,32 @@ public class SolveGraphRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>:
     ///         </term>
     ///         <description>Solves for the optimal (shortest) path based on
     ///         weights and restrictions from one source to destinations nodes.
     ///         Also known as the Dijkstra solver.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:
+    ///         </term>
     ///         <description>Solves for the probability of each destination
     ///         node being visited based on the links of the graph topology.
     ///         Weights are not required to use this solver.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:
+    ///         cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:
     ///         </term>
     ///         <description>Solves for the transitional probability (Hidden
     ///         Markov) for each node based on the weights (probability
     ///         assigned over given edges).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.CENTRALITY">CENTRALITY</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.CENTRALITY">CENTRALITY</see>:
     ///         </term>
     ///         <description>Solves for the degree of a node to depict how many
     ///         pairs of individuals that would have to go through the node to
@@ -774,7 +840,7 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>:
+    ///         cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>:
     ///         </term>
     ///         <description>Solves for finding the minimum cost cumulative
     ///         path for a round-trip starting from the given source and
@@ -784,7 +850,7 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>:
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>:
     ///         </term>
     ///         <description>Solves for finding the optimal path cost for each
     ///         destination node to route to the source node. Also known as
@@ -793,41 +859,50 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:
+    ///         cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:
     ///         </term>
     ///         <description>Solves for optimal routes that connect remote
     ///         asset nodes to the fixed (backbone) asset nodes.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.ALLPATHS">ALLPATHS</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>:
+    ///         </term>
     ///         <description>Solves for paths that would give costs between max
     ///         and min solution radia - Make sure to limit by the
     ///         'max_solution_targets' option. Min cost should be &gt;=
     ///         shortest_path cost.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.STATS_ALL">STATS_ALL</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.STATS_ALL">STATS_ALL</see>:
+    ///         </term>
     ///         <description>Solves for graph statistics such as graph
     ///         diameter, longest pairs, vertex valences, topology numbers,
     ///         average and max cluster sizes, etc.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="SolverType.CLOSENESS">CLOSENESS</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.SolverType.CLOSENESS">CLOSENESS</see>:
+    ///         </term>
     ///         <description>Solves for the centrality closeness score per node
     ///         as the sum of the inverse shortest path costs to all nodes in
     ///         the graph.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
-    /// cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.</param>
+    /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.
+    /// </param>
     /// <param name="source_nodes">It can be one of the nodal identifiers -
     /// e.g: 'NODE_WKTPOINT' for source nodes. For <see
-    /// cref="SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>, this list
-    /// depicts the fixed assets. The default value is an empty List.</param>
+    /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>,
+    /// this list depicts the fixed assets. The default value is an empty List.
+    /// </param>
     /// <param name="destination_nodes">It can be one of the nodal identifiers
     /// - e.g: 'NODE_WKTPOINT' for destination (target) nodes. For <see
-    /// cref="SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>, this list
-    /// depicts the remote assets. The default value is an empty List.</param>
+    /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>,
+    /// this list depicts the remote assets. The default value is an empty
+    /// List.</param>
     /// <param name="solution_table">Name of the table to store the solution,
     /// in [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
@@ -837,12 +912,14 @@ public class SolveGraphRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>:
+    ///         cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-    ///         cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>,
+    ///         <see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+    ///         and <see
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
     ///         solvers only. Sets the maximum solution cost radius, which
     ///         ignores the <paramref name="destination_nodes" /> list and
     ///         instead outputs the nodes within the radius sorted by ascending
@@ -851,28 +928,32 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:
+    ///         cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-    ///         cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>,
+    ///         <see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+    ///         and <see
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
     ///         solvers only. Applicable only when <see
-    ///         cref="Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see> is
-    ///         set. Sets the minimum solution cost radius, which ignores the
-    ///         <paramref name="destination_nodes" /> list and instead outputs
-    ///         the nodes within the radius sorted by ascending cost. If set to
-    ///         '0.0', the setting is ignored. The default value is '0.0'.
-    ///         </description>
+    ///         cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>
+    ///         is set. Sets the minimum solution cost radius, which ignores
+    ///         the <paramref name="destination_nodes" /> list and instead
+    ///         outputs the nodes within the radius sorted by ascending cost.
+    ///         If set to '0.0', the setting is ignored. The default value is
+    ///         '0.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:
+    ///         cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.ALLPATHS">ALLPATHS</see>, <see
-    ///         cref="SolverType.SHORTEST_PATH">SHORTEST_PATH</see> and <see
-    ///         cref="SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
+    ///         cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>,
+    ///         <see
+    ///         cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>
+    ///         and <see
+    ///         cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>
     ///         solvers only. Sets the maximum number of solution targets,
     ///         which ignores the <paramref name="destination_nodes" /> list
     ///         and instead outputs no more than n number of nodes sorted by
@@ -882,7 +963,8 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+    ///         cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:
+    ///         </term>
     ///         <description>When specified, assigns the given value to all the
     ///         edges in the graph. Note that weights provided in <paramref
     ///         name="weights_on_edges" /> will override this value.
@@ -890,53 +972,51 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
+    ///         cref="SolveGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
     ///         parameter of the <see
-    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
-    ///         was invoked at graph creation. The default value is '0.0'.
+    ///         cref="Kinetica.createGraph">Kinetica.createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
+    ///         cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
     ///         solvers only; sets the number of shortest paths computed from
     ///         each node. This is the heuristic criterion. Default value of
     ///         zero allows the number to be computed automatically by the
@@ -945,10 +1025,10 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:
+    ///         cref="SolveGraphRequest.Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
+    ///         cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>
     ///         solvers only; sets the cap on the combinatorial sequences
     ///         generated. If the default value of two millions is overridden
     ///         to a lesser value, it can potentially speed up the solver. The
@@ -956,42 +1036,53 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:</term>
+    ///         cref="SolveGraphRequest.Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:
+    ///         </term>
     ///         <description>If true then concatenated edge IDs will be added
     ///         as the EDGE path column of the solution table for each source
     ///         and target pair in shortest path solves.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+    ///         cref="SolveGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:
+    ///         </term>
     ///         <description>If true then concatenated wkt line segments will
     ///         be added as the Wktroute column of the solution table for each
     ///         source and target pair in shortest path solves.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SERVER_ID">SERVER_ID</see>:</term>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.SERVER_ID">SERVER_ID</see>:
+    ///         </term>
     ///         <description>Indicates which graph server(s) to send the
     ///         request to. Default is to send to the server, amongst those
     ///         containing the corresponding graph, that has the most
@@ -1001,78 +1092,93 @@ public class SolveGraphRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CONVERGENCE_LIMIT">CONVERGENCE_LIMIT</see>:
+    ///         cref="SolveGraphRequest.Options.CONVERGENCE_LIMIT">CONVERGENCE_LIMIT</see>:
     ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-    ///         Maximum percent relative threshold on the page rank scores of
-    ///         each node between consecutive iterations to satisfy
-    ///         convergence. Default value is 1 (one) percent. The default
-    ///         value is '1.0'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:
-    ///         </term>
-    ///         <description>For <see
-    ///         cref="SolverType.PAGE_RANK">PAGE_RANK</see> solvers only;
-    ///         Maximum number of page rank iterations for satisfying
-    ///         convergence. Default value is 100. The default value is '100'.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.MAX_RUNS">MAX_RUNS</see>:</term>
-    ///         <description>For all <see
-    ///         cref="SolverType.CENTRALITY">CENTRALITY</see> solvers only;
-    ///         Sets the maximum number of shortest path runs; maximum possible
-    ///         value is the number of nodes in the graph. Default value of 0
-    ///         enables this value to be auto computed by the solver. The
-    ///         default value is '0'.</description>
+    ///         cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>
+    ///         solvers only; Maximum percent relative threshold on the page
+    ///         rank scores of each node between consecutive iterations to
+    ///         satisfy convergence. Default value is 1 (one) percent. The
+    ///         default value is '1.0'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.OUTPUT_CLUSTERS">OUTPUT_CLUSTERS</see>:</term>
+    ///         cref="SolveGraphRequest.Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:
+    ///         </term>
     ///         <description>For <see
-    ///         cref="SolverType.STATS_ALL">STATS_ALL</see> solvers only; the
-    ///         cluster index for each node will be inserted as an additional
-    ///         column in the output.
+    ///         cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>
+    ///         solvers only; Maximum number of page rank iterations for
+    ///         satisfying convergence. Default value is 100. The default value
+    ///         is '100'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.MAX_RUNS">MAX_RUNS</see>:
+    ///         </term>
+    ///         <description>For all <see
+    ///         cref="SolveGraphRequest.SolverType.CENTRALITY">CENTRALITY</see>
+    ///         solvers only; Sets the maximum number of shortest path runs;
+    ///         maximum possible value is the number of nodes in the graph.
+    ///         Default value of 0 enables this value to be auto computed by
+    ///         the solver. The default value is '0'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.OUTPUT_CLUSTERS">OUTPUT_CLUSTERS</see>:
+    ///         </term>
+    ///         <description>For <see
+    ///         cref="SolveGraphRequest.SolverType.STATS_ALL">STATS_ALL</see>
+    ///         solvers only; the cluster index for each node will be inserted
+    ///         as an additional column in the output.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>An additional column 'CLUSTER' will be
-    ///                 added for each node</description>
+    ///                 added for each node.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>No extra cluster info per node will be
-    ///                 available in the output</description>
+    ///                 available in the output.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:</term>
+    ///         cref="SolveGraphRequest.Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:
+    ///         </term>
     ///         <description>Specify heuristic search criterion only for the
     ///         geo graphs and shortest path solves towards a single target.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASTAR">ASTAR</see>:</term>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:
+    ///                 </term>
     ///                 <description>Employs A-STAR heuristics to speed up the
-    ///                 shortest path traversal</description>
+    ///                 shortest path traversal.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
-    ///                 <description>No heuristics are applied</description>
+    ///                 <term><see
+    ///                 cref="SolveGraphRequest.Options.NONE">NONE</see>:
+    ///                 </term>
+    ///                 <description>No heuristics are applied.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NONE">NONE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="SolveGraphRequest.Options.NONE">NONE</see>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:
+    ///         <term><see
+    ///         cref="SolveGraphRequest.Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:
     ///         </term>
     ///         <description>For path solvers only when 'solve_heuristic'
     ///         option is 'astar'. The shortest path traversal front includes
@@ -1102,8 +1208,7 @@ public class SolveGraphRequest : KineticaData
 } // end class SolveGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.solveGraph(SolveGraphRequest)">Kinetica.solveGraph</see>.
-/// </summary>
+/// cref="Kinetica.solveGraph">Kinetica.solveGraph</see>.</summary>
 public class SolveGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful solution on all servers.</summary>

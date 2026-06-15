@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTableMetadata(ShowTableMetadataRequest)">Kinetica.showTableMetadata</see>.
+/// cref="Kinetica.showTableMetadata">Kinetica.showTableMetadata</see>.
 /// </summary>
 /// <remarks><para>Retrieves the user provided metadata for the specified
 /// tables.</para></remarks>
@@ -51,7 +51,7 @@ public class ShowTableMetadataRequest : KineticaData
 } // end class ShowTableMetadataRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTableMetadata(ShowTableMetadataRequest)">Kinetica.showTableMetadata</see>.
+/// cref="Kinetica.showTableMetadata">Kinetica.showTableMetadata</see>.
 /// </summary>
 public class ShowTableMetadataResponse : KineticaData
 {

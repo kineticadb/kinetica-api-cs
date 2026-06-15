@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showDatasink(ShowDatasinkRequest)">Kinetica.showDatasink</see>.
-/// </summary>
+/// cref="Kinetica.showDatasink">Kinetica.showDatasink</see>.</summary>
 /// <remarks><para>Shows information about a specified <a
 /// href="../../../concepts/data_sinks/" target="_top">data sink</a> or all
 /// data sinks.</para></remarks>
@@ -50,25 +49,24 @@ public class ShowDatasinkRequest : KineticaData
 } // end class ShowDatasinkRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showDatasink(ShowDatasinkRequest)">Kinetica.showDatasink</see>.
-/// </summary>
+/// cref="Kinetica.showDatasink">Kinetica.showDatasink</see>.</summary>
 public class ShowDatasinkResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="additional_info" />.</summary>
+    /// cref="ShowDatasinkResponse.additional_info" />.</summary>
     /// <remarks><para>Additional information about the respective data sinks
-    /// in <see cref="datasink_names" />.</para></remarks>
+    /// in <see cref="ShowDatasinkResponse.datasink_names" />.</para></remarks>
     public struct AdditionalInfo
     {
         /// <summary>Destination for the output data in
-        /// 'destination_type://path[:port]' format</summary>
+        /// 'destination_type://path[:port]' format.</summary>
         public const string DESTINATION = "destination";
 
-        /// <summary>Kafka topic if the data sink type is a Kafka broker
+        /// <summary>Kafka topic if the data sink type is a Kafka broker.
         /// </summary>
         public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
-        /// <summary>Name of the remote system user</summary>
+        /// <summary>Name of the remote system user.</summary>
         public const string USER_NAME = "user_name";
     } // end struct AdditionalInfo
 
@@ -76,29 +74,31 @@ public class ShowDatasinkResponse : KineticaData
     public IList<string> datasink_names { get; set; } = new List<string>();
 
     /// <summary>The destination type of the data sinks named in <see
-    /// cref="datasink_names" />.</summary>
+    /// cref="ShowDatasinkResponse.datasink_names" />.</summary>
     public IList<string> destination_types { get; set; } = new List<string>();
 
     /// <summary>Additional information about the respective data sinks in <see
-    /// cref="datasink_names" />.</summary>
+    /// cref="ShowDatasinkResponse.datasink_names" />.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.DESTINATION">DESTINATION</see>:
+    ///         <term><see
+    ///         cref="ShowDatasinkResponse.AdditionalInfo.DESTINATION">DESTINATION</see>:
     ///         </term>
     ///         <description>Destination for the output data in
-    ///         'destination_type://path[:port]' format</description>
+    ///         'destination_type://path[:port]' format.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
+    ///         cref="ShowDatasinkResponse.AdditionalInfo.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:
     ///         </term>
     ///         <description>Kafka topic if the data sink type is a Kafka
-    ///         broker</description>
+    ///         broker.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.USER_NAME">USER_NAME</see>:
+    ///         <term><see
+    ///         cref="ShowDatasinkResponse.AdditionalInfo.USER_NAME">USER_NAME</see>:
     ///         </term>
-    ///         <description>Name of the remote system user</description>
+    ///         <description>Name of the remote system user.</description>
     ///     </item>
     /// </list></remarks>
     public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();

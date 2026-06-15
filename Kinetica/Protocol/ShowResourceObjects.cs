@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showResourceObjects(ShowResourceObjectsRequest)">Kinetica.showResourceObjects</see>.
+/// cref="Kinetica.showResourceObjects">Kinetica.showResourceObjects</see>.
 /// </summary>
 /// <remarks><para>Returns information about the internal sub-components
 /// (tiered objects) which use resources of the system. The request can either
@@ -20,7 +20,7 @@ namespace kinetica;
 public class ShowResourceObjectsRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowResourceObjectsRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -42,38 +42,53 @@ public class ShowResourceObjectsRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.SIZE">SIZE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.ID">ID</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PRIORITY">PRIORITY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.TIER">TIER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.EVICTABLE">EVICTABLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.LOCKED">LOCKED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.PIN_COUNT">PIN_COUNT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="Options.RAM_EVICTIONS">RAM_EVICTIONS</see>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.SIZE">SIZE</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.PERSIST_EVICTIONS">PERSIST_EVICTIONS</see>
+        ///         cref="ShowResourceObjectsRequest.Options.ID">ID</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>
+        ///         cref="ShowResourceObjectsRequest.Options.PRIORITY">PRIORITY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.TIER">TIER</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.EVICTABLE">EVICTABLE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.LOCKED">LOCKED</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.PIN_COUNT">PIN_COUNT</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.RAM_EVICTIONS">RAM_EVICTIONS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.PERSIST_EVICTIONS">PERSIST_EVICTIONS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="ShowResourceObjectsRequest.Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>
         ///         </term>
         ///     </item>
         /// </list></remarks>
@@ -109,12 +124,16 @@ public class ShowResourceObjectsRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.TIERS">TIERS</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.TIERS">TIERS</see>:
+    ///         </term>
     ///         <description>Comma-separated list of tiers to query, leave
     ///         blank for all tiers.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
     ///         <description>An expression to filter the returned objects.
     ///         Expression is limited to the following operators:
     ///         =,!=,&lt;,&lt;=,&gt;,&gt;=,+,-,*,AND,OR,LIKE. For details see
@@ -124,53 +143,69 @@ public class ShowResourceObjectsRequest : KineticaData
     ///         directly.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Single column to be sorted by as well as the sort
     ///         direction, e.g., 'size asc'.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.SIZE">SIZE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.ID">ID</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.PRIORITY">PRIORITY</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.TIER">TIER</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.EVICTABLE">EVICTABLE</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.LOCKED">LOCKED</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.PIN_COUNT">PIN_COUNT</see>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.SIZE">SIZE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.RAM_EVICTIONS">RAM_EVICTIONS</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="Options.PERSIST_EVICTIONS">PERSIST_EVICTIONS</see>
+    ///                 cref="ShowResourceObjectsRequest.Options.ID">ID</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>
+    ///                 cref="ShowResourceObjectsRequest.Options.PRIORITY">PRIORITY</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.TIER">TIER</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.EVICTABLE">EVICTABLE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.LOCKED">LOCKED</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.PIN_COUNT">PIN_COUNT</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.RAM_EVICTIONS">RAM_EVICTIONS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.PERSIST_EVICTIONS">PERSIST_EVICTIONS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>
     ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.LIMIT">LIMIT</see>:
+    ///         </term>
     ///         <description>An integer indicating the maximum number of
     ///         results to be returned, per rank, or (-1) to indicate that the
     ///         maximum number of results allowed by the server should be
@@ -181,7 +216,9 @@ public class ShowResourceObjectsRequest : KineticaData
     ///         configuration. The default value is '100'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TABLE_NAMES">TABLE_NAMES</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.TABLE_NAMES">TABLE_NAMES</see>:
+    ///         </term>
     ///         <description>Comma-separated list of tables to restrict the
     ///         results to. Use '*' to show all tables.</description>
     ///     </item>
@@ -199,12 +236,16 @@ public class ShowResourceObjectsRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.TIERS">TIERS</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.TIERS">TIERS</see>:
+    ///         </term>
     ///         <description>Comma-separated list of tiers to query, leave
     ///         blank for all tiers.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
     ///         <description>An expression to filter the returned objects.
     ///         Expression is limited to the following operators:
     ///         =,!=,&lt;,&lt;=,&gt;,&gt;=,+,-,*,AND,OR,LIKE. For details see
@@ -214,53 +255,69 @@ public class ShowResourceObjectsRequest : KineticaData
     ///         directly.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Single column to be sorted by as well as the sort
     ///         direction, e.g., 'size asc'.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.SIZE">SIZE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.ID">ID</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.PRIORITY">PRIORITY</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.TIER">TIER</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.EVICTABLE">EVICTABLE</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.LOCKED">LOCKED</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.PIN_COUNT">PIN_COUNT</see>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.SIZE">SIZE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.RAM_EVICTIONS">RAM_EVICTIONS</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="Options.PERSIST_EVICTIONS">PERSIST_EVICTIONS</see>
+    ///                 cref="ShowResourceObjectsRequest.Options.ID">ID</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>
+    ///                 cref="ShowResourceObjectsRequest.Options.PRIORITY">PRIORITY</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.TIER">TIER</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.EVICTABLE">EVICTABLE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.LOCKED">LOCKED</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.PIN_COUNT">PIN_COUNT</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.RAM_EVICTIONS">RAM_EVICTIONS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.PERSIST_EVICTIONS">PERSIST_EVICTIONS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="ShowResourceObjectsRequest.Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see>
     ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.LIMIT">LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.LIMIT">LIMIT</see>:
+    ///         </term>
     ///         <description>An integer indicating the maximum number of
     ///         results to be returned, per rank, or (-1) to indicate that the
     ///         maximum number of results allowed by the server should be
@@ -271,7 +328,9 @@ public class ShowResourceObjectsRequest : KineticaData
     ///         configuration. The default value is '100'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TABLE_NAMES">TABLE_NAMES</see>:</term>
+    ///         <term><see
+    ///         cref="ShowResourceObjectsRequest.Options.TABLE_NAMES">TABLE_NAMES</see>:
+    ///         </term>
     ///         <description>Comma-separated list of tables to restrict the
     ///         results to. Use '*' to show all tables.</description>
     ///     </item>
@@ -284,14 +343,14 @@ public class ShowResourceObjectsRequest : KineticaData
 } // end class ShowResourceObjectsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showResourceObjects(ShowResourceObjectsRequest)">Kinetica.showResourceObjects</see>.
+/// cref="Kinetica.showResourceObjects">Kinetica.showResourceObjects</see>.
 /// </summary>
 public class ShowResourceObjectsResponse : KineticaData
 {
     /// <summary>Tier usage across ranks.</summary>
     /// <remarks><para>Layout is:
     /// response.rank_usage[rank_number][resource_group_name] = group_usage (as
-    /// stringified json)</para></remarks>
+    /// stringified JSON).</para></remarks>
     public IDictionary<string, string> rank_objects { get; set; } = new Dictionary<string, string>();
 
     /// <summary>Additional information.</summary>

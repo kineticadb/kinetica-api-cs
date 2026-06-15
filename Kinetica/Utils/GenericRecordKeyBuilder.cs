@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -27,8 +25,7 @@ namespace kinetica.Utils;
             CHAR256,
             DATE,
             DATETIME,
-            DECIMAL,
-            DECIMAL_BIG,
+            DECIMAL,       // Decimal type (8 or 12 bytes based on precision)
             DOUBLE,
             FLOAT,
             INT,
@@ -266,16 +263,9 @@ namespace kinetica.Utils;
 
                 _decimalInfos[_columnTypes.Count] = new DecimalInfo { Precision = precision, Scale = scale };
 
-                if (precision <= 18)
-                {
-                    _columnTypes.Add(ColumnType.DECIMAL);
-                    _bufferSize += 8;
-                }
-                else
-                {
-                    _columnTypes.Add(ColumnType.DECIMAL_BIG);
-                    _bufferSize += 12;
-                }
+                // Use 8 bytes for precision <= 18, 12 bytes for precision > 18
+                _columnTypes.Add(ColumnType.DECIMAL);
+                _bufferSize += (precision > 18) ? 12 : 8;
             }
             else
             {
@@ -367,7 +357,6 @@ namespace kinetica.Utils;
                         break;
 
                     case ColumnType.DECIMAL:
-                    case ColumnType.DECIMAL_BIG:
                         if (value is decimal d)
                             expression.Append(d.ToString(System.Globalization.CultureInfo.InvariantCulture));
                         else
@@ -462,26 +451,13 @@ namespace kinetica.Utils;
                         break;
                     case ColumnType.DECIMAL:
                         {
+                            // addDecimal handles 8 vs 12 byte encoding based on precision
                             var info = _decimalInfos.ContainsKey(i) ? _decimalInfos[i] : new DecimalInfo { Precision = 18, Scale = 4 };
                             if (value == null)
                                 key.addDecimal(null, info.Precision, info.Scale);
                             else
                             {
                                 // addDecimal expects a string representation
-                                var decimalStr = Convert.ToDecimal(value).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                                key.addDecimal(decimalStr, info.Precision, info.Scale);
-                            }
-                        }
-                        break;
-                    case ColumnType.DECIMAL_BIG:
-                        {
-                            // For big decimals (precision > 18), use the same addDecimal method
-                            // which handles both 8-byte and 12-byte decimals based on precision
-                            var info = _decimalInfos.ContainsKey(i) ? _decimalInfos[i] : new DecimalInfo { Precision = 28, Scale = 4 };
-                            if (value == null)
-                                key.addDecimal(null, info.Precision, info.Scale);
-                            else
-                            {
                                 var decimalStr = Convert.ToDecimal(value).ToString(System.Globalization.CultureInfo.InvariantCulture);
                                 key.addDecimal(decimalStr, info.Precision, info.Scale);
                             }

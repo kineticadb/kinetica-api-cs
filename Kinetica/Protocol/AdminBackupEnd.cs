@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
-/// </summary>
+/// cref="Kinetica.adminBackupEnd">Kinetica.adminBackupEnd</see>.</summary>
 /// <remarks><para>Restores the system to normal operating mode after a backup
 /// has completed, allowing any queries that were blocked to complete.</para>
 /// </remarks>
@@ -37,8 +36,7 @@ public class AdminBackupEndRequest : KineticaData
 } // end class AdminBackupEndRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminBackupEnd(AdminBackupEndRequest)">Kinetica.adminBackupEnd</see>.
-/// </summary>
+/// cref="Kinetica.adminBackupEnd">Kinetica.adminBackupEnd</see>.</summary>
 public class AdminBackupEndResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

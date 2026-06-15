@@ -9,32 +9,35 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSchema(ShowSchemaRequest)">Kinetica.showSchema</see>.
-/// </summary>
+/// cref="Kinetica.showSchema">Kinetica.showSchema</see>.</summary>
 /// <remarks><para>Retrieves information about a <a
 /// href="../../../concepts/schemas/" target="_top">schema</a> (or all
-/// schemas), as specified in <see cref="schema_name" />.</para></remarks>
+/// schemas), as specified in <see cref="ShowSchemaRequest.schema_name" />.
+/// </para></remarks>
 public class ShowSchemaRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowSchemaRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.FALSE">FALSE</see> will return an
-        /// error if the provided <see cref="schema_name" /> does not exist.
-        /// </summary>
+        /// <summary>If <see cref="ShowSchemaRequest.Options.FALSE">FALSE</see>
+        /// will return an error if the provided <see
+        /// cref="ShowSchemaRequest.schema_name" /> does not exist.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="ShowSchemaRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowSchemaRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowSchemaRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
@@ -51,23 +54,29 @@ public class ShowSchemaRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowSchemaRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         return an error if the provided <see cref="schema_name" /> does
-    ///         not exist. If <see cref="Options.TRUE">TRUE</see> then it will
-    ///         return an empty result if the provided <see cref="schema_name"
-    ///         /> does not exist.
+    ///         <description>If <see
+    ///         cref="ShowSchemaRequest.Options.FALSE">FALSE</see> will return
+    ///         an error if the provided <see
+    ///         cref="ShowSchemaRequest.schema_name" /> does not exist. If <see
+    ///         cref="ShowSchemaRequest.Options.TRUE">TRUE</see> then it will
+    ///         return an empty result if the provided <see
+    ///         cref="ShowSchemaRequest.schema_name" /> does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSchemaRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -87,23 +96,29 @@ public class ShowSchemaRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowSchemaRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> will
-    ///         return an error if the provided <paramref name="schema_name" />
-    ///         does not exist. If <see cref="Options.TRUE">TRUE</see> then it
-    ///         will return an empty result if the provided <paramref
+    ///         <description>If <see
+    ///         cref="ShowSchemaRequest.Options.FALSE">FALSE</see> will return
+    ///         an error if the provided <paramref name="schema_name" /> does
+    ///         not exist. If <see
+    ///         cref="ShowSchemaRequest.Options.TRUE">TRUE</see> then it will
+    ///         return an empty result if the provided <paramref
     ///         name="schema_name" /> does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSchemaRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -117,24 +132,23 @@ public class ShowSchemaRequest : KineticaData
 } // end class ShowSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSchema(ShowSchemaRequest)">Kinetica.showSchema</see>.
-/// </summary>
+/// cref="Kinetica.showSchema">Kinetica.showSchema</see>.</summary>
 public class ShowSchemaResponse : KineticaData
 {
     /// <summary>Value of <see
     /// cref="ShowSchemaRequest.schema_name">schema_name</see>.</summary>
     public string schema_name { get; set; }
 
-    /// <summary>A list of all schema names for which information is returned
+    /// <summary>A list of all schema names for which information is returned.
     /// </summary>
     public IList<string> schema_names { get; set; } = new List<string>();
 
     /// <summary>An array of arrays containing a list of tables in each of the
-    /// respective <see cref="schema_names" />.</summary>
+    /// respective <see cref="ShowSchemaResponse.schema_names" />.</summary>
     public IList<IList<string>> schema_tables { get; set; } = new List<IList<string>>();
 
     /// <summary>Additional information about the respective tables in <see
-    /// cref="schema_names" />.</summary>
+    /// cref="ShowSchemaResponse.schema_names" />.</summary>
     public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();
 
     /// <summary>Additional information.</summary>

@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteProc(DeleteProcRequest)">Kinetica.deleteProc</see>.
-/// </summary>
+/// cref="Kinetica.deleteProc">Kinetica.deleteProc</see>.</summary>
 /// <remarks><para>Deletes a proc. Any currently running instances of the proc
 /// will be killed.</para></remarks>
 public class DeleteProcRequest : KineticaData
@@ -45,8 +44,7 @@ public class DeleteProcRequest : KineticaData
 } // end class DeleteProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteProc(DeleteProcRequest)">Kinetica.deleteProc</see>.
-/// </summary>
+/// cref="Kinetica.deleteProc">Kinetica.deleteProc</see>.</summary>
 public class DeleteProcResponse : KineticaData
 {
     /// <summary>Value of <see

@@ -9,30 +9,33 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
-/// </summary>
+/// cref="Kinetica.showSqlProc">Kinetica.showSqlProc</see>.</summary>
 /// <remarks><para>Shows information about SQL procedures, including the full
 /// definition of each requested procedure.</para></remarks>
 public class ShowSqlProcRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowSqlProcRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, no error will be
-        /// returned if the requested procedure does not exist.</summary>
+        /// <summary>If <see cref="ShowSqlProcRequest.Options.TRUE">TRUE</see>,
+        /// no error will be returned if the requested procedure does not
+        /// exist.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ShowSqlProcRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowSqlProcRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
         public const string TRUE = "true";
@@ -49,22 +52,29 @@ public class ShowSqlProcRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         <description>If <see
+    ///         cref="ShowSqlProcRequest.Options.TRUE">TRUE</see>, no error
     ///         will be returned if the requested procedure does not exist.  If
-    ///         <see cref="Options.FALSE">FALSE</see>, an error will be
-    ///         returned if the requested procedure does not exist.
+    ///         <see cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>, an
+    ///         error will be returned if the requested procedure does not
+    ///         exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSqlProcRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -85,22 +95,29 @@ public class ShowSqlProcRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, no error
+    ///         <description>If <see
+    ///         cref="ShowSqlProcRequest.Options.TRUE">TRUE</see>, no error
     ///         will be returned if the requested procedure does not exist.  If
-    ///         <see cref="Options.FALSE">FALSE</see>, an error will be
-    ///         returned if the requested procedure does not exist.
+    ///         <see cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>, an
+    ///         error will be returned if the requested procedure does not
+    ///         exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSqlProcRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -114,12 +131,11 @@ public class ShowSqlProcRequest : KineticaData
 } // end class ShowSqlProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
-/// </summary>
+/// cref="Kinetica.showSqlProc">Kinetica.showSqlProc</see>.</summary>
 public class ShowSqlProcResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="additional_info" />.</summary>
+    /// cref="ShowSqlProcResponse.additional_info" />.</summary>
     /// <remarks><para>Additional information about the respective tables in
     /// the requested procedures.</para></remarks>
     public struct AdditionalInfo
@@ -153,28 +169,29 @@ public class ShowSqlProcResponse : KineticaData
     /// requested procedures.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="AdditionalInfo.EXECUTE_AS">EXECUTE_AS</see>:
+    ///         <term><see
+    ///         cref="ShowSqlProcResponse.AdditionalInfo.EXECUTE_AS">EXECUTE_AS</see>:
     ///         </term>
     ///         <description>The periodic execution impersonate user. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.EXECUTE_INTERVAL">EXECUTE_INTERVAL</see>:
+    ///         cref="ShowSqlProcResponse.AdditionalInfo.EXECUTE_INTERVAL">EXECUTE_INTERVAL</see>:
     ///         </term>
     ///         <description>The periodic execution interval in seconds. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.EXECUTE_START_TIME">EXECUTE_START_TIME</see>:
+    ///         cref="ShowSqlProcResponse.AdditionalInfo.EXECUTE_START_TIME">EXECUTE_START_TIME</see>:
     ///         </term>
     ///         <description>The initial date/time that periodic execution
     ///         began. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AdditionalInfo.EXECUTE_STOP_TIME">EXECUTE_STOP_TIME</see>:
+    ///         cref="ShowSqlProcResponse.AdditionalInfo.EXECUTE_STOP_TIME">EXECUTE_STOP_TIME</see>:
     ///         </term>
     ///         <description>Time at which the periodic execution stops. The
     ///         default value is ''.</description>

@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminShowShards(AdminShowShardsRequest)">Kinetica.adminShowShards</see>.
-/// </summary>
+/// cref="Kinetica.adminShowShards">Kinetica.adminShowShards</see>.</summary>
 /// <remarks><para>Show the mapping of shards to the corresponding rank and
 /// tom.  The response message contains list of 16384 (total number of shards
 /// in the system) Rank and TOM numbers corresponding to each shard.</para>
@@ -38,8 +37,7 @@ public class AdminShowShardsRequest : KineticaData
 } // end class AdminShowShardsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminShowShards(AdminShowShardsRequest)">Kinetica.adminShowShards</see>.
-/// </summary>
+/// cref="Kinetica.adminShowShards">Kinetica.adminShowShards</see>.</summary>
 public class AdminShowShardsResponse : KineticaData
 {
     /// <summary>Current shard array version number.</summary>

@@ -9,18 +9,17 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createRole(CreateRoleRequest)">Kinetica.createRole</see>.
-/// </summary>
+/// cref="Kinetica.createRole">Kinetica.createRole</see>.</summary>
 /// <remarks><para>Creates a new role.</para></remarks>
 public class CreateRoleRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateRoleRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
         /// <summary>Name of an existing resource group to associate with this
-        /// user</summary>
+        /// user.</summary>
         public const string RESOURCE_GROUP = "resource_group";
     } // end struct Options
 
@@ -33,10 +32,11 @@ public class CreateRoleRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         <term><see
+    ///         cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -55,10 +55,11 @@ public class CreateRoleRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         <term><see
+    ///         cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Name of an existing resource group to associate
-    ///         with this user</description>
+    ///         with this user.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -71,8 +72,7 @@ public class CreateRoleRequest : KineticaData
 } // end class CreateRoleRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createRole(CreateRoleRequest)">Kinetica.createRole</see>.
-/// </summary>
+/// cref="Kinetica.createRole">Kinetica.createRole</see>.</summary>
 public class CreateRoleResponse : KineticaData
 {
     /// <summary>Value of <see cref="CreateRoleRequest.name">name</see>.

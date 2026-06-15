@@ -9,24 +9,25 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+/// cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>.
 /// </summary>
 /// <remarks><para>Retrieves records from a collection. The operation can
 /// optionally return the record IDs which can be used in certain queries such
-/// as <see
-/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.</para>
+/// as <see cref="Kinetica.deleteRecords">Kinetica.deleteRecords</see>.</para>
 /// <para>This operation supports paging through the data via the <see
-/// cref="offset" /> and <see cref="limit" /> parameters.</para>
+/// cref="GetRecordsFromCollectionRequest.offset" /> and <see
+/// cref="GetRecordsFromCollectionRequest.limit" /> parameters.</para>
 /// <para>Note that when using the Java API, it is not possible to retrieve
 /// records from join views using this operation.
 /// (DEPRECATED)</para></remarks>
 public class GetRecordsFromCollectionRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="encoding" />.</summary>
+    /// cref="GetRecordsFromCollectionRequest.encoding" />.</summary>
     /// <remarks><para>Specifies the encoding for returned records; either <see
-    /// cref="Encoding.BINARY">BINARY</see> or <see
-    /// cref="Encoding.JSON">JSON</see>.</para></remarks>
+    /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see> or
+    /// <see cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see>.
+    /// </para></remarks>
     public struct Encoding
     {
         public const string BINARY = "binary";
@@ -34,29 +35,35 @@ public class GetRecordsFromCollectionRequest : KineticaData
     } // end struct Encoding
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="GetRecordsFromCollectionRequest.options" />.</summary>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then return the
-        /// internal record ID along with each returned record.</summary>
+        /// <summary>If <see
+        /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see> then
+        /// return the internal record ID along with each returned record.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string RETURN_RECORD_IDS = "return_record_ids";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>Optional filter expression to apply to the table.
-        /// </summary>
+        /// <summary>Filter expression to apply to the table.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string EXPRESSION = "expression";
     } // end struct Options
@@ -82,50 +89,66 @@ public class GetRecordsFromCollectionRequest : KineticaData
     /// server's own limit, defined by the <a
     /// href="../../../config/#config-main-general"
     /// target="_top">max_get_records_size</a> parameter in the server
-    /// configuration. Use <see cref="offset" /> and <see cref="limit" /> to
-    /// request subsequent pages of results. The default value is -9999.</para>
+    /// configuration. Use <see cref="GetRecordsFromCollectionRequest.offset"
+    /// /> and <see cref="GetRecordsFromCollectionRequest.limit" /> to request
+    /// subsequent pages of results. The default value is -9999.</para>
     /// </remarks>
     public long limit { get; set; } = -9999;
 
     /// <summary>Specifies the encoding for returned records; either <see
-    /// cref="Encoding.BINARY">BINARY</see> or <see
-    /// cref="Encoding.JSON">JSON</see>.</summary>
+    /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see> or
+    /// <see cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see>.
+    /// </summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
+    /// <para>The default value is <see
+    /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>.
     /// </para></remarks>
     public string encoding { get; set; } = Encoding.BINARY;
 
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record ID along with each returned record.
+    ///         <description>If <see
+    ///         cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+    ///         then return the internal record ID along with each returned
+    ///         record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         The default value is ''.</description>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -159,26 +182,35 @@ public class GetRecordsFromCollectionRequest : KineticaData
     /// <param name="options"><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record ID along with each returned record.
+    ///         <description>If <see
+    ///         cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+    ///         then return the internal record ID along with each returned
+    ///         record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         The default value is ''.</description>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -216,41 +248,57 @@ public class GetRecordsFromCollectionRequest : KineticaData
     /// name="limit" /> to request subsequent pages of results. The default
     /// value is -9999.</param>
     /// <param name="encoding">Specifies the encoding for returned records;
-    /// either <see cref="Encoding.BINARY">BINARY</see> or <see
-    /// cref="Encoding.JSON">JSON</see>.
+    /// either <see
+    /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see> or
+    /// <see cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see>.
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see></term>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see>
+    ///         </term>
     ///     </item>
     /// </list>
-    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// The default value is <see
+    /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>.
+    /// </param>
     /// <param name="options"><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
+    ///         cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then return
-    ///         the internal record ID along with each returned record.
+    ///         <description>If <see
+    ///         cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+    ///         then return the internal record ID along with each returned
+    ///         record.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         The default value is ''.</description>
+    ///         <term><see
+    ///         cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -269,12 +317,12 @@ public class GetRecordsFromCollectionRequest : KineticaData
 } // end class GetRecordsFromCollectionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+/// cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>.
 /// </summary>
 public class RawGetRecordsFromCollectionResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="RawGetRecordsFromCollectionResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -285,10 +333,14 @@ public class RawGetRecordsFromCollectionResponse : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Info.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Info.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list></remarks>
         public const string HAS_MORE_RECORDS = "has_more_records";
@@ -303,7 +355,8 @@ public class RawGetRecordsFromCollectionResponse : KineticaData
     public string table_name { get; set; }
 
     /// <summary>The type IDs of the corresponding records in <see
-    /// cref="records_binary" /> or <see cref="records_json" />.</summary>
+    /// cref="RawGetRecordsFromCollectionResponse.records_binary" /> or <see
+    /// cref="RawGetRecordsFromCollectionResponse.records_json" />.</summary>
     /// <remarks><para>This is useful when <see
     /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see> is a
     /// heterogeneous collection (collections containing tables of different
@@ -331,21 +384,26 @@ public class RawGetRecordsFromCollectionResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
+    ///         cref="RawGetRecordsFromCollectionResponse.Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
     ///         </term>
     ///         <description>Total number of records.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:
+    ///         <term><see
+    ///         cref="RawGetRecordsFromCollectionResponse.Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:
     ///         </term>
     ///         <description>Too many records. Returned a partial set.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Info.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Info.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>
@@ -355,14 +413,14 @@ public class RawGetRecordsFromCollectionResponse : KineticaData
 } // end class RawGetRecordsFromCollectionResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecordsFromCollection{T}(GetRecordsFromCollectionRequest)">Kinetica.getRecordsFromCollection</see>.
+/// cref="Kinetica.getRecordsFromCollection">Kinetica.getRecordsFromCollection</see>.
 /// </summary>
 ///
 /// <typeparam name="T">The type of object being processed.</typeparam>
 public class GetRecordsFromCollectionResponse<T> : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="RawGetRecordsFromCollectionResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -373,10 +431,14 @@ public class GetRecordsFromCollectionResponse<T> : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Info.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Info.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list></remarks>
         public const string HAS_MORE_RECORDS = "has_more_records";
@@ -390,8 +452,9 @@ public class GetRecordsFromCollectionResponse<T> : KineticaData
     /// </summary>
     public string table_name { get; set; }
 
-    /// <summary>The type IDs of the corresponding records in <see cref="data"
-    /// /> or <c>records_json</c>.</summary>
+    /// <summary>The type IDs of the corresponding records in <see
+    /// cref="RawGetRecordsFromCollectionResponse.data" /> or
+    /// <c>records_json</c>.</summary>
     /// <remarks><para>This is useful when <see
     /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see> is a
     /// heterogeneous collection (collections containing tables of different
@@ -413,21 +476,26 @@ public class GetRecordsFromCollectionResponse<T> : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
+    ///         cref="RawGetRecordsFromCollectionResponse.Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:
     ///         </term>
     ///         <description>Total number of records.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:
+    ///         <term><see
+    ///         cref="RawGetRecordsFromCollectionResponse.Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:
     ///         </term>
     ///         <description>Too many records. Returned a partial set.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Info.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Info.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list></description>
     ///     </item>

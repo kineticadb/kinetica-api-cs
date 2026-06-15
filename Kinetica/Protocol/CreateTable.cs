@@ -9,14 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
-/// </summary>
+/// cref="Kinetica.createTable">Kinetica.createTable</see>.</summary>
 /// <remarks><para>Creates a new table with the given type (definition of
-/// columns).  The type is specified in <see cref="type_id" /> as either a
-/// numerical type ID (as returned by <see
-/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>) or
-/// as a list of columns, each specified as a list of the column name, data
-/// type, and any column attributes.</para>
+/// columns).  The type is specified in <see cref="CreateTableRequest.type_id"
+/// /> as either a numerical type ID (as returned by <see
+/// cref="Kinetica.createType">Kinetica.createType</see>) or as a list of
+/// columns, each specified as a list of the column name, data type, and any
+/// column attributes.</para>
 /// <para>Example of a type definition with some parameters:</para>
 /// <code>
 ///     [
@@ -34,9 +33,8 @@ namespace kinetica;
 /// target="_top">column naming criteria</a>), the column's <a
 /// href="../../../concepts/types/#types-chart" target="_top">specific type</a>
 /// (int, long, float, double, string, bytes, or any of the properties map
-/// values from <see
-/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>),
-/// and any <a href="../../../concepts/types/#types-data-handling"
+/// values from <see cref="Kinetica.createType">Kinetica.createType</see>), and
+/// any <a href="../../../concepts/types/#types-data-handling"
 /// target="_top">data handling</a>, <a
 /// href="../../../concepts/types/#types-data-keys" target="_top">data key</a>,
 /// or <a href="../../../concepts/types/#types-data-replace" target="_top">data
@@ -53,69 +51,79 @@ namespace kinetica;
 public class CreateTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an error
-        /// from occurring if the table already exists and is of the given
-        /// type.</summary>
+        /// <summary>If <see cref="CreateTableRequest.Options.TRUE">TRUE</see>,
+        /// prevents an error from occurring if the table already exists and is
+        /// of the given type.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="table_name" />.</summary>
+        /// <summary>If <see cref="CreateTableRequest.Options.TRUE">TRUE</see>,
+        /// a unique temporary table name will be generated in the sys_temp
+        /// schema and used in place of <see
+        /// cref="CreateTableRequest.table_name" />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         /// <summary>[DEPRECATED--please specify the containing schema as part
-        /// of <see cref="table_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  Name of a schema which is to
-        /// contain the newly created table.</summary>
+        /// of <see cref="CreateTableRequest.table_name" /> and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  Name of a schema which is to contain
+        /// the newly created table.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
 
         /// <summary>[DEPRECATED--please use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create a schema instead]  Indicates whether to create a schema
-        /// instead of a table.</summary>
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// a schema instead]  Indicates whether to create a schema instead of
+        /// a table.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IS_COLLECTION = "is_collection";
 
         /// <summary>Affects the <a
@@ -125,14 +133,17 @@ public class CreateTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IS_REPLICATED = "is_replicated";
 
         /// <summary>Semicolon-separated list of <a
@@ -151,31 +162,38 @@ public class CreateTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.RANGE">RANGE</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-range"
         ///         target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-interval"
         ///         target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.LIST">LIST</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
         ///         target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.HASH">HASH</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-hash"
         ///         target="_top">hash partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SERIES">SERIES</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.SERIES">SERIES</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-series"
         ///         target="_top">series partitioning</a>.</description>
@@ -211,13 +229,14 @@ public class CreateTableRequest : KineticaData
         /// <summary>Comma-separated list of partition keys, which are the
         /// columns or column expressions by which records will be assigned to
         /// partitions defined by <see
-        /// cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
         /// </summary>
         public const string PARTITION_KEYS = "partition_keys";
 
         /// <summary>Comma-separated list of partition definitions, whose
         /// format depends on the choice of <see
-        /// cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.</summary>
+        /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+        /// </summary>
         /// <remarks><para> See <a
         /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
@@ -232,25 +251,28 @@ public class CreateTableRequest : KineticaData
         /// </remarks>
         public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a new partition
-        /// will be created for values which don't fall into an existing
-        /// partition.</summary>
+        /// <summary>If <see cref="CreateTableRequest.Options.TRUE">TRUE</see>,
+        /// a new partition will be created for values which don't fall into an
+        /// existing partition.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
         /// <summary>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <see
-        /// cref="table_name" />.</summary>
+        /// cref="CreateTableRequest.table_name" />.</summary>
         public const string TTL = "ttl";
 
         /// <summary>Indicates the number of records per chunk to be used for
@@ -271,14 +293,17 @@ public class CreateTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string IS_RESULT_TABLE = "is_result_table";
 
         /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
@@ -296,28 +321,36 @@ public class CreateTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+        ///         </term>
         ///         <description>Load as much vector data as possible into
         ///         memory before accepting requests.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.LAZY">LAZY</see>:</term>
         ///         <description>Load the necessary vector data at start, and
         ///         load the remainder lazily.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
+        ///         </term>
         ///         <description>Load vector data as requests use it.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+        ///         </term>
         ///         <description>Load vector data using the system-configured
         ///         default.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.</para>
+        /// </remarks>
         public const string LOAD_VECTORS_POLICY = "load_vectors_policy";
 
         /// <summary>Generate as much primary key index data as possible before
@@ -341,28 +374,36 @@ public class CreateTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+        ///         </term>
         ///         <description>Generate as much primary key index data as
         ///         possible before accepting requests.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.LAZY">LAZY</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.LAZY">LAZY</see>:</term>
         ///         <description>Generate the necessary primary key index data
         ///         at start, and load the remainder lazily.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
+        ///         </term>
         ///         <description>Generate primary key index data as requests
         ///         use it.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+        ///         <term><see
+        ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+        ///         </term>
         ///         <description>Generate primary key index data using the
         ///         system-configured default.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.</para>
+        /// </remarks>
         public const string BUILD_PK_INDEX_POLICY = "build_pk_index_policy";
     } // end struct Options
 
@@ -374,106 +415,129 @@ public class CreateTableRequest : KineticaData
     /// target="_top">table naming criteria</a>.</summary>
     /// <remarks><para>Error for requests with existing table of the same name
     /// and type ID may be suppressed by using the <see
-    /// cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see> option.
-    /// </para></remarks>
+    /// cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>
+    /// option.</para></remarks>
     public string table_name { get; set; }
 
     /// <summary>The type for the table, specified as either an existing
     /// table's numerical type ID (as returned by <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
-    /// or a type definition (as described above).</summary>
+    /// cref="Kinetica.createType">Kinetica.createType</see>) or a type
+    /// definition (as described above).</summary>
     public string type_id { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
-    ///         an error from occurring if the table already exists and is of
-    ///         the given type.  If a table with the same ID but a different
-    ///         type exists, it is still an error.
+    ///         <description>If <see
+    ///         cref="CreateTableRequest.Options.TRUE">TRUE</see>, prevents an
+    ///         error from occurring if the table already exists and is of the
+    ///         given type.  If a table with the same ID but a different type
+    ///         exists, it is still an error.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="CreateTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="CreateTableRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="table_name" />. If <see
-    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see> is <see
-    ///         cref="Options.TRUE">TRUE</see>, then this is always allowed
-    ///         even if the caller does not have permission to create tables.
-    ///         The generated name is returned in <see
+    ///         and used in place of <see cref="CreateTableRequest.table_name"
+    ///         />. If <see
+    ///         cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>
+    ///         is <see cref="CreateTableRequest.Options.TRUE">TRUE</see>, then
+    ///         this is always allowed even if the caller does not have
+    ///         permission to create tables. The generated name is returned in
+    ///         <see
     ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         as part of <see cref="table_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         as part of <see cref="CreateTableRequest.table_name" /> and use
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema which
     ///         is to contain the newly created table. If the schema is
     ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_COLLECTION">IS_COLLECTION</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create a schema instead]  Indicates whether to create a
-    ///         schema instead of a table.
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create a schema instead]  Indicates whether to create a schema
+    ///         instead of a table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
     ///         <description>Affects the <a
     ///         href="../../../concepts/tables/#distribution"
     ///         target="_top">distribution scheme</a> for the table's data.  If
-    ///         <see cref="Options.TRUE">TRUE</see> and the given type has no
-    ///         explicit <a href="../../../concepts/tables/#shard-key"
-    ///         target="_top">shard key</a> defined, the table will be <a
+    ///         <see cref="CreateTableRequest.Options.TRUE">TRUE</see> and the
+    ///         given type has no explicit <a
+    ///         href="../../../concepts/tables/#shard-key" target="_top">shard
+    ///         key</a> defined, the table will be <a
     ///         href="../../../concepts/tables/#replication"
     ///         target="_top">replicated</a>.  If <see
-    ///         cref="Options.FALSE">FALSE</see>, the table will be <a
-    ///         href="../../../concepts/tables/#sharding"
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>, the table
+    ///         will be <a href="../../../concepts/tables/#sharding"
     ///         target="_top">sharded</a> according to the shard key specified
-    ///         in the given <see cref="type_id" />, or <a
+    ///         in the given <see cref="CreateTableRequest.type_id" />, or <a
     ///         href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly sharded</a>, if no shard key is
     ///         specified.  Note that a type containing a shard key cannot be
@@ -481,17 +545,23 @@ public class CreateTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-keys"
@@ -502,46 +572,56 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key of the format 'source_column
     ///         references shard_by_column from
     ///         target_table(primary_key_column)'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
     ///                 target="_top">range partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LIST">LIST</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.LIST">LIST</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.HASH">HASH</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.HASH">HASH</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
     ///                 target="_top">hash partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SERIES">SERIES</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -549,22 +629,23 @@ public class CreateTableRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
-    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
     ///         target="_top">interval partitioning</a>, <a
@@ -578,9 +659,10 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
+    ///         <description>If <see
+    ///         cref="CreateTableRequest.Options.TRUE">TRUE</see>, a new
     ///         partition will be created for values which don't fall into an
     ///         existing partition.  Currently only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -588,42 +670,52 @@ public class CreateTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see cref="CreateTableRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="table_name" />.</description>
+    ///         cref="CreateTableRequest.table_name" />.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateTableRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="CreateTableRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+    ///         cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         </term>
     ///         <description>Indicates whether the table is a <a
     ///         href="../../../concepts/tables_memory_only/"
     ///         target="_top">memory-only table</a>. A result table cannot
@@ -634,18 +726,23 @@ public class CreateTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -653,7 +750,7 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateTableRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -662,68 +759,84 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
+    ///         cref="CreateTableRequest.Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
     ///         </term>
     ///         <description>Set startup data loading scheme for the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+    ///                 </term>
     ///                 <description>Load as much vector data as possible into
     ///                 memory before accepting requests.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.LAZY">LAZY</see>:
+    ///                 </term>
     ///                 <description>Load the necessary vector data at start,
     ///                 and load the remainder lazily.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
     ///                 </term>
     ///                 <description>Load vector data as requests use it.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+    ///                 </term>
     ///                 <description>Load vector data using the
     ///                 system-configured default.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+    ///         cref="CreateTableRequest.Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
     ///         </term>
     ///         <description>Set startup primary-key index generation scheme
     ///         for the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+    ///                 </term>
     ///                 <description>Generate as much primary key index data as
     ///                 possible before accepting requests.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.LAZY">LAZY</see>:
+    ///                 </term>
     ///                 <description>Generate the necessary primary key index
     ///                 data at start, and load the remainder lazily.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
     ///                 </term>
     ///                 <description>Generate primary key index data as
     ///                 requests use it.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+    ///                 </term>
     ///                 <description>Generate primary key index data using the
     ///                 system-configured default.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -744,100 +857,123 @@ public class CreateTableRequest : KineticaData
     /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>. Error for requests with
     /// existing table of the same name and type ID may be suppressed by using
-    /// the <see cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>
+    /// the <see
+    /// cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>
     /// option.</param>
     /// <param name="type_id">The type for the table, specified as either an
     /// existing table's numerical type ID (as returned by <see
-    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
-    /// or a type definition (as described above).</param>
+    /// cref="Kinetica.createType">Kinetica.createType</see>) or a type
+    /// definition (as described above).</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
-    ///         an error from occurring if the table already exists and is of
-    ///         the given type.  If a table with the same ID but a different
-    ///         type exists, it is still an error.
+    ///         <description>If <see
+    ///         cref="CreateTableRequest.Options.TRUE">TRUE</see>, prevents an
+    ///         error from occurring if the table already exists and is of the
+    ///         given type.  If a table with the same ID but a different type
+    ///         exists, it is still an error.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="CreateTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="CreateTableRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="table_name" />. If <see
-    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see> is <see
-    ///         cref="Options.TRUE">TRUE</see>, then this is always allowed
-    ///         even if the caller does not have permission to create tables.
-    ///         The generated name is returned in <see
+    ///         cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>
+    ///         is <see cref="CreateTableRequest.Options.TRUE">TRUE</see>, then
+    ///         this is always allowed even if the caller does not have
+    ///         permission to create tables. The generated name is returned in
+    ///         <see
     ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <paramref name="table_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the newly created table. If the schema is
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created table. If the schema is
     ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_COLLECTION">IS_COLLECTION</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create a schema instead]  Indicates whether to create a
-    ///         schema instead of a table.
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create a schema instead]  Indicates whether to create a schema
+    ///         instead of a table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
     ///         <description>Affects the <a
     ///         href="../../../concepts/tables/#distribution"
     ///         target="_top">distribution scheme</a> for the table's data.  If
-    ///         <see cref="Options.TRUE">TRUE</see> and the given type has no
-    ///         explicit <a href="../../../concepts/tables/#shard-key"
-    ///         target="_top">shard key</a> defined, the table will be <a
+    ///         <see cref="CreateTableRequest.Options.TRUE">TRUE</see> and the
+    ///         given type has no explicit <a
+    ///         href="../../../concepts/tables/#shard-key" target="_top">shard
+    ///         key</a> defined, the table will be <a
     ///         href="../../../concepts/tables/#replication"
     ///         target="_top">replicated</a>.  If <see
-    ///         cref="Options.FALSE">FALSE</see>, the table will be <a
-    ///         href="../../../concepts/tables/#sharding"
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>, the table
+    ///         will be <a href="../../../concepts/tables/#sharding"
     ///         target="_top">sharded</a> according to the shard key specified
     ///         in the given <paramref name="type_id" />, or <a
     ///         href="../../../concepts/tables/#random-sharding"
@@ -847,17 +983,23 @@ public class CreateTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-keys"
@@ -868,46 +1010,56 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key of the format 'source_column
     ///         references shard_by_column from
     ///         target_table(primary_key_column)'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.RANGE">RANGE</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.RANGE">RANGE</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
     ///                 target="_top">range partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.INTERVAL">INTERVAL</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LIST">LIST</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.LIST">LIST</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.HASH">HASH</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.HASH">HASH</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
     ///                 target="_top">hash partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SERIES">SERIES</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -915,22 +1067,23 @@ public class CreateTableRequest : KineticaData
     ///         </list></description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="Options.PARTITION_TYPE">PARTITION_TYPE</see>.  See <a
-    ///         href="../../../concepts/tables/#partitioning-by-range"
+    ///         cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
     ///         target="_top">interval partitioning</a>, <a
@@ -944,9 +1097,10 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a new
+    ///         <description>If <see
+    ///         cref="CreateTableRequest.Options.TRUE">TRUE</see>, a new
     ///         partition will be created for values which don't fall into an
     ///         existing partition.  Currently only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -954,42 +1108,52 @@ public class CreateTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see cref="CreateTableRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the table specified in <paramref
     ///         name="table_name" />.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="CreateTableRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="CreateTableRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+    ///         cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         </term>
     ///         <description>Indicates whether the table is a <a
     ///         href="../../../concepts/tables_memory_only/"
     ///         target="_top">memory-only table</a>. A result table cannot
@@ -1000,18 +1164,23 @@ public class CreateTableRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -1019,7 +1188,7 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="CreateTableRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -1028,68 +1197,84 @@ public class CreateTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
+    ///         cref="CreateTableRequest.Options.LOAD_VECTORS_POLICY">LOAD_VECTORS_POLICY</see>:
     ///         </term>
     ///         <description>Set startup data loading scheme for the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+    ///                 </term>
     ///                 <description>Load as much vector data as possible into
     ///                 memory before accepting requests.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.LAZY">LAZY</see>:
+    ///                 </term>
     ///                 <description>Load the necessary vector data at start,
     ///                 and load the remainder lazily.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
     ///                 </term>
     ///                 <description>Load vector data as requests use it.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+    ///                 </term>
     ///                 <description>Load vector data using the
     ///                 system-configured default.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
+    ///         cref="CreateTableRequest.Options.BUILD_PK_INDEX_POLICY">BUILD_PK_INDEX_POLICY</see>:
     ///         </term>
     ///         <description>Set startup primary-key index generation scheme
     ///         for the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ALWAYS">ALWAYS</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ALWAYS">ALWAYS</see>:
+    ///                 </term>
     ///                 <description>Generate as much primary key index data as
     ///                 possible before accepting requests.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.LAZY">LAZY</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.LAZY">LAZY</see>:
+    ///                 </term>
     ///                 <description>Generate the necessary primary key index
     ///                 data at start, and load the remainder lazily.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ON_DEMAND">ON_DEMAND</see>:
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.ON_DEMAND">ON_DEMAND</see>:
     ///                 </term>
     ///                 <description>Generate primary key index data as
     ///                 requests use it.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.SYSTEM">SYSTEM</see>:</term>
+    ///                 <term><see
+    ///                 cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>:
+    ///                 </term>
     ///                 <description>Generate primary key index data using the
     ///                 system-configured default.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.SYSTEM">SYSTEM</see>.
+    ///         The default value is <see
+    ///         cref="CreateTableRequest.Options.SYSTEM">SYSTEM</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -1105,17 +1290,16 @@ public class CreateTableRequest : KineticaData
 } // end class CreateTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
-/// </summary>
+/// cref="Kinetica.createTable">Kinetica.createTable</see>.</summary>
 public class CreateTableResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="CreateTableResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the new table (i.e. including
-        /// the schema)</summary>
+        /// the schema).</summary>
         public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
     } // end struct Info
 
@@ -1135,10 +1319,10 @@ public class CreateTableResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
+    ///         cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the new table (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

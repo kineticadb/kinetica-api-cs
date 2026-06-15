@@ -9,17 +9,17 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
-/// </summary>
+/// cref="Kinetica.restoreBackup">Kinetica.restoreBackup</see>.</summary>
 /// <remarks><para>Restores database objects from a <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup</a> accessible via the <a
 /// href="../../../concepts/data_sources/" target="_top">data source</a>
-/// specified by <see cref="datasource_name" />.</para></remarks>
+/// specified by <see cref="RestoreBackupRequest.datasource_name" />.</para>
+/// </remarks>
 public class RestoreBackupRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="restore_objects_map" />.</summary>
+    /// cref="RestoreBackupRequest.restore_objects_map" />.</summary>
     /// <remarks><para>Map of database objects to be restored from the backup.
     /// </para></remarks>
     public struct RestoreObjectsMap
@@ -50,7 +50,7 @@ public class RestoreBackupRequest : KineticaData
         public const string FUNCTION_ENVIRONMENT = "function_environment";
 
         /// <summary><a href="../../../graph_solver/network_graph_solver/"
-        /// target="_top">Graph(s)</a>.</summary>
+        /// target="_top">Graph(s)</a> definition.</summary>
         public const string GRAPH = "graph";
 
         /// <summary><a href="../../../concepts/table_monitors/"
@@ -76,6 +76,11 @@ public class RestoreBackupRequest : KineticaData
         /// target="_top">Table(s)</a> and <a
         /// href="../../../sql/ddl/#create-view" target="_top">SQL view(s)</a>.
         /// </summary>
+        /// <remarks><para> Tables with subscriptions will by default be
+        /// restored in the state they were in at the time of the snapshot. See
+        /// <see
+        /// cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>
+        /// for options to override the default behavior.</para></remarks>
         public const string TABLE = "table";
 
         /// <summary><a
@@ -90,7 +95,7 @@ public class RestoreBackupRequest : KineticaData
     } // end struct RestoreObjectsMap
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="RestoreBackupRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -104,14 +109,18 @@ public class RestoreBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CHECKSUM = "checksum";
 
         /// <summary>Restore table data by re-ingesting it.</summary>
@@ -128,35 +137,43 @@ public class RestoreBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:</term>
         ///         <description>If the schema containing any restored object
         ///         does not exist, create it automatically.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>If the schema containing any restored object
         ///         does not exist, return an error.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string CREATE_SCHEMA_IF_NOT_EXIST = "create_schema_if_not_exist";
 
         /// <summary>Behavior to apply when restoring tables.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:</term>
         ///         <description>Restore table DDL, but do not restore data.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Restore tables and their data.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DDL_ONLY = "ddl_only";
 
         /// <summary>Whether or not to perform a dry run of the restoration
@@ -164,39 +181,89 @@ public class RestoreBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
+
+        /// <summary>Behavior to apply when restoring datasource subscriptions
+        /// on tables.</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.RESUME">RESUME</see>:
+        ///         </term>
+        ///         <description>Resume subscriptions that were active when the
+        ///         backup was made.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.PAUSE">PAUSE</see>:
+        ///         </term>
+        ///         <description>Pause subscriptions that were active when the
+        ///         backup was made.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.CANCEL">CANCEL</see>:
+        ///         </term>
+        ///         <description>Cancel active subscriptions.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.RESUME">RESUME</see>.</para>
+        /// </remarks>
+        public const string RESTORE_SUBSCRIPTIONS = "restore_subscriptions";
+
+        /// <summary>Resume subscriptions that were active when the backup was
+        /// made.</summary>
+        public const string RESUME = "resume";
+
+        /// <summary>Pause subscriptions that were active when the backup was
+        /// made.</summary>
+        public const string PAUSE = "pause";
+
+        /// <summary>Cancel active subscriptions.</summary>
+        public const string CANCEL = "cancel";
 
         /// <summary>Behavior to apply when restoring table data.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:</term>
         ///         <description>Restore table data by re-ingesting it.  This
         ///         is the default behavior if the cluster topology differs
         ///         from that of the contained backup.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Restore the persisted data files directly.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string REINGEST = "reingest";
 
         /// <summary>If the <see
-        /// cref="Options.RESTORE_POLICY">RESTORE_POLICY</see> is <see
-        /// cref="Options.RENAME">RENAME</see>, use this schema for relocated
-        /// existing objects instead of the default generated one.</summary>
+        /// cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>
+        /// is <see cref="RestoreBackupRequest.Options.RENAME">RENAME</see>,
+        /// use this schema for relocated existing objects instead of the
+        /// default generated one.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string RENAMED_OBJECTS_SCHEMA = "renamed_objects_schema";
 
@@ -205,28 +272,34 @@ public class RestoreBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.NONE">NONE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>:</term>
         ///         <description>If an object to be restored already exists
         ///         with the same name, abort and return error.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.REPLACE">REPLACE</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.REPLACE">REPLACE</see>:
+        ///         </term>
         ///         <description>If an object to be restored already exists
         ///         with the same name, replace it with the backup version.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.RENAME">RENAME</see>:</term>
+        ///         <term><see
+        ///         cref="RestoreBackupRequest.Options.RENAME">RENAME</see>:
+        ///         </term>
         ///         <description>If an object to be restored already exists
         ///         with the same name, move that existing one to the schema
         ///         specified by <see
-        ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+        ///         cref="RestoreBackupRequest.Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
         ///         This policy does not apply to non-schema objects.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.NONE">NONE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="RestoreBackupRequest.Options.NONE">NONE</see>.</para>
+        /// </remarks>
         public const string RESTORE_POLICY = "restore_policy";
 
         /// <summary>If an object to be restored already exists with the same
@@ -239,7 +312,7 @@ public class RestoreBackupRequest : KineticaData
 
         /// <summary>If an object to be restored already exists with the same
         /// name, move that existing one to the schema specified by <see
-        /// cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+        /// cref="RestoreBackupRequest.Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
         /// </summary>
         /// <remarks><para>This policy does not apply to non-schema objects.
         /// </para></remarks>
@@ -255,13 +328,16 @@ public class RestoreBackupRequest : KineticaData
     /// </summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.ALL">ALL</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.ALL">ALL</see>:
+    ///         </term>
     ///         <description>All object types and data contained in the given
     ///         <a href="../../../concepts/schemas/"
     ///         target="_top">schema(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
@@ -269,25 +345,28 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:</term>
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/credentials/"
     ///         target="_top">Credential(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.DATASINK">DATASINK</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DATASINK">DATASINK</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/data_sinks/"
     ///         target="_top">Data sink(s)</a>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:</term>
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/data_sources/"
     ///         target="_top">Data source(s)</a>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../udf/python/writing/#udf-python-func-env"
@@ -295,13 +374,16 @@ public class RestoreBackupRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.MONITOR">MONITOR</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.MONITOR">MONITOR</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/table_monitors/"
     ///         target="_top">Table monitor(s)</a> / <a
@@ -310,33 +392,43 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description><a href="../../../rm/concepts/#resource-groups"
     ///         target="_top">Resource group(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.ROLE">ROLE</see>:
+    ///         </term>
     ///         <description><a href="../../../security/sec_concepts/#roles"
     ///         target="_top">Role(s)</a>, role members (roles or users,
     ///         recursively), and associated permissions.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
     ///         </term>
     ///         <description><a href="../../../sql/procedure/"
     ///         target="_top">SQL procedure(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Tables with subscriptions will by default be
+    ///         restored in the state they were in at the time of the snapshot.
+    ///         See <see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>
+    ///         for options to override the default behavior.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.USER">USER</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.USER">USER</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../security/sec_concepts/#security-concepts-users"
     ///         target="_top">User(s)</a> (internal and external) and
@@ -344,7 +436,7 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
     ///         </term>
     ///         <description><a href="../../../udf_overview"
     ///         target="_top">UDF(s)</a>.</description>
@@ -359,146 +451,223 @@ public class RestoreBackupRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
+    ///         </term>
     ///         <description>ID of the snapshot to restore. Leave empty to
     ///         restore the most recent snapshot in the backup. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
+    ///         </term>
     ///         <description>Whether or not to verify checksums for backup
     ///         files when restoring.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
+    ///         cref="RestoreBackupRequest.Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
     ///         </term>
     ///         <description>Behavior to apply when the schema containing any
     ///         database object to restore does not already exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>If the schema containing any restored
     ///                 object does not exist, create it automatically.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>If the schema containing any restored
     ///                 object does not exist, return an error.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.DDL_ONLY">DDL_ONLY</see>:
+    ///         </term>
     ///         <description>Behavior to apply when restoring tables.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Restore table DDL, but do not restore
     ///                 data.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Restore tables and their data.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
     ///         <description>Whether or not to perform a dry run of the
     ///         restoration operation.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.REINGEST">REINGEST</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when restoring datasource
+    ///         subscriptions on tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.RESUME">RESUME</see>:
+    ///                 </term>
+    ///                 <description>Resume subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.PAUSE">PAUSE</see>:
+    ///                 </term>
+    ///                 <description>Pause subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.CANCEL">CANCEL</see>:
+    ///                 </term>
+    ///                 <description>Cancel active subscriptions.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.RESUME">RESUME</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.REINGEST">REINGEST</see>:
+    ///         </term>
     ///         <description>Behavior to apply when restoring table data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Restore table data by re-ingesting it.
     ///                 This is the default behavior if the cluster topology
     ///                 differs from that of the contained backup.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Restore the persisted data files directly.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
+    ///         cref="RestoreBackupRequest.Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
     ///         </term>
     ///         <description>If the <see
-    ///         cref="Options.RESTORE_POLICY">RESTORE_POLICY</see> is <see
-    ///         cref="Options.RENAME">RENAME</see>, use this schema for
-    ///         relocated existing objects instead of the default generated
-    ///         one. The default value is ''.</description>
+    ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>
+    ///         is <see
+    ///         cref="RestoreBackupRequest.Options.RENAME">RENAME</see>, use
+    ///         this schema for relocated existing objects instead of the
+    ///         default generated one. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESTORE_POLICY">RESTORE_POLICY</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>:
     ///         </term>
     ///         <description>Behavior to apply when any database object to
     ///         restore already exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.NONE">NONE</see>:
+    ///                 </term>
     ///                 <description>If an object to be restored already exists
     ///                 with the same name, abort and return error.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.REPLACE">REPLACE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.REPLACE">REPLACE</see>:
+    ///                 </term>
     ///                 <description>If an object to be restored already exists
     ///                 with the same name, replace it with the backup version.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.RENAME">RENAME</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.RENAME">RENAME</see>:
+    ///                 </term>
     ///                 <description>If an object to be restored already exists
     ///                 with the same name, move that existing one to the
     ///                 schema specified by <see
-    ///                 cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+    ///                 cref="RestoreBackupRequest.Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
     ///                 This policy does not apply to non-schema objects.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NONE">NONE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -518,13 +687,16 @@ public class RestoreBackupRequest : KineticaData
     /// restored from the backup.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.ALL">ALL</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.ALL">ALL</see>:
+    ///         </term>
     ///         <description>All object types and data contained in the given
     ///         <a href="../../../concepts/schemas/"
     ///         target="_top">schema(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.CONTEXT">CONTEXT</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../sql-gpt/concepts/#sql-gpt-context"
@@ -532,25 +704,28 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:</term>
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CREDENTIAL">CREDENTIAL</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/credentials/"
     ///         target="_top">Credential(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.DATASINK">DATASINK</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DATASINK">DATASINK</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/data_sinks/"
     ///         target="_top">Data sink(s)</a>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:</term>
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DATASOURCE">DATASOURCE</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/data_sources/"
     ///         target="_top">Data source(s)</a>.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
     ///         href="../../../udf/python/writing/#udf-python-func-env"
@@ -558,13 +733,16 @@ public class RestoreBackupRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a>.</description>
+    ///         target="_top">Graph(s)</a> definition.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.MONITOR">MONITOR</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.MONITOR">MONITOR</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/table_monitors/"
     ///         target="_top">Table monitor(s)</a> / <a
@@ -573,33 +751,43 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.RESOURCE_GROUP">RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description><a href="../../../rm/concepts/#resource-groups"
     ///         target="_top">Resource group(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.ROLE">ROLE</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.ROLE">ROLE</see>:
+    ///         </term>
     ///         <description><a href="../../../security/sec_concepts/#roles"
     ///         target="_top">Role(s)</a>, role members (roles or users,
     ///         recursively), and associated permissions.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.STORED_PROCEDURE">STORED_PROCEDURE</see>:
     ///         </term>
     ///         <description><a href="../../../sql/procedure/"
     ///         target="_top">SQL procedure(s)</a>.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description><a href="../../../concepts/tables/"
     ///         target="_top">Table(s)</a> and <a
     ///         href="../../../sql/ddl/#create-view" target="_top">SQL
-    ///         view(s)</a>.</description>
+    ///         view(s)</a>. Tables with subscriptions will by default be
+    ///         restored in the state they were in at the time of the snapshot.
+    ///         See <see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>
+    ///         for options to override the default behavior.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RestoreObjectsMap.USER">USER</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.USER">USER</see>:
+    ///         </term>
     ///         <description><a
     ///         href="../../../security/sec_concepts/#security-concepts-users"
     ///         target="_top">User(s)</a> (internal and external) and
@@ -607,7 +795,7 @@ public class RestoreBackupRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RestoreObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.USER_DEFINED_FUNCTION">USER_DEFINED_FUNCTION</see>:
     ///         </term>
     ///         <description><a href="../../../udf_overview"
     ///         target="_top">UDF(s)</a>.</description>
@@ -618,146 +806,223 @@ public class RestoreBackupRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.BACKUP_ID">BACKUP_ID</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
+    ///         </term>
     ///         <description>ID of the snapshot to restore. Leave empty to
     ///         restore the most recent snapshot in the backup. The default
     ///         value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CHECKSUM">CHECKSUM</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
+    ///         </term>
     ///         <description>Whether or not to verify checksums for backup
     ///         files when restoring.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
+    ///         cref="RestoreBackupRequest.Options.CREATE_SCHEMA_IF_NOT_EXIST">CREATE_SCHEMA_IF_NOT_EXIST</see>:
     ///         </term>
     ///         <description>Behavior to apply when the schema containing any
     ///         database object to restore does not already exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>If the schema containing any restored
     ///                 object does not exist, create it automatically.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>If the schema containing any restored
     ///                 object does not exist, return an error.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DDL_ONLY">DDL_ONLY</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.DDL_ONLY">DDL_ONLY</see>:
+    ///         </term>
     ///         <description>Behavior to apply when restoring tables.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Restore table DDL, but do not restore
     ///                 data.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Restore tables and their data.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
     ///         <description>Whether or not to perform a dry run of the
     ///         restoration operation.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.REINGEST">REINGEST</see>:</term>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_SUBSCRIPTIONS">RESTORE_SUBSCRIPTIONS</see>:
+    ///         </term>
+    ///         <description>Behavior to apply when restoring datasource
+    ///         subscriptions on tables.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.RESUME">RESUME</see>:
+    ///                 </term>
+    ///                 <description>Resume subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.PAUSE">PAUSE</see>:
+    ///                 </term>
+    ///                 <description>Pause subscriptions that were active when
+    ///                 the backup was made.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.CANCEL">CANCEL</see>:
+    ///                 </term>
+    ///                 <description>Cancel active subscriptions.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.RESUME">RESUME</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.REINGEST">REINGEST</see>:
+    ///         </term>
     ///         <description>Behavior to apply when restoring table data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Restore table data by re-ingesting it.
     ///                 This is the default behavior if the cluster topology
     ///                 differs from that of the contained backup.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Restore the persisted data files directly.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
+    ///         cref="RestoreBackupRequest.Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>:
     ///         </term>
     ///         <description>If the <see
-    ///         cref="Options.RESTORE_POLICY">RESTORE_POLICY</see> is <see
-    ///         cref="Options.RENAME">RENAME</see>, use this schema for
-    ///         relocated existing objects instead of the default generated
-    ///         one. The default value is ''.</description>
+    ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>
+    ///         is <see
+    ///         cref="RestoreBackupRequest.Options.RENAME">RENAME</see>, use
+    ///         this schema for relocated existing objects instead of the
+    ///         default generated one. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESTORE_POLICY">RESTORE_POLICY</see>:
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>:
     ///         </term>
     ///         <description>Behavior to apply when any database object to
     ///         restore already exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.NONE">NONE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.NONE">NONE</see>:
+    ///                 </term>
     ///                 <description>If an object to be restored already exists
     ///                 with the same name, abort and return error.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.REPLACE">REPLACE</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.REPLACE">REPLACE</see>:
+    ///                 </term>
     ///                 <description>If an object to be restored already exists
     ///                 with the same name, replace it with the backup version.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.RENAME">RENAME</see>:</term>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.RENAME">RENAME</see>:
+    ///                 </term>
     ///                 <description>If an object to be restored already exists
     ///                 with the same name, move that existing one to the
     ///                 schema specified by <see
-    ///                 cref="Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
+    ///                 cref="RestoreBackupRequest.Options.RENAMED_OBJECTS_SCHEMA">RENAMED_OBJECTS_SCHEMA</see>.
     ///                 This policy does not apply to non-schema objects.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.NONE">NONE</see>.
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -775,8 +1040,7 @@ public class RestoreBackupRequest : KineticaData
 } // end class RestoreBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
-/// </summary>
+/// cref="Kinetica.restoreBackup">Kinetica.restoreBackup</see>.</summary>
 public class RestoreBackupResponse : KineticaData
 {
     /// <summary>Value of <see

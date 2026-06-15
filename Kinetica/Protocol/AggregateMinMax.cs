@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
-/// </summary>
+/// cref="Kinetica.aggregateMinMax">Kinetica.aggregateMinMax</see>.</summary>
 /// <remarks><para>Calculates and returns the minimum and maximum values of a
 /// particular column in a table.</para></remarks>
 public class AggregateMinMaxRequest : KineticaData
@@ -59,12 +58,11 @@ public class AggregateMinMaxRequest : KineticaData
 } // end class AggregateMinMaxRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
-/// </summary>
+/// cref="Kinetica.aggregateMinMax">Kinetica.aggregateMinMax</see>.</summary>
 public class AggregateMinMaxResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AggregateMinMaxResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -75,7 +73,7 @@ public class AggregateMinMaxResponse : KineticaData
 
         /// <summary>The maximum value of <see
         /// cref="AggregateMinMaxRequest.column_name">column_name</see>, stored
-        /// as a byte vector</summary>
+        /// as a byte vector.</summary>
         public const string MAX_STRING = "max_string";
     } // end struct Info
 
@@ -90,16 +88,20 @@ public class AggregateMinMaxResponse : KineticaData
     /// <summary>Additional information.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Info.MIN_STRING">MIN_STRING</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateMinMaxResponse.Info.MIN_STRING">MIN_STRING</see>:
+    ///         </term>
     ///         <description>The minimum value of <see
     ///         cref="AggregateMinMaxRequest.column_name">column_name</see>,
     ///         stored as a byte vector.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Info.MAX_STRING">MAX_STRING</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateMinMaxResponse.Info.MAX_STRING">MAX_STRING</see>:
+    ///         </term>
     ///         <description>The maximum value of <see
     ///         cref="AggregateMinMaxRequest.column_name">column_name</see>,
-    ///         stored as a byte vector</description>
+    ///         stored as a byte vector.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

@@ -9,37 +9,40 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>.
-/// </summary>
+/// cref="Kinetica.aggregateUnique">Kinetica.aggregateUnique</see>.</summary>
 /// <remarks><para>Returns all the unique values from a particular column
-/// (specified by <see cref="column_name" />) of a particular table or view
-/// (specified by <see cref="table_name" />). If <see cref="column_name" /> is
-/// a numeric column, the values will be in <see
-/// cref="AggregateUniqueResponse.data">data</see>. Otherwise if <see
-/// cref="column_name" /> is a string column, the values will be in
-/// <c>json_encoded_response</c>.  The results can be paged via <see
-/// cref="offset" /> and <see cref="limit" /> parameters.</para>
+/// (specified by <see cref="AggregateUniqueRequest.column_name" />) of a
+/// particular table or view (specified by <see
+/// cref="AggregateUniqueRequest.table_name" />). If <see
+/// cref="AggregateUniqueRequest.column_name" /> is a numeric column, the
+/// values will be in <see cref="AggregateUniqueResponse.data">data</see>.
+/// Otherwise if <see cref="AggregateUniqueRequest.column_name" /> is a string
+/// column, the values will be in <c>json_encoded_response</c>.  The results
+/// can be paged via <see cref="AggregateUniqueRequest.offset" /> and <see
+/// cref="AggregateUniqueRequest.limit" /> parameters.</para>
 /// <para>    {"limit":"10","sort_order":"descending"}</para>
 /// <para>The response is returned as a dynamic schema. For details see: <a
 /// href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic schemas
 /// documentation</a>.</para>
-/// <para>If a <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> name is
-/// specified in the <see cref="options" />, the results are stored in a new
-/// table with that name--no results are returned in the response.  Both the
-/// table name and resulting column name must adhere to <a
-/// href="../../../concepts/tables/#table" target="_top">standard naming
+/// <para>If a <see
+/// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see> name
+/// is specified in the <see cref="AggregateUniqueRequest.options" />, the
+/// results are stored in a new table with that name--no results are returned
+/// in the response.  Both the table name and resulting column name must adhere
+/// to <a href="../../../concepts/tables/#table" target="_top">standard naming
 /// conventions</a>; any column expression will need to be aliased.  If the
 /// source table's <a href="../../../concepts/tables/#shard-keys"
-/// target="_top">shard key</a> is used as the <see cref="column_name" />, the
-/// result table will be sharded, in all other cases it will be replicated.
-/// Sorting will properly function only if the result table is replicated or if
-/// there is only one processing node and should not be relied upon in other
-/// cases.  Not available if the value of <see cref="column_name" /> is an
-/// unrestricted-length string.</para></remarks>
+/// target="_top">shard key</a> is used as the <see
+/// cref="AggregateUniqueRequest.column_name" />, the result table will be
+/// sharded, in all other cases it will be replicated.  Sorting will properly
+/// function only if the result table is replicated or if there is only one
+/// processing node and should not be relied upon in other cases.  Not
+/// available if the value of <see cref="AggregateUniqueRequest.column_name" />
+/// is an unrestricted-length string.</para></remarks>
 public class AggregateUniqueRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="encoding" />.</summary>
+    /// cref="AggregateUniqueRequest.encoding" />.</summary>
     /// <remarks><para>Specifies the encoding for returned records.</para>
     /// </remarks>
     public struct Encoding
@@ -48,48 +51,57 @@ public class AggregateUniqueRequest : KineticaData
         /// encoded.</summary>
         public const string BINARY = "binary";
 
-        /// <summary>Indicates that the returned records should be json
-        /// encoded.</summary>
+        /// <summary>Indicates that the returned records should be
+        /// JSON-encoded.</summary>
         public const string JSON = "json";
     } // end struct Encoding
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AggregateUniqueRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>.
+        /// <summary>If <see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema as part
-        /// of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  Name of a schema which is to
-        /// contain the table specified in <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+        /// of <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  Name of a schema which is to contain
+        /// the table specified in <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+        /// </summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
 
-        /// <summary>Optional filter expression to apply to the table.
-        /// </summary>
+        /// <summary>Filter expression to apply to the table.</summary>
         public const string EXPRESSION = "expression";
 
         /// <summary>String indicating how the returned values should be
@@ -97,15 +109,19 @@ public class AggregateUniqueRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.ASCENDING">ASCENDING</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.DESCENDING">DESCENDING</see>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.DESCENDING">DESCENDING</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.ASCENDING">ASCENDING</see>.</para></remarks>
+        /// cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>.
+        /// </para></remarks>
         public const string SORT_ORDER = "sort_order";
 
         public const string ASCENDING = "ascending";
@@ -124,26 +140,34 @@ public class AggregateUniqueRequest : KineticaData
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.</summary>
         /// <remarks><para> If present, no results are returned in the
-        /// response.  Not available if <see cref="column_name" /> is an
+        /// response.  Not available if <see
+        /// cref="AggregateUniqueRequest.column_name" /> is an
         /// unrestricted-length string.</para></remarks>
         public const string RESULT_TABLE = "result_table";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, then the result
-        /// table specified in <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be persisted
-        /// and will not expire unless a <see cref="Options.TTL">TTL</see> is
-        /// specified.</summary>
+        /// <summary>If <see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, then the
+        /// result table specified in <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// will be persisted and will not expire unless a <see
+        /// cref="AggregateUniqueRequest.Options.TTL">TTL</see> is specified.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RESULT_TABLE_PERSIST = "result_table_persist";
 
         /// <summary>Force the result table to be replicated (ignores any
@@ -151,55 +175,67 @@ public class AggregateUniqueRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> then set a primary
-        /// key for the result table.</summary>
+        /// <summary>If <see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see> then set a
+        /// primary key for the result table.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
         /// <summary>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</summary>
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+        /// </summary>
         public const string TTL = "ttl";
 
         /// <summary>Indicates the number of records per chunk to be used for
         /// the result table.</summary>
         /// <remarks><para>Must be used in combination with the <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
-        /// </remarks>
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.</para></remarks>
         public const string CHUNK_SIZE = "chunk_size";
 
         /// <summary>Indicates the target maximum data size for each column in
         /// a chunk to be used for the result table.</summary>
         /// <remarks><para>Must be used in combination with the <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
-        /// </remarks>
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.</para></remarks>
         public const string CHUNK_COLUMN_MAX_MEMORY = "chunk_column_max_memory";
 
         /// <summary>Indicates the target maximum data size for all columns in
         /// a chunk to be used for the result table.</summary>
         /// <remarks><para>Must be used in combination with the <see
-        /// cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.</para>
-        /// </remarks>
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.</para></remarks>
         public const string CHUNK_MAX_MEMORY = "chunk_max_memory";
 
         /// <summary>The default <a
@@ -240,100 +276,124 @@ public class AggregateUniqueRequest : KineticaData
     /// configuration. Use <see
     /// cref="AggregateUniqueResponse.has_more_records">has_more_records</see>
     /// to see if more records exist in the result to be fetched, and <see
-    /// cref="offset" /> and <see cref="limit" /> to request subsequent pages
-    /// of results. The default value is -9999.</para></remarks>
+    /// cref="AggregateUniqueRequest.offset" /> and <see
+    /// cref="AggregateUniqueRequest.limit" /> to request subsequent pages of
+    /// results. The default value is -9999.</para></remarks>
     public long limit { get; set; } = -9999;
 
     /// <summary>Specifies the encoding for returned records.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Encoding.BINARY">BINARY</see>:
+    ///         </term>
     ///         <description>Indicates that the returned records should be
     ///         binary encoded.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see>:</term>
-    ///         <description>Indicates that the returned records should be json
-    ///         encoded.</description>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Encoding.JSON">JSON</see>:</term>
+    ///         <description>Indicates that the returned records should be
+    ///         JSON-encoded.</description>
     ///     </item>
     /// </list>
-    /// <para>The default value is <see cref="Encoding.BINARY">BINARY</see>.
-    /// </para></remarks>
+    /// <para>The default value is <see
+    /// cref="AggregateUniqueRequest.Encoding.BINARY">BINARY</see>.</para>
+    /// </remarks>
     public string encoding { get; set; } = Encoding.BINARY;
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="AggregateUniqueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
-    ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified), then
-    ///         this is always allowed even if the caller does not have
-    ///         permission to create tables. The generated name is returned in
-    ///         <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+    ///         is <see cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="AggregateUniqueResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         as part of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         as part of <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the schema
-    ///         provided is non-existent, it will be automatically created.
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.SORT_ORDER">SORT_ORDER</see>:
+    ///         </term>
     ///         <description>String indicating how the returned values should
     ///         be sorted.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DESCENDING">DESCENDING</see>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.DESCENDING">DESCENDING</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+    ///         cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Comma-separated list of the columns to be sorted
     ///         by as well as the sort direction, e.g., 'timestamp asc, x
     ///         desc'. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:
     ///         </term>
     ///         <description>The name of the table used to store the results,
     ///         in [schema_name.]table_name format, using standard <a
@@ -342,107 +402,135 @@ public class AggregateUniqueRequest : KineticaData
     ///         href="../../../concepts/tables/#table-naming-criteria"
     ///         target="_top">table naming criteria</a>.  If present, no
     ///         results are returned in the response.  Not available if <see
-    ///         cref="column_name" /> is an unrestricted-length string.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.column_name" /> is an
+    ///         unrestricted-length string.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, then the
     ///         result table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the result table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         will be persisted and will not expire unless a <see
+    ///         cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>, then
+    ///         the result table will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
     ///         </term>
     ///         <description>Force the result table to be replicated (ignores
     ///         any sharding). Must be used in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
-    ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then set a
-    ///         primary key for the result table. Must be used in combination
-    ///         with the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
-    ///         <description>Sets the <a href="../../../concepts/ttl/"
-    ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-    ///         <description>Indicates the number of records per chunk to be
-    ///         used for the result table. Must be used in combination with the
-    ///         <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see> then set
+    ///         a primary key for the result table. Must be used in combination
+    ///         with the <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="AggregateUniqueRequest.Options.TTL">TTL</see>:
+    ///         </term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for the result table. Must be used in combination with the
+    ///         <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for the result table. Must be used
     ///         in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for the result table. Must be
     ///         used in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="AggregateUniqueRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -450,7 +538,9 @@ public class AggregateUniqueRequest : KineticaData
     ///         columns.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:
+    ///         </term>
     ///         <description>ID of view of which the result table will be a
     ///         member. The default value is ''.</description>
     ///     </item>
@@ -491,74 +581,93 @@ public class AggregateUniqueRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="AggregateUniqueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
-    ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified), then
-    ///         this is always allowed even if the caller does not have
-    ///         permission to create tables. The generated name is returned in
-    ///         <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+    ///         is <see cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="AggregateUniqueResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         as part of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         as part of <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the schema
-    ///         provided is non-existent, it will be automatically created.
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.SORT_ORDER">SORT_ORDER</see>:
+    ///         </term>
     ///         <description>String indicating how the returned values should
     ///         be sorted.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DESCENDING">DESCENDING</see>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.DESCENDING">DESCENDING</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+    ///         cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Comma-separated list of the columns to be sorted
     ///         by as well as the sort direction, e.g., 'timestamp asc, x
     ///         desc'. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:
     ///         </term>
     ///         <description>The name of the table used to store the results,
     ///         in [schema_name.]table_name format, using standard <a
@@ -572,102 +681,130 @@ public class AggregateUniqueRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, then the
     ///         result table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the result table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         will be persisted and will not expire unless a <see
+    ///         cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>, then
+    ///         the result table will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
     ///         </term>
     ///         <description>Force the result table to be replicated (ignores
     ///         any sharding). Must be used in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
-    ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then set a
-    ///         primary key for the result table. Must be used in combination
-    ///         with the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
-    ///         <description>Sets the <a href="../../../concepts/ttl/"
-    ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-    ///         <description>Indicates the number of records per chunk to be
-    ///         used for the result table. Must be used in combination with the
-    ///         <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see> then set
+    ///         a primary key for the result table. Must be used in combination
+    ///         with the <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="AggregateUniqueRequest.Options.TTL">TTL</see>:
+    ///         </term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for the result table. Must be used in combination with the
+    ///         <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for the result table. Must be used
     ///         in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for the result table. Must be
     ///         used in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="AggregateUniqueRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -675,7 +812,9 @@ public class AggregateUniqueRequest : KineticaData
     ///         columns.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:
+    ///         </term>
     ///         <description>ID of view of which the result table will be a
     ///         member. The default value is ''.</description>
     ///     </item>
@@ -724,89 +863,112 @@ public class AggregateUniqueRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Encoding.BINARY">BINARY</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Encoding.BINARY">BINARY</see>:
+    ///         </term>
     ///         <description>Indicates that the returned records should be
     ///         binary encoded.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Encoding.JSON">JSON</see>:</term>
-    ///         <description>Indicates that the returned records should be json
-    ///         encoded.</description>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Encoding.JSON">JSON</see>:</term>
+    ///         <description>Indicates that the returned records should be
+    ///         JSON-encoded.</description>
     ///     </item>
     /// </list>
-    /// The default value is <see cref="Encoding.BINARY">BINARY</see>.</param>
+    /// The default value is <see
+    /// cref="AggregateUniqueRequest.Encoding.BINARY">BINARY</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="AggregateUniqueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If <see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
-    ///         is <see cref="Options.FALSE">FALSE</see> (or unspecified), then
-    ///         this is always allowed even if the caller does not have
-    ///         permission to create tables. The generated name is returned in
-    ///         <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+    ///         is <see cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///         (or unspecified), then this is always allowed even if the
+    ///         caller does not have permission to create tables. The generated
+    ///         name is returned in <see
     ///         cref="AggregateUniqueResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         as part of <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         as part of <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema which
-    ///         is to contain the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>. If the schema
-    ///         provided is non-existent, it will be automatically created.
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.EXPRESSION">EXPRESSION</see>:
+    ///         </term>
+    ///         <description>Filter expression to apply to the table.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.EXPRESSION">EXPRESSION</see>:</term>
-    ///         <description>Optional filter expression to apply to the table.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.SORT_ORDER">SORT_ORDER</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.SORT_ORDER">SORT_ORDER</see>:
+    ///         </term>
     ///         <description>String indicating how the returned values should
     ///         be sorted.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.ASCENDING">ASCENDING</see>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DESCENDING">DESCENDING</see>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.DESCENDING">DESCENDING</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.ASCENDING">ASCENDING</see>.</description>
+    ///         cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ORDER_BY">ORDER_BY</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.ORDER_BY">ORDER_BY</see>:
+    ///         </term>
     ///         <description>Comma-separated list of the columns to be sorted
     ///         by as well as the sort direction, e.g., 'timestamp asc, x
     ///         desc'. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RESULT_TABLE">RESULT_TABLE</see>:
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:
     ///         </term>
     ///         <description>The name of the table used to store the results,
     ///         in [schema_name.]table_name format, using standard <a
@@ -820,102 +982,130 @@ public class AggregateUniqueRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, then the
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>, then the
     ///         result table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> will be
-    ///         persisted and will not expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified.   If <see
-    ///         cref="Options.FALSE">FALSE</see>, then the result table will be
-    ///         an in-memory table and will expire unless a <see
-    ///         cref="Options.TTL">TTL</see> is specified otherwise.
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         will be persisted and will not expire unless a <see
+    ///         cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+    ///         specified.   If <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>, then
+    ///         the result table will be an in-memory table and will expire
+    ///         unless a <see
+    ///         cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+    ///         specified otherwise.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:
     ///         </term>
     ///         <description>Force the result table to be replicated (ignores
     ///         any sharding). Must be used in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
-    ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> then set a
-    ///         primary key for the result table. Must be used in combination
-    ///         with the <see cref="Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
-    ///         <description>Sets the <a href="../../../concepts/ttl/"
-    ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-    ///         <description>Indicates the number of records per chunk to be
-    ///         used for the result table. Must be used in combination with the
-    ///         <see cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="AggregateUniqueRequest.Options.TRUE">TRUE</see> then set
+    ///         a primary key for the result table. Must be used in combination
+    ///         with the <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see cref="AggregateUniqueRequest.Options.TTL">TTL</see>:
+    ///         </term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
+    ///         <description>Indicates the number of records per chunk to be
+    ///         used for the result table. Must be used in combination with the
+    ///         <see
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_COLUMN_MAX_MEMORY">CHUNK_COLUMN_MAX_MEMORY</see>:
     ///         </term>
     ///         <description>Indicates the target maximum data size for each
     ///         column in a chunk to be used for the result table. Must be used
     ///         in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:</term>
+    ///         cref="AggregateUniqueRequest.Options.CHUNK_MAX_MEMORY">CHUNK_MAX_MEMORY</see>:
+    ///         </term>
     ///         <description>Indicates the target maximum data size for all
     ///         columns in a chunk to be used for the result table. Must be
     ///         used in combination with the <see
-    ///         cref="Options.RESULT_TABLE">RESULT_TABLE</see> option.
-    ///         </description>
+    ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+    ///         option.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="AggregateUniqueRequest.Options.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -923,7 +1113,9 @@ public class AggregateUniqueRequest : KineticaData
     ///         columns.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.VIEW_ID">VIEW_ID</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:
+    ///         </term>
     ///         <description>ID of view of which the result table will be a
     ///         member. The default value is ''.</description>
     ///     </item>
@@ -946,12 +1138,11 @@ public class AggregateUniqueRequest : KineticaData
 } // end class AggregateUniqueRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>.
-/// </summary>
+/// cref="Kinetica.aggregateUnique">Kinetica.aggregateUnique</see>.</summary>
 public class RawAggregateUniqueResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="RawAggregateUniqueResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -964,8 +1155,9 @@ public class RawAggregateUniqueResponse : KineticaData
     /// </summary>
     public string table_name { get; set; }
 
-    /// <summary>Avro schema of <see cref="binary_encoded_response" /> or <see
-    /// cref="json_encoded_response" />.</summary>
+    /// <summary>Avro schema of <see
+    /// cref="RawAggregateUniqueResponse.binary_encoded_response" /> or <see
+    /// cref="RawAggregateUniqueResponse.json_encoded_response" />.</summary>
     public string response_schema_str { get; set; }
 
     /// <summary>Avro binary encoded response.</summary>
@@ -982,7 +1174,7 @@ public class RawAggregateUniqueResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+    ///         cref="RawAggregateUniqueResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the table (i.e.
     ///         including the schema) used to store the results.</description>
@@ -993,12 +1185,11 @@ public class RawAggregateUniqueResponse : KineticaData
 } // end class RawAggregateUniqueResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>.
-/// </summary>
+/// cref="Kinetica.aggregateUnique">Kinetica.aggregateUnique</see>.</summary>
 public class AggregateUniqueResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AggregateUniqueResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -1022,7 +1213,7 @@ public class AggregateUniqueResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
+    ///         cref="AggregateUniqueResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the table (i.e.
     ///         including the schema) used to store the results.</description>

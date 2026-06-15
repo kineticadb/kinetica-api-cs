@@ -9,31 +9,36 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
-/// </summary>
+/// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>.</summary>
 /// <remarks><para>Manually switch over one or more processes to another host.
 /// Individual ranks or entire hosts may be moved to another host.</para>
 /// </remarks>
 public class AdminSwitchoverRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AdminSwitchoverRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, only
+        /// <summary>If set to <see
+        /// cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>, only
         /// validation checks will be performed.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminSwitchoverRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminSwitchoverRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
 
         public const string TRUE = "true";
@@ -49,36 +54,45 @@ public class AdminSwitchoverRequest : KineticaData
     /// 'rank[N].host'. If 'hostN' is provided, all processes on that host will
     /// be moved to another host. Each entry in this array will be switched
     /// over to the corresponding host entry at the same index in <see
-    /// cref="destinations" />.</para></remarks>
+    /// cref="AdminSwitchoverRequest.destinations" />.</para></remarks>
     public IList<string> processes { get; set; } = new List<string>();
 
     /// <summary>Indicates to which host to switch over each corresponding
-    /// process given in <see cref="processes" />.</summary>
+    /// process given in <see cref="AdminSwitchoverRequest.processes" />.
+    /// </summary>
     /// <remarks><para>Each index must be specified as 'hostN' where 'N'
     /// corresponds to the number associated with a host or rank in the <a
     /// href="../../../config/#config-main-network" target="_top">Network</a>
     /// section of the gpudb.conf file; e.g., 'host[N].address'. Each entry in
     /// this array will receive the corresponding process entry at the same
-    /// index in <see cref="processes" />.</para></remarks>
+    /// index in <see cref="AdminSwitchoverRequest.processes" />.</para>
+    /// </remarks>
     public IList<string> destinations { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         only validation checks will be performed. Nothing is switched
-    ///         over.
+    ///         <term><see
+    ///         cref="AdminSwitchoverRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>, only
+    ///         validation checks will be performed. Nothing is switched over.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminSwitchoverRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminSwitchoverRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -112,20 +126,27 @@ public class AdminSwitchoverRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         only validation checks will be performed. Nothing is switched
-    ///         over.
+    ///         <term><see
+    ///         cref="AdminSwitchoverRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>, only
+    ///         validation checks will be performed. Nothing is switched over.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminSwitchoverRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminSwitchoverRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -141,8 +162,7 @@ public class AdminSwitchoverRequest : KineticaData
 } // end class AdminSwitchoverRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
-/// </summary>
+/// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>.</summary>
 public class AdminSwitchoverResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

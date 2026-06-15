@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsFromQuery(InsertRecordsFromQueryRequest)">Kinetica.insertRecordsFromQuery</see>.
+/// cref="Kinetica.insertRecordsFromQuery">Kinetica.insertRecordsFromQuery</see>.
 /// </summary>
 /// <remarks><para>Computes remote query result and inserts the result data
-/// into a new or existing table</para></remarks>
+/// into a new or existing table.</para></remarks>
 public class InsertRecordsFromQueryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="create_table_options" />.</summary>
+    /// cref="InsertRecordsFromQueryRequest.create_table_options" />.</summary>
     /// <remarks><para>Options used when creating the target table.</para>
     /// </remarks>
     public struct CreateTableOptions
@@ -26,21 +26,26 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string TYPE_ID = "type_id";
 
-        /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+        /// <summary>If <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// prevents an error from occurring if the table already exists and is
         /// of the given type.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
         public const string TRUE = "true";
@@ -53,15 +58,19 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string IS_REPLICATED = "is_replicated";
 
         /// <summary>Semicolon-separated list of <a
@@ -80,7 +89,8 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.RANGE">RANGE</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-range"
@@ -88,27 +98,31 @@ public class InsertRecordsFromQueryRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:
+        ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-interval"
         ///         target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.LIST">LIST</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.LIST">LIST</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-list"
         ///         target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.HASH">HASH</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.HASH">HASH</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-hash"
         ///         target="_top">hash partitioning</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.SERIES">SERIES</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.SERIES">SERIES</see>:
         ///         </term>
         ///         <description>Use <a
         ///         href="../../../concepts/tables/#partitioning-by-series"
@@ -145,13 +159,13 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <summary>Comma-separated list of partition keys, which are the
         /// columns or column expressions by which records will be assigned to
         /// partitions defined by <see
-        /// cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
         /// </summary>
         public const string PARTITION_KEYS = "partition_keys";
 
         /// <summary>Comma-separated list of partition definitions, whose
         /// format depends on the choice of <see
-        /// cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
         /// </summary>
         /// <remarks><para> See <a
         /// href="../../../concepts/tables/#partitioning-by-range"
@@ -167,26 +181,31 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// </remarks>
         public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-        /// <summary>If <see cref="CreateTableOptions.TRUE">TRUE</see>, a new
-        /// partition will be created for values which don't fall into an
+        /// <summary>If <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
+        /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
         /// <summary>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <see
-        /// cref="table_name" />.</summary>
+        /// cref="InsertRecordsFromQueryRequest.table_name" />.</summary>
         public const string TTL = "ttl";
 
         /// <summary>Indicates the number of records per chunk to be used for
@@ -199,15 +218,19 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="CreateTableOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string IS_RESULT_TABLE = "is_result_table";
 
         /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
@@ -223,12 +246,12 @@ public class InsertRecordsFromQueryRequest : KineticaData
     } // end struct CreateTableOptions
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="InsertRecordsFromQueryRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>Optional name of a table to which records that were
-        /// rejected are written.</summary>
+        /// <summary>Name of a table to which records that were rejected are
+        /// written.</summary>
         /// <remarks><para> The bad-record-table has the following columns:
         /// line_number (long), line_rejected (string), error_message (string).
         /// When error handling is Abort, bad records table is not populated.
@@ -237,14 +260,14 @@ public class InsertRecordsFromQueryRequest : KineticaData
 
         /// <summary>A positive integer indicating the maximum number of
         /// records that can be  written to the bad-record-table.</summary>
-        /// <remarks><para>  Default value is 10000</para></remarks>
+        /// <remarks><para>  Default value is 10000.</para></remarks>
         public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
 
         /// <summary>Number of records per batch when inserting data.</summary>
         public const string BATCH_SIZE = "batch_size";
 
         /// <summary>Name of an existing external data source from which table
-        /// will be loaded</summary>
+        /// will be loaded.</summary>
         public const string DATASOURCE_NAME = "datasource_name";
 
         /// <summary>Specifies how errors should be handled upon insertion.
@@ -252,7 +275,8 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>:
         ///         </term>
         ///         <description>Records with missing columns are populated
         ///         with nulls if possible; otherwise, the malformed records
@@ -260,19 +284,22 @@ public class InsertRecordsFromQueryRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
         ///         </term>
         ///         <description>Malformed records are skipped.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.ABORT">ABORT</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>:
+        ///         </term>
         ///         <description>Stops current insertion and aborts entire
         ///         operation when an error is encountered.  Primary key
         ///         collisions are considered abortable errors in this mode.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.ABORT">ABORT</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.
         /// </para></remarks>
         public const string ERROR_HANDLING = "error_handling";
 
@@ -294,32 +321,39 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>, only used when not in upsert mode (upsert mode is disabled
         /// when <see
-        /// cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see> is
-        /// <see cref="Options.FALSE">FALSE</see>).</summary>
+        /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>).
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Ignore new records whose primary key values
-        ///         collide with those of existing records</description>
+        ///         collide with those of existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Treat as errors any new records whose primary
-        ///         key values collide with those of existing records
+        ///         key values collide with those of existing records.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
         /// <summary>Upsert new records when primary keys match existing
-        /// records</summary>
+        /// records.</summary>
         public const string TRUE = "true";
 
         /// <summary>Reject new records when primary keys match existing
-        /// records</summary>
+        /// records.</summary>
         public const string FALSE = "false";
 
         /// <summary>Whether to do a full load, dry run, or perform a type
@@ -327,39 +361,45 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.FULL">FULL</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>:
+        ///         </term>
         ///         <description>Run a type inference on the source data (if
-        ///         needed) and ingest</description>
+        ///         needed) and ingest.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.DRY_RUN">DRY_RUN</see>:
+        ///         </term>
         ///         <description>Does not load data, but walks through the
         ///         source data and determines the number of valid records,
         ///         taking into account the current mode of <see
-        ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
         ///         </description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+        ///         cref="InsertRecordsFromQueryRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
         ///         </term>
         ///         <description>Infer the type of the source data and return,
         ///         without ingesting any data.  The inferred type is returned
         ///         in the response.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FULL">FULL</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>.
         /// </para></remarks>
         public const string INGESTION_MODE = "ingestion_mode";
 
         /// <summary>Run a type inference on the source data (if needed) and
-        /// ingest</summary>
+        /// ingest.</summary>
         public const string FULL = "full";
 
         /// <summary>Does not load data, but walks through the source data and
         /// determines the number of valid records, taking into account the
         /// current mode of <see
-        /// cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.</summary>
+        /// cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// </summary>
         public const string DRY_RUN = "dry_run";
 
         /// <summary>Infer the type of the source data and return, without
@@ -372,30 +412,28 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// fetch per round trip.</summary>
         public const string JDBC_FETCH_SIZE = "jdbc_fetch_size";
 
-        /// <summary>Executes the statement per each jdbc session before doing
+        /// <summary>Executes the statement per each JDBC session before doing
         /// actual load.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string JDBC_SESSION_INIT_STATEMENT = "jdbc_session_init_statement";
 
-        /// <summary>Optional: number of splits for reading data per rank.
-        /// </summary>
+        /// <summary>Number of splits for reading data per rank.</summary>
         /// <remarks><para>Default will be external_file_reader_num_tasks. The
         /// default value is ''.</para></remarks>
         public const string NUM_SPLITS_PER_RANK = "num_splits_per_rank";
 
-        /// <summary>Optional: number of tasks for reading data per rank.
-        /// </summary>
-        /// <remarks><para>Default will be external_file_reader_num_tasks
+        /// <summary>Number of tasks for reading data per rank.</summary>
+        /// <remarks><para>Default will be external_file_reader_num_tasks.
         /// </para></remarks>
         public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
 
-        /// <summary>Optional: comma separated list of column names, to set as
-        /// primary keys, when not specified in the type.</summary>
+        /// <summary>Comma separated list of column names, to set as primary
+        /// keys, when not specified in the type.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string PRIMARY_KEYS = "primary_keys";
 
-        /// <summary>Optional: comma separated list of column names, to set as
-        /// primary keys, when not specified in the type.</summary>
+        /// <summary>Comma separated list of column names, to set as shard
+        /// keys, when not specified in the type.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string SHARD_KEYS = "shard_keys";
 
@@ -404,33 +442,46 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string SUBSCRIBE = "subscribe";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, truncates
-        /// the table specified by <see cref="table_name" /> prior to loading
+        /// <summary>If set to <see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+        /// truncates the table specified by <see
+        /// cref="InsertRecordsFromQueryRequest.table_name" /> prior to loading
         /// the data.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string TRUNCATE_TABLE = "truncate_table";
 
-        /// <summary>Remote SQL query from which data will be sourced</summary>
+        /// <summary>Remote SQL query from which data will be sourced.
+        /// </summary>
         public const string REMOTE_QUERY = "remote_query";
 
         /// <summary>Name of column to be used for splitting the query into
@@ -449,25 +500,53 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string REMOTE_QUERY_INCREASING_COLUMN = "remote_query_increasing_column";
 
-        /// <summary>Alias name for remote_query_filter_column.</summary>
+        /// <summary>Alias name for <see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+        /// </summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, truncate
-        /// string values that are longer than the column's type size.
+        /// <summary>If set to <see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+        /// truncate string values that are longer than the column's type size.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string TRUNCATE_STRINGS = "truncate_strings";
+
+        /// <summary>Applies only when upserting (when update_on_existing_pk is
+        /// true).</summary>
+        /// <remarks><para>Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>.
+        /// </para></remarks>
+        public const string ENABLE_INPLACE_UPDATES = "enable_inplace_updates";
 
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
@@ -475,17 +554,22 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
         ///         <description>Upsert new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
+        ///         <term><see
+        ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
         ///         <description>Reject new records when primary keys match
-        ///         existing records</description>
+        ///         existing records.</description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
     } // end struct Options
@@ -496,13 +580,14 @@ public class InsertRecordsFromQueryRequest : KineticaData
     /// target="_top">name resolution rules</a>.</summary>
     /// <remarks><para>If the table does not exist, the table will be created
     /// using either an existing <see
-    /// cref="CreateTableOptions.TYPE_ID">TYPE_ID</see> or the type inferred
-    /// from the remote query, and the new table name will have to meet
-    /// standard <a href="../../../concepts/tables/#table-naming-criteria"
+    /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>
+    /// or the type inferred from the remote query, and the new table name will
+    /// have to meet standard <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>.</para></remarks>
     public string table_name { get; set; }
 
-    /// <summary>Query for which result data needs to be imported</summary>
+    /// <summary>Query for which result data needs to be imported.</summary>
     public string remote_query { get; set; }
 
     /// <summary>Not implemented yet.</summary>
@@ -513,7 +598,8 @@ public class InsertRecordsFromQueryRequest : KineticaData
     /// <summary>Options used when creating the target table.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:
     ///         </term>
     ///         <description>ID of a currently registered <a
     ///         href="../../../concepts/types/" target="_top">type</a>. The
@@ -521,65 +607,73 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         prevents an error from occurring if the table already exists
     ///         and is of the given type.  If a table with the same ID but a
     ///         different type exists, it is still an error.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
     ///         <description>Affects the <a
     ///         href="../../../concepts/tables/#distribution"
     ///         target="_top">distribution scheme</a> for the table's data.  If
-    ///         <see cref="CreateTableOptions.TRUE">TRUE</see> and the given
-    ///         type has no explicit <a
+    ///         <see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+    ///         and the given type has no explicit <a
     ///         href="../../../concepts/tables/#shard-key" target="_top">shard
     ///         key</a> defined, the table will be <a
     ///         href="../../../concepts/tables/#replication"
     ///         target="_top">replicated</a>.  If <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will be
-    ///         <a href="../../../concepts/tables/#sharding"
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>,
+    ///         the table will be <a href="../../../concepts/tables/#sharding"
     ///         target="_top">sharded</a> according to the shard key specified
     ///         in the given <see
-    ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
-    ///         href="../../../concepts/tables/#random-sharding"
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+    ///         or <a href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly sharded</a>, if no shard key is
     ///         specified.  Note that a type containing a shard key cannot be
     ///         used to create a replicated table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-keys"
@@ -590,7 +684,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key of the format 'source_column
     ///         references shard_by_column from
@@ -598,14 +692,15 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.RANGE">RANGE</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
@@ -613,21 +708,23 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.LIST">LIST</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.LIST">LIST</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.HASH">HASH</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.HASH">HASH</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
@@ -635,7 +732,8 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.SERIES">SERIES</see>:</term>
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -644,21 +742,21 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
     ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
@@ -673,9 +771,10 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         a new partition will be created for values which don't fall
     ///         into an existing partition.  Currently only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -683,32 +782,39 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
-    ///         <description>Sets the <a href="../../../concepts/ttl/"
-    ///         target="_top">TTL</a> of the table specified in <see
-    ///         cref="table_name" />.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TTL">TTL</see>:
+    ///         </term>
+    ///         <description>Sets the <a href="../../../concepts/ttl/"
+    ///         target="_top">TTL</a> of the table specified in <see
+    ///         cref="InsertRecordsFromQueryRequest.table_name" />.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
     ///         </term>
     ///         <description>Indicates whether the table is a <a
     ///         href="../../../concepts/tables_memory_only/"
@@ -720,20 +826,23 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -741,7 +850,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -756,42 +865,47 @@ public class InsertRecordsFromQueryRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
-    ///         <description>Optional name of a table to which records that
-    ///         were rejected are written.  The bad-record-table has the
-    ///         following columns: line_number (long), line_rejected (string),
+    ///         <description>Name of a table to which records that were
+    ///         rejected are written.  The bad-record-table has the following
+    ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string). When error handling is Abort, bad
     ///         records table is not populated.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be  written to the bad-record-table.
-    ///         Default value is 10000</description>
+    ///         Default value is 10000.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:
+    ///         </term>
     ///         <description>Number of records per batch when inserting data.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+    ///         cref="InsertRecordsFromQueryRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
+    ///         </term>
     ///         <description>Name of an existing external data source from
-    ///         which table will be loaded</description>
+    ///         which table will be loaded.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
     ///         </term>
     ///         <description>Specifies how errors should be handled upon
     ///         insertion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>:
     ///                 </term>
     ///                 <description>Records with missing columns are populated
     ///                 with nulls if possible; otherwise, the malformed
@@ -799,182 +913,219 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
     ///                 <description>Stops current insertion and aborts entire
     ///                 operation when an error is encountered.  Primary key
     ///                 collisions are considered abortable errors in this
     ///                 mode.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.ABORT">ABORT</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-    ///         rejection of any record for having primary key values matching
-    ///         an existing record will result in an error being reported, as
-    ///         determined by <see
-    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
-    ///         specified table does not have a primary key or if upsert mode
-    ///         is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>).
+    ///         If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+    ///         any record being inserted that is rejected for having primary
+    ///         key values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>,
+    ///         the rejection of any record for having primary key values
+    ///         matching an existing record will result in an error being
+    ///         reported, as determined by <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>),
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.INGESTION_MODE">INGESTION_MODE</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:
     ///         </term>
     ///         <description>Whether to do a full load, dry run, or perform a
     ///         type inference on the source data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>:
+    ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///                 </term>
     ///                 <description>Does not load data, but walks through the
     ///                 source data and determines the number of valid records,
     ///                 taking into account the current mode of <see
-    ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///                 cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
     ///                 </term>
     ///                 <description>Infer the type of the source data and
     ///                 return, without ingesting any data.  The inferred type
     ///                 is returned in the response.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FULL">FULL</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+    ///         cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:
+    ///         </term>
     ///         <description>The JDBC fetch size, which determines how many
     ///         rows to fetch per round trip.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
     ///         </term>
-    ///         <description>Executes the statement per each jdbc session
+    ///         <description>Executes the statement per each JDBC session
     ///         before doing actual load. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of splits for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks. The
-    ///         default value is ''.</description>
+    ///         <description>Number of splits for reading data per rank.
+    ///         Default will be external_file_reader_num_tasks. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of tasks for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks
-    ///         </description>
+    ///         <description>Number of tasks for reading data per rank. Default
+    ///         will be external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         primary keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma separated list of column names, to set as
+    ///         shard keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:
+    ///         </term>
     ///         <description>Continuously poll the data source to check for new
     ///         data and load it into the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
-    ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
-    ///         truncates the table specified by <see cref="table_name" />
-    ///         prior to loading the data.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.REMOTE_QUERY">REMOTE_QUERY</see>:
-    ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+    ///         truncates the table specified by <see
+    ///         cref="InsertRecordsFromQueryRequest.table_name" /> prior to
+    ///         loading the data.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
+    ///         </term>
+    ///         <description>Remote SQL query from which data will be sourced.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:
     ///         </term>
     ///         <description>Name of column to be used for splitting the query
     ///         into multiple sub-queries using ordering of given column. The
@@ -982,7 +1133,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
     ///         </term>
     ///         <description>Name of column to be used for splitting the query
     ///         into multiple sub-queries using the data distribution of given
@@ -990,7 +1141,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
     ///         </term>
     ///         <description>Column on subscribed remote query result that will
     ///         increase for new records (e.g., TIMESTAMP). The default value
@@ -998,63 +1149,106 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
     ///         </term>
-    ///         <description>Alias name for remote_query_filter_column. The
-    ///         default value is ''.</description>
+    ///         <description>Alias name for <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
     ///         truncate string values that are longer than the column's type
     ///         size.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will be replaced by that new
+    ///         record (the new data will be "upserted"). If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>,
     ///         any existing table record with primary key values that match
     ///         those of a record being inserted will remain unchanged, while
     ///         the new record will be rejected and the error handled as
     ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> and
-    ///         <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    ///         and <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -1073,19 +1267,21 @@ public class InsertRecordsFromQueryRequest : KineticaData
     /// href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>. If the table does not exist,
     /// the table will be created using either an existing <see
-    /// cref="CreateTableOptions.TYPE_ID">TYPE_ID</see> or the type inferred
-    /// from the remote query, and the new table name will have to meet
-    /// standard <a href="../../../concepts/tables/#table-naming-criteria"
+    /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>
+    /// or the type inferred from the remote query, and the new table name will
+    /// have to meet standard <a
+    /// href="../../../concepts/tables/#table-naming-criteria"
     /// target="_top">table naming criteria</a>.</param>
     /// <param name="remote_query">Query for which result data needs to be
-    /// imported</param>
+    /// imported.</param>
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
     /// target table.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:
     ///         </term>
     ///         <description>ID of a currently registered <a
     ///         href="../../../concepts/types/" target="_top">type</a>. The
@@ -1093,65 +1289,73 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         prevents an error from occurring if the table already exists
     ///         and is of the given type.  If a table with the same ID but a
     ///         different type exists, it is still an error.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
     ///         <description>Affects the <a
     ///         href="../../../concepts/tables/#distribution"
     ///         target="_top">distribution scheme</a> for the table's data.  If
-    ///         <see cref="CreateTableOptions.TRUE">TRUE</see> and the given
-    ///         type has no explicit <a
+    ///         <see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+    ///         and the given type has no explicit <a
     ///         href="../../../concepts/tables/#shard-key" target="_top">shard
     ///         key</a> defined, the table will be <a
     ///         href="../../../concepts/tables/#replication"
     ///         target="_top">replicated</a>.  If <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>, the table will be
-    ///         <a href="../../../concepts/tables/#sharding"
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>,
+    ///         the table will be <a href="../../../concepts/tables/#sharding"
     ///         target="_top">sharded</a> according to the shard key specified
     ///         in the given <see
-    ///         cref="CreateTableOptions.TYPE_ID">TYPE_ID</see>, or <a
-    ///         href="../../../concepts/tables/#random-sharding"
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+    ///         or <a href="../../../concepts/tables/#random-sharding"
     ///         target="_top">randomly sharded</a>, if no shard key is
     ///         specified.  Note that a type containing a shard key cannot be
     ///         used to create a replicated table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:
     ///         </term>
     ///         <description>Semicolon-separated list of <a
     ///         href="../../../concepts/tables/#foreign-keys"
@@ -1162,7 +1366,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:
     ///         </term>
     ///         <description>Foreign shard key of the format 'source_column
     ///         references shard_by_column from
@@ -1170,14 +1374,15 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:
     ///         </term>
     ///         <description><a href="../../../concepts/tables/#partitioning"
     ///         target="_top">Partitioning</a> scheme to use.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.RANGE">RANGE</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.RANGE">RANGE</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-range"
@@ -1185,21 +1390,23 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.INTERVAL">INTERVAL</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-interval"
     ///                 target="_top">interval partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.LIST">LIST</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.LIST">LIST</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-list"
     ///                 target="_top">list partitioning</a>.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.HASH">HASH</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.HASH">HASH</see>:
     ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-hash"
@@ -1207,7 +1414,8 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableOptions.SERIES">SERIES</see>:</term>
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.SERIES">SERIES</see>:
+    ///                 </term>
     ///                 <description>Use <a
     ///                 href="../../../concepts/tables/#partitioning-by-series"
     ///                 target="_top">series partitioning</a>.</description>
@@ -1216,21 +1424,21 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition keys, which are
     ///         the columns or column expressions by which records will be
     ///         assigned to partitions defined by <see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:
     ///         </term>
     ///         <description>Comma-separated list of partition definitions,
     ///         whose format depends on the choice of <see
-    ///         cref="CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>.
     ///         See <a href="../../../concepts/tables/#partitioning-by-range"
     ///         target="_top">range partitioning</a>, <a
     ///         href="../../../concepts/tables/#partitioning-by-interval"
@@ -1245,9 +1453,10 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:
     ///         </term>
-    ///         <description>If <see cref="CreateTableOptions.TRUE">TRUE</see>,
+    ///         <description>If <see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
     ///         a new partition will be created for values which don't fall
     ///         into an existing partition.  Currently only supported for <a
     ///         href="../../../concepts/tables/#partitioning-by-list"
@@ -1255,32 +1464,38 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="CreateTableOptions.TTL">TTL</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the table specified in <paramref
     ///         name="table_name" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:
+    ///         </term>
     ///         <description>Indicates the number of records per chunk to be
     ///         used for this table.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:
     ///         </term>
     ///         <description>Indicates whether the table is a <a
     ///         href="../../../concepts/tables_memory_only/"
@@ -1292,20 +1507,23 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.TRUE">TRUE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="CreateTableOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="CreateTableOptions.FALSE">FALSE</see>.</description>
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:
     ///         </term>
     ///         <description>The <a
     ///         href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -1313,7 +1531,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
+    ///         cref="InsertRecordsFromQueryRequest.CreateTableOptions.COMPRESSION_CODEC">COMPRESSION_CODEC</see>:
     ///         </term>
     ///         <description>The default <a
     ///         href="../../../concepts/column_compression/"
@@ -1326,42 +1544,47 @@ public class InsertRecordsFromQueryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:
     ///         </term>
-    ///         <description>Optional name of a table to which records that
-    ///         were rejected are written.  The bad-record-table has the
-    ///         following columns: line_number (long), line_rejected (string),
+    ///         <description>Name of a table to which records that were
+    ///         rejected are written.  The bad-record-table has the following
+    ///         columns: line_number (long), line_rejected (string),
     ///         error_message (string). When error handling is Abort, bad
     ///         records table is not populated.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_LIMIT">BAD_RECORD_TABLE_LIMIT</see>:
     ///         </term>
     ///         <description>A positive integer indicating the maximum number
     ///         of records that can be  written to the bad-record-table.
-    ///         Default value is 10000</description>
+    ///         Default value is 10000.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:
+    ///         </term>
     ///         <description>Number of records per batch when inserting data.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+    ///         cref="InsertRecordsFromQueryRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:
+    ///         </term>
     ///         <description>Name of an existing external data source from
-    ///         which table will be loaded</description>
+    ///         which table will be loaded.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
     ///         </term>
     ///         <description>Specifies how errors should be handled upon
     ///         insertion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>:
     ///                 </term>
     ///                 <description>Records with missing columns are populated
     ///                 with nulls if possible; otherwise, the malformed
@@ -1369,182 +1592,218 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.ABORT">ABORT</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
     ///                 <description>Stops current insertion and aborts entire
     ///                 operation when an error is encountered.  Primary key
     ///                 collisions are considered abortable errors in this
     ///                 mode.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.ABORT">ABORT</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision error-suppression
     ///         policy for inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>, only used when not in upsert
     ///         mode (upsert mode is disabled when <see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.FALSE">FALSE</see>).  If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any record being inserted that
-    ///         is rejected for having primary key values that match those of
-    ///         an existing table record will be ignored with no error
-    ///         generated.  If <see cref="Options.FALSE">FALSE</see>, the
-    ///         rejection of any record for having primary key values matching
-    ///         an existing record will result in an error being reported, as
-    ///         determined by <see
-    ///         cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If the
-    ///         specified table does not have a primary key or if upsert mode
-    ///         is in effect (<see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
-    ///         is <see cref="Options.TRUE">TRUE</see>), then this option has
-    ///         no effect.
+    ///         cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>).
+    ///         If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+    ///         any record being inserted that is rejected for having primary
+    ///         key values that match those of an existing table record will be
+    ///         ignored with no error generated.  If <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>,
+    ///         the rejection of any record for having primary key values
+    ///         matching an existing record will result in an error being
+    ///         reported, as determined by <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key or if upsert
+    ///         mode is in effect (<see
+    ///         cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+    ///         is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>),
+    ///         then this option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Ignore new records whose primary key
-    ///                 values collide with those of existing records
+    ///                 values collide with those of existing records.
     ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Treat as errors any new records whose
     ///                 primary key values collide with those of existing
-    ///                 records</description>
+    ///                 records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.INGESTION_MODE">INGESTION_MODE</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:
     ///         </term>
     ///         <description>Whether to do a full load, dry run, or perform a
     ///         type inference on the source data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.FULL">FULL</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>:
+    ///                 </term>
     ///                 <description>Run a type inference on the source data
-    ///                 (if needed) and ingest</description>
+    ///                 (if needed) and ingest.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.DRY_RUN">DRY_RUN</see>:
+    ///                 </term>
     ///                 <description>Does not load data, but walks through the
     ///                 source data and determines the number of valid records,
     ///                 taking into account the current mode of <see
-    ///                 cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///                 cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
     ///                 </description>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:
     ///                 </term>
     ///                 <description>Infer the type of the source data and
     ///                 return, without ingesting any data.  The inferred type
     ///                 is returned in the response.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FULL">FULL</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FULL">FULL</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+    ///         cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:
+    ///         </term>
     ///         <description>The JDBC fetch size, which determines how many
     ///         rows to fetch per round trip.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
     ///         </term>
-    ///         <description>Executes the statement per each jdbc session
+    ///         <description>Executes the statement per each JDBC session
     ///         before doing actual load. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of splits for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks. The
-    ///         default value is ''.</description>
+    ///         <description>Number of splits for reading data per rank.
+    ///         Default will be external_file_reader_num_tasks. The default
+    ///         value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:
     ///         </term>
-    ///         <description>Optional: number of tasks for reading data per
-    ///         rank. Default will be external_file_reader_num_tasks
-    ///         </description>
+    ///         <description>Number of tasks for reading data per rank. Default
+    ///         will be external_file_reader_num_tasks.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:
     ///         </term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <description>Comma separated list of column names, to set as
+    ///         primary keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
-    ///         <description>Optional: comma separated list of column names, to
-    ///         set as primary keys, when not specified in the type. The
-    ///         default value is ''.</description>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:
+    ///         </term>
+    ///         <description>Comma separated list of column names, to set as
+    ///         shard keys, when not specified in the type. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:
+    ///         </term>
     ///         <description>Continuously poll the data source to check for new
     ///         data and load it into the table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         <description>If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
     ///         truncates the table specified by <paramref name="table_name" />
     ///         prior to loading the data.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="Options.REMOTE_QUERY">REMOTE_QUERY</see>:
-    ///         </term>
-    ///         <description>Remote SQL query from which data will be sourced
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:
+    ///         </term>
+    ///         <description>Remote SQL query from which data will be sourced.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:
     ///         </term>
     ///         <description>Name of column to be used for splitting the query
     ///         into multiple sub-queries using ordering of given column. The
@@ -1552,7 +1811,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:
     ///         </term>
     ///         <description>Name of column to be used for splitting the query
     ///         into multiple sub-queries using the data distribution of given
@@ -1560,7 +1819,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:
     ///         </term>
     ///         <description>Column on subscribed remote query result that will
     ///         increase for new records (e.g., TIMESTAMP). The default value
@@ -1568,63 +1827,106 @@ public class InsertRecordsFromQueryRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:
     ///         </term>
-    ///         <description>Alias name for remote_query_filter_column. The
-    ///         default value is ''.</description>
+    ///         <description>Alias name for <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
     ///         truncate string values that are longer than the column's type
     ///         size.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
+    ///         cref="InsertRecordsFromQueryRequest.Options.ENABLE_INPLACE_UPDATES">ENABLE_INPLACE_UPDATES</see>:
+    ///         </term>
+    ///         <description>Applies only when upserting (when
+    ///         update_on_existing_pk is true). If set to true (the default),
+    ///         an existing record matched by primary key is modified in place.
+    ///         If set to false, the matched record is updated by deleting it
+    ///         and inserting a replacement (delete and insert), which prevents
+    ///         the change from being reflected in dependent materialized views
+    ///         until they are refreshed.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:
     ///         </term>
     ///         <description>Specifies the record collision policy for
     ///         inserting into a table with a <a
     ///         href="../../../concepts/tables/#primary-keys"
     ///         target="_top">primary key</a>. If set to <see
-    ///         cref="Options.TRUE">TRUE</see>, any existing table record with
-    ///         primary key values that match those of a record being inserted
-    ///         will be replaced by that new record (the new data will be
-    ///         "upserted"). If set to <see cref="Options.FALSE">FALSE</see>,
+    ///         cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>,
+    ///         any existing table record with primary key values that match
+    ///         those of a record being inserted will be replaced by that new
+    ///         record (the new data will be "upserted"). If set to <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>,
     ///         any existing table record with primary key values that match
     ///         those of a record being inserted will remain unchanged, while
     ///         the new record will be rejected and the error handled as
     ///         determined by <see
-    ///         cref="Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see> and
-    ///         <see cref="Options.ERROR_HANDLING">ERROR_HANDLING</see>.  If
-    ///         the specified table does not have a primary key, then this
+    ///         cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+    ///         and <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+    ///         If the specified table does not have a primary key, then this
     ///         option has no effect.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
     ///                 <description>Upsert new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
     ///                 <description>Reject new records when primary keys match
-    ///                 existing records</description>
+    ///                 existing records.</description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -1644,7 +1946,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
 } // end class InsertRecordsFromQueryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecordsFromQuery(InsertRecordsFromQueryRequest)">Kinetica.insertRecordsFromQuery</see>.
+/// cref="Kinetica.insertRecordsFromQuery">Kinetica.insertRecordsFromQuery</see>.
 /// </summary>
 public class InsertRecordsFromQueryResponse : KineticaData
 {
@@ -1655,19 +1957,19 @@ public class InsertRecordsFromQueryResponse : KineticaData
 
     /// <summary>ID of the currently registered table structure <a
     /// href="../../../concepts/types/" target="_top">type</a> for the target
-    /// table</summary>
+    /// table.</summary>
     public string type_id { get; set; }
 
-    /// <summary>A JSON string describing the columns of the target table
+    /// <summary>A JSON string describing the columns of the target table.
     /// </summary>
     public string type_definition { get; set; }
 
     /// <summary>The user-defined description associated with the target
-    /// table's structure</summary>
+    /// table's structure.</summary>
     public string type_label { get; set; }
 
     /// <summary>A mapping of each target table column name to an array of
-    /// column properties associated with that column</summary>
+    /// column properties associated with that column.</summary>
     public IDictionary<string, IList<string>> type_properties { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>Number of records inserted into the target table.</summary>

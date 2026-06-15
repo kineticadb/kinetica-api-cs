@@ -1,13 +1,8 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Threading.Channels;
-using System.Threading.Tasks;
 using kinetica.Utils;
-using Records = kinetica.Records;
+using Microsoft.Extensions.Logging;
 
 namespace kinetica;
 
@@ -34,6 +29,7 @@ namespace kinetica;
         private readonly string _tableName;
         private readonly KineticaType _ktype;
         private readonly BulkInserterOptions _options;
+        private readonly ILogger _logger;
 
         // Avro encoder - uses DirectAvroEncoder<T> for POCOs, GenericRecordEncoder for GenericRecord
         private readonly DirectAvroEncoder<T>? _directEncoder;
@@ -61,6 +57,8 @@ namespace kinetica;
         private long _pendingBatches;
         private long _totalBatchesSent;
         private long _totalBatchesFailed;
+        private long _totalRecordsQueued;
+        private long _totalRecordsSubmitted;
 
         // Error queue
         private readonly ConcurrentQueue<InsertError> _errorQueue;
@@ -111,6 +109,7 @@ namespace kinetica;
             _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
             _ktype = ktype ?? throw new ArgumentNullException(nameof(ktype));
             _options = options?.Clone() ?? new BulkInserterOptions();
+            _logger = _kinetica.LoggerFactory.CreateLogger("Kinetica.BulkInserter");
 
             ValidateOptions();
 
@@ -143,6 +142,17 @@ namespace kinetica;
             (_workerQueues, _routingTable) = InitializeWorkerQueues();
             _numWorkers = _workerQueues.Length;
             _multiHeadEnabled = _numWorkers > 1;
+
+            if (!_multiHeadEnabled)
+            {
+                // Could be a genuine single-node server, or a connection in degraded mode
+                // (auto-discovery failed at construction — see the warning logged under the
+                // "Kinetica.HAFailover" category). Either way, inserts route through the head node.
+                _logger.LogInformation(
+                    "BulkInserter for table {Table} is running single-head ({NumWorkers} worker rank URL(s)); " +
+                    "records will be inserted via the head node rather than routed directly to ranks.",
+                    _tableName, _numWorkers);
+            }
 
             // Initialize HA failover state
             _dbHaRingSize = _kinetica.HAManager?.HARingSize ?? 1;
@@ -307,6 +317,16 @@ namespace kinetica;
         public int ErrorCount => _errorCount;
 
         /// <summary>
+        /// Gets the total number of records queued for insertion.
+        /// </summary>
+        public long TotalRecordsQueued => Interlocked.Read(ref _totalRecordsQueued);
+
+        /// <summary>
+        /// Gets the total number of records submitted to the server (in batches).
+        /// </summary>
+        public long TotalRecordsSubmitted => Interlocked.Read(ref _totalRecordsSubmitted);
+
+        /// <summary>
         /// Gets whether timed flush is currently running.
         /// </summary>
         public bool IsTimedFlushRunning => _timedFlushRunning;
@@ -337,9 +357,14 @@ namespace kinetica;
         /// Inserts a single record. Non-blocking unless backpressure is applied.
         /// </summary>
         /// <param name="record">The record to insert.</param>
+        /// <exception cref="ObjectDisposedException">If the inserter has been disposed.</exception>
+        /// <exception cref="InvalidOperationException">If the inserter has been closed.</exception>
         public void Insert(T record)
         {
             ThrowIfDisposed();
+            ThrowIfClosed();
+
+            Interlocked.Increment(ref _totalRecordsQueued);
 
             var (workerIndex, stripeHash) = ComputeRouting(record);
             var queue = _workerQueues[workerIndex];
@@ -358,9 +383,14 @@ namespace kinetica;
         /// </summary>
         /// <param name="record">The record to insert.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
+        /// <exception cref="ObjectDisposedException">If the inserter has been disposed.</exception>
+        /// <exception cref="InvalidOperationException">If the inserter has been closed.</exception>
         public async ValueTask InsertAsync(T record, CancellationToken cancellationToken = default)
         {
             ThrowIfDisposed();
+            ThrowIfClosed();
+
+            Interlocked.Increment(ref _totalRecordsQueued);
 
             var (workerIndex, stripeHash) = ComputeRouting(record);
             var queue = _workerQueues[workerIndex];
@@ -380,13 +410,18 @@ namespace kinetica;
         /// This is the most efficient method for bulk inserts.
         /// </summary>
         /// <param name="records">The records to insert.</param>
+        /// <exception cref="ObjectDisposedException">If the inserter has been disposed.</exception>
+        /// <exception cref="InvalidOperationException">If the inserter has been closed.</exception>
         public void InsertBatch(IReadOnlyList<T> records)
         {
             ThrowIfDisposed();
+            ThrowIfClosed();
 
             var count = records.Count;
             if (count == 0)
                 return;
+
+            Interlocked.Add(ref _totalRecordsQueued, count);
 
             // Pre-allocate grouping dictionary with estimated capacity
             // Key: (workerIndex << 16) | stripeIndex to avoid tuple allocation
@@ -602,23 +637,29 @@ namespace kinetica;
                 }
             }
 
-            // Enqueue all batches with backpressure
-            foreach (var batch in batches)
-            {
-                await EnqueueBatchWithBackpressureAsync(batch, cancellationToken);
-            }
+            // Enqueue all batches in parallel to avoid sequential blocking on backpressure.
+            // Sequential awaits can cause a race condition where CloseAsync() completes the
+            // channel before all batches are enqueued, resulting in lost records.
+            var enqueueTasks = batches.Select(batch =>
+                EnqueueBatchWithBackpressureAsync(batch, cancellationToken).AsTask());
+
+            await Task.WhenAll(enqueueTasks);
         }
 
         private void EnqueueBatch(FlushJob job)
         {
             Interlocked.Increment(ref _pendingBatches);
 
-            // With unbounded channel, TryWrite always succeeds (non-blocking)
+            // With unbounded channel, TryWrite succeeds unless the channel is completed.
+            // The channel is only completed in CloseAsync(), and we check _isClosed before
+            // calling Insert methods, so this should never fail. If it does, it indicates
+            // a race condition bug that needs investigation.
             if (!_flushChannel.Writer.TryWrite(job))
             {
-                // Should never happen with unbounded channel, but handle gracefully
                 Interlocked.Decrement(ref _pendingBatches);
-                ProcessBatch(job).GetAwaiter().GetResult();
+                throw new InvalidOperationException(
+                    "Failed to enqueue batch: channel is completed. " +
+                    "This indicates a race condition between Insert and CloseAsync.");
             }
         }
 
@@ -630,13 +671,16 @@ namespace kinetica;
 
             Interlocked.Increment(ref _pendingBatches);
 
-            // With unbounded channel, TryWrite always succeeds (non-blocking)
+            // With unbounded channel, TryWrite succeeds unless the channel is completed.
+            // This method is called from FlushAsync which is called before CloseAsync
+            // completes the channel, so this should never fail.
             if (!_flushChannel.Writer.TryWrite(job))
             {
-                // Should never happen with unbounded channel, but handle gracefully
                 Interlocked.Decrement(ref _pendingBatches);
                 _inFlightSemaphore.Release();
-                await ProcessBatch(job);
+                throw new InvalidOperationException(
+                    "Failed to enqueue batch: channel is completed. " +
+                    "This indicates a race condition in the flush/close sequence.");
             }
         }
 
@@ -757,7 +801,16 @@ namespace kinetica;
                     InsertRecordsResponse response = _kinetica.AvroDecode<InsertRecordsResponse>(rawResponse.data);
                     networkTimeMs = networkSw.Elapsed.TotalMilliseconds;
 
+                    // Verify server acknowledged all records in batch
+                    if (response.count_inserted != job.Records.Count)
+                    {
+                        _logger.LogWarning(
+                            "Batch size mismatch: sent {Sent}, server acknowledged {Inserted} inserted, {Updated} updated",
+                            job.Records.Count, response.count_inserted, response.count_updated);
+                    }
+
                     // Update metrics
+                    Interlocked.Add(ref _totalRecordsSubmitted, job.Records.Count);
                     Interlocked.Add(ref _countInserted, response.count_inserted);
                     Interlocked.Add(ref _countUpdated, response.count_updated);
                     Interlocked.Increment(ref _totalBatchesSent);
@@ -839,18 +892,30 @@ namespace kinetica;
 
         private List<byte[]> EncodeRecords(IReadOnlyList<T> records)
         {
+            List<byte[]> encoded;
+
             // Use the appropriate encoder based on record type
             if (_isGenericRecord)
             {
                 // For GenericRecord, use the GenericRecordEncoder
                 var genericRecords = (IReadOnlyList<Records.GenericRecord>)(object)records;
-                return _genericRecordEncoder!.EncodeManyAsList(genericRecords);
+                encoded = _genericRecordEncoder!.EncodeManyAsList(genericRecords);
             }
             else
             {
                 // For POCOs, use the DirectAvroEncoder with compiled property accessors
-                return _directEncoder!.EncodeManyAsList(records);
+                encoded = _directEncoder!.EncodeManyAsList(records);
             }
+
+            // Verify encoding produced the same number of records
+            if (encoded.Count != records.Count)
+            {
+                throw new InvalidOperationException(
+                    $"Encoding produced {encoded.Count} records but input had {records.Count} records. " +
+                    "This indicates a bug in the encoder.");
+            }
+
+            return encoded;
         }
 
         #endregion
@@ -1197,6 +1262,12 @@ namespace kinetica;
         {
             if (_isDisposed)
                 throw new ObjectDisposedException(nameof(BulkInserter<T>));
+        }
+
+        private void ThrowIfClosed()
+        {
+            if (_isClosed)
+                throw new InvalidOperationException("Cannot insert records after the BulkInserter has been closed.");
         }
 
         /// <summary>

@@ -9,29 +9,35 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
+/// cref="Kinetica.deleteResourceGroup">Kinetica.deleteResourceGroup</see>.
 /// </summary>
 /// <remarks><para>Deletes a resource group.</para></remarks>
 public class DeleteResourceGroupRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DeleteResourceGroupRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, delete any
-        /// existing entities owned by this group.</summary>
+        /// <summary>If <see
+        /// cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>, delete
+        /// any existing entities owned by this group.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CASCADE_DELETE = "cascade_delete";
 
         public const string TRUE = "true";
@@ -44,21 +50,28 @@ public class DeleteResourceGroupRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CASCADE_DELETE">CASCADE_DELETE</see>:
+    ///         <term><see
+    ///         cref="DeleteResourceGroupRequest.Options.CASCADE_DELETE">CASCADE_DELETE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, delete any
-    ///         existing entities owned by this group. Otherwise this request
-    ///         will return an error of any such entities exist.
+    ///         <description>If <see
+    ///         cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>,
+    ///         delete any existing entities owned by this group. Otherwise
+    ///         this request will return an error of any such entities exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -76,21 +89,28 @@ public class DeleteResourceGroupRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CASCADE_DELETE">CASCADE_DELETE</see>:
+    ///         <term><see
+    ///         cref="DeleteResourceGroupRequest.Options.CASCADE_DELETE">CASCADE_DELETE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, delete any
-    ///         existing entities owned by this group. Otherwise this request
-    ///         will return an error of any such entities exist.
+    ///         <description>If <see
+    ///         cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>,
+    ///         delete any existing entities owned by this group. Otherwise
+    ///         this request will return an error of any such entities exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -104,7 +124,7 @@ public class DeleteResourceGroupRequest : KineticaData
 } // end class DeleteResourceGroupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
+/// cref="Kinetica.deleteResourceGroup">Kinetica.deleteResourceGroup</see>.
 /// </summary>
 public class DeleteResourceGroupResponse : KineticaData
 {

@@ -9,15 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermission(GrantPermissionRequest)">Kinetica.grantPermission</see>.
-/// </summary>
+/// cref="Kinetica.grantPermission">Kinetica.grantPermission</see>.</summary>
 /// <remarks><para>Grant user or role the specified permission on the specified
 /// object.</para></remarks>
 public class GrantPermissionRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="object_type" />.</summary>
-    /// <remarks><para>The type of object being granted to</para></remarks>
+    /// cref="GrantPermissionRequest.object_type" />.</summary>
+    /// <remarks><para>The type of object being granted to.</para></remarks>
     public struct ObjectType
     {
         /// <summary>Catalog</summary>
@@ -61,7 +60,7 @@ public class GrantPermissionRequest : KineticaData
     } // end struct ObjectType
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="GrantPermissionRequest.permission" />.</summary>
     /// <remarks><para>Permission being granted.</para></remarks>
     public struct Permission
     {
@@ -106,7 +105,7 @@ public class GrantPermissionRequest : KineticaData
     } // end struct Permission
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="GrantPermissionRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -115,8 +114,7 @@ public class GrantPermissionRequest : KineticaData
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string COLUMNS = "columns";
 
-        /// <summary>Optional filter expression to apply to this grant.
-        /// </summary>
+        /// <summary>Filter expression to apply to this grant.</summary>
         /// <remarks><para> Only rows that match the filter will be affected.
         /// The default value is ''.</para></remarks>
         public const string FILTER_EXPRESSION = "filter_expression";
@@ -126,14 +124,19 @@ public class GrantPermissionRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="GrantPermissionRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="GrantPermissionRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="GrantPermissionRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string WITH_GRANT_OPTION = "with_grant_option";
 
         public const string TRUE = "true";
@@ -155,57 +158,80 @@ public class GrantPermissionRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ObjectType.CATALOG">CATALOG</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.CATALOG">CATALOG</see>:
+    ///         </term>
     ///         <description>Catalog</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CONTEXT">CONTEXT</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:
+    ///         </term>
     ///         <description>Context</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CREDENTIAL">CREDENTIAL</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:
     ///         </term>
     ///         <description>Credential</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASINK">DATASINK</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:
+    ///         </term>
     ///         <description>Data Sink</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASOURCE">DATASOURCE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:
     ///         </term>
     ///         <description>Data Source</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
     ///         <description>KIFS File Directory</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description>A Graph object</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.PROC">PROC</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:
+    ///         </term>
     ///         <description>UDF Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SCHEMA">SCHEMA</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:
+    ///         </term>
     ///         <description>Schema</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:
+    ///         </term>
     ///         <description>SQL Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SYSTEM">SYSTEM</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:
+    ///         </term>
     ///         <description>System-level access</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description>Database Table</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
     ///         </term>
     ///         <description>Table monitor</description>
     ///     </item>
@@ -216,59 +242,81 @@ public class GrantPermissionRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         object.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
     ///         <description>Connect access on the given data source or data
     ///         sink.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CREATE">CREATE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.CREATE">CREATE</see>:
+    ///         </term>
     ///         <description>Ability to create new objects of this type.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:
+    ///         </term>
     ///         <description>Delete rows from tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.EXECUTE">EXECUTE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:
+    ///         </term>
     ///         <description>Ability to Execute the Procedure object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.INSERT">INSERT</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:
+    ///         </term>
     ///         <description>Insert access to tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.MONITOR">MONITOR</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.MONITOR">MONITOR</see>:
+    ///         </term>
     ///         <description>Monitor logs and statistics.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.READ">READ</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.READ">READ</see>:
+    ///         </term>
     ///         <description>Ability to read, list and use the object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SEND_ALERT">SEND_ALERT</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.SEND_ALERT">SEND_ALERT</see>:
     ///         </term>
     ///         <description>Ability to send system alerts.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:
+    ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.USER_ADMIN">USER_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.WRITE">WRITE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:
+    ///         </term>
     ///         <description>Access to write, change and delete objects.
     ///         </description>
     ///     </item>
@@ -278,34 +326,41 @@ public class GrantPermissionRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Apply table security to these columns,
     ///         comma-separated. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
+    ///         cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to this grant.
-    ///         Only rows that match the filter will be affected. The default
-    ///         value is ''.</description>
+    ///         <description>Filter expression to apply to this grant.  Only
+    ///         rows that match the filter will be affected. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
+    ///         cref="GrantPermissionRequest.Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
     ///         </term>
     ///         <description>Allow the recipient to grant the same permission
     ///         (or subset) to others.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GrantPermissionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GrantPermissionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="GrantPermissionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -328,57 +383,80 @@ public class GrantPermissionRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ObjectType.CATALOG">CATALOG</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.CATALOG">CATALOG</see>:
+    ///         </term>
     ///         <description>Catalog</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CONTEXT">CONTEXT</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.CONTEXT">CONTEXT</see>:
+    ///         </term>
     ///         <description>Context</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.CREDENTIAL">CREDENTIAL</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:
     ///         </term>
     ///         <description>Credential</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASINK">DATASINK</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:
+    ///         </term>
     ///         <description>Data Sink</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DATASOURCE">DATASOURCE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:
     ///         </term>
     ///         <description>Data Source</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
     ///         <description>KIFS File Directory</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.GRAPH">GRAPH</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:
+    ///         </term>
     ///         <description>A Graph object</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.PROC">PROC</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:
+    ///         </term>
     ///         <description>UDF Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SCHEMA">SCHEMA</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:
+    ///         </term>
     ///         <description>Schema</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:
+    ///         </term>
     ///         <description>SQL Procedure</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.SYSTEM">SYSTEM</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:
+    ///         </term>
     ///         <description>System-level access</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE">TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:
+    ///         </term>
     ///         <description>Database Table</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:
     ///         </term>
     ///         <description>Table monitor</description>
     ///     </item>
@@ -387,59 +465,81 @@ public class GrantPermissionRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.ADMIN">ADMIN</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:
+    ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         object.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CONNECT">CONNECT</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:
+    ///         </term>
     ///         <description>Connect access on the given data source or data
     ///         sink.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.CREATE">CREATE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.CREATE">CREATE</see>:
+    ///         </term>
     ///         <description>Ability to create new objects of this type.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.DELETE">DELETE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:
+    ///         </term>
     ///         <description>Delete rows from tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.EXECUTE">EXECUTE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:
+    ///         </term>
     ///         <description>Ability to Execute the Procedure object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.INSERT">INSERT</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:
+    ///         </term>
     ///         <description>Insert access to tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.MONITOR">MONITOR</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.MONITOR">MONITOR</see>:
+    ///         </term>
     ///         <description>Monitor logs and statistics.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.READ">READ</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.READ">READ</see>:
+    ///         </term>
     ///         <description>Ability to read, list and use the object.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SEND_ALERT">SEND_ALERT</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.SEND_ALERT">SEND_ALERT</see>:
     ///         </term>
     ///         <description>Ability to send system alerts.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.UPDATE">UPDATE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:
+    ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.USER_ADMIN">USER_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.WRITE">WRITE</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:
+    ///         </term>
     ///         <description>Access to write, change and delete objects.
     ///         </description>
     ///     </item>
@@ -447,34 +547,41 @@ public class GrantPermissionRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Apply table security to these columns,
     ///         comma-separated. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
+    ///         cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:
     ///         </term>
-    ///         <description>Optional filter expression to apply to this grant.
-    ///         Only rows that match the filter will be affected. The default
-    ///         value is ''.</description>
+    ///         <description>Filter expression to apply to this grant.  Only
+    ///         rows that match the filter will be affected. The default value
+    ///         is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
+    ///         cref="GrantPermissionRequest.Options.WITH_GRANT_OPTION">WITH_GRANT_OPTION</see>:
     ///         </term>
     ///         <description>Allow the recipient to grant the same permission
     ///         (or subset) to others.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="GrantPermissionRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="GrantPermissionRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="GrantPermissionRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -494,8 +601,7 @@ public class GrantPermissionRequest : KineticaData
 } // end class GrantPermissionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermission(GrantPermissionRequest)">Kinetica.grantPermission</see>.
-/// </summary>
+/// cref="Kinetica.grantPermission">Kinetica.grantPermission</see>.</summary>
 public class GrantPermissionResponse : KineticaData
 {
     /// <summary>Value of <see

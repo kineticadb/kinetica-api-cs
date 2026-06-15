@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminHaRefresh(AdminHaRefreshRequest)">Kinetica.adminHaRefresh</see>.
-/// </summary>
+/// cref="Kinetica.adminHaRefresh">Kinetica.adminHaRefresh</see>.</summary>
 /// <remarks><para>Restarts the HA processing on the given cluster as a
 /// mechanism of accepting breaking HA conf changes. Additionally the cluster
 /// is put into read-only while HA is restarting.</para></remarks>
@@ -37,8 +36,7 @@ public class AdminHaRefreshRequest : KineticaData
 } // end class AdminHaRefreshRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminHaRefresh(AdminHaRefreshRequest)">Kinetica.adminHaRefresh</see>.
-/// </summary>
+/// cref="Kinetica.adminHaRefresh">Kinetica.adminHaRefresh</see>.</summary>
 public class AdminHaRefreshResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

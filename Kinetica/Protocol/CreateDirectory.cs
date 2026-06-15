@@ -9,23 +9,22 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
-/// </summary>
+/// cref="Kinetica.createDirectory">Kinetica.createDirectory</see>.</summary>
 /// <remarks><para>Creates a new directory in <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a>. The new directory serves as a location in which the
 /// user can upload files using <see
-/// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
-/// </para></remarks>
+/// cref="Kinetica.uploadFiles">Kinetica.uploadFiles</see>.</para></remarks>
 public class CreateDirectoryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateDirectoryRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
         /// <summary>When set, a home directory is created for the user name
         /// provided in the value.</summary>
-        /// <remarks><para>The <see cref="directory_name" /> must be an empty
+        /// <remarks><para>The <see
+        /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
         /// string in this case. The user must exist.</para></remarks>
         public const string CREATE_HOME_DIRECTORY = "create_home_directory";
 
@@ -35,19 +34,25 @@ public class CreateDirectoryRequest : KineticaData
         /// system default limit is applied.</para></remarks>
         public const string DATA_LIMIT = "data_limit";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, does not return an
-        /// error if the directory already exists.</summary>
+        /// <summary>If <see
+        /// cref="CreateDirectoryRequest.Options.TRUE">TRUE</see>, does not
+        /// return an error if the directory already exists.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateDirectoryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
         public const string TRUE = "true";
@@ -61,35 +66,43 @@ public class CreateDirectoryRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+    ///         cref="CreateDirectoryRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
     ///         </term>
     ///         <description>When set, a home directory is created for the user
-    ///         name provided in the value. The <see cref="directory_name" />
-    ///         must be an empty string in this case. The user must exist.
-    ///         </description>
+    ///         name provided in the value. The <see
+    ///         cref="CreateDirectoryRequest.directory_name" /> must be an
+    ///         empty string in this case. The user must exist.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateDirectoryRequest.Options.DATA_LIMIT">DATA_LIMIT</see>:
+    ///         </term>
     ///         <description>The maximum capacity, in bytes, to apply to the
     ///         created directory. Set to -1 to indicate no upper limit. If
     ///         empty, the system default limit is applied.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, does not
+    ///         <description>If <see
+    ///         cref="CreateDirectoryRequest.Options.TRUE">TRUE</see>, does not
     ///         return an error if the directory already exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateDirectoryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -109,7 +122,7 @@ public class CreateDirectoryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
+    ///         cref="CreateDirectoryRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:
     ///         </term>
     ///         <description>When set, a home directory is created for the user
     ///         name provided in the value. The <paramref name="directory_name"
@@ -117,27 +130,35 @@ public class CreateDirectoryRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+    ///         <term><see
+    ///         cref="CreateDirectoryRequest.Options.DATA_LIMIT">DATA_LIMIT</see>:
+    ///         </term>
     ///         <description>The maximum capacity, in bytes, to apply to the
     ///         created directory. Set to -1 to indicate no upper limit. If
     ///         empty, the system default limit is applied.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, does not
+    ///         <description>If <see
+    ///         cref="CreateDirectoryRequest.Options.TRUE">TRUE</see>, does not
     ///         return an error if the directory already exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateDirectoryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -151,8 +172,7 @@ public class CreateDirectoryRequest : KineticaData
 } // end class CreateDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
-/// </summary>
+/// cref="Kinetica.createDirectory">Kinetica.createDirectory</see>.</summary>
 public class CreateDirectoryResponse : KineticaData
 {
     /// <summary>Value of <see

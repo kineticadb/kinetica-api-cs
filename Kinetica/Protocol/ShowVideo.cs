@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showVideo(ShowVideoRequest)">Kinetica.showVideo</see>.
-/// </summary>
+/// cref="Kinetica.showVideo">Kinetica.showVideo</see>.</summary>
 /// <remarks><para>Retrieves information about rendered videos.</para>
 /// </remarks>
 public class ShowVideoRequest : KineticaData
@@ -46,8 +45,7 @@ public class ShowVideoRequest : KineticaData
 } // end class ShowVideoRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showVideo(ShowVideoRequest)">Kinetica.showVideo</see>.
-/// </summary>
+/// cref="Kinetica.showVideo">Kinetica.showVideo</see>.</summary>
 public class ShowVideoResponse : KineticaData
 {
     /// <summary>Creation time for each video as an ISO-8601 datetime.
@@ -72,7 +70,7 @@ public class ShowVideoResponse : KineticaData
     /// <summary>The number of frames rendered for each video.</summary>
     public IList<long> rendered_frames { get; set; } = new List<long>();
 
-    /// <summary>Percent completion of each video's rendering process (0-100)
+    /// <summary>Percent completion of each video's rendering process (0-100).
     /// </summary>
     public IList<long> rendered_percents { get; set; } = new List<long>();
 

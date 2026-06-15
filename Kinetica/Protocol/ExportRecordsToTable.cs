@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
+/// cref="Kinetica.exportRecordsToTable">Kinetica.exportRecordsToTable</see>.
 /// </summary>
 /// <remarks><para>Exports records from source table to the specified target
-/// table in an external database</para></remarks>
+/// table in an external database.</para></remarks>
 public class ExportRecordsToTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ExportRecordsToTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -26,7 +26,8 @@ public class ExportRecordsToTableRequest : KineticaData
         public const string BATCH_SIZE = "batch_size";
 
         /// <summary>Name of an existing external data sink to which table name
-        /// specified in <see cref="table_name" /> will be exported</summary>
+        /// specified in <see cref="ExportRecordsToTableRequest.table_name" />
+        /// will be exported.</summary>
         public const string DATASINK_NAME = "datasink_name";
 
         /// <summary>Executes the statement per each JDBC session before doing
@@ -50,13 +51,18 @@ public class ExportRecordsToTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string USE_ST_GEOMFROM_CASTS = "use_st_geomfrom_casts";
 
@@ -68,13 +74,18 @@ public class ExportRecordsToTableRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
+        /// <para>The default value is <see
+        /// cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string USE_INDEXED_PARAMETERS = "use_indexed_parameters";
     } // end struct Options
@@ -93,21 +104,25 @@ public class ExportRecordsToTableRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="ExportRecordsToTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:
+    ///         </term>
     ///         <description>Batch size, which determines how many rows to
     ///         export per round trip. The default value is '200000'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATASINK_NAME">DATASINK_NAME</see>:
+    ///         <term><see
+    ///         cref="ExportRecordsToTableRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Name of an existing external data sink to which
-    ///         table name specified in <see cref="table_name" /> will be
-    ///         exported</description>
+    ///         table name specified in <see
+    ///         cref="ExportRecordsToTableRequest.table_name" /> will be
+    ///         exported.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
     ///         </term>
     ///         <description>Executes the statement per each JDBC session
     ///         before doing actual load. The default value is ''.
@@ -115,13 +130,14 @@ public class ExportRecordsToTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
     ///         </term>
     ///         <description>Executes the statement once before doing actual
     ///         load. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.REMOTE_TABLE">REMOTE_TABLE</see>:
+    ///         <term><see
+    ///         cref="ExportRecordsToTableRequest.Options.REMOTE_TABLE">REMOTE_TABLE</see>:
     ///         </term>
     ///         <description>Name of the target table to which source table is
     ///         exported. When this option is specified remote_query cannot be
@@ -129,38 +145,48 @@ public class ExportRecordsToTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
     ///         </term>
     ///         <description>Wraps parameterized variables with st_geomfromtext
     ///         or st_geomfromwkb based on source column type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
     ///         </term>
     ///         <description>Uses $n style syntax when generating insert query
     ///         for remote_table option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -183,21 +209,24 @@ public class ExportRecordsToTableRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+    ///         <term><see
+    ///         cref="ExportRecordsToTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:
+    ///         </term>
     ///         <description>Batch size, which determines how many rows to
     ///         export per round trip. The default value is '200000'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATASINK_NAME">DATASINK_NAME</see>:
+    ///         <term><see
+    ///         cref="ExportRecordsToTableRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Name of an existing external data sink to which
     ///         table name specified in <paramref name="table_name" /> will be
-    ///         exported</description>
+    ///         exported.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:
     ///         </term>
     ///         <description>Executes the statement per each JDBC session
     ///         before doing actual load. The default value is ''.
@@ -205,13 +234,14 @@ public class ExportRecordsToTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:
     ///         </term>
     ///         <description>Executes the statement once before doing actual
     ///         load. The default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.REMOTE_TABLE">REMOTE_TABLE</see>:
+    ///         <term><see
+    ///         cref="ExportRecordsToTableRequest.Options.REMOTE_TABLE">REMOTE_TABLE</see>:
     ///         </term>
     ///         <description>Name of the target table to which source table is
     ///         exported. When this option is specified remote_query cannot be
@@ -219,38 +249,48 @@ public class ExportRecordsToTableRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:
     ///         </term>
     ///         <description>Wraps parameterized variables with st_geomfromtext
     ///         or st_geomfromwkb based on source column type.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
+    ///         cref="ExportRecordsToTableRequest.Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:
     ///         </term>
     ///         <description>Uses $n style syntax when generating insert query
     ///         for remote_table option.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -266,7 +306,7 @@ public class ExportRecordsToTableRequest : KineticaData
 } // end class ExportRecordsToTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
+/// cref="Kinetica.exportRecordsToTable">Kinetica.exportRecordsToTable</see>.
 /// </summary>
 public class ExportRecordsToTableResponse : KineticaData
 {

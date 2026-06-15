@@ -27,7 +27,6 @@ operations, and support for both strongly-typed POCOs and dynamic
 -  [Project Structure](#project-structure)
 -  [Examples](#examples)
 -  [Testing](#testing)
--  [Documentation](#documentation)
 -  [Support](#support)
 -  [License](#license)
 
@@ -133,12 +132,12 @@ dotnet build
 using kinetica;
 
 // Create a connection to Kinetica
-var kinetica = new Kinetica("http://localhost:9191",
-    new KineticaOptions
-    {
-        Username = "admin",
-        Password = "secret"
-    });
+var options = new Kinetica.Options
+{
+    Username = "admin",
+    Password = "secret"
+};
+var kinetica = new Kinetica("http://localhost:9191", options);
 
 // Create a table using Type Builder
 var type = Type.Builder("example_table")

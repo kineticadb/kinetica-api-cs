@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminShutdown(AdminShutdownRequest)">Kinetica.adminShutdown</see>.
-/// </summary>
+/// cref="Kinetica.adminShutdown">Kinetica.adminShutdown</see>.</summary>
 /// <remarks><para>Exits the database server application.</para></remarks>
 public class AdminShutdownRequest : KineticaData
 {
@@ -51,8 +50,7 @@ public class AdminShutdownRequest : KineticaData
 } // end class AdminShutdownRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminShutdown(AdminShutdownRequest)">Kinetica.adminShutdown</see>.
-/// </summary>
+/// cref="Kinetica.adminShutdown">Kinetica.adminShutdown</see>.</summary>
 public class AdminShutdownResponse : KineticaData
 {
     /// <summary>'OK' upon (right before) successful exit.</summary>

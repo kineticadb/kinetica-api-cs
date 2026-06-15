@@ -9,11 +9,11 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminShowClusterOperations(AdminShowClusterOperationsRequest)">Kinetica.adminShowClusterOperations</see>.
+/// cref="Kinetica.adminShowClusterOperations">Kinetica.adminShowClusterOperations</see>.
 /// </summary>
 /// <remarks><para>Requests the detailed status of the current operation (by
 /// default) or a prior cluster operation specified by <see
-/// cref="history_index" />.
+/// cref="AdminShowClusterOperationsRequest.history_index" />.
 /// Returns details on the requested cluster operation.</para>
 /// <para>The response will also indicate how many cluster operations are
 /// stored in the history.</para></remarks>
@@ -49,12 +49,12 @@ public class AdminShowClusterOperationsRequest : KineticaData
 } // end class AdminShowClusterOperationsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminShowClusterOperations(AdminShowClusterOperationsRequest)">Kinetica.adminShowClusterOperations</see>.
+/// cref="Kinetica.adminShowClusterOperations">Kinetica.adminShowClusterOperations</see>.
 /// </summary>
 public class AdminShowClusterOperationsResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="in_progress" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.in_progress" />.</summary>
     /// <remarks><para>Whether this cluster operation is currently in progress
     /// or not.</para></remarks>
     public struct InProgress
@@ -64,7 +64,7 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct InProgress
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="overall_status" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.overall_status" />.</summary>
     /// <remarks><para>Overall success status of the operation.</para>
     /// </remarks>
     public struct OverallStatus
@@ -78,7 +78,7 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct OverallStatus
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="user_stopped" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.user_stopped" />.</summary>
     /// <remarks><para>Whether a user stopped this operation at any point while
     /// in progress.</para></remarks>
     public struct UserStopped
@@ -88,7 +88,7 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct UserStopped
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="dry_run" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.dry_run" />.</summary>
     /// <remarks><para>Whether this operation was a dry run.</para></remarks>
     public struct DryRun
     {
@@ -97,7 +97,7 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct DryRun
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="add_ranks" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.add_ranks" />.</summary>
     /// <remarks><para>Whether adding ranks is (or was) part of this operation.
     /// </para></remarks>
     public struct AddRanks
@@ -107,7 +107,8 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct AddRanks
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="add_ranks_status" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.add_ranks_status" />.
+    /// </summary>
     /// <remarks><para>If this was a rank-adding operation, the add-specific
     /// status of the operation.</para></remarks>
     public struct AddRanksStatus
@@ -120,7 +121,7 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct AddRanksStatus
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="remove_ranks" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.remove_ranks" />.</summary>
     /// <remarks><para>Whether removing ranks is (or was) part of this
     /// operation.</para></remarks>
     public struct RemoveRanks
@@ -130,7 +131,8 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct RemoveRanks
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="remove_ranks_status" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.remove_ranks_status" />.
+    /// </summary>
     /// <remarks><para>If this was a rank-removing operation, the
     /// removal-specific status of the operation.</para></remarks>
     public struct RemoveRanksStatus
@@ -143,7 +145,7 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct RemoveRanksStatus
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="rebalance" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.rebalance" />.</summary>
     /// <remarks><para>Whether data and/or shard rebalancing is (or was) part
     /// of this operation.</para></remarks>
     public struct Rebalance
@@ -153,7 +155,8 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct Rebalance
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="rebalance_unsharded_data" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.rebalance_unsharded_data" />.
+    /// </summary>
     /// <remarks><para>Whether rebalancing of unsharded data is (or was) part
     /// of this operation.</para></remarks>
     public struct RebalanceUnshardedData
@@ -163,7 +166,8 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct RebalanceUnshardedData
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="rebalance_unsharded_data_status" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.rebalance_unsharded_data_status"
+    /// />.</summary>
     /// <remarks><para>If this was an operation that included rebalancing
     /// unsharded data, the rebalancing-specific status of the operation.
     /// </para></remarks>
@@ -177,7 +181,8 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct RebalanceUnshardedDataStatus
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="rebalance_sharded_data" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.rebalance_sharded_data" />.
+    /// </summary>
     /// <remarks><para>Whether rebalancing of sharded data is (or was) part of
     /// this operation.</para></remarks>
     public struct RebalanceShardedData
@@ -187,7 +192,8 @@ public class AdminShowClusterOperationsResponse : KineticaData
     } // end struct RebalanceShardedData
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="rebalance_sharded_data_status" />.</summary>
+    /// cref="AdminShowClusterOperationsResponse.rebalance_sharded_data_status"
+    /// />.</summary>
     /// <remarks><para>If this was an operation that included rebalancing
     /// sharded data, the rebalancing-specific status of the operation.</para>
     /// </remarks>
@@ -237,12 +243,16 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="OverallStatus.OK">OK</see>:</term>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.OverallStatus.OK">OK</see>:
+    ///         </term>
     ///         <description>The operation was successful, or, if still in
     ///         progress, the operation is successful so far.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="OverallStatus.ERROR">ERROR</see>:</term>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.OverallStatus.ERROR">ERROR</see>:
+    ///         </term>
     ///         <description>An error occurred executing the operation.
     ///         </description>
     ///     </item>
@@ -298,23 +308,29 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// <remarks><para>Valid values are:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="AddRanksStatus.NOT_STARTED">NOT_STARTED</see>
-    ///         </term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="AddRanksStatus.IN_PROGRESS">IN_PROGRESS</see>
-    ///         </term>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="AddRanksStatus.INTERRUPTED">INTERRUPTED</see>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.AddRanksStatus.NOT_STARTED">NOT_STARTED</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="AddRanksStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+    ///         cref="AdminShowClusterOperationsResponse.AddRanksStatus.IN_PROGRESS">IN_PROGRESS</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="AddRanksStatus.ERROR">ERROR</see></term>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.AddRanksStatus.INTERRUPTED">INTERRUPTED</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.AddRanksStatus.COMPLETED_OK">COMPLETED_OK</see>
+    ///         </term>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.AddRanksStatus.ERROR">ERROR</see>
+    ///         </term>
     ///     </item>
     /// </list></remarks>
     public string add_ranks_status { get; set; }
@@ -324,7 +340,9 @@ public class AdminShowClusterOperationsResponse : KineticaData
     public IList<int> ranks_being_added { get; set; } = new List<int>();
 
     /// <summary>The host IP addresses of the ranks being added, in the same
-    /// order as the <see cref="ranks_being_added" /> list.</summary>
+    /// order as the <see
+    /// cref="AdminShowClusterOperationsResponse.ranks_being_added" /> list.
+    /// </summary>
     public IList<string> rank_hosts { get; set; } = new List<string>();
 
     /// <summary>Current percent complete of the add ranks operation.</summary>
@@ -349,22 +367,28 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="RemoveRanksStatus.NOT_STARTED">NOT_STARTED</see></term>
+    ///         cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.NOT_STARTED">NOT_STARTED</see>
+    ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RemoveRanksStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+    ///         cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.IN_PROGRESS">IN_PROGRESS</see>
+    ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RemoveRanksStatus.INTERRUPTED">INTERRUPTED</see></term>
+    ///         cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.INTERRUPTED">INTERRUPTED</see>
+    ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RemoveRanksStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+    ///         cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.COMPLETED_OK">COMPLETED_OK</see>
+    ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RemoveRanksStatus.ERROR">ERROR</see></term>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.ERROR">ERROR</see>
+    ///         </term>
     ///     </item>
     /// </list></remarks>
     public string remove_ranks_status { get; set; }
@@ -409,27 +433,28 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceUnshardedDataStatus.NOT_STARTED">NOT_STARTED</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.NOT_STARTED">NOT_STARTED</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceUnshardedDataStatus.IN_PROGRESS">IN_PROGRESS</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.IN_PROGRESS">IN_PROGRESS</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceUnshardedDataStatus.INTERRUPTED">INTERRUPTED</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.INTERRUPTED">INTERRUPTED</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceUnshardedDataStatus.COMPLETED_OK">COMPLETED_OK</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.COMPLETED_OK">COMPLETED_OK</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceUnshardedDataStatus.ERROR">ERROR</see></term>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.ERROR">ERROR</see>
+    ///         </term>
     ///     </item>
     /// </list></remarks>
     public string rebalance_unsharded_data_status { get; set; }
@@ -463,26 +488,27 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceShardedDataStatus.NOT_STARTED">NOT_STARTED</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.NOT_STARTED">NOT_STARTED</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceShardedDataStatus.IN_PROGRESS">IN_PROGRESS</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.IN_PROGRESS">IN_PROGRESS</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceShardedDataStatus.INTERRUPTED">INTERRUPTED</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.INTERRUPTED">INTERRUPTED</see>
     ///         </term>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="RebalanceShardedDataStatus.COMPLETED_OK">COMPLETED_OK</see>
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.COMPLETED_OK">COMPLETED_OK</see>
     ///         </term>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="RebalanceShardedDataStatus.ERROR">ERROR</see>
+    ///         <term><see
+    ///         cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.ERROR">ERROR</see>
     ///         </term>
     ///     </item>
     /// </list></remarks>

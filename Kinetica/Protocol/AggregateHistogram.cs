@@ -9,26 +9,29 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateHistogram(AggregateHistogramRequest)">Kinetica.aggregateHistogram</see>.
+/// cref="Kinetica.aggregateHistogram">Kinetica.aggregateHistogram</see>.
 /// </summary>
 /// <remarks><para>Performs a histogram calculation given a table, a column,
-/// and an interval function. The <see cref="interval" /> is used to produce
-/// bins of that size and the result, computed over the records falling within
-/// each bin, is returned. For each bin, the start value is inclusive, but the
-/// end value is exclusive--except for the very last bin for which the end
-/// value is also inclusive.  The value returned for each bin is the number of
-/// records in it, except when a column name is provided as a <see
-/// cref="Options.VALUE_COLUMN">VALUE_COLUMN</see>.  In this latter case the
-/// sum of the values corresponding to the <see
-/// cref="Options.VALUE_COLUMN">VALUE_COLUMN</see> is used as the result
-/// instead.  The total number of bins requested cannot exceed 10,000.</para>
+/// and an interval function. The <see
+/// cref="AggregateHistogramRequest.interval" /> is used to produce bins of
+/// that size and the result, computed over the records falling within each
+/// bin, is returned. For each bin, the start value is inclusive, but the end
+/// value is exclusive--except for the very last bin for which the end value is
+/// also inclusive.  The value returned for each bin is the number of records
+/// in it, except when a column name is provided as a <see
+/// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>.
+/// In this latter case the sum of the values corresponding to the <see
+/// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see> is
+/// used as the result instead.  The total number of bins requested cannot
+/// exceed 10,000.</para>
 /// <para>NOTE:  The Kinetica instance being accessed must be running a CUDA
 /// (GPU-based) build to service a request that specifies a <see
-/// cref="Options.VALUE_COLUMN">VALUE_COLUMN</see>.</para></remarks>
+/// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>.
+/// </para></remarks>
 public class AggregateHistogramRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AggregateHistogramRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -75,22 +78,28 @@ public class AggregateHistogramRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.VALUE_COLUMN">VALUE_COLUMN</see>:
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>:
     ///         </term>
     ///         <description>The name of the column to use when calculating the
     ///         bin values (values are summed).  The column must be a numerical
     ///         type (int, double, long, float).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.START">START</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.START">START</see>:
+    ///         </term>
     ///         <description>The start parameter for char types.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.END">END</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.END">END</see>:</term>
     ///         <description>The end parameter for char types.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.INTERVAL">INTERVAL</see>:
+    ///         </term>
     ///         <description>The interval parameter for char types.
     ///         </description>
     ///     </item>
@@ -121,22 +130,28 @@ public class AggregateHistogramRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.VALUE_COLUMN">VALUE_COLUMN</see>:
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>:
     ///         </term>
     ///         <description>The name of the column to use when calculating the
     ///         bin values (values are summed).  The column must be a numerical
     ///         type (int, double, long, float).</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.START">START</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.START">START</see>:
+    ///         </term>
     ///         <description>The start parameter for char types.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.END">END</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.END">END</see>:</term>
     ///         <description>The end parameter for char types.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.INTERVAL">INTERVAL</see>:</term>
+    ///         <term><see
+    ///         cref="AggregateHistogramRequest.Options.INTERVAL">INTERVAL</see>:
+    ///         </term>
     ///         <description>The interval parameter for char types.
     ///         </description>
     ///     </item>
@@ -159,7 +174,7 @@ public class AggregateHistogramRequest : KineticaData
 } // end class AggregateHistogramRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateHistogram(AggregateHistogramRequest)">Kinetica.aggregateHistogram</see>.
+/// cref="Kinetica.aggregateHistogram">Kinetica.aggregateHistogram</see>.
 /// </summary>
 public class AggregateHistogramResponse : KineticaData
 {

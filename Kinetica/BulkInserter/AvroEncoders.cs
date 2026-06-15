@@ -1,9 +1,6 @@
-using System;
-using System.Buffers;
 using System.Buffers.Binary;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -80,6 +77,19 @@ namespace kinetica;
     /// - Avoiding all intermediate object allocations
     /// - Using ArrayPool for buffer reuse
     /// </summary>
+    /// <remarks>
+    /// This encoder uses reflection and expression trees to dynamically create
+    /// property accessors. It is not compatible with trimming or Native AOT compilation.
+    /// </remarks>
+    /// <summary>
+    /// Result of a zero-copy batch encode: a single contiguous buffer plus
+    /// per-record (offset, length) segments into that buffer.
+    /// </summary>
+    internal readonly record struct ZeroCopyEncodeResult(
+        byte[] Buffer,
+        (int Offset, int Length)[] Segments);
+
+    [RequiresUnreferencedCode("DirectAvroEncoder uses reflection and expression trees. Not compatible with trimming.")]
     internal sealed class DirectAvroEncoder<T>
     {
         private readonly FieldEncoder[] _fieldEncoders;
@@ -304,12 +314,12 @@ namespace kinetica;
         /// Zero-copy batch encoding: encodes all records into a single contiguous buffer
         /// and returns segments pointing into that buffer.
         /// </summary>
-        public (byte[] Buffer, (int Offset, int Length)[] Segments) EncodeManyZeroCopy(IReadOnlyList<T> records)
+        public ZeroCopyEncodeResult EncodeManyZeroCopy(IReadOnlyList<T> records)
         {
             var count = records.Count;
             if (count == 0)
             {
-                return (Array.Empty<byte>(), Array.Empty<(int, int)>());
+                return new(Array.Empty<byte>(), Array.Empty<(int, int)>());
             }
 
             // Estimate total size (will grow if needed via ref in encoders)
@@ -339,19 +349,19 @@ namespace kinetica;
                 buffer = trimmed;
             }
 
-            return (buffer, segments);
+            return new(buffer, segments);
         }
 
         /// <summary>
         /// Zero-copy parallel batch encoding: encodes records in parallel, then
         /// concatenates into a single buffer.
         /// </summary>
-        public (byte[] Buffer, (int Offset, int Length)[] Segments) EncodeManyZeroCopyParallel(IReadOnlyList<T> records)
+        public ZeroCopyEncodeResult EncodeManyZeroCopyParallel(IReadOnlyList<T> records)
         {
             var count = records.Count;
             if (count == 0)
             {
-                return (Array.Empty<byte>(), Array.Empty<(int, int)>());
+                return new(Array.Empty<byte>(), Array.Empty<(int, int)>());
             }
 
             // For small batches, use sequential zero-copy
@@ -387,7 +397,7 @@ namespace kinetica;
                 position += encoded.Length;
             }
 
-            return (buffer, segments);
+            return new(buffer, segments);
         }
 
         #region Field Encoders
@@ -511,109 +521,96 @@ namespace kinetica;
         }
 
         // Nullable encoders (for union types)
-        private sealed class NullableIntEncoder : FieldEncoder
+        // Shared base for nullable value-type field encoders. The base handles
+        // the null-bit prefix and per-call capacity check; subclasses encode
+        // the non-null value.
+        private abstract class NullableValueEncoder<TValue> : FieldEncoder where TValue : struct
         {
-            private readonly Func<T, int?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableIntEncoder(Func<T, int?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
+            protected readonly Func<T, TValue?> _getter;
+            protected readonly int _nonNullIndex;
+            private readonly int _capacityHint;
+
+            protected NullableValueEncoder(Func<T, TValue?> getter, int nonNullIndex, int capacityHint)
+            {
+                _getter = getter;
+                _nonNullIndex = nonNullIndex;
+                _capacityHint = capacityHint;
+            }
+
+            protected abstract int EncodeValue(byte[] buffer, int position, TValue value);
 
             public override int Encode(T record, ref byte[] buffer, int position)
             {
-                AvroEncoding.EnsureCapacity(ref buffer, position, 20);
+                AvroEncoding.EnsureCapacity(ref buffer, position, _capacityHint);
                 var value = _getter(record);
                 if (!value.HasValue)
                 {
                     return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
                 }
                 position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
-                return AvroEncoding.WriteVarInt(buffer, position, value.Value);
+                return EncodeValue(buffer, position, value.Value);
             }
         }
 
-        private sealed class NullableLongEncoder : FieldEncoder
+        private sealed class NullableIntEncoder : NullableValueEncoder<int>
         {
-            private readonly Func<T, long?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableLongEncoder(Func<T, long?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
-
-            public override int Encode(T record, ref byte[] buffer, int position)
-            {
-                AvroEncoding.EnsureCapacity(ref buffer, position, 20);
-                var value = _getter(record);
-                if (!value.HasValue)
-                {
-                    return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
-                }
-                position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
-                return AvroEncoding.WriteVarLong(buffer, position, value.Value);
-            }
+            public NullableIntEncoder(Func<T, int?> getter, int nonNullIndex) : base(getter, nonNullIndex, 20) { }
+            protected override int EncodeValue(byte[] buffer, int position, int value)
+                => AvroEncoding.WriteVarInt(buffer, position, value);
         }
 
-        private sealed class NullableFloatEncoder : FieldEncoder
+        private sealed class NullableLongEncoder : NullableValueEncoder<long>
         {
-            private readonly Func<T, float?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableFloatEncoder(Func<T, float?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
+            public NullableLongEncoder(Func<T, long?> getter, int nonNullIndex) : base(getter, nonNullIndex, 20) { }
+            protected override int EncodeValue(byte[] buffer, int position, long value)
+                => AvroEncoding.WriteVarLong(buffer, position, value);
+        }
 
-            public override int Encode(T record, ref byte[] buffer, int position)
+        private sealed class NullableFloatEncoder : NullableValueEncoder<float>
+        {
+            public NullableFloatEncoder(Func<T, float?> getter, int nonNullIndex) : base(getter, nonNullIndex, 14) { }
+            protected override int EncodeValue(byte[] buffer, int position, float value)
             {
-                AvroEncoding.EnsureCapacity(ref buffer, position, 14);
-                var value = _getter(record);
-                if (!value.HasValue)
-                {
-                    return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
-                }
-                position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
-                BinaryPrimitives.WriteSingleLittleEndian(buffer.AsSpan(position), value.Value);
+                BinaryPrimitives.WriteSingleLittleEndian(buffer.AsSpan(position), value);
                 return position + 4;
             }
         }
 
-        private sealed class NullableDoubleEncoder : FieldEncoder
+        private sealed class NullableDoubleEncoder : NullableValueEncoder<double>
         {
-            private readonly Func<T, double?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableDoubleEncoder(Func<T, double?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
-
-            public override int Encode(T record, ref byte[] buffer, int position)
+            public NullableDoubleEncoder(Func<T, double?> getter, int nonNullIndex) : base(getter, nonNullIndex, 18) { }
+            protected override int EncodeValue(byte[] buffer, int position, double value)
             {
-                AvroEncoding.EnsureCapacity(ref buffer, position, 18);
-                var value = _getter(record);
-                if (!value.HasValue)
-                {
-                    return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
-                }
-                position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
-                BinaryPrimitives.WriteDoubleLittleEndian(buffer.AsSpan(position), value.Value);
+                BinaryPrimitives.WriteDoubleLittleEndian(buffer.AsSpan(position), value);
                 return position + 8;
             }
         }
 
-        private sealed class NullableBoolEncoder : FieldEncoder
+        private sealed class NullableBoolEncoder : NullableValueEncoder<bool>
         {
-            private readonly Func<T, bool?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableBoolEncoder(Func<T, bool?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
-
-            public override int Encode(T record, ref byte[] buffer, int position)
+            public NullableBoolEncoder(Func<T, bool?> getter, int nonNullIndex) : base(getter, nonNullIndex, 11) { }
+            protected override int EncodeValue(byte[] buffer, int position, bool value)
             {
-                AvroEncoding.EnsureCapacity(ref buffer, position, 11);
-                var value = _getter(record);
-                if (!value.HasValue)
-                {
-                    return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
-                }
-                position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
-                buffer[position] = value.Value ? (byte)1 : (byte)0;
+                buffer[position] = value ? (byte)1 : (byte)0;
                 return position + 1;
             }
         }
 
-        private sealed class NullableStringEncoder : FieldEncoder
+        // Shared base for nullable reference-type field encoders. The base
+        // handles the null-bit prefix; subclasses encode the non-null value
+        // (including their own capacity check, since payload size varies).
+        private abstract class NullableReferenceEncoder<TValue> : FieldEncoder where TValue : class
         {
-            private readonly Func<T, string?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableStringEncoder(Func<T, string?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
+            protected readonly Func<T, TValue?> _getter;
+            protected readonly int _nonNullIndex;
+
+            protected NullableReferenceEncoder(Func<T, TValue?> getter, int nonNullIndex)
+            {
+                _getter = getter;
+                _nonNullIndex = nonNullIndex;
+            }
+
+            protected abstract int EncodeNonNull(ref byte[] buffer, int position, TValue value);
 
             public override int Encode(T record, ref byte[] buffer, int position)
             {
@@ -623,6 +620,16 @@ namespace kinetica;
                     AvroEncoding.EnsureCapacity(ref buffer, position, 10);
                     return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
                 }
+                return EncodeNonNull(ref buffer, position, value);
+            }
+        }
+
+        private sealed class NullableStringEncoder : NullableReferenceEncoder<string>
+        {
+            public NullableStringEncoder(Func<T, string?> getter, int nonNullIndex) : base(getter, nonNullIndex) { }
+
+            protected override int EncodeNonNull(ref byte[] buffer, int position, string value)
+            {
                 var bytes = Encoding.UTF8.GetBytes(value);
                 AvroEncoding.EnsureCapacity(ref buffer, position, bytes.Length + 20);
                 position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
@@ -632,20 +639,12 @@ namespace kinetica;
             }
         }
 
-        private sealed class NullableBytesEncoder : FieldEncoder
+        private sealed class NullableBytesEncoder : NullableReferenceEncoder<byte[]>
         {
-            private readonly Func<T, byte[]?> _getter;
-            private readonly int _nonNullIndex;
-            public NullableBytesEncoder(Func<T, byte[]?> getter, int nonNullIndex) { _getter = getter; _nonNullIndex = nonNullIndex; }
+            public NullableBytesEncoder(Func<T, byte[]?> getter, int nonNullIndex) : base(getter, nonNullIndex) { }
 
-            public override int Encode(T record, ref byte[] buffer, int position)
+            protected override int EncodeNonNull(ref byte[] buffer, int position, byte[] value)
             {
-                var value = _getter(record);
-                if (value == null)
-                {
-                    AvroEncoding.EnsureCapacity(ref buffer, position, 10);
-                    return AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex == 0 ? 1 : 0);
-                }
                 AvroEncoding.EnsureCapacity(ref buffer, position, value.Length + 20);
                 position = AvroEncoding.WriteVarLong(buffer, position, _nonNullIndex);
                 position = AvroEncoding.WriteVarLong(buffer, position, value.Length);

@@ -9,22 +9,21 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByGeometry(FilterByGeometryRequest)">Kinetica.filterByGeometry</see>.
-/// </summary>
+/// cref="Kinetica.filterByGeometry">Kinetica.filterByGeometry</see>.</summary>
 /// <remarks><para>Applies a geometry filter against a geospatial geometry
 /// column in a given table or view. The filtering geometry is provided by <see
-/// cref="input_wkt" />.</para></remarks>
+/// cref="FilterByGeometryRequest.input_wkt" />.</para></remarks>
 public class FilterByGeometryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="operation" />.</summary>
-    /// <remarks><para>The geometric filtering operation to perform</para>
+    /// cref="FilterByGeometryRequest.operation" />.</summary>
+    /// <remarks><para>The geometric filtering operation to perform.</para>
     /// </remarks>
     public struct Operation
     {
         /// <summary>Matches records that contain the given WKT in <see
-        /// cref="input_wkt" />, i.e. the given WKT is within the bounds of a
-        /// record's geometry.</summary>
+        /// cref="FilterByGeometryRequest.input_wkt" />, i.e. the given WKT is
+        /// within the bounds of a record's geometry.</summary>
         public const string CONTAINS = "contains";
 
         /// <summary>Matches records that cross the given WKT.</summary>
@@ -52,34 +51,42 @@ public class FilterByGeometryRequest : KineticaData
     } // end struct Operation
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByGeometryRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByGeometryRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterByGeometryRequest.view_name" />.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByGeometryRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-        /// to create the schema if non-existent]  Name of a schema for the
-        /// newly created view.</summary>
+        /// view as part of <see cref="FilterByGeometryRequest.view_name" />
+        /// and use <see
+        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
+        /// the schema if non-existent]  Name of a schema for the newly created
+        /// view.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -108,7 +115,7 @@ public class FilterByGeometryRequest : KineticaData
     public string column_name { get; set; }
 
     /// <summary>A geometry in WKT format that will be used to filter the
-    /// objects in <see cref="table_name" />.</summary>
+    /// objects in <see cref="FilterByGeometryRequest.table_name" />.</summary>
     /// <remarks><para>The default value is ''.</para></remarks>
     public string input_wkt { get; set; } = "";
 
@@ -116,43 +123,59 @@ public class FilterByGeometryRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Operation.CONTAINS">CONTAINS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.CONTAINS">CONTAINS</see>:
+    ///         </term>
     ///         <description>Matches records that contain the given WKT in <see
-    ///         cref="input_wkt" />, i.e. the given WKT is within the bounds of
-    ///         a record's geometry.</description>
+    ///         cref="FilterByGeometryRequest.input_wkt" />, i.e. the given WKT
+    ///         is within the bounds of a record's geometry.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.CROSSES">CROSSES</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.CROSSES">CROSSES</see>:
+    ///         </term>
     ///         <description>Matches records that cross the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.DISJOINT">DISJOINT</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.DISJOINT">DISJOINT</see>:
+    ///         </term>
     ///         <description>Matches records that are disjoint from the given
     ///         WKT.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.EQUALS">EQUALS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.EQUALS">EQUALS</see>:
+    ///         </term>
     ///         <description>Matches records that are the same as the given
     ///         WKT.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.INTERSECTS">INTERSECTS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.INTERSECTS">INTERSECTS</see>:
+    ///         </term>
     ///         <description>Matches records that intersect the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.OVERLAPS">OVERLAPS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.OVERLAPS">OVERLAPS</see>:
+    ///         </term>
     ///         <description>Matches records that overlap the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.TOUCHES">TOUCHES</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.TOUCHES">TOUCHES</see>:
+    ///         </term>
     ///         <description>Matches records that touch the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.WITHIN">WITHIN</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.WITHIN">WITHIN</see>:
+    ///         </term>
     ///         <description>Matches records that are within the given WKT.
     ///         </description>
     ///     </item>
@@ -163,33 +186,42 @@ public class FilterByGeometryRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
+    ///         <description>If <see
+    ///         cref="FilterByGeometryRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <see
+    ///         cref="FilterByGeometryRequest.view_name" />. This is always
     ///         allowed even if the caller does not have permission to create
     ///         tables. The generated name is returned in <see
     ///         cref="FilterByGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByGeometryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the view as part of <see
+    ///         cref="FilterByGeometryRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
     ///     </item>
@@ -225,43 +257,59 @@ public class FilterByGeometryRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Operation.CONTAINS">CONTAINS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.CONTAINS">CONTAINS</see>:
+    ///         </term>
     ///         <description>Matches records that contain the given WKT in
     ///         <paramref name="input_wkt" />, i.e. the given WKT is within the
     ///         bounds of a record's geometry.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.CROSSES">CROSSES</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.CROSSES">CROSSES</see>:
+    ///         </term>
     ///         <description>Matches records that cross the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.DISJOINT">DISJOINT</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.DISJOINT">DISJOINT</see>:
+    ///         </term>
     ///         <description>Matches records that are disjoint from the given
     ///         WKT.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.EQUALS">EQUALS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.EQUALS">EQUALS</see>:
+    ///         </term>
     ///         <description>Matches records that are the same as the given
     ///         WKT.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.INTERSECTS">INTERSECTS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.INTERSECTS">INTERSECTS</see>:
+    ///         </term>
     ///         <description>Matches records that intersect the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.OVERLAPS">OVERLAPS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.OVERLAPS">OVERLAPS</see>:
+    ///         </term>
     ///         <description>Matches records that overlap the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.TOUCHES">TOUCHES</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.TOUCHES">TOUCHES</see>:
+    ///         </term>
     ///         <description>Matches records that touch the given WKT.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Operation.WITHIN">WITHIN</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByGeometryRequest.Operation.WITHIN">WITHIN</see>:
+    ///         </term>
     ///         <description>Matches records that are within the given WKT.
     ///         </description>
     ///     </item>
@@ -270,33 +318,39 @@ public class FilterByGeometryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
-    ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <paramref name="view_name" />. This is
-    ///         always allowed even if the caller does not have permission to
-    ///         create tables. The generated name is returned in <see
+    ///         <description>If <see
+    ///         cref="FilterByGeometryRequest.Options.TRUE">TRUE</see>, a
+    ///         unique temporary table name will be generated in the sys_temp
+    ///         schema and used in place of <paramref name="view_name" />. This
+    ///         is always allowed even if the caller does not have permission
+    ///         to create tables. The generated name is returned in <see
     ///         cref="FilterByGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByGeometryRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
@@ -320,17 +374,16 @@ public class FilterByGeometryRequest : KineticaData
 } // end class FilterByGeometryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByGeometry(FilterByGeometryRequest)">Kinetica.filterByGeometry</see>.
-/// </summary>
+/// cref="Kinetica.filterByGeometry">Kinetica.filterByGeometry</see>.</summary>
 public class FilterByGeometryResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByGeometryResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -341,10 +394,10 @@ public class FilterByGeometryResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

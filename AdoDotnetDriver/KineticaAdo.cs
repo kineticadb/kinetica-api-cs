@@ -3373,7 +3373,7 @@ namespace KineticaAdo
         /// <summary>Escape character for special chars. Default: none.</summary>
         public char EscapeChar { get; set; } = '\0';
 
-        /// <summary>String that represents NULL values. Default: \N.</summary>
+        /// <summary>String that represents NULL values. Default: <c>\\N</c>.</summary>
         public string NullString { get; set; } = "\\N";
 
         /// <summary>Comment line prefix (lines starting with this are skipped).</summary>

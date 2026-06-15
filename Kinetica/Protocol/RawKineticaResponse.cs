@@ -6,7 +6,8 @@
 
 namespace kinetica;
 
-/// <para>A set of parameters for the raw wrapper for Kinetica responses.
+/// <summary>A set of parameters for the raw wrapper for Kinetica responses.
+/// </summary>
 public class RawKineticaResponse : KineticaData
 {
     public string status { get; set; }

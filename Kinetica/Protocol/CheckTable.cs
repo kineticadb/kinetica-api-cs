@@ -9,54 +9,59 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.checkTable(CheckTableRequest)">Kinetica.checkTable</see>.
-/// </summary>
-/// <remarks><para>Scans the requested tables as specified in <c>table_name</c>
-/// for integrity. Any table chunks which fail the check will be marked as
-/// corrupt. By default the database will automatically repair corrupt tables
-/// (via truncating). Note that since this reads every table column from disk
-/// it may be a potentially long-running operation. The option <see
-/// cref="Options.LOCAL_ONLY">LOCAL_ONLY</see> can be used to skip any table
-/// files already written to a remote storage.
+/// cref="Kinetica.checkTable">Kinetica.checkTable</see>.</summary>
+/// <remarks><para>Scans the requested tables as specified in <see
+/// cref="CheckTableRequest.table_names" /> for integrity. Any table chunks
+/// which fail the check will be marked as corrupt. By default the database
+/// will automatically repair corrupt tables (via truncating). Note that since
+/// this reads every table column from disk it may be a potentially
+/// long-running operation. The option <see
+/// cref="CheckTableRequest.Options.LOCAL_ONLY">LOCAL_ONLY</see> can be used to
+/// skip any table files already written to a remote storage.
 /// Returns table corruption results.</para></remarks>
 public class CheckTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CheckTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> only locally
-        /// persisted files will be checked.</summary>
+        /// <summary>If <see cref="CheckTableRequest.Options.TRUE">TRUE</see>
+        /// only locally persisted files will be checked.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="CheckTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CheckTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CheckTableRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string LOCAL_ONLY = "local_only";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see> reports individual
-        /// chunk errors.</summary>
+        /// <summary>If <see cref="CheckTableRequest.Options.TRUE">TRUE</see>
+        /// reports individual chunk errors.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="CheckTableRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CheckTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CheckTableRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string SHOW_DETAIL = "show_detail";
     } // end struct Options
 
@@ -67,36 +72,49 @@ public class CheckTableRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.LOCAL_ONLY">LOCAL_ONLY</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> only
-    ///         locally persisted files will be checked.
+    ///         <term><see
+    ///         cref="CheckTableRequest.Options.LOCAL_ONLY">LOCAL_ONLY</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CheckTableRequest.Options.TRUE">TRUE</see> only locally
+    ///         persisted files will be checked.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CheckTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHOW_DETAIL">SHOW_DETAIL</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> reports
+    ///         <term><see
+    ///         cref="CheckTableRequest.Options.SHOW_DETAIL">SHOW_DETAIL</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CheckTableRequest.Options.TRUE">TRUE</see> reports
     ///         individual chunk errors.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="CheckTableRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -114,36 +132,49 @@ public class CheckTableRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.LOCAL_ONLY">LOCAL_ONLY</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> only
-    ///         locally persisted files will be checked.
+    ///         <term><see
+    ///         cref="CheckTableRequest.Options.LOCAL_ONLY">LOCAL_ONLY</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CheckTableRequest.Options.TRUE">TRUE</see> only locally
+    ///         persisted files will be checked.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CheckTableRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.SHOW_DETAIL">SHOW_DETAIL</see>:</term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see> reports
+    ///         <term><see
+    ///         cref="CheckTableRequest.Options.SHOW_DETAIL">SHOW_DETAIL</see>:
+    ///         </term>
+    ///         <description>If <see
+    ///         cref="CheckTableRequest.Options.TRUE">TRUE</see> reports
     ///         individual chunk errors.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CheckTableRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
-    ///         </description>
+    ///         The default value is <see
+    ///         cref="CheckTableRequest.Options.TRUE">TRUE</see>.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -156,8 +187,7 @@ public class CheckTableRequest : KineticaData
 } // end class CheckTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.checkTable(CheckTableRequest)">Kinetica.checkTable</see>.
-/// </summary>
+/// cref="Kinetica.checkTable">Kinetica.checkTable</see>.</summary>
 public class CheckTableResponse : KineticaData
 {
     public IList<string> table_names { get; set; } = new List<string>();

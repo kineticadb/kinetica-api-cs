@@ -1,5 +1,3 @@
-using System;
-
 namespace kinetica;
 
 /// <summary>

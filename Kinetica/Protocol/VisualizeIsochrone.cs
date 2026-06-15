@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.visualizeIsochrone(VisualizeIsochroneRequest)">Kinetica.visualizeIsochrone</see>.
+/// cref="Kinetica.visualizeIsochrone">Kinetica.visualizeIsochrone</see>.
 /// </summary>
 /// <remarks><para>Generate an image containing isolines for travel results
 /// using an existing graph. Isolines represent curves of equal cost, with cost
@@ -20,8 +20,9 @@ namespace kinetica;
 public class VisualizeIsochroneRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="generate_image" />.</summary>
-    /// <remarks><para>If set to <see cref="GenerateImage.TRUE">TRUE</see>,
+    /// cref="VisualizeIsochroneRequest.generate_image" />.</summary>
+    /// <remarks><para>If set to <see
+    /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
     /// generates a PNG image of the isochrones in the response.</para>
     /// </remarks>
     public struct GenerateImage
@@ -31,7 +32,7 @@ public class VisualizeIsochroneRequest : KineticaData
     } // end struct GenerateImage
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="style_options" />.</summary>
+    /// cref="VisualizeIsochroneRequest.style_options" />.</summary>
     /// <remarks><para>Various style related options of the isochrone image.
     /// </para></remarks>
     public struct StyleOptions
@@ -49,18 +50,20 @@ public class VisualizeIsochroneRequest : KineticaData
         /// </remarks>
         public const string COLOR = "color";
 
-        /// <summary>When <see cref="generate_image" /> is set to <see
-        /// cref="GenerateImage.TRUE">TRUE</see>, background color of the
-        /// generated image.</summary>
+        /// <summary>When <see cref="VisualizeIsochroneRequest.generate_image"
+        /// /> is set to <see
+        /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+        /// background color of the generated image.</summary>
         /// <remarks><para>All color values must be in the format RRGGBB or
         /// AARRGGBB (to specify the alpha value). The default value is
         /// '00000000'.</para></remarks>
         public const string BG_COLOR = "bg_color";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, color for the labels.
-        /// </summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// color for the labels.</summary>
         /// <remarks><para>All color values must be in the format RRGGBB or
         /// AARRGGBB (to specify the alpha value). The default value is
         /// 'FF000000'.</para></remarks>
@@ -71,246 +74,384 @@ public class VisualizeIsochroneRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="StyleOptions.JET">JET</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.ACCENT">ACCENT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.AFMHOT">AFMHOT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.AUTUMN">AUTUMN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BINARY">BINARY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BLUES">BLUES</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BONE">BONE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BRBG">BRBG</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BRG">BRG</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BUGN">BUGN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BUPU">BUPU</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.BWR">BWR</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.CMRMAP">CMRMAP</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.COOL">COOL</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.COOLWARM">COOLWARM</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.COPPER">COPPER</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.CUBEHELIX">CUBEHELIX</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.DARK2">DARK2</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.FLAG">FLAG</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GIST_EARTH">GIST_EARTH</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GIST_GRAY">GIST_GRAY</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GIST_HEAT">GIST_HEAT</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GIST_NCAR">GIST_NCAR</see>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GIST_STERN">GIST_STERN</see>
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.ACCENT">ACCENT</see>
         ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GIST_YARG">GIST_YARG</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GNBU">GNBU</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GNUPLOT2">GNUPLOT2</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GNUPLOT">GNUPLOT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GRAY">GRAY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GREENS">GREENS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.GREYS">GREYS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.HOT">HOT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.HSV">HSV</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.INFERNO">INFERNO</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.MAGMA">MAGMA</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see>
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.AFMHOT">AFMHOT</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.OCEAN">OCEAN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.ORANGES">ORANGES</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.ORRD">ORRD</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PAIRED">PAIRED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PASTEL1">PASTEL1</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PASTEL2">PASTEL2</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PINK">PINK</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PIYG">PIYG</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PLASMA">PLASMA</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PRGN">PRGN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PRISM">PRISM</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PUBU">PUBU</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PUBUGN">PUBUGN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PUOR">PUOR</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PURD">PURD</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.PURPLES">PURPLES</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.RAINBOW">RAINBOW</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.RDBU">RDBU</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.RDGY">RDGY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.RDPU">RDPU</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.RDYLBU">RDYLBU</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.RDYLGN">RDYLGN</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.REDS">REDS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.SEISMIC">SEISMIC</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.SET1">SET1</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.SET2">SET2</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.SET3">SET3</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="StyleOptions.SPECTRAL">SPECTRAL</see>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.AUTUMN">AUTUMN</see>
         ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.SPRING">SPRING</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BINARY">BINARY</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.SUMMER">SUMMER</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BLUES">BLUES</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BONE">BONE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BRBG">BRBG</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.WINTER">WINTER</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BRG">BRG</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.WISTIA">WISTIA</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BUGN">BUGN</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.YLGN">YLGN</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BUPU">BUPU</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.BWR">BWR</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.YLORBR">YLORBR</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.CMRMAP">CMRMAP</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="StyleOptions.YLORRD">YLORRD</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.COOL">COOL</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.COOLWARM">COOLWARM</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.COPPER">COPPER</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.DARK2">DARK2</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.FLAG">FLAG</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_STERN">GIST_STERN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GIST_YARG">GIST_YARG</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GNBU">GNBU</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT">GNUPLOT</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GRAY">GRAY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GREENS">GREENS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.GREYS">GREYS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.HOT">HOT</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.HSV">HSV</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.INFERNO">INFERNO</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.MAGMA">MAGMA</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.OCEAN">OCEAN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.ORANGES">ORANGES</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.ORRD">ORRD</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PAIRED">PAIRED</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PASTEL1">PASTEL1</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PASTEL2">PASTEL2</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PINK">PINK</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PIYG">PIYG</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PLASMA">PLASMA</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PRGN">PRGN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PRISM">PRISM</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PUBU">PUBU</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PUBUGN">PUBUGN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PUOR">PUOR</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PURD">PURD</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.PURPLES">PURPLES</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.RAINBOW">RAINBOW</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.RDBU">RDBU</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.RDGY">RDGY</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.RDPU">RDPU</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.RDYLBU">RDYLBU</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.RDYLGN">RDYLGN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.REDS">REDS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SEISMIC">SEISMIC</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SET1">SET1</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SET2">SET2</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SET3">SET3</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SPECTRAL">SPECTRAL</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SPRING">SPRING</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.SUMMER">SUMMER</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.TERRAIN">TERRAIN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.VIRIDIS">VIRIDIS</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.WINTER">WINTER</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.WISTIA">WISTIA</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.YLGN">YLGN</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.YLGNBU">YLGNBU</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.YLORBR">YLORBR</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.StyleOptions.YLORRD">YLORRD</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="StyleOptions.JET">JET</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.</para>
+        /// </remarks>
         public const string COLORMAP = "colormap";
 
         public const string JET = "jet";
@@ -391,25 +532,31 @@ public class VisualizeIsochroneRequest : KineticaData
     } // end struct StyleOptions
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="solve_options" />.</summary>
-    /// <remarks><para>Solver specific parameters</para></remarks>
+    /// cref="VisualizeIsochroneRequest.solve_options" />.</summary>
+    /// <remarks><para>Solver specific parameters.</para></remarks>
     public struct SolveOptions
     {
         /// <summary>Ignore the restrictions applied to the graph during the
         /// creation stage and only use the restrictions specified in this
-        /// request if set to <see cref="SolveOptions.TRUE">TRUE</see>.
+        /// request if set to <see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>.
         /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="SolveOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="SolveOptions.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="SolveOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string REMOVE_PREVIOUS_RESTRICTIONS = "remove_previous_restrictions";
 
         public const string TRUE = "true";
@@ -418,67 +565,75 @@ public class VisualizeIsochroneRequest : KineticaData
         /// <summary>Value-based restriction comparison.</summary>
         /// <remarks><para>Any node or edge with a 'RESTRICTIONS_VALUECOMPARED'
         /// value greater than the <see
-        /// cref="SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
+        /// cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
         /// will not be included in the solution.</para></remarks>
         public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
 
         /// <summary>When specified, assigns the given value to all the edges
         /// in the graph.</summary>
         /// <remarks><para>Note that weights provided in <see
-        /// cref="weights_on_edges" /> will override this value.</para>
-        /// </remarks>
+        /// cref="VisualizeIsochroneRequest.weights_on_edges" /> will override
+        /// this value.</para></remarks>
         public const string UNIFORM_WEIGHTS = "uniform_weights";
     } // end struct SolveOptions
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="contour_options" />.</summary>
-    /// <remarks><para>Solver specific parameters</para></remarks>
+    /// cref="VisualizeIsochroneRequest.contour_options" />.</summary>
+    /// <remarks><para>Contour specific parameters.</para></remarks>
     public struct ContourOptions
     {
         /// <summary>Spatial Reference System (i.e. EPSG Code).</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="ContourOptions._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="ContourOptions._102100">_102100</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="ContourOptions._900913">_900913</see>
-        ///         </term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="ContourOptions.EPSG_4326">EPSG_4326</see>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="ContourOptions.PLATE_CARREE">PLATE_CARREE</see>
+        ///         cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="ContourOptions.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        ///         cref="ContourOptions.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see cref="ContourOptions.EPSG_3857">EPSG_3857</see>
+        ///         cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see>
         ///         </term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see>
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see>
+        ///         </term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see>
         ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.</para>
-        /// </remarks>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.
+        /// </para></remarks>
         public const string PROJECTION = "projection";
 
         public const string _3857 = "3857";
@@ -491,20 +646,23 @@ public class VisualizeIsochroneRequest : KineticaData
         public const string EPSG_3857 = "EPSG:3857";
         public const string WEB_MERCATOR = "WEB_MERCATOR";
 
-        /// <summary>When <see cref="generate_image" /> is set to <see
-        /// cref="GenerateImage.TRUE">TRUE</see>, width of the generated image.
-        /// </summary>
+        /// <summary>When <see cref="VisualizeIsochroneRequest.generate_image"
+        /// /> is set to <see
+        /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+        /// width of the generated image.</summary>
         /// <remarks><para>The default value is '512'.</para></remarks>
         public const string WIDTH = "width";
 
-        /// <summary>When <see cref="generate_image" /> is set to <see
-        /// cref="GenerateImage.TRUE">TRUE</see>, height of the generated
-        /// image.</summary>
+        /// <summary>When <see cref="VisualizeIsochroneRequest.generate_image"
+        /// /> is set to <see
+        /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+        /// height of the generated image.</summary>
         /// <remarks><para>If the default value is used, the <see
-        /// cref="ContourOptions.HEIGHT">HEIGHT</see> is set to the value
-        /// resulting from multiplying the aspect ratio by the <see
-        /// cref="ContourOptions.WIDTH">WIDTH</see>. The default value is '-1'.
-        /// </para></remarks>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>
+        /// is set to the value resulting from multiplying the aspect ratio by
+        /// the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>.
+        /// The default value is '-1'.</para></remarks>
         public const string HEIGHT = "height";
 
         /// <summary>When interpolating the graph solution to generate the
@@ -525,87 +683,107 @@ public class VisualizeIsochroneRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="ContourOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="ContourOptions.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="ContourOptions.TRUE">TRUE</see>.</para></remarks>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>.
+        /// </para></remarks>
         public const string COLOR_ISOLINES = "color_isolines";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If set to <see cref="ContourOptions.TRUE">TRUE</see>, add
-        /// labels to the isolines.</summary>
+        /// <summary>If set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// add labels to the isolines.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="ContourOptions.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="ContourOptions.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="ContourOptions.FALSE">FALSE</see>.</para></remarks>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>.
+        /// </para></remarks>
         public const string ADD_LABELS = "add_labels";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, size of the font (in pixels)
-        /// to use for labels.</summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// size of the font (in pixels) to use for labels.</summary>
         /// <remarks><para>The default value is '12'.</para></remarks>
         public const string LABELS_FONT_SIZE = "labels_font_size";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, font name to be used when
-        /// adding labels.</summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// font name to be used when adding labels.</summary>
         /// <remarks><para>The default value is 'arial'.</para></remarks>
         public const string LABELS_FONT_FAMILY = "labels_font_family";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, a search window is used to
-        /// rate the local quality of each isoline.</summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>, a
+        /// search window is used to rate the local quality of each isoline.
+        /// </summary>
         /// <remarks><para>Smooth, continuous, long stretches with relatively
         /// flat angles are favored. The provided value is multiplied by the
-        /// <see cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>
+        /// <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>
         /// to calculate the final window size. The default value is '4'.
         /// </para></remarks>
         public const string LABELS_SEARCH_WINDOW = "labels_search_window";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, this value determines the
-        /// distance (in multiples of the <see
-        /// cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>) to
-        /// use when separating labels of different values.</summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// this value determines the  distance (in multiples of the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>)
+        /// to use when separating labels of different values.</summary>
         /// <remarks><para>The default value is '4'.</para></remarks>
         public const string LABELS_INTRALEVEL_SEPARATION = "labels_intralevel_separation";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, this value determines the
-        /// distance (in percent of the total window size) to use when
-        /// separating labels of the same value.</summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// this value determines the distance (in percent of the total window
+        /// size) to use when separating labels of the same value.</summary>
         /// <remarks><para>The default value is '20'.</para></remarks>
         public const string LABELS_INTERLEVEL_SEPARATION = "labels_interlevel_separation";
 
         /// <summary>When <see
-        /// cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to <see
-        /// cref="ContourOptions.TRUE">TRUE</see>, maximum angle (in degrees)
-        /// from the vertical to use when adding labels.</summary>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+        /// is set to <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+        /// maximum angle (in degrees) from the vertical to use when adding
+        /// labels.</summary>
         /// <remarks><para>The default value is '60'.</para></remarks>
         public const string LABELS_MAX_ANGLE = "labels_max_angle";
     } // end struct ContourOptions
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
-    /// <remarks><para>Additional parameters</para></remarks>
+    /// cref="VisualizeIsochroneRequest.options" />.</summary>
+    /// <remarks><para>Additional parameters.</para></remarks>
     public struct Options
     {
         /// <summary>Name of the table to host intermediate solve results, in
@@ -620,27 +798,39 @@ public class VisualizeIsochroneRequest : KineticaData
         /// default value is ''.</para></remarks>
         public const string SOLVE_TABLE = "solve_table";
 
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, replicate
-        /// the <see cref="Options.SOLVE_TABLE">SOLVE_TABLE</see>.</summary>
+        /// <summary>If set to <see
+        /// cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>, replicate
+        /// the <see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string IS_REPLICATED = "is_replicated";
 
-        /// <summary>uses the solvers scheduled for 'shortest_path' and
-        /// 'inverse_shortest_path' based on solve_direction</summary>
+        /// <summary>Uses the solvers scheduled for 'shortest_path' and
+        /// 'inverse_shortest_path' based on <see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
+        /// </summary>
         public const string TRUE = "true";
 
-        /// <summary>uses the solvers 'priority_queue' and
-        /// 'inverse_priority_queue' based on solve_direction</summary>
+        /// <summary>Uses the solvers 'priority_queue' and
+        /// 'inverse_priority_queue' based on <see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Lower bound for the x values.</summary>
@@ -671,24 +861,31 @@ public class VisualizeIsochroneRequest : KineticaData
         /// allowed value is '1'.</para></remarks>
         public const string CONCAVITY_LEVEL = "concavity_level";
 
-        /// <summary>sets the solver methods explicitly if true.</summary>
+        /// <summary>Sets the solver methods explicitly if true.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see>:</term>
-        ///         <description>uses the solvers scheduled for 'shortest_path'
-        ///         and 'inverse_shortest_path' based on solve_direction
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>:
+        ///         </term>
+        ///         <description>Uses the solvers scheduled for 'shortest_path'
+        ///         and 'inverse_shortest_path' based on <see
+        ///         cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
         ///         </description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see>:</term>
-        ///         <description>uses the solvers 'priority_queue' and
-        ///         'inverse_priority_queue' based on solve_direction
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>:
+        ///         </term>
+        ///         <description>Uses the solvers 'priority_queue' and
+        ///         'inverse_priority_queue' based on <see
+        ///         cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
         ///         </description>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string USE_PRIORITY_QUEUE_SOLVERS = "use_priority_queue_solvers";
 
         /// <summary>Specify whether we are going to the source node, or
@@ -696,26 +893,30 @@ public class VisualizeIsochroneRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.FROM_SOURCE">FROM_SOURCE</see>:
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:
         ///         </term>
         ///         <description>Shortest path to get to the source (inverse
-        ///         Dijkstra)</description>
+        ///         Dijkstra).</description>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.TO_SOURCE">TO_SOURCE</see>:</term>
-        ///         <description>Shortest path to source (Dijkstra)
+        ///         <term><see
+        ///         cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:
+        ///         </term>
+        ///         <description>Shortest path to source (Dijkstra).
         ///         </description>
         ///     </item>
         /// </list>
         /// <para>The default value is <see
-        /// cref="Options.FROM_SOURCE">FROM_SOURCE</see>.</para></remarks>
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.
+        /// </para></remarks>
         public const string SOLVE_DIRECTION = "solve_direction";
 
-        /// <summary>Shortest path to get to the source (inverse Dijkstra)
+        /// <summary>Shortest path to get to the source (inverse Dijkstra).
         /// </summary>
         public const string FROM_SOURCE = "from_source";
 
-        /// <summary>Shortest path to source (Dijkstra)</summary>
+        /// <summary>Shortest path to source (Dijkstra).</summary>
         public const string TO_SOURCE = "to_source";
     } // end struct Options
 
@@ -727,8 +928,8 @@ public class VisualizeIsochroneRequest : KineticaData
     /// isochrones are created.</summary>
     public string source_node { get; set; }
 
-    /// <summary>Extent of the search radius around <see cref="source_node" />.
-    /// </summary>
+    /// <summary>Extent of the search radius around <see
+    /// cref="VisualizeIsochroneRequest.source_node" />.</summary>
     /// <remarks><para>Set to '-1.0' for unrestricted search radius. The
     /// default value is -1.0.</para></remarks>
     public double max_solution_radius { get; set; } = -1.0;
@@ -756,12 +957,14 @@ public class VisualizeIsochroneRequest : KineticaData
     /// target="_top">combinations</a>. Identifiers can be used with existing
     /// column names, e.g., 'table.column AS RESTRICTIONS_EDGE_ID', or
     /// expressions, e.g., 'column/2 AS RESTRICTIONS_VALUECOMPARED'. If <see
-    /// cref="SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
-    /// is set to <see cref="SolveOptions.TRUE">TRUE</see>, any provided
-    /// restrictions will replace the existing restrictions. If <see
-    /// cref="SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
-    /// is set to <see cref="SolveOptions.FALSE">FALSE</see>, any provided
-    /// restrictions will be added (in the case of
+    /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
+    /// is set to <see
+    /// cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>, any
+    /// provided restrictions will replace the existing restrictions. If <see
+    /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
+    /// is set to <see
+    /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>, any
+    /// provided restrictions will be added (in the case of
     /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
     /// 'RESTRICTIONS_ONOFFCOMPARED'). The default value is an empty List.
     /// </para></remarks>
@@ -771,8 +974,9 @@ public class VisualizeIsochroneRequest : KineticaData
     /// <remarks><para>The default value is 1.</para></remarks>
     public int num_levels { get; set; } = 1;
 
-    /// <summary>If set to <see cref="GenerateImage.TRUE">TRUE</see>, generates
-    /// a PNG image of the isochrones in the response.</summary>
+    /// <summary>If set to <see
+    /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    /// generates a PNG image of the isochrones in the response.</summary>
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
@@ -800,14 +1004,17 @@ public class VisualizeIsochroneRequest : KineticaData
     /// </summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="StyleOptions.LINE_SIZE">LINE_SIZE</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:
     ///         </term>
     ///         <description>The width of the contour lines in pixels. The
     ///         default value is '3'. The minimum allowed value is '0'. The
     ///         maximum allowed value is '20'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.COLOR">COLOR</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:
+    ///         </term>
     ///         <description>Color of generated isolines. All color values must
     ///         be in the format RRGGBB or AARRGGBB (to specify the alpha
     ///         value). If alpha is specified and flooded contours are enabled,
@@ -815,300 +1022,416 @@ public class VisualizeIsochroneRequest : KineticaData
     ///         default value is 'FF696969'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-    ///         <description>When <see cref="generate_image" /> is set to <see
-    ///         cref="GenerateImage.TRUE">TRUE</see>, background color of the
-    ///         generated image. All color values must be in the format RRGGBB
-    ///         or AARRGGBB (to specify the alpha value). The default value is
-    ///         '00000000'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, color for the
-    ///         labels. All color values must be in the format RRGGBB or
-    ///         AARRGGBB (to specify the alpha value). The default value is
-    ///         'FF000000'.</description>
+    ///         cref="VisualizeIsochroneRequest.generate_image" /> is set to
+    ///         <see
+    ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    ///         background color of the generated image. All color values must
+    ///         be in the format RRGGBB or AARRGGBB (to specify the alpha
+    ///         value). The default value is '00000000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.COLORMAP">COLORMAP</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:
+    ///         </term>
+    ///         <description>When <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         color for the labels. All color values must be in the format
+    ///         RRGGBB or AARRGGBB (to specify the alpha value). The default
+    ///         value is 'FF000000'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:
+    ///         </term>
     ///         <description>Colormap for contours or fill-in regions when
     ///         applicable. All color values must be in the format RRGGBB or
     ///         AARRGGBB (to specify the alpha value).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="StyleOptions.JET">JET</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.ACCENT">ACCENT</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.AFMHOT">AFMHOT</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.AUTUMN">AUTUMN</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BINARY">BINARY</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BLUES">BLUES</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BONE">BONE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BRBG">BRBG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BRG">BRG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BUGN">BUGN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BUPU">BUPU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BWR">BWR</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.CMRMAP">CMRMAP</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.COOL">COOL</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.COOLWARM">COOLWARM</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.COPPER">COPPER</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.DARK2">DARK2</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.FLAG">FLAG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.ACCENT">ACCENT</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.GIST_STERN">GIST_STERN</see></term>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.AFMHOT">AFMHOT</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.GIST_YARG">GIST_YARG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GNBU">GNBU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GNUPLOT2">GNUPLOT2</see>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.AUTUMN">AUTUMN</see>
     ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GNUPLOT">GNUPLOT</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GRAY">GRAY</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GREENS">GREENS</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GREYS">GREYS</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.HOT">HOT</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.HSV">HSV</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.INFERNO">INFERNO</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.MAGMA">MAGMA</see></term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BINARY">BINARY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.OCEAN">OCEAN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.ORANGES">ORANGES</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BLUES">BLUES</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.ORRD">ORRD</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PAIRED">PAIRED</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BONE">BONE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PASTEL1">PASTEL1</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BRBG">BRBG</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PASTEL2">PASTEL2</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BRG">BRG</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PINK">PINK</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PIYG">PIYG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PLASMA">PLASMA</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BUGN">BUGN</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PRGN">PRGN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PRISM">PRISM</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PUBU">PUBU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PUBUGN">PUBUGN</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BUPU">BUPU</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PUOR">PUOR</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PURD">PURD</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PURPLES">PURPLES</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BWR">BWR</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.RAINBOW">RAINBOW</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.CMRMAP">CMRMAP</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.RDBU">RDBU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.RDGY">RDGY</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.RDPU">RDPU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.RDYLBU">RDYLBU</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.COOL">COOL</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.RDYLGN">RDYLGN</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.COOLWARM">COOLWARM</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.REDS">REDS</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SEISMIC">SEISMIC</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.COPPER">COPPER</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.SET1">SET1</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SET2">SET2</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SET3">SET3</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SPECTRAL">SPECTRAL</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.SPRING">SPRING</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.DARK2">DARK2</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.SUMMER">SUMMER</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.FLAG">FLAG</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.TERRAIN">TERRAIN</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.VIRIDIS">VIRIDIS</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.WINTER">WINTER</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.WISTIA">WISTIA</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.YLGN">YLGN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.YLGNBU">YLGNBU</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.YLORBR">YLORBR</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_STERN">GIST_STERN</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.YLORRD">YLORRD</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_YARG">GIST_YARG</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GNBU">GNBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT">GNUPLOT</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GRAY">GRAY</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GREENS">GREENS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GREYS">GREYS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.HOT">HOT</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.HSV">HSV</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.INFERNO">INFERNO</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.MAGMA">MAGMA</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.OCEAN">OCEAN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.ORANGES">ORANGES</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.ORRD">ORRD</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PAIRED">PAIRED</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PASTEL1">PASTEL1</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PASTEL2">PASTEL2</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PINK">PINK</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PIYG">PIYG</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PLASMA">PLASMA</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PRGN">PRGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PRISM">PRISM</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PUBU">PUBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PUBUGN">PUBUGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PUOR">PUOR</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PURD">PURD</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PURPLES">PURPLES</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RAINBOW">RAINBOW</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDBU">RDBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDGY">RDGY</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDPU">RDPU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDYLBU">RDYLBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDYLGN">RDYLGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.REDS">REDS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SEISMIC">SEISMIC</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SET1">SET1</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SET2">SET2</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SET3">SET3</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SPECTRAL">SPECTRAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SPRING">SPRING</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SUMMER">SUMMER</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.TERRAIN">TERRAIN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.VIRIDIS">VIRIDIS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.WINTER">WINTER</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.WISTIA">WISTIA</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLGN">YLGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLGNBU">YLGNBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLORBR">YLORBR</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLORRD">YLORRD</see>
     ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="StyleOptions.JET">JET</see>.
+    ///         The default value is <see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.
     ///         </description>
     ///     </item>
     /// </list></remarks>
@@ -1118,126 +1441,150 @@ public class VisualizeIsochroneRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:
     ///         </term>
     ///         <description>Ignore the restrictions applied to the graph
     ///         during the creation stage and only use the restrictions
     ///         specified in this request if set to <see
-    ///         cref="SolveOptions.TRUE">TRUE</see>.
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="SolveOptions.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="SolveOptions.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="SolveOptions.FALSE">FALSE</see>.</description>
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
     ///         </term>
     ///         <description>Value-based restriction comparison. Any node or
     ///         edge with a 'RESTRICTIONS_VALUECOMPARED' value greater than the
     ///         <see
-    ///         cref="SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
     ///         will not be included in the solution.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:
     ///         </term>
     ///         <description>When specified, assigns the given value to all the
     ///         edges in the graph. Note that weights provided in <see
-    ///         cref="weights_on_edges" /> will override this value.
-    ///         </description>
+    ///         cref="VisualizeIsochroneRequest.weights_on_edges" /> will
+    ///         override this value.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
     public IDictionary<string, string> solve_options { get; set; } = new Dictionary<string, string>();
 
-    /// <summary>Solver specific parameters.</summary>
+    /// <summary>Contour specific parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="ContourOptions.PROJECTION">PROJECTION</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.PROJECTION">PROJECTION</see>:
     ///         </term>
     ///         <description>Spatial Reference System (i.e. EPSG Code).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="ContourOptions._3857">_3857</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="ContourOptions._102100">_102100</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="ContourOptions._900913">_900913</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_4326">EPSG_4326</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ContourOptions.PLATE_CARREE">PLATE_CARREE</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_900913">EPSG_900913</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_102100">EPSG_102100</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_3857">EPSG_3857</see></term>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ContourOptions.WIDTH">WIDTH</see>:</term>
-    ///         <description>When <see cref="generate_image" /> is set to <see
-    ///         cref="GenerateImage.TRUE">TRUE</see>, width of the generated
-    ///         image. The default value is '512'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="ContourOptions.HEIGHT">HEIGHT</see>:</term>
-    ///         <description>When <see cref="generate_image" /> is set to <see
-    ///         cref="GenerateImage.TRUE">TRUE</see>, height of the generated
-    ///         image. If the default value is used, the <see
-    ///         cref="ContourOptions.HEIGHT">HEIGHT</see> is set to the value
-    ///         resulting from multiplying the aspect ratio by the <see
-    ///         cref="ContourOptions.WIDTH">WIDTH</see>. The default value is
-    ///         '-1'.</description>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>:
+    ///         </term>
+    ///         <description>When <see
+    ///         cref="VisualizeIsochroneRequest.generate_image" /> is set to
+    ///         <see
+    ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    ///         width of the generated image. The default value is '512'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>:
+    ///         </term>
+    ///         <description>When <see
+    ///         cref="VisualizeIsochroneRequest.generate_image" /> is set to
+    ///         <see
+    ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    ///         height of the generated image. If the default value is used,
+    ///         the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>
+    ///         is set to the value resulting from multiplying the aspect ratio
+    ///         by the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>.
+    ///         The default value is '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:
+    ///         </term>
     ///         <description>When interpolating the graph solution to generate
     ///         the isochrone, neighborhood of influence of sample data (in
     ///         percent of the image/grid). The default value is '20'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ContourOptions.GRID_SIZE">GRID_SIZE</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:
     ///         </term>
     ///         <description>When interpolating the graph solution to generate
     ///         the isochrone, number of subdivisions along the x axis when
@@ -1246,108 +1593,124 @@ public class VisualizeIsochroneRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:
     ///         </term>
     ///         <description>Color each isoline according to the colormap;
     ///         otherwise, use the foreground color.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="ContourOptions.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="ContourOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="ContourOptions.TRUE">TRUE</see>.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ContourOptions.ADD_LABELS">ADD_LABELS</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="ContourOptions.TRUE">TRUE</see>, add labels to the
-    ///         isolines.
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         add labels to the isolines.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="ContourOptions.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="ContourOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="ContourOptions.FALSE">FALSE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:
-    ///         </term>
-    ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, size of the font
-    ///         (in pixels) to use for labels. The default value is '12'.
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, font name to be
-    ///         used when adding labels. The default value is 'arial'.
-    ///         </description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         size of the font (in pixels) to use for labels. The default
+    ///         value is '12'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, a search window is
-    ///         used to rate the local quality of each isoline. Smooth,
-    ///         continuous, long stretches with relatively flat angles are
-    ///         favored. The provided value is multiplied by the <see
-    ///         cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         font name to be used when adding labels. The default value is
+    ///         'arial'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:
+    ///         </term>
+    ///         <description>When <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         a search window is used to rate the local quality of each
+    ///         isoline. Smooth, continuous, long stretches with relatively
+    ///         flat angles are favored. The provided value is multiplied by
+    ///         the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>
     ///         to calculate the final window size. The default value is '4'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, this value
-    ///         determines the  distance (in multiples of the <see
-    ///         cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>)
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         this value determines the  distance (in multiples of the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>)
     ///         to use when separating labels of different values. The default
     ///         value is '4'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, this value
-    ///         determines the distance (in percent of the total window size)
-    ///         to use when separating labels of the same value. The default
-    ///         value is '20'.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         this value determines the distance (in percent of the total
+    ///         window size) to use when separating labels of the same value.
+    ///         The default value is '20'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, maximum angle (in
-    ///         degrees) from the vertical to use when adding labels. The
-    ///         default value is '60'.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         maximum angle (in degrees) from the vertical to use when adding
+    ///         labels. The default value is '60'.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -1356,7 +1719,9 @@ public class VisualizeIsochroneRequest : KineticaData
     /// <summary>Additional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:
+    ///         </term>
     ///         <description>Name of the table to host intermediate solve
     ///         results, in [schema_name.]table_name format, using standard <a
     ///         href="../../../concepts/tables/#table-name-resolution"
@@ -1369,50 +1734,66 @@ public class VisualizeIsochroneRequest : KineticaData
     ///         ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         <description>If set to <see
+    ///         cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>,
     ///         replicate the <see
-    ///         cref="Options.SOLVE_TABLE">SOLVE_TABLE</see>.
+    ///         cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:
+    ///         </term>
     ///         <description>Lower bound for the x values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:
+    ///         </term>
     ///         <description>Upper bound for the x values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:
+    ///         </term>
     ///         <description>Lower bound for the y values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:
+    ///         </term>
     ///         <description>Upper bound for the y values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
+    ///         cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:
+    ///         </term>
     ///         <description>Factor to qualify the concavity of the isochrone
     ///         curves. The lower the value, the more convex (with '0' being
     ///         completely convex and '1' being the most concave). The default
@@ -1421,49 +1802,61 @@ public class VisualizeIsochroneRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_PRIORITY_QUEUE_SOLVERS">USE_PRIORITY_QUEUE_SOLVERS</see>:
+    ///         cref="VisualizeIsochroneRequest.Options.USE_PRIORITY_QUEUE_SOLVERS">USE_PRIORITY_QUEUE_SOLVERS</see>:
     ///         </term>
-    ///         <description>sets the solver methods explicitly if true.
+    ///         <description>Sets the solver methods explicitly if true.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-    ///                 <description>uses the solvers scheduled for
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Uses the solvers scheduled for
     ///                 'shortest_path' and 'inverse_shortest_path' based on
-    ///                 solve_direction</description>
+    ///                 <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
+    ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-    ///                 <description>uses the solvers 'priority_queue' and
-    ///                 'inverse_priority_queue' based on solve_direction
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Uses the solvers 'priority_queue' and
+    ///                 'inverse_priority_queue' based on <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
+    ///         cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:
+    ///         </term>
     ///         <description>Specify whether we are going to the source node,
     ///         or starting from it.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+    ///                 cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:
+    ///                 </term>
     ///                 <description>Shortest path to get to the source
-    ///                 (inverse Dijkstra)</description>
+    ///                 (inverse Dijkstra).</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.TO_SOURCE">TO_SOURCE</see>:
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:
     ///                 </term>
-    ///                 <description>Shortest path to source (Dijkstra)
+    ///                 <description>Shortest path to source (Dijkstra).
     ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
+    ///         cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -1502,20 +1895,22 @@ public class VisualizeIsochroneRequest : KineticaData
     /// target="_top">combinations</a>. Identifiers can be used with existing
     /// column names, e.g., 'table.column AS RESTRICTIONS_EDGE_ID', or
     /// expressions, e.g., 'column/2 AS RESTRICTIONS_VALUECOMPARED'. If <see
-    /// cref="SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
-    /// is set to <see cref="SolveOptions.TRUE">TRUE</see>, any provided
-    /// restrictions will replace the existing restrictions. If <see
-    /// cref="SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
-    /// is set to <see cref="SolveOptions.FALSE">FALSE</see>, any provided
-    /// restrictions will be added (in the case of
+    /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
+    /// is set to <see
+    /// cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>, any
+    /// provided restrictions will replace the existing restrictions. If <see
+    /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>
+    /// is set to <see
+    /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>, any
+    /// provided restrictions will be added (in the case of
     /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
     /// 'RESTRICTIONS_ONOFFCOMPARED'). The default value is an empty List.
     /// </param>
     /// <param name="num_levels">Number of equally-separated isochrones to
     /// compute. The default value is 1.</param>
     /// <param name="generate_image">If set to <see
-    /// cref="GenerateImage.TRUE">TRUE</see>, generates a PNG image of the
-    /// isochrones in the response.
+    /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    /// generates a PNG image of the isochrones in the response.
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
@@ -1538,14 +1933,17 @@ public class VisualizeIsochroneRequest : KineticaData
     /// isochrone image.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="StyleOptions.LINE_SIZE">LINE_SIZE</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:
     ///         </term>
     ///         <description>The width of the contour lines in pixels. The
     ///         default value is '3'. The minimum allowed value is '0'. The
     ///         maximum allowed value is '20'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.COLOR">COLOR</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:
+    ///         </term>
     ///         <description>Color of generated isolines. All color values must
     ///         be in the format RRGGBB or AARRGGBB (to specify the alpha
     ///         value). If alpha is specified and flooded contours are enabled,
@@ -1553,300 +1951,415 @@ public class VisualizeIsochroneRequest : KineticaData
     ///         default value is 'FF696969'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:
+    ///         </term>
     ///         <description>When <paramref name="generate_image" /> is set to
-    ///         <see cref="GenerateImage.TRUE">TRUE</see>, background color of
-    ///         the generated image. All color values must be in the format
-    ///         RRGGBB or AARRGGBB (to specify the alpha value). The default
-    ///         value is '00000000'.</description>
+    ///         <see
+    ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    ///         background color of the generated image. All color values must
+    ///         be in the format RRGGBB or AARRGGBB (to specify the alpha
+    ///         value). The default value is '00000000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, color for the
-    ///         labels. All color values must be in the format RRGGBB or
-    ///         AARRGGBB (to specify the alpha value). The default value is
-    ///         'FF000000'.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         color for the labels. All color values must be in the format
+    ///         RRGGBB or AARRGGBB (to specify the alpha value). The default
+    ///         value is 'FF000000'.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="StyleOptions.COLORMAP">COLORMAP</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:
+    ///         </term>
     ///         <description>Colormap for contours or fill-in regions when
     ///         applicable. All color values must be in the format RRGGBB or
     ///         AARRGGBB (to specify the alpha value).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="StyleOptions.JET">JET</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.ACCENT">ACCENT</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.AFMHOT">AFMHOT</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.AUTUMN">AUTUMN</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BINARY">BINARY</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BLUES">BLUES</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BONE">BONE</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BRBG">BRBG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BRG">BRG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BUGN">BUGN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BUPU">BUPU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.BWR">BWR</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.CMRMAP">CMRMAP</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.COOL">COOL</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.COOLWARM">COOLWARM</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.COPPER">COPPER</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.DARK2">DARK2</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.FLAG">FLAG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.ACCENT">ACCENT</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.GIST_STERN">GIST_STERN</see></term>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.AFMHOT">AFMHOT</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.GIST_YARG">GIST_YARG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GNBU">GNBU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GNUPLOT2">GNUPLOT2</see>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.AUTUMN">AUTUMN</see>
     ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GNUPLOT">GNUPLOT</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GRAY">GRAY</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GREENS">GREENS</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.GREYS">GREYS</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.HOT">HOT</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.HSV">HSV</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.INFERNO">INFERNO</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.MAGMA">MAGMA</see></term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see>
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BINARY">BINARY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.OCEAN">OCEAN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.ORANGES">ORANGES</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BLUES">BLUES</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.ORRD">ORRD</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PAIRED">PAIRED</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BONE">BONE</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PASTEL1">PASTEL1</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BRBG">BRBG</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PASTEL2">PASTEL2</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BRG">BRG</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PINK">PINK</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PIYG">PIYG</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PLASMA">PLASMA</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BUGN">BUGN</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PRGN">PRGN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PRISM">PRISM</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PUBU">PUBU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PUBUGN">PUBUGN</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BUPU">BUPU</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.PUOR">PUOR</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PURD">PURD</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.PURPLES">PURPLES</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.BWR">BWR</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.RAINBOW">RAINBOW</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.CMRMAP">CMRMAP</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.RDBU">RDBU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.RDGY">RDGY</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.RDPU">RDPU</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.RDYLBU">RDYLBU</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.COOL">COOL</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.RDYLGN">RDYLGN</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.COOLWARM">COOLWARM</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.REDS">REDS</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SEISMIC">SEISMIC</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.COPPER">COPPER</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.SET1">SET1</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SET2">SET2</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SET3">SET3</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.SPECTRAL">SPECTRAL</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.SPRING">SPRING</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.DARK2">DARK2</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.SUMMER">SUMMER</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.FLAG">FLAG</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.TERRAIN">TERRAIN</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.VIRIDIS">VIRIDIS</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.WINTER">WINTER</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.WISTIA">WISTIA</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.YLGN">YLGN</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="StyleOptions.YLGNBU">YLGNBU</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.YLORBR">YLORBR</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_STERN">GIST_STERN</see>
     ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="StyleOptions.YLORRD">YLORRD</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GIST_YARG">GIST_YARG</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GNBU">GNBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT">GNUPLOT</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GRAY">GRAY</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GREENS">GREENS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.GREYS">GREYS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.HOT">HOT</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.HSV">HSV</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.INFERNO">INFERNO</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.MAGMA">MAGMA</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.OCEAN">OCEAN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.ORANGES">ORANGES</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.ORRD">ORRD</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PAIRED">PAIRED</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PASTEL1">PASTEL1</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PASTEL2">PASTEL2</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PINK">PINK</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PIYG">PIYG</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PLASMA">PLASMA</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PRGN">PRGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PRISM">PRISM</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PUBU">PUBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PUBUGN">PUBUGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PUOR">PUOR</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PURD">PURD</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.PURPLES">PURPLES</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RAINBOW">RAINBOW</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDBU">RDBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDGY">RDGY</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDPU">RDPU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDYLBU">RDYLBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.RDYLGN">RDYLGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.REDS">REDS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SEISMIC">SEISMIC</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SET1">SET1</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SET2">SET2</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SET3">SET3</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SPECTRAL">SPECTRAL</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SPRING">SPRING</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.SUMMER">SUMMER</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.TERRAIN">TERRAIN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.VIRIDIS">VIRIDIS</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.WINTER">WINTER</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.WISTIA">WISTIA</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLGN">YLGN</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLGNBU">YLGNBU</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLORBR">YLORBR</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.StyleOptions.YLORRD">YLORRD</see>
     ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="StyleOptions.JET">JET</see>.
+    ///         The default value is <see
+    ///         cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.
     ///         </description>
     ///     </item>
     /// </list></param>
@@ -1854,37 +2367,42 @@ public class VisualizeIsochroneRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:
     ///         </term>
     ///         <description>Ignore the restrictions applied to the graph
     ///         during the creation stage and only use the restrictions
     ///         specified in this request if set to <see
-    ///         cref="SolveOptions.TRUE">TRUE</see>.
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="SolveOptions.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="SolveOptions.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="SolveOptions.FALSE">FALSE</see>.</description>
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:
     ///         </term>
     ///         <description>Value-based restriction comparison. Any node or
     ///         edge with a 'RESTRICTIONS_VALUECOMPARED' value greater than the
     ///         <see
-    ///         cref="SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>
     ///         will not be included in the solution.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:
+    ///         cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:
     ///         </term>
     ///         <description>When specified, assigns the given value to all the
     ///         edges in the graph. Note that weights provided in <paramref
@@ -1893,85 +2411,102 @@ public class VisualizeIsochroneRequest : KineticaData
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
-    /// <param name="contour_options">Solver specific parameters.
+    /// <param name="contour_options">Contour specific parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="ContourOptions.PROJECTION">PROJECTION</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.PROJECTION">PROJECTION</see>:
     ///         </term>
     ///         <description>Spatial Reference System (i.e. EPSG Code).
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="ContourOptions._3857">_3857</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="ContourOptions._102100">_102100</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see cref="ContourOptions._900913">_900913</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_4326">EPSG_4326</see></term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ContourOptions.PLATE_CARREE">PLATE_CARREE</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_900913">EPSG_900913</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_102100">EPSG_102100</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see>
     ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.EPSG_3857">EPSG_3857</see></term>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see>
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ContourOptions.WIDTH">WIDTH</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>:
+    ///         </term>
     ///         <description>When <paramref name="generate_image" /> is set to
-    ///         <see cref="GenerateImage.TRUE">TRUE</see>, width of the
-    ///         generated image. The default value is '512'.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see cref="ContourOptions.HEIGHT">HEIGHT</see>:</term>
-    ///         <description>When <paramref name="generate_image" /> is set to
-    ///         <see cref="GenerateImage.TRUE">TRUE</see>, height of the
-    ///         generated image. If the default value is used, the <see
-    ///         cref="ContourOptions.HEIGHT">HEIGHT</see> is set to the value
-    ///         resulting from multiplying the aspect ratio by the <see
-    ///         cref="ContourOptions.WIDTH">WIDTH</see>. The default value is
-    ///         '-1'.</description>
+    ///         <see
+    ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    ///         width of the generated image. The default value is '512'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>:
+    ///         </term>
+    ///         <description>When <paramref name="generate_image" /> is set to
+    ///         <see
+    ///         cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>,
+    ///         height of the generated image. If the default value is used,
+    ///         the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>
+    ///         is set to the value resulting from multiplying the aspect ratio
+    ///         by the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>.
+    ///         The default value is '-1'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:
+    ///         </term>
     ///         <description>When interpolating the graph solution to generate
     ///         the isochrone, neighborhood of influence of sample data (in
     ///         percent of the image/grid). The default value is '20'.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ContourOptions.GRID_SIZE">GRID_SIZE</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:
     ///         </term>
     ///         <description>When interpolating the graph solution to generate
     ///         the isochrone, number of subdivisions along the x axis when
@@ -1980,115 +2515,133 @@ public class VisualizeIsochroneRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:
     ///         </term>
     ///         <description>Color each isoline according to the colormap;
     ///         otherwise, use the foreground color.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="ContourOptions.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="ContourOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="ContourOptions.TRUE">TRUE</see>.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="ContourOptions.ADD_LABELS">ADD_LABELS</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:
     ///         </term>
     ///         <description>If set to <see
-    ///         cref="ContourOptions.TRUE">TRUE</see>, add labels to the
-    ///         isolines.
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         add labels to the isolines.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="ContourOptions.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="ContourOptions.FALSE">FALSE</see>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>
     ///                 </term>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="ContourOptions.FALSE">FALSE</see>.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:
-    ///         </term>
-    ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, size of the font
-    ///         (in pixels) to use for labels. The default value is '12'.
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, font name to be
-    ///         used when adding labels. The default value is 'arial'.
-    ///         </description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         size of the font (in pixels) to use for labels. The default
+    ///         value is '12'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, a search window is
-    ///         used to rate the local quality of each isoline. Smooth,
-    ///         continuous, long stretches with relatively flat angles are
-    ///         favored. The provided value is multiplied by the <see
-    ///         cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         font name to be used when adding labels. The default value is
+    ///         'arial'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:
+    ///         </term>
+    ///         <description>When <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         a search window is used to rate the local quality of each
+    ///         isoline. Smooth, continuous, long stretches with relatively
+    ///         flat angles are favored. The provided value is multiplied by
+    ///         the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>
     ///         to calculate the final window size. The default value is '4'.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, this value
-    ///         determines the  distance (in multiples of the <see
-    ///         cref="ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>)
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         this value determines the  distance (in multiples of the <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>)
     ///         to use when separating labels of different values. The default
     ///         value is '4'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, this value
-    ///         determines the distance (in percent of the total window size)
-    ///         to use when separating labels of the same value. The default
-    ///         value is '20'.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         this value determines the distance (in percent of the total
+    ///         window size) to use when separating labels of the same value.
+    ///         The default value is '20'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:
     ///         </term>
     ///         <description>When <see
-    ///         cref="ContourOptions.ADD_LABELS">ADD_LABELS</see> is set to
-    ///         <see cref="ContourOptions.TRUE">TRUE</see>, maximum angle (in
-    ///         degrees) from the vertical to use when adding labels. The
-    ///         default value is '60'.</description>
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>
+    ///         is set to <see
+    ///         cref="VisualizeIsochroneRequest.ContourOptions.TRUE">TRUE</see>,
+    ///         maximum angle (in degrees) from the vertical to use when adding
+    ///         labels. The default value is '60'.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
     /// <param name="options">Additional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:
+    ///         </term>
     ///         <description>Name of the table to host intermediate solve
     ///         results, in [schema_name.]table_name format, using standard <a
     ///         href="../../../concepts/tables/#table-name-resolution"
@@ -2101,50 +2654,66 @@ public class VisualizeIsochroneRequest : KineticaData
     ///         ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.IS_REPLICATED">IS_REPLICATED</see>:
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>,
+    ///         <description>If set to <see
+    ///         cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>,
     ///         replicate the <see
-    ///         cref="Options.SOLVE_TABLE">SOLVE_TABLE</see>.
+    ///         cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:
+    ///         </term>
     ///         <description>Lower bound for the x values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:
+    ///         </term>
     ///         <description>Upper bound for the x values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:
+    ///         </term>
     ///         <description>Lower bound for the y values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
+    ///         <term><see
+    ///         cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:
+    ///         </term>
     ///         <description>Upper bound for the y values. If not provided, it
     ///         will be computed from the bounds of the input data.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
+    ///         cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:
+    ///         </term>
     ///         <description>Factor to qualify the concavity of the isochrone
     ///         curves. The lower the value, the more convex (with '0' being
     ///         completely convex and '1' being the most concave). The default
@@ -2153,49 +2722,61 @@ public class VisualizeIsochroneRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_PRIORITY_QUEUE_SOLVERS">USE_PRIORITY_QUEUE_SOLVERS</see>:
+    ///         cref="VisualizeIsochroneRequest.Options.USE_PRIORITY_QUEUE_SOLVERS">USE_PRIORITY_QUEUE_SOLVERS</see>:
     ///         </term>
-    ///         <description>sets the solver methods explicitly if true.
+    ///         <description>Sets the solver methods explicitly if true.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see>:</term>
-    ///                 <description>uses the solvers scheduled for
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Uses the solvers scheduled for
     ///                 'shortest_path' and 'inverse_shortest_path' based on
-    ///                 solve_direction</description>
+    ///                 <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
+    ///                 </description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see>:</term>
-    ///                 <description>uses the solvers 'priority_queue' and
-    ///                 'inverse_priority_queue' based on solve_direction
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Uses the solvers 'priority_queue' and
+    ///                 'inverse_priority_queue' based on <see
+    ///                 cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
     ///                 </description>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="VisualizeIsochroneRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
+    ///         cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:
+    ///         </term>
     ///         <description>Specify whether we are going to the source node,
     ///         or starting from it.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
     ///                 <term><see
-    ///                 cref="Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+    ///                 cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:
+    ///                 </term>
     ///                 <description>Shortest path to get to the source
-    ///                 (inverse Dijkstra)</description>
+    ///                 (inverse Dijkstra).</description>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.TO_SOURCE">TO_SOURCE</see>:
+    ///                 <term><see
+    ///                 cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:
     ///                 </term>
-    ///                 <description>Shortest path to source (Dijkstra)
+    ///                 <description>Shortest path to source (Dijkstra).
     ///                 </description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
-    ///         cref="Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
+    ///         cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.
+    ///         </description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -2228,7 +2809,7 @@ public class VisualizeIsochroneRequest : KineticaData
 } // end class VisualizeIsochroneRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.visualizeIsochrone(VisualizeIsochroneRequest)">Kinetica.visualizeIsochrone</see>.
+/// cref="Kinetica.visualizeIsochrone">Kinetica.visualizeIsochrone</see>.
 /// </summary>
 public class VisualizeIsochroneResponse : KineticaData
 {

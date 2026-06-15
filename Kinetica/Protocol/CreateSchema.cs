@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
-/// </summary>
+/// cref="Kinetica.createSchema">Kinetica.createSchema</see>.</summary>
 /// <remarks><para>Creates a SQL-style <a href="../../../concepts/schemas/"
 /// target="_top">schema</a>. Schemas are containers for tables and views.
 /// Multiple tables and views can be defined with the same name in different
@@ -18,23 +17,27 @@ namespace kinetica;
 public class CreateSchemaRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="CreateSchemaRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, prevents an error
-        /// from occurring if the schema already exists.</summary>
+        /// <summary>If <see
+        /// cref="CreateSchemaRequest.Options.TRUE">TRUE</see>, prevents an
+        /// error from occurring if the schema already exists.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="CreateSchemaRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="CreateSchemaRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="CreateSchemaRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
         public const string TRUE = "true";
@@ -51,20 +54,26 @@ public class CreateSchemaRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateSchemaRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
-    ///         an error from occurring if the schema already exists.
+    ///         <description>If <see
+    ///         cref="CreateSchemaRequest.Options.TRUE">TRUE</see>, prevents an
+    ///         error from occurring if the schema already exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateSchemaRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -85,20 +94,26 @@ public class CreateSchemaRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
+    ///         cref="CreateSchemaRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, prevents
-    ///         an error from occurring if the schema already exists.
+    ///         <description>If <see
+    ///         cref="CreateSchemaRequest.Options.TRUE">TRUE</see>, prevents an
+    ///         error from occurring if the schema already exists.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateSchemaRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="CreateSchemaRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="CreateSchemaRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -112,8 +127,7 @@ public class CreateSchemaRequest : KineticaData
 } // end class CreateSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
-/// </summary>
+/// cref="Kinetica.createSchema">Kinetica.createSchema</see>.</summary>
 public class CreateSchemaResponse : KineticaData
 {
     /// <summary>Value of <see

@@ -9,13 +9,12 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
-/// </summary>
+/// cref="Kinetica.alterVideo">Kinetica.alterVideo</see>.</summary>
 /// <remarks><para>Alters a video.</para></remarks>
 public class AlterVideoRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="AlterVideoRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -31,7 +30,8 @@ public class AlterVideoRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see cref="AlterVideoRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the video.</description>
     ///     </item>
@@ -51,7 +51,8 @@ public class AlterVideoRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.TTL">TTL</see>:</term>
+    ///         <term><see cref="AlterVideoRequest.Options.TTL">TTL</see>:
+    ///         </term>
     ///         <description>Sets the <a href="../../../concepts/ttl/"
     ///         target="_top">TTL</a> of the video.</description>
     ///     </item>
@@ -66,8 +67,7 @@ public class AlterVideoRequest : KineticaData
 } // end class AlterVideoRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
-/// </summary>
+/// cref="Kinetica.alterVideo">Kinetica.alterVideo</see>.</summary>
 public class AlterVideoResponse : KineticaData
 {
     /// <summary>Fully qualified KIFS path to the video file.</summary>

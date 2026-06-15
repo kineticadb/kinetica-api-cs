@@ -9,32 +9,36 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAlterHost(AdminAlterHostRequest)">Kinetica.adminAlterHost</see>.
-/// </summary>
+/// cref="Kinetica.adminAlterHost">Kinetica.adminAlterHost</see>.</summary>
 /// <remarks><para>Alter properties on an existing host in the cluster.
 /// Currently, the only property that can be altered is a hosts ability to
 /// accept failover processes.</para></remarks>
 public class AdminAlterHostRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
-    /// <remarks><para>Optional parameters</para></remarks>
+    /// cref="AdminAlterHostRequest.options" />.</summary>
+    /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, the host
-        /// will accept processes (ranks, graph server, etc.) in the event of a
+        /// <summary>If set to <see
+        /// cref="AdminAlterHostRequest.Options.TRUE">TRUE</see>, the host will
+        /// accept processes (ranks, graph server, etc.) in the event of a
         /// failover on another node in the cluster.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="AdminAlterHostRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string ACCEPTS_FAILOVER = "accepts_failover";
 
         public const string TRUE = "true";
@@ -43,27 +47,34 @@ public class AdminAlterHostRequest : KineticaData
 
     /// <summary>Identifies the host this applies to.</summary>
     /// <remarks><para>Can be the host address, or formatted as 'hostN' where N
-    /// is the host number as specified in gpudb.conf</para></remarks>
+    /// is the host number as specified in gpudb.conf.</para></remarks>
     public string host { get; set; }
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         host will accept processes (ranks, graph server, etc.) in the
-    ///         event of a failover on another node in the cluster.
+    ///         cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminAlterHostRequest.Options.TRUE">TRUE</see>, the host
+    ///         will accept processes (ranks, graph server, etc.) in the event
+    ///         of a failover on another node in the cluster.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAlterHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -79,25 +90,32 @@ public class AdminAlterHostRequest : KineticaData
     ///
     /// <param name="host">Identifies the host this applies to. Can be the host
     /// address, or formatted as 'hostN' where N is the host number as
-    /// specified in gpudb.conf</param>
+    /// specified in gpudb.conf.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, the
-    ///         host will accept processes (ranks, graph server, etc.) in the
-    ///         event of a failover on another node in the cluster.
+    ///         cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:
+    ///         </term>
+    ///         <description>If set to <see
+    ///         cref="AdminAlterHostRequest.Options.TRUE">TRUE</see>, the host
+    ///         will accept processes (ranks, graph server, etc.) in the event
+    ///         of a failover on another node in the cluster.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAlterHostRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="AdminAlterHostRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -111,8 +129,7 @@ public class AdminAlterHostRequest : KineticaData
 } // end class AdminAlterHostRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAlterHost(AdminAlterHostRequest)">Kinetica.adminAlterHost</see>.
-/// </summary>
+/// cref="Kinetica.adminAlterHost">Kinetica.adminAlterHost</see>.</summary>
 public class AdminAlterHostResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

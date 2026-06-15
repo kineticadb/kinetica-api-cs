@@ -9,20 +9,19 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByString(FilterByStringRequest)">Kinetica.filterByString</see>.
-/// </summary>
+/// cref="Kinetica.filterByString">Kinetica.filterByString</see>.</summary>
 /// <remarks><para>Calculates which objects from a table or view match a string
 /// expression for the given string columns. Setting <see
-/// cref="Options.CASE_SENSITIVE">CASE_SENSITIVE</see> can modify case
-/// sensitivity in matching for all modes except <see
-/// cref="Mode.SEARCH">SEARCH</see>. For <see cref="Mode.SEARCH">SEARCH</see>
-/// mode details and limitations, see <a
-/// href="../../../concepts/full_text_search/" target="_top">Full Text
-/// Search</a>.</para></remarks>
+/// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>
+/// can modify case sensitivity in matching for all modes except <see
+/// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>. For <see
+/// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see> mode details and
+/// limitations, see <a href="../../../concepts/full_text_search/"
+/// target="_top">Full Text Search</a>.</para></remarks>
 public class FilterByStringRequest : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="mode"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByStringRequest.mode" />.</summary>
     /// <remarks><para>The string filtering mode to apply. See below for
     /// details.</para></remarks>
     public struct Mode
@@ -30,8 +29,9 @@ public class FilterByStringRequest : KineticaData
         /// <summary>Full text search query with wildcards and boolean
         /// operators.</summary>
         /// <remarks><para>Note that for this mode, no column can be specified
-        /// in <see cref="column_names" />; all string columns of the table
-        /// that have text search enabled will be searched.</para></remarks>
+        /// in <see cref="FilterByStringRequest.column_names" />; all string
+        /// columns of the table that have text search enabled will be
+        /// searched.</para></remarks>
         public const string SEARCH = "search";
 
         /// <summary>Exact whole-string match (accelerated).</summary>
@@ -56,51 +56,62 @@ public class FilterByStringRequest : KineticaData
     } // end struct Mode
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByStringRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterByStringRequest.view_name" />.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByStringRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// view as part of <see cref="FilterByStringRequest.view_name" /> and
+        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
 
-        /// <summary>If <see cref="Options.FALSE">FALSE</see> then string
+        /// <summary>If <see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see> then string
         /// filtering will ignore case.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByStringRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.TRUE">TRUE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</para>
+        /// </remarks>
         public const string CASE_SENSITIVE = "case_sensitive";
     } // end struct Options
 
@@ -128,32 +139,40 @@ public class FilterByStringRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Mode.SEARCH">SEARCH</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>:</term>
     ///         <description>Full text search query with wildcards and boolean
     ///         operators. Note that for this mode, no column can be specified
-    ///         in <see cref="column_names" />; all string columns of the table
-    ///         that have text search enabled will be searched.</description>
+    ///         in <see cref="FilterByStringRequest.column_names" />; all
+    ///         string columns of the table that have text search enabled will
+    ///         be searched.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.EQUALS">EQUALS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.EQUALS">EQUALS</see>:</term>
     ///         <description>Exact whole-string match (accelerated).
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.CONTAINS">CONTAINS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.CONTAINS">CONTAINS</see>:
+    ///         </term>
     ///         <description>Partial substring match (not accelerated).  If the
     ///         column is a string type (non-charN) and the number of records
     ///         is too large, it will return 0.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.STARTS_WITH">STARTS_WITH</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.STARTS_WITH">STARTS_WITH</see>:
+    ///         </term>
     ///         <description>Strings that start with the given expression (not
     ///         accelerated). If the column is a string type (non-charN) and
     ///         the number of records is too large, it will return 0.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.REGEX">REGEX</see>:</term>
+    ///         <term><see cref="FilterByStringRequest.Mode.REGEX">REGEX</see>:
+    ///         </term>
     ///         <description>Full regular expression search (not accelerated).
     ///         If the column is a string type (non-charN) and the number of
     ///         records is too large, it will return 0.</description>
@@ -162,60 +181,77 @@ public class FilterByStringRequest : KineticaData
     public string mode { get; set; }
 
     /// <summary>List of columns on which to apply the filter.</summary>
-    /// <remarks><para>Ignored for <see cref="Mode.SEARCH">SEARCH</see> mode.
-    /// </para></remarks>
+    /// <remarks><para>Ignored for <see
+    /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see> mode.</para>
+    /// </remarks>
     public IList<string> column_names { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByStringRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByStringRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
+    ///         and used in place of <see
+    ///         cref="FilterByStringRequest.view_name" />. This is always
     ///         allowed even if the caller does not have permission to create
     ///         tables. The generated name is returned in <see
     ///         cref="FilterByStringResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByStringRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the view as part of <see
+    ///         cref="FilterByStringRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> then
+    ///         <description>If <see
+    ///         cref="FilterByStringRequest.Options.FALSE">FALSE</see> then
     ///         string filtering will ignore case. Does not apply to <see
-    ///         cref="Mode.SEARCH">SEARCH</see> mode.
+    ///         cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see> mode.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByStringRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -248,7 +284,8 @@ public class FilterByStringRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Mode.SEARCH">SEARCH</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>:</term>
     ///         <description>Full text search query with wildcards and boolean
     ///         operators. Note that for this mode, no column can be specified
     ///         in <paramref name="column_names" />; all string columns of the
@@ -256,39 +293,47 @@ public class FilterByStringRequest : KineticaData
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.EQUALS">EQUALS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.EQUALS">EQUALS</see>:</term>
     ///         <description>Exact whole-string match (accelerated).
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.CONTAINS">CONTAINS</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.CONTAINS">CONTAINS</see>:
+    ///         </term>
     ///         <description>Partial substring match (not accelerated).  If the
     ///         column is a string type (non-charN) and the number of records
     ///         is too large, it will return 0.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.STARTS_WITH">STARTS_WITH</see>:</term>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.STARTS_WITH">STARTS_WITH</see>:
+    ///         </term>
     ///         <description>Strings that start with the given expression (not
     ///         accelerated). If the column is a string type (non-charN) and
     ///         the number of records is too large, it will return 0.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Mode.REGEX">REGEX</see>:</term>
+    ///         <term><see cref="FilterByStringRequest.Mode.REGEX">REGEX</see>:
+    ///         </term>
     ///         <description>Full regular expression search (not accelerated).
     ///         If the column is a string type (non-charN) and the number of
     ///         records is too large, it will return 0.</description>
     ///     </item>
     /// </list></param>
     /// <param name="column_names">List of columns on which to apply the
-    /// filter. Ignored for <see cref="Mode.SEARCH">SEARCH</see> mode.</param>
+    /// filter. Ignored for <see
+    /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see> mode.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByStringRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByStringRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="view_name" />. This is
     ///         always allowed even if the caller does not have permission to
@@ -297,42 +342,54 @@ public class FilterByStringRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByStringRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.FALSE">FALSE</see> then
+    ///         <description>If <see
+    ///         cref="FilterByStringRequest.Options.FALSE">FALSE</see> then
     ///         string filtering will ignore case. Does not apply to <see
-    ///         cref="Mode.SEARCH">SEARCH</see> mode.
+    ///         cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see> mode.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByStringRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.TRUE">TRUE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByStringRequest.Options.TRUE">TRUE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -354,17 +411,16 @@ public class FilterByStringRequest : KineticaData
 } // end class FilterByStringRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByString(FilterByStringRequest)">Kinetica.filterByString</see>.
-/// </summary>
+/// cref="Kinetica.filterByString">Kinetica.filterByString</see>.</summary>
 public class FilterByStringResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByStringResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
         /// <summary>The fully qualified name of the view (i.e. including the
-        /// schema)</summary>
+        /// schema).</summary>
         public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
     } // end struct Info
 
@@ -375,10 +431,10 @@ public class FilterByStringResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByStringResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
-    ///         including the schema)</description>
+    ///         including the schema).</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>

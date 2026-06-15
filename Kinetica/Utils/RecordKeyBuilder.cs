@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 
 namespace kinetica.Utils;
@@ -26,8 +25,7 @@ namespace kinetica.Utils;
             CHAR256,
             DATE,
             DATETIME,
-            DECIMAL,       // 8-byte decimal (precision <= 18)
-            DECIMAL_BIG,   // 12-byte decimal (precision > 18)
+            DECIMAL,       // Decimal type (8 or 12 bytes based on precision)
             DOUBLE,
             FLOAT,
             INT,
@@ -258,16 +256,8 @@ namespace kinetica.Utils;
                                 decimal_infos[i] = new DecimalInfo { Precision = precision, Scale = scale };
 
                                 // Use 8 bytes for precision <= 18, 12 bytes for precision > 18
-                                if (precision > 18)
-                                {
-                                    column_types.Add(ColumnType.DECIMAL_BIG);
-                                    this.buffer_size += 12;
-                                }
-                                else
-                                {
-                                    column_types.Add(ColumnType.DECIMAL);
-                                    this.buffer_size += 8;
-                                }
+                                column_types.Add(ColumnType.DECIMAL);
+                                this.buffer_size += (precision > 18) ? 12 : 8;
                             }
                             else if (column.getProperties().Contains(ColumnProperty.IPV4))
                             {
@@ -429,20 +419,10 @@ namespace kinetica.Utils;
 
                     case ColumnType.DECIMAL:
                         {
-                            // Get precision/scale for this column
+                            // Get precision/scale for this column (addDecimal handles 8 vs 12 byte encoding)
                             var decInfo = decimal_infos.TryGetValue(this.routing_column_indices[i], out var info)
                                 ? info
                                 : new DecimalInfo { Precision = 19, Scale = 4 };
-                            key.addDecimal((string)value, decInfo.Precision, decInfo.Scale);
-                        }
-                        break;
-
-                    case ColumnType.DECIMAL_BIG:
-                        {
-                            // Get precision/scale for this column (12-byte decimal)
-                            var decInfo = decimal_infos.TryGetValue(this.routing_column_indices[i], out var info)
-                                ? info
-                                : new DecimalInfo { Precision = 38, Scale = 10 };
                             key.addDecimal((string)value, decInfo.Precision, decInfo.Scale);
                         }
                         break;
@@ -557,7 +537,6 @@ namespace kinetica.Utils;
                     case ColumnType.DATE:
                     case ColumnType.DATETIME:
                     case ColumnType.DECIMAL:
-                    case ColumnType.DECIMAL_BIG:
                     case ColumnType.IPV4:
                     case ColumnType.STRING:
                     case ColumnType.TIME:

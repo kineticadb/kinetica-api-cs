@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionDirectory(GrantPermissionDirectoryRequest)">Kinetica.grantPermissionDirectory</see>.
+/// cref="Kinetica.grantPermissionDirectory">Kinetica.grantPermissionDirectory</see>.
 /// </summary>
 /// <remarks><para>Grants a <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a> directory-level permission to a user or role.</para>
@@ -17,19 +17,19 @@ namespace kinetica;
 public class GrantPermissionDirectoryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="GrantPermissionDirectoryRequest.permission" />.</summary>
     /// <remarks><para>Permission to grant to the user or role.</para>
     /// </remarks>
     public struct Permission
     {
         /// <summary>For files in the directory, access to list files, download
-        /// files, or use files in server side functions</summary>
+        /// files, or use files in server side functions.</summary>
         public const string DIRECTORY_READ = "directory_read";
 
         /// <summary>Access to upload files to, or delete files from, the
         /// directory.</summary>
         /// <remarks><para>A user or role with write access automatically has
-        /// read access</para></remarks>
+        /// read access.</para></remarks>
         public const string DIRECTORY_WRITE = "directory_write";
     } // end struct Permission
 
@@ -43,17 +43,19 @@ public class GrantPermissionDirectoryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+    ///         cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:
+    ///         </term>
     ///         <description>For files in the directory, access to list files,
-    ///         download files, or use files in server side functions
+    ///         download files, or use files in server side functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+    ///         cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:
+    ///         </term>
     ///         <description>Access to upload files to, or delete files from,
     ///         the directory. A user or role with write access automatically
-    ///         has read access</description>
+    ///         has read access.</description>
     ///     </item>
     /// </list></remarks>
     public string permission { get; set; }
@@ -61,7 +63,7 @@ public class GrantPermissionDirectoryRequest : KineticaData
     /// <summary>Name of the KiFS directory to which the permission grants
     /// access.</summary>
     /// <remarks><para>An empty directory name grants access to all KiFS
-    /// directories</para></remarks>
+    /// directories.</para></remarks>
     public string directory_name { get; set; }
 
     /// <summary>Optional parameters.</summary>
@@ -83,22 +85,24 @@ public class GrantPermissionDirectoryRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+    ///         cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:
+    ///         </term>
     ///         <description>For files in the directory, access to list files,
-    ///         download files, or use files in server side functions
+    ///         download files, or use files in server side functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+    ///         cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:
+    ///         </term>
     ///         <description>Access to upload files to, or delete files from,
     ///         the directory. A user or role with write access automatically
-    ///         has read access</description>
+    ///         has read access.</description>
     ///     </item>
     /// </list></param>
     /// <param name="directory_name">Name of the KiFS directory to which the
     /// permission grants access. An empty directory name grants access to all
-    /// KiFS directories</param>
+    /// KiFS directories.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     public GrantPermissionDirectoryRequest( string name,
@@ -114,7 +118,7 @@ public class GrantPermissionDirectoryRequest : KineticaData
 } // end class GrantPermissionDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionDirectory(GrantPermissionDirectoryRequest)">Kinetica.grantPermissionDirectory</see>.
+/// cref="Kinetica.grantPermissionDirectory">Kinetica.grantPermissionDirectory</see>.
 /// </summary>
 public class GrantPermissionDirectoryResponse : KineticaData
 {

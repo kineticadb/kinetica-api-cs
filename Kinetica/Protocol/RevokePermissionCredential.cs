@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionCredential(RevokePermissionCredentialRequest)">Kinetica.revokePermissionCredential</see>.
+/// cref="Kinetica.revokePermissionCredential">Kinetica.revokePermissionCredential</see>.
 /// </summary>
 /// <remarks><para>Revokes a <a
 /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
@@ -18,7 +18,7 @@ namespace kinetica;
 public class RevokePermissionCredentialRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="RevokePermissionCredentialRequest.permission" />.</summary>
     /// <remarks><para>Permission to revoke from the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -41,14 +41,15 @@ public class RevokePermissionCredentialRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
+    ///         cref="RevokePermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+    ///         cref="RevokePermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:
+    ///         </term>
     ///         <description>Ability to read and use the credential.
     ///         </description>
     ///     </item>
@@ -80,14 +81,15 @@ public class RevokePermissionCredentialRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
+    ///         cref="RevokePermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access on the
     ///         credential.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+    ///         cref="RevokePermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:
+    ///         </term>
     ///         <description>Ability to read and use the credential.
     ///         </description>
     ///     </item>
@@ -110,7 +112,7 @@ public class RevokePermissionCredentialRequest : KineticaData
 } // end class RevokePermissionCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionCredential(RevokePermissionCredentialRequest)">Kinetica.revokePermissionCredential</see>.
+/// cref="Kinetica.revokePermissionCredential">Kinetica.revokePermissionCredential</see>.
 /// </summary>
 public class RevokePermissionCredentialResponse : KineticaData
 {

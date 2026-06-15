@@ -9,48 +9,55 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByRange(FilterByRangeRequest)">Kinetica.filterByRange</see>.
-/// </summary>
+/// cref="Kinetica.filterByRange">Kinetica.filterByRange</see>.</summary>
 /// <remarks><para>Calculates which objects from a table have a column that is
 /// within the given bounds. An object from the table identified by <see
-/// cref="table_name" /> is added to the view <see cref="view_name" /> if its
-/// column is within [<see cref="lower_bound" />, <see cref="upper_bound" />]
-/// (inclusive). The operation is synchronous. The response provides a count of
-/// the number of objects which passed the bound filter.  Although this
-/// functionality can also be accomplished with the standard filter function,
-/// it is more efficient.</para>
+/// cref="FilterByRangeRequest.table_name" /> is added to the view <see
+/// cref="FilterByRangeRequest.view_name" /> if its column is within [<see
+/// cref="FilterByRangeRequest.lower_bound" />, <see
+/// cref="FilterByRangeRequest.upper_bound" />] (inclusive). The operation is
+/// synchronous. The response provides a count of the number of objects which
+/// passed the bound filter.  Although this functionality can also be
+/// accomplished with the standard filter function, it is more
+/// efficient.</para>
 /// <para>For track objects, the count reflects how many points fall within the
 /// given bounds (which may not include all the track points of any given
 /// track).</para></remarks>
 public class FilterByRangeRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="FilterByRangeRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, a unique temporary
-        /// table name will be generated in the sys_temp schema and used in
-        /// place of <see cref="view_name" />.</summary>
+        /// <summary>If <see
+        /// cref="FilterByRangeRequest.Options.TRUE">TRUE</see>, a unique
+        /// temporary table name will be generated in the sys_temp schema and
+        /// used in place of <see cref="FilterByRangeRequest.view_name" />.
+        /// </summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="FilterByRangeRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="FilterByRangeRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="FilterByRangeRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
-        /// view as part of <see cref="view_name" /> and use <see
-        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// view as part of <see cref="FilterByRangeRequest.view_name" /> and
+        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -89,33 +96,42 @@ public class FilterByRangeRequest : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByRangeRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByRangeRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
-    ///         and used in place of <see cref="view_name" />. This is always
-    ///         allowed even if the caller does not have permission to create
-    ///         tables. The generated name is returned in <see
+    ///         and used in place of <see cref="FilterByRangeRequest.view_name"
+    ///         />. This is always allowed even if the caller does not have
+    ///         permission to create tables. The generated name is returned in
+    ///         <see
     ///         cref="FilterByRangeResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByRangeRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByRangeRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByRangeRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByRangeRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
-    ///         for the view as part of <see cref="view_name" /> and use <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
-    ///         to create the schema if non-existent]  Name of a schema for the
+    ///         for the view as part of <see
+    ///         cref="FilterByRangeRequest.view_name" /> and use <see
+    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
@@ -150,9 +166,10 @@ public class FilterByRangeRequest : KineticaData
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
+    ///         cref="FilterByRangeRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, a unique
+    ///         <description>If <see
+    ///         cref="FilterByRangeRequest.Options.TRUE">TRUE</see>, a unique
     ///         temporary table name will be generated in the sys_temp schema
     ///         and used in place of <paramref name="view_name" />. This is
     ///         always allowed even if the caller does not have permission to
@@ -161,22 +178,27 @@ public class FilterByRangeRequest : KineticaData
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByRangeRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="FilterByRangeRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="FilterByRangeRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+    ///         cref="FilterByRangeRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:
+    ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see
-    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
@@ -200,12 +222,11 @@ public class FilterByRangeRequest : KineticaData
 } // end class FilterByRangeRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByRange(FilterByRangeRequest)">Kinetica.filterByRange</see>.
-/// </summary>
+/// cref="Kinetica.filterByRange">Kinetica.filterByRange</see>.</summary>
 public class FilterByRangeResponse : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="info"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="FilterByRangeResponse.info" />.</summary>
     /// <remarks><para>Additional information.</para></remarks>
     public struct Info
     {
@@ -221,7 +242,7 @@ public class FilterByRangeResponse : KineticaData
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
-    ///         cref="Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
+    ///         cref="FilterByRangeResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:
     ///         </term>
     ///         <description>The fully qualified name of the view (i.e.
     ///         including the schema)</description>

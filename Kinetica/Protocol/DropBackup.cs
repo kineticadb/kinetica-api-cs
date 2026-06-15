@@ -9,17 +9,16 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropBackup(DropBackupRequest)">Kinetica.dropBackup</see>.
-/// </summary>
+/// cref="Kinetica.dropBackup">Kinetica.dropBackup</see>.</summary>
 /// <remarks><para>Deletes one or more existing database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backups</a> and contained snapshots, accessible via the <a
 /// href="../../../concepts/data_sinks/" target="_top">data sink</a> specified
-/// by <see cref="datasink_name" />.</para></remarks>
+/// by <see cref="DropBackupRequest.datasink_name" />.</para></remarks>
 public class DropBackupRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="DropBackupRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -28,33 +27,40 @@ public class DropBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="DropBackupRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DRY_RUN = "dry_run";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
         /// <summary>Allow multiple backups to be deleted if <see
-        /// cref="Options.TRUE">TRUE</see> and multiple backup names are found
-        /// matching <see cref="backup_name" />.</summary>
+        /// cref="DropBackupRequest.Options.TRUE">TRUE</see> and multiple
+        /// backup names are found matching <see
+        /// cref="DropBackupRequest.backup_name" />.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="DropBackupRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string DELETE_ALL_BACKUPS = "delete_all_backups";
 
         /// <summary>Whether or not to suppress the error if the specified
@@ -62,14 +68,17 @@ public class DropBackupRequest : KineticaData
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see cref="DropBackupRequest.Options.TRUE">TRUE</see>
+        ///         </term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="DropBackupRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="DropBackupRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
     } // end struct Options
 
@@ -77,8 +86,9 @@ public class DropBackupRequest : KineticaData
     /// <remarks><para>An empty string or '*' will delete all existing backups.
     /// Any text followed by a '*' will delete backups whose name starts with
     /// that text.  When deleting multiple backups, <see
-    /// cref="Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see> must be set
-    /// to <see cref="Options.TRUE">TRUE</see>.</para></remarks>
+    /// cref="DropBackupRequest.Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see>
+    /// must be set to <see cref="DropBackupRequest.Options.TRUE">TRUE</see>.
+    /// </para></remarks>
     public string backup_name { get; set; }
 
     /// <summary>Data sink through which the backup is accessible.</summary>
@@ -87,56 +97,70 @@ public class DropBackupRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="DropBackupRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
     ///         <description>Whether or not to perform a dry run of a backup
     ///         deletion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see>:
+    ///         cref="DropBackupRequest.Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see>:
     ///         </term>
     ///         <description>Allow multiple backups to be deleted if <see
-    ///         cref="Options.TRUE">TRUE</see> and multiple backup names are
-    ///         found matching <see cref="backup_name" />.
+    ///         cref="DropBackupRequest.Options.TRUE">TRUE</see> and multiple
+    ///         backup names are found matching <see
+    ///         cref="DropBackupRequest.backup_name" />.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DropBackupRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
     ///         <description>Whether or not to suppress the error if the
     ///         specified backup does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -154,63 +178,78 @@ public class DropBackupRequest : KineticaData
     /// string or '*' will delete all existing backups. Any text followed by a
     /// '*' will delete backups whose name starts with that text.  When
     /// deleting multiple backups, <see
-    /// cref="Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see> must be set
-    /// to <see cref="Options.TRUE">TRUE</see>.</param>
+    /// cref="DropBackupRequest.Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see>
+    /// must be set to <see cref="DropBackupRequest.Options.TRUE">TRUE</see>.
+    /// </param>
     /// <param name="datasink_name">Data sink through which the backup is
     /// accessible.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.DRY_RUN">DRY_RUN</see>:</term>
+    ///         <term><see
+    ///         cref="DropBackupRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
     ///         <description>Whether or not to perform a dry run of a backup
     ///         deletion.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see>:
+    ///         cref="DropBackupRequest.Options.DELETE_ALL_BACKUPS">DELETE_ALL_BACKUPS</see>:
     ///         </term>
     ///         <description>Allow multiple backups to be deleted if <see
-    ///         cref="Options.TRUE">TRUE</see> and multiple backup names are
-    ///         found matching <paramref name="backup_name" />.
+    ///         cref="DropBackupRequest.Options.TRUE">TRUE</see> and multiple
+    ///         backup names are found matching <paramref name="backup_name"
+    ///         />.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
+    ///         cref="DropBackupRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:
     ///         </term>
     ///         <description>Whether or not to suppress the error if the
     ///         specified backup does not exist.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.TRUE">TRUE</see></term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="DropBackupRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="DropBackupRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     /// </list>
@@ -226,8 +265,7 @@ public class DropBackupRequest : KineticaData
 } // end class DropBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropBackup(DropBackupRequest)">Kinetica.dropBackup</see>.
-/// </summary>
+/// cref="Kinetica.dropBackup">Kinetica.dropBackup</see>.</summary>
 public class DropBackupResponse : KineticaData
 {
     /// <summary>Value of <see

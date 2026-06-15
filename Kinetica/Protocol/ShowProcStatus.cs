@@ -9,50 +9,53 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
-/// </summary>
+/// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.</summary>
 /// <remarks><para>Shows the statuses of running or completed proc instances.
 /// Results are grouped by run ID (as returned from <see
-/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
-/// and data segment ID (each invocation of the proc command on a data segment
-/// is assigned a data segment ID).</para></remarks>
+/// cref="Kinetica.executeProc">Kinetica.executeProc</see>) and data segment ID
+/// (each invocation of the proc command on a data segment is assigned a data
+/// segment ID).</para></remarks>
 public class ShowProcStatusRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ShowProcStatusRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
-        /// <summary>If set to <see cref="Options.TRUE">TRUE</see>, if a proc
+        /// <summary>If set to <see
+        /// cref="ShowProcStatusRequest.Options.TRUE">TRUE</see>, if a proc
         /// instance has completed (either successfully or unsuccessfully) then
         /// its status will be cleared and no longer returned in subsequent
         /// calls.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ShowProcStatusRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>
+        ///         </term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string CLEAR_COMPLETE = "clear_complete";
 
         public const string TRUE = "true";
         public const string FALSE = "false";
 
-        /// <summary>If <see cref="run_id" /> is specified, return the status
-        /// for a proc instance that has a matching run ID and a matching run
-        /// tag that was provided to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        /// </summary>
-        /// <remarks><para>If <see cref="run_id" /> is not specified, return
-        /// statuses for all proc instances where a matching run tag was
-        /// provided to <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-        /// The default value is ''.</para></remarks>
+        /// <summary>If <see cref="ShowProcStatusRequest.run_id" /> is
+        /// specified, return the status for a proc instance that has a
+        /// matching run ID and a matching run tag that was provided to <see
+        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
+        /// <remarks><para>If <see cref="ShowProcStatusRequest.run_id" /> is
+        /// not specified, return statuses for all proc instances where a
+        /// matching run tag was provided to <see
+        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>. The default
+        /// value is ''.</para></remarks>
         public const string RUN_TAG = "run_tag";
     } // end struct Options
 
@@ -67,35 +70,44 @@ public class ShowProcStatusRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:
+    ///         <term><see
+    ///         cref="ShowProcStatusRequest.Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, if
-    ///         a proc instance has completed (either successfully or
-    ///         unsuccessfully) then its status will be cleared and no longer
-    ///         returned in subsequent calls.
+    ///         <description>If set to <see
+    ///         cref="ShowProcStatusRequest.Options.TRUE">TRUE</see>, if a proc
+    ///         instance has completed (either successfully or unsuccessfully)
+    ///         then its status will be cleared and no longer returned in
+    ///         subsequent calls.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowProcStatusRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
-    ///         <description>If <see cref="run_id" /> is specified, return the
-    ///         status for a proc instance that has a matching run ID and a
-    ///         matching run tag that was provided to <see
-    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-    ///         If <see cref="run_id" /> is not specified, return statuses for
-    ///         all proc instances where a matching run tag was provided to
-    ///         <see
-    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-    ///         The default value is ''.</description>
+    ///         <term><see
+    ///         cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:
+    ///         </term>
+    ///         <description>If <see cref="ShowProcStatusRequest.run_id" /> is
+    ///         specified, return the status for a proc instance that has a
+    ///         matching run ID and a matching run tag that was provided to
+    ///         <see cref="Kinetica.executeProc">Kinetica.executeProc</see>. If
+    ///         <see cref="ShowProcStatusRequest.run_id" /> is not specified,
+    ///         return statuses for all proc instances where a matching run tag
+    ///         was provided to <see
+    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -116,34 +128,42 @@ public class ShowProcStatusRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:
+    ///         <term><see
+    ///         cref="ShowProcStatusRequest.Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:
     ///         </term>
-    ///         <description>If set to <see cref="Options.TRUE">TRUE</see>, if
-    ///         a proc instance has completed (either successfully or
-    ///         unsuccessfully) then its status will be cleared and no longer
-    ///         returned in subsequent calls.
+    ///         <description>If set to <see
+    ///         cref="ShowProcStatusRequest.Options.TRUE">TRUE</see>, if a proc
+    ///         instance has completed (either successfully or unsuccessfully)
+    ///         then its status will be cleared and no longer returned in
+    ///         subsequent calls.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowProcStatusRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:
+    ///         </term>
     ///         <description>If <paramref name="run_id" /> is specified, return
     ///         the status for a proc instance that has a matching run ID and a
     ///         matching run tag that was provided to <see
-    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-    ///         If <paramref name="run_id" /> is not specified, return statuses
+    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. If
+    ///         <paramref name="run_id" /> is not specified, return statuses
     ///         for all proc instances where a matching run tag was provided to
-    ///         <see
-    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         <see cref="Kinetica.executeProc">Kinetica.executeProc</see>.
     ///         The default value is ''.</description>
     ///     </item>
     /// </list>
@@ -157,17 +177,17 @@ public class ShowProcStatusRequest : KineticaData
 } // end class ShowProcStatusRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
-/// </summary>
+/// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.</summary>
 public class ShowProcStatusResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="overall_statuses" />.</summary>
+    /// cref="ShowProcStatusResponse.overall_statuses" />.</summary>
     /// <remarks><para>Overall statuses for the returned run IDs. Note that
     /// these are rollups and individual statuses may differ between data
-    /// segments for the same run ID; see <see cref="statuses" /> and <see
-    /// cref="messages" /> for statuses from individual data segments.</para>
-    /// </remarks>
+    /// segments for the same run ID; see <see
+    /// cref="ShowProcStatusResponse.statuses" /> and <see
+    /// cref="ShowProcStatusResponse.messages" /> for statuses from individual
+    /// data segments.</para></remarks>
     public struct OverallStatuses
     {
         /// <summary>The proc instance is currently running.</summary>
@@ -188,7 +208,7 @@ public class ShowProcStatusResponse : KineticaData
     } // end struct OverallStatuses
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="statuses" />.</summary>
+    /// cref="ShowProcStatusResponse.statuses" />.</summary>
     /// <remarks><para>Statuses for the returned run IDs, grouped by data
     /// segment ID.</para></remarks>
     public struct Statuses
@@ -210,8 +230,8 @@ public class ShowProcStatusResponse : KineticaData
         public const string NONE = "none";
     } // end struct Statuses
 
-    /// <summary>A set of string constants for the parameter <see cref="output"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="ShowProcStatusResponse.output" />.</summary>
     /// <remarks><para>Output lines for the returned run IDs, grouped by data
     /// segment ID.</para></remarks>
     public struct Output
@@ -228,62 +248,71 @@ public class ShowProcStatusResponse : KineticaData
     public IDictionary<string, string> proc_names { get; set; } = new Dictionary<string, string>();
 
     /// <summary>The string params passed to <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-    /// for the returned run IDs.</summary>
+    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
+    /// run IDs.</summary>
     public IDictionary<string, IDictionary<string, string>> _params { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>The binary params passed to <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-    /// for the returned run IDs.</summary>
+    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
+    /// run IDs.</summary>
     public IDictionary<string, IDictionary<string, byte[]>> bin_params { get; set; } = new Dictionary<string, IDictionary<string, byte[]>>();
 
     /// <summary>The input table names passed to <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-    /// for the returned run IDs.</summary>
+    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
+    /// run IDs.</summary>
     public IDictionary<string, IList<string>> input_table_names { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>The input column names passed to <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-    /// for the returned run IDs, supplemented with the column names for input
-    /// tables not included in the input column name map.</summary>
+    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
+    /// run IDs, supplemented with the column names for input tables not
+    /// included in the input column name map.</summary>
     public IDictionary<string, IDictionary<string, IList<string>>> input_column_names { get; set; } = new Dictionary<string, IDictionary<string, IList<string>>>();
 
     /// <summary>The output table names passed to <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-    /// for the returned run IDs.</summary>
+    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
+    /// run IDs.</summary>
     public IDictionary<string, IList<string>> output_table_names { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>The optional parameters passed to <see
-    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
-    /// for the returned run IDs.</summary>
+    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
+    /// run IDs.</summary>
     public IDictionary<string, IDictionary<string, string>> options { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>Overall statuses for the returned run IDs.</summary>
     /// <remarks><para>Valid values are:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="OverallStatuses.RUNNING">RUNNING</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.OverallStatuses.RUNNING">RUNNING</see>:
+    ///         </term>
     ///         <description>The proc instance is currently running.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="OverallStatuses.COMPLETE">COMPLETE</see>:
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.OverallStatuses.COMPLETE">COMPLETE</see>:
     ///         </term>
     ///         <description>The proc instance completed with no errors.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="OverallStatuses.KILLED">KILLED</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.OverallStatuses.KILLED">KILLED</see>:
+    ///         </term>
     ///         <description>The proc instance was killed before completion.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="OverallStatuses.ERROR">ERROR</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.OverallStatuses.ERROR">ERROR</see>:
+    ///         </term>
     ///         <description>The proc instance failed with an error.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="OverallStatuses.NONE">NONE</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.OverallStatuses.NONE">NONE</see>:
+    ///         </term>
     ///         <description>The proc instance does not have a status, i.e. it
     ///         has not yet ran.</description>
     ///     </item>
@@ -295,27 +324,36 @@ public class ShowProcStatusResponse : KineticaData
     /// <remarks><para>Valid values are:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Statuses.RUNNING">RUNNING</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Statuses.RUNNING">RUNNING</see>:
+    ///         </term>
     ///         <description>The proc instance is currently running.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Statuses.COMPLETE">COMPLETE</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Statuses.COMPLETE">COMPLETE</see>:
+    ///         </term>
     ///         <description>The proc instance completed with no errors.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Statuses.KILLED">KILLED</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Statuses.KILLED">KILLED</see>:
+    ///         </term>
     ///         <description>The proc instance was killed before completion.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Statuses.ERROR">ERROR</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Statuses.ERROR">ERROR</see>:
+    ///         </term>
     ///         <description>The proc instance failed with an error.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Statuses.NONE">NONE</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Statuses.NONE">NONE</see>:</term>
     ///         <description>The proc instance does not have a status, i.e. it
     ///         has not yet ran.</description>
     ///     </item>
@@ -338,11 +376,15 @@ public class ShowProcStatusResponse : KineticaData
     /// ID.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Output.STDOUT">STDOUT</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Output.STDOUT">STDOUT</see>:
+    ///         </term>
     ///         <description>Output lines from stdout.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Output.STDERR">STDERR</see>:</term>
+    ///         <term><see
+    ///         cref="ShowProcStatusResponse.Output.STDERR">STDERR</see>:
+    ///         </term>
     ///         <description>Output lines from stderr.</description>
     ///     </item>
     /// </list></remarks>

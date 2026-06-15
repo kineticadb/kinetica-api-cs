@@ -9,21 +9,21 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-/// </summary>
+/// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
 /// <remarks><para>Executes a proc. This endpoint is asynchronous and does not
 /// wait for the proc to complete before returning.</para>
 /// <para>If the proc being executed is distributed, <see
-/// cref="input_table_names" /> and <see cref="input_column_names" /> may be
-/// passed to the proc to use for reading data, and <see
-/// cref="output_table_names" /> may be passed to the proc to use for writing
-/// data.</para>
+/// cref="ExecuteProcRequest.input_table_names" /> and <see
+/// cref="ExecuteProcRequest.input_column_names" /> may be passed to the proc
+/// to use for reading data, and <see
+/// cref="ExecuteProcRequest.output_table_names" /> may be passed to the proc
+/// to use for writing data.</para>
 /// <para>If the proc being executed is non-distributed, these table parameters
 /// will be ignored.</para></remarks>
 public class ExecuteProcRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="ExecuteProcRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -37,36 +37,38 @@ public class ExecuteProcRequest : KineticaData
 
         /// <summary>A string that, if not empty, can be used in subsequent
         /// calls to <see
-        /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-        /// or <see
-        /// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
-        /// to identify the proc instance.</summary>
+        /// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> or
+        /// <see cref="Kinetica.killProc">Kinetica.killProc</see> to identify
+        /// the proc instance.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string RUN_TAG = "run_tag";
 
         /// <summary>The maximum number of lines of output from stdout and
         /// stderr to return via <see
-        /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+        /// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
         /// </summary>
         /// <remarks><para>If the number of lines output exceeds the maximum,
         /// earlier lines are discarded. The default value is '100'.</para>
         /// </remarks>
         public const string MAX_OUTPUT_LINES = "max_output_lines";
 
-        /// <summary>If <see cref="Options.TRUE">TRUE</see>, an instance of the
-        /// proc will run when the database is started instead of running
-        /// immediately.</summary>
+        /// <summary>If <see cref="ExecuteProcRequest.Options.TRUE">TRUE</see>,
+        /// an instance of the proc will run when the database is started
+        /// instead of running immediately.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
-        ///         <term><see cref="Options.TRUE">TRUE</see></term>
+        ///         <term><see
+        ///         cref="ExecuteProcRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term><see cref="Options.FALSE">FALSE</see></term>
+        ///         <term><see
+        ///         cref="ExecuteProcRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
-        /// <para>The default value is <see cref="Options.FALSE">FALSE</see>.
-        /// </para></remarks>
+        /// <para>The default value is <see
+        /// cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.</para>
+        /// </remarks>
         public const string EXECUTE_AT_STARTUP = "execute_at_startup";
 
         public const string TRUE = "true";
@@ -74,8 +76,9 @@ public class ExecuteProcRequest : KineticaData
 
         /// <summary>Sets the alternate user name to execute this proc instance
         /// as when <see
-        /// cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see> is <see
-        /// cref="Options.TRUE">TRUE</see>.</summary>
+        /// cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>
+        /// is <see cref="ExecuteProcRequest.Options.TRUE">TRUE</see>.
+        /// </summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string EXECUTE_AT_STARTUP_AS = "execute_at_startup_as";
     } // end struct Options
@@ -110,15 +113,15 @@ public class ExecuteProcRequest : KineticaData
     /// value is an empty List.</para></remarks>
     public IList<string> input_table_names { get; set; } = new List<string>();
 
-    /// <summary>Map of table names from <see cref="input_table_names" /> to
-    /// lists of names of columns from those tables that will be passed to the
-    /// proc.</summary>
+    /// <summary>Map of table names from <see
+    /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
+    /// columns from those tables that will be passed to the proc.</summary>
     /// <remarks><para>Each column name specified must be the name of an
     /// existing column in the corresponding table. If a table name from <see
-    /// cref="input_table_names" /> is not included, all columns from that
-    /// table will be passed to the proc.  This parameter is ignored if the
-    /// proc has a non-distributed execution mode. The default value is an
-    /// empty Dictionary.</para></remarks>
+    /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
+    /// columns from that table will be passed to the proc.  This parameter is
+    /// ignored if the proc has a non-distributed execution mode. The default
+    /// value is an empty Dictionary.</para></remarks>
     public IDictionary<string, IList<string>> input_column_names { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>Names of the tables to which output data from the proc will be
@@ -129,79 +132,88 @@ public class ExecuteProcRequest : KineticaData
     /// target="_top">table naming criteria</a>.</summary>
     /// <remarks><para>If a specified table does not exist, it will
     /// automatically be created with the same schema as the corresponding
-    /// table (by order) from <see cref="input_table_names" />, excluding any
-    /// primary and shard keys. If a specified table is a non-persistent result
-    /// table, it must not have primary or shard keys. If no table names are
-    /// specified, no output data can be returned from the proc. This parameter
-    /// is ignored if the proc has a non-distributed execution mode. The
-    /// default value is an empty List.</para></remarks>
+    /// table (by order) from <see cref="ExecuteProcRequest.input_table_names"
+    /// />, excluding any primary and shard keys. If a specified table is a
+    /// non-persistent result table, it must not have primary or shard keys. If
+    /// no table names are specified, no output data can be returned from the
+    /// proc. This parameter is ignored if the proc has a non-distributed
+    /// execution mode. The default value is an empty List.</para></remarks>
     public IList<string> output_table_names { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
+    ///         <term><see
+    ///         cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:
+    ///         </term>
     ///         <description>No longer supported; option will be ignored. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
+    ///         cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:
+    ///         </term>
     ///         <description>No longer supported; option will be ignored. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
+    ///         <term><see
+    ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-    ///         or <see
-    ///         cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
-    ///         to identify the proc instance. The default value is ''.
+    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> or
+    ///         <see cref="Kinetica.killProc">Kinetica.killProc</see> to
+    ///         identify the proc instance. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+    ///         cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:
+    ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
     ///         If the number of lines output exceeds the maximum, earlier
     ///         lines are discarded. The default value is '100'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:
+    ///         cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, an
-    ///         instance of the proc will run when the database is started
-    ///         instead of running immediately. The <see
+    ///         <description>If <see
+    ///         cref="ExecuteProcRequest.Options.TRUE">TRUE</see>, an instance
+    ///         of the proc will run when the database is started instead of
+    ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see
-    ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
-    ///         and used in <see
-    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+    ///         using <see cref="Kinetica.showProc">Kinetica.showProc</see> and
+    ///         used in <see
+    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ExecuteProcRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ExecuteProcRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:
+    ///         cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:
     ///         </term>
     ///         <description>Sets the alternate user name to execute this proc
     ///         instance as when <see
-    ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see> is
-    ///         <see cref="Options.TRUE">TRUE</see>. The default value is ''.
-    ///         </description>
+    ///         cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>
+    ///         is <see cref="ExecuteProcRequest.Options.TRUE">TRUE</see>. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -255,68 +267,77 @@ public class ExecuteProcRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
+    ///         <term><see
+    ///         cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:
+    ///         </term>
     ///         <description>No longer supported; option will be ignored. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
+    ///         cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:
+    ///         </term>
     ///         <description>No longer supported; option will be ignored. The
     ///         default value is ''.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Options.RUN_TAG">RUN_TAG</see>:</term>
+    ///         <term><see
+    ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-    ///         or <see
-    ///         cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
-    ///         to identify the proc instance. The default value is ''.
+    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> or
+    ///         <see cref="Kinetica.killProc">Kinetica.killProc</see> to
+    ///         identify the proc instance. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+    ///         cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:
+    ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
     ///         If the number of lines output exceeds the maximum, earlier
     ///         lines are discarded. The default value is '100'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:
+    ///         cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>:
     ///         </term>
-    ///         <description>If <see cref="Options.TRUE">TRUE</see>, an
-    ///         instance of the proc will run when the database is started
-    ///         instead of running immediately. The <see
+    ///         <description>If <see
+    ///         cref="ExecuteProcRequest.Options.TRUE">TRUE</see>, an instance
+    ///         of the proc will run when the database is started instead of
+    ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see
-    ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
-    ///         and used in <see
-    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+    ///         using <see cref="Kinetica.showProc">Kinetica.showProc</see> and
+    ///         used in <see
+    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
-    ///                 <term><see cref="Options.TRUE">TRUE</see></term>
+    ///                 <term><see
+    ///                 cref="ExecuteProcRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
     ///             </item>
     ///             <item>
-    ///                 <term><see cref="Options.FALSE">FALSE</see></term>
+    ///                 <term><see
+    ///                 cref="ExecuteProcRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
     ///             </item>
     ///         </list>
-    ///         The default value is <see cref="Options.FALSE">FALSE</see>.
+    ///         The default value is <see
+    ///         cref="ExecuteProcRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:
+    ///         cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP_AS">EXECUTE_AT_STARTUP_AS</see>:
     ///         </term>
     ///         <description>Sets the alternate user name to execute this proc
     ///         instance as when <see
-    ///         cref="Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see> is
-    ///         <see cref="Options.TRUE">TRUE</see>. The default value is ''.
-    ///         </description>
+    ///         cref="ExecuteProcRequest.Options.EXECUTE_AT_STARTUP">EXECUTE_AT_STARTUP</see>
+    ///         is <see cref="ExecuteProcRequest.Options.TRUE">TRUE</see>. The
+    ///         default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -339,16 +360,15 @@ public class ExecuteProcRequest : KineticaData
 } // end class ExecuteProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
-/// </summary>
+/// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
 public class ExecuteProcResponse : KineticaData
 {
     /// <summary>The run ID of the running proc instance.</summary>
     /// <remarks><para>This may be passed to <see
-    /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
-    /// to obtain status information, or <see
-    /// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see> to
-    /// kill the proc instance.</para></remarks>
+    /// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> to obtain
+    /// status information, or <see
+    /// cref="Kinetica.killProc">Kinetica.killProc</see> to kill the proc
+    /// instance.</para></remarks>
     public string run_id { get; set; }
 
     /// <summary>Additional information.</summary>

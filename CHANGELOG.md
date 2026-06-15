@@ -3,6 +3,43 @@
 
 ## Version 7.2
 
+### Version 7.2.3.2 - 2026-06-15
+
+#### Added
+
+- GitHub Issue #12 - Multi-targeting of .NET 8 & .NET 10 frameworks
+- GitHub Issue #13
+  - Added logging via `Microsoft.Extensions.Logging`
+    - New optional `Kinetica.Options.LoggerFactory` (`ILoggerFactory`); defaults
+      to a no-op factory so behavior is unchanged when none is supplied
+    - Per-component log categories: `Kinetica`, `Kinetica.HAFailover`,
+      `Kinetica.BulkInserter`, & `Kinetica.RecordRetriever`
+    - `Warning` logged when client can't connect to server-known URL(s) and is
+      put into degraded mode, where multi-head operations are disabled
+
+#### Changed
+
+- GitHub Issue #13
+  - Better aligned initial connection negotiation with the Java API
+  - Improved documentation surrounding `DisableFailover` &
+    `DisableAutodiscovery` options
+
+#### Fixed
+
+- GitHub Issue #10 - Connection option usage example in README
+- GitHub Issue #11 - Geometry type mapping in `KineticaType.fromDynamicSchema()`
+- `Options.ServerConnectionTimeout` is now wired in (previously declared but
+  unused): it maps to `SocketsHttpHandler.ConnectTimeout`, bounding TCP
+  connection establishment (e.g. for unreachable hosts during initial
+  discovery) independently of the overall request `Timeout`
+- `Options.Timeout` of `0` now correctly means infinite (no overall request
+  timeout)
+- GitHub Issue #13 - Degraded mode handling
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
+
+
 ### Version 7.2.3.1 - 2026-05-12
 
 #### Added
@@ -149,13 +186,13 @@ A completely redesigned high-performance bulk insertion system:
 - **xUnit** 2.4.2 (tests) - Unit testing framework
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.2.3.0 - 2025-09-03
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.2.2.3 - 2025-04-14
@@ -164,7 +201,7 @@ A completely redesigned high-performance bulk insertion system:
 -   Issue with URL handling in bulk ingestor
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.2.2.2 - 2025-04-08
@@ -176,7 +213,7 @@ A completely redesigned high-performance bulk insertion system:
 -   Code styling update
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.2.2.1 - 2025-03-28
@@ -188,13 +225,13 @@ A completely redesigned high-performance bulk insertion system:
 -   Code styling update
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.2.2.0 - 2024-10-15
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.2.1.0 - 2024-09-07
@@ -209,7 +246,7 @@ A completely redesigned high-performance bulk insertion system:
 -   Support for Array & Vector types
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
@@ -218,7 +255,7 @@ A completely redesigned high-performance bulk insertion system:
 ### Version 7.1.10.0 - 2024-05-16
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.9.1 - 2023-09-17
@@ -230,13 +267,13 @@ A completely redesigned high-performance bulk insertion system:
 ### Version 7.1.9.0 - 2023-03-19
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.8.0 - 2022-10-22
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.7.0 - 2022-07-18
@@ -246,45 +283,45 @@ A completely redesigned high-performance bulk insertion system:
     returned errors more consistently delivered
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.6.0 - 2022-01-27
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.5.0 - 2021-10-13
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.4.0 - 2021-07-29
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.1.3.0 - 2021-03-05
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
 ### Version 7.1.2.0 - 2021-01-25
 
 #### Notes
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
 ### Version 7.1.1.0 - 2020-10-28
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
@@ -292,7 +329,7 @@ A completely redesigned high-performance bulk insertion system:
 
 #### Note
 -   Version release
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
@@ -301,58 +338,58 @@ A completely redesigned high-performance bulk insertion system:
 ### Version 7.0.20.0 - 2020-11-25
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.0.19.0 - 2020-08-24
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.0.18.0 - 2020-07-30
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.0.17.0 - 2020-07-06
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.0.16.0 - 2020-05-28
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.0.15.0 - 2020-04-27
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
 ### Version 7.0.14.0 - 2020-03-25
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
 ### Version 7.0.13.0 - 2020-03-10
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 
 ### Version 7.0.12.0 - 2020-01-17
 
 #### Note
--   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+-   Check CHANGELOG-FUNCTIONS.md for endpoint-related changes.
 
 
 ### Version 7.0.5.0 - 2019-06-26
@@ -416,146 +453,6 @@ A completely redesigned high-performance bulk insertion system:
 ## Version 6.0.0 - 2017-05-03
 
 -   Version release
-
----
-
-## Project Structure
-
-```
-gpudb-api-cs/
-├── Kinetica/                    # Main API library
-│   ├── BulkInserter/           # High-performance bulk insertion (NEW)
-│   │   ├── BulkInserter.cs     # Main bulk inserter class
-│   │   ├── BulkInserterOptions.cs
-│   │   ├── FastAvroEncoder.cs
-│   │   ├── DirectAvroEncoder.cs
-│   │   ├── GenericRecordEncoder.cs  # Avro encoder for GenericRecord (NEW)
-│   │   ├── HttpClientSubmitter.cs
-│   │   ├── RawSocketSubmitter.cs
-│   │   ├── StripedWorkerQueue.cs
-│   │   └── IBatchInsertionListener.cs
-│   ├── Records/                # Rust-style dynamic record API (NEW)
-│   │   ├── GenericRecord.cs    # Dynamic schema record
-│   │   ├── RecordValue.cs      # Discriminated union for field values
-│   │   ├── Type.cs             # Type definition with fluent builder
-│   │   ├── ColumnType.cs       # Column type enumeration
-│   │   └── IShardKeyRecord.cs  # Interface for shard key extraction
-│   ├── Protocol/               # Auto-generated protocol classes
-│   ├── Utils/                  # Utility classes
-│   │   ├── RecordKey.cs        # Shard key computation
-│   │   ├── RecordKeyBuilder.cs # Key builder with decimal support
-│   │   ├── GenericRecordKeyBuilder.cs  # Key builder for GenericRecord (NEW)
-│   │   ├── HAFailover.cs       # HA failover management (NEW)
-│   │   └── WorkerQueue.cs
-│   ├── Kinetica.cs             # Main API entry point
-│   ├── KineticaIngestor.cs     # Legacy ingestor
-│   ├── KineticaType.cs         # Type system
-│   └── KineticaException.cs    # Exception handling
-├── AdoDotnetDriver/            # ADO.NET database driver (NEW)
-├── AdoDotnetDriver.Tests/      # ADO.NET driver tests (NEW)
-├── Kinetica.Tests/             # Comprehensive test suite (NEW)
-│   └── IntegrationTests/
-│       ├── BulkInserterTests.cs         # POCO BulkInserter tests
-│       └── GenericRecordBulkInserterTests.cs  # GenericRecord tests (NEW)
-├── Kinetica.Benchmarks/        # Performance benchmarks (NEW)
-├── Kinetica.LoadGenerator/     # Load testing application (NEW)
-├── Example/                     # Example applications
-├── Test/                        # Legacy test application
-├── Directory.Packages.props     # Central package version management (CPM)
-├── Directory.Build.props        # Common MSBuild properties
-└── docs/                        # Documentation
-```
-
----
-
-## Migration Guide
-
-### From KineticaIngestor to BulkInserter
-
-**Before (KineticaIngestor):**
-```csharp
-var ingestor = new KineticaIngestor<MyRecord>(kinetica, tableName, batchSize, type);
-ingestor.insert(record);
-ingestor.flush();
-```
-
-**After (BulkInserter):**
-```csharp
-var options = new BulkInserterOptions { BatchSize = 10000 };
-using var inserter = new BulkInserter<MyRecord>(kinetica, tableName, options);
-await inserter.InsertAsync(record);
-await inserter.FlushAsync();
-Console.WriteLine($"Inserted: {inserter.CountInserted}");
-```
-
-### Using GenericRecord (Dynamic Schema)
-
-For dynamic schemas or when you don't want to define POCO classes:
-
-```csharp
-using kinetica.Records;
-
-// Get type from existing table
-var ktype = KineticaType.fromTable(kinetica, "myschema.mytable");
-var recordType = Type.FromTable(kinetica, "myschema.mytable");
-
-// Create BulkInserter for GenericRecord
-var options = new BulkInserterOptions { BatchSize = 10000 };
-await using var inserter = new BulkInserter<GenericRecord>(kinetica, tableName, ktype, options);
-
-// Create and insert records
-var record = recordType.NewInstance();
-record.Put("id", 1);
-record.Put("name", "Test");
-record.Put("value", 99.5);
-record.PutNull("optional_field");
-
-inserter.Insert(record);
-await inserter.CloseAsync();
-```
-
-### HttpClient Usage
-
-The API now uses HttpClient internally. No code changes are required for consumers,
-but timeout behavior may differ slightly:
-- Timeouts are now handled via CancellationToken
-- Connection pooling is automatic
-- HTTP/2 support is available
-
-### Decimal Shard Keys
-
-If using decimal columns as shard keys, ensure your schema specifies precision and scale:
-```sql
-CREATE TABLE my_table (
-    id INT,
-    amount DECIMAL(18,2),      -- 8-byte encoding (precision ≤ 18)
-    big_amount DECIMAL(30,10), -- 12-byte encoding (precision > 18)
-    PRIMARY KEY (id),
-    SHARD KEY (amount)
-);
-```
-
-### HA Failover Configuration
-
-To enable HA failover with multiple clusters:
-```csharp
-var options = new Kinetica.Options
-{
-    Username = "admin",
-    Password = "password",
-    DisableFailover = false,
-    DisableAutoDiscovery = false,
-    HAFailoverOrder = HAFailoverOrder.Random,
-    HostManagerPort = 9300
-};
-
-var urls = new List<string> {
-    "http://cluster1:9191",
-    "http://cluster2:9191"
-};
-
-var kinetica = new Kinetica(urls, options);
-```
 
 ---
 

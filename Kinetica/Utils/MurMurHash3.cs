@@ -4,9 +4,6 @@ This code is public domain.
 The MurmurHash3 algorithm was created by Austin Appleby and put into the public domain.  See http://code.google.com/p/smhasher/
 */
 
-using System;
-
-
 namespace kinetica;
 
 /// <summary>

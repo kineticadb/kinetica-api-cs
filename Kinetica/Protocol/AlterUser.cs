@@ -9,13 +9,12 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterUser(AlterUserRequest)">Kinetica.alterUser</see>.
-/// </summary>
+/// cref="Kinetica.alterUser">Kinetica.alterUser</see>.</summary>
 /// <remarks><para>Alters a user.</para></remarks>
 public class AlterUserRequest : KineticaData
 {
-    /// <summary>A set of string constants for the parameter <see cref="action"
-    /// />.</summary>
+    /// <summary>A set of string constants for the parameter <see
+    /// cref="AlterUserRequest.action" />.</summary>
     /// <remarks><para>Modification operation to be applied to the user.</para>
     /// </remarks>
     public struct Action
@@ -23,10 +22,10 @@ public class AlterUserRequest : KineticaData
         /// <summary>Is the user allowed to login.</summary>
         public const string SET_ACTIVATED = "set_activated";
 
-        /// <summary>User may login</summary>
+        /// <summary>User may login.</summary>
         public const string TRUE = "true";
 
-        /// <summary>User may not login</summary>
+        /// <summary>User may not login.</summary>
         public const string FALSE = "false";
 
         /// <summary>Sets the comment for an internal user.</summary>
@@ -56,40 +55,46 @@ public class AlterUserRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.SET_ACTIVATED">SET_ACTIVATED</see>:
+    ///         <term><see
+    ///         cref="AlterUserRequest.Action.SET_ACTIVATED">SET_ACTIVATED</see>:
     ///         </term>
     ///         <description>Is the user allowed to login.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.TRUE">TRUE</see>:</term>
-    ///         <description>User may login</description>
+    ///         <term><see cref="AlterUserRequest.Action.TRUE">TRUE</see>:
+    ///         </term>
+    ///         <description>User may login.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.FALSE">FALSE</see>:</term>
-    ///         <description>User may not login</description>
+    ///         <term><see cref="AlterUserRequest.Action.FALSE">FALSE</see>:
+    ///         </term>
+    ///         <description>User may not login.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="AlterUserRequest.Action.SET_COMMENT">SET_COMMENT</see>:
+    ///         </term>
     ///         <description>Sets the comment for an internal user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+    ///         cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
     ///         </term>
     ///         <description>Set the default_schema for an internal user. An
     ///         empty string means the user will have no default schema.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.SET_PASSWORD">SET_PASSWORD</see>:
+    ///         <term><see
+    ///         cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:
     ///         </term>
     ///         <description>Sets the password of the user. The user must be an
     ///         internal user.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+    ///         cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Sets the resource group for an internal user. The
     ///         resource group must exist, otherwise, an empty string assigns
@@ -98,8 +103,8 @@ public class AlterUserRequest : KineticaData
     /// </list></remarks>
     public string action { get; set; }
 
-    /// <summary>The value of the modification, depending on <see cref="action"
-    /// />.</summary>
+    /// <summary>The value of the modification, depending on <see
+    /// cref="AlterUserRequest.action" />.</summary>
     public string _value { get; set; }
 
     /// <summary>Optional parameters.</summary>
@@ -120,40 +125,46 @@ public class AlterUserRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Action.SET_ACTIVATED">SET_ACTIVATED</see>:
+    ///         <term><see
+    ///         cref="AlterUserRequest.Action.SET_ACTIVATED">SET_ACTIVATED</see>:
     ///         </term>
     ///         <description>Is the user allowed to login.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.TRUE">TRUE</see>:</term>
-    ///         <description>User may login</description>
+    ///         <term><see cref="AlterUserRequest.Action.TRUE">TRUE</see>:
+    ///         </term>
+    ///         <description>User may login.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.FALSE">FALSE</see>:</term>
-    ///         <description>User may not login</description>
+    ///         <term><see cref="AlterUserRequest.Action.FALSE">FALSE</see>:
+    ///         </term>
+    ///         <description>User may not login.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.SET_COMMENT">SET_COMMENT</see>:</term>
+    ///         <term><see
+    ///         cref="AlterUserRequest.Action.SET_COMMENT">SET_COMMENT</see>:
+    ///         </term>
     ///         <description>Sets the comment for an internal user.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
+    ///         cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:
     ///         </term>
     ///         <description>Set the default_schema for an internal user. An
     ///         empty string means the user will have no default schema.
     ///         </description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Action.SET_PASSWORD">SET_PASSWORD</see>:
+    ///         <term><see
+    ///         cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:
     ///         </term>
     ///         <description>Sets the password of the user. The user must be an
     ///         internal user.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
+    ///         cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:
     ///         </term>
     ///         <description>Sets the resource group for an internal user. The
     ///         resource group must exist, otherwise, an empty string assigns
@@ -177,8 +188,7 @@ public class AlterUserRequest : KineticaData
 } // end class AlterUserRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterUser(AlterUserRequest)">Kinetica.alterUser</see>.
-/// </summary>
+/// cref="Kinetica.alterUser">Kinetica.alterUser</see>.</summary>
 public class AlterUserResponse : KineticaData
 {
     /// <summary>Value of <see cref="AlterUserRequest.name">name</see>.

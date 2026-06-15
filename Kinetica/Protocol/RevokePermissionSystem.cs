@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionSystem(RevokePermissionSystemRequest)">Kinetica.revokePermissionSystem</see>.
+/// cref="Kinetica.revokePermissionSystem">Kinetica.revokePermissionSystem</see>.
 /// </summary>
 /// <remarks><para>Revokes a system-level permission from a user or role.
 /// </para></remarks>
 public class RevokePermissionSystemRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="RevokePermissionSystemRequest.permission" />.</summary>
     /// <remarks><para>Permission to revoke from the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -47,31 +47,34 @@ public class RevokePermissionSystemRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
     ///         </term>
     ///         <description>Full access to all data and system functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
     ///         </term>
     ///         <description>Read and write access to all tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_READ">SYSTEM_READ</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:
     ///         </term>
     ///         <description>Read-only access to all tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
     ///         </term>
     ///         <description>Send system alerts.</description>
     ///     </item>
@@ -96,31 +99,34 @@ public class RevokePermissionSystemRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:
     ///         </term>
     ///         <description>Full access to all data and system functions.
     ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:
     ///         </term>
     ///         <description>Access to administer users and roles that do not
     ///         have system_admin permission.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:
     ///         </term>
     ///         <description>Read and write access to all tables.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.SYSTEM_READ">SYSTEM_READ</see>:
+    ///         <term><see
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:
     ///         </term>
     ///         <description>Read-only access to all tables.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
-    ///         cref="Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
+    ///         cref="RevokePermissionSystemRequest.Permission.SYSTEM_SEND_ALERT">SYSTEM_SEND_ALERT</see>:
     ///         </term>
     ///         <description>Send system alerts.</description>
     ///     </item>
@@ -138,7 +144,7 @@ public class RevokePermissionSystemRequest : KineticaData
 } // end class RevokePermissionSystemRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionSystem(RevokePermissionSystemRequest)">Kinetica.revokePermissionSystem</see>.
+/// cref="Kinetica.revokePermissionSystem">Kinetica.revokePermissionSystem</see>.
 /// </summary>
 public class RevokePermissionSystemResponse : KineticaData
 {

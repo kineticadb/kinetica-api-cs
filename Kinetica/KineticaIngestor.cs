@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-namespace kinetica;
+﻿namespace kinetica;
 
 /// <summary>
 /// Manages the insertion into GPUdb of large numbers of records in bulk,
     /// with automatic batch management and support for multi-head ingest.
-    /// Use the <see cref="insert(record)"/> and <see cref="insert(List)"/>
+    /// Use the <see cref="insert(T)"/> and <see cref="insert(IList{T})"/>
     /// methods to queue records for insertion, and the <see cref="flush"/>
     /// method to ensure that all queued records have been inserted.
     /// </summary>
     /// <typeparam name="T">The type of object being inserted.</typeparam>
     /// <remarks>
     /// This class is obsolete. Use <see cref="BulkInserter{T}"/> instead, which provides
-    /// better performance, async support, and is consistent with the Rust API.
+    /// better performance and async support among other features.
     /// </remarks>
     [Obsolete("Use BulkInserter<T> instead. KineticaIngestor will be removed in a future version.")]
     public class KineticaIngestor<T>
@@ -56,15 +52,20 @@ namespace kinetica;
         private Random random;
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="kdb"></param>
-        /// <param name="tableName"></param>
-        /// <param name="batchSize"></param>
-        /// <param name="ktype"></param>
-        /// <param name="options"></param>
-        /// <param name="workers"></param>
+        /// <summary>Creates a new ingestor for bulk insertion of records into the
+        /// specified table.</summary>
+        /// <remarks>This class is obsolete; use <see cref="BulkInserter{T}"/>
+        /// instead for better performance, async support, and feature parity with
+        /// the Rust API.</remarks>
+        /// <param name="kdb">Kinetica client connection.</param>
+        /// <param name="tableName">Name of the target table to insert into.</param>
+        /// <param name="batchSize">Number of records to queue per worker before
+        /// flushing to the server.</param>
+        /// <param name="ktype">Type definition of the records being inserted.</param>
+        /// <param name="options">Optional ingest options; recognized keys are defined
+        /// as constants on <see cref="InsertRecordsRequest{T}.Options"/>.</param>
+        /// <param name="workers">Optional explicit list of worker URLs. If <c>null</c>,
+        /// the worker list is fetched from the server.</param>
         public KineticaIngestor( Kinetica kdb, string tableName,
                                  int batchSize, KineticaType ktype,
                                  Dictionary<string, string>? options = null,
@@ -195,12 +196,12 @@ namespace kinetica;
         /// <summary>
         /// Ensures that all queued records are inserted into Kinetica.  If an error
         /// occurs while inserting the records from any queue, the records will no
-        /// longer be in that queue nor in Kinetica; catch <see cref="InsertException{T}" />
+        /// longer be in that queue nor in Kinetica; catch <see cref="InsertException" />
         /// to get the list of records that were being inserted if needed (for example,
         /// to retry).  Other queues may also still contain unflushed records if this
         /// occurs.
         /// </summary>
-        /// <exception cref="InsertException{T}">If the flushed records fail to insert
+        /// <exception cref="InsertException">If the flushed records fail to insert
         /// </exception>
         public void flush()
         {
@@ -263,11 +264,11 @@ namespace kinetica;
         /// the configured batch size, all records in the queue will be
         /// inserted into Kinetica before the method returns.  If an error occurs
         /// while inserting the records, the records will no longer be in the queue
-        /// nor in Kinetica; catch <see cref="InsertException{T}"/>  to get the list
+        /// nor in Kinetica; catch <see cref="InsertException"/>  to get the list
         /// of records that were being inserted if needed (for example, to retry).
         /// </summary>
         /// <param name="record">The record to insert.</param>
-        /// <exception cref="InsertException{T}">If the record cannot be inserted
+        /// <exception cref="InsertException">If the record cannot be inserted
         /// </exception>
         public void insert( T record )
         {
@@ -318,14 +319,14 @@ namespace kinetica;
         /// reaches the configured batch size, all records in that queue
         /// will be inserted into Kinetica before the method returns.  If an
         /// error occurs while inserting the queued records, the records will
-        /// no longer be in that queue nor in Kinetica; catch <see cref="InsertException{T}"/> 
+        /// no longer be in that queue nor in Kinetica; catch <see cref="InsertException"/>
         /// to get the list of records that were being inserted (including any
         /// from the queue in question and any remaining in the list not yet
         /// queued) if needed (for example, to retry).  Note that depending on
         /// the number of records, multiple calls to Kinetica may occur.
         /// </summary>
         /// <param name="records">The records to insert.</param>
-        /// <exception cref="InsertException{T}"/>If the records cannot be
+        /// <exception cref="InsertException">If the records cannot be
         /// inserted</exception>
         public void insert( IList<T> records)
         {

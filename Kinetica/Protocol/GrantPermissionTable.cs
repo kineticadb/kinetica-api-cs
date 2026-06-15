@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionTable(GrantPermissionTableRequest)">Kinetica.grantPermissionTable</see>.
+/// cref="Kinetica.grantPermissionTable">Kinetica.grantPermissionTable</see>.
 /// </summary>
 /// <remarks><para>Grants a table-level permission to a user or role.</para>
 /// </remarks>
 public class GrantPermissionTableRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
-    /// cref="permission" />.</summary>
+    /// cref="GrantPermissionTableRequest.permission" />.</summary>
     /// <remarks><para>Permission to grant to the user or role.</para>
     /// </remarks>
     public struct Permission
@@ -39,7 +39,7 @@ public class GrantPermissionTableRequest : KineticaData
     } // end struct Permission
 
     /// <summary>A set of string constants for the parameter <see
-    /// cref="options" />.</summary>
+    /// cref="GrantPermissionTableRequest.options" />.</summary>
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
@@ -58,28 +58,33 @@ public class GrantPermissionTableRequest : KineticaData
     /// <remarks><para>Supported values:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access to the
     ///         table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:
     ///         </term>
     ///         <description>Insert access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
     ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:
     ///         </term>
     ///         <description>Delete access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:
     ///         </term>
     ///         <description>Read access to the table.</description>
     ///     </item>
@@ -103,7 +108,9 @@ public class GrantPermissionTableRequest : KineticaData
     /// <summary>Optional parameters.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Apply security to these columns, comma-separated.
     ///         The default value is ''.</description>
     ///     </item>
@@ -124,28 +131,33 @@ public class GrantPermissionTableRequest : KineticaData
     /// Supported values:
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:
     ///         </term>
     ///         <description>Full read/write and administrative access to the
     ///         table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_INSERT">TABLE_INSERT</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:
     ///         </term>
     ///         <description>Insert access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:
     ///         </term>
     ///         <description>Update access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_DELETE">TABLE_DELETE</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:
     ///         </term>
     ///         <description>Delete access to the table.</description>
     ///     </item>
     ///     <item>
-    ///         <term><see cref="Permission.TABLE_READ">TABLE_READ</see>:
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:
     ///         </term>
     ///         <description>Read access to the table.</description>
     ///     </item>
@@ -162,7 +174,9 @@ public class GrantPermissionTableRequest : KineticaData
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
-    ///         <term><see cref="Options.COLUMNS">COLUMNS</see>:</term>
+    ///         <term><see
+    ///         cref="GrantPermissionTableRequest.Options.COLUMNS">COLUMNS</see>:
+    ///         </term>
     ///         <description>Apply security to these columns, comma-separated.
     ///         The default value is ''.</description>
     ///     </item>
@@ -183,7 +197,7 @@ public class GrantPermissionTableRequest : KineticaData
 } // end class GrantPermissionTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionTable(GrantPermissionTableRequest)">Kinetica.grantPermissionTable</see>.
+/// cref="Kinetica.grantPermissionTable">Kinetica.grantPermissionTable</see>.
 /// </summary>
 public class GrantPermissionTableResponse : KineticaData
 {

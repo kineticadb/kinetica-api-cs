@@ -9,8 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
-/// </summary>
+/// cref="Kinetica.clearStatistics">Kinetica.clearStatistics</see>.</summary>
 /// <remarks><para>Clears statistics (cardinality, mean value, etc.) for a
 /// column in a specified table.</para></remarks>
 public class ClearStatisticsRequest : KineticaData
@@ -22,8 +21,9 @@ public class ClearStatisticsRequest : KineticaData
     /// </para></remarks>
     public string table_name { get; set; } = "";
 
-    /// <summary>Name of the column in <see cref="table_name" /> for which to
-    /// clear statistics.</summary>
+    /// <summary>Name of the column in <see
+    /// cref="ClearStatisticsRequest.table_name" /> for which to clear
+    /// statistics.</summary>
     /// <remarks><para>The column must be from an existing table. An empty
     /// string clears statistics for all columns in the table. The default
     /// value is ''.</para></remarks>
@@ -63,8 +63,7 @@ public class ClearStatisticsRequest : KineticaData
 } // end class ClearStatisticsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
-/// </summary>
+/// cref="Kinetica.clearStatistics">Kinetica.clearStatistics</see>.</summary>
 public class ClearStatisticsResponse : KineticaData
 {
     /// <summary>Value of <see
