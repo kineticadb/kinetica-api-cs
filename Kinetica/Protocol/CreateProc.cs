@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createProc">Kinetica.createProc</see>.</summary>
+/// cref="Kinetica.createProc(CreateProcRequest)">Kinetica.createProc</see>.
+/// </summary>
 /// <remarks><para>Creates an instance (proc) of the <a
 /// href="../../../concepts/udf/" target="_top">user-defined functions</a>
 /// (UDF) specified by the given command, options, and files, and makes it
@@ -32,7 +33,8 @@ public class CreateProcRequest : KineticaData
         /// <summary>The proc command will be invoked only once per execution,
         /// and will not have direct access to any tables named as input or
         /// output table parameters in the call to <see
-        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        /// </summary>
         /// <remarks><para> It will, however, be able to access the database
         /// using native API calls.</para></remarks>
         public const string NONDISTRIBUTED = "nondistributed";
@@ -81,9 +83,9 @@ public class CreateProcRequest : KineticaData
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>.  It
-    ///         will, however, be able to access the database using native API
-    ///         calls.</description>
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         It will, however, be able to access the database using native
+    ///         API calls.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is <see
@@ -173,9 +175,9 @@ public class CreateProcRequest : KineticaData
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>.  It
-    ///         will, however, be able to access the database using native API
-    ///         calls.</description>
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         It will, however, be able to access the database using native
+    ///         API calls.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -240,7 +242,8 @@ public class CreateProcRequest : KineticaData
 } // end class CreateProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createProc">Kinetica.createProc</see>.</summary>
+/// cref="Kinetica.createProc(CreateProcRequest)">Kinetica.createProc</see>.
+/// </summary>
 public class CreateProcResponse : KineticaData
 {
     /// <summary>Value of <see

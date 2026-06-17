@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.clearTrigger">Kinetica.clearTrigger</see>.</summary>
+/// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>.
+/// </summary>
 /// <remarks><para>Clears or cancels the trigger identified by the specified
 /// handle. The output returns the handle of the trigger cleared as well as
 /// indicating success or failure of the trigger deactivation.</para></remarks>
@@ -42,7 +43,8 @@ public class ClearTriggerRequest : KineticaData
 } // end class ClearTriggerRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.clearTrigger">Kinetica.clearTrigger</see>.</summary>
+/// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>.
+/// </summary>
 public class ClearTriggerResponse : KineticaData
 {
     /// <summary>Value of <see

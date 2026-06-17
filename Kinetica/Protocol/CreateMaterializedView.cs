@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createMaterializedView">Kinetica.createMaterializedView</see>.
+/// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>.
 /// </summary>
 /// <remarks><para>Initiates the process of creating a materialized view,
 /// reserving the view's name to prevent other views or tables from being
@@ -31,9 +31,9 @@ public class CreateMaterializedViewRequest : KineticaData
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// materialized view as part of <see
         /// cref="CreateMaterializedViewRequest.table_name" /> and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema which is to contain
-        /// the newly created view.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema which is to
+        /// contain the newly created view.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -100,7 +100,13 @@ public class CreateMaterializedViewRequest : KineticaData
         /// persisted and will not expire unless a <see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see> is
         /// specified.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>,
+        /// then the materialized view will be an in-memory table and will
+        /// expire unless a <see
+        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see> is
+        /// specified otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -118,7 +124,12 @@ public class CreateMaterializedViewRequest : KineticaData
         /// </para></remarks>
         public const string PERSIST = "persist";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateMaterializedViewRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateMaterializedViewRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
@@ -127,7 +138,9 @@ public class CreateMaterializedViewRequest : KineticaData
         /// in-progress out-of-place update cannot make a record momentarily
         /// disappear from the view, and a long refresh does not block updates
         /// to the base tables.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Overrides the {gaia.enable_mv_input_wrappers}
+        /// configuration default when set.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -169,8 +182,8 @@ public class CreateMaterializedViewRequest : KineticaData
         ///         </term>
         ///         <description>Refresh only occurs when manually requested by
         ///         calling <see
-        ///         cref="Kinetica.alterTable">Kinetica.alterTable</see> with
-        ///         an 'action' of 'refresh'.</description>
+        ///         cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
+        ///         with an 'action' of 'refresh'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -205,8 +218,9 @@ public class CreateMaterializedViewRequest : KineticaData
         public const string REFRESH_METHOD = "refresh_method";
 
         /// <summary>Refresh only occurs when manually requested by calling
-        /// <see cref="Kinetica.alterTable">Kinetica.alterTable</see> with an
-        /// 'action' of 'refresh'.</summary>
+        /// <see
+        /// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
+        /// with an 'action' of 'refresh'.</summary>
         public const string MANUAL = "manual";
 
         /// <summary>Refresh any time the view is queried.</summary>
@@ -264,9 +278,9 @@ public class CreateMaterializedViewRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the materialized view as part of <see
     ///         cref="CreateMaterializedViewRequest.table_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the newly created view. If the schema provided is
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the newly created view. If the schema provided is
     ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
@@ -410,7 +424,7 @@ public class CreateMaterializedViewRequest : KineticaData
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by calling <see
-    ///                 cref="Kinetica.alterTable">Kinetica.alterTable</see>
+    ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
     ///                 with an 'action' of 'refresh'.</description>
     ///             </item>
     ///             <item>
@@ -503,9 +517,9 @@ public class CreateMaterializedViewRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the materialized view as part of <paramref
     ///         name="table_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the newly created view. If the schema provided is
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the newly created view. If the schema provided is
     ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
@@ -649,7 +663,7 @@ public class CreateMaterializedViewRequest : KineticaData
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by calling <see
-    ///                 cref="Kinetica.alterTable">Kinetica.alterTable</see>
+    ///                 cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>
     ///                 with an 'action' of 'refresh'.</description>
     ///             </item>
     ///             <item>
@@ -725,7 +739,7 @@ public class CreateMaterializedViewRequest : KineticaData
 } // end class CreateMaterializedViewRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createMaterializedView">Kinetica.createMaterializedView</see>.
+/// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>.
 /// </summary>
 public class CreateMaterializedViewResponse : KineticaData
 {

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.clearTable">Kinetica.clearTable</see>.</summary>
+/// cref="Kinetica.clearTable(ClearTableRequest)">Kinetica.clearTable</see>.
+/// </summary>
 /// <remarks><para>Clears (drops) one or all tables in the database cluster.
 /// The operation is synchronous meaning that the table will be cleared before
 /// the function returns. The response payload returns the status of the
@@ -26,7 +27,11 @@ public class ClearTableRequest : KineticaData
         /// and if the table specified in <see
         /// cref="ClearTableRequest.table_name" /> does not exist no error is
         /// returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ClearTableRequest.Options.FALSE">FALSE</see> and if the table
+        /// specified in <see cref="ClearTableRequest.table_name" /> does not
+        /// exist then an error is returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ClearTableRequest.Options.TRUE">TRUE</see>
@@ -42,7 +47,12 @@ public class ClearTableRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ClearTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ClearTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -152,7 +162,8 @@ public class ClearTableRequest : KineticaData
 } // end class ClearTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.clearTable">Kinetica.clearTable</see>.</summary>
+/// cref="Kinetica.clearTable(ClearTableRequest)">Kinetica.clearTable</see>.
+/// </summary>
 public class ClearTableResponse : KineticaData
 {
     /// <summary>Value of <see

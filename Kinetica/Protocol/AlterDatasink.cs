@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterDatasink">Kinetica.alterDatasink</see>.</summary>
+/// cref="Kinetica.alterDatasink(AlterDatasinkRequest)">Kinetica.alterDatasink</see>.
+/// </summary>
 /// <remarks><para>Alters the properties of an existing <a
 /// href="../../../concepts/data_sinks/" target="_top">data sink</a>.</para>
 /// </remarks>
@@ -71,7 +72,14 @@ public class AlterDatasinkRequest : KineticaData
         /// </para></remarks>
         public const string S3_VERIFY_SSL = "s3_verify_ssl";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Whether to use virtual addressing when referencing the
@@ -215,7 +223,9 @@ public class AlterDatasinkRequest : KineticaData
 
         /// <summary>Create an anonymous connection to the storage
         /// provider--DEPRECATED: this is now the default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Specify use_managed_credentials for non-anonymous
+        /// connection.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -235,7 +245,9 @@ public class AlterDatasinkRequest : KineticaData
 
         /// <summary>When no credentials are supplied, we use anonymous access
         /// by default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If this is set, we will use cloud provider user
+        /// settings.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -349,7 +361,8 @@ public class AlterDatasinkRequest : KineticaData
 
     /// <summary>Map containing the properties of the data sink to be updated.
     /// </summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Error if empty.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:
@@ -1239,7 +1252,8 @@ public class AlterDatasinkRequest : KineticaData
 } // end class AlterDatasinkRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterDatasink">Kinetica.alterDatasink</see>.</summary>
+/// cref="Kinetica.alterDatasink(AlterDatasinkRequest)">Kinetica.alterDatasink</see>.
+/// </summary>
 public class AlterDatasinkResponse : KineticaData
 {
     /// <summary>Map of values updated.</summary>

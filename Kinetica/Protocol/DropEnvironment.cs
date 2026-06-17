@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropEnvironment">Kinetica.dropEnvironment</see>.</summary>
+/// cref="Kinetica.dropEnvironment(DropEnvironmentRequest)">Kinetica.dropEnvironment</see>.
+/// </summary>
 /// <remarks><para>Drop an existing <a href="../../../concepts/udf/"
 /// target="_top">user-defined function</a> (UDF) environment.</para></remarks>
 public class DropEnvironmentRequest : KineticaData
@@ -24,7 +25,12 @@ public class DropEnvironmentRequest : KineticaData
         /// environment specified in <see
         /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
         /// no error is returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see> and if the
+        /// environment specified in <see
+        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
+        /// then an error is returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -42,7 +48,12 @@ public class DropEnvironmentRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DropEnvironmentRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DropEnvironmentRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -136,7 +147,8 @@ public class DropEnvironmentRequest : KineticaData
 } // end class DropEnvironmentRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropEnvironment">Kinetica.dropEnvironment</see>.</summary>
+/// cref="Kinetica.dropEnvironment(DropEnvironmentRequest)">Kinetica.dropEnvironment</see>.
+/// </summary>
 public class DropEnvironmentResponse : KineticaData
 {
     /// <summary>Value of <see

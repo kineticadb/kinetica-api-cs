@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateStatisticsByRange">Kinetica.aggregateStatisticsByRange</see>.
+/// cref="Kinetica.aggregateStatisticsByRange(AggregateStatisticsByRangeRequest)">Kinetica.aggregateStatisticsByRange</see>.
 /// </summary>
 /// <remarks><para>Divides the given set into bins and calculates statistics of
 /// the values of a value-column in each bin.  The bins are based on the values
@@ -220,7 +220,7 @@ public class AggregateStatisticsByRangeRequest : KineticaData
 } // end class AggregateStatisticsByRangeRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateStatisticsByRange">Kinetica.aggregateStatisticsByRange</see>.
+/// cref="Kinetica.aggregateStatisticsByRange(AggregateStatisticsByRangeRequest)">Kinetica.aggregateStatisticsByRange</see>.
 /// </summary>
 public class AggregateStatisticsByRangeResponse : KineticaData
 {

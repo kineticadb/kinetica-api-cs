@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.clearStatistics">Kinetica.clearStatistics</see>.</summary>
+/// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
+/// </summary>
 /// <remarks><para>Clears statistics (cardinality, mean value, etc.) for a
 /// column in a specified table.</para></remarks>
 public class ClearStatisticsRequest : KineticaData
@@ -63,7 +64,8 @@ public class ClearStatisticsRequest : KineticaData
 } // end class ClearStatisticsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.clearStatistics">Kinetica.clearStatistics</see>.</summary>
+/// cref="Kinetica.clearStatistics(ClearStatisticsRequest)">Kinetica.clearStatistics</see>.
+/// </summary>
 public class ClearStatisticsResponse : KineticaData
 {
     /// <summary>Value of <see

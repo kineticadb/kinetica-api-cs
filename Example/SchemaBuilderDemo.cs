@@ -1,15 +1,15 @@
-/// <summary>
-/// Schema Builder Demo
-///
-/// This example demonstrates different approaches for defining Kinetica
-/// record schemas in C#:
-///   1. Using KineticaType with column builders
-///   2. Using SQL CREATE TABLE statements
-///   3. Using Avro schema JSON directly
-///
-/// Run with:
-///   dotnet run --project Example -- --schema-demo
-/// </summary>
+/*
+ * Schema Builder Demo
+ *
+ * This example demonstrates different approaches for defining Kinetica
+ * record schemas in C#:
+ *   1. Using KineticaType with column builders
+ *   2. Using SQL CREATE TABLE statements
+ *   3. Using Avro schema JSON directly
+ *
+ * Run with:
+ *   dotnet run --project Example -- --schema-demo
+ */
 
 using System;
 using System.Collections.Generic;

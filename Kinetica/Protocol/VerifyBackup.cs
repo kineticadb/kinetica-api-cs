@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.verifyBackup">Kinetica.verifyBackup</see>.</summary>
+/// cref="Kinetica.verifyBackup(VerifyBackupRequest)">Kinetica.verifyBackup</see>.
+/// </summary>
 /// <remarks><para>Inspects the requested database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup(s)</a> for conformity at the remote file store
@@ -28,8 +29,8 @@ public class VerifyBackupRequest : KineticaData
     public struct Options
     {
         /// <summary>ID of the snapshot to verify.</summary>
-        /// <remarks><para>Set to '-1' to verify only the most recent snapshot
-        /// in the backup. Leave empty to verify all snapshots. The default
+        /// <remarks><para>Set to '-1' to verify all snapshots in the backup.
+        /// Leave empty to verify only the most recent snapshot. The default
         /// value is '-1'.</para></remarks>
         public const string BACKUP_ID = "backup_id";
     } // end struct Options
@@ -50,8 +51,8 @@ public class VerifyBackupRequest : KineticaData
     ///         cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
     ///         </term>
     ///         <description>ID of the snapshot to verify. Set to '-1' to
-    ///         verify only the most recent snapshot in the backup. Leave empty
-    ///         to verify all snapshots. The default value is '-1'.
+    ///         verify all snapshots in the backup. Leave empty to verify only
+    ///         the most recent snapshot. The default value is '-1'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -78,8 +79,8 @@ public class VerifyBackupRequest : KineticaData
     ///         cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
     ///         </term>
     ///         <description>ID of the snapshot to verify. Set to '-1' to
-    ///         verify only the most recent snapshot in the backup. Leave empty
-    ///         to verify all snapshots. The default value is '-1'.
+    ///         verify all snapshots in the backup. Leave empty to verify only
+    ///         the most recent snapshot. The default value is '-1'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -95,7 +96,8 @@ public class VerifyBackupRequest : KineticaData
 } // end class VerifyBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.verifyBackup">Kinetica.verifyBackup</see>.</summary>
+/// cref="Kinetica.verifyBackup(VerifyBackupRequest)">Kinetica.verifyBackup</see>.
+/// </summary>
 public class VerifyBackupResponse : KineticaData
 {
     /// <summary>Value of <see

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterCredential">Kinetica.alterCredential</see>.</summary>
+/// cref="Kinetica.alterCredential(AlterCredentialRequest)">Kinetica.alterCredential</see>.
+/// </summary>
 /// <remarks><para>Alter the properties of an existing <a
 /// href="../../../concepts/credentials/" target="_top">credential</a>.</para>
 /// </remarks>
@@ -82,16 +83,59 @@ public class AlterCredentialRequest : KineticaData
         /// </list></remarks>
         public const string TYPE = "type";
 
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string AWS_ACCESS_KEY = "aws_access_key";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string AWS_IAM_ROLE = "aws_iam_role";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string AZURE_AD = "azure_ad";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string AZURE_OAUTH = "azure_oauth";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string AZURE_SAS = "azure_sas";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string AZURE_STORAGE_KEY = "azure_storage_key";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string DOCKER = "docker";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string GCS_SERVICE_ACCOUNT_ID = "gcs_service_account_id";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string HDFS = "hdfs";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap" /> options.
+        /// </summary>
         public const string KAFKA = "kafka";
 
         /// <summary>New user for the credential.</summary>
@@ -116,7 +160,8 @@ public class AlterCredentialRequest : KineticaData
 
     /// <summary>Map containing the properties of the credential to be updated.
     /// </summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Error if empty.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterCredentialRequest.CredentialUpdatesMap.TYPE">TYPE</see>:
@@ -322,7 +367,8 @@ public class AlterCredentialRequest : KineticaData
 } // end class AlterCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterCredential">Kinetica.alterCredential</see>.</summary>
+/// cref="Kinetica.alterCredential(AlterCredentialRequest)">Kinetica.alterCredential</see>.
+/// </summary>
 public class AlterCredentialResponse : KineticaData
 {
     /// <summary>Value of <see

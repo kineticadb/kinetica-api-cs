@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createUserInternal">Kinetica.createUserInternal</see>.
+/// cref="Kinetica.createUserInternal(CreateUserInternalRequest)">Kinetica.createUserInternal</see>.
 /// </summary>
 /// <remarks><para>Creates a new internal user (a user whose credentials are
 /// managed by the database system).</para></remarks>
@@ -41,7 +41,12 @@ public class CreateUserInternalRequest : KineticaData
         /// </remarks>
         public const string ACTIVATED = "activated";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateUserInternalRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateUserInternalRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>When <see
@@ -273,7 +278,7 @@ public class CreateUserInternalRequest : KineticaData
 } // end class CreateUserInternalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createUserInternal">Kinetica.createUserInternal</see>.
+/// cref="Kinetica.createUserInternal(CreateUserInternalRequest)">Kinetica.createUserInternal</see>.
 /// </summary>
 public class CreateUserInternalResponse : KineticaData
 {

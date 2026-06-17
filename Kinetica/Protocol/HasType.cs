@@ -9,12 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasType">Kinetica.hasType</see>.</summary>
+/// cref="Kinetica.hasType(HasTypeRequest)">Kinetica.hasType</see>.</summary>
 /// <remarks><para>Check for the existence of a type.</para></remarks>
 public class HasTypeRequest : KineticaData
 {
     /// <summary>Id of the type returned in response to <see
-    /// cref="Kinetica.createType">Kinetica.createType</see> request.</summary>
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>
+    /// request.</summary>
     public string type_id { get; set; }
 
     /// <summary>Optional parameters.</summary>
@@ -30,7 +31,8 @@ public class HasTypeRequest : KineticaData
     /// parameters.</summary>
     ///
     /// <param name="type_id">Id of the type returned in response to <see
-    /// cref="Kinetica.createType">Kinetica.createType</see> request.</param>
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>
+    /// request.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     public HasTypeRequest( string type_id,
@@ -42,7 +44,7 @@ public class HasTypeRequest : KineticaData
 } // end class HasTypeRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasType">Kinetica.hasType</see>.</summary>
+/// cref="Kinetica.hasType(HasTypeRequest)">Kinetica.hasType</see>.</summary>
 public class HasTypeResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -51,7 +53,12 @@ public class HasTypeResponse : KineticaData
     /// </remarks>
     public struct TypeExists
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="HasTypeResponse.TypeExists" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="HasTypeResponse.TypeExists" /> options.</summary>
         public const string FALSE = "false";
     } // end struct TypeExists
 

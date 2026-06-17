@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsRandom">Kinetica.insertRecordsRandom</see>.
+/// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
 /// </summary>
 /// <remarks><para>Generates a specified number of random records and adds them
 /// to the given table. There is an optional parameter that allows the user to
@@ -35,7 +35,15 @@ public class InsertRecordsRandomRequest : KineticaData
     {
         /// <summary>If provided, the internal random number generator will be
         /// initialized with the given value.</summary>
-        /// <remarks><list type="bullet">
+        /// <remarks><para> The minimum is 0.  This allows for the same set of
+        /// random numbers to be generated across invocation of this endpoint
+        /// in case the user wants to repeat the test.  Since <see
+        /// cref="InsertRecordsRandomRequest.options" />, is a map of maps, we
+        /// need an internal map to provide the seed value.  For example, to
+        /// pass 100 as the seed value through this parameter, you need
+        /// something equivalent to: 'options' = {'seed': { 'value': 100 } }.
+        /// </para>
+        /// <list type="bullet">
         ///     <item>
         ///         <term><see
         ///         cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:
@@ -186,7 +194,9 @@ public class InsertRecordsRandomRequest : KineticaData
         /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>,
         /// and set the following parameters for the column specified.
         /// </summary>
-        /// <remarks><list type="bullet">
+        /// <remarks><para>This overrides any parameter set by <see
+        /// cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>.</para>
+        /// <list type="bullet">
         ///     <item>
         ///         <term><see
         ///         cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
@@ -276,7 +286,9 @@ public class InsertRecordsRandomRequest : KineticaData
 
         /// <summary>This key-map pair is only valid for track data sets (an
         /// error is thrown otherwise).</summary>
-        /// <remarks><list type="bullet">
+        /// <remarks><para> No nulls would be generated for nullable columns.
+        /// </para>
+        /// <list type="bullet">
         ///     <item>
         ///         <term><see
         ///         cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:
@@ -315,7 +327,14 @@ public class InsertRecordsRandomRequest : KineticaData
 
     /// <summary>Optional parameter to pass in specifications for the
     /// randomness of the values.</summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para> This map is different from the *options* parameter of
+    /// most other endpoints in that it is a map of string to map of string to
+    /// doubles, while most others are maps of string to string.  In this map,
+    /// the top level keys represent which column's parameters are being
+    /// specified, while the internal keys represents which parameter is being
+    /// specified.  These parameters take on different meanings depending on
+    /// the type of the column.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:
@@ -848,7 +867,7 @@ public class InsertRecordsRandomRequest : KineticaData
 } // end class InsertRecordsRandomRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecordsRandom">Kinetica.insertRecordsRandom</see>.
+/// cref="Kinetica.insertRecordsRandom(InsertRecordsRandomRequest)">Kinetica.insertRecordsRandom</see>.
 /// </summary>
 public class InsertRecordsRandomResponse : KineticaData
 {

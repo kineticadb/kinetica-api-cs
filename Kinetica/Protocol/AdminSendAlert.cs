@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminSendAlert">Kinetica.adminSendAlert</see>.</summary>
+/// cref="Kinetica.adminSendAlert(AdminSendAlertRequest)">Kinetica.adminSendAlert</see>.
+/// </summary>
 /// <remarks><para>Sends a user generated alert to the monitoring system.
 /// </para></remarks>
 public class AdminSendAlertRequest : KineticaData
@@ -19,10 +20,24 @@ public class AdminSendAlertRequest : KineticaData
     /// <remarks><para>Alert message logging criteria.</para></remarks>
     public struct LogLevel
     {
+        /// <summary>A constant for the <see
+        /// cref="AdminSendAlertRequest.LogLevel" /> options.</summary>
         public const string FATAL = "fatal";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminSendAlertRequest.LogLevel" /> options.</summary>
         public const string ERROR = "error";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminSendAlertRequest.LogLevel" /> options.</summary>
         public const string WARN = "warn";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminSendAlertRequest.LogLevel" /> options.</summary>
         public const string INFO = "info";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminSendAlertRequest.LogLevel" /> options.</summary>
         public const string DEBUG = "debug";
     } // end struct LogLevel
 
@@ -115,7 +130,8 @@ public class AdminSendAlertRequest : KineticaData
 } // end class AdminSendAlertRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminSendAlert">Kinetica.adminSendAlert</see>.</summary>
+/// cref="Kinetica.adminSendAlert(AdminSendAlertRequest)">Kinetica.adminSendAlert</see>.
+/// </summary>
 public class AdminSendAlertResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

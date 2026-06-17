@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSecurity">Kinetica.showSecurity</see>.</summary>
+/// cref="Kinetica.showSecurity(ShowSecurityRequest)">Kinetica.showSecurity</see>.
+/// </summary>
 /// <remarks><para>Shows security information relating to users and/or roles.
 /// If the caller is not a system administrator, only information relating to
 /// the caller and their roles is returned.</para></remarks>
@@ -39,7 +40,12 @@ public class ShowSecurityRequest : KineticaData
         /// </remarks>
         public const string SHOW_CURRENT_USER = "show_current_user";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowSecurityRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowSecurityRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -126,7 +132,8 @@ public class ShowSecurityRequest : KineticaData
 } // end class ShowSecurityRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSecurity">Kinetica.showSecurity</see>.</summary>
+/// cref="Kinetica.showSecurity(ShowSecurityRequest)">Kinetica.showSecurity</see>.
+/// </summary>
 public class ShowSecurityResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

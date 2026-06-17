@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.lockTable">Kinetica.lockTable</see>.</summary>
+/// cref="Kinetica.lockTable(LockTableRequest)">Kinetica.lockTable</see>.
+/// </summary>
 /// <remarks><para>Manages global access to a table's data.  By default a table
 /// has a <see cref="LockTableRequest.lock_type" /> of <see
 /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>, indicating
@@ -58,7 +59,10 @@ public class LockTableRequest : KineticaData
     public string table_name { get; set; }
 
     /// <summary>The type of lock being applied to the table.</summary>
-    /// <remarks><para>Supported values:</para>
+    /// <remarks><para>Setting it to <see
+    /// cref="LockTableRequest.LockType.STATUS">STATUS</see> will return the
+    /// current lock status of the table without changing it.
+    /// Supported values:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -161,7 +165,8 @@ public class LockTableRequest : KineticaData
 } // end class LockTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.lockTable">Kinetica.lockTable</see>.</summary>
+/// cref="Kinetica.lockTable(LockTableRequest)">Kinetica.lockTable</see>.
+/// </summary>
 public class LockTableResponse : KineticaData
 {
     /// <summary>Returns the lock state of the table.</summary>

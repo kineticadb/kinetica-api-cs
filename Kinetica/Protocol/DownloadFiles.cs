@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.downloadFiles">Kinetica.downloadFiles</see>.</summary>
+/// cref="Kinetica.downloadFiles(DownloadFilesRequest)">Kinetica.downloadFiles</see>.
+/// </summary>
 /// <remarks><para>Downloads one or more files from <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>.</para></remarks>
 public class DownloadFilesRequest : KineticaData
@@ -20,7 +21,10 @@ public class DownloadFilesRequest : KineticaData
     public struct Options
     {
         /// <summary>Encoding to be applied to the output file data.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When using JSON serialization it is recommended to
+        /// specify this as <see
+        /// cref="DownloadFilesRequest.Options.BASE64">BASE64</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -180,7 +184,8 @@ public class DownloadFilesRequest : KineticaData
 } // end class DownloadFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.downloadFiles">Kinetica.downloadFiles</see>.</summary>
+/// cref="Kinetica.downloadFiles(DownloadFilesRequest)">Kinetica.downloadFiles</see>.
+/// </summary>
 public class DownloadFilesResponse : KineticaData
 {
     /// <summary>Names of the files downloaded from KiFS.</summary>

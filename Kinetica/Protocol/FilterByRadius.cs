@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByRadius">Kinetica.filterByRadius</see>.</summary>
+/// cref="Kinetica.filterByRadius(FilterByRadiusRequest)">Kinetica.filterByRadius</see>.
+/// </summary>
 /// <remarks><para>Calculates which objects from a table lie within a circle
 /// with the given radius and center point (i.e. circular NAI). The operation
 /// is synchronous, meaning that a response will not be returned until all the
@@ -33,7 +34,11 @@ public class FilterByRadiusRequest : KineticaData
         /// temporary table name will be generated in the sys_temp schema and
         /// used in place of <see cref="FilterByRadiusRequest.view_name" />.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="FilterByRadiusResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -50,12 +55,18 @@ public class FilterByRadiusRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByRadiusRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByRadiusRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// view as part of <see cref="FilterByRadiusRequest.view_name" /> and
-        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+        /// use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema which is to
         /// contain the newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -143,9 +154,9 @@ public class FilterByRadiusRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <see
     ///         cref="FilterByRadiusRequest.view_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the newly created view. If the schema is
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the newly created view. If the schema is
     ///         non-existent, it will be automatically created.</description>
     ///     </item>
     /// </list>
@@ -222,7 +233,8 @@ public class FilterByRadiusRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema which
     ///         is to contain the newly created view. If the schema is
     ///         non-existent, it will be automatically created.</description>
@@ -250,7 +262,8 @@ public class FilterByRadiusRequest : KineticaData
 } // end class FilterByRadiusRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByRadius">Kinetica.filterByRadius</see>.</summary>
+/// cref="Kinetica.filterByRadius(FilterByRadiusRequest)">Kinetica.filterByRadius</see>.
+/// </summary>
 public class FilterByRadiusResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

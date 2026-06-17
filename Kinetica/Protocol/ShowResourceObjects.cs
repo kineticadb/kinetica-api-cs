@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showResourceObjects">Kinetica.showResourceObjects</see>.
+/// cref="Kinetica.showResourceObjects(ShowResourceObjectsRequest)">Kinetica.showResourceObjects</see>.
 /// </summary>
 /// <remarks><para>Returns information about the internal sub-components
 /// (tiered objects) which use resources of the system. The request can either
@@ -94,15 +94,44 @@ public class ShowResourceObjectsRequest : KineticaData
         /// </list></remarks>
         public const string ORDER_BY = "order_by";
 
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string SIZE = "size";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string ID = "id";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string PRIORITY = "priority";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string TIER = "tier";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string EVICTABLE = "evictable";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string LOCKED = "locked";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string PIN_COUNT = "pin_count";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string RAM_EVICTIONS = "ram_evictions";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string PERSIST_EVICTIONS = "persist_evictions";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowResourceObjectsRequest.Options" /> options.</summary>
         public const string OWNER_RESOURCE_GROUP = "owner_resource_group";
 
         /// <summary>An integer indicating the maximum number of results to be
@@ -343,7 +372,7 @@ public class ShowResourceObjectsRequest : KineticaData
 } // end class ShowResourceObjectsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showResourceObjects">Kinetica.showResourceObjects</see>.
+/// cref="Kinetica.showResourceObjects(ShowResourceObjectsRequest)">Kinetica.showResourceObjects</see>.
 /// </summary>
 public class ShowResourceObjectsResponse : KineticaData
 {

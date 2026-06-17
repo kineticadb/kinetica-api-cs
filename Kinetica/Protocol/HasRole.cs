@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasRole">Kinetica.hasRole</see>.</summary>
+/// cref="Kinetica.hasRole(HasRoleRequest)">Kinetica.hasRole</see>.</summary>
 /// <remarks><para>Checks if the specified user has the specified role.</para>
 /// </remarks>
 public class HasRoleRequest : KineticaData
@@ -22,7 +22,11 @@ public class HasRoleRequest : KineticaData
         /// <summary>If <see cref="HasRoleRequest.Options.FALSE">FALSE</see>
         /// will return an error if the provided <see
         /// cref="HasRoleRequest.role" /> does not exist or is blank.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="HasRoleRequest.Options.TRUE">TRUE</see> then it will return
+        /// <see cref="HasRoleResponse.HasRole.FALSE">FALSE</see> for <see
+        /// cref="HasRoleResponse.has_role">has_role</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="HasRoleRequest.Options.TRUE">TRUE</see>
@@ -37,13 +41,22 @@ public class HasRoleRequest : KineticaData
         /// cref="HasRoleRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="HasRoleRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="HasRoleRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="HasRoleRequest.Options.FALSE">FALSE</see>
         /// will search recursively if the <see cref="HasRoleRequest.principal"
         /// /> is a member of <see cref="HasRoleRequest.role" />.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If <see
+        /// cref="HasRoleRequest.Options.TRUE">TRUE</see> then <see
+        /// cref="HasRoleRequest.principal" /> must directly be a member of
+        /// <see cref="HasRoleRequest.role" />.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="HasRoleRequest.Options.TRUE">TRUE</see>
@@ -200,7 +213,7 @@ public class HasRoleRequest : KineticaData
 } // end class HasRoleRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasRole">Kinetica.hasRole</see>.</summary>
+/// cref="Kinetica.hasRole(HasRoleRequest)">Kinetica.hasRole</see>.</summary>
 public class HasRoleResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -210,10 +223,12 @@ public class HasRoleResponse : KineticaData
     /// </remarks>
     public struct HasRole
     {
-        /// <summary>User has membership in the role.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="HasRoleResponse.HasRole" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>User does not have membership in the role.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="HasRoleResponse.HasRole" /> options.</summary>
         public const string FALSE = "false";
     } // end struct HasRole
 
@@ -239,7 +254,12 @@ public class HasRoleResponse : KineticaData
         /// cref="HasRoleResponse.Info.FALSE">FALSE</see>.</para></remarks>
         public const string DIRECT = "direct";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="HasRoleResponse.Info" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="HasRoleResponse.Info" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Info
 

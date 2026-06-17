@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTable">Kinetica.showTable</see>.</summary>
+/// cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>.
+/// </summary>
 /// <remarks><para>Retrieves detailed information about a table, view, or
 /// schema, specified in <see cref="ShowTableRequest.table_name" />. If the
 /// supplied <see cref="ShowTableRequest.table_name" /> is a schema the call
@@ -64,7 +65,12 @@ public class ShowTableRequest : KineticaData
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string DEPENDENCIES = "dependencies";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
@@ -106,7 +112,9 @@ public class ShowTableRequest : KineticaData
         /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
         /// then the number of records in each table, along with a cumulative
         /// count, will be returned; blank, otherwise.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This version will return the sizes cached at rank 0,
+        /// which may be stale if there is a multihead insert occurring.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
@@ -177,7 +185,10 @@ public class ShowTableRequest : KineticaData
         /// <summary>If <see cref="ShowTableRequest.Options.FALSE">FALSE</see>
         /// will return an error if the provided <see
         /// cref="ShowTableRequest.table_name" /> does not exist.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see> then it will return
+        /// an empty result.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
@@ -195,7 +206,8 @@ public class ShowTableRequest : KineticaData
         /// <summary>If <see cref="ShowTableRequest.Options.TRUE">TRUE</see>
         /// then the table list will not include tables from SYS_TEMP and other
         /// system temporary schemas.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> This is the default behavior for non-admin users.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
@@ -215,7 +227,14 @@ public class ShowTableRequest : KineticaData
         /// return information about the tables and views in the schema, and
         /// <see cref="ShowTableRequest.Options.FALSE">FALSE</see> will return
         /// information about the schema itself.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see cref="ShowTableRequest.table_name" /> is a
+        /// table or view, <see
+        /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
+        /// must be <see cref="ShowTableRequest.Options.FALSE">FALSE</see>. If
+        /// <see cref="ShowTableRequest.table_name" /> is empty, then <see
+        /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>
+        /// must be <see cref="ShowTableRequest.Options.TRUE">TRUE</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowTableRequest.Options.TRUE">TRUE</see>
@@ -819,7 +838,8 @@ public class ShowTableRequest : KineticaData
 } // end class ShowTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTable">Kinetica.showTable</see>.</summary>
+/// cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>.
+/// </summary>
 public class ShowTableResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -828,17 +848,52 @@ public class ShowTableResponse : KineticaData
     /// cref="ShowTableResponse.table_names" />.</para></remarks>
     public struct TableDescriptions
     {
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string COLLECTION = "COLLECTION";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string JOIN = "JOIN";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string LOGICAL_EXTERNAL_TABLE = "LOGICAL_EXTERNAL_TABLE";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string LOGICAL_VIEW = "LOGICAL_VIEW";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string MATERIALIZED_EXTERNAL_TABLE = "MATERIALIZED_EXTERNAL_TABLE";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string MATERIALIZED_VIEW = "MATERIALIZED_VIEW";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string MATERIALIZED_VIEW_MEMBER = "MATERIALIZED_VIEW_MEMBER";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string MATERIALIZED_VIEW_UNDER_CONSTRUCTION = "MATERIALIZED_VIEW_UNDER_CONSTRUCTION";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string REPLICATED = "REPLICATED";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string RESULT_TABLE = "RESULT_TABLE";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string SCHEMA = "SCHEMA";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.TableDescriptions" /> options.</summary>
         public const string VIEW = "VIEW";
     } // end struct TableDescriptions
 
@@ -869,8 +924,16 @@ public class ShowTableResponse : KineticaData
         /// </list></remarks>
         public const string REQUEST_AVRO_TYPE = "request_avro_type";
 
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.AdditionalInfo" /> options.</summary>
         public const string CREATE_TABLE = "create_table";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.AdditionalInfo" /> options.</summary>
         public const string CREATE_PROJECTION = "create_projection";
+
+        /// <summary>A constant for the <see
+        /// cref="ShowTableResponse.AdditionalInfo" /> options.</summary>
         public const string CREATE_UNION = "create_union";
 
         /// <summary>The JSON representation of request creating this table.
@@ -879,7 +942,9 @@ public class ShowTableResponse : KineticaData
         public const string REQUEST_AVRO_JSON = "request_avro_json";
 
         /// <summary>No longer used.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Indicated whether the respective table was
+        /// protected or not.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -894,7 +959,12 @@ public class ShowTableResponse : KineticaData
         /// </list></remarks>
         public const string PROTECTED = "protected";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowTableResponse.AdditionalInfo" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowTableResponse.AdditionalInfo" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>The number of in-memory bytes per record which is the sum

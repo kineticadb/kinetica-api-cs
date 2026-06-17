@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class EvaluateModelRequest : KineticaData
 {
     public string model_name { get; set; }
@@ -35,13 +36,16 @@ public class EvaluateModelRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class EvaluateModelRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class EvaluateModelResponse : KineticaData
 {
     public string model_name { get; set; }
     public string destination_table { get; set; }
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class EvaluateModelResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

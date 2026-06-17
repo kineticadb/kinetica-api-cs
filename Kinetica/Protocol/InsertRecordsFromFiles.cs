@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsFromFiles">Kinetica.insertRecordsFromFiles</see>.
+/// cref="Kinetica.insertRecordsFromFiles(InsertRecordsFromFilesRequest)">Kinetica.insertRecordsFromFiles</see>.
 /// </summary>
 /// <remarks><para>Reads from one or more files and inserts the data into a new
 /// or existing table. The source data can be located either in <a
@@ -45,9 +45,9 @@ public class InsertRecordsFromFilesRequest : KineticaData
     /// <summary>A set of string constants for the parameter <see
     /// cref="InsertRecordsFromFilesRequest.create_table_options" />.</summary>
     /// <remarks><para>Options from <see
-    /// cref="Kinetica.createTable">Kinetica.createTable</see>, allowing the
-    /// structure of the table to be defined independently of the data source,
-    /// when creating the target table</para></remarks>
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>,
+    /// allowing the structure of the table to be defined independently of the
+    /// data source, when creating the target table</para></remarks>
     public struct CreateTableOptions
     {
         /// <summary>ID of a currently registered <a
@@ -58,7 +58,9 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// prevents an error from occurring if the table already exists and is
         /// of the given type.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If a table with the same name but a different type
+        /// exists, it is still an error.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -76,14 +78,37 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// </para></remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Affects the <a
         /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see>
+        /// and the given table has no explicit <a
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
+        /// href="../../../concepts/tables/#replication"
+        /// target="_top">replicated</a>.  If <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>,
+        /// the table will be <a href="../../../concepts/tables/#sharding"
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+        /// or <a href="../../../concepts/tables/#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -213,7 +238,10 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently, only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -251,7 +279,11 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// <summary>Indicates whether the table is a <a
         /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>A result table cannot contain columns with
+        /// text_search <a href="../../../concepts/types/#data-handling"
+        /// target="_top">data-handling</a>, and it will not be retained if the
+        /// server is restarted.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -583,12 +615,12 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// </para></remarks>
         public const string FLATTEN_COLUMNS = "flatten_columns";
 
-        /// <summary>Upsert new records when primary keys match existing
-        /// records.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>Reject new records when primary keys match existing
-        /// records.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Comma separated list of gdal conf options, for the
@@ -604,7 +636,23 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// is <see
         /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>, any
+        /// record being inserted that is rejected for having primary key
+        /// values that match those of an existing table record will be ignored
+        /// with no error generated.  If <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>, the
+        /// rejection of any record for having primary key values matching an
+        /// existing record will result in an error being reported, as
+        /// determined by <see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// If the specified table does not have a primary key or if upsert
+        /// mode is in effect (<see
+        /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>), then
+        /// this option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -708,7 +756,12 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// </para></remarks>
         public const string KAFKA_OFFSET_RESET_POLICY = "kafka_offset_reset_policy";
 
+        /// <summary>A constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.Options" /> options.</summary>
         public const string EARLIEST = "earliest";
+
+        /// <summary>A constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.Options" /> options.</summary>
         public const string LATEST = "latest";
 
         /// <summary>Enable optimistic ingestion where Kafka topic offsets and
@@ -747,7 +800,9 @@ public class InsertRecordsFromFilesRequest : KineticaData
 
         /// <summary>Scheme for distributing the extraction and loading of data
         /// from the source data file(s).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This option applies only when loading files that are
+        /// local to the database.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1005,7 +1060,12 @@ public class InsertRecordsFromFilesRequest : KineticaData
 
         /// <summary>Indicates whether the source data contains a header row.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> For <see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1142,6 +1202,8 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// </para></remarks>
         public const string TRUNCATE_TABLE = "truncate_table";
 
+        /// <summary>A constant for the <see
+        /// cref="InsertRecordsFromFilesRequest.Options" /> options.</summary>
         public const string TYPE_INFERENCE_MAX_RECORDS_READ = "type_inference_max_records_read";
 
         /// <summary>Optimize type inferencing for either speed or accuracy.
@@ -1179,7 +1241,13 @@ public class InsertRecordsFromFilesRequest : KineticaData
 
         /// <summary>Applies only when upserting (when update_on_existing_pk is
         /// true).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to true (the default), an existing record
+        /// matched by primary key is modified in place. If set to false, the
+        /// matched record is updated by deleting it and inserting a
+        /// replacement (delete and insert), which prevents the change from
+        /// being reflected in dependent materialized views until they are
+        /// refreshed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1200,7 +1268,21 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will be replaced by that new record (the new
+        /// data will be 'upserted'). If set to <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged, while the new record
+        /// will be rejected and the error handled as determined by <see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+        /// and <see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1268,9 +1350,9 @@ public class InsertRecordsFromFilesRequest : KineticaData
     public IDictionary<string, IDictionary<string, string>> modify_columns { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>Options from <see
-    /// cref="Kinetica.createTable">Kinetica.createTable</see>, allowing the
-    /// structure of the table to be defined independently of the data source,
-    /// when creating the target table.</summary>
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>,
+    /// allowing the structure of the table to be defined independently of the
+    /// data source, when creating the target table.</summary>
     /// <remarks><list type="bullet">
     ///     <item>
     ///         <term><see
@@ -2616,9 +2698,9 @@ public class InsertRecordsFromFilesRequest : KineticaData
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="Kinetica.createTable">Kinetica.createTable</see>, allowing the
-    /// structure of the table to be defined independently of the data source,
-    /// when creating the target table.
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>,
+    /// allowing the structure of the table to be defined independently of the
+    /// data source, when creating the target table.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -3929,7 +4011,7 @@ public class InsertRecordsFromFilesRequest : KineticaData
 } // end class InsertRecordsFromFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecordsFromFiles">Kinetica.insertRecordsFromFiles</see>.
+/// cref="Kinetica.insertRecordsFromFiles(InsertRecordsFromFilesRequest)">Kinetica.insertRecordsFromFiles</see>.
 /// </summary>
 public class InsertRecordsFromFilesResponse : KineticaData
 {
@@ -3970,5 +4052,11 @@ public class InsertRecordsFromFilesResponse : KineticaData
     /// <summary>Additional information.</summary>
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
+    /// <summary>The list of source files from which records would be inserted;
+    /// only filled in when <see
+    /// cref="InsertRecordsFromFilesRequest.Options.INGESTION_MODE">INGESTION_MODE</see>
+    /// is <see
+    /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>.
+    /// </summary>
     public IList<string> files { get; set; } = new List<string>();
 } // end class InsertRecordsFromFilesResponse

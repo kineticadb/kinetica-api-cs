@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAlterHost">Kinetica.adminAlterHost</see>.</summary>
+/// cref="Kinetica.adminAlterHost(AdminAlterHostRequest)">Kinetica.adminAlterHost</see>.
+/// </summary>
 /// <remarks><para>Alter properties on an existing host in the cluster.
 /// Currently, the only property that can be altered is a hosts ability to
 /// accept failover processes.</para></remarks>
@@ -41,7 +42,12 @@ public class AdminAlterHostRequest : KineticaData
         /// </remarks>
         public const string ACCEPTS_FAILOVER = "accepts_failover";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminAlterHostRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminAlterHostRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -129,7 +135,8 @@ public class AdminAlterHostRequest : KineticaData
 } // end class AdminAlterHostRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAlterHost">Kinetica.adminAlterHost</see>.</summary>
+/// cref="Kinetica.adminAlterHost(AdminAlterHostRequest)">Kinetica.adminAlterHost</see>.
+/// </summary>
 public class AdminAlterHostResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

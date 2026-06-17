@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowContainerRegistryRequest : KineticaData
 {
     public string registry_name { get; set; }
@@ -23,9 +24,11 @@ public class ShowContainerRegistryRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class ShowContainerRegistryRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowContainerRegistryResponse : KineticaData
 {
     public struct Info
@@ -40,4 +43,5 @@ public class ShowContainerRegistryResponse : KineticaData
     public IList<string> credential_list { get; set; } = new List<string>();
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class ShowContainerRegistryResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

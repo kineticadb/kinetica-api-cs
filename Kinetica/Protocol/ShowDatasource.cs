@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showDatasource">Kinetica.showDatasource</see>.</summary>
+/// cref="Kinetica.showDatasource(ShowDatasourceRequest)">Kinetica.showDatasource</see>.
+/// </summary>
 /// <remarks><para>Shows information about a specified <a
 /// href="../../../concepts/data_sources/" target="_top">data source</a> or all
 /// data sources.</para></remarks>
@@ -49,7 +50,8 @@ public class ShowDatasourceRequest : KineticaData
 } // end class ShowDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showDatasource">Kinetica.showDatasource</see>.</summary>
+/// cref="Kinetica.showDatasource(ShowDatasourceRequest)">Kinetica.showDatasource</see>.
+/// </summary>
 public class ShowDatasourceResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

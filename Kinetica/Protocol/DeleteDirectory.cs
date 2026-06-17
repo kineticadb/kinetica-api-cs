@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteDirectory">Kinetica.deleteDirectory</see>.</summary>
+/// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
+/// </summary>
 /// <remarks><para>Deletes a directory from <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a>.</para></remarks>
 public class DeleteDirectoryRequest : KineticaData
@@ -22,7 +23,8 @@ public class DeleteDirectoryRequest : KineticaData
         /// <summary>If <see
         /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see>, will delete
         /// directory and all files residing in it.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If false, directory must be empty for deletion.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -40,7 +42,12 @@ public class DeleteDirectoryRequest : KineticaData
         /// </remarks>
         public const string RECURSIVE = "recursive";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteDirectoryRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteDirectoryRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
@@ -199,7 +206,8 @@ public class DeleteDirectoryRequest : KineticaData
 } // end class DeleteDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteDirectory">Kinetica.deleteDirectory</see>.</summary>
+/// cref="Kinetica.deleteDirectory(DeleteDirectoryRequest)">Kinetica.deleteDirectory</see>.
+/// </summary>
 public class DeleteDirectoryResponse : KineticaData
 {
     /// <summary>Value of <see

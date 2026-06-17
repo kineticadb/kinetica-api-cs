@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateKMeans">Kinetica.aggregateKMeans</see>.</summary>
+/// cref="Kinetica.aggregateKMeans(AggregateKMeansRequest)">Kinetica.aggregateKMeans</see>.
+/// </summary>
 /// <remarks><para>This endpoint runs the k-means algorithm - a heuristic
 /// algorithm that attempts to do k-means clustering.  An ideal k-means
 /// clustering algorithm selects k points such that the sum of the mean squared
@@ -48,7 +49,14 @@ public class AggregateKMeansRequest : KineticaData
         /// used in place of <see
         /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        /// is <see cref="AggregateKMeansRequest.Options.FALSE">FALSE</see> (or
+        /// unspecified), then this is always allowed even if the caller does
+        /// not have permission to create tables. The generated name is
+        /// returned in <see
+        /// cref="AggregateKMeansResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -66,7 +74,12 @@ public class AggregateKMeansRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateKMeansRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateKMeansRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>The name of a table used to store the results, in
@@ -86,7 +99,12 @@ public class AggregateKMeansRequest : KineticaData
         /// will be persisted and will not expire unless a <see
         /// cref="AggregateKMeansRequest.Options.TTL">TTL</see> is specified.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>, then the
+        /// result table will be an in-memory table and will expire unless a
+        /// <see cref="AggregateKMeansRequest.Options.TTL">TTL</see> is
+        /// specified otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -398,7 +416,8 @@ public class AggregateKMeansRequest : KineticaData
 } // end class AggregateKMeansRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateKMeans">Kinetica.aggregateKMeans</see>.</summary>
+/// cref="Kinetica.aggregateKMeans(AggregateKMeansRequest)">Kinetica.aggregateKMeans</see>.
+/// </summary>
 public class AggregateKMeansResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

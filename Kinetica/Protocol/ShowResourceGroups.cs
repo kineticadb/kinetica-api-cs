@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showResourceGroups">Kinetica.showResourceGroups</see>.
+/// cref="Kinetica.showResourceGroups(ShowResourceGroupsRequest)">Kinetica.showResourceGroups</see>.
 /// </summary>
 /// <remarks><para>Requests resource group properties.
 /// Returns detailed information about the requested resource groups.</para>
@@ -43,13 +43,20 @@ public class ShowResourceGroupsRequest : KineticaData
         /// </remarks>
         public const string SHOW_DEFAULT_VALUES = "show_default_values";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowResourceGroupsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowResourceGroupsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see> include
         /// the default and system resource groups in the response.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This value defaults to false if an explicit list of
+        /// group names is provided, and true otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -275,7 +282,7 @@ public class ShowResourceGroupsRequest : KineticaData
 } // end class ShowResourceGroupsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showResourceGroups">Kinetica.showResourceGroups</see>.
+/// cref="Kinetica.showResourceGroups(ShowResourceGroupsRequest)">Kinetica.showResourceGroups</see>.
 /// </summary>
 public class ShowResourceGroupsResponse : KineticaData
 {

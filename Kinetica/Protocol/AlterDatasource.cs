@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterDatasource">Kinetica.alterDatasource</see>.</summary>
+/// cref="Kinetica.alterDatasource(AlterDatasourceRequest)">Kinetica.alterDatasource</see>.
+/// </summary>
 /// <remarks><para>Alters the properties of an existing <a
 /// href="../../../concepts/data_sources/" target="_top">data source</a>.
 /// </para></remarks>
@@ -57,7 +58,14 @@ public class AlterDatasourceRequest : KineticaData
         /// </para></remarks>
         public const string SKIP_VALIDATION = "skip_validation";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Timeout in seconds for connecting to this storage
@@ -239,7 +247,9 @@ public class AlterDatasourceRequest : KineticaData
 
         /// <summary>Create an anonymous connection to the storage
         /// provider--DEPRECATED: this is now the default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Specify use_managed_credentials for non-anonymous
+        /// connection.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -259,7 +269,9 @@ public class AlterDatasourceRequest : KineticaData
 
         /// <summary>When no credentials are supplied, we use anonymous access
         /// by default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If this is set, we will use cloud provider user
+        /// settings.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -333,7 +345,8 @@ public class AlterDatasourceRequest : KineticaData
 
     /// <summary>Map containing the properties of the data source to be
     /// updated.</summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Error if empty.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterDatasourceRequest.DatasourceUpdatesMap.LOCATION">LOCATION</see>:
@@ -1217,7 +1230,8 @@ public class AlterDatasourceRequest : KineticaData
 } // end class AlterDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterDatasource">Kinetica.alterDatasource</see>.</summary>
+/// cref="Kinetica.alterDatasource(AlterDatasourceRequest)">Kinetica.alterDatasource</see>.
+/// </summary>
 public class AlterDatasourceResponse : KineticaData
 {
     /// <summary>Map of values updated.</summary>

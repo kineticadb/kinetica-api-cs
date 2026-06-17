@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showProc">Kinetica.showProc</see>.</summary>
+/// cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>.
+/// </summary>
 /// <remarks><para>Shows information about a proc.</para></remarks>
 public class ShowProcRequest : KineticaData
 {
@@ -21,7 +22,10 @@ public class ShowProcRequest : KineticaData
         /// <summary>If set to <see
         /// cref="ShowProcRequest.Options.TRUE">TRUE</see>, the files that make
         /// up the proc will be returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see>, the files will
+        /// not be returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowProcRequest.Options.TRUE">TRUE</see>
@@ -36,7 +40,12 @@ public class ShowProcRequest : KineticaData
         /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string INCLUDE_FILES = "include_files";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowProcRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowProcRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -122,7 +131,8 @@ public class ShowProcRequest : KineticaData
 } // end class ShowProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showProc">Kinetica.showProc</see>.</summary>
+/// cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>.
+/// </summary>
 public class ShowProcResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

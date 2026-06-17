@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteGraph">Kinetica.deleteGraph</see>.</summary>
+/// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
+/// </summary>
 /// <remarks><para>Deletes an existing graph from the graph server and/or
 /// persist.</para></remarks>
 public class DeleteGraphRequest : KineticaData
@@ -22,7 +23,12 @@ public class DeleteGraphRequest : KineticaData
         /// <summary>If set to <see
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>, the graph is
         /// removed from the server and persist.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="DeleteGraphRequest.Options.FALSE">FALSE</see>, the graph is
+        /// removed from the server but is left in persist. The graph can be
+        /// reloaded from persist if it is recreated with the same
+        /// 'graph_name'.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -37,7 +43,12 @@ public class DeleteGraphRequest : KineticaData
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string DELETE_PERSIST = "delete_persist";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteGraphRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteGraphRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Indicates which graph server(s) to send the request to.
@@ -149,7 +160,8 @@ public class DeleteGraphRequest : KineticaData
 } // end class DeleteGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteGraph">Kinetica.deleteGraph</see>.</summary>
+/// cref="Kinetica.deleteGraph(DeleteGraphRequest)">Kinetica.deleteGraph</see>.
+/// </summary>
 public class DeleteGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful deletion.</summary>

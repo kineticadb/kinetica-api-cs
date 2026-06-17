@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Kinetica.LoadGenerator</RootNamespace>
+    <!-- Benchmark code is not a shipped API surface (its public [Benchmark]
+         methods are public only so BenchmarkDotNet can discover them), so don't
+         emit an XML doc file or require XML comments on public members. -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

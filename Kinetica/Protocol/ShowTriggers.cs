@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTriggers">Kinetica.showTriggers</see>.</summary>
+/// cref="Kinetica.showTriggers(ShowTriggersRequest)">Kinetica.showTriggers</see>.
+/// </summary>
 /// <remarks><para>Retrieves information regarding the specified triggers or
 /// all existing triggers currently active.</para></remarks>
 public class ShowTriggersRequest : KineticaData
@@ -46,7 +47,8 @@ public class ShowTriggersRequest : KineticaData
 } // end class ShowTriggersRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTriggers">Kinetica.showTriggers</see>.</summary>
+/// cref="Kinetica.showTriggers(ShowTriggersRequest)">Kinetica.showTriggers</see>.
+/// </summary>
 public class ShowTriggersResponse : KineticaData
 {
     /// <summary>This dictionary contains (key, value) pairs of (trigger ID,

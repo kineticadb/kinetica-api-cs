@@ -9,13 +9,14 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createTable">Kinetica.createTable</see>.</summary>
+/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+/// </summary>
 /// <remarks><para>Creates a new table with the given type (definition of
 /// columns).  The type is specified in <see cref="CreateTableRequest.type_id"
 /// /> as either a numerical type ID (as returned by <see
-/// cref="Kinetica.createType">Kinetica.createType</see>) or as a list of
-/// columns, each specified as a list of the column name, data type, and any
-/// column attributes.</para>
+/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>) or
+/// as a list of columns, each specified as a list of the column name, data
+/// type, and any column attributes.</para>
 /// <para>Example of a type definition with some parameters:</para>
 /// <code>
 ///     [
@@ -33,8 +34,9 @@ namespace kinetica;
 /// target="_top">column naming criteria</a>), the column's <a
 /// href="../../../concepts/types/#types-chart" target="_top">specific type</a>
 /// (int, long, float, double, string, bytes, or any of the properties map
-/// values from <see cref="Kinetica.createType">Kinetica.createType</see>), and
-/// any <a href="../../../concepts/types/#types-data-handling"
+/// values from <see
+/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>),
+/// and any <a href="../../../concepts/types/#types-data-handling"
 /// target="_top">data handling</a>, <a
 /// href="../../../concepts/types/#types-data-keys" target="_top">data key</a>,
 /// or <a href="../../../concepts/types/#types-data-replace" target="_top">data
@@ -58,7 +60,9 @@ public class CreateTableRequest : KineticaData
         /// <summary>If <see cref="CreateTableRequest.Options.TRUE">TRUE</see>,
         /// prevents an error from occurring if the table already exists and is
         /// of the given type.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If a table with the same ID but a different type
+        /// exists, it is still an error.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -74,14 +78,25 @@ public class CreateTableRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="CreateTableRequest.Options.TRUE">TRUE</see>,
         /// a unique temporary table name will be generated in the sys_temp
         /// schema and used in place of <see
         /// cref="CreateTableRequest.table_name" />.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>
+        /// is <see cref="CreateTableRequest.Options.TRUE">TRUE</see>, then
+        /// this is always allowed even if the caller does not have permission
+        /// to create tables. The generated name is returned in <see
+        /// cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -99,17 +114,17 @@ public class CreateTableRequest : KineticaData
 
         /// <summary>[DEPRECATED--please specify the containing schema as part
         /// of <see cref="CreateTableRequest.table_name" /> and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema which is to contain
-        /// the newly created table.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema which is to
+        /// contain the newly created table.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
 
         /// <summary>[DEPRECATED--please use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// a schema instead]  Indicates whether to create a schema instead of
-        /// a table.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create a schema instead]  Indicates whether to create a schema
+        /// instead of a table.</summary>
         /// <remarks><para>Supported values:</para>
         /// <list type="bullet">
         ///     <item>
@@ -130,7 +145,21 @@ public class CreateTableRequest : KineticaData
         /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If <see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see> and the given
+        /// type has no explicit <a href="../../../concepts/tables/#shard-key"
+        /// target="_top">shard key</a> defined, the table will be <a
+        /// href="../../../concepts/tables/#replication"
+        /// target="_top">replicated</a>.  If <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>, the table will
+        /// be <a href="../../../concepts/tables/#sharding"
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <see cref="CreateTableRequest.type_id" />, or <a
+        /// href="../../../concepts/tables/#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -254,7 +283,10 @@ public class CreateTableRequest : KineticaData
         /// <summary>If <see cref="CreateTableRequest.Options.TRUE">TRUE</see>,
         /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -290,7 +322,11 @@ public class CreateTableRequest : KineticaData
         /// <summary>Indicates whether the table is a <a
         /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>A result table cannot contain columns with
+        /// text_search <a href="../../../concepts/types/#data-handling"
+        /// target="_top">data-handling</a>, and it will not be retained if the
+        /// server is restarted.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -421,8 +457,8 @@ public class CreateTableRequest : KineticaData
 
     /// <summary>The type for the table, specified as either an existing
     /// table's numerical type ID (as returned by <see
-    /// cref="Kinetica.createType">Kinetica.createType</see>) or a type
-    /// definition (as described above).</summary>
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+    /// or a type definition (as described above).</summary>
     public string type_id { get; set; }
 
     /// <summary>Optional parameters.</summary>
@@ -491,7 +527,8 @@ public class CreateTableRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see cref="CreateTableRequest.table_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema which
     ///         is to contain the newly created table. If the schema is
     ///         non-existent, it will be automatically created.</description>
@@ -501,9 +538,9 @@ public class CreateTableRequest : KineticaData
     ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create a schema instead]  Indicates whether to create a schema
-    ///         instead of a table.
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create a schema instead]  Indicates whether to create a
+    ///         schema instead of a table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -862,8 +899,8 @@ public class CreateTableRequest : KineticaData
     /// option.</param>
     /// <param name="type_id">The type for the table, specified as either an
     /// existing table's numerical type ID (as returned by <see
-    /// cref="Kinetica.createType">Kinetica.createType</see>) or a type
-    /// definition (as described above).</param>
+    /// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>)
+    /// or a type definition (as described above).</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -929,9 +966,9 @@ public class CreateTableRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <paramref name="table_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the newly created table. If the schema is
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the newly created table. If the schema is
     ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
@@ -939,9 +976,9 @@ public class CreateTableRequest : KineticaData
     ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create a schema instead]  Indicates whether to create a schema
-    ///         instead of a table.
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create a schema instead]  Indicates whether to create a
+    ///         schema instead of a table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -1290,7 +1327,8 @@ public class CreateTableRequest : KineticaData
 } // end class CreateTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createTable">Kinetica.createTable</see>.</summary>
+/// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+/// </summary>
 public class CreateTableResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

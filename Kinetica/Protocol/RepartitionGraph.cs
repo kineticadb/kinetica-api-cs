@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.repartitionGraph">Kinetica.repartitionGraph</see>.</summary>
+/// cref="Kinetica.repartitionGraph(RepartitionGraphRequest)">Kinetica.repartitionGraph</see>.
+/// </summary>
 /// <remarks><para>Rebalances an existing partitioned graph.</para>
 /// <para>IMPORTANT: It's highly recommended that you review the <a
 /// href="../../../graph_solver/network_graph_solver/" target="_top">Graphs and
@@ -120,7 +121,8 @@ public class RepartitionGraphRequest : KineticaData
 } // end class RepartitionGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.repartitionGraph">Kinetica.repartitionGraph</see>.</summary>
+/// cref="Kinetica.repartitionGraph(RepartitionGraphRequest)">Kinetica.repartitionGraph</see>.
+/// </summary>
 public class RepartitionGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful rebalancing on all servers.</summary>

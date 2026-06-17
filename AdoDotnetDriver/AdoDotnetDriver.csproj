@@ -5,6 +5,11 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Expose internal implementation types (parsers, batch manager, etc.) to
+         their unit tests without making them part of the public API surface. -->
+    <InternalsVisibleTo Include="AdoDotnetDriver.Tests" />
+  </ItemGroup>
 
   <!-- J2NET Runtime packages - commented out, can be enabled if needed -->
   <!-- <ItemGroup>

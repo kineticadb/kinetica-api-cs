@@ -223,7 +223,7 @@ namespace AdoDotnetDriver.Tests
             }
 
             // Create connection with batch settings in connection string
-            var batchConnStr = $"{_connectionString};Batch Insert Mode=true;Batch Size=50";
+            var batchConnStr = $"{_connectionString};BatchInsertMode=true;BatchSize=50";
             using var batchConnection = new KineticaConnection(batchConnStr);
             await batchConnection.OpenAsync();
 

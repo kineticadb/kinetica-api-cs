@@ -22,5 +22,8 @@
     <!-- Project-specific settings that override Directory.Build.props -->
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
+    <!-- Example/demo code is illustrative and not part of the shipped API
+         surface, so don't require XML doc comments on its public members. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 </Project>

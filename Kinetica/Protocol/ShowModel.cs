@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowModelRequest : KineticaData
 {
     public IList<string> model_names { get; set; } = new List<string>();
@@ -23,9 +24,11 @@ public class ShowModelRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class ShowModelRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowModelResponse : KineticaData
 {
     public struct Info
@@ -44,4 +47,5 @@ public class ShowModelResponse : KineticaData
     public IList<IDictionary<string, string>> options { get; set; } = new List<IDictionary<string, string>>();
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class ShowModelResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

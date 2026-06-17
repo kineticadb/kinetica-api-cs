@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.modifyGraph">Kinetica.modifyGraph</see>.</summary>
+/// cref="Kinetica.modifyGraph(ModifyGraphRequest)">Kinetica.modifyGraph</see>.
+/// </summary>
 /// <remarks><para>Update an existing graph network using given nodes, edges,
 /// weights, restrictions, and options.</para>
 /// <para>IMPORTANT: It's highly recommended that you review the <a
@@ -50,7 +51,12 @@ public class ModifyGraphRequest : KineticaData
         /// </remarks>
         public const string EXPORT_CREATE_RESULTS = "export_create_results";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ModifyGraphRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ModifyGraphRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If set to <see
@@ -82,7 +88,10 @@ public class ModifyGraphRequest : KineticaData
         /// be saved in the persist directory (see the <a
         /// href="../../../config/" target="_top">config reference</a> for more
         /// information).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>, the graph will
+        /// be removed when the graph server is shutdown.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -101,7 +110,14 @@ public class ModifyGraphRequest : KineticaData
         /// <summary>Adds a table monitor to every table used in the creation
         /// of the graph; this table monitor will trigger the graph to update
         /// dynamically upon inserts to the source table(s).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Note that upon database restart, if <see
+        /// cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>
+        /// is also set to <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph will
+        /// be fully reconstructed and the table monitors will be reattached.
+        /// For more details on table monitors, see <see
+        /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -132,7 +148,9 @@ public class ModifyGraphRequest : KineticaData
         /// <summary>When RESTRICTIONS on labeled entities requested, if set to
         /// true this will NOT delete the entity but only the label associated
         /// with the entity.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Otherwise (default), it'll delete the label AND the
+        /// entity.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -151,7 +169,8 @@ public class ModifyGraphRequest : KineticaData
         /// <summary>Adds dummy 'pillowed' edges around intersection nodes
         /// where there are more than three edges so that additional weight
         /// penalties can be imposed by the solve endpoints.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>(increases the total number of edges).
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -415,7 +434,7 @@ public class ModifyGraphRequest : KineticaData
     ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+    ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -762,7 +781,7 @@ public class ModifyGraphRequest : KineticaData
     ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+    ///         cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -942,7 +961,8 @@ public class ModifyGraphRequest : KineticaData
 } // end class ModifyGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.modifyGraph">Kinetica.modifyGraph</see>.</summary>
+/// cref="Kinetica.modifyGraph(ModifyGraphRequest)">Kinetica.modifyGraph</see>.
+/// </summary>
 public class ModifyGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful modification on all servers.</summary>

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTableColumns">Kinetica.alterTableColumns</see>.
+/// cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>.
 /// </summary>
 /// <remarks><para>Apply various modifications to columns in a table, view.
 /// The available modifications include the following:</para>
@@ -75,7 +75,7 @@ public class AlterTableColumnsRequest : KineticaData
 } // end class AlterTableColumnsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTableColumns">Kinetica.alterTableColumns</see>.
+/// cref="Kinetica.alterTableColumns(AlterTableColumnsRequest)">Kinetica.alterTableColumns</see>.
 /// </summary>
 public class AlterTableColumnsResponse : KineticaData
 {

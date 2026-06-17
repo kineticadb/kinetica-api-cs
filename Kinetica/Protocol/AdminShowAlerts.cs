@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminShowAlerts">Kinetica.adminShowAlerts</see>.</summary>
+/// cref="Kinetica.adminShowAlerts(AdminShowAlertsRequest)">Kinetica.adminShowAlerts</see>.
+/// </summary>
 /// <remarks><para>Requests a list of the most recent alerts.
 /// Returns lists of alert data, including timestamp and type.</para></remarks>
 public class AdminShowAlertsRequest : KineticaData
@@ -48,7 +49,8 @@ public class AdminShowAlertsRequest : KineticaData
 } // end class AdminShowAlertsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminShowAlerts">Kinetica.adminShowAlerts</see>.</summary>
+/// cref="Kinetica.adminShowAlerts(AdminShowAlertsRequest)">Kinetica.adminShowAlerts</see>.
+/// </summary>
 public class AdminShowAlertsResponse : KineticaData
 {
     /// <summary>Timestamp for when the alert occurred, sorted from most recent

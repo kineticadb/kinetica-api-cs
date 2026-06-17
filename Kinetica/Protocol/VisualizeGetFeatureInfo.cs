@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class VisualizeGetFeatureInfoRequest : KineticaData
 {
     public struct Projection
@@ -92,9 +93,11 @@ public class VisualizeGetFeatureInfoRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class VisualizeGetFeatureInfoRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class VisualizeGetFeatureInfoResponse : KineticaData
 {
     public IList<string> table_names { get; set; } = new List<string>();
@@ -105,4 +108,5 @@ public class VisualizeGetFeatureInfoResponse : KineticaData
     public string text_encoded_response { get; set; }
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class VisualizeGetFeatureInfoResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

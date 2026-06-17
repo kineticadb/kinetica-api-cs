@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionDirectory">Kinetica.revokePermissionDirectory</see>.
+/// cref="Kinetica.revokePermissionDirectory(RevokePermissionDirectoryRequest)">Kinetica.revokePermissionDirectory</see>.
 /// </summary>
 /// <remarks><para>Revokes a <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a> directory-level permission from a user or role.
@@ -115,7 +115,7 @@ public class RevokePermissionDirectoryRequest : KineticaData
 } // end class RevokePermissionDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionDirectory">Kinetica.revokePermissionDirectory</see>.
+/// cref="Kinetica.revokePermissionDirectory(RevokePermissionDirectoryRequest)">Kinetica.revokePermissionDirectory</see>.
 /// </summary>
 public class RevokePermissionDirectoryResponse : KineticaData
 {

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.restoreBackup">Kinetica.restoreBackup</see>.</summary>
+/// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
+/// </summary>
 /// <remarks><para>Restores database objects from a <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup</a> accessible via the <a
@@ -123,13 +124,12 @@ public class RestoreBackupRequest : KineticaData
         /// </remarks>
         public const string CHECKSUM = "checksum";
 
-        /// <summary>Restore table data by re-ingesting it.</summary>
-        /// <remarks><para> This is the default behavior if the cluster
-        /// topology differs from that of the contained backup.</para>
-        /// </remarks>
+        /// <summary>A boolean constant for the <see
+        /// cref="RestoreBackupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>Restore the persisted data files directly.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="RestoreBackupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Behavior to apply when the schema containing any database
@@ -1040,7 +1040,8 @@ public class RestoreBackupRequest : KineticaData
 } // end class RestoreBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.restoreBackup">Kinetica.restoreBackup</see>.</summary>
+/// cref="Kinetica.restoreBackup(RestoreBackupRequest)">Kinetica.restoreBackup</see>.
+/// </summary>
 public class RestoreBackupResponse : KineticaData
 {
     /// <summary>Value of <see

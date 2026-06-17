@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterSchema">Kinetica.alterSchema</see>.</summary>
+/// cref="Kinetica.alterSchema(AlterSchemaRequest)">Kinetica.alterSchema</see>.
+/// </summary>
 /// <remarks><para>Used to change the name of a SQL-style <a
 /// href="../../../concepts/schemas/" target="_top">schema</a>, specified in
 /// <see cref="AlterSchemaRequest.schema_name" />.</para></remarks>
@@ -117,7 +118,8 @@ public class AlterSchemaRequest : KineticaData
 } // end class AlterSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterSchema">Kinetica.alterSchema</see>.</summary>
+/// cref="Kinetica.alterSchema(AlterSchemaRequest)">Kinetica.alterSchema</see>.
+/// </summary>
 public class AlterSchemaResponse : KineticaData
 {
     /// <summary>Value of <see

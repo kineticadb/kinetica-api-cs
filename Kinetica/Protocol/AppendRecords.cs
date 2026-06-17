@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.appendRecords">Kinetica.appendRecords</see>.</summary>
+/// cref="Kinetica.appendRecords(AppendRecordsRequest)">Kinetica.appendRecords</see>.
+/// </summary>
 /// <remarks><para>Append (or insert) all records from a source table
 /// (specified by <see cref="AppendRecordsRequest.source_table_name" />) to a
 /// particular target table (specified by <see
@@ -62,7 +63,19 @@ public class AppendRecordsRequest : KineticaData
         /// table (specified by <see cref="AppendRecordsRequest.table_name" />)
         /// with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>, any existing
+        /// table record with primary key values that match those of a source
+        /// table record being inserted will be replaced by that new record
+        /// (the new data will be "upserted"). If set to <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>, any existing
+        /// table record with primary key values that match those of a source
+        /// table record being inserted will remain unchanged, while the source
+        /// record will be rejected and an error handled as determined by <see
+        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -83,14 +96,26 @@ public class AppendRecordsRequest : KineticaData
         /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AppendRecordsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AppendRecordsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Applies only when upserting (when <see
         /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="AppendRecordsRequest.Options.TRUE">TRUE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>, an existing
+        /// record matched by primary key is modified in place. If set to <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>, it is
+        /// updated by deleting the existing record and inserting a replacement
+        /// (delete and insert), which prevents the change from being reflected
+        /// in dependent materialized views until they are refreshed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -117,7 +142,20 @@ public class AppendRecordsRequest : KineticaData
         /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="AppendRecordsRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>, any source
+        /// table record being inserted that is rejected for having primary key
+        /// values that match those of an existing target table record will be
+        /// ignored with no error generated.  If <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>, the
+        /// rejection of any source table record for having primary key values
+        /// matching an existing target table record will result in an error
+        /// being raised.  If the specified table does not have a primary key
+        /// or if upsert mode is in effect (<see
+        /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="AppendRecordsRequest.Options.TRUE">TRUE</see>), then
+        /// this option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -654,9 +692,12 @@ public class AppendRecordsRequest : KineticaData
 } // end class AppendRecordsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.appendRecords">Kinetica.appendRecords</see>.</summary>
+/// cref="Kinetica.appendRecords(AppendRecordsRequest)">Kinetica.appendRecords</see>.
+/// </summary>
 public class AppendRecordsResponse : KineticaData
 {
+    /// <summary>The name of the table to which the records were appended.
+    /// </summary>
     public string table_name { get; set; }
 
     /// <summary>Additional information.</summary>

@@ -197,7 +197,7 @@ namespace Example
 
             // Configure batch settings in connection string
             var batchConnectionString = $"Server={serverUrl};Username={username};Password={password};" +
-                                        "Batch Insert Mode=true;Batch Size=500;Batch Update On Existing Pk=false";
+                                        "BatchInsertMode=true;BatchSize=500;BatchUpdateOnExistingPk=false";
 
             using var connection = new KineticaConnection(batchConnectionString);
             await connection.OpenAsync();

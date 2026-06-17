@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.matchGraph">Kinetica.matchGraph</see>.</summary>
+/// cref="Kinetica.matchGraph(MatchGraphRequest)">Kinetica.matchGraph</see>.
+/// </summary>
 /// <remarks><para>Matches a directed route implied by a given set of
 /// latitude/longitude points to an existing underlying road network graph
 /// using a given solution type.</para>
@@ -154,7 +155,10 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When false (non-default), trucks do not off-load at
+        /// the demand (store) side if the remainder is less than the store's
+        /// need.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -173,7 +177,12 @@ public class MatchGraphRequest : KineticaData
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string PARTIAL_LOADING = "partial_loading";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="MatchGraphRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="MatchGraphRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>For the <see
@@ -195,29 +204,30 @@ public class MatchGraphRequest : KineticaData
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'left turn' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
-        /// at graph creation.</summary>
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string LEFT_TURN_PENALTY = "left_turn_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as' right turn' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
-        /// at graph creation.</summary>
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'intersection' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
-        /// at graph creation.</summary>
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string INTERSECTION_PENALTY = "intersection_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'sharp turn' or 'u-turn' if the 'add_turn' option parameter of
-        /// the <see cref="Kinetica.createGraph">Kinetica.createGraph</see> was
-        /// invoked at graph creation.</summary>
+        /// the <see
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
 
@@ -258,7 +268,11 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When true (non-default), the paths per sequence
+        /// combination is checked for folding over patterns and can
+        /// significantly increase the execution time depending on the chain
+        /// width and the number of GPS samples.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -310,7 +324,9 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If specified (true), all supply actors can be
+        /// scheduled for second rounds from their originating depots.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -354,7 +370,12 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If specified (true), supply side actors are permuted
+        /// for the demand combinations during MSDO optimization - note that
+        /// this option increases optimization time significantly - use of
+        /// 'max_combinations' option is recommended to prevent prohibitively
+        /// long runs.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -378,7 +399,10 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When enabled, it sets the number of visits on each
+        /// demand location by a single salesman at each trip is considered to
+        /// be (one) 1, otherwise there is no bound.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -401,7 +425,9 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When enabled, the supply will have to return back to
+        /// the origination location.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -461,7 +487,9 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>The quality metric for Louvain modularity
+        /// optimization solver.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -494,7 +522,10 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Optimization is performed by restricting routes
+        /// labeled by 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor
+        /// (truck) type.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="MatchGraphRequest.Options.ODD">ODD</see>:
@@ -541,7 +572,9 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Solves source-destination pairs using inverse
+        /// shortest path solver.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -596,7 +629,10 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Runs multiple supply demand solver repeatedly in a
+        /// multi step cycle by switching supplies to demands until it reaches
+        /// the main hub supply.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="MatchGraphRequest.Options.TRUE">TRUE</see>
@@ -689,7 +725,10 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>
         /// solver only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If true, it computes Jaccard score between each
+        /// pair, otherwise it will compute Jaccard from the intersection set
+        /// between the source and target nodes.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="MatchGraphRequest.Options.TRUE">TRUE</see>
@@ -709,7 +748,9 @@ public class MatchGraphRequest : KineticaData
         /// and <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
         /// solvers only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Pattern matching will be using both pattern and
+        /// graph as undirected if set to true.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="MatchGraphRequest.Options.TRUE">TRUE</see>
@@ -735,7 +776,9 @@ public class MatchGraphRequest : KineticaData
         /// <summary>For the <see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_EMBEDDING">MATCH_EMBEDDING</see>
         /// solvers only.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Solves to find the optimal weights per sub feature
+        /// in vector embeddings.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="MatchGraphRequest.Options.TRUE">TRUE</see>
@@ -1079,7 +1122,8 @@ public class MatchGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -1089,7 +1133,8 @@ public class MatchGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -1099,7 +1144,8 @@ public class MatchGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -1110,8 +1156,8 @@ public class MatchGraphRequest : KineticaData
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
     ///         parameter of the <see
-    ///         cref="Kinetica.createGraph">Kinetica.createGraph</see> was
-    ///         invoked at graph creation. The default value is '0.0'.
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -2092,7 +2138,8 @@ public class MatchGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -2102,7 +2149,8 @@ public class MatchGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -2112,7 +2160,8 @@ public class MatchGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -2123,8 +2172,8 @@ public class MatchGraphRequest : KineticaData
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
     ///         parameter of the <see
-    ///         cref="Kinetica.createGraph">Kinetica.createGraph</see> was
-    ///         invoked at graph creation. The default value is '0.0'.
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -2854,7 +2903,8 @@ public class MatchGraphRequest : KineticaData
 } // end class MatchGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.matchGraph">Kinetica.matchGraph</see>.</summary>
+/// cref="Kinetica.matchGraph(MatchGraphRequest)">Kinetica.matchGraph</see>.
+/// </summary>
 public class MatchGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful solution.</summary>

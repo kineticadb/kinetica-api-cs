@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterBackup">Kinetica.alterBackup</see>.</summary>
+/// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
+/// </summary>
 /// <remarks><para>Alters an existing database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup</a>, accessible via the <a
@@ -72,7 +73,12 @@ public class AlterBackupRequest : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterBackupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterBackupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -261,7 +267,8 @@ public class AlterBackupRequest : KineticaData
 } // end class AlterBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterBackup">Kinetica.alterBackup</see>.</summary>
+/// cref="Kinetica.alterBackup(AlterBackupRequest)">Kinetica.alterBackup</see>.
+/// </summary>
 public class AlterBackupResponse : KineticaData
 {
     /// <summary>Value of <see

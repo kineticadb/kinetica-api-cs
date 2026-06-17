@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.collectStatistics">Kinetica.collectStatistics</see>.
+/// cref="Kinetica.collectStatistics(CollectStatisticsRequest)">Kinetica.collectStatistics</see>.
 /// </summary>
 /// <remarks><para>Collect statistics for a column(s) in a specified table.
 /// </para></remarks>
@@ -70,7 +70,7 @@ public class CollectStatisticsRequest : KineticaData
 } // end class CollectStatisticsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.collectStatistics">Kinetica.collectStatistics</see>.
+/// cref="Kinetica.collectStatistics(CollectStatisticsRequest)">Kinetica.collectStatistics</see>.
 /// </summary>
 public class CollectStatisticsResponse : KineticaData
 {

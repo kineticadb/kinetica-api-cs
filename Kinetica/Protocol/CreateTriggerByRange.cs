@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createTriggerByRange">Kinetica.createTriggerByRange</see>.
+/// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.
 /// </summary>
 /// <remarks><para>Sets up a simple range trigger for a column_name for one or
 /// more tables. Once the trigger has been activated, any record added to the
@@ -18,10 +18,11 @@ namespace kinetica;
 /// column_name's value falling within the specified range will trip the
 /// trigger. All such records will be queued at the trigger port (by default
 /// '9001' but able to be retrieved via <see
-/// cref="Kinetica.showSystemStatus">Kinetica.showSystemStatus</see>) for any
-/// listening client to collect. Active triggers can be cancelled by using the
-/// <see cref="Kinetica.clearTrigger">Kinetica.clearTrigger</see> endpoint or
-/// by clearing all relevant tables.</para>
+/// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)">Kinetica.showSystemStatus</see>)
+/// for any listening client to collect. Active triggers can be cancelled by
+/// using the <see
+/// cref="Kinetica.clearTrigger(ClearTriggerRequest)">Kinetica.clearTrigger</see>
+/// endpoint or by clearing all relevant tables.</para>
 /// <para>The output returns the trigger handle as well as indicating success
 /// or failure of the trigger activation.</para></remarks>
 public class CreateTriggerByRangeRequest : KineticaData
@@ -91,7 +92,7 @@ public class CreateTriggerByRangeRequest : KineticaData
 } // end class CreateTriggerByRangeRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createTriggerByRange">Kinetica.createTriggerByRange</see>.
+/// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)">Kinetica.createTriggerByRange</see>.
 /// </summary>
 public class CreateTriggerByRangeResponse : KineticaData
 {

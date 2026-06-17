@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.visualizeIsochrone">Kinetica.visualizeIsochrone</see>.
+/// cref="Kinetica.visualizeIsochrone(VisualizeIsochroneRequest)">Kinetica.visualizeIsochrone</see>.
 /// </summary>
 /// <remarks><para>Generate an image containing isolines for travel results
 /// using an existing graph. Isolines represent curves of equal cost, with cost
@@ -27,7 +27,14 @@ public class VisualizeIsochroneRequest : KineticaData
     /// </remarks>
     public struct GenerateImage
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.GenerateImage" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.GenerateImage" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct GenerateImage
 
@@ -71,7 +78,9 @@ public class VisualizeIsochroneRequest : KineticaData
 
         /// <summary>Colormap for contours or fill-in regions when applicable.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>All color values must be in the format RRGGBB or
+        /// AARRGGBB (to specify the alpha value).
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -454,80 +463,304 @@ public class VisualizeIsochroneRequest : KineticaData
         /// </remarks>
         public const string COLORMAP = "colormap";
 
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string JET = "jet";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string ACCENT = "accent";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string AFMHOT = "afmhot";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string AUTUMN = "autumn";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BLUES = "blues";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BONE = "bone";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BRBG = "brbg";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BRG = "brg";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BUGN = "bugn";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BUPU = "bupu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string BWR = "bwr";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string CMRMAP = "cmrmap";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string COOL = "cool";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string COOLWARM = "coolwarm";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string COPPER = "copper";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string CUBEHELIX = "cubehelix";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string DARK2 = "dark2";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string FLAG = "flag";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_EARTH = "gist_earth";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_GRAY = "gist_gray";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_HEAT = "gist_heat";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_NCAR = "gist_ncar";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_RAINBOW = "gist_rainbow";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_STERN = "gist_stern";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GIST_YARG = "gist_yarg";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GNBU = "gnbu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GNUPLOT2 = "gnuplot2";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GNUPLOT = "gnuplot";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GRAY = "gray";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GREENS = "greens";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string GREYS = "greys";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string HOT = "hot";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string HSV = "hsv";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string INFERNO = "inferno";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string MAGMA = "magma";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string NIPY_SPECTRAL = "nipy_spectral";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string OCEAN = "ocean";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string ORANGES = "oranges";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string ORRD = "orrd";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PAIRED = "paired";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PASTEL1 = "pastel1";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PASTEL2 = "pastel2";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PINK = "pink";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PIYG = "piyg";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PLASMA = "plasma";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PRGN = "prgn";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PRISM = "prism";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PUBU = "pubu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PUBUGN = "pubugn";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PUOR = "puor";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PURD = "purd";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string PURPLES = "purples";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string RAINBOW = "rainbow";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string RDBU = "rdbu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string RDGY = "rdgy";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string RDPU = "rdpu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string RDYLBU = "rdylbu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string RDYLGN = "rdylgn";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string REDS = "reds";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SEISMIC = "seismic";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SET1 = "set1";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SET2 = "set2";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SET3 = "set3";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SPECTRAL = "spectral";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SPRING = "spring";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string SUMMER = "summer";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string TERRAIN = "terrain";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string VIRIDIS = "viridis";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string WINTER = "winter";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string WISTIA = "wistia";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string YLGN = "ylgn";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string YLGNBU = "ylgnbu";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string YLORBR = "ylorbr";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions" /> options.</summary>
         public const string YLORRD = "ylorrd";
     } // end struct StyleOptions
 
@@ -559,7 +792,12 @@ public class VisualizeIsochroneRequest : KineticaData
         /// </para></remarks>
         public const string REMOVE_PREVIOUS_RESTRICTIONS = "remove_previous_restrictions";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.SolveOptions" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.SolveOptions" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Value-based restriction comparison.</summary>
@@ -636,14 +874,49 @@ public class VisualizeIsochroneRequest : KineticaData
         /// </para></remarks>
         public const string PROJECTION = "projection";
 
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string _3857 = "3857";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string _102100 = "102100";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string _900913 = "900913";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string EPSG_4326 = "EPSG:4326";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string PLATE_CARREE = "PLATE_CARREE";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string EPSG_900913 = "EPSG:900913";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string EPSG_102100 = "EPSG:102100";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string EPSG_3857 = "EPSG:3857";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string WEB_MERCATOR = "WEB_MERCATOR";
 
         /// <summary>When <see cref="VisualizeIsochroneRequest.generate_image"
@@ -698,7 +971,14 @@ public class VisualizeIsochroneRequest : KineticaData
         /// </para></remarks>
         public const string COLOR_ISOLINES = "color_isolines";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>If set to <see
@@ -821,16 +1101,12 @@ public class VisualizeIsochroneRequest : KineticaData
         /// </remarks>
         public const string IS_REPLICATED = "is_replicated";
 
-        /// <summary>Uses the solvers scheduled for 'shortest_path' and
-        /// 'inverse_shortest_path' based on <see
-        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
-        /// </summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>Uses the solvers 'priority_queue' and
-        /// 'inverse_priority_queue' based on <see
-        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>.
-        /// </summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="VisualizeIsochroneRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Lower bound for the x values.</summary>
@@ -2809,7 +3085,7 @@ public class VisualizeIsochroneRequest : KineticaData
 } // end class VisualizeIsochroneRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.visualizeIsochrone">Kinetica.visualizeIsochrone</see>.
+/// cref="Kinetica.visualizeIsochrone(VisualizeIsochroneRequest)">Kinetica.visualizeIsochrone</see>.
 /// </summary>
 public class VisualizeIsochroneResponse : KineticaData
 {

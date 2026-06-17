@@ -114,6 +114,7 @@ namespace Kinetica.Tests.IntegrationTests
 
             // Also try the legacy ingestor to compare
             _output.WriteLine("\n--- Testing Legacy Ingestor ---");
+#pragma warning disable CS0618 // intentionally exercising the deprecated KineticaIngestor<T> for comparison
             var legacyIngestor = new KineticaIngestor<TestRecord>(
                 ctx.Kinetica,
                 tableName,
@@ -140,6 +141,7 @@ namespace Kinetica.Tests.IntegrationTests
                 _output.WriteLine($"Legacy error: {ex.Message}");
                 _output.WriteLine($"Legacy exception: {ex}");
             }
+#pragma warning restore CS0618
         }
 
         [Fact]

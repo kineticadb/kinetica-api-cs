@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteFiles">Kinetica.deleteFiles</see>.</summary>
+/// cref="Kinetica.deleteFiles(DeleteFilesRequest)">Kinetica.deleteFiles</see>.
+/// </summary>
 /// <remarks><para>Deletes one or more files from <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>.</para></remarks>
 public class DeleteFilesRequest : KineticaData
@@ -37,7 +38,12 @@ public class DeleteFilesRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteFilesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteFilesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -129,7 +135,8 @@ public class DeleteFilesRequest : KineticaData
 } // end class DeleteFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteFiles">Kinetica.deleteFiles</see>.</summary>
+/// cref="Kinetica.deleteFiles(DeleteFilesRequest)">Kinetica.deleteFiles</see>.
+/// </summary>
 public class DeleteFilesResponse : KineticaData
 {
     /// <summary>Names of the files deleted from KiFS.</summary>

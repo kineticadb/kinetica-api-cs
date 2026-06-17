@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterEnvironment">Kinetica.alterEnvironment</see>.</summary>
+/// cref="Kinetica.alterEnvironment(AlterEnvironmentRequest)">Kinetica.alterEnvironment</see>.
+/// </summary>
 /// <remarks><para>Alters an existing environment which can be referenced by a
 /// <a href="../../../concepts/udf/" target="_top">user-defined function</a>
 /// (UDF).</para></remarks>
@@ -232,7 +233,8 @@ public class AlterEnvironmentRequest : KineticaData
 } // end class AlterEnvironmentRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterEnvironment">Kinetica.alterEnvironment</see>.</summary>
+/// cref="Kinetica.alterEnvironment(AlterEnvironmentRequest)">Kinetica.alterEnvironment</see>.
+/// </summary>
 public class AlterEnvironmentResponse : KineticaData
 {
     /// <summary>Value of <see

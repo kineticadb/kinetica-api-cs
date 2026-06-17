@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.checkTable">Kinetica.checkTable</see>.</summary>
+/// cref="Kinetica.checkTable(CheckTableRequest)">Kinetica.checkTable</see>.
+/// </summary>
 /// <remarks><para>Scans the requested tables as specified in <see
 /// cref="CheckTableRequest.table_names" /> for integrity. Any table chunks
 /// which fail the check will be marked as corrupt. By default the database
@@ -44,7 +45,12 @@ public class CheckTableRequest : KineticaData
         /// </remarks>
         public const string LOCAL_ONLY = "local_only";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CheckTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CheckTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="CheckTableRequest.Options.TRUE">TRUE</see>
@@ -187,15 +193,25 @@ public class CheckTableRequest : KineticaData
 } // end class CheckTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.checkTable">Kinetica.checkTable</see>.</summary>
+/// cref="Kinetica.checkTable(CheckTableRequest)">Kinetica.checkTable</see>.
+/// </summary>
 public class CheckTableResponse : KineticaData
 {
+    /// <summary>The names of the tables that were checked.</summary>
     public IList<string> table_names { get; set; } = new List<string>();
 
+    /// <summary>The chunk identifiers associated with each reported result.
+    /// </summary>
     public IList<string> ids { get; set; } = new List<string>();
 
+    /// <summary>The locations (rank/tom) where each chunk corruption was
+    /// found.</summary>
     public IList<string> locations { get; set; } = new List<string>();
 
+    /// <summary>A description of each corruption error detected or count of
+    /// the errors, based on <see
+    /// cref="CheckTableRequest.Options.SHOW_DETAIL">SHOW_DETAIL</see>.
+    /// </summary>
     public IList<string> errors { get; set; } = new List<string>();
 
     /// <summary>Additional information.</summary>

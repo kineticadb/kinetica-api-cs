@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRemoveRanks">Kinetica.adminRemoveRanks</see>.</summary>
+/// cref="Kinetica.adminRemoveRanks(AdminRemoveRanksRequest)">Kinetica.adminRemoveRanks</see>.
+/// </summary>
 /// <remarks><para>Remove one or more ranks from an existing Kinetica cluster.
 /// All data will be rebalanced to other ranks before the rank(s) is removed
 /// unless the <see
@@ -24,11 +25,12 @@ namespace kinetica;
 /// href="../../../concepts/tables/#random-sharding"
 /// target="_top">randomly-sharded</a>) will be deleted.</para>
 /// <para>The database must be offline for this operation, see <see
-/// cref="Kinetica.adminOffline">Kinetica.adminOffline</see></para>
+/// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see></para>
 /// <para>This endpoint's processing time depends on the amount of data in the
 /// system, thus the API call may time out if run directly.  It is recommended
 /// to run this endpoint asynchronously via <see
-/// cref="Kinetica.createJob">Kinetica.createJob</see>.</para></remarks>
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+/// </para></remarks>
 public class AdminRemoveRanksRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -41,7 +43,10 @@ public class AdminRemoveRanksRequest : KineticaData
         /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Note that for clusters with large amounts of sharded
+        /// data, this data transfer could be time consuming and result in
+        /// delayed query responses.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -59,13 +64,23 @@ public class AdminRemoveRanksRequest : KineticaData
         /// </remarks>
         public const string REBALANCE_SHARDED_DATA = "rebalance_sharded_data";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRemoveRanksRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRemoveRanksRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
         /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>, unsharded
         /// data (a.k.a.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para><a href="../../../concepts/tables/#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -103,9 +118,9 @@ public class AdminRemoveRanksRequest : KineticaData
     /// the host IP address (hostN.address from the gpub.conf file) which also
     /// removes all ranks on that host. Rank 0 (the head rank) cannot be
     /// removed (but can be moved to another host using <see
-    /// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>). At
-    /// least one worker rank must be left in the cluster after the operation.
-    /// </para></remarks>
+    /// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>).
+    /// At least one worker rank must be left in the cluster after the
+    /// operation.</para></remarks>
     public IList<string> ranks { get; set; } = new List<string>();
 
     /// <summary>Optional parameters.</summary>
@@ -199,9 +214,9 @@ public class AdminRemoveRanksRequest : KineticaData
     /// on that host, or the host IP address (hostN.address from the gpub.conf
     /// file) which also removes all ranks on that host. Rank 0 (the head rank)
     /// cannot be removed (but can be moved to another host using <see
-    /// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>). At
-    /// least one worker rank must be left in the cluster after the operation.
-    /// </param>
+    /// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>).
+    /// At least one worker rank must be left in the cluster after the
+    /// operation.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -287,7 +302,8 @@ public class AdminRemoveRanksRequest : KineticaData
 } // end class AdminRemoveRanksRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRemoveRanks">Kinetica.adminRemoveRanks</see>.</summary>
+/// cref="Kinetica.adminRemoveRanks(AdminRemoveRanksRequest)">Kinetica.adminRemoveRanks</see>.
+/// </summary>
 public class AdminRemoveRanksResponse : KineticaData
 {
     /// <summary>The number assigned to each rank removed from the cluster.

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTier">Kinetica.alterTier</see>.</summary>
+/// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
+/// </summary>
 /// <remarks><para>Alters properties of an existing <a
 /// href="../../../rm/concepts/#storage-tiers" target="_top">tier</a> to
 /// facilitate <a href="../../../rm/concepts/" target="_top">resource
@@ -53,7 +54,9 @@ public class AlterTierRequest : KineticaData
         /// <summary>If <see cref="AlterTierRequest.Options.TRUE">TRUE</see>
         /// the system configuration will be written to disk upon successful
         /// application of this request.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This will commit the changes from this request and
+        /// any additional in-memory modifications.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="AlterTierRequest.Options.TRUE">TRUE</see>
@@ -68,7 +71,12 @@ public class AlterTierRequest : KineticaData
         /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string PERSIST = "persist";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterTierRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterTierRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Apply the requested change only to a specific rank.
@@ -239,7 +247,8 @@ public class AlterTierRequest : KineticaData
 } // end class AlterTierRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTier">Kinetica.alterTier</see>.</summary>
+/// cref="Kinetica.alterTier(AlterTierRequest)">Kinetica.alterTier</see>.
+/// </summary>
 public class AlterTierResponse : KineticaData
 {
     /// <summary>Value of <see cref="AlterTierRequest.name">name</see>.

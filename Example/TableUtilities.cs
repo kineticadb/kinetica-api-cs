@@ -1,14 +1,14 @@
-/// <summary>
-/// Table Utility Examples
-///
-/// This file contains utility examples for common table operations:
-///   - ClearTable: Delete all records from a table (keeping structure)
-///   - CleanupAll: Drop all test tables matching a pattern
-///
-/// Run with:
-///   dotnet run --project Example -- --clear-table [tableName]
-///   dotnet run --project Example -- --cleanup-all [schemaPattern]
-/// </summary>
+/*
+ * Table Utility Examples
+ *
+ * This file contains utility examples for common table operations:
+ *   - ClearTable: Delete all records from a table (keeping structure)
+ *   - CleanupAll: Drop all test tables matching a pattern
+ *
+ * Run with:
+ *   dotnet run --project Example -- --clear-table [tableName]
+ *   dotnet run --project Example -- --cleanup-all [schemaPattern]
+ */
 
 using System;
 using System.Collections.Generic;

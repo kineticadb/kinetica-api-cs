@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterDirectory">Kinetica.alterDirectory</see>.</summary>
+/// cref="Kinetica.alterDirectory(AlterDirectoryRequest)">Kinetica.alterDirectory</see>.
+/// </summary>
 /// <remarks><para>Alters an existing directory in <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>.</para></remarks>
 public class AlterDirectoryRequest : KineticaData
@@ -32,7 +33,8 @@ public class AlterDirectoryRequest : KineticaData
 
     /// <summary>Map containing the properties of the directory to be altered.
     /// </summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Error if empty.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterDirectoryRequest.DirectoryUpdatesMap.DATA_LIMIT">DATA_LIMIT</see>:
@@ -81,7 +83,8 @@ public class AlterDirectoryRequest : KineticaData
 } // end class AlterDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterDirectory">Kinetica.alterDirectory</see>.</summary>
+/// cref="Kinetica.alterDirectory(AlterDirectoryRequest)">Kinetica.alterDirectory</see>.
+/// </summary>
 public class AlterDirectoryResponse : KineticaData
 {
     /// <summary>Value of <see

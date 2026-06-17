@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAddHost">Kinetica.adminAddHost</see>.</summary>
+/// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
+/// </summary>
 /// <remarks><para>Adds a host to an existing cluster.</para></remarks>
 public class AdminAddHostRequest : KineticaData
 {
@@ -21,7 +22,8 @@ public class AdminAddHostRequest : KineticaData
         /// <summary>If set to <see
         /// cref="AdminAddHostRequest.Options.TRUE">TRUE</see>, only validation
         /// checks will be performed.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>No host is added.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -37,7 +39,12 @@ public class AdminAddHostRequest : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminAddHostRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminAddHostRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If set to <see
@@ -313,7 +320,8 @@ public class AdminAddHostRequest : KineticaData
 } // end class AdminAddHostRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAddHost">Kinetica.adminAddHost</see>.</summary>
+/// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
+/// </summary>
 public class AdminAddHostResponse : KineticaData
 {
     /// <summary>Identifier for the newly added host, of the format 'hostN'

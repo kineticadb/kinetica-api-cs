@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsFromQuery">Kinetica.insertRecordsFromQuery</see>.
+/// cref="Kinetica.insertRecordsFromQuery(InsertRecordsFromQueryRequest)">Kinetica.insertRecordsFromQuery</see>.
 /// </summary>
 /// <remarks><para>Computes remote query result and inserts the result data
 /// into a new or existing table.</para></remarks>
@@ -30,7 +30,9 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// prevents an error from occurring if the table already exists and is
         /// of the given type.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If a table with the same ID but a different type
+        /// exists, it is still an error.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -48,14 +50,37 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// </para></remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Affects the <a
         /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>
+        /// and the given type has no explicit <a
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
+        /// href="../../../concepts/tables/#replication"
+        /// target="_top">replicated</a>.  If <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.FALSE">FALSE</see>,
+        /// the table will be <a href="../../../concepts/tables/#sharding"
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <see
+        /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+        /// or <a href="../../../concepts/tables/#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -185,7 +210,10 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// cref="InsertRecordsFromQueryRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -215,7 +243,11 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <summary>Indicates whether the table is a <a
         /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>A result table cannot contain columns with
+        /// text_search <a href="../../../concepts/types/#data-handling"
+        /// target="_top">data-handling</a>, and it will not be retained if the
+        /// server is restarted.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -325,7 +357,23 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// is <see
         /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>, any
+        /// record being inserted that is rejected for having primary key
+        /// values that match those of an existing table record will be ignored
+        /// with no error generated.  If <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>, the
+        /// rejection of any record for having primary key values matching an
+        /// existing record will result in an error being reported, as
+        /// determined by <see
+        /// cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// If the specified table does not have a primary key or if upsert
+        /// mode is in effect (<see
+        /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>), then
+        /// this option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -348,12 +396,12 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// </para></remarks>
         public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
-        /// <summary>Upsert new records when primary keys match existing
-        /// records.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromQueryRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>Reject new records when primary keys match existing
-        /// records.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromQueryRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Whether to do a full load, dry run, or perform a type
@@ -530,7 +578,13 @@ public class InsertRecordsFromQueryRequest : KineticaData
 
         /// <summary>Applies only when upserting (when update_on_existing_pk is
         /// true).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to true (the default), an existing record
+        /// matched by primary key is modified in place. If set to false, the
+        /// matched record is updated by deleting it and inserting a
+        /// replacement (delete and insert), which prevents the change from
+        /// being reflected in dependent materialized views until they are
+        /// refreshed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -551,7 +605,21 @@ public class InsertRecordsFromQueryRequest : KineticaData
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will be replaced by that new record (the new
+        /// data will be "upserted"). If set to <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged, while the new record
+        /// will be rejected and the error handled as determined by <see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+        /// and <see
+        /// cref="InsertRecordsFromQueryRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1946,7 +2014,7 @@ public class InsertRecordsFromQueryRequest : KineticaData
 } // end class InsertRecordsFromQueryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecordsFromQuery">Kinetica.insertRecordsFromQuery</see>.
+/// cref="Kinetica.insertRecordsFromQuery(InsertRecordsFromQueryRequest)">Kinetica.insertRecordsFromQuery</see>.
 /// </summary>
 public class InsertRecordsFromQueryResponse : KineticaData
 {

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showDirectories">Kinetica.showDirectories</see>.</summary>
+/// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
+/// </summary>
 /// <remarks><para>Shows information about directories in <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used to show a
 /// single directory, or all directories.</para></remarks>
@@ -45,7 +46,8 @@ public class ShowDirectoriesRequest : KineticaData
 } // end class ShowDirectoriesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showDirectories">Kinetica.showDirectories</see>.</summary>
+/// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
+/// </summary>
 public class ShowDirectoriesResponse : KineticaData
 {
     /// <summary>KiFS directory names.</summary>

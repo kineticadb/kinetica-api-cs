@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteResourceGroup">Kinetica.deleteResourceGroup</see>.
+/// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
 /// </summary>
 /// <remarks><para>Deletes a resource group.</para></remarks>
 public class DeleteResourceGroupRequest : KineticaData
@@ -22,7 +22,9 @@ public class DeleteResourceGroupRequest : KineticaData
         /// <summary>If <see
         /// cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see>, delete
         /// any existing entities owned by this group.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Otherwise this request will return an error of any
+        /// such entities exist.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -40,7 +42,12 @@ public class DeleteResourceGroupRequest : KineticaData
         /// </remarks>
         public const string CASCADE_DELETE = "cascade_delete";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteResourceGroupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteResourceGroupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -124,7 +131,7 @@ public class DeleteResourceGroupRequest : KineticaData
 } // end class DeleteResourceGroupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteResourceGroup">Kinetica.deleteResourceGroup</see>.
+/// cref="Kinetica.deleteResourceGroup(DeleteResourceGroupRequest)">Kinetica.deleteResourceGroup</see>.
 /// </summary>
 public class DeleteResourceGroupResponse : KineticaData
 {

@@ -1,29 +1,29 @@
-/// <summary>
-/// BulkInserter Full Integration Example
-///
-/// This example demonstrates a complete, production-like integration of the
-/// BulkInserter with all features working together:
-///
-/// 1. Multiple Data Sources - Simulates multiple producers (threads/tasks)
-/// 2. Real-Time Monitoring - Dashboard tracks throughput, queue depth, errors
-/// 3. Backpressure Control - Memory-bounded operation with semaphore limits
-/// 4. Error Handling - Comprehensive error tracking and reporting
-/// 5. Graceful Shutdown - Signal handling with proper flush and cleanup
-/// 6. Progress Tracking - Periodic status updates during ingestion
-///
-/// Environment Variables:
-///   KINETICA_URL          - Server URL (default: http://localhost:9191)
-///   KINETICA_USER         - Username (default: admin)
-///   KINETICA_PASSWORD     - Password (default: secret)
-///   RECORDS_PER_PRODUCER  - Records each producer generates (default: 1000000)
-///   NUM_PRODUCERS         - Number of concurrent producer tasks (default: 3)
-///   BATCH_SIZE            - BulkInserter batch size (default: 10000)
-///   MAX_IN_FLIGHT         - Max concurrent in-flight batches (default: 50)
-///   MONITOR_INTERVAL_MS   - Dashboard update interval in ms (default: 500)
-///
-/// Run with:
-///   KINETICA_URL="http://localhost:9191" dotnet run --project Example -- --integration
-/// </summary>
+/*
+ * BulkInserter Full Integration Example
+ *
+ * This example demonstrates a complete, production-like integration of the
+ * BulkInserter with all features working together:
+ *
+ * 1. Multiple Data Sources - Simulates multiple producers (threads/tasks)
+ * 2. Real-Time Monitoring - Dashboard tracks throughput, queue depth, errors
+ * 3. Backpressure Control - Memory-bounded operation with semaphore limits
+ * 4. Error Handling - Comprehensive error tracking and reporting
+ * 5. Graceful Shutdown - Signal handling with proper flush and cleanup
+ * 6. Progress Tracking - Periodic status updates during ingestion
+ *
+ * Environment Variables:
+ *   KINETICA_URL          - Server URL (default: http://localhost:9191)
+ *   KINETICA_USER         - Username (default: admin)
+ *   KINETICA_PASSWORD     - Password (default: secret)
+ *   RECORDS_PER_PRODUCER  - Records each producer generates (default: 1000000)
+ *   NUM_PRODUCERS         - Number of concurrent producer tasks (default: 3)
+ *   BATCH_SIZE            - BulkInserter batch size (default: 10000)
+ *   MAX_IN_FLIGHT         - Max concurrent in-flight batches (default: 50)
+ *   MONITOR_INTERVAL_MS   - Dashboard update interval in ms (default: 500)
+ *
+ * Run with:
+ *   KINETICA_URL="http://localhost:9191" dotnet run --project Example -- --integration
+ */
 
 using System;
 using System.Collections.Concurrent;

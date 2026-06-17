@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropDatasink">Kinetica.dropDatasink</see>.</summary>
+/// cref="Kinetica.dropDatasink(DropDatasinkRequest)">Kinetica.dropDatasink</see>.
+/// </summary>
 /// <remarks><para>Drops an existing <a href="../../../concepts/data_sinks/"
 /// target="_top">data sink</a>.</para>
 /// <para>By default, if any <a href="../../../concepts/table_monitors"
@@ -45,7 +46,12 @@ public class DropDatasinkRequest : KineticaData
         /// </remarks>
         public const string CLEAR_TABLE_MONITORS = "clear_table_monitors";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DropDatasinkRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DropDatasinkRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -131,7 +137,8 @@ public class DropDatasinkRequest : KineticaData
 } // end class DropDatasinkRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropDatasink">Kinetica.dropDatasink</see>.</summary>
+/// cref="Kinetica.dropDatasink(DropDatasinkRequest)">Kinetica.dropDatasink</see>.
+/// </summary>
 public class DropDatasinkResponse : KineticaData
 {
     /// <summary>Value of <see cref="DropDatasinkRequest.name">name</see>.

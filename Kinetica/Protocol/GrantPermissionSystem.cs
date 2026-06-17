@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionSystem">Kinetica.grantPermissionSystem</see>.
+/// cref="Kinetica.grantPermissionSystem(GrantPermissionSystemRequest)">Kinetica.grantPermissionSystem</see>.
 /// </summary>
 /// <remarks><para>Grants a system-level permission to a user or role.</para>
 /// </remarks>
@@ -144,7 +144,7 @@ public class GrantPermissionSystemRequest : KineticaData
 } // end class GrantPermissionSystemRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionSystem">Kinetica.grantPermissionSystem</see>.
+/// cref="Kinetica.grantPermissionSystem(GrantPermissionSystemRequest)">Kinetica.grantPermissionSystem</see>.
 /// </summary>
 public class GrantPermissionSystemResponse : KineticaData
 {

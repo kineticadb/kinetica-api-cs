@@ -31,9 +31,20 @@ public class GetRecordsRequest : KineticaData
     /// </remarks>
     public struct Encoding
     {
+        /// <summary>A constant for the <see cref="GetRecordsRequest.Encoding"
+        /// /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see cref="GetRecordsRequest.Encoding"
+        /// /> options.</summary>
         public const string JSON = "json";
+
+        /// <summary>A constant for the <see cref="GetRecordsRequest.Encoding"
+        /// /> options.</summary>
         public const string GEOJSON = "geojson";
+
+        /// <summary>A constant for the <see cref="GetRecordsRequest.Encoding"
+        /// /> options.</summary>
         public const string ARROW = "arrow";
     } // end struct Encoding
 
@@ -46,7 +57,11 @@ public class GetRecordsRequest : KineticaData
 
         /// <summary>Indicates if indexes should be used to perform the lookup
         /// for a given expression if possible.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Only applicable if there is no sorting, the
+        /// expression contains only equivalence comparisons based on existing
+        /// tables indexes and the range of requested values is from [0 to
+        /// END_OF_SET].
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="GetRecordsRequest.Options.TRUE">TRUE</see>
@@ -61,7 +76,12 @@ public class GetRecordsRequest : KineticaData
         /// cref="GetRecordsRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string FAST_INDEX_LOOKUP = "fast_index_lookup";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="GetRecordsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="GetRecordsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Column that the data should be sorted by.</summary>
@@ -71,7 +91,9 @@ public class GetRecordsRequest : KineticaData
 
         /// <summary>String indicating how the returned values should be sorted
         /// - ascending or descending.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If sort_order is provided, sort_by has to be
+        /// provided.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -89,7 +111,12 @@ public class GetRecordsRequest : KineticaData
         /// </remarks>
         public const string SORT_ORDER = "sort_order";
 
+        /// <summary>A constant for the <see cref="GetRecordsRequest.Options"
+        /// /> options.</summary>
         public const string ASCENDING = "ascending";
+
+        /// <summary>A constant for the <see cref="GetRecordsRequest.Options"
+        /// /> options.</summary>
         public const string DESCENDING = "descending";
     } // end struct Options
 
@@ -448,6 +475,7 @@ public class RawGetRecordsResponse : KineticaData
     /// cref="GetRecordsRequest.table_name">table_name</see>.</summary>
     public string table_name { get; set; }
 
+    /// <summary>The name of the type of the returned records.</summary>
     public string type_name { get; set; }
 
     /// <summary>Avro schema of <see
@@ -491,10 +519,12 @@ public class GetRecordsResponse<T> : KineticaData
     /// cref="GetRecordsRequest.table_name">table_name</see>.</summary>
     public string table_name { get; set; }
 
+    /// <summary>The name of the type of the returned records.</summary>
     public string type_name { get; set; }
 
-    /// <summary>Avro schema of <see cref="RawGetRecordsResponse.data" /> or
-    /// <c>records_json</c>.</summary>
+    /// <summary>Avro schema of <see
+    /// cref="RawGetRecordsResponse.records_binary" /> or <c>records_json</c>.
+    /// </summary>
     public string type_schema { get; set; }
 
     /// <summary>If the <see cref="GetRecordsRequest.encoding">encoding</see>

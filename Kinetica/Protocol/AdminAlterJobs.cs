@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAlterJobs">Kinetica.adminAlterJobs</see>.</summary>
+/// cref="Kinetica.adminAlterJobs(AdminAlterJobsRequest)">Kinetica.adminAlterJobs</see>.
+/// </summary>
 /// <remarks><para>Perform the requested action on a list of one or more
 /// job(s). Based on the type of job and the current state of execution, the
 /// action may not be successfully executed. The final result of the attempted
@@ -24,6 +25,8 @@ public class AdminAlterJobsRequest : KineticaData
     /// </para></remarks>
     public struct Action
     {
+        /// <summary>A constant for the <see
+        /// cref="AdminAlterJobsRequest.Action" /> options.</summary>
         public const string CANCEL = "cancel";
     } // end struct Action
 
@@ -102,7 +105,8 @@ public class AdminAlterJobsRequest : KineticaData
 } // end class AdminAlterJobsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAlterJobs">Kinetica.adminAlterJobs</see>.</summary>
+/// cref="Kinetica.adminAlterJobs(AdminAlterJobsRequest)">Kinetica.adminAlterJobs</see>.
+/// </summary>
 public class AdminAlterJobsResponse : KineticaData
 {
     /// <summary>Jobs on which the action was performed.</summary>

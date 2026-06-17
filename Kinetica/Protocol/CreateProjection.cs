@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createProjection">Kinetica.createProjection</see>.</summary>
+/// cref="Kinetica.createProjection(CreateProjectionRequest)">Kinetica.createProjection</see>.
+/// </summary>
 /// <remarks><para>Creates a new <a href="../../../concepts/projections/"
 /// target="_top">projection</a> of an existing table. A projection represents
 /// a subset of the columns (potentially including derived columns) of a
@@ -22,7 +23,7 @@ namespace kinetica;
 /// <para><a href="../../../concepts/window/" target="_top">Window
 /// functions</a>, which can perform operations like moving averages, are
 /// available through this endpoint as well as <see
-/// cref="Kinetica.getRecordsByColumn">Kinetica.getRecordsByColumn</see>.</para>
+/// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.</para>
 /// <para>A projection can be created with a different <a
 /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
 /// than the source table. By specifying <see
@@ -51,7 +52,14 @@ public class CreateProjectionRequest : KineticaData
         /// temporary table name will be generated in the sys_temp schema and
         /// used in place of <see
         /// cref="CreateProjectionRequest.projection_name" />.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see> is
+        /// <see cref="CreateProjectionRequest.Options.FALSE">FALSE</see> (or
+        /// unspecified), then this is always allowed even if the caller does
+        /// not have permission to create tables. The generated name is
+        /// returned in <see
+        /// cref="CreateProjectionResponse.Info.QUALIFIED_PROJECTION_NAME">QUALIFIED_PROJECTION_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -69,15 +77,20 @@ public class CreateProjectionRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateProjectionRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateProjectionRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// projection as part of <see
         /// cref="CreateProjectionRequest.projection_name" /> and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema for the projection.
-        /// </summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema for the
+        /// projection.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created. The default value is ''.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -168,7 +181,12 @@ public class CreateProjectionRequest : KineticaData
         /// and will not expire unless a <see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see> is specified.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>, then the
+        /// projection will be an in-memory table and will expire unless a <see
+        /// cref="CreateProjectionRequest.Options.TTL">TTL</see> is specified
+        /// otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -329,7 +347,10 @@ public class CreateProjectionRequest : KineticaData
         /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>, a new
         /// partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -451,8 +472,8 @@ public class CreateProjectionRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <see
     ///         cref="CreateProjectionRequest.projection_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
     ///     </item>
@@ -877,8 +898,8 @@ public class CreateProjectionRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="projection_name"
     ///         /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
     ///     </item>
@@ -1248,7 +1269,8 @@ public class CreateProjectionRequest : KineticaData
 } // end class CreateProjectionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createProjection">Kinetica.createProjection</see>.</summary>
+/// cref="Kinetica.createProjection(CreateProjectionRequest)">Kinetica.createProjection</see>.
+/// </summary>
 public class CreateProjectionResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

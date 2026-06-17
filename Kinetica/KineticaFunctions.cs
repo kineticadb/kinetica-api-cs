@@ -14,7 +14,8 @@ namespace kinetica;
 public partial class Kinetica
 {
     // Kinetica Version
-    public const string API_VERSION = "7.2.3.2";
+    /// <summary>The version of this Kinetica API binding.</summary>
+    public const string API_VERSION = "7.2.3.3";
 
     /// <summary>Adds a host to an existing cluster.</summary>
     /// <remarks><para>This method should be used for on-premise deployments
@@ -279,9 +280,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance">adminRebalance</see>.</para>
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -299,7 +300,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -319,9 +320,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance">adminRebalance</see>.</para>
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -339,7 +340,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -362,9 +363,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance">adminRebalance</see>.</para>
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -381,7 +382,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -390,13 +391,13 @@ public partial class Kinetica
     /// 'host0' from the gpudb.conf file), on which to add ranks to the
     /// cluster. The hosts must already be in the cluster. If needed
     /// beforehand, to add a new host to the cluster use <see
-    /// cref="adminAddHost">adminAddHost</see>. Include the same entry as many
-    /// times as there are ranks to add to the cluster, e.g., if two ranks on
-    /// host 172.123.45.67 should be added, <paramref name="hosts" /> could
-    /// look like '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
-    /// simultaneously, i.e. they're not added in the order of this array. Each
-    /// entry in this array corresponds to the entry at the same index in the
-    /// <paramref name="config_params" />.</param>
+    /// cref="adminAddHost(AdminAddHostRequest)">adminAddHost</see>. Include
+    /// the same entry as many times as there are ranks to add to the cluster,
+    /// e.g., if two ranks on host 172.123.45.67 should be added, <paramref
+    /// name="hosts" /> could look like '["172.123.45.67", "172.123.45.67"]'.
+    /// All ranks will be added simultaneously, i.e. they're not added in the
+    /// order of this array. Each entry in this array corresponds to the entry
+    /// at the same index in the <paramref name="config_params" />.</param>
     /// <param name="config_params">Array of maps containing configuration
     /// parameters to apply to the new ranks found in <paramref name="hosts"
     /// />. For example, '{"rank.gpu":"2",
@@ -461,9 +462,9 @@ public partial class Kinetica
     /// <remarks><para>The new ranks will not contain any data initially (other
     /// than replicated tables) and will not be assigned any shards. To
     /// rebalance data and shards across the cluster, use <see
-    /// cref="adminRebalance">adminRebalance</see>.</para>
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see>.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>For example, if attempting to add three new ranks (two ranks on
     /// host 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica
     /// cluster with additional configuration parameters:</para>
@@ -480,7 +481,7 @@ public partial class Kinetica
     /// data to the new rank(s) and therefore could take a long time. The API
     /// call may time out if run directly.  It is recommended to run this
     /// endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -489,13 +490,13 @@ public partial class Kinetica
     /// 'host0' from the gpudb.conf file), on which to add ranks to the
     /// cluster. The hosts must already be in the cluster. If needed
     /// beforehand, to add a new host to the cluster use <see
-    /// cref="adminAddHost">adminAddHost</see>. Include the same entry as many
-    /// times as there are ranks to add to the cluster, e.g., if two ranks on
-    /// host 172.123.45.67 should be added, <paramref name="hosts" /> could
-    /// look like '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
-    /// simultaneously, i.e. they're not added in the order of this array. Each
-    /// entry in this array corresponds to the entry at the same index in the
-    /// <paramref name="config_params" />.</param>
+    /// cref="adminAddHost(AdminAddHostRequest)">adminAddHost</see>. Include
+    /// the same entry as many times as there are ranks to add to the cluster,
+    /// e.g., if two ranks on host 172.123.45.67 should be added, <paramref
+    /// name="hosts" /> could look like '["172.123.45.67", "172.123.45.67"]'.
+    /// All ranks will be added simultaneously, i.e. they're not added in the
+    /// order of this array. Each entry in this array corresponds to the entry
+    /// at the same index in the <paramref name="config_params" />.</param>
     /// <param name="config_params">Array of maps containing configuration
     /// parameters to apply to the new ranks found in <paramref name="hosts"
     /// />. For example, '{"rank.gpu":"2",
@@ -814,7 +815,8 @@ public partial class Kinetica
     /// handles after allowing current active jobs to complete.</summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
+    /// completed by using <see
+    /// cref="adminBackupEnd(AdminBackupEndRequest)">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -833,7 +835,8 @@ public partial class Kinetica
     /// </summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
+    /// completed by using <see
+    /// cref="adminBackupEnd(AdminBackupEndRequest)">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
@@ -854,7 +857,8 @@ public partial class Kinetica
     /// handles after allowing current active jobs to complete.</summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
+    /// completed by using <see
+    /// cref="adminBackupEnd(AdminBackupEndRequest)">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="options">Optional parameters. The default value is an
@@ -871,7 +875,8 @@ public partial class Kinetica
     /// </summary>
     /// <remarks><para>When the database is in backup mode, queries that result
     /// in a disk write operation will be blocked until backup mode has been
-    /// completed by using <see cref="adminBackupEnd">adminBackupEnd</see>.
+    /// completed by using <see
+    /// cref="adminBackupEnd(AdminBackupEndRequest)">adminBackupEnd</see>.
     /// </para></remarks>
     ///
     /// <param name="options">Optional parameters. The default value is an
@@ -1233,15 +1238,17 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks.
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see cref="adminOffline">adminOffline</see></para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// after a change is made to the cluster, e.g., a host was added or
-    /// removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked after a change is made to the cluster, e.g., a host was added
+    /// or removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1251,7 +1258,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para></remarks>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -1269,15 +1276,17 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks. (async)
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see cref="adminOffline">adminOffline</see></para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// after a change is made to the cluster, e.g., a host was added or
-    /// removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked after a change is made to the cluster, e.g., a host was added
+    /// or removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1287,7 +1296,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para></remarks>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -1308,15 +1317,17 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks.
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see cref="adminOffline">adminOffline</see></para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// after a change is made to the cluster, e.g., a host was added or
-    /// removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked after a change is made to the cluster, e.g., a host was added
+    /// or removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1326,7 +1337,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para></remarks>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para></remarks>
     ///
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
@@ -1488,12 +1499,14 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Scans for any data sharded incorrectly and
     ///         re-routes the data to the correct location. Only necessary if
-    ///         <see cref="adminVerifyDb">adminVerifyDb</see> reports an error
-    ///         in sharding alignment. This can be done as part of a typical
-    ///         rebalance after expanding the cluster or in a standalone
-    ///         fashion when it is believed that data is sharded incorrectly
-    ///         somewhere in the cluster. Compaction will not be performed by
-    ///         default when this is enabled. If this option is set to <see
+    ///         <see
+    ///         cref="adminVerifyDb(AdminVerifyDbRequest)">adminVerifyDb</see>
+    ///         reports an error in sharding alignment. This can be done as
+    ///         part of a typical rebalance after expanding the cluster or in a
+    ///         standalone fashion when it is believed that data is sharded
+    ///         incorrectly somewhere in the cluster. Compaction will not be
+    ///         performed by default when this is enabled. If this option is
+    ///         set to <see
     ///         cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, the time
     ///         necessary to rebalance and the memory used by the rebalance may
     ///         increase.
@@ -1528,15 +1541,17 @@ public partial class Kinetica
     /// equally distributed (as much as possible) across all the ranks. (async)
     /// </summary>
     /// <remarks><para> The database must be offline for this operation, see
-    /// <see cref="adminOffline">adminOffline</see></para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// after a change is made to the cluster, e.g., a host was added or
-    /// removed, <a href="../../../concepts/tables/#sharding"
+    /// <see cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked after a change is made to the cluster, e.g., a host was added
+    /// or removed, <a href="../../../concepts/tables/#sharding"
     /// target="_top">sharded data</a> will be evenly redistributed across the
     /// cluster by number of shards per rank while unsharded data will be
     /// redistributed across the cluster by data size per rank</para>
-    /// <para>* If <see cref="adminRebalance">adminRebalance</see> is invoked
-    /// at some point when unsharded data (a.k.a. <a
+    /// <para>* If <see
+    /// cref="adminRebalance(AdminRebalanceRequest)">adminRebalance</see> is
+    /// invoked at some point when unsharded data (a.k.a. <a
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) in the cluster is unevenly
     /// distributed over time, sharded data will not move while unsharded data
@@ -1546,7 +1561,7 @@ public partial class Kinetica
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para></remarks>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para></remarks>
     ///
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
@@ -1708,12 +1723,14 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Scans for any data sharded incorrectly and
     ///         re-routes the data to the correct location. Only necessary if
-    ///         <see cref="adminVerifyDb">adminVerifyDb</see> reports an error
-    ///         in sharding alignment. This can be done as part of a typical
-    ///         rebalance after expanding the cluster or in a standalone
-    ///         fashion when it is believed that data is sharded incorrectly
-    ///         somewhere in the cluster. Compaction will not be performed by
-    ///         default when this is enabled. If this option is set to <see
+    ///         <see
+    ///         cref="adminVerifyDb(AdminVerifyDbRequest)">adminVerifyDb</see>
+    ///         reports an error in sharding alignment. This can be done as
+    ///         part of a typical rebalance after expanding the cluster or in a
+    ///         standalone fashion when it is believed that data is sharded
+    ///         incorrectly somewhere in the cluster. Compaction will not be
+    ///         performed by default when this is enabled. If this option is
+    ///         set to <see
     ///         cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, the time
     ///         necessary to rebalance and the memory used by the rebalance may
     ///         increase.
@@ -1749,12 +1766,13 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster.</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
-    /// over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
-    /// the host to be removed has the graph server or SQL planner running on
-    /// it, these must be manually switched over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks(AdminRemoveRanksRequest)">adminRemoveRanks</see>
+    /// or manually switched over to a new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>
+    /// prior to host removal. If the host to be removed has the graph server
+    /// or SQL planner running on it, these must be manually switched over to a
+    /// new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1772,12 +1790,13 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster. (async)</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
-    /// over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
-    /// the host to be removed has the graph server or SQL planner running on
-    /// it, these must be manually switched over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks(AdminRemoveRanksRequest)">adminRemoveRanks</see>
+    /// or manually switched over to a new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>
+    /// prior to host removal. If the host to be removed has the graph server
+    /// or SQL planner running on it, these must be manually switched over to a
+    /// new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1798,12 +1817,13 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster.</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
-    /// over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
-    /// the host to be removed has the graph server or SQL planner running on
-    /// it, these must be manually switched over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks(AdminRemoveRanksRequest)">adminRemoveRanks</see>
+    /// or manually switched over to a new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>
+    /// prior to host removal. If the host to be removed has the graph server
+    /// or SQL planner running on it, these must be manually switched over to a
+    /// new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1849,12 +1869,13 @@ public partial class Kinetica
     /// <summary>Removes a host from an existing cluster. (async)</summary>
     /// <remarks><para>If the host to be removed has any ranks running on it,
     /// the ranks must be removed using <see
-    /// cref="adminRemoveRanks">adminRemoveRanks</see> or manually switched
-    /// over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see> prior to host removal. If
-    /// the host to be removed has the graph server or SQL planner running on
-    /// it, these must be manually switched over to a new host using <see
-    /// cref="adminSwitchover">adminSwitchover</see>.</para>
+    /// cref="adminRemoveRanks(AdminRemoveRanksRequest)">adminRemoveRanks</see>
+    /// or manually switched over to a new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>
+    /// prior to host removal. If the host to be removed has the graph server
+    /// or SQL planner running on it, these must be manually switched over to a
+    /// new host using <see
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1915,11 +1936,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1949,11 +1970,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -1986,11 +2007,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -2000,8 +2021,9 @@ public partial class Kinetica
     /// on that host, or the host IP address (hostN.address from the gpub.conf
     /// file) which also removes all ranks on that host. Rank 0 (the head rank)
     /// cannot be removed (but can be moved to another host using <see
-    /// cref="adminSwitchover">adminSwitchover</see>). At least one worker rank
-    /// must be left in the cluster after the operation.</param>
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>).
+    /// At least one worker rank must be left in the cluster after the
+    /// operation.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -2101,11 +2123,11 @@ public partial class Kinetica
     /// href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.</para>
     /// <para>The database must be offline for this operation, see <see
-    /// cref="adminOffline">adminOffline</see></para>
+    /// cref="adminOffline(AdminOfflineRequest)">adminOffline</see></para>
     /// <para>This endpoint's processing time depends on the amount of data in
     /// the system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
-    /// cref="createJob">createJob</see>.</para>
+    /// cref="createJob(CreateJobRequest)">createJob</see>.</para>
     /// <para>This method should be used for on-premise deployments only.
     /// </para></remarks>
     ///
@@ -2115,8 +2137,9 @@ public partial class Kinetica
     /// on that host, or the host IP address (hostN.address from the gpub.conf
     /// file) which also removes all ranks on that host. Rank 0 (the head rank)
     /// cannot be removed (but can be moved to another host using <see
-    /// cref="adminSwitchover">adminSwitchover</see>). At least one worker rank
-    /// must be left in the cluster after the operation.</param>
+    /// cref="adminSwitchover(AdminSwitchoverRequest)">adminSwitchover</see>).
+    /// At least one worker rank must be left in the cluster after the
+    /// operation.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -3990,9 +4013,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of a schema which is to
-    ///         contain the table specified in <see
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -4601,9 +4625,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of a schema which is to
-    ///         contain the table specified in <see
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -6898,9 +6923,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of a schema which is to
-    ///         contain the table specified in <see
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -7203,9 +7229,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of a schema which is to
-    ///         contain the table specified in <see
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -7566,9 +7593,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of a schema which is to
-    ///         contain the table specified in <see
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -7824,9 +7852,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of a schema which is to
-    ///         contain the table specified in <see
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -10674,16 +10703,19 @@ public partial class Kinetica
                                                                          options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public AlterGraphResponse alterGraph( AlterGraphRequest request_ )
     {
         AlterGraphResponse actualResponse_ = SubmitRequest<AlterGraphResponse>("/alter/graph", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<AlterGraphResponse> AlterGraphAsync( AlterGraphRequest request_,
                                                                                   System.Threading.CancellationToken cancellationToken = default )
     {
@@ -10691,9 +10723,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public AlterGraphResponse alterGraph( string graph_name,
                                           string action,
                                           string action_arg,
@@ -10701,9 +10735,11 @@ public partial class Kinetica
     {
         return alterGraph( new AlterGraphRequest( graph_name, action, action_arg, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<AlterGraphResponse> AlterGraphAsync( string graph_name,
                                                                                   string action,
                                                                                   string action_arg,
@@ -10713,18 +10749,22 @@ public partial class Kinetica
         return await AlterGraphAsync( new AlterGraphRequest( graph_name, action,
                                                              action_arg, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public AlterModelResponse alterModel( AlterModelRequest request_ )
     {
         AlterModelResponse actualResponse_ = SubmitRequest<AlterModelResponse>("/alter/model", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<AlterModelResponse> AlterModelAsync( AlterModelRequest request_,
                                                                                   System.Threading.CancellationToken cancellationToken = default )
     {
@@ -10732,9 +10772,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public AlterModelResponse alterModel( string model_name,
                                           string action,
                                           string _value,
@@ -10742,9 +10784,11 @@ public partial class Kinetica
     {
         return alterModel( new AlterModelRequest( model_name, action, _value, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<AlterModelResponse> AlterModelAsync( string model_name,
                                                                                   string action,
                                                                                   string _value,
@@ -10754,7 +10798,8 @@ public partial class Kinetica
         return await AlterModelAsync( new AlterModelRequest( model_name, action, _value,
                                                              options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Alters the properties of an existing resource group to
     /// facilitate resource management.</summary>
@@ -11387,9 +11432,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
-    /// primarily used to simplify the testing of the system and is not
-    /// expected to be used during normal execution.</summary>
+    /// cref="alterSystemProperties(AlterSystemPropertiesRequest)">alterSystemProperties</see>
+    /// endpoint is primarily used to simplify the testing of the system and is
+    /// not expected to be used during normal execution.</summary>
     /// <remarks><para> Commands are given through the <see
     /// cref="AlterSystemPropertiesRequest.property_updates_map">property_updates_map</see>
     /// whose keys are commands and values are strings representing integer
@@ -11408,9 +11453,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
-    /// primarily used to simplify the testing of the system and is not
-    /// expected to be used during normal execution. (async)</summary>
+    /// cref="alterSystemProperties(AlterSystemPropertiesRequest)">alterSystemProperties</see>
+    /// endpoint is primarily used to simplify the testing of the system and is
+    /// not expected to be used during normal execution. (async)</summary>
     /// <remarks><para> Commands are given through the <see
     /// cref="AlterSystemPropertiesRequest.property_updates_map">property_updates_map</see>
     /// whose keys are commands and values are strings representing integer
@@ -11432,9 +11477,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
-    /// primarily used to simplify the testing of the system and is not
-    /// expected to be used during normal execution.</summary>
+    /// cref="alterSystemProperties(AlterSystemPropertiesRequest)">alterSystemProperties</see>
+    /// endpoint is primarily used to simplify the testing of the system and is
+    /// not expected to be used during normal execution.</summary>
     /// <remarks><para> Commands are given through the <paramref
     /// name="property_updates_map" /> whose keys are commands and values are
     /// strings representing integer values (for example '8000') or boolean
@@ -11518,10 +11563,12 @@ public partial class Kinetica
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see cref="filter">filter</see>) and aggregating (e.g., <see
-    ///         cref="aggregateGroupBy">aggregateGroupBy</see>) queries will
-    ///         timeout. The default value is '20'. The minimum allowed value
-    ///         is '0'. The maximum allowed value is '1440'.</description>
+    ///         <see cref="filter(FilterRequest)">filter</see>) and aggregating
+    ///         (e.g., <see
+    ///         cref="aggregateGroupBy(AggregateGroupByRequest)">aggregateGroupBy</see>)
+    ///         queries will timeout. The default value is '20'. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '1440'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -11888,9 +11935,9 @@ public partial class Kinetica
     }
 
     /// <summary>The <see
-    /// cref="alterSystemProperties">alterSystemProperties</see> endpoint is
-    /// primarily used to simplify the testing of the system and is not
-    /// expected to be used during normal execution. (async)</summary>
+    /// cref="alterSystemProperties(AlterSystemPropertiesRequest)">alterSystemProperties</see>
+    /// endpoint is primarily used to simplify the testing of the system and is
+    /// not expected to be used during normal execution. (async)</summary>
     /// <remarks><para> Commands are given through the <paramref
     /// name="property_updates_map" /> whose keys are commands and values are
     /// strings representing integer values (for example '8000') or boolean
@@ -11974,10 +12021,12 @@ public partial class Kinetica
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see cref="filter">filter</see>) and aggregating (e.g., <see
-    ///         cref="aggregateGroupBy">aggregateGroupBy</see>) queries will
-    ///         timeout. The default value is '20'. The minimum allowed value
-    ///         is '0'. The maximum allowed value is '1440'.</description>
+    ///         <see cref="filter(FilterRequest)">filter</see>) and aggregating
+    ///         (e.g., <see
+    ///         cref="aggregateGroupBy(AggregateGroupByRequest)">aggregateGroupBy</see>)
+    ///         queries will timeout. The default value is '20'. The minimum
+    ///         allowed value is '0'. The maximum allowed value is '1440'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12580,9 +12629,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
     ///         cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Moves a table or view into a
-    ///         schema named <paramref name="_value" />.  If the schema
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Moves a table or view into
+    ///         a schema named <paramref name="_value" />.  If the schema
     ///         provided is non-existent, it will be automatically created.
     ///         </description>
     ///     </item>
@@ -12896,8 +12946,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup data loading scheme for the table; see
     ///         description of 'load_vectors_policy' in <see
-    ///         cref="createTable">createTable</see> for possible values for
-    ///         <paramref name="_value" />.</description>
+    ///         cref="createTable(CreateTableRequest)">createTable</see> for
+    ///         possible values for <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12905,8 +12955,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup primary key generation scheme for the
     ///         table; see description of 'build_pk_index_policy' in <see
-    ///         cref="createTable">createTable</see> for possible values for
-    ///         <paramref name="_value" />.</description>
+    ///         cref="createTable(CreateTableRequest)">createTable</see> for
+    ///         possible values for <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12914,7 +12964,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup rebuilding scheme for the materialized
     ///         view; see description of 'build_materialized_view_policy' in
-    ///         <see cref="createMaterializedView">createMaterializedView</see>
+    ///         <see
+    ///         cref="createMaterializedView(CreateMaterializedViewRequest)">createMaterializedView</see>
     ///         for possible values for <paramref name="_value" />.
     ///         </description>
     ///     </item>
@@ -13292,9 +13343,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
     ///         cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Moves a table or view into a
-    ///         schema named <paramref name="_value" />.  If the schema
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Moves a table or view into
+    ///         a schema named <paramref name="_value" />.  If the schema
     ///         provided is non-existent, it will be automatically created.
     ///         </description>
     ///     </item>
@@ -13608,8 +13660,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup data loading scheme for the table; see
     ///         description of 'load_vectors_policy' in <see
-    ///         cref="createTable">createTable</see> for possible values for
-    ///         <paramref name="_value" />.</description>
+    ///         cref="createTable(CreateTableRequest)">createTable</see> for
+    ///         possible values for <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13617,8 +13669,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup primary key generation scheme for the
     ///         table; see description of 'build_pk_index_policy' in <see
-    ///         cref="createTable">createTable</see> for possible values for
-    ///         <paramref name="_value" />.</description>
+    ///         cref="createTable(CreateTableRequest)">createTable</see> for
+    ///         possible values for <paramref name="_value" />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -13626,7 +13678,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>Set startup rebuilding scheme for the materialized
     ///         view; see description of 'build_materialized_view_policy' in
-    ///         <see cref="createMaterializedView">createMaterializedView</see>
+    ///         <see
+    ///         cref="createMaterializedView(CreateMaterializedViewRequest)">createMaterializedView</see>
     ///         for possible values for <paramref name="_value" />.
     ///         </description>
     ///     </item>
@@ -14129,7 +14182,8 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -14143,7 +14197,8 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -14160,10 +14215,12 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</param>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </param>
     /// <param name="monitor_updates_map">Map containing the properties of the
     /// table monitor to be updated. Error if empty.
     /// <list type="bullet">
@@ -14222,10 +14279,12 @@ public partial class Kinetica
     }
 
     /// <summary>Alters a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// (async)</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</param>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </param>
     /// <param name="monitor_updates_map">Map containing the properties of the
     /// table monitor to be updated. Error if empty.
     /// <list type="bullet">
@@ -16085,7 +16144,8 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -16099,7 +16159,8 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// (async)</summary>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -16116,10 +16177,12 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</param>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -16187,10 +16250,12 @@ public partial class Kinetica
     }
 
     /// <summary>Deactivates a table monitor previously created with <see
-    /// cref="createTableMonitor">createTableMonitor</see>. (async)</summary>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// (async)</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="createTableMonitor">createTableMonitor</see>.</param>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
+    /// </param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -17440,16 +17505,19 @@ public partial class Kinetica
                                                                    options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public CreateContainerRegistryResponse createContainerRegistry( CreateContainerRegistryRequest request_ )
     {
         CreateContainerRegistryResponse actualResponse_ = SubmitRequest<CreateContainerRegistryResponse>("/create/container/registry", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<CreateContainerRegistryResponse> CreateContainerRegistryAsync( CreateContainerRegistryRequest request_,
                                                                                                             System.Threading.CancellationToken cancellationToken = default )
     {
@@ -17457,9 +17525,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public CreateContainerRegistryResponse createContainerRegistry( string registry_name,
                                                                     string uri,
                                                                     string credential,
@@ -17470,9 +17540,11 @@ public partial class Kinetica
                                                                             credential,
                                                                             options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<CreateContainerRegistryResponse> CreateContainerRegistryAsync( string registry_name,
                                                                                                             string uri,
                                                                                                             string credential,
@@ -17484,7 +17556,8 @@ public partial class Kinetica
                                                                                        credential,
                                                                                        options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Create a new <a href="../../../concepts/credentials/"
     /// target="_top">credential</a>.</summary>
@@ -19473,16 +19546,19 @@ public partial class Kinetica
                                                                          password, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public CreateDeltaTableResponse createDeltaTable( CreateDeltaTableRequest request_ )
     {
         CreateDeltaTableResponse actualResponse_ = SubmitRequest<CreateDeltaTableResponse>("/create/deltatable", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<CreateDeltaTableResponse> CreateDeltaTableAsync( CreateDeltaTableRequest request_,
                                                                                               System.Threading.CancellationToken cancellationToken = default )
     {
@@ -19490,9 +19566,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public CreateDeltaTableResponse createDeltaTable( string delta_table_name,
                                                       string table_name,
                                                       IDictionary<string, string> options = null )
@@ -19500,9 +19578,11 @@ public partial class Kinetica
         return createDeltaTable( new CreateDeltaTableRequest( delta_table_name,
                                                               table_name, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<CreateDeltaTableResponse> CreateDeltaTableAsync( string delta_table_name,
                                                                                               string table_name,
                                                                                               IDictionary<string, string> options = null,
@@ -19512,13 +19592,15 @@ public partial class Kinetica
                                                                          table_name,
                                                                          options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
-    /// </para></remarks>
+    /// can upload files using <see
+    /// cref="uploadFiles(UploadFilesRequest)">uploadFiles</see>.</para>
+    /// </remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -19534,8 +19616,9 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
-    /// </para></remarks>
+    /// can upload files using <see
+    /// cref="uploadFiles(UploadFilesRequest)">uploadFiles</see>.</para>
+    /// </remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -19554,8 +19637,9 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
-    /// </para></remarks>
+    /// can upload files using <see
+    /// cref="uploadFiles(UploadFilesRequest)">uploadFiles</see>.</para>
+    /// </remarks>
     ///
     /// <param name="directory_name">Name of the directory in KiFS to be
     /// created.</param>
@@ -19615,8 +19699,9 @@ public partial class Kinetica
     /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para>The new directory serves as a location in which the user
-    /// can upload files using <see cref="uploadFiles">uploadFiles</see>.
-    /// </para></remarks>
+    /// can upload files using <see
+    /// cref="uploadFiles(UploadFilesRequest)">uploadFiles</see>.</para>
+    /// </remarks>
     ///
     /// <param name="directory_name">Name of the directory in KiFS to be
     /// created.</param>
@@ -19946,7 +20031,7 @@ public partial class Kinetica
     ///         cref="CreateGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor">createTableMonitor</see>.
+    ///         cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -20269,7 +20354,7 @@ public partial class Kinetica
     ///         cref="CreateGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor">createTableMonitor</see>.
+    ///         cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -20445,7 +20530,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob">getJob</see>.</para></remarks>
+    /// cref="getJob(GetJobRequest)">getJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -20462,7 +20547,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob">getJob</see>.</para></remarks>
+    /// cref="getJob(GetJobRequest)">getJob</see>.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -20482,7 +20567,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob">getJob</see>.</para></remarks>
+    /// cref="getJob(GetJobRequest)">getJob</see>.</para></remarks>
     ///
     /// <param name="endpoint">Indicates which endpoint to execute, e.g.
     /// '/alter/table'.</param>
@@ -20549,7 +20634,7 @@ public partial class Kinetica
     /// <remarks><para>The response returns a job ID, which can be used to
     /// query the status and result of the job. The status and the result of
     /// the job upon completion can be requested by <see
-    /// cref="getJob">getJob</see>.</para></remarks>
+    /// cref="getJob(GetJobRequest)">getJob</see>.</para></remarks>
     ///
     /// <param name="endpoint">Indicates which endpoint to execute, e.g.
     /// '/alter/table'.</param>
@@ -20723,10 +20808,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the join as part of <paramref name="join_table_name" /> and
-    ///         use <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the join. If the
-    ///         schema is non-existent, it will be automatically created. The
-    ///         default value is ''.</description>
+    ///         use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         join. If the schema is non-existent, it will be automatically
+    ///         created. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20761,9 +20847,10 @@ public partial class Kinetica
     ///         cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:
     ///         </term>
     ///         <description>Return a count of 0 for the join table for logging
-    ///         and for <see cref="showTable">showTable</see>; optimization
-    ///         needed for large overlapped equi-join stencils. The default
-    ///         value is 'false'.</description>
+    ///         and for <see
+    ///         cref="showTable(ShowTableRequest)">showTable</see>;
+    ///         optimization needed for large overlapped equi-join stencils.
+    ///         The default value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20913,10 +21000,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the join as part of <paramref name="join_table_name" /> and
-    ///         use <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the join. If the
-    ///         schema is non-existent, it will be automatically created. The
-    ///         default value is ''.</description>
+    ///         use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         join. If the schema is non-existent, it will be automatically
+    ///         created. The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -20951,9 +21039,10 @@ public partial class Kinetica
     ///         cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:
     ///         </term>
     ///         <description>Return a count of 0 for the join table for logging
-    ///         and for <see cref="showTable">showTable</see>; optimization
-    ///         needed for large overlapped equi-join stencils. The default
-    ///         value is 'false'.</description>
+    ///         and for <see
+    ///         cref="showTable(ShowTableRequest)">showTable</see>;
+    ///         optimization needed for large overlapped equi-join stencils.
+    ///         The default value is 'false'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -21113,10 +21202,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the materialized view as part of <paramref
     ///         name="table_name" /> and use <see
-    ///         cref="createSchema">createSchema</see> to create the schema if
-    ///         non-existent]  Name of a schema which is to contain the newly
-    ///         created view. If the schema provided is non-existent, it will
-    ///         be automatically created.</description>
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created view. If the schema provided is
+    ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -21259,8 +21348,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by calling <see
-    ///                 cref="alterTable">alterTable</see> with an 'action' of
-    ///                 'refresh'.</description>
+    ///                 cref="alterTable(AlterTableRequest)">alterTable</see>
+    ///                 with an 'action' of 'refresh'.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -21362,10 +21451,10 @@ public partial class Kinetica
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the materialized view as part of <paramref
     ///         name="table_name" /> and use <see
-    ///         cref="createSchema">createSchema</see> to create the schema if
-    ///         non-existent]  Name of a schema which is to contain the newly
-    ///         created view. If the schema provided is non-existent, it will
-    ///         be automatically created.</description>
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created view. If the schema provided is
+    ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -21508,8 +21597,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by calling <see
-    ///                 cref="alterTable">alterTable</see> with an 'action' of
-    ///                 'refresh'.</description>
+    ///                 cref="alterTable(AlterTableRequest)">alterTable</see>
+    ///                 with an 'action' of 'refresh'.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -21649,9 +21738,9 @@ public partial class Kinetica
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="executeProc">executeProc</see>.  It will, however, be
-    ///         able to access the database using native API calls.
-    ///         </description>
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>.  It
+    ///         will, however, be able to access the database using native API
+    ///         calls.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -21739,9 +21828,9 @@ public partial class Kinetica
     ///         <description>The proc command will be invoked only once per
     ///         execution, and will not have direct access to any tables named
     ///         as input or output table parameters in the call to <see
-    ///         cref="executeProc">executeProc</see>.  It will, however, be
-    ///         able to access the database using native API calls.
-    ///         </description>
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>.  It
+    ///         will, however, be able to access the database using native API
+    ///         calls.</description>
     ///     </item>
     /// </list>
     /// The default value is <see
@@ -21817,7 +21906,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn(GetRecordsByColumnRequest)">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21860,7 +21949,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn(GetRecordsByColumnRequest)">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21906,7 +21995,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn(GetRecordsByColumnRequest)">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -21981,7 +22070,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="projection_name"
-    ///         /> and use <see cref="createSchema">createSchema</see> to
+    ///         /> and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
     ///         create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
@@ -22362,7 +22452,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="getRecordsByColumn">getRecordsByColumn</see>.</para>
+    /// cref="getRecordsByColumn(GetRecordsByColumnRequest)">getRecordsByColumn</see>.</para>
     /// <para>A projection can be created with a different <a
     /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
     /// than the source table. By specifying <see
@@ -22437,7 +22527,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="projection_name"
-    ///         /> and use <see cref="createSchema">createSchema</see> to
+    ///         /> and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
     ///         create the schema if non-existent]  Name of a schema for the
     ///         projection. If the schema is non-existent, it will be
     ///         automatically created. The default value is ''.</description>
@@ -23298,16 +23389,19 @@ public partial class Kinetica
         return await CreateSchemaAsync( new CreateSchemaRequest( schema_name, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public CreateStateTableResponse createStateTable( CreateStateTableRequest request_ )
     {
         CreateStateTableResponse actualResponse_ = SubmitRequest<CreateStateTableResponse>("/create/statetable", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<CreateStateTableResponse> CreateStateTableAsync( CreateStateTableRequest request_,
                                                                                               System.Threading.CancellationToken cancellationToken = default )
     {
@@ -23315,9 +23409,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public CreateStateTableResponse createStateTable( string table_name,
                                                       string input_table_name,
                                                       string init_table_name,
@@ -23327,9 +23423,11 @@ public partial class Kinetica
                                                               input_table_name,
                                                               init_table_name, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<CreateStateTableResponse> CreateStateTableAsync( string table_name,
                                                                                               string input_table_name,
                                                                                               string init_table_name,
@@ -23341,15 +23439,17 @@ public partial class Kinetica
                                                                          init_table_name,
                                                                          options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Creates a new table with the given type (definition of
     /// columns).</summary>
     /// <remarks><para> The type is specified in <see
     /// cref="CreateTableRequest.type_id">type_id</see> as either a numerical
-    /// type ID (as returned by <see cref="createType">createType</see>) or as
-    /// a list of columns, each specified as a list of the column name, data
-    /// type, and any column attributes.</para>
+    /// type ID (as returned by <see
+    /// cref="createType(CreateTypeRequest)">createType</see>) or as a list of
+    /// columns, each specified as a list of the column name, data type, and
+    /// any column attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -23368,12 +23468,13 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see cref="createType">createType</see>),
-    /// and any <a href="../../../concepts/types/#types-data-handling"
-    /// target="_top">data handling</a>, <a
-    /// href="../../../concepts/types/#types-data-keys" target="_top">data
-    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
-    /// target="_top">data replacement</a> properties.</para>
+    /// properties map values from <see
+    /// cref="createType(CreateTypeRequest)">createType</see>), and any <a
+    /// href="../../../concepts/types/#types-data-handling" target="_top">data
+    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
+    /// target="_top">data key</a>, or <a
+    /// href="../../../concepts/types/#types-data-replace" target="_top">data
+    /// replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -23399,9 +23500,10 @@ public partial class Kinetica
     /// columns). (async)</summary>
     /// <remarks><para> The type is specified in <see
     /// cref="CreateTableRequest.type_id">type_id</see> as either a numerical
-    /// type ID (as returned by <see cref="createType">createType</see>) or as
-    /// a list of columns, each specified as a list of the column name, data
-    /// type, and any column attributes.</para>
+    /// type ID (as returned by <see
+    /// cref="createType(CreateTypeRequest)">createType</see>) or as a list of
+    /// columns, each specified as a list of the column name, data type, and
+    /// any column attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -23420,12 +23522,13 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see cref="createType">createType</see>),
-    /// and any <a href="../../../concepts/types/#types-data-handling"
-    /// target="_top">data handling</a>, <a
-    /// href="../../../concepts/types/#types-data-keys" target="_top">data
-    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
-    /// target="_top">data replacement</a> properties.</para>
+    /// properties map values from <see
+    /// cref="createType(CreateTypeRequest)">createType</see>), and any <a
+    /// href="../../../concepts/types/#types-data-handling" target="_top">data
+    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
+    /// target="_top">data key</a>, or <a
+    /// href="../../../concepts/types/#types-data-replace" target="_top">data
+    /// replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -23454,9 +23557,9 @@ public partial class Kinetica
     /// columns).</summary>
     /// <remarks><para> The type is specified in <paramref name="type_id" /> as
     /// either a numerical type ID (as returned by <see
-    /// cref="createType">createType</see>) or as a list of columns, each
-    /// specified as a list of the column name, data type, and any column
-    /// attributes.</para>
+    /// cref="createType(CreateTypeRequest)">createType</see>) or as a list of
+    /// columns, each specified as a list of the column name, data type, and
+    /// any column attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -23475,12 +23578,13 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see cref="createType">createType</see>),
-    /// and any <a href="../../../concepts/types/#types-data-handling"
-    /// target="_top">data handling</a>, <a
-    /// href="../../../concepts/types/#types-data-keys" target="_top">data
-    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
-    /// target="_top">data replacement</a> properties.</para>
+    /// properties map values from <see
+    /// cref="createType(CreateTypeRequest)">createType</see>), and any <a
+    /// href="../../../concepts/types/#types-data-handling" target="_top">data
+    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
+    /// target="_top">data key</a>, or <a
+    /// href="../../../concepts/types/#types-data-replace" target="_top">data
+    /// replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -23503,8 +23607,8 @@ public partial class Kinetica
     /// option.</param>
     /// <param name="type_id">The type for the table, specified as either an
     /// existing table's numerical type ID (as returned by <see
-    /// cref="createType">createType</see>) or a type definition (as described
-    /// above).</param>
+    /// cref="createType(CreateTypeRequest)">createType</see>) or a type
+    /// definition (as described above).</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -23570,19 +23674,19 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <paramref name="table_name" /> and use <see
-    ///         cref="createSchema">createSchema</see> to create the schema if
-    ///         non-existent]  Name of a schema which is to contain the newly
-    ///         created table. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created table. If the schema is
+    ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="createSchema">createSchema</see> to create a schema
-    ///         instead]  Indicates whether to create a schema instead of a
-    ///         table.
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create a schema instead]  Indicates whether to create a schema
+    ///         instead of a table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -23933,9 +24037,9 @@ public partial class Kinetica
     /// columns). (async)</summary>
     /// <remarks><para> The type is specified in <paramref name="type_id" /> as
     /// either a numerical type ID (as returned by <see
-    /// cref="createType">createType</see>) or as a list of columns, each
-    /// specified as a list of the column name, data type, and any column
-    /// attributes.</para>
+    /// cref="createType(CreateTypeRequest)">createType</see>) or as a list of
+    /// columns, each specified as a list of the column name, data type, and
+    /// any column attributes.</para>
     /// <para>Example of a type definition with some parameters:</para>
     /// <code>
     ///     [
@@ -23954,12 +24058,13 @@ public partial class Kinetica
     /// target="_top">column naming criteria</a>), the column's <a
     /// href="../../../concepts/types/#types-chart" target="_top">specific
     /// type</a> (int, long, float, double, string, bytes, or any of the
-    /// properties map values from <see cref="createType">createType</see>),
-    /// and any <a href="../../../concepts/types/#types-data-handling"
-    /// target="_top">data handling</a>, <a
-    /// href="../../../concepts/types/#types-data-keys" target="_top">data
-    /// key</a>, or <a href="../../../concepts/types/#types-data-replace"
-    /// target="_top">data replacement</a> properties.</para>
+    /// properties map values from <see
+    /// cref="createType(CreateTypeRequest)">createType</see>), and any <a
+    /// href="../../../concepts/types/#types-data-handling" target="_top">data
+    /// handling</a>, <a href="../../../concepts/types/#types-data-keys"
+    /// target="_top">data key</a>, or <a
+    /// href="../../../concepts/types/#types-data-replace" target="_top">data
+    /// replacement</a> properties.</para>
     /// <para>A table may optionally be designated to use a <a
     /// href="../../../concepts/tables/#replication"
     /// target="_top">replicated</a> distribution scheme, or be assigned: <a
@@ -23982,8 +24087,8 @@ public partial class Kinetica
     /// option.</param>
     /// <param name="type_id">The type for the table, specified as either an
     /// existing table's numerical type ID (as returned by <see
-    /// cref="createType">createType</see>) or a type definition (as described
-    /// above).</param>
+    /// cref="createType(CreateTypeRequest)">createType</see>) or a type
+    /// definition (as described above).</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -24049,19 +24154,19 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         as part of <paramref name="table_name" /> and use <see
-    ///         cref="createSchema">createSchema</see> to create the schema if
-    ///         non-existent]  Name of a schema which is to contain the newly
-    ///         created table. If the schema is non-existent, it will be
-    ///         automatically created.</description>
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created table. If the schema is
+    ///         non-existent, it will be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:
     ///         </term>
     ///         <description>[DEPRECATED--please use <see
-    ///         cref="createSchema">createSchema</see> to create a schema
-    ///         instead]  Indicates whether to create a schema instead of a
-    ///         table.
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create a schema instead]  Indicates whether to create a schema
+    ///         instead of a table.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -24424,8 +24529,8 @@ public partial class Kinetica
     /// <see
     /// cref="CreateTableExternalRequest.create_table_options">create_table_options</see>,
     /// which contains many of the options from <see
-    /// cref="createTable">createTable</see>; or defined implicitly, inferred
-    /// from the source data.</para></remarks>
+    /// cref="createTable(CreateTableRequest)">createTable</see>; or defined
+    /// implicitly, inferred from the source data.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -24451,8 +24556,8 @@ public partial class Kinetica
     /// <see
     /// cref="CreateTableExternalRequest.create_table_options">create_table_options</see>,
     /// which contains many of the options from <see
-    /// cref="createTable">createTable</see>; or defined implicitly, inferred
-    /// from the source data.</para></remarks>
+    /// cref="createTable(CreateTableRequest)">createTable</see>; or defined
+    /// implicitly, inferred from the source data.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -24478,7 +24583,8 @@ public partial class Kinetica
     /// source</a>.</para>
     /// <para>The external table can have its structure defined explicitly, via
     /// <paramref name="create_table_options" />, which contains many of the
-    /// options from <see cref="createTable">createTable</see>; or defined
+    /// options from <see
+    /// cref="createTable(CreateTableRequest)">createTable</see>; or defined
     /// implicitly, inferred from the source data.</para></remarks>
     ///
     /// <param name="table_name">Name of the table to be created, in
@@ -24514,8 +24620,8 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable">createTable</see>, allowing the structure of the
-    /// table to be defined independently of the data source.
+    /// cref="createTable(CreateTableRequest)">createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -25455,8 +25561,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by invoking the refresh action of <see
-    ///                 cref="alterTable">alterTable</see> on this table.
-    ///                 </description>
+    ///                 cref="alterTable(AlterTableRequest)">alterTable</see>
+    ///                 on this table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -25464,8 +25570,9 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh table on database startup and when
     ///                 manually requested by invoking the refresh action of
-    ///                 <see cref="alterTable">alterTable</see> on this table.
-    ///                 </description>
+    ///                 <see
+    ///                 cref="alterTable(AlterTableRequest)">alterTable</see>
+    ///                 on this table.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -25955,7 +26062,8 @@ public partial class Kinetica
     /// source</a>.</para>
     /// <para>The external table can have its structure defined explicitly, via
     /// <paramref name="create_table_options" />, which contains many of the
-    /// options from <see cref="createTable">createTable</see>; or defined
+    /// options from <see
+    /// cref="createTable(CreateTableRequest)">createTable</see>; or defined
     /// implicitly, inferred from the source data.</para></remarks>
     ///
     /// <param name="table_name">Name of the table to be created, in
@@ -25991,8 +26099,8 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable">createTable</see>, allowing the structure of the
-    /// table to be defined independently of the data source.
+    /// cref="createTable(CreateTableRequest)">createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -26932,8 +27040,8 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh only occurs when manually
     ///                 requested by invoking the refresh action of <see
-    ///                 cref="alterTable">alterTable</see> on this table.
-    ///                 </description>
+    ///                 cref="alterTable(AlterTableRequest)">alterTable</see>
+    ///                 on this table.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -26941,8 +27049,9 @@ public partial class Kinetica
     ///                 </term>
     ///                 <description>Refresh table on database startup and when
     ///                 manually requested by invoking the refresh action of
-    ///                 <see cref="alterTable">alterTable</see> on this table.
-    ///                 </description>
+    ///                 <see
+    ///                 cref="alterTable(AlterTableRequest)">alterTable</see>
+    ///                 on this table.</description>
     ///             </item>
     ///         </list>
     ///         The default value is <see
@@ -27440,7 +27549,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor(ClearTableMonitorRequest)">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -27471,7 +27580,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor(ClearTableMonitorRequest)">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -27504,7 +27613,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor(ClearTableMonitorRequest)">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -27729,7 +27838,7 @@ public partial class Kinetica
     /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
     /// monitor will continue to run (regardless of whether or not there are
     /// any subscribers) until deactivated with <see
-    /// cref="clearTableMonitor">clearTableMonitor</see>.</para>
+    /// cref="clearTableMonitor(ClearTableMonitorRequest)">clearTableMonitor</see>.</para>
     /// <para>For more information on table monitors, see <a
     /// href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</para></remarks>
@@ -27948,16 +28057,17 @@ public partial class Kinetica
     /// or more tables.</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
-    /// trigger has been activated, any record added to the listed tables(s)
-    /// via <see cref="insertRecords">insertRecords</see> with the chosen
-    /// columns' values falling within the specified region will trip the
-    /// trigger. All such records will be queued at the trigger port (by
+    /// cref="createTriggerByRange(CreateTriggerByRangeRequest)">createTriggerByRange</see>.)
+    /// Once the trigger has been activated, any record added to the listed
+    /// tables(s) via <see cref="insertRecords">insertRecords</see> with the
+    /// chosen columns' values falling within the specified region will trip
+    /// the trigger. All such records will be queued at the trigger port (by
     /// default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -27976,16 +28086,17 @@ public partial class Kinetica
     /// or more tables. (async)</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
-    /// trigger has been activated, any record added to the listed tables(s)
-    /// via <see cref="insertRecords">insertRecords</see> with the chosen
-    /// columns' values falling within the specified region will trip the
-    /// trigger. All such records will be queued at the trigger port (by
+    /// cref="createTriggerByRange(CreateTriggerByRangeRequest)">createTriggerByRange</see>.)
+    /// Once the trigger has been activated, any record added to the listed
+    /// tables(s) via <see cref="insertRecords">insertRecords</see> with the
+    /// chosen columns' values falling within the specified region will trip
+    /// the trigger. All such records will be queued at the trigger port (by
     /// default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -28007,16 +28118,17 @@ public partial class Kinetica
     /// or more tables.</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
-    /// trigger has been activated, any record added to the listed tables(s)
-    /// via <see cref="insertRecords">insertRecords</see> with the chosen
-    /// columns' values falling within the specified region will trip the
-    /// trigger. All such records will be queued at the trigger port (by
+    /// cref="createTriggerByRange(CreateTriggerByRangeRequest)">createTriggerByRange</see>.)
+    /// Once the trigger has been activated, any record added to the listed
+    /// tables(s) via <see cref="insertRecords">insertRecords</see> with the
+    /// chosen columns' values falling within the specified region will trip
+    /// the trigger. All such records will be queued at the trigger port (by
     /// default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -28064,16 +28176,17 @@ public partial class Kinetica
     /// or more tables. (async)</summary>
     /// <remarks><para>(This function is essentially the two-dimensional
     /// version of <see
-    /// cref="createTriggerByRange">createTriggerByRange</see>.) Once the
-    /// trigger has been activated, any record added to the listed tables(s)
-    /// via <see cref="insertRecords">insertRecords</see> with the chosen
-    /// columns' values falling within the specified region will trip the
-    /// trigger. All such records will be queued at the trigger port (by
+    /// cref="createTriggerByRange(CreateTriggerByRangeRequest)">createTriggerByRange</see>.)
+    /// Once the trigger has been activated, any record added to the listed
+    /// tables(s) via <see cref="insertRecords">insertRecords</see> with the
+    /// chosen columns' values falling within the specified region will trip
+    /// the trigger. All such records will be queued at the trigger port (by
     /// default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -28128,10 +28241,11 @@ public partial class Kinetica
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -28153,10 +28267,11 @@ public partial class Kinetica
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -28181,10 +28296,11 @@ public partial class Kinetica
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -28225,10 +28341,11 @@ public partial class Kinetica
     /// with the chosen column_name's value falling within the specified range
     /// will trip the trigger. All such records will be queued at the trigger
     /// port (by default '9001' but able to be retrieved via <see
-    /// cref="showSystemStatus">showSystemStatus</see>) for any listening
-    /// client to collect. Active triggers can be cancelled by using the <see
-    /// cref="clearTrigger">clearTrigger</see> endpoint or by clearing all
-    /// relevant tables.</para>
+    /// cref="showSystemStatus(ShowSystemStatusRequest)">showSystemStatus</see>)
+    /// for any listening client to collect. Active triggers can be cancelled
+    /// by using the <see
+    /// cref="clearTrigger(ClearTriggerRequest)">clearTrigger</see> endpoint or
+    /// by clearing all relevant tables.</para>
     /// <para>The output returns the trigger handle as well as indicating
     /// success or failure of the trigger activation.</para></remarks>
     ///
@@ -29382,10 +29499,12 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="table_name" />
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of the schema for the output
-    ///         table. If the schema provided is non-existent, it will be
-    ///         automatically created. The default value is ''.</description>
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of the schema for the
+    ///         output table. If the schema provided is non-existent, it will
+    ///         be automatically created. The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="CreateUnionRequest.Options.MODE">MODE</see>:
@@ -29775,10 +29894,12 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="table_name" />
-    ///         and use <see cref="createSchema">createSchema</see> to create
-    ///         the schema if non-existent]  Name of the schema for the output
-    ///         table. If the schema provided is non-existent, it will be
-    ///         automatically created. The default value is ''.</description>
+    ///         and use <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of the schema for the
+    ///         output table. If the schema provided is non-existent, it will
+    ///         be automatically created. The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="CreateUnionRequest.Options.MODE">MODE</see>:
@@ -32311,16 +32432,19 @@ public partial class Kinetica
         return await DropCatalogAsync( new DropCatalogRequest( name, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public DropContainerRegistryResponse dropContainerRegistry( DropContainerRegistryRequest request_ )
     {
         DropContainerRegistryResponse actualResponse_ = SubmitRequest<DropContainerRegistryResponse>("/drop/container/registry", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<DropContainerRegistryResponse> DropContainerRegistryAsync( DropContainerRegistryRequest request_,
                                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -32328,18 +32452,22 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public DropContainerRegistryResponse dropContainerRegistry( string registry_name,
                                                                 IDictionary<string, string> options = null )
     {
         return dropContainerRegistry( new DropContainerRegistryRequest( registry_name,
                                                                         options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<DropContainerRegistryResponse> DropContainerRegistryAsync( string registry_name,
                                                                                                         IDictionary<string, string> options = null,
                                                                                                         System.Threading.CancellationToken cancellationToken = default )
@@ -32347,7 +32475,8 @@ public partial class Kinetica
         return await DropContainerRegistryAsync( new DropContainerRegistryRequest( registry_name,
                                                                                    options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Drop an existing <a href="../../../concepts/credentials/"
     /// target="_top">credential</a>.</summary>
@@ -32759,16 +32888,19 @@ public partial class Kinetica
                                                                        options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public DropModelResponse dropModel( DropModelRequest request_ )
     {
         DropModelResponse actualResponse_ = SubmitRequest<DropModelResponse>("/drop/model", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<DropModelResponse> DropModelAsync( DropModelRequest request_,
                                                                                 System.Threading.CancellationToken cancellationToken = default )
     {
@@ -32776,24 +32908,29 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public DropModelResponse dropModel( string model_name,
                                         IDictionary<string, string> options = null )
     {
         return dropModel( new DropModelRequest( model_name, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<DropModelResponse> DropModelAsync( string model_name,
                                                                                 IDictionary<string, string> options = null,
                                                                                 System.Threading.CancellationToken cancellationToken = default )
     {
         return await DropModelAsync( new DropModelRequest( model_name, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Drops an existing SQL-style <a
     /// href="../../../concepts/schemas/" target="_top">schema</a>, specified
@@ -32971,16 +33108,19 @@ public partial class Kinetica
         return await DropSchemaAsync( new DropSchemaRequest( schema_name, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public EvaluateModelResponse evaluateModel( EvaluateModelRequest request_ )
     {
         EvaluateModelResponse actualResponse_ = SubmitRequest<EvaluateModelResponse>("/evaluate/model", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<EvaluateModelResponse> EvaluateModelAsync( EvaluateModelRequest request_,
                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -32988,9 +33128,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public EvaluateModelResponse evaluateModel( string model_name,
                                                 int replicas,
                                                 string deployment_mode,
@@ -33002,9 +33144,11 @@ public partial class Kinetica
                                                         deployment_mode, source_table,
                                                         destination_table, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<EvaluateModelResponse> EvaluateModelAsync( string model_name,
                                                                                         int replicas,
                                                                                         string deployment_mode,
@@ -33019,7 +33163,8 @@ public partial class Kinetica
                                                                    destination_table,
                                                                    options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Executes a proc.</summary>
     /// <remarks><para>This endpoint is asynchronous and does not wait for the
@@ -33142,9 +33287,10 @@ public partial class Kinetica
     ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="showProcStatus">showProcStatus</see> or <see
-    ///         cref="killProc">killProc</see> to identify the proc instance.
-    ///         The default value is ''.</description>
+    ///         cref="showProcStatus(ShowProcStatusRequest)">showProcStatus</see>
+    ///         or <see cref="killProc(KillProcRequest)">killProc</see> to
+    ///         identify the proc instance. The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -33152,9 +33298,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="showProcStatus">showProcStatus</see>. If the number of
-    ///         lines output exceeds the maximum, earlier lines are discarded.
-    ///         The default value is '100'.</description>
+    ///         cref="showProcStatus(ShowProcStatusRequest)">showProcStatus</see>.
+    ///         If the number of lines output exceeds the maximum, earlier
+    ///         lines are discarded. The default value is '100'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -33165,8 +33311,9 @@ public partial class Kinetica
     ///         of the proc will run when the database is started instead of
     ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see cref="showProc">showProc</see> and used in <see
-    ///         cref="showProcStatus">showProcStatus</see>.
+    ///         using <see cref="showProc(ShowProcRequest)">showProc</see> and
+    ///         used in <see
+    ///         cref="showProcStatus(ShowProcStatusRequest)">showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -33281,9 +33428,10 @@ public partial class Kinetica
     ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="showProcStatus">showProcStatus</see> or <see
-    ///         cref="killProc">killProc</see> to identify the proc instance.
-    ///         The default value is ''.</description>
+    ///         cref="showProcStatus(ShowProcStatusRequest)">showProcStatus</see>
+    ///         or <see cref="killProc(KillProcRequest)">killProc</see> to
+    ///         identify the proc instance. The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -33291,9 +33439,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="showProcStatus">showProcStatus</see>. If the number of
-    ///         lines output exceeds the maximum, earlier lines are discarded.
-    ///         The default value is '100'.</description>
+    ///         cref="showProcStatus(ShowProcStatusRequest)">showProcStatus</see>.
+    ///         If the number of lines output exceeds the maximum, earlier
+    ///         lines are discarded. The default value is '100'.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -33304,8 +33452,9 @@ public partial class Kinetica
     ///         of the proc will run when the database is started instead of
     ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see cref="showProc">showProc</see> and used in <see
-    ///         cref="showProcStatus">showProcStatus</see>.
+    ///         using <see cref="showProc(ShowProcRequest)">showProc</see> and
+    ///         used in <see
+    ///         cref="showProcStatus(ShowProcStatusRequest)">showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -34623,7 +34772,8 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see cref="createDatasink">createDatasink</see>.</para>
+    /// see <see
+    /// cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -34653,7 +34803,8 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see cref="createDatasink">createDatasink</see>.</para>
+    /// see <see
+    /// cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -34686,7 +34837,8 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see cref="createDatasink">createDatasink</see>.</para>
+    /// see <see
+    /// cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -34696,7 +34848,8 @@ public partial class Kinetica
     /// <para>All filenames created are returned in the response.</para>
     /// </remarks>
     ///
-    /// <param name="table_name"></param>
+    /// <param name="table_name">The name of the table whose records are to be
+    /// exported.</param>
     /// <param name="filepath">Path to data export target.  If <paramref
     /// name="filepath" /> has a file extension, it is read as the name of a
     /// file. If <paramref name="filepath" /> is a directory, then the source
@@ -34766,7 +34919,8 @@ public partial class Kinetica
     ///         cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Datasink name, created using <see
-    ///         cref="createDatasink">createDatasink</see>.</description>
+    ///         cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -35007,7 +35161,8 @@ public partial class Kinetica
     /// expression through SQL. Default destination is KIFS, though other
     /// storage types (Azure, S3, GCS, and HDFS) are supported through <see
     /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
-    /// see <see cref="createDatasink">createDatasink</see>.</para>
+    /// see <see
+    /// cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.</para>
     /// <para>Server's local file system is not supported.  Default file format
     /// is delimited text. See options for different file types and different
     /// options for each file type.  Table is saved to a single file if within
@@ -35017,7 +35172,8 @@ public partial class Kinetica
     /// <para>All filenames created are returned in the response.</para>
     /// </remarks>
     ///
-    /// <param name="table_name"></param>
+    /// <param name="table_name">The name of the table whose records are to be
+    /// exported.</param>
     /// <param name="filepath">Path to data export target.  If <paramref
     /// name="filepath" /> has a file extension, it is read as the name of a
     /// file. If <paramref name="filepath" /> is a directory, then the source
@@ -35087,7 +35243,8 @@ public partial class Kinetica
     ///         cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Datasink name, created using <see
-    ///         cref="createDatasink">createDatasink</see>.</description>
+    ///         cref="createDatasink(CreateDatasinkRequest)">createDatasink</see>.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -35681,10 +35838,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:
@@ -35769,10 +35927,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:
@@ -35912,10 +36071,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -35999,10 +36159,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36133,10 +36294,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  The schema for the newly created view.
-    ///         If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  The schema for the newly
+    ///         created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36219,10 +36381,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  The schema for the newly created view.
-    ///         If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  The schema for the newly
+    ///         created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36361,10 +36524,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36455,10 +36619,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36597,10 +36762,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36690,10 +36856,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -36877,10 +37044,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37017,10 +37185,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37172,10 +37341,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -37284,10 +37454,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -37460,10 +37631,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema which is to contain
-    ///         the newly created view. If the schema is non-existent, it will
-    ///         be automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created view. If the schema is
+    ///         non-existent, it will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37560,10 +37732,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema which is to contain
-    ///         the newly created view. If the schema is non-existent, it will
-    ///         be automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema which is
+    ///         to contain the newly created view. If the schema is
+    ///         non-existent, it will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37708,10 +37881,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37804,10 +37978,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema provided is non-existent, it will be
-    ///         automatically created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema provided is non-existent, it
+    ///         will be automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -37955,10 +38130,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -38041,10 +38217,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -38194,10 +38371,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38326,10 +38504,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38544,10 +38723,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38697,10 +38877,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38872,10 +39053,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -39084,10 +39266,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -39346,10 +39529,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -39436,10 +39620,11 @@ public partial class Kinetica
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="createSchema">createSchema</see> to create the
-    ///         schema if non-existent]  Name of a schema for the newly created
-    ///         view. If the schema is non-existent, it will be automatically
-    ///         created.</description>
+    ///         <see
+    ///         cref="createSchema(CreateSchemaRequest)">createSchema</see> to
+    ///         create the schema if non-existent]  Name of a schema for the
+    ///         newly created view. If the schema is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -39464,8 +39649,9 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit.</summary>
-    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
-    /// total number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see
+    /// cref="showGraph(ShowGraphRequest)">showGraph</see> to obtain the total
+    /// number of nodes and edges.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -39480,8 +39666,9 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit. (async)</summary>
-    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
-    /// total number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see
+    /// cref="showGraph(ShowGraphRequest)">showGraph</see> to obtain the total
+    /// number of nodes and edges.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -39499,8 +39686,9 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit.</summary>
-    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
-    /// total number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see
+    /// cref="showGraph(ShowGraphRequest)">showGraph</see> to obtain the total
+    /// number of nodes and edges.</para></remarks>
     ///
     /// <param name="graph_name">Name of the graph from which to retrieve
     /// entities.</param>
@@ -39642,8 +39830,9 @@ public partial class Kinetica
 
     /// <summary>Retrieves node or edge entities from an existing graph, with
     /// pagination support via offset and limit. (async)</summary>
-    /// <remarks><para>Use <see cref="showGraph">showGraph</see> to obtain the
-    /// total number of nodes and edges.</para></remarks>
+    /// <remarks><para>Use <see
+    /// cref="showGraph(ShowGraphRequest)">showGraph</see> to obtain the total
+    /// number of nodes and edges.</para></remarks>
     ///
     /// <param name="graph_name">Name of the graph from which to retrieve
     /// entities.</param>
@@ -39789,9 +39978,10 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// </summary>
-    /// <remarks><para> See the <see cref="createJob">createJob</see> for
-    /// starting an asynchronous job.  Some fields of the response are filled
-    /// only after the submitted job has finished execution.</para></remarks>
+    /// <remarks><para> See the <see
+    /// cref="createJob(CreateJobRequest)">createJob</see> for starting an
+    /// asynchronous job.  Some fields of the response are filled only after
+    /// the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -39806,9 +39996,10 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// (async)</summary>
-    /// <remarks><para> See the <see cref="createJob">createJob</see> for
-    /// starting an asynchronous job.  Some fields of the response are filled
-    /// only after the submitted job has finished execution.</para></remarks>
+    /// <remarks><para> See the <see
+    /// cref="createJob(CreateJobRequest)">createJob</see> for starting an
+    /// asynchronous job.  Some fields of the response are filled only after
+    /// the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -39826,9 +40017,10 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// </summary>
-    /// <remarks><para> See the <see cref="createJob">createJob</see> for
-    /// starting an asynchronous job.  Some fields of the response are filled
-    /// only after the submitted job has finished execution.</para></remarks>
+    /// <remarks><para> See the <see
+    /// cref="createJob(CreateJobRequest)">createJob</see> for starting an
+    /// asynchronous job.  Some fields of the response are filled only after
+    /// the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="job_id">A unique identifier for the job whose status and
     /// result is to be fetched.</param>
@@ -39852,9 +40044,10 @@ public partial class Kinetica
 
     /// <summary>Get the status and result of asynchronously running job.
     /// (async)</summary>
-    /// <remarks><para> See the <see cref="createJob">createJob</see> for
-    /// starting an asynchronous job.  Some fields of the response are filled
-    /// only after the submitted job has finished execution.</para></remarks>
+    /// <remarks><para> See the <see
+    /// cref="createJob(CreateJobRequest)">createJob</see> for starting an
+    /// asynchronous job.  Some fields of the response are filled only after
+    /// the submitted job has finished execution.</para></remarks>
     ///
     /// <param name="job_id">A unique identifier for the job whose status and
     /// result is to be fetched.</param>
@@ -40176,7 +40369,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection">createProjection</see>.</para>
+    /// cref="createProjection(CreateProjectionRequest)">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -40223,7 +40416,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection">createProjection</see>.</para>
+    /// cref="createProjection(CreateProjectionRequest)">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -40272,7 +40465,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection">createProjection</see>.</para>
+    /// cref="createProjection(CreateProjectionRequest)">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -40432,7 +40625,7 @@ public partial class Kinetica
     /// <para><a href="../../../concepts/window/" target="_top">Window
     /// functions</a>, which can perform operations like moving averages, are
     /// available through this endpoint as well as <see
-    /// cref="createProjection">createProjection</see>.</para>
+    /// cref="createProjection(CreateProjectionRequest)">createProjection</see>.</para>
     /// <para>When using pagination, if the table (or the underlying table in
     /// the case of a view) is modified (records are inserted, updated, or
     /// deleted) during a call to the endpoint, the records or values retrieved
@@ -40780,7 +40973,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection.</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords">deleteRecords</see>.</para>
+    /// cref="deleteRecords(DeleteRecordsRequest)">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <see
     /// cref="GetRecordsFromCollectionRequest.offset">offset</see> and <see
     /// cref="GetRecordsFromCollectionRequest.limit">limit</see>
@@ -40812,7 +41005,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection. (async)</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords">deleteRecords</see>.</para>
+    /// cref="deleteRecords(DeleteRecordsRequest)">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <see
     /// cref="GetRecordsFromCollectionRequest.offset">offset</see> and <see
     /// cref="GetRecordsFromCollectionRequest.limit">limit</see>
@@ -40847,7 +41040,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection.</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords">deleteRecords</see>.</para>
+    /// cref="deleteRecords(DeleteRecordsRequest)">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <paramref
     /// name="offset" /> and <paramref name="limit" /> parameters.</para>
     /// <para>Note that when using the Java API, it is not possible to retrieve
@@ -40925,7 +41118,7 @@ public partial class Kinetica
     /// <summary>Retrieves records from a collection. (async)</summary>
     /// <remarks><para>The operation can optionally return the record IDs which
     /// can be used in certain queries such as <see
-    /// cref="deleteRecords">deleteRecords</see>.</para>
+    /// cref="deleteRecords(DeleteRecordsRequest)">deleteRecords</see>.</para>
     /// <para>This operation supports paging through the data via the <paramref
     /// name="offset" /> and <paramref name="limit" /> parameters.</para>
     /// <para>Note that when using the Java API, it is not possible to retrieve
@@ -41003,16 +41196,19 @@ public partial class Kinetica
                                                                                             options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public GetVectortileResponse getVectortile( GetVectortileRequest request_ )
     {
         GetVectortileResponse actualResponse_ = SubmitRequest<GetVectortileResponse>("/get/vectortile", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<GetVectortileResponse> GetVectortileAsync( GetVectortileRequest request_,
                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -41020,9 +41216,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public GetVectortileResponse getVectortile( IList<string> table_names,
                                                 IList<string> column_names,
                                                 IDictionary<string, IList<string>> layers,
@@ -41034,9 +41232,11 @@ public partial class Kinetica
         return getVectortile( new GetVectortileRequest( table_names, column_names, layers,
                                                         tile_x, tile_y, zoom, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<GetVectortileResponse> GetVectortileAsync( IList<string> table_names,
                                                                                         IList<string> column_names,
                                                                                         IDictionary<string, IList<string>> layers,
@@ -41051,7 +41251,8 @@ public partial class Kinetica
                                                                    tile_x, tile_y, zoom,
                                                                    options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Grant user or role the specified permission on the specified
     /// object.</summary>
@@ -43276,7 +43477,7 @@ public partial class Kinetica
     /// <summary>Check for the existence of a type.</summary>
     ///
     /// <param name="type_id">Id of the type returned in response to <see
-    /// cref="createType">createType</see> request.</param>
+    /// cref="createType(CreateTypeRequest)">createType</see> request.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -43290,7 +43491,7 @@ public partial class Kinetica
     /// <summary>Check for the existence of a type. (async)</summary>
     ///
     /// <param name="type_id">Id of the type returned in response to <see
-    /// cref="createType">createType</see> request.</param>
+    /// cref="createType(CreateTypeRequest)">createType</see> request.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -43304,16 +43505,19 @@ public partial class Kinetica
         return await HasTypeAsync( new HasTypeRequest( type_id, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ImportModelResponse importModel( ImportModelRequest request_ )
     {
         ImportModelResponse actualResponse_ = SubmitRequest<ImportModelResponse>("/import/model", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ImportModelResponse> ImportModelAsync( ImportModelRequest request_,
                                                                                     System.Threading.CancellationToken cancellationToken = default )
     {
@@ -43321,9 +43525,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ImportModelResponse importModel( string model_name,
                                             string registry_name,
                                             string container,
@@ -43334,9 +43540,11 @@ public partial class Kinetica
         return importModel( new ImportModelRequest( model_name, registry_name, container,
                                                     run_function, model_type, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ImportModelResponse> ImportModelAsync( string model_name,
                                                                                     string registry_name,
                                                                                     string container,
@@ -43349,7 +43557,8 @@ public partial class Kinetica
                                                                container, run_function,
                                                                model_type, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Adds multiple records to the specified table.</summary>
     /// <remarks><para>The operation is synchronous, meaning that a response
@@ -44336,9 +44545,9 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable">createTable</see>, allowing the structure of the
-    /// table to be defined independently of the data source, when creating the
-    /// target table.
+    /// cref="createTable(CreateTableRequest)">createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source,
+    /// when creating the target table.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -45716,9 +45925,9 @@ public partial class Kinetica
     /// <param name="modify_columns">Not implemented yet. The default value is
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options from <see
-    /// cref="createTable">createTable</see>, allowing the structure of the
-    /// table to be defined independently of the data source, when creating the
-    /// target table.
+    /// cref="createTable(CreateTableRequest)">createTable</see>, allowing the
+    /// structure of the table to be defined independently of the data source,
+    /// when creating the target table.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -47091,7 +47300,7 @@ public partial class Kinetica
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
     /// target table. Includes type to use. The other options match those in
-    /// <see cref="createTable">createTable</see>.
+    /// <see cref="createTable(CreateTableRequest)">createTable</see>.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -48322,7 +48531,7 @@ public partial class Kinetica
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
     /// target table. Includes type to use. The other options match those in
-    /// <see cref="createTable">createTable</see>.
+    /// <see cref="createTable(CreateTableRequest)">createTable</see>.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -51774,11 +51983,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, kill
     ///         the proc instance that has a matching run ID and a matching run
     ///         tag that was provided to <see
-    ///         cref="executeProc">executeProc</see>. If <paramref
-    ///         name="run_id" /> is not specified, kill the proc instance(s)
-    ///         where a matching run tag was provided to <see
-    ///         cref="executeProc">executeProc</see>. The default value is ''.
-    ///         </description>
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>. If
+    ///         <paramref name="run_id" /> is not specified, kill the proc
+    ///         instance(s) where a matching run tag was provided to <see
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>. The
+    ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -51789,8 +51998,9 @@ public partial class Kinetica
     ///         the instance of the proc matching the auto-start run ID that
     ///         was created to run when the database is started. The auto-start
     ///         run ID was returned from <see
-    ///         cref="executeProc">executeProc</see> and can be retrieved using
-    ///         <see cref="showProc">showProc</see>.
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see> and
+    ///         can be retrieved using <see
+    ///         cref="showProc(ShowProcRequest)">showProc</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -51829,11 +52039,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, kill
     ///         the proc instance that has a matching run ID and a matching run
     ///         tag that was provided to <see
-    ///         cref="executeProc">executeProc</see>. If <paramref
-    ///         name="run_id" /> is not specified, kill the proc instance(s)
-    ///         where a matching run tag was provided to <see
-    ///         cref="executeProc">executeProc</see>. The default value is ''.
-    ///         </description>
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>. If
+    ///         <paramref name="run_id" /> is not specified, kill the proc
+    ///         instance(s) where a matching run tag was provided to <see
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>. The
+    ///         default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -51844,8 +52054,9 @@ public partial class Kinetica
     ///         the instance of the proc matching the auto-start run ID that
     ///         was created to run when the database is started. The auto-start
     ///         run ID was returned from <see
-    ///         cref="executeProc">executeProc</see> and can be retrieved using
-    ///         <see cref="showProc">showProc</see>.
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see> and
+    ///         can be retrieved using <see
+    ///         cref="showProc(ShowProcRequest)">showProc</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -51873,16 +52084,19 @@ public partial class Kinetica
         return await KillProcAsync( new KillProcRequest( run_id, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ListGraphResponse listGraph( ListGraphRequest request_ )
     {
         ListGraphResponse actualResponse_ = SubmitRequest<ListGraphResponse>("/list/graph", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ListGraphResponse> ListGraphAsync( ListGraphRequest request_,
                                                                                 System.Threading.CancellationToken cancellationToken = default )
     {
@@ -51890,24 +52104,29 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ListGraphResponse listGraph( string graph_name = "",
                                         IDictionary<string, string> options = null )
     {
         return listGraph( new ListGraphRequest( graph_name, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ListGraphResponse> ListGraphAsync( string graph_name = "",
                                                                                 IDictionary<string, string> options = null,
                                                                                 System.Threading.CancellationToken cancellationToken = default )
     {
         return await ListGraphAsync( new ListGraphRequest( graph_name, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Manages global access to a table's data.</summary>
     /// <remarks><para> By default a table has a <see
@@ -52418,8 +52637,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -52427,8 +52648,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -52436,8 +52659,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -52445,7 +52670,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         parameter of the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
     ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -53441,8 +53667,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -53450,8 +53678,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -53459,8 +53689,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -53468,7 +53700,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         parameter of the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
     ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -54424,7 +54657,7 @@ public partial class Kinetica
     ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor">createTableMonitor</see>.
+    ///         cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -54783,7 +55016,7 @@ public partial class Kinetica
     ///         cref="ModifyGraphRequest.Options.TRUE">TRUE</see>, the graph
     ///         will be fully reconstructed and the table monitors will be
     ///         reattached. For more details on table monitors, see <see
-    ///         cref="createTableMonitor">createTableMonitor</see>.
+    ///         cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -54964,10 +55197,11 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see cref="createGraph">createGraph</see> and returns a list of
-    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
-    /// on what's been provided to the endpoint; providing edges will return
-    /// nodes and providing nodes will return edges.</summary>
+    /// <see cref="createGraph(CreateGraphRequest)">createGraph</see> and
+    /// returns a list of adjacent edge(s) or node(s), also known as an
+    /// adjacency list, depending on what's been provided to the endpoint;
+    /// providing edges will return nodes and providing nodes will return
+    /// edges.</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <see
     /// cref="QueryGraphRequest.queries">queries</see>. This field can be
@@ -54998,10 +55232,11 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see cref="createGraph">createGraph</see> and returns a list of
-    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
-    /// on what's been provided to the endpoint; providing edges will return
-    /// nodes and providing nodes will return edges. (async)</summary>
+    /// <see cref="createGraph(CreateGraphRequest)">createGraph</see> and
+    /// returns a list of adjacent edge(s) or node(s), also known as an
+    /// adjacency list, depending on what's been provided to the endpoint;
+    /// providing edges will return nodes and providing nodes will return
+    /// edges. (async)</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <see
     /// cref="QueryGraphRequest.queries">queries</see>. This field can be
@@ -55035,10 +55270,11 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see cref="createGraph">createGraph</see> and returns a list of
-    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
-    /// on what's been provided to the endpoint; providing edges will return
-    /// nodes and providing nodes will return edges.</summary>
+    /// <see cref="createGraph(CreateGraphRequest)">createGraph</see> and
+    /// returns a list of adjacent edge(s) or node(s), also known as an
+    /// adjacency list, depending on what's been provided to the endpoint;
+    /// providing edges will return nodes and providing nodes will return
+    /// edges.</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <paramref
     /// name="queries" />. This field can be populated with column values from
@@ -55247,10 +55483,11 @@ public partial class Kinetica
     }
 
     /// <summary>Employs a topological query on a graph generated a-priori by
-    /// <see cref="createGraph">createGraph</see> and returns a list of
-    /// adjacent edge(s) or node(s), also known as an adjacency list, depending
-    /// on what's been provided to the endpoint; providing edges will return
-    /// nodes and providing nodes will return edges. (async)</summary>
+    /// <see cref="createGraph(CreateGraphRequest)">createGraph</see> and
+    /// returns a list of adjacent edge(s) or node(s), also known as an
+    /// adjacency list, depending on what's been provided to the endpoint;
+    /// providing edges will return nodes and providing nodes will return
+    /// edges. (async)</summary>
     /// <remarks><para> To determine the node(s) or edge(s) adjacent to a value
     /// from a given column, provide a list of values to <paramref
     /// name="queries" />. This field can be populated with column values from
@@ -55602,16 +55839,19 @@ public partial class Kinetica
                                                                          options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ReserveResourceResponse reserveResource( ReserveResourceRequest request_ )
     {
         ReserveResourceResponse actualResponse_ = SubmitRequest<ReserveResourceResponse>("/reserve/resource", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ReserveResourceResponse> ReserveResourceAsync( ReserveResourceRequest request_,
                                                                                             System.Threading.CancellationToken cancellationToken = default )
     {
@@ -55619,9 +55859,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ReserveResourceResponse reserveResource( string component,
                                                     string name,
                                                     string action,
@@ -55633,9 +55875,11 @@ public partial class Kinetica
                                                             bytes_requested, owner_id,
                                                             options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ReserveResourceResponse> ReserveResourceAsync( string component,
                                                                                             string name,
                                                                                             string action,
@@ -55649,7 +55893,8 @@ public partial class Kinetica
                                                                        bytes_requested,
                                                                        owner_id, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Restores database objects from a <a
     /// href="../../../admin/backup_restore/#database-backup"
@@ -58005,16 +58250,19 @@ public partial class Kinetica
                                                              options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowContainerRegistryResponse showContainerRegistry( ShowContainerRegistryRequest request_ )
     {
         ShowContainerRegistryResponse actualResponse_ = SubmitRequest<ShowContainerRegistryResponse>("/show/container/registry", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowContainerRegistryResponse> ShowContainerRegistryAsync( ShowContainerRegistryRequest request_,
                                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -58022,18 +58270,22 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowContainerRegistryResponse showContainerRegistry( string registry_name,
                                                                 IDictionary<string, string> options = null )
     {
         return showContainerRegistry( new ShowContainerRegistryRequest( registry_name,
                                                                         options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowContainerRegistryResponse> ShowContainerRegistryAsync( string registry_name,
                                                                                                         IDictionary<string, string> options = null,
                                                                                                         System.Threading.CancellationToken cancellationToken = default )
@@ -58041,7 +58293,8 @@ public partial class Kinetica
         return await ShowContainerRegistryAsync( new ShowContainerRegistryRequest( registry_name,
                                                                                    options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Shows information about a specified <a
     /// href="../../../concepts/credentials/" target="_top">credential</a> or
@@ -58600,16 +58853,19 @@ public partial class Kinetica
         return await ShowFilesAsync( new ShowFilesRequest( paths, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowFunctionsResponse showFunctions( ShowFunctionsRequest request_ )
     {
         ShowFunctionsResponse actualResponse_ = SubmitRequest<ShowFunctionsResponse>("/show/functions", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowFunctionsResponse> ShowFunctionsAsync( ShowFunctionsRequest request_,
                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -58617,24 +58873,29 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowFunctionsResponse showFunctions( IList<string> names,
                                                 IDictionary<string, string> options = null )
     {
         return showFunctions( new ShowFunctionsRequest( names, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowFunctionsResponse> ShowFunctionsAsync( IList<string> names,
                                                                                         IDictionary<string, string> options = null,
                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
         return await ShowFunctionsAsync( new ShowFunctionsRequest( names, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Shows information and characteristics of graphs that exist on
     /// the graph server.</summary>
@@ -58814,16 +59075,19 @@ public partial class Kinetica
         return await ShowGraphAsync( new ShowGraphRequest( graph_name, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowGraphGrammarResponse showGraphGrammar( ShowGraphGrammarRequest request_ )
     {
         ShowGraphGrammarResponse actualResponse_ = SubmitRequest<ShowGraphGrammarResponse>("/show/graph/grammar", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowGraphGrammarResponse> ShowGraphGrammarAsync( ShowGraphGrammarRequest request_,
                                                                                               System.Threading.CancellationToken cancellationToken = default )
     {
@@ -58831,33 +59095,41 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowGraphGrammarResponse showGraphGrammar( IDictionary<string, string> options = null )
     {
         return showGraphGrammar( new ShowGraphGrammarRequest( options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowGraphGrammarResponse> ShowGraphGrammarAsync( IDictionary<string, string> options = null,
                                                                                               System.Threading.CancellationToken cancellationToken = default )
     {
         return await ShowGraphGrammarAsync( new ShowGraphGrammarRequest( options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowModelResponse showModel( ShowModelRequest request_ )
     {
         ShowModelResponse actualResponse_ = SubmitRequest<ShowModelResponse>("/show/model", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowModelResponse> ShowModelAsync( ShowModelRequest request_,
                                                                                 System.Threading.CancellationToken cancellationToken = default )
     {
@@ -58865,24 +59137,29 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public ShowModelResponse showModel( IList<string> model_names = null,
                                         IDictionary<string, string> options = null )
     {
         return showModel( new ShowModelRequest( model_names, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<ShowModelResponse> ShowModelAsync( IList<string> model_names = null,
                                                                                 IDictionary<string, string> options = null,
                                                                                 System.Threading.CancellationToken cancellationToken = default )
     {
         return await ShowModelAsync( new ShowModelRequest( model_names, options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Shows information about a proc.</summary>
     ///
@@ -59001,9 +59278,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// </summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc">executeProc</see>) and data segment ID (each
-    /// invocation of the proc command on a data segment is assigned a data
-    /// segment ID).</para></remarks>
+    /// cref="executeProc(ExecuteProcRequest)">executeProc</see>) and data
+    /// segment ID (each invocation of the proc command on a data segment is
+    /// assigned a data segment ID).</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -59019,9 +59296,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// (async)</summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc">executeProc</see>) and data segment ID (each
-    /// invocation of the proc command on a data segment is assigned a data
-    /// segment ID).</para></remarks>
+    /// cref="executeProc(ExecuteProcRequest)">executeProc</see>) and data
+    /// segment ID (each invocation of the proc command on a data segment is
+    /// assigned a data segment ID).</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -59040,9 +59317,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// </summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc">executeProc</see>) and data segment ID (each
-    /// invocation of the proc command on a data segment is assigned a data
-    /// segment ID).</para></remarks>
+    /// cref="executeProc(ExecuteProcRequest)">executeProc</see>) and data
+    /// segment ID (each invocation of the proc command on a data segment is
+    /// assigned a data segment ID).</para></remarks>
     ///
     /// <param name="run_id">The run ID of a specific proc instance for which
     /// the status will be returned. If a proc with a matching run ID is not
@@ -59084,11 +59361,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, return
     ///         the status for a proc instance that has a matching run ID and a
     ///         matching run tag that was provided to <see
-    ///         cref="executeProc">executeProc</see>. If <paramref
-    ///         name="run_id" /> is not specified, return statuses for all proc
-    ///         instances where a matching run tag was provided to <see
-    ///         cref="executeProc">executeProc</see>. The default value is ''.
-    ///         </description>
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>. If
+    ///         <paramref name="run_id" /> is not specified, return statuses
+    ///         for all proc instances where a matching run tag was provided to
+    ///         <see cref="executeProc(ExecuteProcRequest)">executeProc</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -59103,9 +59380,9 @@ public partial class Kinetica
     /// <summary>Shows the statuses of running or completed proc instances.
     /// (async)</summary>
     /// <remarks><para>Results are grouped by run ID (as returned from <see
-    /// cref="executeProc">executeProc</see>) and data segment ID (each
-    /// invocation of the proc command on a data segment is assigned a data
-    /// segment ID).</para></remarks>
+    /// cref="executeProc(ExecuteProcRequest)">executeProc</see>) and data
+    /// segment ID (each invocation of the proc command on a data segment is
+    /// assigned a data segment ID).</para></remarks>
     ///
     /// <param name="run_id">The run ID of a specific proc instance for which
     /// the status will be returned. If a proc with a matching run ID is not
@@ -59147,11 +59424,11 @@ public partial class Kinetica
     ///         <description>If <paramref name="run_id" /> is specified, return
     ///         the status for a proc instance that has a matching run ID and a
     ///         matching run tag that was provided to <see
-    ///         cref="executeProc">executeProc</see>. If <paramref
-    ///         name="run_id" /> is not specified, return statuses for all proc
-    ///         instances where a matching run tag was provided to <see
-    ///         cref="executeProc">executeProc</see>. The default value is ''.
-    ///         </description>
+    ///         cref="executeProc(ExecuteProcRequest)">executeProc</see>. If
+    ///         <paramref name="run_id" /> is not specified, return statuses
+    ///         for all proc instances where a matching run tag was provided to
+    ///         <see cref="executeProc(ExecuteProcRequest)">executeProc</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
@@ -61366,8 +61643,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties.</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
-    /// information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.Returns
+    /// detailed information about existing table monitors.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -61382,8 +61659,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties. (async)</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
-    /// information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.Returns
+    /// detailed information about existing table monitors.</para></remarks>
     ///
     /// <param name="request_">Request object containing the parameters for the
     /// operation.</param>
@@ -61401,8 +61678,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties.</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
-    /// information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.Returns
+    /// detailed information about existing table monitors.</para></remarks>
     ///
     /// <param name="monitor_ids">List of monitors to be shown. An empty list
     /// or a single entry with an empty string returns all table monitors.
@@ -61419,8 +61696,8 @@ public partial class Kinetica
 
     /// <summary>Show table monitors and their properties. (async)</summary>
     /// <remarks><para>Table monitors are created using <see
-    /// cref="createTableMonitor">createTableMonitor</see>.Returns detailed
-    /// information about existing table monitors.</para></remarks>
+    /// cref="createTableMonitor(CreateTableMonitorRequest)">createTableMonitor</see>.Returns
+    /// detailed information about existing table monitors.</para></remarks>
     ///
     /// <param name="monitor_ids">List of monitors to be shown. An empty list
     /// or a single entry with an empty string returns all table monitors.
@@ -61489,7 +61766,7 @@ public partial class Kinetica
     /// </remarks>
     ///
     /// <param name="type_id">Type id returned by a call to <see
-    /// cref="createType">createType</see>.</param>
+    /// cref="createType(CreateTypeRequest)">createType</see>.</param>
     /// <param name="label">Optional user supplied label which can be used
     /// instead of the type_id to retrieve all tables with the given label.
     /// </param>
@@ -61513,7 +61790,7 @@ public partial class Kinetica
     /// </remarks>
     ///
     /// <param name="type_id">Type id returned by a call to <see
-    /// cref="createType">createType</see>.</param>
+    /// cref="createType(CreateTypeRequest)">createType</see>.</param>
     /// <param name="label">Optional user supplied label which can be used
     /// instead of the type_id to retrieve all tables with the given label.
     /// </param>
@@ -61660,9 +61937,9 @@ public partial class Kinetica
     /// available), and the type's column properties.</para></remarks>
     ///
     /// <param name="type_id">Type Id returned in response to a call to <see
-    /// cref="createType">createType</see>.</param>
+    /// cref="createType(CreateTypeRequest)">createType</see>.</param>
     /// <param name="label">Option string that was supplied by user in a call
-    /// to <see cref="createType">createType</see>.</param>
+    /// to <see cref="createType(CreateTypeRequest)">createType</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -61705,9 +61982,9 @@ public partial class Kinetica
     /// available), and the type's column properties.</para></remarks>
     ///
     /// <param name="type_id">Type Id returned in response to a call to <see
-    /// cref="createType">createType</see>.</param>
+    /// cref="createType(CreateTypeRequest)">createType</see>.</param>
     /// <param name="label">Option string that was supplied by user in a call
-    /// to <see cref="createType">createType</see>.</param>
+    /// to <see cref="createType(CreateTypeRequest)">createType</see>.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -62188,8 +62465,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -62197,8 +62476,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -62206,8 +62487,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -62215,7 +62498,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         parameter of the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
     ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -62631,8 +62915,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -62640,8 +62926,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -62649,8 +62937,10 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="createGraph">createGraph</see> was invoked at
-    ///         graph creation. The default value is '0.0'.</description>
+    ///         the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
+    ///         invoked at graph creation. The default value is '0.0'.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -62658,7 +62948,8 @@ public partial class Kinetica
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
-    ///         parameter of the <see cref="createGraph">createGraph</see> was
+    ///         parameter of the <see
+    ///         cref="createGraph(CreateGraphRequest)">createGraph</see> was
     ///         invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -63093,7 +63384,7 @@ public partial class Kinetica
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="filter">here</see>.</param>
+    /// cref="filter(FilterRequest)">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -63423,7 +63714,7 @@ public partial class Kinetica
     /// table and not a view.</param>
     /// <param name="expressions">A list of the actual predicates, one for each
     /// update; format should follow the guidelines <see
-    /// cref="filter">here</see>.</param>
+    /// cref="filter(FilterRequest)">here</see>.</param>
     /// <param name="new_values_maps">List of new values for the matching
     /// records.  Each element is a map with (key, value) pairs where the keys
     /// are the names of the columns whose values are to be updated; the values
@@ -63761,18 +64052,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see cref="showFiles">showFiles</see>.</para>
+    /// in <see cref="showFiles(ShowFilesRequest)">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -63832,18 +64123,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see cref="showFiles">showFiles</see>.</para>
+    /// in <see cref="showFiles(ShowFilesRequest)">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -63903,18 +64194,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see cref="showFiles">showFiles</see>.</para>
+    /// in <see cref="showFiles(ShowFilesRequest)">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -64102,18 +64393,18 @@ public partial class Kinetica
     /// in favor of the new upload.</para>
     /// <para>The multipart upload must be completed for the file to be usable
     /// in KiFS. Information about multipart uploads in progress is available
-    /// in <see cref="showFiles">showFiles</see>.</para>
+    /// in <see cref="showFiles(ShowFilesRequest)">showFiles</see>.</para>
     /// <para>File data may be pre-encoded using base64 encoding. This should
     /// be indicated using the <see
     /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>
     /// option, and is recommended when using JSON serialization.</para>
     /// <para>Each file path must reside in a top-level KiFS directory, i.e.
     /// one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -64268,11 +64559,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -64292,11 +64583,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -64319,11 +64610,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>.</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -64352,11 +64643,11 @@ public partial class Kinetica
     /// target="_top">KiFS</a>. (async)</summary>
     /// <remarks><para> Each file path must reside in a top-level KiFS
     /// directory, i.e. one of the directories listed in <see
-    /// cref="showDirectories">showDirectories</see>. The user must have write
-    /// permission on the directory. Nested directories are permitted in file
-    /// name paths. Directories are delineated with the directory separator of
-    /// '/'.  For example, given the file path '/a/b/c/d.txt', 'a' must be a
-    /// KiFS directory.</para>
+    /// cref="showDirectories(ShowDirectoriesRequest)">showDirectories</see>.
+    /// The user must have write permission on the directory. Nested
+    /// directories are permitted in file name paths. Directories are
+    /// delineated with the directory separator of '/'.  For example, given the
+    /// file path '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
     /// <para>These characters are allowed in file name paths: letters,
     /// numbers, spaces, the path delimiter of '/', and the characters: '.' '-'
     /// ':' '[' ']' '(' ')' '#' '='.</para></remarks>
@@ -64457,8 +64748,8 @@ public partial class Kinetica
     ///         cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
     ///         </term>
     ///         <description>ID of the snapshot to verify. Set to '-1' to
-    ///         verify only the most recent snapshot in the backup. Leave empty
-    ///         to verify all snapshots. The default value is '-1'.
+    ///         verify all snapshots in the backup. Leave empty to verify only
+    ///         the most recent snapshot. The default value is '-1'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -64497,8 +64788,8 @@ public partial class Kinetica
     ///         cref="VerifyBackupRequest.Options.BACKUP_ID">BACKUP_ID</see>:
     ///         </term>
     ///         <description>ID of the snapshot to verify. Set to '-1' to
-    ///         verify only the most recent snapshot in the backup. Leave empty
-    ///         to verify all snapshots. The default value is '-1'.
+    ///         verify all snapshots in the backup. Leave empty to verify only
+    ///         the most recent snapshot. The default value is '-1'.
     ///         </description>
     ///     </item>
     /// </list>
@@ -64516,16 +64807,19 @@ public partial class Kinetica
                                                                  datasource_name, options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeGetFeatureInfoResponse visualizeGetFeatureInfo( VisualizeGetFeatureInfoRequest request_ )
     {
         VisualizeGetFeatureInfoResponse actualResponse_ = SubmitRequest<VisualizeGetFeatureInfoResponse>("/visualize/getfeatureinfo", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeGetFeatureInfoResponse> VisualizeGetFeatureInfoAsync( VisualizeGetFeatureInfoRequest request_,
                                                                                                             System.Threading.CancellationToken cancellationToken = default )
     {
@@ -64533,9 +64827,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeGetFeatureInfoResponse visualizeGetFeatureInfo( IList<string> table_names,
                                                                     IList<string> x_column_names,
                                                                     IList<string> y_column_names,
@@ -64569,9 +64865,11 @@ public partial class Kinetica
                                                                             encoding,
                                                                             options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeGetFeatureInfoResponse> VisualizeGetFeatureInfoAsync( IList<string> table_names,
                                                                                                             IList<string> x_column_names,
                                                                                                             IList<string> y_column_names,
@@ -64611,18 +64909,22 @@ public partial class Kinetica
                                                                                        encoding,
                                                                                        options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageResponse visualizeImage( VisualizeImageRequest request_ )
     {
         VisualizeImageResponse actualResponse_ = SubmitRequest<VisualizeImageResponse>("/visualize/image", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageResponse> VisualizeImageAsync( VisualizeImageRequest request_,
                                                                                           System.Threading.CancellationToken cancellationToken = default )
     {
@@ -64630,9 +64932,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageResponse visualizeImage( IList<string> table_names,
                                                   IList<string> world_table_names,
                                                   string x_column_name,
@@ -64659,9 +64963,11 @@ public partial class Kinetica
                                                           width, height, projection,
                                                           bg_color, style_options, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageResponse> VisualizeImageAsync( IList<string> table_names,
                                                                                           IList<string> world_table_names,
                                                                                           string x_column_name,
@@ -64694,7 +65000,8 @@ public partial class Kinetica
                                                                      style_options,
                                                                      options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Scatter plot is the only plot type currently supported.
     /// </summary>
@@ -65357,16 +65664,19 @@ public partial class Kinetica
                                                                                options ), cancellationToken );
     }
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageClassbreakResponse visualizeImageClassbreak( VisualizeImageClassbreakRequest request_ )
     {
         VisualizeImageClassbreakResponse actualResponse_ = SubmitRequest<VisualizeImageClassbreakResponse>("/visualize/image/classbreak", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageClassbreakResponse> VisualizeImageClassbreakAsync( VisualizeImageClassbreakRequest request_,
                                                                                                               System.Threading.CancellationToken cancellationToken = default )
     {
@@ -65374,9 +65684,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageClassbreakResponse visualizeImageClassbreak( IList<string> table_names,
                                                                       IList<string> world_table_names,
                                                                       string x_column_name,
@@ -65435,9 +65747,11 @@ public partial class Kinetica
                                                                               options,
                                                                               cb_transparency_vec ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageClassbreakResponse> VisualizeImageClassbreakAsync( IList<string> table_names,
                                                                                                               IList<string> world_table_names,
                                                                                                               string x_column_name,
@@ -65497,18 +65811,22 @@ public partial class Kinetica
                                                                                          options,
                                                                                          cb_transparency_vec ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageContourResponse visualizeImageContour( VisualizeImageContourRequest request_ )
     {
         VisualizeImageContourResponse actualResponse_ = SubmitRequest<VisualizeImageContourResponse>("/visualize/image/contour", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageContourResponse> VisualizeImageContourAsync( VisualizeImageContourRequest request_,
                                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -65516,9 +65834,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageContourResponse visualizeImageContour( IList<string> table_names,
                                                                 string x_column_name,
                                                                 string y_column_name,
@@ -65544,9 +65864,11 @@ public partial class Kinetica
                                                                         style_options,
                                                                         options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageContourResponse> VisualizeImageContourAsync( IList<string> table_names,
                                                                                                         string x_column_name,
                                                                                                         string y_column_name,
@@ -65576,18 +65898,22 @@ public partial class Kinetica
                                                                                    style_options,
                                                                                    options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageHeatmapResponse visualizeImageHeatmap( VisualizeImageHeatmapRequest request_ )
     {
         VisualizeImageHeatmapResponse actualResponse_ = SubmitRequest<VisualizeImageHeatmapResponse>("/visualize/image/heatmap", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageHeatmapResponse> VisualizeImageHeatmapAsync( VisualizeImageHeatmapRequest request_,
                                                                                                         System.Threading.CancellationToken cancellationToken = default )
     {
@@ -65595,9 +65921,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageHeatmapResponse visualizeImageHeatmap( IList<string> table_names,
                                                                 string x_column_name,
                                                                 string y_column_name,
@@ -65625,9 +65953,11 @@ public partial class Kinetica
                                                                         style_options,
                                                                         options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageHeatmapResponse> VisualizeImageHeatmapAsync( IList<string> table_names,
                                                                                                         string x_column_name,
                                                                                                         string y_column_name,
@@ -65659,18 +65989,22 @@ public partial class Kinetica
                                                                                    style_options,
                                                                                    options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageLabelsResponse visualizeImageLabels( VisualizeImageLabelsRequest request_ )
     {
         VisualizeImageLabelsResponse actualResponse_ = SubmitRequest<VisualizeImageLabelsResponse>("/visualize/image/labels", request_, false);
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageLabelsResponse> VisualizeImageLabelsAsync( VisualizeImageLabelsRequest request_,
                                                                                                       System.Threading.CancellationToken cancellationToken = default )
     {
@@ -65678,9 +66012,11 @@ public partial class Kinetica
 
         return actualResponse_;
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public VisualizeImageLabelsResponse visualizeImageLabels( string table_name,
                                                               string x_column_name,
                                                               string y_column_name,
@@ -65728,9 +66064,11 @@ public partial class Kinetica
                                                                       width, height,
                                                                       projection, options ) );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
-    /// @cond NO_DOCS
+    #pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+    //! @cond NO_DOCS
     public async System.Threading.Tasks.Task<VisualizeImageLabelsResponse> VisualizeImageLabelsAsync( string table_name,
                                                                                                       string x_column_name,
                                                                                                       string y_column_name,
@@ -65786,7 +66124,8 @@ public partial class Kinetica
                                                                                  projection,
                                                                                  options ), cancellationToken );
     }
-    /// @endcond
+    //! @endcond
+    #pragma warning restore CS1591
 
     /// <summary>Generate an image containing isolines for travel results using
     /// an existing graph.</summary>

@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class AlterGraphRequest : KineticaData
 {
     public struct Action
@@ -47,13 +48,16 @@ public class AlterGraphRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class AlterGraphRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class AlterGraphResponse : KineticaData
 {
     public string action { get; set; }
     public string action_arg { get; set; }
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class AlterGraphResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createCredential">Kinetica.createCredential</see>.</summary>
+/// cref="Kinetica.createCredential(CreateCredentialRequest)">Kinetica.createCredential</see>.
+/// </summary>
 /// <remarks><para>Create a new <a href="../../../concepts/credentials/"
 /// target="_top">credential</a>.</para></remarks>
 public class CreateCredentialRequest : KineticaData
@@ -19,21 +20,68 @@ public class CreateCredentialRequest : KineticaData
     /// <remarks><para>Type of the credential to be created.</para></remarks>
     public struct Type
     {
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string AWS_ACCESS_KEY = "aws_access_key";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string AWS_IAM_ROLE = "aws_iam_role";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string AZURE_AD = "azure_ad";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string AZURE_OAUTH = "azure_oauth";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string AZURE_SAS = "azure_sas";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string AZURE_STORAGE_KEY = "azure_storage_key";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string CONFLUENT = "confluent";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string DOCKER = "docker";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string GCS_SERVICE_ACCOUNT_ID = "gcs_service_account_id";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string HDFS = "hdfs";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string JDBC = "jdbc";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string KAFKA = "kafka";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string NVIDIA_API_KEY = "nvidia_api_key";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string OPENAI_API_KEY = "openai_api_key";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCredentialRequest.Type" /> options.</summary>
         public const string REST = "rest";
     } // end struct Type
 
@@ -243,7 +291,8 @@ public class CreateCredentialRequest : KineticaData
 } // end class CreateCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createCredential">Kinetica.createCredential</see>.</summary>
+/// cref="Kinetica.createCredential(CreateCredentialRequest)">Kinetica.createCredential</see>.
+/// </summary>
 public class CreateCredentialResponse : KineticaData
 {
     /// <summary>Value of <see

@@ -18,7 +18,7 @@ namespace Kinetica.Tests.UnitTests
 
         /// <summary>
         /// Tests Avro varint zig-zag encoding for positive integers.
-        /// Avro uses zig-zag encoding: (n << 1) ^ (n >> 63)
+        /// Avro uses zig-zag encoding: (n &lt;&lt; 1) ^ (n &gt;&gt; 63)
         /// Then encodes as base-128 varint with continuation bits.
         /// </summary>
         [Theory]

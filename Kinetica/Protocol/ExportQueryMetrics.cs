@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.exportQueryMetrics">Kinetica.exportQueryMetrics</see>.
+/// cref="Kinetica.exportQueryMetrics(ExportQueryMetricsRequest)">Kinetica.exportQueryMetrics</see>.
 /// </summary>
 /// <remarks><para>Export query metrics to a given destination.
 /// Returns query metrics.</para></remarks>
@@ -191,7 +191,7 @@ public class ExportQueryMetricsRequest : KineticaData
 } // end class ExportQueryMetricsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.exportQueryMetrics">Kinetica.exportQueryMetrics</see>.
+/// cref="Kinetica.exportQueryMetrics(ExportQueryMetricsRequest)">Kinetica.exportQueryMetrics</see>.
 /// </summary>
 public class ExportQueryMetricsResponse : KineticaData
 {

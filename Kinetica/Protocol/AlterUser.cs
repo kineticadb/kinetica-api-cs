@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterUser">Kinetica.alterUser</see>.</summary>
+/// cref="Kinetica.alterUser(AlterUserRequest)">Kinetica.alterUser</see>.
+/// </summary>
 /// <remarks><para>Alters a user.</para></remarks>
 public class AlterUserRequest : KineticaData
 {
@@ -22,10 +23,12 @@ public class AlterUserRequest : KineticaData
         /// <summary>Is the user allowed to login.</summary>
         public const string SET_ACTIVATED = "set_activated";
 
-        /// <summary>User may login.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterUserRequest.Action" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>User may not login.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterUserRequest.Action" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Sets the comment for an internal user.</summary>
@@ -188,7 +191,8 @@ public class AlterUserRequest : KineticaData
 } // end class AlterUserRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterUser">Kinetica.alterUser</see>.</summary>
+/// cref="Kinetica.alterUser(AlterUserRequest)">Kinetica.alterUser</see>.
+/// </summary>
 public class AlterUserResponse : KineticaData
 {
     /// <summary>Value of <see cref="AlterUserRequest.name">name</see>.

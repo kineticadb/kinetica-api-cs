@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionCredential">Kinetica.grantPermissionCredential</see>.
+/// cref="Kinetica.grantPermissionCredential(GrantPermissionCredentialRequest)">Kinetica.grantPermissionCredential</see>.
 /// </summary>
 /// <remarks><para>Grants a <a
 /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
@@ -112,7 +112,7 @@ public class GrantPermissionCredentialRequest : KineticaData
 } // end class GrantPermissionCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionCredential">Kinetica.grantPermissionCredential</see>.
+/// cref="Kinetica.grantPermissionCredential(GrantPermissionCredentialRequest)">Kinetica.grantPermissionCredential</see>.
 /// </summary>
 public class GrantPermissionCredentialResponse : KineticaData
 {

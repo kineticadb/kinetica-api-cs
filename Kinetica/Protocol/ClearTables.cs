@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.clearTables">Kinetica.clearTables</see>.</summary>
+/// cref="Kinetica.clearTables(ClearTablesRequest)">Kinetica.clearTables</see>.
+/// </summary>
 /// <remarks><para>Clears (drops) tables in the database cluster. The operation
 /// is synchronous meaning that the tables will be cleared before the function
 /// returns. The response payload returns the status of the operation for each
@@ -25,7 +26,11 @@ public class ClearTablesRequest : KineticaData
         /// and if a table specified in <see
         /// cref="ClearTablesRequest.table_names" /> does not exist no error is
         /// returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ClearTablesRequest.Options.FALSE">FALSE</see> and if a table
+        /// specified in <see cref="ClearTablesRequest.table_names" /> does not
+        /// exist then an error is returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -41,7 +46,12 @@ public class ClearTablesRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ClearTablesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ClearTablesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -144,7 +154,8 @@ public class ClearTablesRequest : KineticaData
 } // end class ClearTablesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.clearTables">Kinetica.clearTables</see>.</summary>
+/// cref="Kinetica.clearTables(ClearTablesRequest)">Kinetica.clearTables</see>.
+/// </summary>
 public class ClearTablesResponse : KineticaData
 {
     /// <summary>For each table in <see

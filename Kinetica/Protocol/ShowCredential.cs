@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showCredential">Kinetica.showCredential</see>.</summary>
+/// cref="Kinetica.showCredential(ShowCredentialRequest)">Kinetica.showCredential</see>.
+/// </summary>
 /// <remarks><para>Shows information about a specified <a
 /// href="../../../concepts/credentials/" target="_top">credential</a> or all
 /// credentials.</para></remarks>
@@ -49,7 +50,8 @@ public class ShowCredentialRequest : KineticaData
 } // end class ShowCredentialRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showCredential">Kinetica.showCredential</see>.</summary>
+/// cref="Kinetica.showCredential(ShowCredentialRequest)">Kinetica.showCredential</see>.
+/// </summary>
 public class ShowCredentialResponse : KineticaData
 {
     /// <summary>A list of all credential names.</summary>

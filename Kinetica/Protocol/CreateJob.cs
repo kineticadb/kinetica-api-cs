@@ -9,11 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createJob">Kinetica.createJob</see>.</summary>
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+/// </summary>
 /// <remarks><para>Create a job which will run asynchronously. The response
 /// returns a job ID, which can be used to query the status and result of the
 /// job. The status and the result of the job upon completion can be requested
-/// by <see cref="Kinetica.getJob">Kinetica.getJob</see>.</para></remarks>
+/// by <see cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</para>
+/// </remarks>
 public class CreateJobRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -22,8 +24,16 @@ public class CreateJobRequest : KineticaData
     /// </remarks>
     public struct RequestEncoding
     {
+        /// <summary>A constant for the <see
+        /// cref="CreateJobRequest.RequestEncoding" /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateJobRequest.RequestEncoding" /> options.</summary>
         public const string JSON = "json";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateJobRequest.RequestEncoding" /> options.</summary>
         public const string SNAPPY = "snappy";
     } // end struct RequestEncoding
 
@@ -173,7 +183,8 @@ public class CreateJobRequest : KineticaData
 } // end class CreateJobRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createJob">Kinetica.createJob</see>.</summary>
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+/// </summary>
 public class CreateJobResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
