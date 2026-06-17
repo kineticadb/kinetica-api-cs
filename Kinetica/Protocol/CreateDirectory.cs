@@ -9,11 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createDirectory">Kinetica.createDirectory</see>.</summary>
+/// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
+/// </summary>
 /// <remarks><para>Creates a new directory in <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a>. The new directory serves as a location in which the
 /// user can upload files using <see
-/// cref="Kinetica.uploadFiles">Kinetica.uploadFiles</see>.</para></remarks>
+/// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
+/// </para></remarks>
 public class CreateDirectoryRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -55,7 +57,12 @@ public class CreateDirectoryRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateDirectoryRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateDirectoryRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -172,7 +179,8 @@ public class CreateDirectoryRequest : KineticaData
 } // end class CreateDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createDirectory">Kinetica.createDirectory</see>.</summary>
+/// cref="Kinetica.createDirectory(CreateDirectoryRequest)">Kinetica.createDirectory</see>.
+/// </summary>
 public class CreateDirectoryResponse : KineticaData
 {
     /// <summary>Value of <see

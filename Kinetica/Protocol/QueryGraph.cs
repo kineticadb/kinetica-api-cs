@@ -9,12 +9,15 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.queryGraph">Kinetica.queryGraph</see>.</summary>
+/// cref="Kinetica.queryGraph(QueryGraphRequest)">Kinetica.queryGraph</see>.
+/// </summary>
 /// <remarks><para>Employs a topological query on a graph generated a-priori by
-/// <see cref="Kinetica.createGraph">Kinetica.createGraph</see> and returns a
-/// list of adjacent edge(s) or node(s), also known as an adjacency list,
-/// depending on what's been provided to the endpoint; providing edges will
-/// return nodes and providing nodes will return edges.</para>
+/// <see
+/// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+/// and returns a list of adjacent edge(s) or node(s), also known as an
+/// adjacency list, depending on what's been provided to the endpoint;
+/// providing edges will return nodes and providing nodes will return
+/// edges.</para>
 /// <para>To determine the node(s) or edge(s) adjacent to a value from a given
 /// column, provide a list of values to <see cref="QueryGraphRequest.queries"
 /// />. This field can be populated with column values from any table as long
@@ -40,7 +43,15 @@ public class QueryGraphRequest : KineticaData
         /// <summary>If set to <see
         /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>, all inbound edges
         /// and outbound edges relative to the node will be returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>, only outbound
+        /// edges relative to the node will be returned. This parameter is only
+        /// applicable if the queried graph <see
+        /// cref="QueryGraphRequest.graph_name" /> is directed and when
+        /// querying nodes. Consult <a
+        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="QueryGraphRequest.Options.TRUE">TRUE</see>
@@ -56,7 +67,12 @@ public class QueryGraphRequest : KineticaData
         /// </remarks>
         public const string FORCE_UNDIRECTED = "force_undirected";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="QueryGraphRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="QueryGraphRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>When specified (&gt;0), limits the number of query
@@ -120,7 +136,9 @@ public class QueryGraphRequest : KineticaData
         /// <summary>If set to true, for many-to-many queries or multi-level
         /// traversals, it lists the common labels between the source and
         /// target nodes and edge labels in each path.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Otherwise (zero rings), it'll list all labels of the
+        /// node(s) queried.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="QueryGraphRequest.Options.TRUE">TRUE</see>
@@ -533,7 +551,8 @@ public class QueryGraphRequest : KineticaData
 } // end class QueryGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.queryGraph">Kinetica.queryGraph</see>.</summary>
+/// cref="Kinetica.queryGraph(QueryGraphRequest)">Kinetica.queryGraph</see>.
+/// </summary>
 public class QueryGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful query.</summary>

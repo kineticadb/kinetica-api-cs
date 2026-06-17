@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminShowClusterOperations">Kinetica.adminShowClusterOperations</see>.
+/// cref="Kinetica.adminShowClusterOperations(AdminShowClusterOperationsRequest)">Kinetica.adminShowClusterOperations</see>.
 /// </summary>
 /// <remarks><para>Requests the detailed status of the current operation (by
 /// default) or a prior cluster operation specified by <see
@@ -49,7 +49,7 @@ public class AdminShowClusterOperationsRequest : KineticaData
 } // end class AdminShowClusterOperationsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminShowClusterOperations">Kinetica.adminShowClusterOperations</see>.
+/// cref="Kinetica.adminShowClusterOperations(AdminShowClusterOperationsRequest)">Kinetica.adminShowClusterOperations</see>.
 /// </summary>
 public class AdminShowClusterOperationsResponse : KineticaData
 {
@@ -59,7 +59,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// or not.</para></remarks>
     public struct InProgress
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.InProgress" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.InProgress" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct InProgress
 
@@ -83,7 +90,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// in progress.</para></remarks>
     public struct UserStopped
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.UserStopped" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.UserStopped" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct UserStopped
 
@@ -92,7 +106,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// <remarks><para>Whether this operation was a dry run.</para></remarks>
     public struct DryRun
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.DryRun" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.DryRun" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct DryRun
 
@@ -102,7 +123,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// </para></remarks>
     public struct AddRanks
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanks" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanks" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct AddRanks
 
@@ -113,10 +141,29 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// status of the operation.</para></remarks>
     public struct AddRanksStatus
     {
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus" />
+        /// options.</summary>
         public const string NOT_STARTED = "NOT_STARTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus" />
+        /// options.</summary>
         public const string IN_PROGRESS = "IN_PROGRESS";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus" />
+        /// options.</summary>
         public const string INTERRUPTED = "INTERRUPTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus" />
+        /// options.</summary>
         public const string COMPLETED_OK = "COMPLETED_OK";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus" />
+        /// options.</summary>
         public const string ERROR = "ERROR";
     } // end struct AddRanksStatus
 
@@ -126,7 +173,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// operation.</para></remarks>
     public struct RemoveRanks
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanks" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanks" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct RemoveRanks
 
@@ -137,10 +191,29 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// removal-specific status of the operation.</para></remarks>
     public struct RemoveRanksStatus
     {
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus" />
+        /// options.</summary>
         public const string NOT_STARTED = "NOT_STARTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus" />
+        /// options.</summary>
         public const string IN_PROGRESS = "IN_PROGRESS";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus" />
+        /// options.</summary>
         public const string INTERRUPTED = "INTERRUPTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus" />
+        /// options.</summary>
         public const string COMPLETED_OK = "COMPLETED_OK";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus" />
+        /// options.</summary>
         public const string ERROR = "ERROR";
     } // end struct RemoveRanksStatus
 
@@ -150,7 +223,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// of this operation.</para></remarks>
     public struct Rebalance
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.Rebalance" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.Rebalance" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct Rebalance
 
@@ -161,7 +241,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// of this operation.</para></remarks>
     public struct RebalanceUnshardedData
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedData" />
+        /// options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedData" />
+        /// options.</summary>
         public const string FALSE = "false";
     } // end struct RebalanceUnshardedData
 
@@ -173,10 +260,29 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// </para></remarks>
     public struct RebalanceUnshardedDataStatus
     {
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus"
+        /// /> options.</summary>
         public const string NOT_STARTED = "NOT_STARTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus"
+        /// /> options.</summary>
         public const string IN_PROGRESS = "IN_PROGRESS";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus"
+        /// /> options.</summary>
         public const string INTERRUPTED = "INTERRUPTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus"
+        /// /> options.</summary>
         public const string COMPLETED_OK = "COMPLETED_OK";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus"
+        /// /> options.</summary>
         public const string ERROR = "ERROR";
     } // end struct RebalanceUnshardedDataStatus
 
@@ -187,7 +293,14 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// this operation.</para></remarks>
     public struct RebalanceShardedData
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedData" />
+        /// options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedData" />
+        /// options.</summary>
         public const string FALSE = "false";
     } // end struct RebalanceShardedData
 
@@ -199,10 +312,29 @@ public class AdminShowClusterOperationsResponse : KineticaData
     /// </remarks>
     public struct RebalanceShardedDataStatus
     {
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus"
+        /// /> options.</summary>
         public const string NOT_STARTED = "NOT_STARTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus"
+        /// /> options.</summary>
         public const string IN_PROGRESS = "IN_PROGRESS";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus"
+        /// /> options.</summary>
         public const string INTERRUPTED = "INTERRUPTED";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus"
+        /// /> options.</summary>
         public const string COMPLETED_OK = "COMPLETED_OK";
+
+        /// <summary>A constant for the <see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus"
+        /// /> options.</summary>
         public const string ERROR = "ERROR";
     } // end struct RebalanceShardedDataStatus
 

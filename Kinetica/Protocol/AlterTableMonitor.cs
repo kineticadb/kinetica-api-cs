@@ -9,10 +9,10 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTableMonitor">Kinetica.alterTableMonitor</see>.
+/// cref="Kinetica.alterTableMonitor(AlterTableMonitorRequest)">Kinetica.alterTableMonitor</see>.
 /// </summary>
 /// <remarks><para>Alters a table monitor previously created with <see
-/// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+/// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
 /// </para></remarks>
 public class AlterTableMonitorRequest : KineticaData
 {
@@ -54,18 +54,26 @@ public class AlterTableMonitorRequest : KineticaData
         /// <para>The default value is an empty Dictionary.</para></remarks>
         public const string NOTIFICATIONS = "notifications";
 
+        /// <summary>A constant for the <see
+        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap" /> options.
+        /// </summary>
         public const string RESUME = "resume";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterTableMonitorRequest.MonitorUpdatesMap" /> options.
+        /// </summary>
         public const string SUSPEND = "suspend";
     } // end struct MonitorUpdatesMap
 
     /// <summary>The topic ID returned by <see
-    /// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+    /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
     /// </summary>
     public string topic_id { get; set; }
 
     /// <summary>Map containing the properties of the table monitor to be
     /// updated.</summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Error if empty.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterTableMonitorRequest.MonitorUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:
@@ -122,7 +130,7 @@ public class AlterTableMonitorRequest : KineticaData
     /// specified parameters.</summary>
     ///
     /// <param name="topic_id">The topic ID returned by <see
-    /// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+    /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
     /// </param>
     /// <param name="monitor_updates_map">Map containing the properties of the
     /// table monitor to be updated. Error if empty.
@@ -181,7 +189,7 @@ public class AlterTableMonitorRequest : KineticaData
 } // end class AlterTableMonitorRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTableMonitor">Kinetica.alterTableMonitor</see>.
+/// cref="Kinetica.alterTableMonitor(AlterTableMonitorRequest)">Kinetica.alterTableMonitor</see>.
 /// </summary>
 public class AlterTableMonitorResponse : KineticaData
 {

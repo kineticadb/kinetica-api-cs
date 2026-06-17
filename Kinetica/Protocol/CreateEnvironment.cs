@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createEnvironment">Kinetica.createEnvironment</see>.
+/// cref="Kinetica.createEnvironment(CreateEnvironmentRequest)">Kinetica.createEnvironment</see>.
 /// </summary>
 /// <remarks><para>Creates a new environment which can be used by <a
 /// href="../../../concepts/udf/" target="_top">user-defined functions</a>
@@ -44,7 +44,7 @@ public class CreateEnvironmentRequest : KineticaData
 } // end class CreateEnvironmentRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createEnvironment">Kinetica.createEnvironment</see>.
+/// cref="Kinetica.createEnvironment(CreateEnvironmentRequest)">Kinetica.createEnvironment</see>.
 /// </summary>
 public class CreateEnvironmentResponse : KineticaData
 {

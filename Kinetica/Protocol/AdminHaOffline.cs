@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminHaOffline">Kinetica.adminHaOffline</see>.</summary>
+/// cref="Kinetica.adminHaOffline(AdminHaOfflineRequest)">Kinetica.adminHaOffline</see>.
+/// </summary>
 /// <remarks><para>Pauses consumption of messages from other HA clusters to
 /// support data repair/recovery scenarios. In-flight queries may fail to
 /// replicate to other clusters in the ring when going offline.</para>
@@ -22,7 +23,12 @@ public class AdminHaOfflineRequest : KineticaData
     /// </remarks>
     public struct Offline
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminHaOfflineRequest.Offline" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminHaOfflineRequest.Offline" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Offline
 
@@ -71,7 +77,8 @@ public class AdminHaOfflineRequest : KineticaData
 } // end class AdminHaOfflineRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminHaOffline">Kinetica.adminHaOffline</see>.</summary>
+/// cref="Kinetica.adminHaOffline(AdminHaOfflineRequest)">Kinetica.adminHaOffline</see>.
+/// </summary>
 public class AdminHaOfflineResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

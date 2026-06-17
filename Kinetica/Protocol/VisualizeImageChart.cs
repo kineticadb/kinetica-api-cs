@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.visualizeImageChart">Kinetica.visualizeImageChart</see>.
+/// cref="Kinetica.visualizeImageChart(VisualizeImageChartRequest)">Kinetica.visualizeImageChart</see>.
 /// </summary>
 /// <remarks><para>Scatter plot is the only plot type currently supported. A
 /// non-numeric column can be specified as x or y column and jitters can be
@@ -82,11 +82,34 @@ public class VisualizeImageChartRequest : KineticaData
         /// <summary>No scale is applied to the y axis.</summary>
         public const string NONE = "none";
 
+        /// <summary>A constant for the <see
+        /// cref="VisualizeImageChartRequest.StyleOptions" /> options.
+        /// </summary>
         public const string CIRCLE = "circle";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeImageChartRequest.StyleOptions" /> options.
+        /// </summary>
         public const string SQUARE = "square";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeImageChartRequest.StyleOptions" /> options.
+        /// </summary>
         public const string DIAMOND = "diamond";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeImageChartRequest.StyleOptions" /> options.
+        /// </summary>
         public const string HOLLOWCIRCLE = "hollowcircle";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeImageChartRequest.StyleOptions" /> options.
+        /// </summary>
         public const string HOLLOWSQUARE = "hollowsquare";
+
+        /// <summary>A constant for the <see
+        /// cref="VisualizeImageChartRequest.StyleOptions" /> options.
+        /// </summary>
         public const string HOLLOWDIAMOND = "hollowdiamond";
 
         /// <summary>Point color class break information consisting of three
@@ -215,7 +238,10 @@ public class VisualizeImageChartRequest : KineticaData
     public struct Options
     {
         /// <summary>Encoding to be applied to the output image.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When using JSON serialization it is recommended to
+        /// specify this as <see
+        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -849,7 +875,7 @@ public class VisualizeImageChartRequest : KineticaData
 } // end class VisualizeImageChartRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.visualizeImageChart">Kinetica.visualizeImageChart</see>.
+/// cref="Kinetica.visualizeImageChart(VisualizeImageChartRequest)">Kinetica.visualizeImageChart</see>.
 /// </summary>
 public class VisualizeImageChartResponse : KineticaData
 {

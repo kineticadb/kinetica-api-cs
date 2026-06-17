@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createResourceGroup">Kinetica.createResourceGroup</see>.
+/// cref="Kinetica.createResourceGroup(CreateResourceGroupRequest)">Kinetica.createResourceGroup</see>.
 /// </summary>
 /// <remarks><para>Creates a new resource group to facilitate resource
 /// management.</para></remarks>
@@ -94,7 +94,13 @@ public class CreateResourceGroupRequest : KineticaData
 
     /// <summary>Optional map containing tier names and their respective
     /// attribute group limits.</summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para> The only valid attribute limit that can be set is
+    /// max_memory (in bytes) for the VRAM and RAM tiers.</para>
+    /// <para>For instance, to set max VRAM capacity to 1GB per rank per GPU
+    /// and max RAM capacity to 10GB per rank, use:
+    /// {'VRAM':{'max_memory':'1000000000'},
+    /// 'RAM':{'max_memory':'10000000000'}}.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="CreateResourceGroupRequest.TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:
@@ -315,7 +321,7 @@ public class CreateResourceGroupRequest : KineticaData
 } // end class CreateResourceGroupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createResourceGroup">Kinetica.createResourceGroup</see>.
+/// cref="Kinetica.createResourceGroup(CreateResourceGroupRequest)">Kinetica.createResourceGroup</see>.
 /// </summary>
 public class CreateResourceGroupResponse : KineticaData
 {

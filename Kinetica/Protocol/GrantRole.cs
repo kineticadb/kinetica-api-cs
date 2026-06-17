@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantRole">Kinetica.grantRole</see>.</summary>
+/// cref="Kinetica.grantRole(GrantRoleRequest)">Kinetica.grantRole</see>.
+/// </summary>
 /// <remarks><para>Grants membership in a role to a user or role.</para>
 /// </remarks>
 public class GrantRoleRequest : KineticaData
@@ -54,7 +55,8 @@ public class GrantRoleRequest : KineticaData
 } // end class GrantRoleRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantRole">Kinetica.grantRole</see>.</summary>
+/// cref="Kinetica.grantRole(GrantRoleRequest)">Kinetica.grantRole</see>.
+/// </summary>
 public class GrantRoleResponse : KineticaData
 {
     /// <summary>Value of <see cref="GrantRoleRequest.role">role</see>.

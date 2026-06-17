@@ -56,20 +56,27 @@ while (await reader.ReadAsync())
 | `OauthToken` | OAuth authentication token | (empty) |
 | `Database` | Default database name | (empty) |
 | `Pooling` | Enable connection pooling | `true` |
-| `Max Pool Size` | Maximum connections in pool | `100` |
-| `Min Pool Size` | Minimum connections in pool | `0` |
-| `Connection Timeout` | Connection timeout in seconds | `30` |
-| `Batch Insert Mode` | Enable high-performance batch inserts | `false` |
-| `Batch Size` | Number of records per batch | `10000` |
-| `Batch Update On Existing Pk` | Update existing records on PK conflict | `false` |
+| `MaxPoolSize` | Maximum connections in pool | `100` |
+| `MinPoolSize` | Minimum connections in pool | `0` |
+| `ConnectionTimeout` | Connection timeout in seconds | `30` |
+| `BatchInsertMode` | Enable high-performance batch inserts | `false` |
+| `BatchSize` | Number of records per batch | `10000` |
+| `BatchUpdateOnExistingPk` | Update existing records on PK conflict | `false` |
+
+> **Note:** Connection-string keys are matched case-insensitively, but spacing is
+> significant — use the exact space-free spellings shown above. Any unrecognized
+> key (including spaced forms such as `Max Pool Size` or `Batch Insert Mode`) is
+> ignored and logged as a warning via `System.Diagnostics.Trace`. The standard
+> ADO.NET synonyms are still honored (e.g. `Data Source`/`URL` for `Server`,
+> `UID`/`PWD` for `Username`/`Password`, `Initial Catalog` for `Database`).
 
 ### Example Connection Strings
 
 ```
 Server=192.168.1.100:9191;Username=admin;Password=secret
-Server=kinetica.example.com:9191;Pooling=true;Max Pool Size=50
+Server=kinetica.example.com:9191;Pooling=true;MaxPoolSize=50
 Server=localhost:9191;OauthToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-Server=localhost:9191;Username=admin;Password=secret;Batch Insert Mode=true;Batch Size=5000
+Server=localhost:9191;Username=admin;Password=secret;BatchInsertMode=true;BatchSize=5000
 ```
 
 ## Usage Examples
@@ -121,7 +128,7 @@ The ADO.NET driver includes a high-performance batch insert mode that can dramat
 
 **Option 1: Connection String**
 ```csharp
-var connectionString = "Server=http://localhost:9191;Batch Insert Mode=true;Batch Size=10000";
+var connectionString = "Server=http://localhost:9191;BatchInsertMode=true;BatchSize=10000";
 using var connection = new KineticaConnection(connectionString);
 await connection.OpenAsync();
 ```

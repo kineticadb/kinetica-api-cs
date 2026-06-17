@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showResourceStatistics">Kinetica.showResourceStatistics</see>.
+/// cref="Kinetica.showResourceStatistics(ShowResourceStatisticsRequest)">Kinetica.showResourceStatistics</see>.
 /// </summary>
 /// <remarks><para>Requests various statistics for storage/memory tiers and
 /// resource groups.
@@ -37,7 +37,7 @@ public class ShowResourceStatisticsRequest : KineticaData
 } // end class ShowResourceStatisticsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showResourceStatistics">Kinetica.showResourceStatistics</see>.
+/// cref="Kinetica.showResourceStatistics(ShowResourceStatisticsRequest)">Kinetica.showResourceStatistics</see>.
 /// </summary>
 public class ShowResourceStatisticsResponse : KineticaData
 {

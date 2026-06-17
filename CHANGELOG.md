@@ -3,6 +3,18 @@
 
 ## Version 7.2
 
+### Version 7.2.3.3 - 2026-06-17
+
+#### Changed
+
+- Aligned ADO.NET connection string options with existing option format
+- Cleaned up documentation of public members
+
+#### Fixed
+
+- Sync EOF check in async CSV read method
+
+
 ### Version 7.2.3.2 - 2026-06-15
 
 #### Added

@@ -10,13 +10,23 @@ namespace kinetica;
 /// </summary>
 public class RawKineticaResponse : KineticaData
 {
+    /// <summary>Indicates the success ("OK") or failure ("ERROR") of the
+    /// request.</summary>
     public string status { get; set; }
 
+    /// <summary>Empty on success; otherwise the error message describing the
+    /// failure.</summary>
     public string message { get; set; }
 
+    /// <summary>The fully-qualified name of the response's data type, or
+    /// "none" if there is no data payload.</summary>
     public string data_type { get; set; }
 
+    /// <summary>The Avro binary-encoded response payload; populated when
+    /// binary encoding was requested.</summary>
     public byte[] data { get; set; }
 
+    /// <summary>The JSON-encoded response payload; populated when JSON
+    /// encoding was requested.</summary>
     public string data_str { get; set; }
 } // end class RawKineticaResponse

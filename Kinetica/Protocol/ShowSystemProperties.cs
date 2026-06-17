@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSystemProperties">Kinetica.showSystemProperties</see>.
+/// cref="Kinetica.showSystemProperties(ShowSystemPropertiesRequest)">Kinetica.showSystemProperties</see>.
 /// </summary>
 /// <remarks><para>Returns server configuration and version related information
 /// to the caller. The admin tool uses it to present server related information
@@ -68,7 +68,7 @@ public class ShowSystemPropertiesRequest : KineticaData
 } // end class ShowSystemPropertiesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSystemProperties">Kinetica.showSystemProperties</see>.
+/// cref="Kinetica.showSystemProperties(ShowSystemPropertiesRequest)">Kinetica.showSystemProperties</see>.
 /// </summary>
 public class ShowSystemPropertiesResponse : KineticaData
 {

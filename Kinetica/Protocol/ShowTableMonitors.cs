@@ -9,11 +9,11 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showTableMonitors">Kinetica.showTableMonitors</see>.
+/// cref="Kinetica.showTableMonitors(ShowTableMonitorsRequest)">Kinetica.showTableMonitors</see>.
 /// </summary>
 /// <remarks><para>Show table monitors and their properties. Table monitors are
 /// created using <see
-/// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+/// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
 /// Returns detailed information about existing table monitors.</para>
 /// </remarks>
 public class ShowTableMonitorsRequest : KineticaData
@@ -49,7 +49,7 @@ public class ShowTableMonitorsRequest : KineticaData
 } // end class ShowTableMonitorsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showTableMonitors">Kinetica.showTableMonitors</see>.
+/// cref="Kinetica.showTableMonitors(ShowTableMonitorsRequest)">Kinetica.showTableMonitors</see>.
 /// </summary>
 public class ShowTableMonitorsResponse : KineticaData
 {

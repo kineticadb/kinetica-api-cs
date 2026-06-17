@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateHistogram">Kinetica.aggregateHistogram</see>.
+/// cref="Kinetica.aggregateHistogram(AggregateHistogramRequest)">Kinetica.aggregateHistogram</see>.
 /// </summary>
 /// <remarks><para>Performs a histogram calculation given a table, a column,
 /// and an interval function. The <see
@@ -174,7 +174,7 @@ public class AggregateHistogramRequest : KineticaData
 } // end class AggregateHistogramRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateHistogram">Kinetica.aggregateHistogram</see>.
+/// cref="Kinetica.aggregateHistogram(AggregateHistogramRequest)">Kinetica.aggregateHistogram</see>.
 /// </summary>
 public class AggregateHistogramResponse : KineticaData
 {

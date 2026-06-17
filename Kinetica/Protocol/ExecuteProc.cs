@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
+/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+/// </summary>
 /// <remarks><para>Executes a proc. This endpoint is asynchronous and does not
 /// wait for the proc to complete before returning.</para>
 /// <para>If the proc being executed is distributed, <see
@@ -37,15 +38,16 @@ public class ExecuteProcRequest : KineticaData
 
         /// <summary>A string that, if not empty, can be used in subsequent
         /// calls to <see
-        /// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> or
-        /// <see cref="Kinetica.killProc">Kinetica.killProc</see> to identify
-        /// the proc instance.</summary>
+        /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+        /// or <see
+        /// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+        /// to identify the proc instance.</summary>
         /// <remarks><para>The default value is ''.</para></remarks>
         public const string RUN_TAG = "run_tag";
 
         /// <summary>The maximum number of lines of output from stdout and
         /// stderr to return via <see
-        /// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
+        /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
         /// </summary>
         /// <remarks><para>If the number of lines output exceeds the maximum,
         /// earlier lines are discarded. The default value is '100'.</para>
@@ -55,7 +57,13 @@ public class ExecuteProcRequest : KineticaData
         /// <summary>If <see cref="ExecuteProcRequest.Options.TRUE">TRUE</see>,
         /// an instance of the proc will run when the database is started
         /// instead of running immediately.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>The <see
+        /// cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
+        /// using <see
+        /// cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
+        /// and used in <see
+        /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -71,7 +79,12 @@ public class ExecuteProcRequest : KineticaData
         /// </remarks>
         public const string EXECUTE_AT_STARTUP = "execute_at_startup";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ExecuteProcRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ExecuteProcRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Sets the alternate user name to execute this proc instance
@@ -161,9 +174,10 @@ public class ExecuteProcRequest : KineticaData
     ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> or
-    ///         <see cref="Kinetica.killProc">Kinetica.killProc</see> to
-    ///         identify the proc instance. The default value is ''.
+    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+    ///         or <see
+    ///         cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+    ///         to identify the proc instance. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -172,7 +186,7 @@ public class ExecuteProcRequest : KineticaData
     ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
+    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
     ///         If the number of lines output exceeds the maximum, earlier
     ///         lines are discarded. The default value is '100'.</description>
     ///     </item>
@@ -185,9 +199,10 @@ public class ExecuteProcRequest : KineticaData
     ///         of the proc will run when the database is started instead of
     ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see cref="Kinetica.showProc">Kinetica.showProc</see> and
-    ///         used in <see
-    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
+    ///         using <see
+    ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
+    ///         and used in <see
+    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -285,9 +300,10 @@ public class ExecuteProcRequest : KineticaData
     ///         cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
     ///         <description>A string that, if not empty, can be used in
     ///         subsequent calls to <see
-    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> or
-    ///         <see cref="Kinetica.killProc">Kinetica.killProc</see> to
-    ///         identify the proc instance. The default value is ''.
+    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+    ///         or <see
+    ///         cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>
+    ///         to identify the proc instance. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -296,7 +312,7 @@ public class ExecuteProcRequest : KineticaData
     ///         </term>
     ///         <description>The maximum number of lines of output from stdout
     ///         and stderr to return via <see
-    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
+    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
     ///         If the number of lines output exceeds the maximum, earlier
     ///         lines are discarded. The default value is '100'.</description>
     ///     </item>
@@ -309,9 +325,10 @@ public class ExecuteProcRequest : KineticaData
     ///         of the proc will run when the database is started instead of
     ///         running immediately. The <see
     ///         cref="ExecuteProcResponse.run_id">run_id</see> can be retrieved
-    ///         using <see cref="Kinetica.showProc">Kinetica.showProc</see> and
-    ///         used in <see
-    ///         cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.
+    ///         using <see
+    ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>
+    ///         and used in <see
+    ///         cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -360,15 +377,16 @@ public class ExecuteProcRequest : KineticaData
 } // end class ExecuteProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
+/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+/// </summary>
 public class ExecuteProcResponse : KineticaData
 {
     /// <summary>The run ID of the running proc instance.</summary>
     /// <remarks><para>This may be passed to <see
-    /// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see> to obtain
-    /// status information, or <see
-    /// cref="Kinetica.killProc">Kinetica.killProc</see> to kill the proc
-    /// instance.</para></remarks>
+    /// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>
+    /// to obtain status information, or <see
+    /// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see> to
+    /// kill the proc instance.</para></remarks>
     public string run_id { get; set; }
 
     /// <summary>Additional information.</summary>

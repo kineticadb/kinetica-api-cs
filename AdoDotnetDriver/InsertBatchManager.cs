@@ -16,7 +16,7 @@ namespace KineticaAdo
     /// - Backpressure control
     /// - Snappy compression (via Kinetica client)
     /// </summary>
-    public class InsertBatchManager : IAsyncDisposable, IDisposable
+    internal class InsertBatchManager : IAsyncDisposable, IDisposable
     {
         private readonly Kinetica _kinetica;
         private readonly ConcurrentDictionary<string, TableBatchContext> _tableContexts;
@@ -260,7 +260,7 @@ namespace KineticaAdo
     /// <summary>
     /// Options for batch insert operations.
     /// </summary>
-    public class InsertBatchOptions
+    internal class InsertBatchOptions
     {
         /// <summary>
         /// The number of records to batch before flushing. Default is 10,000.
@@ -601,7 +601,7 @@ namespace KineticaAdo
     /// <summary>
     /// SQL INSERT statement parser that extracts table name, column names, and values.
     /// </summary>
-    public class InsertStatementParser
+    internal class InsertStatementParser
     {
         // Pattern 1: INSERT INTO [schema.]table (columns) VALUES (values)
         private static readonly System.Text.RegularExpressions.Regex _insertWithColumnsPattern = new System.Text.RegularExpressions.Regex(
@@ -784,7 +784,7 @@ namespace KineticaAdo
     /// <summary>
     /// Parsed INSERT statement result.
     /// </summary>
-    public class ParsedInsert
+    internal class ParsedInsert
     {
         public string TableName { get; set; } = string.Empty;
         public List<string> ColumnNames { get; set; } = new();

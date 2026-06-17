@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.killProc">Kinetica.killProc</see>.</summary>
+/// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>.
+/// </summary>
 /// <remarks><para>Kills a running proc instance.</para></remarks>
 public class KillProcRequest : KineticaData
 {
@@ -21,19 +22,24 @@ public class KillProcRequest : KineticaData
         /// <summary>If <see cref="KillProcRequest.run_id" /> is specified,
         /// kill the proc instance that has a matching run ID and a matching
         /// run tag that was provided to <see
-        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        /// </summary>
         /// <remarks><para>If <see cref="KillProcRequest.run_id" /> is not
         /// specified, kill the proc instance(s) where a matching run tag was
         /// provided to <see
-        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>. The default
-        /// value is ''.</para></remarks>
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        /// The default value is ''.</para></remarks>
         public const string RUN_TAG = "run_tag";
 
         /// <summary>If <see cref="KillProcRequest.Options.TRUE">TRUE</see>,
         /// kill and remove the instance of the proc matching the auto-start
         /// run ID that was created to run when the database is started.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>The auto-start run ID was returned from <see
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+        /// and can be retrieved using <see
+        /// cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="KillProcRequest.Options.TRUE">TRUE</see>
@@ -48,7 +54,12 @@ public class KillProcRequest : KineticaData
         /// cref="KillProcRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string CLEAR_EXECUTE_AT_STARTUP = "clear_execute_at_startup";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="KillProcRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="KillProcRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -67,11 +78,12 @@ public class KillProcRequest : KineticaData
     ///         <description>If <see cref="KillProcRequest.run_id" /> is
     ///         specified, kill the proc instance that has a matching run ID
     ///         and a matching run tag that was provided to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. If <see
-    ///         cref="KillProcRequest.run_id" /> is not specified, kill the
-    ///         proc instance(s) where a matching run tag was provided to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. The
-    ///         default value is ''.</description>
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         If <see cref="KillProcRequest.run_id" /> is not specified, kill
+    ///         the proc instance(s) where a matching run tag was provided to
+    ///         <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -82,9 +94,9 @@ public class KillProcRequest : KineticaData
     ///         the instance of the proc matching the auto-start run ID that
     ///         was created to run when the database is started. The auto-start
     ///         run ID was returned from <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see> and can
-    ///         be retrieved using <see
-    ///         cref="Kinetica.showProc">Kinetica.showProc</see>.
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    ///         and can be retrieved using <see
+    ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -122,11 +134,11 @@ public class KillProcRequest : KineticaData
     ///         <description>If <paramref name="run_id" /> is specified, kill
     ///         the proc instance that has a matching run ID and a matching run
     ///         tag that was provided to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. If
-    ///         <paramref name="run_id" /> is not specified, kill the proc
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         If <paramref name="run_id" /> is not specified, kill the proc
     ///         instance(s) where a matching run tag was provided to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. The
-    ///         default value is ''.</description>
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -137,9 +149,9 @@ public class KillProcRequest : KineticaData
     ///         the instance of the proc matching the auto-start run ID that
     ///         was created to run when the database is started. The auto-start
     ///         run ID was returned from <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see> and can
-    ///         be retrieved using <see
-    ///         cref="Kinetica.showProc">Kinetica.showProc</see>.
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    ///         and can be retrieved using <see
+    ///         cref="Kinetica.showProc(ShowProcRequest)">Kinetica.showProc</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -165,7 +177,8 @@ public class KillProcRequest : KineticaData
 } // end class KillProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.killProc">Kinetica.killProc</see>.</summary>
+/// cref="Kinetica.killProc(KillProcRequest)">Kinetica.killProc</see>.
+/// </summary>
 public class KillProcResponse : KineticaData
 {
     /// <summary>List of run IDs of proc instances that were killed.</summary>

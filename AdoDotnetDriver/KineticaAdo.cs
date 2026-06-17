@@ -7,6 +7,7 @@ using kinetica;
 namespace KineticaAdo
 {
     // 1. Enhanced Connection with Connection Pooling and Async Support
+    /// <summary>An ADO.NET <see cref="DbConnection"/> implementation for Kinetica, created from a connection string and used to execute SQL commands.</summary>
     public class KineticaConnection : DbConnection
     {
         private static readonly KineticaConnectionPool _connectionPool = new KineticaConnectionPool();
@@ -27,13 +28,16 @@ namespace KineticaAdo
         private readonly Stack<string> _userStack = new Stack<string>();
         private string? _currentImpersonatedUser;
 
+        /// <summary>Initializes a new, unconfigured connection; set the connection string before opening.</summary>
         public KineticaConnection() { }
 
+        /// <summary>Initializes a new connection using the supplied connection string.</summary>
         public KineticaConnection(string connectionString)
         {
             ConnectionString = connectionString;
         }
 
+        /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.AllowNull]
         public override string ConnectionString
         {
@@ -51,9 +55,13 @@ namespace KineticaAdo
             }
         }
 
+        /// <inheritdoc/>
         public override string Database => _database;
+        /// <inheritdoc/>
         public override string DataSource => _connectionStringBuilder?.Server ?? string.Empty;
+        /// <inheritdoc/>
         public override string ServerVersion => "7.2"; // Default version
+        /// <inheritdoc/>
         public override ConnectionState State => _state;
 
         /// <summary>
@@ -71,6 +79,7 @@ namespace KineticaAdo
         /// </summary>
         public string? ImpersonatedUser => _currentImpersonatedUser;
 
+        /// <inheritdoc/>
         public override void ChangeDatabase(string databaseName)
         {
             _database = databaseName;
@@ -121,6 +130,7 @@ namespace KineticaAdo
             }
         }
 
+        /// <inheritdoc/>
         public override void Close()
         {
             if (_state == ConnectionState.Open)
@@ -150,6 +160,7 @@ namespace KineticaAdo
             }
         }
 
+        /// <inheritdoc/>
         public override void Open()
         {
             // Use Task.Run to avoid capturing synchronization context which can cause deadlocks
@@ -159,6 +170,7 @@ namespace KineticaAdo
                 .GetResult();
         }
 
+        /// <inheritdoc/>
         public override async Task OpenAsync(CancellationToken cancellationToken)
         {
             if (_state == ConnectionState.Open)
@@ -233,11 +245,13 @@ namespace KineticaAdo
             }
         }
 
+        /// <inheritdoc/>
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
             return new KineticaTransaction(this, isolationLevel);
         }
 
+        /// <inheritdoc/>
         protected override DbCommand CreateDbCommand()
         {
             return new KineticaCommand(this);
@@ -349,22 +363,26 @@ namespace KineticaAdo
         #endregion
 
         // Schema Support
+        /// <inheritdoc/>
         public override DataTable GetSchema()
         {
             return GetSchema("MetaDataCollections");
         }
 
+        /// <inheritdoc/>
         public override DataTable GetSchema(string collectionName)
         {
             return GetSchema(collectionName, Array.Empty<string>());
         }
 
+        /// <inheritdoc/>
         public override DataTable GetSchema(string collectionName, string?[]? restrictionValues)
         {
             var schemaProvider = new KineticaSchemaProvider(this);
             return schemaProvider.GetSchema(collectionName, restrictionValues);
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -376,6 +394,7 @@ namespace KineticaAdo
     }
 
     // 2. Enhanced Command with SQL Parsing and Async Support
+    /// <summary>An ADO.NET <see cref="DbCommand"/> implementation that executes SQL text against a <see cref="KineticaConnection"/>.</summary>
     public class KineticaCommand : DbCommand
     {
         private static readonly SQLParser _sqlParser = new SQLParser();
@@ -388,26 +407,34 @@ namespace KineticaAdo
         private CancellationTokenSource? _cancellationTokenSource;
         private DbTransaction? _dbTransaction;
 
+        /// <summary>Initializes a new command with no associated connection or text.</summary>
         public KineticaCommand()
         {
             _parameters = new KineticaParameterCollection();
         }
 
+        /// <summary>Initializes a new command associated with the given connection.</summary>
         public KineticaCommand(KineticaConnection connection) : this()
         {
             _connection = connection;
         }
 
+        /// <summary>Initializes a new command with the given SQL text and connection.</summary>
         public KineticaCommand(string commandText, KineticaConnection connection) : this(connection)
         {
             _commandText = commandText;
         }
 
+        /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.AllowNull]
         public override string CommandText { get => _commandText; set => _commandText = value ?? string.Empty; }
+        /// <inheritdoc/>
         public override int CommandTimeout { get => _commandTimeout; set => _commandTimeout = value; }
+        /// <inheritdoc/>
         public override CommandType CommandType { get => _commandType; set => _commandType = value; }
+        /// <inheritdoc/>
         public override bool DesignTimeVisible { get; set; }
+        /// <inheritdoc/>
         public override UpdateRowSource UpdatedRowSource { get; set; }
 
         /// <summary>
@@ -422,20 +449,25 @@ namespace KineticaAdo
             set => _fetchSize = Math.Max(0, value);
         }
 
+        /// <inheritdoc/>
         protected override DbConnection? DbConnection
         {
             get => _connection;
             set => _connection = value as KineticaConnection;
         }
 
+        /// <inheritdoc/>
         protected override DbParameterCollection DbParameterCollection => _parameters;
+        /// <inheritdoc/>
         protected override DbTransaction? DbTransaction { get => _dbTransaction; set => _dbTransaction = value; }
 
+        /// <inheritdoc/>
         public override void Cancel()
         {
             _cancellationTokenSource?.Cancel();
         }
 
+        /// <inheritdoc/>
         public override int ExecuteNonQuery()
         {
             // Use Task.Run to avoid capturing synchronization context which can cause deadlocks
@@ -445,6 +477,7 @@ namespace KineticaAdo
                 .GetResult();
         }
 
+        /// <inheritdoc/>
         public override async Task<int> ExecuteNonQueryAsync(CancellationToken cancellationToken)
         {
             var connection = ValidateCommand();
@@ -590,6 +623,7 @@ namespace KineticaAdo
             return statements;
         }
 
+        /// <inheritdoc/>
         public override object? ExecuteScalar()
         {
             // Use Task.Run to avoid capturing synchronization context which can cause deadlocks
@@ -599,6 +633,7 @@ namespace KineticaAdo
                 .GetResult();
         }
 
+        /// <inheritdoc/>
         public override async Task<object?> ExecuteScalarAsync(CancellationToken cancellationToken)
         {
             using (var reader = await ExecuteReaderAsync(cancellationToken).ConfigureAwait(false))
@@ -611,6 +646,7 @@ namespace KineticaAdo
             }
         }
 
+        /// <inheritdoc/>
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
             // Use Task.Run to avoid capturing synchronization context which can cause deadlocks
@@ -620,6 +656,7 @@ namespace KineticaAdo
                 .GetResult();
         }
 
+        /// <inheritdoc/>
         protected override async Task<DbDataReader> ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
         {
             var connection = ValidateCommand();
@@ -822,11 +859,13 @@ namespace KineticaAdo
             return response.count_affected;
         }
 
+        /// <inheritdoc/>
         protected override DbParameter CreateDbParameter()
         {
             return new KineticaParameter();
         }
 
+        /// <inheritdoc/>
         public override void Prepare()
         {
             // Validate SQL and parameters
@@ -852,6 +891,7 @@ namespace KineticaAdo
             return _connection;
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -863,6 +903,7 @@ namespace KineticaAdo
     }
 
     // 3. Enhanced DataReader with Async Support
+    /// <summary>A forward-only <see cref="DbDataReader"/> over the results of an executed Kinetica SQL command.</summary>
     public class KineticaDataReader : DbDataReader
     {
         private readonly ExecuteSqlResponse _response;
@@ -872,6 +913,7 @@ namespace KineticaAdo
         private int _currentRow = -1;
         private bool _closed = false;
 
+        /// <summary>Initializes a reader over the given Kinetica SQL response, honoring the specified command behavior.</summary>
         public KineticaDataReader(ExecuteSqlResponse response, CommandBehavior behavior)
         {
             _response = response;
@@ -920,14 +962,22 @@ namespace KineticaAdo
             };
         }
 
+        /// <inheritdoc/>
         public override bool HasRows => _response.total_number_of_records > 0;
+        /// <inheritdoc/>
         public override bool IsClosed => _closed;
+        /// <inheritdoc/>
         public override int RecordsAffected => (int)(_response.count_affected);
+        /// <inheritdoc/>
         public override int FieldCount => _columnNames.Count;
+        /// <inheritdoc/>
         public override object this[int ordinal] => GetValue(ordinal);
+        /// <inheritdoc/>
         public override object this[string name] => GetValue(GetOrdinal(name));
+        /// <inheritdoc/>
         public override int Depth => 0;
 
+        /// <inheritdoc/>
         public override bool Read()
         {
             // Read is synchronous - data is already loaded in memory
@@ -938,6 +988,7 @@ namespace KineticaAdo
             return _currentRow < _response.data.Count;
         }
 
+        /// <inheritdoc/>
         public override async Task<bool> ReadAsync(CancellationToken cancellationToken)
         {
             // Yield to make it properly async (Task.Yield doesn't support ConfigureAwait)
@@ -950,11 +1001,13 @@ namespace KineticaAdo
             return _currentRow < _response.data.Count;
         }
 
+        /// <inheritdoc/>
         public override bool NextResult()
         {
             return false; // Kinetica doesn't support multiple result sets
         }
 
+        /// <inheritdoc/>
         public override async Task<bool> NextResultAsync(CancellationToken cancellationToken)
         {
             // Yield to make it properly async (Task.Yield doesn't support ConfigureAwait)
@@ -962,24 +1015,38 @@ namespace KineticaAdo
             return false; // Kinetica doesn't support multiple result sets
         }
 
+        /// <inheritdoc/>
         public override void Close()
         {
             _closed = true;
         }
 
+        /// <inheritdoc/>
         public override bool GetBoolean(int ordinal) => Convert.ToBoolean(GetValue(ordinal));
+        /// <inheritdoc/>
         public override byte GetByte(int ordinal) => Convert.ToByte(GetValue(ordinal));
+        /// <inheritdoc/>
         public override char GetChar(int ordinal) => Convert.ToChar(GetValue(ordinal));
+        /// <inheritdoc/>
         public override DateTime GetDateTime(int ordinal) => Convert.ToDateTime(GetValue(ordinal));
+        /// <inheritdoc/>
         public override decimal GetDecimal(int ordinal) => Convert.ToDecimal(GetValue(ordinal));
+        /// <inheritdoc/>
         public override double GetDouble(int ordinal) => Convert.ToDouble(GetValue(ordinal));
+        /// <inheritdoc/>
         public override float GetFloat(int ordinal) => Convert.ToSingle(GetValue(ordinal));
+        /// <inheritdoc/>
         public override Guid GetGuid(int ordinal) => Guid.Parse(GetValue(ordinal)?.ToString() ?? "");
+        /// <inheritdoc/>
         public override short GetInt16(int ordinal) => Convert.ToInt16(GetValue(ordinal));
+        /// <inheritdoc/>
         public override int GetInt32(int ordinal) => Convert.ToInt32(GetValue(ordinal));
+        /// <inheritdoc/>
         public override long GetInt64(int ordinal) => Convert.ToInt64(GetValue(ordinal));
+        /// <inheritdoc/>
         public override string GetString(int ordinal) => GetValue(ordinal)?.ToString() ?? "";
 
+        /// <inheritdoc/>
         public override long GetBytes(int ordinal, long dataOffset, byte[]? buffer, int bufferOffset, int length)
         {
             var value = GetValue(ordinal);
@@ -1014,6 +1081,7 @@ namespace KineticaAdo
             return bytesToCopy;
         }
 
+        /// <inheritdoc/>
         public override long GetChars(int ordinal, long dataOffset, char[]? buffer, int bufferOffset, int length)
         {
             var value = GetValue(ordinal);
@@ -1036,6 +1104,7 @@ namespace KineticaAdo
             return charsToCopy;
         }
 
+        /// <inheritdoc/>
         public override string GetDataTypeName(int ordinal)
         {
             if (ordinal >= 0 && ordinal < _columnTypes.Count)
@@ -1043,6 +1112,7 @@ namespace KineticaAdo
             return "string";
         }
 
+        /// <inheritdoc/>
         public override Type GetFieldType(int ordinal)
         {
             var dataType = GetDataTypeName(ordinal).ToLower();
@@ -1090,6 +1160,7 @@ namespace KineticaAdo
             };
         }
 
+        /// <inheritdoc/>
         public override string GetName(int ordinal)
         {
             if (ordinal >= 0 && ordinal < _columnNames.Count)
@@ -1097,6 +1168,7 @@ namespace KineticaAdo
             return $"Column{ordinal}";
         }
 
+        /// <inheritdoc/>
         public override int GetOrdinal(string name)
         {
             for (int i = 0; i < _columnNames.Count; i++)
@@ -1107,6 +1179,7 @@ namespace KineticaAdo
             throw new ArgumentException($"Column '{name}' not found");
         }
 
+        /// <inheritdoc/>
         public override object GetValue(int ordinal)
         {
             if (_currentRow < 0 || _response.data == null || _currentRow >= _response.data.Count)
@@ -1126,6 +1199,7 @@ namespace KineticaAdo
             return DBNull.Value;
         }
 
+        /// <inheritdoc/>
         public override int GetValues(object[] values)
         {
             int count = Math.Min(values.Length, FieldCount);
@@ -1136,12 +1210,14 @@ namespace KineticaAdo
             return count;
         }
 
+        /// <inheritdoc/>
         public override bool IsDBNull(int ordinal)
         {
             var value = GetValue(ordinal);
             return value == null || value == DBNull.Value;
         }
 
+        /// <inheritdoc/>
         public override IEnumerator<IDataRecord> GetEnumerator()
         {
             while (Read())
@@ -1173,6 +1249,7 @@ namespace KineticaAdo
         private bool _hasMore = true;
         private long _totalRecordCount = -1;
 
+        /// <summary>Initializes a reader that pages through a large result set, fetching rows from the server in batches of the given size.</summary>
         public KineticaPagingDataReader(
             Kinetica client,
             string sql,
@@ -1279,12 +1356,19 @@ namespace KineticaAdo
             };
         }
 
+        /// <inheritdoc/>
         public override bool HasRows => _totalRecordCount > 0;
+        /// <inheritdoc/>
         public override bool IsClosed => _closed;
+        /// <inheritdoc/>
         public override int RecordsAffected => (int)_totalRecordCount;
+        /// <inheritdoc/>
         public override int FieldCount => _columnNames?.Count ?? 0;
+        /// <inheritdoc/>
         public override object this[int ordinal] => GetValue(ordinal);
+        /// <inheritdoc/>
         public override object this[string name] => GetValue(GetOrdinal(name));
+        /// <inheritdoc/>
         public override int Depth => 0;
 
         /// <summary>
@@ -1297,6 +1381,7 @@ namespace KineticaAdo
         /// </summary>
         public long TotalRecordCount => _totalRecordCount;
 
+        /// <inheritdoc/>
         public override bool Read()
         {
             if (_closed || _currentPage?.data == null)
@@ -1322,6 +1407,7 @@ namespace KineticaAdo
             return true;
         }
 
+        /// <inheritdoc/>
         public override async Task<bool> ReadAsync(CancellationToken cancellationToken)
         {
             if (_closed || _currentPage?.data == null)
@@ -1347,14 +1433,17 @@ namespace KineticaAdo
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool NextResult() => false;
 
+        /// <inheritdoc/>
         public override void Close()
         {
             _closed = true;
             _currentPage = null;
         }
 
+        /// <inheritdoc/>
         public override DataTable GetSchemaTable()
         {
             var schemaTable = new DataTable("SchemaTable");
@@ -1379,19 +1468,32 @@ namespace KineticaAdo
             return schemaTable;
         }
 
+        /// <inheritdoc/>
         public override bool GetBoolean(int ordinal) => Convert.ToBoolean(GetValue(ordinal));
+        /// <inheritdoc/>
         public override byte GetByte(int ordinal) => Convert.ToByte(GetValue(ordinal));
+        /// <inheritdoc/>
         public override char GetChar(int ordinal) => Convert.ToChar(GetValue(ordinal));
+        /// <inheritdoc/>
         public override DateTime GetDateTime(int ordinal) => Convert.ToDateTime(GetValue(ordinal));
+        /// <inheritdoc/>
         public override decimal GetDecimal(int ordinal) => Convert.ToDecimal(GetValue(ordinal));
+        /// <inheritdoc/>
         public override double GetDouble(int ordinal) => Convert.ToDouble(GetValue(ordinal));
+        /// <inheritdoc/>
         public override float GetFloat(int ordinal) => Convert.ToSingle(GetValue(ordinal));
+        /// <inheritdoc/>
         public override Guid GetGuid(int ordinal) => Guid.Parse(GetValue(ordinal)?.ToString() ?? Guid.Empty.ToString());
+        /// <inheritdoc/>
         public override short GetInt16(int ordinal) => Convert.ToInt16(GetValue(ordinal));
+        /// <inheritdoc/>
         public override int GetInt32(int ordinal) => Convert.ToInt32(GetValue(ordinal));
+        /// <inheritdoc/>
         public override long GetInt64(int ordinal) => Convert.ToInt64(GetValue(ordinal));
+        /// <inheritdoc/>
         public override string GetString(int ordinal) => GetValue(ordinal)?.ToString() ?? string.Empty;
 
+        /// <inheritdoc/>
         public override long GetBytes(int ordinal, long dataOffset, byte[]? buffer, int bufferOffset, int length)
         {
             var value = GetValue(ordinal);
@@ -1406,6 +1508,7 @@ namespace KineticaAdo
             return bytesToCopy;
         }
 
+        /// <inheritdoc/>
         public override long GetChars(int ordinal, long dataOffset, char[]? buffer, int bufferOffset, int length)
         {
             var str = GetString(ordinal);
@@ -1418,6 +1521,7 @@ namespace KineticaAdo
             return charsToCopy;
         }
 
+        /// <inheritdoc/>
         public override string GetDataTypeName(int ordinal)
         {
             if (_columnTypes != null && ordinal >= 0 && ordinal < _columnTypes.Count)
@@ -1425,6 +1529,7 @@ namespace KineticaAdo
             return "string";
         }
 
+        /// <inheritdoc/>
         public override Type GetFieldType(int ordinal)
         {
             var dataType = GetDataTypeName(ordinal).ToLower();
@@ -1449,6 +1554,7 @@ namespace KineticaAdo
             };
         }
 
+        /// <inheritdoc/>
         public override string GetName(int ordinal)
         {
             if (_columnNames != null && ordinal >= 0 && ordinal < _columnNames.Count)
@@ -1456,6 +1562,7 @@ namespace KineticaAdo
             return $"Column{ordinal}";
         }
 
+        /// <inheritdoc/>
         public override int GetOrdinal(string name)
         {
             if (_columnNames != null)
@@ -1469,6 +1576,7 @@ namespace KineticaAdo
             throw new ArgumentException($"Column '{name}' not found");
         }
 
+        /// <inheritdoc/>
         public override object GetValue(int ordinal)
         {
             if (_currentRowInPage < 0 || _currentPage?.data == null || _currentRowInPage >= _currentPage.data.Count)
@@ -1490,6 +1598,7 @@ namespace KineticaAdo
             return DBNull.Value;
         }
 
+        /// <inheritdoc/>
         public override int GetValues(object[] values)
         {
             int count = Math.Min(values.Length, FieldCount);
@@ -1500,12 +1609,14 @@ namespace KineticaAdo
             return count;
         }
 
+        /// <inheritdoc/>
         public override bool IsDBNull(int ordinal)
         {
             var value = GetValue(ordinal);
             return value == null || value == DBNull.Value;
         }
 
+        /// <inheritdoc/>
         public override IEnumerator<IDataRecord> GetEnumerator()
         {
             while (Read())
@@ -1524,99 +1635,170 @@ namespace KineticaAdo
     {
         private readonly Dictionary<string, object> _properties;
 
-        // Property key constants matching JDBC driver
+        // Connection-string key names.  All use a space-free spelling;
+        // unrecognized keys (including any legacy spaced forms) are ignored and
+        // logged as a warning by ParseConnectionString.  NormalizePropertyKey
+        // still maps the standard ADO.NET synonyms (e.g. "Data Source", "UID").
+        /// <summary>Connection-string property key names recognized by <see cref="KineticaConnectionStringBuilder"/>.</summary>
         public static class PropertyKeys
         {
             // Connection properties
+            /// <summary>The connection-string key naming the Kinetica server host (alternative to the full URL) (<c>"Server"</c>).</summary>
             public const string Server = "Server";
+            /// <summary>The connection-string key for the full Kinetica server URL (<c>"URL"</c>).</summary>
             public const string Url = "URL";
+            /// <summary>The connection-string key for the primary (preferred) server URL used during failover (<c>"PrimaryURL"</c>).</summary>
             public const string PrimaryUrl = "PrimaryURL";
+            /// <summary>The connection-string key for the authentication user name (<c>"Username"</c>).</summary>
             public const string Username = "Username";
+            /// <summary>The connection-string key for the authentication password (<c>"Password"</c>).</summary>
             public const string Password = "Password";
+            /// <summary>The connection-string key for an OAuth bearer token used in place of username/password (<c>"OAuthToken"</c>).</summary>
             public const string OAuthToken = "OAuthToken";
+            /// <summary>The connection-string key for the default database (<c>"Database"</c>).</summary>
             public const string Database = "Database";
+            /// <summary>The connection-string key for the default schema (<c>"Schema"</c>).</summary>
             public const string Schema = "Schema";
+            /// <summary>The connection-string key naming a user to impersonate when executing commands (<c>"ImpersonateUser"</c>).</summary>
             public const string ImpersonateUser = "ImpersonateUser";
 
             // Timeout properties
+            /// <summary>The connection-string key for the default command/request timeout, in seconds (<c>"Timeout"</c>).</summary>
             public const string Timeout = "Timeout";
-            public const string ConnectionTimeout = "Connection Timeout";
+            /// <summary>The connection-string key for the connection timeout, in seconds (<c>"ConnectionTimeout"</c>).</summary>
+            public const string ConnectionTimeout = "ConnectionTimeout";
+            /// <summary>The connection-string key for the initial connection timeout, in seconds (<c>"InitialConnectionTimeoutSeconds"</c>).</summary>
             public const string InitialConnectionTimeout = "InitialConnectionTimeoutSeconds";
+            /// <summary>The connection-string key for the per-server connection timeout, in seconds (<c>"ServerConnectionTimeoutSeconds"</c>).</summary>
             public const string ServerConnectionTimeout = "ServerConnectionTimeoutSeconds";
 
             // SSL/TLS properties
+            /// <summary>The connection-string key that disables SSL certificate validation (<c>"BypassSslCertCheck"</c>).</summary>
             public const string BypassSslCertCheck = "BypassSslCertCheck";
+            /// <summary>The connection-string key for the path to a CA certificate used to validate the server (<c>"SslCACertPath"</c>).</summary>
             public const string SslCaCertPath = "SslCACertPath";
+            /// <summary>The connection-string key for the client SSL certificate password (<c>"SslCertPassword"</c>).</summary>
             public const string SslCertPassword = "SslCertPassword";
+            /// <summary>The connection-string key that allows the SSL certificate host name to differ from the server host (<c>"SslAllowHostMismatch"</c>).</summary>
             public const string SslAllowHostMismatch = "SslAllowHostMismatch";
 
             // Network properties
+            /// <summary>The connection-string key that disables automatic discovery of cluster worker nodes (<c>"DisableAutoDiscovery"</c>).</summary>
             public const string DisableAutoDiscovery = "DisableAutoDiscovery";
+            /// <summary>The connection-string key that disables high-availability failover (<c>"DisableFailover"</c>).</summary>
             public const string DisableFailover = "DisableFailover";
+            /// <summary>The connection-string key specifying the order in which HA ring members are tried during failover (<c>"FailoverOrder"</c>).</summary>
             public const string FailoverOrder = "FailoverOrder";
+            /// <summary>The connection-string key for how often, in seconds, to poll for failback to the primary (<c>"FailbackPollInterval"</c>).</summary>
             public const string FailbackPollInterval = "FailbackPollInterval";
+            /// <summary>The connection-string key that disables Snappy compression of responses (<c>"DisableSnappy"</c>).</summary>
             public const string DisableSnappy = "DisableSnappy";
 
             // Query optimization properties
+            /// <summary>The connection-string key toggling cost-based query optimization (<c>"CostBasedOptimization"</c>).</summary>
             public const string CostBasedOptimization = "CostBasedOptimization";
+            /// <summary>The connection-string key toggling distributed joins (<c>"DistributedJoins"</c>).</summary>
             public const string DistributedJoins = "DistributedJoins";
+            /// <summary>The connection-string key toggling parallel query execution (<c>"ParallelExecution"</c>).</summary>
             public const string ParallelExecution = "ParallelExecution";
+            /// <summary>The connection-string key toggling the query plan cache (<c>"PlanCache"</c>).</summary>
             public const string PlanCache = "PlanCache";
+            /// <summary>The connection-string key toggling query results caching (<c>"ResultsCaching"</c>).</summary>
             public const string ResultsCaching = "ResultsCaching";
+            /// <summary>The connection-string key toggling rule-based query optimizations (<c>"RuleBasedOptimizations"</c>).</summary>
             public const string RuleBasedOptimizations = "RuleBasedOptimizations";
+            /// <summary>The connection-string key toggling scalar-subquery (SSQ) optimizations (<c>"SsqOptimizations"</c>).</summary>
             public const string SsqOptimizations = "SsqOptimizations";
+            /// <summary>The connection-string key toggling approximate COUNT(DISTINCT) evaluation (<c>"UseApproxCountDistinct"</c>).</summary>
             public const string UseApproxCountDistinct = "UseApproxCountDistinct";
+            /// <summary>The connection-string key toggling validation of schema changes (<c>"ValidateChange"</c>).</summary>
             public const string ValidateChange = "ValidateChange";
 
             // Query control properties
+            /// <summary>The connection-string key that opens the connection in read-only mode (<c>"ReadOnly"</c>).</summary>
             public const string ReadOnly = "ReadOnly";
+            /// <summary>The connection-string key for the time-to-live, in minutes, of tables created by queries (<c>"TTL"</c>).</summary>
             public const string Ttl = "TTL";
+            /// <summary>The connection-string key for the time-to-live, in minutes, of paging result tables (<c>"PagingTableTTL"</c>).</summary>
             public const string PagingTableTtl = "PagingTableTTL";
+            /// <summary>The connection-string key for the maximum number of rows returned by a query (<c>"Limit"</c>).</summary>
             public const string Limit = "Limit";
+            /// <summary>The connection-string key for the number of rows fetched per server round-trip (<c>"RowsPerFetch"</c>).</summary>
             public const string RowsPerFetch = "RowsPerFetch";
+            /// <summary>The connection-string key for the data-reader fetch size (rows per batch) (<c>"FetchSize"</c>).</summary>
             public const string FetchSize = "FetchSize";
 
             // Insertion properties
+            /// <summary>The connection-string key for the number of rows sent per insert request (<c>"RowsPerInsertion"</c>).</summary>
             public const string RowsPerInsertion = "RowsPerInsertion";
+            /// <summary>The connection-string key that disables multi-head (worker-direct) inserts (<c>"DisableMultiheadInsert"</c>).</summary>
             public const string DisableMultiheadInsert = "DisableMultiheadInsert";
+            /// <summary>The connection-string key that ignores records whose primary key already exists (<c>"IgnoreExistingPk"</c>).</summary>
             public const string IgnoreExistingPk = "IgnoreExistingPk";
+            /// <summary>The connection-string key that truncates string values exceeding their column width (<c>"TruncateStrings"</c>).</summary>
             public const string TruncateStrings = "TruncateStrings";
+            /// <summary>The connection-string key that updates existing records on a primary-key collision (<c>"UpdateOnExistingPk"</c>).</summary>
             public const string UpdateOnExistingPk = "UpdateOnExistingPk";
+            /// <summary>The connection-string key controlling how insert errors are handled (<c>"ErrorMode"</c>).</summary>
             public const string ErrorMode = "ErrorMode";
+            /// <summary>The connection-string key controlling table replication for created tables (<c>"Replication"</c>).</summary>
             public const string Replication = "Replication";
+            /// <summary>The connection-string key that disables synchronous persistence on insert (<c>"NoSync"</c>).</summary>
             public const string NoSync = "NoSync";
 
             // File I/O properties
+            /// <summary>The connection-string key for the field delimiter used when reading delimited files (<c>"FileReadDelimiter"</c>).</summary>
             public const string FileReadDelimiter = "FileReadDelimiter";
+            /// <summary>The connection-string key indicating whether files being read include a header row (<c>"FileReadHasHeader"</c>).</summary>
             public const string FileReadHasHeader = "FileReadHasHeader";
+            /// <summary>The connection-string key for the token interpreted as NULL when reading files (<c>"FileReadNullString"</c>).</summary>
             public const string FileReadNullString = "FileReadNullString";
+            /// <summary>The connection-string key for the escape character used when reading files (<c>"FileReadEscapeChar"</c>).</summary>
             public const string FileReadEscapeChar = "FileReadEscapeChar";
+            /// <summary>The connection-string key for the quote character used when reading files (<c>"FileReadQuoteChar"</c>).</summary>
             public const string FileReadQuoteChar = "FileReadQuoteChar";
+            /// <summary>The connection-string key for the comment-line prefix used when reading files (<c>"FileReadComment"</c>).</summary>
             public const string FileReadComment = "FileReadComment";
+            /// <summary>The connection-string key that clears the target table before a file import (<c>"FileReadInitialClear"</c>).</summary>
             public const string FileReadInitialClear = "FileReadInitialClear";
+            /// <summary>The connection-string key for the maximum number of rows read from a file (<c>"FileReadLimit"</c>).</summary>
             public const string FileReadLimit = "FileReadLimit";
+            /// <summary>The connection-string key for the number of leading rows skipped when reading a file (<c>"FileReadSkip"</c>).</summary>
             public const string FileReadSkip = "FileReadSkip";
 
             // Connection pooling
+            /// <summary>The connection-string key toggling connection pooling (<c>"Pooling"</c>).</summary>
             public const string Pooling = "Pooling";
-            public const string MaxPoolSize = "Max Pool Size";
-            public const string MinPoolSize = "Min Pool Size";
+            /// <summary>The connection-string key for the maximum number of pooled connections (<c>"MaxPoolSize"</c>).</summary>
+            public const string MaxPoolSize = "MaxPoolSize";
+            /// <summary>The connection-string key for the minimum number of pooled connections (<c>"MinPoolSize"</c>).</summary>
+            public const string MinPoolSize = "MinPoolSize";
 
             // Batch insert mode
-            public const string BatchInsertMode = "Batch Insert Mode";
-            public const string BatchSize = "Batch Size";
-            public const string BatchUpdateOnExistingPk = "Batch Update On Existing Pk";
+            /// <summary>The connection-string key toggling batched INSERT execution (<c>"BatchInsertMode"</c>).</summary>
+            public const string BatchInsertMode = "BatchInsertMode";
+            /// <summary>The connection-string key for the number of rows per insert batch (<c>"BatchSize"</c>).</summary>
+            public const string BatchSize = "BatchSize";
+            /// <summary>The connection-string key that updates existing records on a primary-key collision during batch inserts (<c>"BatchUpdateOnExistingPk"</c>).</summary>
+            public const string BatchUpdateOnExistingPk = "BatchUpdateOnExistingPk";
 
             // Misc
+            /// <summary>The connection-string key overriding the session time zone (<c>"TimeZoneOverride"</c>).</summary>
             public const string TimeZoneOverride = "TimeZoneOverride";
+            /// <summary>The connection-string key naming the JWT claim used as the user name (<c>"TokenNameClaim"</c>).</summary>
             public const string TokenNameClaim = "TokenNameClaim";
+            /// <summary>The connection-string key toggling primary-key lookup optimization (<c>"UseKeyLookup"</c>).</summary>
             public const string UseKeyLookup = "UseKeyLookup";
+            /// <summary>The connection-string key that accepts transaction calls as no-ops (Kinetica has no native transactions) (<c>"FakeTransactions"</c>).</summary>
             public const string FakeTransactions = "FakeTransactions";
+            /// <summary>The connection-string key for the driver's log level (<c>"LogLevel"</c>).</summary>
             public const string LogLevel = "LogLevel";
         }
 
+        /// <summary>Initializes an empty connection-string builder.</summary>
         public KineticaConnectionStringBuilder() : this(string.Empty) { }
 
+        /// <summary>Initializes a connection-string builder populated from the given connection string.</summary>
         public KineticaConnectionStringBuilder(string connectionString)
         {
             _properties = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
@@ -2300,6 +2482,22 @@ namespace KineticaAdo
 
         #region Parsing
 
+        // The set of recognized property keys, derived from the PropertyKeys
+        // constants so it never drifts out of sync with them.
+        private static readonly HashSet<string> _knownKeys = BuildKnownKeys();
+
+        private static HashSet<string> BuildKnownKeys()
+        {
+            var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var field in typeof(PropertyKeys).GetFields(
+                         System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
+            {
+                if (field.IsLiteral && field.FieldType == typeof(string))
+                    set.Add((string)field.GetRawConstantValue()!);
+            }
+            return set;
+        }
+
         private void ParseConnectionString(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
@@ -2311,11 +2509,18 @@ namespace KineticaAdo
                 var keyValue = pair.Split('=', 2);
                 if (keyValue.Length == 2)
                 {
-                    var key = keyValue[0].Trim();
+                    var originalKey = keyValue[0].Trim();
                     var value = keyValue[1].Trim();
 
-                    // Handle aliases for compatibility
-                    key = NormalizePropertyKey(key);
+                    // Handle aliases for compatibility (e.g. legacy spaced keys)
+                    var key = NormalizePropertyKey(originalKey);
+
+                    if (!_knownKeys.Contains(key))
+                    {
+                        System.Diagnostics.Trace.TraceWarning(
+                            $"Kinetica ADO.NET: unrecognized connection-string key '{originalKey}'; it will be ignored.");
+                    }
+
                     _properties[key] = value;
                 }
             }
@@ -2335,6 +2540,7 @@ namespace KineticaAdo
             };
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Join(";", _properties.Select(kvp => $"{kvp.Key}={kvp.Value}"));
@@ -2407,7 +2613,7 @@ namespace KineticaAdo
     }
 
     // 5. Connection Pool Implementation
-    public class KineticaConnectionPool
+    internal class KineticaConnectionPool
     {
         private readonly ConcurrentDictionary<string, ConnectionPoolEntry> _pools = new();
         private readonly Timer _cleanupTimer;
@@ -2575,7 +2781,7 @@ namespace KineticaAdo
     /// - Parameter substitution
     /// - Multi-statement parsing
     /// </summary>
-    public class SQLParser
+    internal class SQLParser
     {
         // Statement type patterns
         private static readonly Regex _selectRegex = new Regex(@"^\s*SELECT\s", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -3172,7 +3378,7 @@ namespace KineticaAdo
     /// <summary>
     /// Represents a parsed SQL command with extracted metadata.
     /// </summary>
-    public class ParsedCommand
+    internal class ParsedCommand
     {
         public string OriginalSql { get; set; } = string.Empty;
         public string FinalSql { get; set; } = string.Empty;
@@ -3188,17 +3394,29 @@ namespace KineticaAdo
     /// </summary>
     public enum ParsedCommandType
     {
+        /// <summary>A SELECT query.</summary>
         Select,
+        /// <summary>An INSERT statement.</summary>
         Insert,
+        /// <summary>An INSERT statement that loads data from files.</summary>
         InsertFromFile,
+        /// <summary>An UPDATE statement.</summary>
         Update,
+        /// <summary>A DELETE statement.</summary>
         Delete,
+        /// <summary>A CREATE TABLE statement.</summary>
         CreateTable,
+        /// <summary>A DROP TABLE statement.</summary>
         DropTable,
+        /// <summary>A statement that sets the active user.</summary>
         SetUser,
+        /// <summary>A statement that executes subsequent commands as another user.</summary>
         ExecuteAsUser,
+        /// <summary>A statement that reverts a prior user-impersonation change.</summary>
         Revert,
+        /// <summary>A statement that sets the active schema.</summary>
         SetSchema,
+        /// <summary>Any other or unrecognized command.</summary>
         Other
     }
 
@@ -3206,7 +3424,7 @@ namespace KineticaAdo
     /// Query optimization hints extracted from SQL.
     /// Supports JDBC-compatible KI_HINT_* syntax.
     /// </summary>
-    public class QueryHints
+    internal class QueryHints
     {
         /// <summary>
         /// Batch size hint for bulk operations (KI_HINT_BATCH_SIZE).
@@ -3300,7 +3518,7 @@ namespace KineticaAdo
     /// <summary>
     /// User impersonation information for SET USER/EXECUTE AS commands.
     /// </summary>
-    public class UserImpersonationInfo
+    internal class UserImpersonationInfo
     {
         public ImpersonationType Type { get; set; }
         public string? Username { get; set; }
@@ -3322,7 +3540,7 @@ namespace KineticaAdo
     /// <summary>
     /// Information about an INSERT INTO...SELECT FROM FILE statement.
     /// </summary>
-    public class InsertFromFileInfo
+    internal class InsertFromFileInfo
     {
         /// <summary>Target table name (may include schema).</summary>
         public string TableName { get; set; } = string.Empty;
@@ -3356,7 +3574,7 @@ namespace KineticaAdo
     /// Options for INSERT FROM FILE operations.
     /// Matches JDBC driver's supported options.
     /// </summary>
-    public class FileInsertOptions
+    internal class FileInsertOptions
     {
         /// <summary>File format. Default: Auto (detected from extension).</summary>
         public FileFormat Format { get; set; } = FileFormat.Auto;
@@ -3440,7 +3658,7 @@ namespace KineticaAdo
     }
 
     // 7. Schema Provider Implementation
-    public class KineticaSchemaProvider
+    internal class KineticaSchemaProvider
     {
         private readonly KineticaConnection _connection;
 
@@ -4155,23 +4373,29 @@ namespace KineticaAdo
     }
 
     // 8. Custom Exception Classes with Error Mapping
+    /// <summary>The base exception type thrown by the Kinetica ADO.NET provider, carrying a numeric error code and a SQLSTATE value.</summary>
     public class KineticaException : SystemException
     {
+        /// <summary>Gets the Kinetica-specific numeric error code associated with this exception.</summary>
         public int ErrorCode { get; }
+        /// <summary>Gets the SQLSTATE value associated with this exception.</summary>
         public string SqlState { get; }
         
+        /// <summary>Initializes a new exception with the given message and a general error code.</summary>
         public KineticaException(string message) : base(message)
         {
             ErrorCode = -1;
             SqlState = "HY000"; // General error
         }
 
+        /// <summary>Initializes a new exception, mapping the inner exception to an error code and SQLSTATE.</summary>
         public KineticaException(string message, Exception innerException) : base(message, innerException)
         {
             ErrorCode = MapExceptionToErrorCode(innerException);
             SqlState = MapExceptionToSqlState(innerException);
         }
 
+        /// <summary>Initializes a new exception with the given message, error code, and SQLSTATE.</summary>
         public KineticaException(string message, int errorCode, string sqlState) : base(message)
         {
             ErrorCode = errorCode;
@@ -4203,51 +4427,72 @@ namespace KineticaAdo
         }
     }
 
+    /// <summary>The exception thrown when a connection to Kinetica cannot be established.</summary>
     public class KineticaConnectionException : KineticaException
     {
+        /// <summary>Initializes a new connection exception with the given message.</summary>
         public KineticaConnectionException(string message) : base(message, -100, "08000") { }
+        /// <summary>Initializes a new connection exception with the given message and inner exception.</summary>
         public KineticaConnectionException(string message, Exception innerException) : base(message, innerException) { }
     }
 
+    /// <summary>The exception thrown when Kinetica reports an error executing a SQL statement.</summary>
     public class KineticaSqlException : KineticaException
     {
+        /// <summary>Initializes a new SQL exception with the given message.</summary>
         public KineticaSqlException(string message) : base(message, -200, "42000") { }
+        /// <summary>Initializes a new SQL exception with the given message and inner exception.</summary>
         public KineticaSqlException(string message, Exception innerException) : base(message, innerException) { }
     }
 
     // 9. Parameter Classes (keeping existing implementation)
+    /// <summary>An ADO.NET <see cref="DbParameter"/> implementation representing a single parameter of a <see cref="KineticaCommand"/>.</summary>
     public class KineticaParameter : DbParameter
     {
+        /// <inheritdoc/>
         public override DbType DbType { get; set; } = DbType.String;
+        /// <inheritdoc/>
         public override ParameterDirection Direction { get; set; } = ParameterDirection.Input;
+        /// <inheritdoc/>
         public override bool IsNullable { get; set; }
+        /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.AllowNull]
         public override string ParameterName { get; set; } = string.Empty;
+        /// <inheritdoc/>
         public override int Size { get; set; }
+        /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.AllowNull]
         public override string SourceColumn { get; set; } = string.Empty;
+        /// <inheritdoc/>
         public override bool SourceColumnNullMapping { get; set; }
+        /// <inheritdoc/>
         public override object? Value { get; set; }
 
+        /// <inheritdoc/>
         public override void ResetDbType()
         {
             DbType = DbType.String;
         }
     }
 
+    /// <summary>The collection of <see cref="DbParameter"/> objects associated with a <see cref="KineticaCommand"/>.</summary>
     public class KineticaParameterCollection : DbParameterCollection
     {
         private readonly List<DbParameter> _parameters = new List<DbParameter>();
 
+        /// <inheritdoc/>
         public override int Count => _parameters.Count;
+        /// <inheritdoc/>
         public override object SyncRoot => _parameters;
 
+        /// <inheritdoc/>
         public override int Add(object value)
         {
             _parameters.Add((DbParameter)value);
             return _parameters.Count - 1;
         }
 
+        /// <inheritdoc/>
         public override void AddRange(Array values)
         {
             foreach (DbParameter param in values)
@@ -4256,31 +4501,46 @@ namespace KineticaAdo
             }
         }
 
+        /// <inheritdoc/>
         public override void Clear() => _parameters.Clear();
+        /// <inheritdoc/>
         public override bool Contains(object value) => _parameters.Contains((DbParameter)value);
+        /// <inheritdoc/>
         public override bool Contains(string value) => _parameters.Any(p => p.ParameterName == value);
+        /// <inheritdoc/>
         public override void CopyTo(Array array, int index) => _parameters.CopyTo((DbParameter[])array, index);
+        /// <inheritdoc/>
         public override System.Collections.IEnumerator GetEnumerator() => _parameters.GetEnumerator();
+        /// <inheritdoc/>
         public override int IndexOf(object value) => _parameters.IndexOf((DbParameter)value);
+        /// <inheritdoc/>
         public override int IndexOf(string parameterName) => _parameters.FindIndex(p => p.ParameterName == parameterName);
+        /// <inheritdoc/>
         public override void Insert(int index, object value) => _parameters.Insert(index, (DbParameter)value);
+        /// <inheritdoc/>
         public override void Remove(object value) => _parameters.Remove((DbParameter)value);
+        /// <inheritdoc/>
         public override void RemoveAt(int index) => _parameters.RemoveAt(index);
 
+        /// <inheritdoc/>
         public override void RemoveAt(string parameterName)
         {
             var index = IndexOf(parameterName);
             if (index >= 0) RemoveAt(index);
         }
 
+        /// <inheritdoc/>
         protected override DbParameter GetParameter(int index) => _parameters[index];
+        /// <inheritdoc/>
         protected override DbParameter GetParameter(string parameterName)
         {
             var index = IndexOf(parameterName);
             return index >= 0 ? _parameters[index] : throw new ArgumentException($"Parameter '{parameterName}' not found");
         }
 
+        /// <inheritdoc/>
         protected override void SetParameter(int index, DbParameter value) => _parameters[index] = value;
+        /// <inheritdoc/>
         protected override void SetParameter(string parameterName, DbParameter value)
         {
             var index = IndexOf(parameterName);
@@ -4328,6 +4588,7 @@ namespace KineticaAdo
         private readonly KineticaConnection _connection;
         private bool _completed = false;
 
+        /// <summary>Initializes a new transaction on the given connection with the specified isolation level.</summary>
         public KineticaTransaction(KineticaConnection connection, IsolationLevel isolationLevel)
         {
             _connection = connection;
@@ -4343,6 +4604,7 @@ namespace KineticaAdo
         /// </summary>
         public override IsolationLevel IsolationLevel { get; }
 
+        /// <inheritdoc/>
         protected override DbConnection DbConnection => _connection;
 
         /// <summary>
@@ -4414,6 +4676,7 @@ namespace KineticaAdo
             _completed = true;
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing && !_completed)
@@ -4426,28 +4689,38 @@ namespace KineticaAdo
     }
 
     // 11. Factory Class
+    /// <summary>The ADO.NET <see cref="DbProviderFactory"/> for Kinetica; use <see cref="Instance"/> to create connections, commands, and parameters.</summary>
     public class KineticaProviderFactory : DbProviderFactory
     {
+        /// <summary>The singleton factory instance.</summary>
         public static readonly KineticaProviderFactory Instance = new KineticaProviderFactory();
 
+        /// <inheritdoc/>
         public override DbCommand CreateCommand() => new KineticaCommand();
+        /// <inheritdoc/>
         public override DbConnection CreateConnection() => new KineticaConnection();
+        /// <inheritdoc/>
         public override DbParameter CreateParameter() => new KineticaParameter();
         
+        /// <inheritdoc/>
         public override DbConnectionStringBuilder CreateConnectionStringBuilder() => 
             new DbConnectionStringBuilder(); // Could create custom KineticaConnectionStringBuilder wrapper
 
+        /// <inheritdoc/>
         public override bool CanCreateDataSourceEnumerator => false;
+        /// <inheritdoc/>
         public override DbDataSourceEnumerator CreateDataSourceEnumerator() => 
             throw new NotSupportedException("Data source enumeration not supported");
     }
 
     // 12. Configuration and Registration Helper
+    /// <summary>Helpers for registering the Kinetica <see cref="KineticaProviderFactory"/> with the ADO.NET provider-factory registry.</summary>
     public static class KineticaProviderRegistration
     {
         private static bool _registered = false;
         private static readonly object _lock = new object();
 
+        /// <summary>Registers the Kinetica provider factory so it can be resolved by its provider-invariant name.</summary>
         public static void RegisterProvider()
         {
             if (_registered) return;

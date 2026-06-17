@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ListGraphRequest : KineticaData
 {
     public string graph_name { get; set; } = "";
@@ -23,9 +24,11 @@ public class ListGraphRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class ListGraphRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ListGraphResponse : KineticaData
 {
     public bool result { get; set; }
@@ -34,4 +37,5 @@ public class ListGraphResponse : KineticaData
     public IList<long> num_edges { get; set; } = new List<long>();
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class ListGraphResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

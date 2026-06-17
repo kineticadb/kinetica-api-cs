@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createDatasource">Kinetica.createDatasource</see>.</summary>
+/// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+/// </summary>
 /// <remarks><para>Creates a <a href="../../../concepts/data_sources/"
 /// target="_top">data source</a>, which contains the location and connection
 /// information for a data store that is external to the database.</para>
@@ -41,7 +42,12 @@ public class CreateDatasourceRequest : KineticaData
         /// </remarks>
         public const string SKIP_VALIDATION = "skip_validation";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateDatasourceRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateDatasourceRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Timeout in seconds for connecting to this storage
@@ -239,7 +245,9 @@ public class CreateDatasourceRequest : KineticaData
 
         /// <summary>Use anonymous connection to storage provider--DEPRECATED:
         /// this is now the default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Specify use_managed_credentials for non-anonymous
+        /// connection.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -259,7 +267,9 @@ public class CreateDatasourceRequest : KineticaData
 
         /// <summary>When no credentials are supplied, we use anonymous access
         /// by default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If this is set, we will use cloud provider user
+        /// settings.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1193,7 +1203,8 @@ public class CreateDatasourceRequest : KineticaData
 } // end class CreateDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createDatasource">Kinetica.createDatasource</see>.</summary>
+/// cref="Kinetica.createDatasource(CreateDatasourceRequest)">Kinetica.createDatasource</see>.
+/// </summary>
 public class CreateDatasourceResponse : KineticaData
 {
     /// <summary>Value of <see cref="CreateDatasourceRequest.name">name</see>.

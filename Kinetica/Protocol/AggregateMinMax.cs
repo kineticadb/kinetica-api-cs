@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateMinMax">Kinetica.aggregateMinMax</see>.</summary>
+/// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
+/// </summary>
 /// <remarks><para>Calculates and returns the minimum and maximum values of a
 /// particular column in a table.</para></remarks>
 public class AggregateMinMaxRequest : KineticaData
@@ -58,7 +59,8 @@ public class AggregateMinMaxRequest : KineticaData
 } // end class AggregateMinMaxRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateMinMax">Kinetica.aggregateMinMax</see>.</summary>
+/// cref="Kinetica.aggregateMinMax(AggregateMinMaxRequest)">Kinetica.aggregateMinMax</see>.
+/// </summary>
 public class AggregateMinMaxResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.solveGraph">Kinetica.solveGraph</see>.</summary>
+/// cref="Kinetica.solveGraph(SolveGraphRequest)">Kinetica.solveGraph</see>.
+/// </summary>
 /// <remarks><para>Solves an existing graph for a type of problem (e.g.,
 /// shortest path, page rank, traveling salesman, etc.) using source nodes,
 /// destination nodes, and additional, optional weights and
@@ -142,29 +143,30 @@ public class SolveGraphRequest : KineticaData
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'left turn' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
-        /// at graph creation.</summary>
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string LEFT_TURN_PENALTY = "left_turn_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as' right turn' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
-        /// at graph creation.</summary>
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'intersection' if the 'add_turn' option parameter of the <see
-        /// cref="Kinetica.createGraph">Kinetica.createGraph</see> was invoked
-        /// at graph creation.</summary>
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string INTERSECTION_PENALTY = "intersection_penalty";
 
         /// <summary>This will add an additional weight over the edges labeled
         /// as 'sharp turn' or 'u-turn' if the 'add_turn' option parameter of
-        /// the <see cref="Kinetica.createGraph">Kinetica.createGraph</see> was
-        /// invoked at graph creation.</summary>
+        /// the <see
+        /// cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+        /// was invoked at graph creation.</summary>
         /// <remarks><para>The default value is '0.0'.</para></remarks>
         public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
 
@@ -206,12 +208,12 @@ public class SolveGraphRequest : KineticaData
         /// </remarks>
         public const string OUTPUT_EDGE_PATH = "output_edge_path";
 
-        /// <summary>An additional column 'CLUSTER' will be added for each
-        /// node.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="SolveGraphRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>No extra cluster info per node will be available in the
-        /// output.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="SolveGraphRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If true then concatenated wkt line segments will be added
@@ -550,7 +552,8 @@ public class SolveGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -560,7 +563,8 @@ public class SolveGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -570,7 +574,8 @@ public class SolveGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -581,8 +586,8 @@ public class SolveGraphRequest : KineticaData
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
     ///         parameter of the <see
-    ///         cref="Kinetica.createGraph">Kinetica.createGraph</see> was
-    ///         invoked at graph creation. The default value is '0.0'.
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -976,7 +981,8 @@ public class SolveGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'left turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -986,7 +992,8 @@ public class SolveGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as' right turn' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -996,7 +1003,8 @@ public class SolveGraphRequest : KineticaData
     ///         </term>
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'intersection' if the 'add_turn' option parameter of
-    ///         the <see cref="Kinetica.createGraph">Kinetica.createGraph</see>
+    ///         the <see
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
     ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
@@ -1007,8 +1015,8 @@ public class SolveGraphRequest : KineticaData
     ///         <description>This will add an additional weight over the edges
     ///         labeled as 'sharp turn' or 'u-turn' if the 'add_turn' option
     ///         parameter of the <see
-    ///         cref="Kinetica.createGraph">Kinetica.createGraph</see> was
-    ///         invoked at graph creation. The default value is '0.0'.
+    ///         cref="Kinetica.createGraph(CreateGraphRequest)">Kinetica.createGraph</see>
+    ///         was invoked at graph creation. The default value is '0.0'.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -1208,7 +1216,8 @@ public class SolveGraphRequest : KineticaData
 } // end class SolveGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.solveGraph">Kinetica.solveGraph</see>.</summary>
+/// cref="Kinetica.solveGraph(SolveGraphRequest)">Kinetica.solveGraph</see>.
+/// </summary>
 public class SolveGraphResponse : KineticaData
 {
     /// <summary>Indicates a successful solution on all servers.</summary>

@@ -9,22 +9,23 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRebalance">Kinetica.adminRebalance</see>.</summary>
+/// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>.
+/// </summary>
 /// <remarks><para>Rebalance the data in the cluster so that all nodes contain
 /// an equal number of records approximately and/or rebalance the shards to be
 /// equally distributed (as much as possible) across all the ranks.</para>
 /// <para>The database must be offline for this operation, see <see
-/// cref="Kinetica.adminOffline">Kinetica.adminOffline</see></para>
+/// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see></para>
 /// <para>* If <see
-/// cref="Kinetica.adminRebalance">Kinetica.adminRebalance</see> is invoked
-/// after a change is made to the cluster, e.g., a host was added or removed,
-/// <a href="../../../concepts/tables/#sharding" target="_top">sharded data</a>
-/// will be evenly redistributed across the cluster by number of shards per
-/// rank while unsharded data will be redistributed across the cluster by data
-/// size per rank</para>
+/// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>
+/// is invoked after a change is made to the cluster, e.g., a host was added or
+/// removed, <a href="../../../concepts/tables/#sharding" target="_top">sharded
+/// data</a> will be evenly redistributed across the cluster by number of
+/// shards per rank while unsharded data will be redistributed across the
+/// cluster by data size per rank</para>
 /// <para>* If <see
-/// cref="Kinetica.adminRebalance">Kinetica.adminRebalance</see> is invoked at
-/// some point when unsharded data (a.k.a. <a
+/// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>
+/// is invoked at some point when unsharded data (a.k.a. <a
 /// href="../../../concepts/tables/#random-sharding"
 /// target="_top">randomly-sharded</a>) in the cluster is unevenly distributed
 /// over time, sharded data will not move while unsharded data will be
@@ -33,7 +34,8 @@ namespace kinetica;
 /// <para>This endpoint's processing time depends on the amount of data in the
 /// system, thus the API call may time out if run directly.  It is recommended
 /// to run this endpoint asynchronously via <see
-/// cref="Kinetica.createJob">Kinetica.createJob</see>.</para></remarks>
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
+/// </para></remarks>
 public class AdminRebalanceRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -46,7 +48,10 @@ public class AdminRebalanceRequest : KineticaData
         /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Note that for clusters with large amounts of sharded
+        /// data, this data transfer could be time consuming and result in
+        /// delayed query responses.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -63,13 +68,23 @@ public class AdminRebalanceRequest : KineticaData
         /// </remarks>
         public const string REBALANCE_SHARDED_DATA = "rebalance_sharded_data";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRebalanceRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRebalanceRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
         /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, unsharded
         /// data (a.k.a.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para><a href="../../../concepts/tables/#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -122,7 +137,12 @@ public class AdminRebalanceRequest : KineticaData
 
         /// <summary>Perform compaction of deleted records once the rebalance
         /// completes to reclaim memory and disk space.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Default is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, unless <see
+        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>
+        /// is set to <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -163,7 +183,17 @@ public class AdminRebalanceRequest : KineticaData
 
         /// <summary>Scans for any data sharded incorrectly and re-routes the
         /// data to the correct location.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Only necessary if <see
+        /// cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>
+        /// reports an error in sharding alignment. This can be done as part of
+        /// a typical rebalance after expanding the cluster or in a standalone
+        /// fashion when it is believed that data is sharded incorrectly
+        /// somewhere in the cluster. Compaction will not be performed by
+        /// default when this is enabled. If this option is set to <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>, the time
+        /// necessary to rebalance and the memory used by the rebalance may
+        /// increase.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -341,7 +371,8 @@ public class AdminRebalanceRequest : KineticaData
     ///         </term>
     ///         <description>Scans for any data sharded incorrectly and
     ///         re-routes the data to the correct location. Only necessary if
-    ///         <see cref="Kinetica.adminVerifyDb">Kinetica.adminVerifyDb</see>
+    ///         <see
+    ///         cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>
     ///         reports an error in sharding alignment. This can be done as
     ///         part of a typical rebalance after expanding the cluster or in a
     ///         standalone fashion when it is believed that data is sharded
@@ -539,7 +570,8 @@ public class AdminRebalanceRequest : KineticaData
     ///         </term>
     ///         <description>Scans for any data sharded incorrectly and
     ///         re-routes the data to the correct location. Only necessary if
-    ///         <see cref="Kinetica.adminVerifyDb">Kinetica.adminVerifyDb</see>
+    ///         <see
+    ///         cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>
     ///         reports an error in sharding alignment. This can be done as
     ///         part of a typical rebalance after expanding the cluster or in a
     ///         standalone fashion when it is believed that data is sharded
@@ -575,7 +607,8 @@ public class AdminRebalanceRequest : KineticaData
 } // end class AdminRebalanceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRebalance">Kinetica.adminRebalance</see>.</summary>
+/// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>.
+/// </summary>
 public class AdminRebalanceResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

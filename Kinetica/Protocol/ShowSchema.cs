@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSchema">Kinetica.showSchema</see>.</summary>
+/// cref="Kinetica.showSchema(ShowSchemaRequest)">Kinetica.showSchema</see>.
+/// </summary>
 /// <remarks><para>Retrieves information about a <a
 /// href="../../../concepts/schemas/" target="_top">schema</a> (or all
 /// schemas), as specified in <see cref="ShowSchemaRequest.schema_name" />.
@@ -24,7 +25,11 @@ public class ShowSchemaRequest : KineticaData
         /// <summary>If <see cref="ShowSchemaRequest.Options.FALSE">FALSE</see>
         /// will return an error if the provided <see
         /// cref="ShowSchemaRequest.schema_name" /> does not exist.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ShowSchemaRequest.Options.TRUE">TRUE</see> then it will
+        /// return an empty result if the provided <see
+        /// cref="ShowSchemaRequest.schema_name" /> does not exist.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowSchemaRequest.Options.TRUE">TRUE</see>
@@ -40,7 +45,12 @@ public class ShowSchemaRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowSchemaRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowSchemaRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -132,7 +142,8 @@ public class ShowSchemaRequest : KineticaData
 } // end class ShowSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSchema">Kinetica.showSchema</see>.</summary>
+/// cref="Kinetica.showSchema(ShowSchemaRequest)">Kinetica.showSchema</see>.
+/// </summary>
 public class ShowSchemaResponse : KineticaData
 {
     /// <summary>Value of <see

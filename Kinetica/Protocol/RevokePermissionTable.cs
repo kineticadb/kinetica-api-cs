@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.revokePermissionTable">Kinetica.revokePermissionTable</see>.
+/// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
 /// </summary>
 /// <remarks><para>Revokes a table-level permission from a user or role.</para>
 /// </remarks>
@@ -185,7 +185,7 @@ public class RevokePermissionTableRequest : KineticaData
 } // end class RevokePermissionTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.revokePermissionTable">Kinetica.revokePermissionTable</see>.
+/// cref="Kinetica.revokePermissionTable(RevokePermissionTableRequest)">Kinetica.revokePermissionTable</see>.
 /// </summary>
 public class RevokePermissionTableResponse : KineticaData
 {

@@ -282,7 +282,7 @@ namespace AdoDotnetDriver.Tests
         [Fact]
         public void ConnectionString_TimeoutProperties()
         {
-            var builder = new KineticaConnectionStringBuilder("Connection Timeout=60;Timeout=10");
+            var builder = new KineticaConnectionStringBuilder("ConnectionTimeout=60;Timeout=10");
 
             Assert.Equal(60, builder.ConnectionTimeout);
             Assert.Equal(10, builder.Timeout);
@@ -354,7 +354,7 @@ namespace AdoDotnetDriver.Tests
         [Fact]
         public void ConnectionString_BatchInsertProperties()
         {
-            var builder = new KineticaConnectionStringBuilder("Batch Insert Mode=true;Batch Size=20000;Batch Update On Existing Pk=true");
+            var builder = new KineticaConnectionStringBuilder("BatchInsertMode=true;BatchSize=20000;BatchUpdateOnExistingPk=true");
 
             Assert.True(builder.BatchInsertMode);
             Assert.Equal(20000, builder.BatchSize);

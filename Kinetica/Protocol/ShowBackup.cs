@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showBackup">Kinetica.showBackup</see>.</summary>
+/// cref="Kinetica.showBackup(ShowBackupRequest)">Kinetica.showBackup</see>.
+/// </summary>
 /// <remarks><para>Shows information about one or more <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backups</a> accessible via the <a
@@ -29,7 +30,10 @@ public class ShowBackupRequest : KineticaData
         public const string BACKUP_ID = "backup_id";
 
         /// <summary>Show backups by type.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This option is ignored if <see
+        /// cref="ShowBackupRequest.Options.BACKUP_ID">BACKUP_ID</see> is
+        /// non-empty.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ShowBackupRequest.Options.ALL">ALL</see>:
@@ -126,7 +130,12 @@ public class ShowBackupRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowBackupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowBackupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -375,7 +384,8 @@ public class ShowBackupRequest : KineticaData
 } // end class ShowBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showBackup">Kinetica.showBackup</see>.</summary>
+/// cref="Kinetica.showBackup(ShowBackupRequest)">Kinetica.showBackup</see>.
+/// </summary>
 public class ShowBackupResponse : KineticaData
 {
     /// <summary>Value of <see

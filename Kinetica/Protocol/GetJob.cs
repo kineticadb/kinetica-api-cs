@@ -9,9 +9,10 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getJob">Kinetica.getJob</see>.</summary>
+/// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</summary>
 /// <remarks><para>Get the status and result of asynchronously running job.
-/// See the <see cref="Kinetica.createJob">Kinetica.createJob</see> for
+/// See the <see
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see> for
 /// starting an asynchronous job.  Some fields of the response are filled only
 /// after the submitted job has finished execution.</para></remarks>
 public class GetJobRequest : KineticaData
@@ -69,7 +70,7 @@ public class GetJobRequest : KineticaData
 } // end class GetJobRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getJob">Kinetica.getJob</see>.</summary>
+/// cref="Kinetica.getJob(GetJobRequest)">Kinetica.getJob</see>.</summary>
 public class GetJobResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

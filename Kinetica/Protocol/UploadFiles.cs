@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.uploadFiles">Kinetica.uploadFiles</see>.</summary>
+/// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
+/// </summary>
 /// <remarks><para>Uploads one or more files to <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a>. There are two methods for uploading files: load
 /// files in their entirety, or load files in parts. The latter is recommended
@@ -51,18 +52,18 @@ namespace kinetica;
 /// new upload.</para>
 /// <para>The multipart upload must be completed for the file to be usable in
 /// KiFS. Information about multipart uploads in progress is available in <see
-/// cref="Kinetica.showFiles">Kinetica.showFiles</see>.</para>
+/// cref="Kinetica.showFiles(ShowFilesRequest)">Kinetica.showFiles</see>.</para>
 /// <para>File data may be pre-encoded using base64 encoding. This should be
 /// indicated using the <see
 /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see> option,
 /// and is recommended when using JSON serialization.</para>
 /// <para>Each file path must reside in a top-level KiFS directory, i.e. one of
 /// the directories listed in <see
-/// cref="Kinetica.showDirectories">Kinetica.showDirectories</see>. The user
-/// must have write permission on the directory. Nested directories are
-/// permitted in file name paths. Directories are delineated with the directory
-/// separator of '/'.  For example, given the file path '/a/b/c/d.txt', 'a'
-/// must be a KiFS directory.</para>
+/// cref="Kinetica.showDirectories(ShowDirectoriesRequest)">Kinetica.showDirectories</see>.
+/// The user must have write permission on the directory. Nested directories
+/// are permitted in file name paths. Directories are delineated with the
+/// directory separator of '/'.  For example, given the file path
+/// '/a/b/c/d.txt', 'a' must be a KiFS directory.</para>
 /// <para>These characters are allowed in file name paths: letters, numbers,
 /// spaces, the path delimiter of '/', and the characters: '.' '-' ':' '[' ']'
 /// '(' ')' '#' '='.</para></remarks>
@@ -75,7 +76,11 @@ public class UploadFilesRequest : KineticaData
     {
         /// <summary>Encoding that has been applied to the uploaded file data.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When using JSON serialization it is recommended to
+        /// utilize <see cref="UploadFilesRequest.Options.BASE64">BASE64</see>.
+        /// The caller is responsible for encoding the data provided in this
+        /// payload.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -170,7 +175,11 @@ public class UploadFilesRequest : KineticaData
         /// any existing files specified in <see
         /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
         /// start of upload.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Otherwise the file is replaced once the upload
+        /// completes.  Rollback of the original file is no longer possible if
+        /// the upload is cancelled, aborted or fails if the file was deleted
+        /// beforehand.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -186,7 +195,12 @@ public class UploadFilesRequest : KineticaData
         /// </remarks>
         public const string DELETE_IF_EXISTS = "delete_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="UploadFilesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="UploadFilesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -481,7 +495,8 @@ public class UploadFilesRequest : KineticaData
 } // end class UploadFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.uploadFiles">Kinetica.uploadFiles</see>.</summary>
+/// cref="Kinetica.uploadFiles(UploadFilesRequest)">Kinetica.uploadFiles</see>.
+/// </summary>
 public class UploadFilesResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

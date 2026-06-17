@@ -27,6 +27,24 @@
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     <!-- AOT not realistic given Avro reflection requirements -->
     <IsAotCompatible>false</IsAotCompatible>
+    <!-- The reflection-based Avro types (KineticaData and its generated
+         request/response subclasses) are deliberately marked
+         [RequiresUnreferencedCode] so that consumers who trim their apps are
+         warned.  That same annotation makes the trim analyzer flag our own
+         internal usages as noise during this library's build:
+           - IL2026: calling a [RequiresUnreferencedCode] member (e.g. each
+             generated constructor invoking the KineticaData base ctor).
+           - IL2109: deriving from a [RequiresUnreferencedCode] type (every
+             generated request/response class derives from KineticaData).
+           - IL2075: reflecting over a record's runtime type to read a column
+             property by name (e.g. RecordKeyBuilder reading shard-key values
+             via record.GetType().GetProperty(name)).  The same reflection that
+             makes the API non-trimmable; making it statically trim-safe would
+             require cascading [DynamicallyAccessedMembers] onto every caller's
+             record type.
+         Suppress them here while keeping the annotations intact for downstream
+         callers. -->
+    <NoWarn>$(NoWarn);IL2026;IL2109;IL2075</NoWarn>
   </PropertyGroup>
 
   <!-- ========== NuGet Package Metadata ========== -->

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>.</summary>
+/// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>.
+/// </summary>
 /// <remarks><para>Calculates unique combinations (groups) of values for the
 /// given columns in a given table or view and computes aggregates on each
 /// unique combination. This is somewhat analogous to an SQL-style
@@ -97,7 +98,14 @@ public class AggregateGroupByRequest : KineticaData
         /// used in place of <see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        /// is <see cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <see
+        /// cref="AggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -115,16 +123,21 @@ public class AggregateGroupByRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateGroupByRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateGroupByRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema as part
         /// of <see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
         /// and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema which is to contain
-        /// the table specified in <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
@@ -273,7 +286,12 @@ public class AggregateGroupByRequest : KineticaData
         /// will be persisted and will not expire unless a <see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see> is specified.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>, then the
+        /// result table will be an in-memory table and will expire unless a
+        /// <see cref="AggregateGroupByRequest.Options.TTL">TTL</see> is
+        /// specified otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -293,7 +311,10 @@ public class AggregateGroupByRequest : KineticaData
 
         /// <summary>Force the result table to be replicated (ignores any
         /// sharding).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Must be used in combination with the <see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -314,7 +335,10 @@ public class AggregateGroupByRequest : KineticaData
         /// <summary>If <see
         /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see> then set a
         /// primary key for the result table.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Must be used in combination with the <see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -335,7 +359,10 @@ public class AggregateGroupByRequest : KineticaData
         /// <summary>If <see
         /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see> then set a
         /// soft primary key for the result table.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Must be used in combination with the <see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -489,7 +516,10 @@ public class AggregateGroupByRequest : KineticaData
         /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see>, a new
         /// partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -644,9 +674,9 @@ public class AggregateGroupByRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -1192,9 +1222,9 @@ public class AggregateGroupByRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -1767,9 +1797,9 @@ public class AggregateGroupByRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -2258,7 +2288,8 @@ public class AggregateGroupByRequest : KineticaData
 } // end class AggregateGroupByRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>.</summary>
+/// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>.
+/// </summary>
 public class RawAggregateGroupByResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -2308,7 +2339,8 @@ public class RawAggregateGroupByResponse : KineticaData
 } // end class RawAggregateGroupByResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>.</summary>
+/// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>.
+/// </summary>
 public class AggregateGroupByResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

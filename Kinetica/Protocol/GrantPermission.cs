@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermission">Kinetica.grantPermission</see>.</summary>
+/// cref="Kinetica.grantPermission(GrantPermissionRequest)">Kinetica.grantPermission</see>.
+/// </summary>
 /// <remarks><para>Grant user or role the specified permission on the specified
 /// object.</para></remarks>
 public class GrantPermissionRequest : KineticaData
@@ -139,7 +140,12 @@ public class GrantPermissionRequest : KineticaData
         /// </remarks>
         public const string WITH_GRANT_OPTION = "with_grant_option";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="GrantPermissionRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="GrantPermissionRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -601,7 +607,8 @@ public class GrantPermissionRequest : KineticaData
 } // end class GrantPermissionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermission">Kinetica.grantPermission</see>.</summary>
+/// cref="Kinetica.grantPermission(GrantPermissionRequest)">Kinetica.grantPermission</see>.
+/// </summary>
 public class GrantPermissionResponse : KineticaData
 {
     /// <summary>Value of <see

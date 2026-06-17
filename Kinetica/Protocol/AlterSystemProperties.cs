@@ -9,10 +9,10 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterSystemProperties">Kinetica.alterSystemProperties</see>.
+/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
 /// </summary>
 /// <remarks><para>The <see
-/// cref="Kinetica.alterSystemProperties">Kinetica.alterSystemProperties</see>
+/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>
 /// endpoint is primarily used to simplify the testing of the system and is not
 /// expected to be used during normal execution.  Commands are given through
 /// the <see cref="AlterSystemPropertiesRequest.property_updates_map" /> whose
@@ -46,7 +46,14 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// </list></remarks>
         public const string CONCURRENT_KERNEL_EXECUTION = "concurrent_kernel_execution";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Sets the maximum number of simultaneous threads allocated
@@ -80,9 +87,9 @@ public class AlterSystemPropertiesRequest : KineticaData
         public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
 
         /// <summary>Number of minutes after which filtering (e.g., <see
-        /// cref="Kinetica.filter">Kinetica.filter</see>) and aggregating
-        /// (e.g., <see
-        /// cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>)
+        /// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>) and
+        /// aggregating (e.g., <see
+        /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
         /// queries will timeout.</summary>
         /// <remarks><para>The default value is '20'. The minimum allowed value
         /// is '0'. The maximum allowed value is '1440'.</para></remarks>
@@ -176,8 +183,19 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// </para></remarks>
         public const string EGRESS_PARQUET_COMPRESSION = "egress_parquet_compression";
 
+        /// <summary>A constant for the <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap" /> options.
+        /// </summary>
         public const string UNCOMPRESSED = "uncompressed";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap" /> options.
+        /// </summary>
         public const string SNAPPY = "snappy";
+
+        /// <summary>A constant for the <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap" /> options.
+        /// </summary>
         public const string GZIP = "gzip";
 
         /// <summary>Max file size (in MB) to allow saving to a single file.
@@ -316,14 +334,21 @@ public class AlterSystemPropertiesRequest : KineticaData
         /// </list></remarks>
         public const string EVICT_TO_COLD = "evict_to_cold";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterSystemPropertiesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterSystemPropertiesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
         /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see> the
         /// system configuration will be written to disk upon successful
         /// application of this request.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This will commit the changes from this request and
+        /// any additional in-memory modifications.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -344,7 +369,8 @@ public class AlterSystemPropertiesRequest : KineticaData
 
     /// <summary>Map containing the properties of the system to be updated.
     /// </summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Error if empty.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:
@@ -420,9 +446,10 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see cref="Kinetica.filter">Kinetica.filter</see>) and
-    ///         aggregating (e.g., <see
-    ///         cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>)
+    ///         <see
+    ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+    ///         and aggregating (e.g., <see
+    ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
     ///         queries will timeout. The default value is '20'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1440'.
     ///         </description>
@@ -871,9 +898,10 @@ public class AlterSystemPropertiesRequest : KineticaData
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:
     ///         </term>
     ///         <description>Number of minutes after which filtering (e.g.,
-    ///         <see cref="Kinetica.filter">Kinetica.filter</see>) and
-    ///         aggregating (e.g., <see
-    ///         cref="Kinetica.aggregateGroupBy">Kinetica.aggregateGroupBy</see>)
+    ///         <see
+    ///         cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>)
+    ///         and aggregating (e.g., <see
+    ///         cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)">Kinetica.aggregateGroupBy</see>)
     ///         queries will timeout. The default value is '20'. The minimum
     ///         allowed value is '0'. The maximum allowed value is '1440'.
     ///         </description>
@@ -1242,7 +1270,7 @@ public class AlterSystemPropertiesRequest : KineticaData
 } // end class AlterSystemPropertiesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterSystemProperties">Kinetica.alterSystemProperties</see>.
+/// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)">Kinetica.alterSystemProperties</see>.
 /// </summary>
 public class AlterSystemPropertiesResponse : KineticaData
 {

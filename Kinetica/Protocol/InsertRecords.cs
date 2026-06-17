@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsRaw">Kinetica.insertRecordsRaw</see>.</summary>
+/// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">Kinetica.insertRecordsRaw</see>.
+/// </summary>
 /// <remarks><para>Adds multiple records to the specified table. The operation
 /// is synchronous, meaning that a response will not be returned until all the
 /// records are fully inserted and available. The response payload provides the
@@ -50,7 +51,12 @@ public class RawInsertRecordsRequest : KineticaData
     /// </remarks>
     public struct ListEncoding
     {
+        /// <summary>A constant for the <see
+        /// cref="RawInsertRecordsRequest.ListEncoding" /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see
+        /// cref="RawInsertRecordsRequest.ListEncoding" /> options.</summary>
         public const string JSON = "json";
     } // end struct ListEncoding
 
@@ -62,7 +68,23 @@ public class RawInsertRecordsRequest : KineticaData
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will be replaced by that new record (the new
+        /// data will be "upserted"). If set to <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged, while the new record
+        /// will be rejected and the error handled as determined by <see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+        /// <see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+        /// and <see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -84,14 +106,26 @@ public class RawInsertRecordsRequest : KineticaData
         /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="RawInsertRecordsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="RawInsertRecordsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Applies only when upserting (when <see
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, an existing
+        /// record matched by primary key is modified in place. If set to <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+        /// updated by deleting the existing record and inserting a replacement
+        /// (delete and insert), which prevents the change from being reflected
+        /// in dependent materialized views until they are refreshed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -117,7 +151,24 @@ public class RawInsertRecordsRequest : KineticaData
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any record
+        /// being inserted that is rejected for having primary key values that
+        /// match those of an existing table record will be ignored with no
+        /// error generated.  If <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
+        /// rejection of any record for having primary key values matching an
+        /// existing record will result in an error being reported, as
+        /// determined by <see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+        /// and <see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+        /// If the specified table does not have a primary key or if upsert
+        /// mode is in effect (<see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>),
+        /// then this option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -197,7 +248,11 @@ public class RawInsertRecordsRequest : KineticaData
         /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
         /// will always be returned, and any errors found will be included in
         /// the info map.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> The "bad_record_indices" entry is a comma-separated
+        /// list of bad records (0-based).  If so, there will also be an
+        /// "error_N" entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -219,7 +274,9 @@ public class RawInsertRecordsRequest : KineticaData
         /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all correct
         /// records will be inserted and incorrect records will be rejected and
         /// reported.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -648,8 +705,9 @@ public class RawInsertRecordsRequest : KineticaData
     /// </param>
     /// <param name="list">An array of binary-encoded data for the records to
     /// be added. All records must be of the same type as that of the table.
-    /// Empty array if <paramref name="list_encoding" /> is <see
-    /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.</param>
+    /// Empty array if <see cref="RawInsertRecordsRequest.list_encoding" /> is
+    /// <see cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.
+    /// </param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -931,7 +989,7 @@ public class RawInsertRecordsRequest : KineticaData
     ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
     ///         </term>
     ///         <description>Type schema of  <paramref name="list" /> (when
-    ///         <paramref name="list_encoding" /> is <see
+    ///         <see cref="RawInsertRecordsRequest.list_encoding" /> is <see
     ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>),
     ///         in [["{column_name}","{column_type}"]] format. When non-empty
     ///         and different from the table's schema, the server remaps the
@@ -977,12 +1035,13 @@ public class RawInsertRecordsRequest : KineticaData
     /// </param>
     /// <param name="list">An array of binary-encoded data for the records to
     /// be added. All records must be of the same type as that of the table.
-    /// Empty array if <paramref name="list_encoding" /> is <see
-    /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.</param>
+    /// Empty array if <see cref="RawInsertRecordsRequest.list_encoding" /> is
+    /// <see cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see>.
+    /// </param>
     /// <param name="list_str">An array of JSON encoded data for the records to
     /// be added. All records must be of the same type as that of the table.
-    /// Empty array if <paramref name="list_encoding" /> is <see
-    /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
+    /// Empty array if <see cref="RawInsertRecordsRequest.list_encoding" /> is
+    /// <see cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
     /// </param>
     /// <param name="list_encoding">The encoding of the records to be inserted.
     /// Supported values:
@@ -1282,7 +1341,7 @@ public class RawInsertRecordsRequest : KineticaData
     ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
     ///         </term>
     ///         <description>Type schema of  <paramref name="list" /> (when
-    ///         <paramref name="list_encoding" /> is <see
+    ///         <see cref="RawInsertRecordsRequest.list_encoding" /> is <see
     ///         cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>),
     ///         in [["{column_name}","{column_type}"]] format. When non-empty
     ///         and different from the table's schema, the server remaps the
@@ -1352,7 +1411,23 @@ public class InsertRecordsRequest<T> : KineticaData
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will be replaced by that new record (the new
+        /// data will be "upserted"). If set to <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged, while the new record
+        /// will be rejected and the error handled as determined by <see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>,
+        /// <see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>,
+        /// and <see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1374,14 +1449,26 @@ public class InsertRecordsRequest<T> : KineticaData
         /// </remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="RawInsertRecordsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="RawInsertRecordsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Applies only when upserting (when <see
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, an existing
+        /// record matched by primary key is modified in place. If set to <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, it is
+        /// updated by deleting the existing record and inserting a replacement
+        /// (delete and insert), which prevents the change from being reflected
+        /// in dependent materialized views until they are refreshed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1407,7 +1494,24 @@ public class InsertRecordsRequest<T> : KineticaData
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, any record
+        /// being inserted that is rejected for having primary key values that
+        /// match those of an existing table record will be ignored with no
+        /// error generated.  If <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>, the
+        /// rejection of any record for having primary key values matching an
+        /// existing record will result in an error being reported, as
+        /// determined by <see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+        /// and <see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>.
+        /// If the specified table does not have a primary key or if upsert
+        /// mode is in effect (<see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>),
+        /// then this option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1487,7 +1591,11 @@ public class InsertRecordsRequest<T> : KineticaData
         /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, success
         /// will always be returned, and any errors found will be included in
         /// the info map.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> The "bad_record_indices" entry is a comma-separated
+        /// list of bad records (0-based).  If so, there will also be an
+        /// "error_N" entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1509,7 +1617,9 @@ public class InsertRecordsRequest<T> : KineticaData
         /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, all correct
         /// records will be inserted and incorrect records will be rejected and
         /// reported.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1548,7 +1658,7 @@ public class InsertRecordsRequest<T> : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
-        /// <summary>Type schema of  <see cref="RawInsertRecordsRequest.data"
+        /// <summary>Type schema of  <see cref="RawInsertRecordsRequest.list"
         /// /> (when <c>list_encoding</c> is <c>BINARY</c>), in
         /// [["{column_name}","{column_type}"]] format.</summary>
         /// <remarks><para>When non-empty and different from the table's
@@ -1865,7 +1975,7 @@ public class InsertRecordsRequest<T> : KineticaData
     ///         cref="RawInsertRecordsRequest.Options.REQUEST_SCHEMA_STR">REQUEST_SCHEMA_STR</see>:
     ///         </term>
     ///         <description>Type schema of  <see
-    ///         cref="RawInsertRecordsRequest.data" /> (when
+    ///         cref="RawInsertRecordsRequest.list" /> (when
     ///         <c>list_encoding</c> is <c>BINARY</c>), in
     ///         [["{column_name}","{column_type}"]] format. When non-empty and
     ///         different from the table's schema, the server remaps the

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showGraph">Kinetica.showGraph</see>.</summary>
+/// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see>.
+/// </summary>
 /// <remarks><para>Shows information and characteristics of graphs that exist
 /// on the graph server.</para></remarks>
 public class ShowGraphRequest : KineticaData
@@ -38,7 +39,12 @@ public class ShowGraphRequest : KineticaData
         /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string SHOW_ORIGINAL_REQUEST = "show_original_request";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowGraphRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowGraphRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Indicates which graph server(s) to send the request to.
@@ -208,7 +214,8 @@ public class ShowGraphRequest : KineticaData
 } // end class ShowGraphRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showGraph">Kinetica.showGraph</see>.</summary>
+/// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see>.
+/// </summary>
 public class ShowGraphResponse : KineticaData
 {
     /// <summary>Indicates a success.</summary>

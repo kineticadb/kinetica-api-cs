@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class VisualizeImageRequest : KineticaData
 {
     public struct Projection
@@ -146,9 +147,11 @@ public class VisualizeImageRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class VisualizeImageRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class VisualizeImageResponse : KineticaData
 {
     public double width { get; set; }
@@ -157,4 +160,5 @@ public class VisualizeImageResponse : KineticaData
     public byte[] image_data { get; set; }
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class VisualizeImageResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

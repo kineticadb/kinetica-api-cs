@@ -1,5 +1,6 @@
 ﻿using JDBC.NET.Data;
 using kinetica;
+using kinetica.Records;
 using System.Data.Common;
 using System.Data;
 using NetTopologySuite.Geometries;
@@ -499,7 +500,7 @@ namespace Example
         /// * csharp_example_filter
         /// </summary>
         /// <param name="serverUrl">The URL for the Kinetica server.</param>
-        /// <param name="serverOptions">Username & password for the Kinetica server.</param>
+        /// <param name="serverOptions">Username &amp; password for the Kinetica server.</param>
         private static void RunExample(string serverUrl, Kinetica.Options serverOptions)
         {
             Console.WriteLine();
@@ -624,7 +625,7 @@ namespace Example
         /// * csharp_example_series_filter
         /// </summary>
         /// <param name="serverUrl">The URL for the Kinetica server.</param>
-        /// <param name="serverOptions">Username & password for the Kinetica server.</param>
+        /// <param name="serverOptions">Username &amp; password for the Kinetica server.</param>
         private static void RunSeriesExample( string serverUrl, Kinetica.Options serverOptions )
         {
             Console.WriteLine();
@@ -724,7 +725,7 @@ namespace Example
         /// * csharp_example_multihead_table
         /// </summary>
         /// <param name="serverUrl">The URL for the Kinetica server.</param>
-        /// <param name="serverOptions">Username & password for the Kinetica server.</param>
+        /// <param name="serverOptions">Username &amp; password for the Kinetica server.</param>
         private static void RunMultiheadIngestExample( string serverUrl, Kinetica.Options serverOptions )
         {
             Console.WriteLine();
@@ -761,10 +762,11 @@ namespace Example
             Console.WriteLine($"Creating table named '{tableName}'...\n");
             kdb.createTable( tableName, exampleTypeId );
 
-            // Create the ingestor (we're not giving any worker IP addresses; the ingestor class will figure it
+            // Create the bulk inserter (we're not giving any worker IP addresses; the BulkInserter will figure it
             // out by itself)
             int batchSize = 100;
-            KineticaIngestor<ExampleRecord> ingestor = new( kdb, tableName, batchSize, exampleType );
+            BulkInserterOptions inserterOptions = new() { BatchSize = batchSize };
+            using BulkInserter<ExampleRecord> inserter = new( kdb, tableName, exampleType, inserterOptions );
 
             // Generate data to be inserted
             int totalRecords = batchSize * 5;
@@ -791,13 +793,13 @@ namespace Example
 
             Console.WriteLine( $"Generated {totalRecords} records.\n" );
 
-            // Insert the records into the ingestor
+            // Insert the records into the bulk inserter
             Console.WriteLine( $"Inserting {totalRecords} records..." );
-            ingestor.insert( records );
+            inserter.InsertBatch( records );
 
-            // Flush the ingestor (which actually inserts the records)
+            // Flush the bulk inserter (which actually inserts the records)
             Console.WriteLine( "Flushing any remaining records..." );
-            ingestor.flush();
+            inserter.Flush();
 
             // Call /show/table on the table after adding data
             Console.WriteLine($"Calling ShowTable on '{tableName}' after adding data...");
@@ -808,7 +810,7 @@ namespace Example
         }  // end run_multihead_ingest_example()
 
 
-        private class ExampleRecord
+        private class ExampleRecord : IShardKeyExtractor
         {
             public int A { get; set; }
             public int B { get; set; }
@@ -817,6 +819,11 @@ namespace Example
             public float E { get; set; }
             public double? F { get; set; }
             public long TIMESTAMP { get; set; }
+
+            // The table's shard key is the TIMESTAMP column; expose it so the
+            // BulkInserter can route each record to the correct worker.
+            public ShardKeyValues GetShardKeyValues()
+                => ShardKeyValues.Single( "TIMESTAMP", ShardKeyValue.Timestamp( TIMESTAMP ) );
 
             public override string ToString()
             {

@@ -18,7 +18,7 @@ namespace KineticaAdo
     /// Reads CSV/TSV/PSV files and inserts records into Kinetica using bulk insert.
     /// Supports local files and KiFS paths.
     /// </summary>
-    public class CsvFileReader
+    internal class CsvFileReader
     {
         private readonly Kinetica _kinetica;
         private readonly InsertFromFileInfo _fileInfo;
@@ -359,18 +359,24 @@ namespace KineticaAdo
             int linesSkipped = 0;
             var columnMapping = new List<int>(); // Maps file column index to table column index
 
-            // Skip initial lines
-            while (linesSkipped < options.Skip && !reader.EndOfStream)
+            // Skip initial lines.  A null result from ReadLineAsync signals
+            // end-of-stream (the async-safe alternative to reader.EndOfStream).
+            while (linesSkipped < options.Skip)
             {
-                await reader.ReadLineAsync().ConfigureAwait(false);
+                if (await reader.ReadLineAsync().ConfigureAwait(false) is null)
+                    break;
                 lineNumber++;
                 linesSkipped++;
             }
 
-            // Process header if present
-            if (options.HasHeader && !reader.EndOfStream)
+            // Process header if present.  Only read a header line when one is
+            // expected; a null result means the file had no more lines.
+            var headerLine = options.HasHeader
+                ? await reader.ReadLineAsync().ConfigureAwait(false)
+                : null;
+
+            if (headerLine != null)
             {
-                var headerLine = await reader.ReadLineAsync().ConfigureAwait(false);
                 lineNumber++;
 
                 if (!string.IsNullOrEmpty(headerLine))
@@ -388,16 +394,19 @@ namespace KineticaAdo
                 }
             }
 
-            // Process data lines
+            // Process data lines.  Loop until ReadLineAsync returns null
+            // (end-of-stream); avoids the synchronous reader.EndOfStream probe.
             long recordCount = 0;
-            while (!reader.EndOfStream)
+            while (true)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 var line = await reader.ReadLineAsync().ConfigureAwait(false);
+                if (line is null)
+                    break;
                 lineNumber++;
 
-                if (string.IsNullOrEmpty(line))
+                if (line.Length == 0)
                     continue;
 
                 // Skip comment lines
@@ -616,7 +625,7 @@ namespace KineticaAdo
     /// <summary>
     /// Simple CSV parser that handles quoted fields and escapes.
     /// </summary>
-    public class CsvParser
+    internal class CsvParser
     {
         private readonly char _delimiter;
         private readonly char _quote;

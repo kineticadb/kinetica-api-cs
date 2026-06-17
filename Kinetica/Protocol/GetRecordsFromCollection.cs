@@ -13,7 +13,8 @@ namespace kinetica;
 /// </summary>
 /// <remarks><para>Retrieves records from a collection. The operation can
 /// optionally return the record IDs which can be used in certain queries such
-/// as <see cref="Kinetica.deleteRecords">Kinetica.deleteRecords</see>.</para>
+/// as <see
+/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.</para>
 /// <para>This operation supports paging through the data via the <see
 /// cref="GetRecordsFromCollectionRequest.offset" /> and <see
 /// cref="GetRecordsFromCollectionRequest.limit" /> parameters.</para>
@@ -30,7 +31,14 @@ public class GetRecordsFromCollectionRequest : KineticaData
     /// </para></remarks>
     public struct Encoding
     {
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsFromCollectionRequest.Encoding" /> options.
+        /// </summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsFromCollectionRequest.Encoding" /> options.
+        /// </summary>
         public const string JSON = "json";
     } // end struct Encoding
 
@@ -60,7 +68,14 @@ public class GetRecordsFromCollectionRequest : KineticaData
         /// </para></remarks>
         public const string RETURN_RECORD_IDS = "return_record_ids";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="GetRecordsFromCollectionRequest.Options" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="GetRecordsFromCollectionRequest.Options" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Filter expression to apply to the table.</summary>
@@ -330,7 +345,8 @@ public class RawGetRecordsFromCollectionResponse : KineticaData
         public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
 
         /// <summary>Too many records.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Returned a partial set.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -345,7 +361,14 @@ public class RawGetRecordsFromCollectionResponse : KineticaData
         /// </list></remarks>
         public const string HAS_MORE_RECORDS = "has_more_records";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="RawGetRecordsFromCollectionResponse.Info" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="RawGetRecordsFromCollectionResponse.Info" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct Info
 
@@ -428,7 +451,8 @@ public class GetRecordsFromCollectionResponse<T> : KineticaData
         public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
 
         /// <summary>Too many records.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Returned a partial set.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -443,7 +467,14 @@ public class GetRecordsFromCollectionResponse<T> : KineticaData
         /// </list></remarks>
         public const string HAS_MORE_RECORDS = "has_more_records";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="RawGetRecordsFromCollectionResponse.Info" /> options.
+        /// </summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="RawGetRecordsFromCollectionResponse.Info" /> options.
+        /// </summary>
         public const string FALSE = "false";
     } // end struct Info
 
@@ -453,7 +484,7 @@ public class GetRecordsFromCollectionResponse<T> : KineticaData
     public string table_name { get; set; }
 
     /// <summary>The type IDs of the corresponding records in <see
-    /// cref="RawGetRecordsFromCollectionResponse.data" /> or
+    /// cref="RawGetRecordsFromCollectionResponse.records_binary" /> or
     /// <c>records_json</c>.</summary>
     /// <remarks><para>This is useful when <see
     /// cref="GetRecordsFromCollectionRequest.table_name">table_name</see> is a

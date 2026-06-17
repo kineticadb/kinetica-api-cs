@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createType">Kinetica.createType</see>.</summary>
+/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
+/// </summary>
 /// <remarks><para>Creates a new type describing the columns of a table. The
 /// type definition is specified as a list of columns, each specified as a list
 /// of the column name, data type, and any column attributes.</para>
@@ -347,7 +348,10 @@ public class CreateTypeRequest : KineticaData
     /// cref="CreateTypeRequest.type_definition" /> directly, as described at
     /// the top, instead]  Each key-value pair specifies the properties to use
     /// for a given column where the key is the column name.</summary>
-    /// <remarks><para>Valid values are:</para>
+    /// <remarks><para> All keys used must be relevant column names for the
+    /// given table.  Specifying any property overrides the default properties
+    /// for that column (which is based on the column's data type).
+    /// Valid values are:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term><see cref="CreateTypeRequest.Properties.DATA">DATA</see>:
@@ -1087,12 +1091,14 @@ public class CreateTypeRequest : KineticaData
 } // end class CreateTypeRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createType">Kinetica.createType</see>.</summary>
+/// cref="Kinetica.createType(CreateTypeRequest)">Kinetica.createType</see>.
+/// </summary>
 public class CreateTypeResponse : KineticaData
 {
     /// <summary>An identifier representing the created type.</summary>
     /// <remarks><para>This type_id can be used in subsequent calls to <see
-    /// cref="Kinetica.createTable">create a table</see>.</para></remarks>
+    /// cref="Kinetica.createTable(CreateTableRequest)">create a table</see>.
+    /// </para></remarks>
     public string type_id { get; set; }
 
     /// <summary>Value of <see

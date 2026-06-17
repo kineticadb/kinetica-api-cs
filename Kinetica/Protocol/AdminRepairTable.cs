@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRepairTable">Kinetica.adminRepairTable</see>.</summary>
+/// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
+/// </summary>
 /// <remarks><para>Manually repair a corrupted table.
 /// Returns information about affected tables.</para></remarks>
 public class AdminRepairTableRequest : KineticaData
@@ -70,7 +71,9 @@ public class AdminRepairTableRequest : KineticaData
         /// cref="AdminRepairTableRequest.Options.FALSE">FALSE</see> only table
         /// chunk data already known to be corrupted will be repaired.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Otherwise the database will perform a full table
+        /// scan to check for correctness.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -88,7 +91,12 @@ public class AdminRepairTableRequest : KineticaData
         /// </remarks>
         public const string VERIFY_ALL = "verify_all";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRepairTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRepairTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -256,7 +264,8 @@ public class AdminRepairTableRequest : KineticaData
 } // end class AdminRepairTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRepairTable">Kinetica.adminRepairTable</see>.</summary>
+/// cref="Kinetica.adminRepairTable(AdminRepairTableRequest)">Kinetica.adminRepairTable</see>.
+/// </summary>
 public class AdminRepairTableResponse : KineticaData
 {
     /// <summary>List of repaired tables.</summary>

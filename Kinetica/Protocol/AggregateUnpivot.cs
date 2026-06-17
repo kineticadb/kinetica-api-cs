@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateUnpivot">Kinetica.aggregateUnpivot</see>.</summary>
+/// cref="Kinetica.aggregateUnpivot(AggregateUnpivotRequest)">Kinetica.aggregateUnpivot</see>.
+/// </summary>
 /// <remarks><para>Rotate the column values into rows values.</para>
 /// <para>For unpivot details and examples, see <a
 /// href="../../../concepts/unpivot/" target="_top">Unpivot</a>.  For
@@ -52,7 +53,14 @@ public class AggregateUnpivotRequest : KineticaData
         /// used in place of <see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        /// is <see cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <see
+        /// cref="AggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -70,16 +78,21 @@ public class AggregateUnpivotRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateUnpivotRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateUnpivotRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema as part
         /// of <see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
         /// and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema which is to contain
-        /// the table specified in <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -103,7 +116,12 @@ public class AggregateUnpivotRequest : KineticaData
         /// will be persisted and will not expire unless a <see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see> is specified.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>, then the
+        /// result table will be an in-memory table and will expire unless a
+        /// <see cref="AggregateUnpivotRequest.Options.TTL">TTL</see> is
+        /// specified otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -186,7 +204,10 @@ public class AggregateUnpivotRequest : KineticaData
 
         /// <summary>Force the result table to be replicated (ignores any
         /// sharding).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Must be used in combination with the <see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -298,9 +319,9 @@ public class AggregateUnpivotRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -534,9 +555,9 @@ public class AggregateUnpivotRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -799,9 +820,9 @@ public class AggregateUnpivotRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema is non-existent, it will be automatically
     ///         created.</description>
@@ -986,7 +1007,8 @@ public class AggregateUnpivotRequest : KineticaData
 } // end class AggregateUnpivotRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateUnpivot">Kinetica.aggregateUnpivot</see>.</summary>
+/// cref="Kinetica.aggregateUnpivot(AggregateUnpivotRequest)">Kinetica.aggregateUnpivot</see>.
+/// </summary>
 public class RawAggregateUnpivotResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -1036,7 +1058,8 @@ public class RawAggregateUnpivotResponse : KineticaData
 } // end class RawAggregateUnpivotResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateUnpivot">Kinetica.aggregateUnpivot</see>.</summary>
+/// cref="Kinetica.aggregateUnpivot(AggregateUnpivotRequest)">Kinetica.aggregateUnpivot</see>.
+/// </summary>
 public class AggregateUnpivotResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

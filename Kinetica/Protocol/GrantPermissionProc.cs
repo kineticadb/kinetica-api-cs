@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionProc">Kinetica.grantPermissionProc</see>.
+/// cref="Kinetica.grantPermissionProc(GrantPermissionProcRequest)">Kinetica.grantPermissionProc</see>.
 /// </summary>
 /// <remarks><para>Grants a proc-level permission to a user or role.</para>
 /// </remarks>
@@ -105,7 +105,7 @@ public class GrantPermissionProcRequest : KineticaData
 } // end class GrantPermissionProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionProc">Kinetica.grantPermissionProc</see>.
+/// cref="Kinetica.grantPermissionProc(GrantPermissionProcRequest)">Kinetica.grantPermissionProc</see>.
 /// </summary>
 public class GrantPermissionProcResponse : KineticaData
 {

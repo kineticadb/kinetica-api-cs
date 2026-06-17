@@ -8,7 +8,7 @@ namespace Kinetica.Tests.IntegrationTests
     /// These tests mirror the Rust record_retriever_tests.rs implementation.
     /// They test retrieval with various data types and shard keys.
     ///
-    /// Note: The C# RecordRetriever<T> requires strongly typed record classes,
+    /// Note: The C# RecordRetriever&lt;T&gt; requires strongly typed record classes,
     /// so these tests use SQL-based retrieval via executeSql for flexibility.
     /// </summary>
     [Trait("Category", "Integration")]

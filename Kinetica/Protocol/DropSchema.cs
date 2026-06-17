@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropSchema">Kinetica.dropSchema</see>.</summary>
+/// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
+/// </summary>
 /// <remarks><para>Drops an existing SQL-style <a
 /// href="../../../concepts/schemas/" target="_top">schema</a>, specified in
 /// <see cref="DropSchemaRequest.schema_name" />.</para></remarks>
@@ -24,7 +25,11 @@ public class DropSchemaRequest : KineticaData
         /// and if the schema specified in <see
         /// cref="DropSchemaRequest.schema_name" /> does not exist, no error is
         /// returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="DropSchemaRequest.Options.FALSE">FALSE</see> and if the
+        /// schema specified in <see cref="DropSchemaRequest.schema_name" />
+        /// does not exist, then an error is returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="DropSchemaRequest.Options.TRUE">TRUE</see>
@@ -40,12 +45,20 @@ public class DropSchemaRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DropSchemaRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DropSchemaRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="DropSchemaRequest.Options.TRUE">TRUE</see>,
         /// all tables within the schema will be dropped.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="DropSchemaRequest.Options.FALSE">FALSE</see>, the schema will
+        /// be dropped only if empty.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="DropSchemaRequest.Options.TRUE">TRUE</see>
@@ -196,7 +209,8 @@ public class DropSchemaRequest : KineticaData
 } // end class DropSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropSchema">Kinetica.dropSchema</see>.</summary>
+/// cref="Kinetica.dropSchema(DropSchemaRequest)">Kinetica.dropSchema</see>.
+/// </summary>
 public class DropSchemaResponse : KineticaData
 {
     /// <summary>Value of <see

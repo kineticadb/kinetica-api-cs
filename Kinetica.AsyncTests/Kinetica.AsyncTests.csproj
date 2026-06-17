@@ -4,6 +4,9 @@
     <!-- Project-specific settings -->
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <!-- Test code is not a shipped API surface, so don't emit an XML doc file
+         (which would otherwise demand XML comments on every public test member). -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -25,7 +25,7 @@ namespace AdoDotnetDriver.Tests
         [Fact]
         public void ParseConnectionString_ParsesAllProperties()
         {
-            var connectionString = "Server=192.168.1.100:9191;Username=admin;Password=secret;Database=mydb;Connection Timeout=60;Pooling=false;Max Pool Size=50;Min Pool Size=5";
+            var connectionString = "Server=192.168.1.100:9191;Username=admin;Password=secret;Database=mydb;ConnectionTimeout=60;Pooling=false;MaxPoolSize=50;MinPoolSize=5";
             var builder = new KineticaConnectionStringBuilder(connectionString);
 
             Assert.Equal("192.168.1.100:9191", builder.Server);

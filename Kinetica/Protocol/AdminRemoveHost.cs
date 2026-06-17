@@ -9,16 +9,18 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminRemoveHost">Kinetica.adminRemoveHost</see>.</summary>
+/// cref="Kinetica.adminRemoveHost(AdminRemoveHostRequest)">Kinetica.adminRemoveHost</see>.
+/// </summary>
 /// <remarks><para>Removes a host from an existing cluster. If the host to be
 /// removed has any ranks running on it, the ranks must be removed using <see
-/// cref="Kinetica.adminRemoveRanks">Kinetica.adminRemoveRanks</see> or
-/// manually switched over to a new host using <see
-/// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see> prior to
-/// host removal. If the host to be removed has the graph server or SQL planner
-/// running on it, these must be manually switched over to a new host using
-/// <see cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>.</para>
-/// </remarks>
+/// cref="Kinetica.adminRemoveRanks(AdminRemoveRanksRequest)">Kinetica.adminRemoveRanks</see>
+/// or manually switched over to a new host using <see
+/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>
+/// prior to host removal. If the host to be removed has the graph server or
+/// SQL planner running on it, these must be manually switched over to a new
+/// host using <see
+/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
+/// </para></remarks>
 public class AdminRemoveHostRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -29,7 +31,8 @@ public class AdminRemoveHostRequest : KineticaData
         /// <summary>If set to <see
         /// cref="AdminRemoveHostRequest.Options.TRUE">TRUE</see>, only
         /// validation checks will be performed.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>No host is removed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -47,7 +50,12 @@ public class AdminRemoveHostRequest : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRemoveHostRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminRemoveHostRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -133,7 +141,8 @@ public class AdminRemoveHostRequest : KineticaData
 } // end class AdminRemoveHostRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminRemoveHost">Kinetica.adminRemoveHost</see>.</summary>
+/// cref="Kinetica.adminRemoveHost(AdminRemoveHostRequest)">Kinetica.adminRemoveHost</see>.
+/// </summary>
 public class AdminRemoveHostResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

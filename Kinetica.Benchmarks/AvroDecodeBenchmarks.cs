@@ -1,12 +1,12 @@
-/// <summary>
-/// Benchmark: Avro Decoding Performance
-///
-/// This benchmark measures Avro decoding performance using different strategies.
-/// It tests sequential vs parallel decoding for various record counts and payload sizes.
-///
-/// Run with:
-///   dotnet run --project Kinetica.Benchmarks -c Release -- --filter '*Avro*'
-/// </summary>
+/*
+ * Benchmark: Avro Decoding Performance
+ *
+ * This benchmark measures Avro decoding performance using different strategies.
+ * It tests sequential vs parallel decoding for various record counts and payload sizes.
+ *
+ * Run with:
+ *   dotnet run --project Kinetica.Benchmarks -c Release -- --filter '*Avro*'
+ */
 
 using System;
 using System.Collections.Generic;

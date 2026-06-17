@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowFunctionsRequest : KineticaData
 {
     public struct Options
@@ -35,9 +36,11 @@ public class ShowFunctionsRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class ShowFunctionsRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowFunctionsResponse : KineticaData
 {
     public struct Flags
@@ -59,4 +62,5 @@ public class ShowFunctionsResponse : KineticaData
     public IList<IDictionary<string, IList<string>>> properties { get; set; } = new List<IDictionary<string, IList<string>>>();
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class ShowFunctionsResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

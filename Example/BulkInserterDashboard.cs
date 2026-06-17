@@ -1,14 +1,14 @@
-/// <summary>
-/// BulkInserter Monitoring Dashboard Example
-///
-/// This example demonstrates how to build a real-time monitoring dashboard
-/// for a BulkInserter instance. The dashboard components (MetricsCollector
-/// and ConsoleDashboard) are designed to be reusable and can be integrated
-/// into any application using BulkInserter.
-///
-/// Run with:
-///   KINETICA_URL="http://localhost:9191" dotnet run --project Example -- --dashboard
-/// </summary>
+/*
+ * BulkInserter Monitoring Dashboard Example
+ *
+ * This example demonstrates how to build a real-time monitoring dashboard
+ * for a BulkInserter instance. The dashboard components (MetricsCollector
+ * and ConsoleDashboard) are designed to be reusable and can be integrated
+ * into any application using BulkInserter.
+ *
+ * Run with:
+ *   KINETICA_URL="http://localhost:9191" dotnet run --project Example -- --dashboard
+ */
 
 using System;
 using System.Collections.Concurrent;

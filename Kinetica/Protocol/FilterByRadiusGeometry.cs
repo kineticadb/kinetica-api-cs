@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByRadiusGeometry">Kinetica.filterByRadiusGeometry</see>.
+/// cref="Kinetica.filterByRadiusGeometry(FilterByRadiusGeometryRequest)">Kinetica.filterByRadiusGeometry</see>.
 /// </summary>
 /// <remarks><para>Calculates which geospatial geometry objects from a table
 /// intersect a circle with the given radius and center point (i.e. circular
@@ -31,7 +31,11 @@ public class FilterByRadiusGeometryRequest : KineticaData
         /// unique temporary table name will be generated in the sys_temp
         /// schema and used in place of <see
         /// cref="FilterByRadiusGeometryRequest.view_name" />.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="FilterByRadiusGeometryResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -49,15 +53,20 @@ public class FilterByRadiusGeometryRequest : KineticaData
         /// </para></remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByRadiusGeometryRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByRadiusGeometryRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// view as part of <see cref="FilterByRadiusGeometryRequest.view_name"
         /// /> and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema for the newly created
-        /// view.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema for the
+        /// newly created view.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -139,8 +148,8 @@ public class FilterByRadiusGeometryRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <see
     ///         cref="FilterByRadiusGeometryRequest.view_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
     ///     </item>
@@ -216,7 +225,8 @@ public class FilterByRadiusGeometryRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema provided is non-existent, it
     ///         will be automatically created.</description>
@@ -242,7 +252,7 @@ public class FilterByRadiusGeometryRequest : KineticaData
 } // end class FilterByRadiusGeometryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByRadiusGeometry">Kinetica.filterByRadiusGeometry</see>.
+/// cref="Kinetica.filterByRadiusGeometry(FilterByRadiusGeometryRequest)">Kinetica.filterByRadiusGeometry</see>.
 /// </summary>
 public class FilterByRadiusGeometryResponse : KineticaData
 {

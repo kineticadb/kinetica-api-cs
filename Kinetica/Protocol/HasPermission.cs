@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasPermission">Kinetica.hasPermission</see>.</summary>
+/// cref="Kinetica.hasPermission(HasPermissionRequest)">Kinetica.hasPermission</see>.
+/// </summary>
 /// <remarks><para>Checks if the specified user has the specified permission on
 /// the specified object.</para></remarks>
 public class HasPermissionRequest : KineticaData
@@ -113,7 +114,13 @@ public class HasPermissionRequest : KineticaData
         /// cref="HasPermissionRequest.Options.FALSE">FALSE</see> will return
         /// an error if the provided <see cref="HasPermissionRequest._object"
         /// /> does not exist or is blank.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see> then it will
+        /// return <see
+        /// cref="HasPermissionResponse.HasPermission.FALSE">FALSE</see> for
+        /// <see
+        /// cref="HasPermissionResponse.has_permission">has_permission</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -130,7 +137,12 @@ public class HasPermissionRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="HasPermissionRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="HasPermissionRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -575,7 +587,8 @@ public class HasPermissionRequest : KineticaData
 } // end class HasPermissionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasPermission">Kinetica.hasPermission</see>.</summary>
+/// cref="Kinetica.hasPermission(HasPermissionRequest)">Kinetica.hasPermission</see>.
+/// </summary>
 public class HasPermissionResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -584,10 +597,12 @@ public class HasPermissionResponse : KineticaData
     /// permission on the specified target.</para></remarks>
     public struct HasPermission
     {
-        /// <summary>User has the effective queried permission.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="HasPermissionResponse.HasPermission" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>User does not have the queried permission.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="HasPermissionResponse.HasPermission" /> options.</summary>
         public const string FALSE = "false";
     } // end struct HasPermission
 

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminVerifyDb">Kinetica.adminVerifyDb</see>.</summary>
+/// cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>.
+/// </summary>
 /// <remarks><para>Verify database is in a consistent state.  When
 /// inconsistencies or errors are found, the verified_ok flag in the response
 /// is set to false and the list of errors found is provided in the error_list.
@@ -40,7 +41,12 @@ public class AdminVerifyDbRequest : KineticaData
         /// </remarks>
         public const string REBUILD_ON_ERROR = "rebuild_on_error";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminVerifyDbRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminVerifyDbRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>When <see
@@ -67,7 +73,12 @@ public class AdminVerifyDbRequest : KineticaData
         /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>, persistent
         /// objects will be compared against their state in memory and workers
         /// will be checked for orphaned table data in persist.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>To check for orphaned worker data, either set <see
+        /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>
+        /// in <see cref="AdminVerifyDbRequest.options" /> to <see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see> or place the
+        /// database offline.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -88,7 +99,9 @@ public class AdminVerifyDbRequest : KineticaData
         /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>, allows this
         /// endpoint to be run safely with other concurrent database
         /// operations.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Other operations may be slower while this is
+        /// running.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -129,7 +142,12 @@ public class AdminVerifyDbRequest : KineticaData
         /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>, orphaned table
         /// directories found on workers for which there is no corresponding
         /// metadata will be deleted.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>It is recommended to run this while the database is
+        /// offline OR set <see
+        /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>
+        /// in <see cref="AdminVerifyDbRequest.options" /> to <see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -608,7 +626,8 @@ public class AdminVerifyDbRequest : KineticaData
 } // end class AdminVerifyDbRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminVerifyDb">Kinetica.adminVerifyDb</see>.</summary>
+/// cref="Kinetica.adminVerifyDb(AdminVerifyDbRequest)">Kinetica.adminVerifyDb</see>.
+/// </summary>
 public class AdminVerifyDbResponse : KineticaData
 {
     /// <summary>True if no errors were found, false otherwise.</summary>

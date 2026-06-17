@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createBackup">Kinetica.createBackup</see>.</summary>
+/// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
+/// </summary>
 /// <remarks><para>Creates a database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backup</a>, containing a snapshot of existing objects, at the
@@ -137,7 +138,12 @@ public class CreateBackupRequest : KineticaData
         /// </remarks>
         public const string CHECKSUM = "checksum";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateBackupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateBackupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Comments to store with this backup.</summary>
@@ -848,7 +854,8 @@ public class CreateBackupRequest : KineticaData
 } // end class CreateBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createBackup">Kinetica.createBackup</see>.</summary>
+/// cref="Kinetica.createBackup(CreateBackupRequest)">Kinetica.createBackup</see>.
+/// </summary>
 public class CreateBackupResponse : KineticaData
 {
     /// <summary>Value of <see

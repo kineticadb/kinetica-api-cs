@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropBackup">Kinetica.dropBackup</see>.</summary>
+/// cref="Kinetica.dropBackup(DropBackupRequest)">Kinetica.dropBackup</see>.
+/// </summary>
 /// <remarks><para>Deletes one or more existing database <a
 /// href="../../../admin/backup_restore/#database-backup"
 /// target="_top">backups</a> and contained snapshots, accessible via the <a
@@ -40,7 +41,12 @@ public class DropBackupRequest : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DropBackupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DropBackupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Allow multiple backups to be deleted if <see
@@ -265,7 +271,8 @@ public class DropBackupRequest : KineticaData
 } // end class DropBackupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropBackup">Kinetica.dropBackup</see>.</summary>
+/// cref="Kinetica.dropBackup(DropBackupRequest)">Kinetica.dropBackup</see>.
+/// </summary>
 public class DropBackupResponse : KineticaData
 {
     /// <summary>Value of <see

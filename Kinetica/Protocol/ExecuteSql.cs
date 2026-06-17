@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.executeSql">Kinetica.executeSql</see>.</summary>
+/// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
+/// </summary>
 /// <remarks><para>Execute a SQL statement (query, DML, or DDL).</para>
 /// <para>See <a href="../../../sql/" target="_top">SQL Support</a> for the
 /// complete set of supported SQL commands.</para>
@@ -42,7 +43,12 @@ public class ExecuteSqlRequest : KineticaData
     /// 'binary' or 'json'.</para></remarks>
     public struct Encoding
     {
+        /// <summary>A constant for the <see cref="ExecuteSqlRequest.Encoding"
+        /// /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see cref="ExecuteSqlRequest.Encoding"
+        /// /> options.</summary>
         public const string JSON = "json";
     } // end struct Encoding
 
@@ -70,13 +76,21 @@ public class ExecuteSqlRequest : KineticaData
         /// </remarks>
         public const string COST_BASED_OPTIMIZATION = "cost_based_optimization";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ExecuteSqlRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ExecuteSqlRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>,
         /// enables the use of distributed joins in servicing the given query.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Any query requiring a distributed join will
+        /// succeed, though hints can be used in the query to change the
+        /// distribution of the source data to allow the query to succeed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>
@@ -95,7 +109,10 @@ public class ExecuteSqlRequest : KineticaData
         /// <summary>If <see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>,
         /// enables the use of distributed operations in servicing the given
         /// query.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Any query requiring a distributed join will
+        /// succeed, though hints can be used in the query to change the
+        /// distribution of the source data to allow the query to succeed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>
@@ -119,7 +136,19 @@ public class ExecuteSqlRequest : KineticaData
         /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
         /// is <see cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>, any record
+        /// insert/update that is rejected for resulting in a primary key
+        /// collision with an existing table record will be ignored with no
+        /// error generated.  If <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>, the rejection
+        /// of any insert/update for resulting in a primary key collision will
+        /// cause an error to be reported.  If the specified table does not
+        /// have a primary key or if <see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -229,7 +258,9 @@ public class ExecuteSqlRequest : KineticaData
         /// <summary>If <see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>,
         /// compiles a query into an execution plan and saves it in query
         /// cache.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Query execution is not performed and an empty
+        /// response will be returned to user.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>
@@ -333,7 +364,17 @@ public class ExecuteSqlRequest : KineticaData
         /// or updating a table with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
         /// key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted or updated will be replaced by that record. If set
+        /// to <see cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>, any
+        /// such primary key collision will result in the insert/update being
+        /// rejected and the error handled as determined by <see
+        /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -358,7 +399,13 @@ public class ExecuteSqlRequest : KineticaData
 
         /// <summary>When changing a column using alter table, validate the
         /// change before applying it.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>, then validate all
+        /// values. A value too large (or too long) for the new type will
+        /// prevent any change. If <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>, then when a
+        /// value is too large or long, it will be truncated.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>
@@ -1855,7 +1902,8 @@ public class ExecuteSqlRequest : KineticaData
 } // end class ExecuteSqlRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.executeSql">Kinetica.executeSql</see>.</summary>
+/// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
+/// </summary>
 public class RawExecuteSqlResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -1864,7 +1912,12 @@ public class RawExecuteSqlResponse : KineticaData
     /// </remarks>
     public struct HasMoreRecords
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="RawExecuteSqlResponse.HasMoreRecords" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="RawExecuteSqlResponse.HasMoreRecords" /> options.</summary>
         public const string FALSE = "false";
     } // end struct HasMoreRecords
 
@@ -1902,7 +1955,8 @@ public class RawExecuteSqlResponse : KineticaData
     public long total_number_of_records { get; set; }
 
     /// <summary>Too many records.</summary>
-    /// <remarks><para>Supported values:</para>
+    /// <remarks><para>Returned a partial set.
+    /// Supported values:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term>true</term>
@@ -1946,7 +2000,8 @@ public class RawExecuteSqlResponse : KineticaData
 } // end class RawExecuteSqlResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.executeSql">Kinetica.executeSql</see>.</summary>
+/// cref="Kinetica.executeSql(ExecuteSqlRequest)">Kinetica.executeSql</see>.
+/// </summary>
 public class ExecuteSqlResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -1955,7 +2010,12 @@ public class ExecuteSqlResponse : KineticaData
     /// </remarks>
     public struct HasMoreRecords
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="ExecuteSqlResponse.HasMoreRecords" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ExecuteSqlResponse.HasMoreRecords" /> options.</summary>
         public const string FALSE = "false";
     } // end struct HasMoreRecords
 
@@ -1985,7 +2045,8 @@ public class ExecuteSqlResponse : KineticaData
     public long total_number_of_records { get; set; }
 
     /// <summary>Too many records.</summary>
-    /// <remarks><para>Supported values:</para>
+    /// <remarks><para>Returned a partial set.
+    /// Supported values:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term>true</term>

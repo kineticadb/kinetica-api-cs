@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.hasTable">Kinetica.hasTable</see>.</summary>
+/// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+/// </summary>
 /// <remarks><para>Checks for the existence of a table with the given name.
 /// </para></remarks>
 public class HasTableRequest : KineticaData
@@ -47,7 +48,8 @@ public class HasTableRequest : KineticaData
 } // end class HasTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.hasTable">Kinetica.hasTable</see>.</summary>
+/// cref="Kinetica.hasTable(HasTableRequest)">Kinetica.hasTable</see>.
+/// </summary>
 public class HasTableResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -56,7 +58,12 @@ public class HasTableResponse : KineticaData
     /// </remarks>
     public struct TableExists
     {
+        /// <summary>A boolean constant for the <see
+        /// cref="HasTableResponse.TableExists" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="HasTableResponse.TableExists" /> options.</summary>
         public const string FALSE = "false";
     } // end struct TableExists
 

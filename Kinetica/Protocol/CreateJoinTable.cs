@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createJoinTable">Kinetica.createJoinTable</see>.</summary>
+/// cref="Kinetica.createJoinTable(CreateJoinTableRequest)">Kinetica.createJoinTable</see>.
+/// </summary>
 /// <remarks><para>Creates a table that is the result of a SQL JOIN.</para>
 /// <para>For join details and examples see: <a href="../../../concepts/joins/"
 /// target="_top">Joins</a>.  For limitations, see <a
@@ -27,7 +28,11 @@ public class CreateJoinTableRequest : KineticaData
         /// temporary table name will be generated in the sys_temp schema and
         /// used in place of <see cref="CreateJoinTableRequest.join_table_name"
         /// />.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="CreateJoinTableResponse.Info.QUALIFIED_JOIN_TABLE_NAME">QUALIFIED_JOIN_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -45,15 +50,20 @@ public class CreateJoinTableRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateJoinTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateJoinTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// join as part of <see cref="CreateJoinTableRequest.join_table_name"
         /// /> and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema for the join.
-        /// </summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema for the
+        /// join.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created. The default value is ''.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -76,7 +86,8 @@ public class CreateJoinTableRequest : KineticaData
         public const string VIEW_ID = "view_id";
 
         /// <summary>Return a count of 0 for the join table for logging and for
-        /// <see cref="Kinetica.showTable">Kinetica.showTable</see>;
+        /// <see
+        /// cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>;
         /// optimization needed for large overlapped equi-join stencils.
         /// </summary>
         /// <remarks><para>The default value is 'false'.</para></remarks>
@@ -201,8 +212,8 @@ public class CreateJoinTableRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the join as part of <see
     ///         cref="CreateJoinTableRequest.join_table_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         join. If the schema is non-existent, it will be automatically
     ///         created. The default value is ''.</description>
     ///     </item>
@@ -240,7 +251,7 @@ public class CreateJoinTableRequest : KineticaData
     ///         </term>
     ///         <description>Return a count of 0 for the join table for logging
     ///         and for <see
-    ///         cref="Kinetica.showTable">Kinetica.showTable</see>;
+    ///         cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>;
     ///         optimization needed for large overlapped equi-join stencils.
     ///         The default value is 'false'.</description>
     ///     </item>
@@ -381,8 +392,8 @@ public class CreateJoinTableRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the join as part of <paramref name="join_table_name" /> and
     ///         use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         join. If the schema is non-existent, it will be automatically
     ///         created. The default value is ''.</description>
     ///     </item>
@@ -420,7 +431,7 @@ public class CreateJoinTableRequest : KineticaData
     ///         </term>
     ///         <description>Return a count of 0 for the join table for logging
     ///         and for <see
-    ///         cref="Kinetica.showTable">Kinetica.showTable</see>;
+    ///         cref="Kinetica.showTable(ShowTableRequest)">Kinetica.showTable</see>;
     ///         optimization needed for large overlapped equi-join stencils.
     ///         The default value is 'false'.</description>
     ///     </item>
@@ -505,7 +516,8 @@ public class CreateJoinTableRequest : KineticaData
 } // end class CreateJoinTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createJoinTable">Kinetica.createJoinTable</see>.</summary>
+/// cref="Kinetica.createJoinTable(CreateJoinTableRequest)">Kinetica.createJoinTable</see>.
+/// </summary>
 public class CreateJoinTableResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

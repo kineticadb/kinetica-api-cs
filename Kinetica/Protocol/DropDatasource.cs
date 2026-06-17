@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.dropDatasource">Kinetica.dropDatasource</see>.</summary>
+/// cref="Kinetica.dropDatasource(DropDatasourceRequest)">Kinetica.dropDatasource</see>.
+/// </summary>
 /// <remarks><para>Drops an existing <a href="../../../concepts/data_sources/"
 /// target="_top">data source</a>.  Any external tables that depend on the data
 /// source must be dropped before it can be dropped.</para></remarks>
@@ -44,7 +45,8 @@ public class DropDatasourceRequest : KineticaData
 } // end class DropDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.dropDatasource">Kinetica.dropDatasource</see>.</summary>
+/// cref="Kinetica.dropDatasource(DropDatasourceRequest)">Kinetica.dropDatasource</see>.
+/// </summary>
 public class DropDatasourceResponse : KineticaData
 {
     /// <summary>Value of <see cref="DropDatasourceRequest.name">name</see>.

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+/// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
 /// </summary>
 /// <remarks><para>Creates a monitor that watches for a single table
 /// modification event type (insert, update, or delete) on a particular table
@@ -25,7 +25,7 @@ namespace kinetica;
 /// cref="CreateTableMonitorResponse.type_schema">type_schema</see>. The
 /// monitor will continue to run (regardless of whether or not there are any
 /// subscribers) until deactivated with <see
-/// cref="Kinetica.clearTableMonitor">Kinetica.clearTableMonitor</see>.</para>
+/// cref="Kinetica.clearTableMonitor(ClearTableMonitorRequest)">Kinetica.clearTableMonitor</see>.</para>
 /// <para>For more information on table monitors, see <a
 /// href="../../../concepts/table_monitors/" target="_top">Table Monitors</a>.
 /// </para></remarks>
@@ -627,7 +627,7 @@ public class CreateTableMonitorRequest : KineticaData
 } // end class CreateTableMonitorRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createTableMonitor">Kinetica.createTableMonitor</see>.
+/// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)">Kinetica.createTableMonitor</see>.
 /// </summary>
 public class CreateTableMonitorResponse : KineticaData
 {

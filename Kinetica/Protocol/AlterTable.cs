@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTable">Kinetica.alterTable</see>.</summary>
+/// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
+/// </summary>
 /// <remarks><para>Apply various modifications to a table or view.  The
 /// available modifications include the following:</para>
 /// <para>Manage a table's columns--a column can be added, removed, or have its
@@ -106,9 +107,9 @@ public class AlterTableRequest : KineticaData
         /// <summary>[DEPRECATED--please use <see
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
         /// and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Moves a table or view into a schema
-        /// named <see cref="AlterTableRequest._value" />.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Moves a table or view into a
+        /// schema named <see cref="AlterTableRequest._value" />.</summary>
         /// <remarks><para> If the schema provided is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string MOVE_TO_COLLECTION = "move_to_collection";
@@ -339,19 +340,21 @@ public class AlterTableRequest : KineticaData
 
         /// <summary>Set startup data loading scheme for the table; see
         /// description of 'load_vectors_policy' in <see
-        /// cref="Kinetica.createTable">Kinetica.createTable</see> for possible
-        /// values for <see cref="AlterTableRequest._value" />.</summary>
+        /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        /// for possible values for <see cref="AlterTableRequest._value" />.
+        /// </summary>
         public const string SET_LOAD_VECTORS_POLICY = "set_load_vectors_policy";
 
         /// <summary>Set startup primary key generation scheme for the table;
         /// see description of 'build_pk_index_policy' in <see
-        /// cref="Kinetica.createTable">Kinetica.createTable</see> for possible
-        /// values for <see cref="AlterTableRequest._value" />.</summary>
+        /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+        /// for possible values for <see cref="AlterTableRequest._value" />.
+        /// </summary>
         public const string SET_BUILD_PK_INDEX_POLICY = "set_build_pk_index_policy";
 
         /// <summary>Set startup rebuilding scheme for the materialized view;
         /// see description of 'build_materialized_view_policy' in <see
-        /// cref="Kinetica.createMaterializedView">Kinetica.createMaterializedView</see>
+        /// cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
         /// for possible values for <see cref="AlterTableRequest._value" />.
         /// </summary>
         public const string SET_BUILD_MATERIALIZED_VIEW_POLICY = "set_build_materialized_view_policy";
@@ -362,8 +365,16 @@ public class AlterTableRequest : KineticaData
     /// <remarks><para>Optional parameters.</para></remarks>
     public struct Options
     {
+        /// <summary>A constant for the <see cref="AlterTableRequest.Options"
+        /// /> options.</summary>
         public const string ACTION = "action";
+
+        /// <summary>A constant for the <see cref="AlterTableRequest.Options"
+        /// /> options.</summary>
         public const string COLUMN_NAME = "column_name";
+
+        /// <summary>A constant for the <see cref="AlterTableRequest.Options"
+        /// /> options.</summary>
         public const string TABLE_NAME = "table_name";
 
         /// <summary>When adding a column, set a literal default value for
@@ -413,12 +424,12 @@ public class AlterTableRequest : KineticaData
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
 
-        /// <summary>Reset the expiration countdown timer to the table's
-        /// configured TTL.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>Don't reset the timer; expiration countdown will continue
-        /// from where it is, as if the table had not been accessed.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Indicates whether the <a href="../../../concepts/ttl/"
@@ -650,11 +661,11 @@ public class AlterTableRequest : KineticaData
     ///         <description>[DEPRECATED--please use <see
     ///         cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Moves a table or view into
-    ///         a schema named <see cref="AlterTableRequest._value" />.  If the
-    ///         schema provided is non-existent, it will be automatically
-    ///         created.</description>
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Moves a table or view
+    ///         into a schema named <see cref="AlterTableRequest._value" />.
+    ///         If the schema provided is non-existent, it will be
+    ///         automatically created.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -972,9 +983,9 @@ public class AlterTableRequest : KineticaData
     ///         </term>
     ///         <description>Set startup data loading scheme for the table; see
     ///         description of 'load_vectors_policy' in <see
-    ///         cref="Kinetica.createTable">Kinetica.createTable</see> for
-    ///         possible values for <see cref="AlterTableRequest._value" />.
-    ///         </description>
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <see cref="AlterTableRequest._value"
+    ///         />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -982,9 +993,9 @@ public class AlterTableRequest : KineticaData
     ///         </term>
     ///         <description>Set startup primary key generation scheme for the
     ///         table; see description of 'build_pk_index_policy' in <see
-    ///         cref="Kinetica.createTable">Kinetica.createTable</see> for
-    ///         possible values for <see cref="AlterTableRequest._value" />.
-    ///         </description>
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <see cref="AlterTableRequest._value"
+    ///         />.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -993,7 +1004,7 @@ public class AlterTableRequest : KineticaData
     ///         <description>Set startup rebuilding scheme for the materialized
     ///         view; see description of 'build_materialized_view_policy' in
     ///         <see
-    ///         cref="Kinetica.createMaterializedView">Kinetica.createMaterializedView</see>
+    ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
     ///         for possible values for <see cref="AlterTableRequest._value"
     ///         />.</description>
     ///     </item>
@@ -1331,9 +1342,9 @@ public class AlterTableRequest : KineticaData
     ///         <description>[DEPRECATED--please use <see
     ///         cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Moves a table or view into
-    ///         a schema named <paramref name="_value" />.  If the schema
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Moves a table or view
+    ///         into a schema named <paramref name="_value" />.  If the schema
     ///         provided is non-existent, it will be automatically created.
     ///         </description>
     ///     </item>
@@ -1647,8 +1658,9 @@ public class AlterTableRequest : KineticaData
     ///         </term>
     ///         <description>Set startup data loading scheme for the table; see
     ///         description of 'load_vectors_policy' in <see
-    ///         cref="Kinetica.createTable">Kinetica.createTable</see> for
-    ///         possible values for <paramref name="_value" />.</description>
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <paramref name="_value" />.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -1656,8 +1668,9 @@ public class AlterTableRequest : KineticaData
     ///         </term>
     ///         <description>Set startup primary key generation scheme for the
     ///         table; see description of 'build_pk_index_policy' in <see
-    ///         cref="Kinetica.createTable">Kinetica.createTable</see> for
-    ///         possible values for <paramref name="_value" />.</description>
+    ///         cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>
+    ///         for possible values for <paramref name="_value" />.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -1666,7 +1679,7 @@ public class AlterTableRequest : KineticaData
     ///         <description>Set startup rebuilding scheme for the materialized
     ///         view; see description of 'build_materialized_view_policy' in
     ///         <see
-    ///         cref="Kinetica.createMaterializedView">Kinetica.createMaterializedView</see>
+    ///         cref="Kinetica.createMaterializedView(CreateMaterializedViewRequest)">Kinetica.createMaterializedView</see>
     ///         for possible values for <paramref name="_value" />.
     ///         </description>
     ///     </item>
@@ -1932,7 +1945,8 @@ public class AlterTableRequest : KineticaData
 } // end class AlterTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTable">Kinetica.alterTable</see>.</summary>
+/// cref="Kinetica.alterTable(AlterTableRequest)">Kinetica.alterTable</see>.
+/// </summary>
 public class AlterTableResponse : KineticaData
 {
     /// <summary>Table on which the operation was performed.</summary>

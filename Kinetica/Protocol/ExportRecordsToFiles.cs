@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.exportRecordsToFiles">Kinetica.exportRecordsToFiles</see>.
+/// cref="Kinetica.exportRecordsToFiles(ExportRecordsToFilesRequest)">Kinetica.exportRecordsToFiles</see>.
 /// </summary>
 /// <remarks><para>Export records from a table to files. All tables can be
 /// exported, in full or partial (see <see
@@ -21,7 +21,7 @@ namespace kinetica;
 /// (Azure, S3, GCS, and HDFS) are supported through <see
 /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>;
 /// see <see
-/// cref="Kinetica.createDatasink">Kinetica.createDatasink</see>.</para>
+/// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.</para>
 /// <para>Server's local file system is not supported.  Default file format is
 /// delimited text. See options for different file types and different options
 /// for each file type.  Table is saved to a single file if within max file
@@ -81,7 +81,7 @@ public class ExportRecordsToFilesRequest : KineticaData
         public const string COLUMNS_TO_SKIP = "columns_to_skip";
 
         /// <summary>Datasink name, created using <see
-        /// cref="Kinetica.createDatasink">Kinetica.createDatasink</see>.
+        /// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
         /// </summary>
         public const string DATASINK_NAME = "datasink_name";
 
@@ -148,11 +148,17 @@ public class ExportRecordsToFilesRequest : KineticaData
         /// </summary>
         public const string DELIMITED_TEXT = "delimited_text";
 
+        /// <summary>A constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string PARQUET = "parquet";
 
         /// <summary>Whether to include a Kinetica proprietary header.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Will not be written if <see
+        /// cref="ExportRecordsToFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>
+        /// is <see
+        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -170,7 +176,12 @@ public class ExportRecordsToFilesRequest : KineticaData
         /// </para></remarks>
         public const string KINETICA_HEADER = "kinetica_header";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If a Kinetica proprietary header is included, then specify
@@ -180,7 +191,10 @@ public class ExportRecordsToFilesRequest : KineticaData
         public const string KINETICA_HEADER_DELIMITER = "kinetica_header_delimiter";
 
         /// <summary>File compression type.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>GZip can be applied to text and Parquet files.
+        /// Snappy can only be applied to Parquet files, and is the default
+        /// compression for them.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -200,12 +214,23 @@ public class ExportRecordsToFilesRequest : KineticaData
         /// </list></remarks>
         public const string COMPRESSION_TYPE = "compression_type";
 
+        /// <summary>A constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string UNCOMPRESSED = "uncompressed";
+
+        /// <summary>A constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string SNAPPY = "snappy";
+
+        /// <summary>A constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string GZIP = "gzip";
 
         /// <summary>Save records to a single file.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This option may be ignored if file size exceeds
+        /// internal file size limits (this limit will differ on different
+        /// targets).
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -228,6 +253,8 @@ public class ExportRecordsToFilesRequest : KineticaData
         /// </remarks>
         public const string SINGLE_FILE = "single_file";
 
+        /// <summary>A constant for the <see
+        /// cref="ExportRecordsToFilesRequest.Options" /> options.</summary>
         public const string OVERWRITE = "overwrite";
 
         /// <summary>Max file size (in MB) to allow saving to a single file.
@@ -246,7 +273,12 @@ public class ExportRecordsToFilesRequest : KineticaData
         public const string TEXT_DELIMITER = "text_delimiter";
 
         /// <summary>Indicates whether to write out a header row.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> For <see
+        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -274,6 +306,8 @@ public class ExportRecordsToFilesRequest : KineticaData
         public const string TEXT_NULL_STRING = "text_null_string";
     } // end struct Options
 
+    /// <summary>The name of the table whose records are to be exported.
+    /// </summary>
     public string table_name { get; set; }
 
     /// <summary>Path to data export target.</summary>
@@ -348,7 +382,7 @@ public class ExportRecordsToFilesRequest : KineticaData
     ///         cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Datasink name, created using <see
-    ///         cref="Kinetica.createDatasink">Kinetica.createDatasink</see>.
+    ///         cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -580,7 +614,8 @@ public class ExportRecordsToFilesRequest : KineticaData
     /// <summary>Constructs an ExportRecordsToFilesRequest object with the
     /// specified parameters.</summary>
     ///
-    /// <param name="table_name"></param>
+    /// <param name="table_name">The name of the table whose records are to be
+    /// exported.</param>
     /// <param name="filepath">Path to data export target.  If <paramref
     /// name="filepath" /> has a file extension, it is read as the name of a
     /// file. If <paramref name="filepath" /> is a directory, then the source
@@ -650,7 +685,7 @@ public class ExportRecordsToFilesRequest : KineticaData
     ///         cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:
     ///         </term>
     ///         <description>Datasink name, created using <see
-    ///         cref="Kinetica.createDatasink">Kinetica.createDatasink</see>.
+    ///         cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -884,7 +919,7 @@ public class ExportRecordsToFilesRequest : KineticaData
 } // end class ExportRecordsToFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.exportRecordsToFiles">Kinetica.exportRecordsToFiles</see>.
+/// cref="Kinetica.exportRecordsToFiles(ExportRecordsToFilesRequest)">Kinetica.exportRecordsToFiles</see>.
 /// </summary>
 public class ExportRecordsToFilesResponse : KineticaData
 {
@@ -903,8 +938,10 @@ public class ExportRecordsToFilesResponse : KineticaData
     /// <summary>Timestamp of last file scanned.</summary>
     public long last_timestamp { get; set; }
 
+    /// <summary>[Not used].</summary>
     public IList<string> data_text { get; set; } = new List<string>();
 
+    /// <summary>[Not used].</summary>
     public IList<byte[]> data_bytes { get; set; } = new List<byte[]>();
 
     /// <summary>Additional information.</summary>

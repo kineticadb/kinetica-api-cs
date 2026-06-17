@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByString">Kinetica.filterByString</see>.</summary>
+/// cref="Kinetica.filterByString(FilterByStringRequest)">Kinetica.filterByString</see>.
+/// </summary>
 /// <remarks><para>Calculates which objects from a table or view match a string
 /// expression for the given string columns. Setting <see
 /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>
@@ -65,7 +66,11 @@ public class FilterByStringRequest : KineticaData
         /// temporary table name will be generated in the sys_temp schema and
         /// used in place of <see cref="FilterByStringRequest.view_name" />.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="FilterByStringResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -82,12 +87,18 @@ public class FilterByStringRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByStringRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByStringRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// view as part of <see cref="FilterByStringRequest.view_name" /> and
-        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+        /// use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -97,7 +108,9 @@ public class FilterByStringRequest : KineticaData
         /// <summary>If <see
         /// cref="FilterByStringRequest.Options.FALSE">FALSE</see> then string
         /// filtering will ignore case.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Does not apply to <see
+        /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see> mode.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -136,7 +149,8 @@ public class FilterByStringRequest : KineticaData
     public string expression { get; set; }
 
     /// <summary>The string filtering mode to apply.</summary>
-    /// <remarks><para>Supported values:</para>
+    /// <remarks><para>See below for details.
+    /// Supported values:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -224,8 +238,8 @@ public class FilterByStringRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <see
     ///         cref="FilterByStringRequest.view_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
@@ -362,7 +376,8 @@ public class FilterByStringRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
@@ -411,7 +426,8 @@ public class FilterByStringRequest : KineticaData
 } // end class FilterByStringRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByString">Kinetica.filterByString</see>.</summary>
+/// cref="Kinetica.filterByString(FilterByStringRequest)">Kinetica.filterByString</see>.
+/// </summary>
 public class FilterByStringResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

@@ -231,6 +231,10 @@ namespace Kinetica.Benchmarks
             await inserter.CloseAsync();
         }
 
+        // These benchmarks intentionally exercise the deprecated
+        // KineticaIngestor<T> so its performance can be compared against
+        // BulkInserter<T>; suppress the obsolete-usage warning for this region.
+#pragma warning disable CS0618 // Type or member is obsolete
         [Benchmark]
         public void LegacyIngestor_SingleInserts()
         {
@@ -260,6 +264,7 @@ namespace Kinetica.Benchmarks
             ingestor.insert(_records);
             ingestor.flush();
         }
+#pragma warning restore CS0618
 
         #endregion
     }

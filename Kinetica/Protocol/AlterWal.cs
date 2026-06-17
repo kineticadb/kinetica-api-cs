@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterWal">Kinetica.alterWal</see>.</summary>
+/// cref="Kinetica.alterWal(AlterWalRequest)">Kinetica.alterWal</see>.
+/// </summary>
 /// <remarks><para>Alters table write-ahead log (WAL) settings.
 /// Returns information about the requested table WAL modifications.</para>
 /// </remarks>
@@ -95,7 +96,12 @@ public class AlterWalRequest : KineticaData
         /// cref="AlterWalRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string CHECKSUM = "checksum";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterWalRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterWalRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="AlterWalRequest.Options.TRUE">TRUE</see>
@@ -119,7 +125,8 @@ public class AlterWalRequest : KineticaData
         /// <summary>If <see cref="AlterWalRequest.Options.TRUE">TRUE</see>
         /// tables with unique WAL settings will be reverted to the current
         /// global settings.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Cannot be used in conjunction with any other option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="AlterWalRequest.Options.TRUE">TRUE</see>
@@ -138,7 +145,9 @@ public class AlterWalRequest : KineticaData
         /// a system-level change was requested, the system configuration will
         /// be written to disk upon successful application of this request.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This will commit the changes from this request and
+        /// any additional in-memory modifications.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="AlterWalRequest.Options.TRUE">TRUE</see>
@@ -479,7 +488,8 @@ public class AlterWalRequest : KineticaData
 } // end class AlterWalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterWal">Kinetica.alterWal</see>.</summary>
+/// cref="Kinetica.alterWal(AlterWalRequest)">Kinetica.alterWal</see>.
+/// </summary>
 public class AlterWalResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

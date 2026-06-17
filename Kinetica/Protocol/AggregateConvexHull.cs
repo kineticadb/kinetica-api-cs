@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateConvexHull">Kinetica.aggregateConvexHull</see>.
+/// cref="Kinetica.aggregateConvexHull(AggregateConvexHullRequest)">Kinetica.aggregateConvexHull</see>.
 /// </summary>
 /// <remarks><para>Calculates and returns the convex hull for the values in a
 /// table specified by <see cref="AggregateConvexHullRequest.table_name" />.
@@ -68,7 +68,7 @@ public class AggregateConvexHullRequest : KineticaData
 } // end class AggregateConvexHullRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateConvexHull">Kinetica.aggregateConvexHull</see>.
+/// cref="Kinetica.aggregateConvexHull(AggregateConvexHullRequest)">Kinetica.aggregateConvexHull</see>.
 /// </summary>
 public class AggregateConvexHullResponse : KineticaData
 {
@@ -81,6 +81,8 @@ public class AggregateConvexHullResponse : KineticaData
     /// <summary>Count of the number of points in the convex set.</summary>
     public int count { get; set; }
 
+    /// <summary>Indicates whether a valid convex hull could be computed for
+    /// the input.</summary>
     public bool is_valid { get; set; }
 
     /// <summary>Additional information.</summary>

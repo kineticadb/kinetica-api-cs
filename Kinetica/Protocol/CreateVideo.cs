@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createVideo">Kinetica.createVideo</see>.</summary>
+/// cref="Kinetica.createVideo(CreateVideoRequest)">Kinetica.createVideo</see>.
+/// </summary>
 /// <remarks><para>Creates a job to generate a sequence of raster images that
 /// visualize data over a specified time.</para></remarks>
 public class CreateVideoRequest : KineticaData
@@ -21,11 +22,28 @@ public class CreateVideoRequest : KineticaData
     /// field.</para></remarks>
     public struct Style
     {
+        /// <summary>A constant for the <see cref="CreateVideoRequest.Style" />
+        /// options.</summary>
         public const string CHART = "chart";
+
+        /// <summary>A constant for the <see cref="CreateVideoRequest.Style" />
+        /// options.</summary>
         public const string RASTER = "raster";
+
+        /// <summary>A constant for the <see cref="CreateVideoRequest.Style" />
+        /// options.</summary>
         public const string CLASSBREAK = "classbreak";
+
+        /// <summary>A constant for the <see cref="CreateVideoRequest.Style" />
+        /// options.</summary>
         public const string CONTOUR = "contour";
+
+        /// <summary>A constant for the <see cref="CreateVideoRequest.Style" />
+        /// options.</summary>
         public const string HEATMAP = "heatmap";
+
+        /// <summary>A constant for the <see cref="CreateVideoRequest.Style" />
+        /// options.</summary>
         public const string LABELS = "labels";
     } // end struct Style
 
@@ -52,7 +70,10 @@ public class CreateVideoRequest : KineticaData
 
         /// <summary>If <see cref="CreateVideoRequest.Options.TRUE">TRUE</see>,
         /// does not return an error if the video already exists.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Ignored if <see
+        /// cref="CreateVideoRequest.Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>
+        /// is <see cref="CreateVideoRequest.Options.TRUE">TRUE</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -68,7 +89,12 @@ public class CreateVideoRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateVideoRequest.Options" /> options.</summary>
         public const string FALSE = "false";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateVideoRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
         /// <summary>If <see cref="CreateVideoRequest.Options.TRUE">TRUE</see>,
@@ -389,7 +415,8 @@ public class CreateVideoRequest : KineticaData
 } // end class CreateVideoRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createVideo">Kinetica.createVideo</see>.</summary>
+/// cref="Kinetica.createVideo(CreateVideoRequest)">Kinetica.createVideo</see>.
+/// </summary>
 public class CreateVideoResponse : KineticaData
 {
     /// <summary>An identifier for the created job.</summary>

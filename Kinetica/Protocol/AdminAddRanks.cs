@@ -9,14 +9,15 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminAddRanks">Kinetica.adminAddRanks</see>.</summary>
+/// cref="Kinetica.adminAddRanks(AdminAddRanksRequest)">Kinetica.adminAddRanks</see>.
+/// </summary>
 /// <remarks><para>Add one or more ranks to an existing Kinetica cluster. The
 /// new ranks will not contain any data initially (other than replicated
 /// tables) and will not be assigned any shards. To rebalance data and shards
 /// across the cluster, use <see
-/// cref="Kinetica.adminRebalance">Kinetica.adminRebalance</see>.</para>
+/// cref="Kinetica.adminRebalance(AdminRebalanceRequest)">Kinetica.adminRebalance</see>.</para>
 /// <para>The database must be offline for this operation, see <see
-/// cref="Kinetica.adminOffline">Kinetica.adminOffline</see></para>
+/// cref="Kinetica.adminOffline(AdminOfflineRequest)">Kinetica.adminOffline</see></para>
 /// <para>For example, if attempting to add three new ranks (two ranks on host
 /// 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica cluster
 /// with additional configuration parameters:</para>
@@ -32,7 +33,8 @@ namespace kinetica;
 /// <para>This endpoint's processing includes copying all replicated table data
 /// to the new rank(s) and therefore could take a long time. The API call may
 /// time out if run directly.  It is recommended to run this endpoint
-/// asynchronously via <see cref="Kinetica.createJob">Kinetica.createJob</see>.
+/// asynchronously via <see
+/// cref="Kinetica.createJob(CreateJobRequest)">Kinetica.createJob</see>.
 /// </para></remarks>
 public class AdminAddRanksRequest : KineticaData
 {
@@ -44,7 +46,8 @@ public class AdminAddRanksRequest : KineticaData
         /// <summary>If <see
         /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see>, only
         /// validation checks will be performed.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>No ranks are added.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -61,7 +64,12 @@ public class AdminAddRanksRequest : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminAddRanksRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminAddRanksRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -70,9 +78,9 @@ public class AdminAddRanksRequest : KineticaData
     /// file), on which to add ranks to the cluster.</summary>
     /// <remarks><para>The hosts must already be in the cluster. If needed
     /// beforehand, to add a new host to the cluster use <see
-    /// cref="Kinetica.adminAddHost">Kinetica.adminAddHost</see>. Include the
-    /// same entry as many times as there are ranks to add to the cluster,
-    /// e.g., if two ranks on host 172.123.45.67 should be added, <see
+    /// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
+    /// Include the same entry as many times as there are ranks to add to the
+    /// cluster, e.g., if two ranks on host 172.123.45.67 should be added, <see
     /// cref="AdminAddRanksRequest.hosts" /> could look like '["172.123.45.67",
     /// "172.123.45.67"]'. All ranks will be added simultaneously, i.e. they're
     /// not added in the order of this array. Each entry in this array
@@ -149,13 +157,14 @@ public class AdminAddRanksRequest : KineticaData
     /// 'host0' from the gpudb.conf file), on which to add ranks to the
     /// cluster. The hosts must already be in the cluster. If needed
     /// beforehand, to add a new host to the cluster use <see
-    /// cref="Kinetica.adminAddHost">Kinetica.adminAddHost</see>. Include the
-    /// same entry as many times as there are ranks to add to the cluster,
-    /// e.g., if two ranks on host 172.123.45.67 should be added, <paramref
-    /// name="hosts" /> could look like '["172.123.45.67", "172.123.45.67"]'.
-    /// All ranks will be added simultaneously, i.e. they're not added in the
-    /// order of this array. Each entry in this array corresponds to the entry
-    /// at the same index in the <paramref name="config_params" />.</param>
+    /// cref="Kinetica.adminAddHost(AdminAddHostRequest)">Kinetica.adminAddHost</see>.
+    /// Include the same entry as many times as there are ranks to add to the
+    /// cluster, e.g., if two ranks on host 172.123.45.67 should be added,
+    /// <paramref name="hosts" /> could look like '["172.123.45.67",
+    /// "172.123.45.67"]'. All ranks will be added simultaneously, i.e. they're
+    /// not added in the order of this array. Each entry in this array
+    /// corresponds to the entry at the same index in the <paramref
+    /// name="config_params" />.</param>
     /// <param name="config_params">Array of maps containing configuration
     /// parameters to apply to the new ranks found in <paramref name="hosts"
     /// />. For example, '{"rank.gpu":"2",
@@ -217,7 +226,8 @@ public class AdminAddRanksRequest : KineticaData
 } // end class AdminAddRanksRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminAddRanks">Kinetica.adminAddRanks</see>.</summary>
+/// cref="Kinetica.adminAddRanks(AdminAddRanksRequest)">Kinetica.adminAddRanks</see>.
+/// </summary>
 public class AdminAddRanksResponse : KineticaData
 {
     /// <summary>The number assigned to each added rank, formatted as 'rankN',

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createUserExternal">Kinetica.createUserExternal</see>.
+/// cref="Kinetica.createUserExternal(CreateUserExternalRequest)">Kinetica.createUserExternal</see>.
 /// </summary>
 /// <remarks><para>Creates a new external user (a user whose credentials are
 /// managed by an external LDAP).</para></remarks>
@@ -41,7 +41,12 @@ public class CreateUserExternalRequest : KineticaData
         /// </remarks>
         public const string ACTIVATED = "activated";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateUserExternalRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateUserExternalRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>When <see
@@ -265,7 +270,7 @@ public class CreateUserExternalRequest : KineticaData
 } // end class CreateUserExternalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createUserExternal">Kinetica.createUserExternal</see>.
+/// cref="Kinetica.createUserExternal(CreateUserExternalRequest)">Kinetica.createUserExternal</see>.
 /// </summary>
 public class CreateUserExternalResponse : KineticaData
 {

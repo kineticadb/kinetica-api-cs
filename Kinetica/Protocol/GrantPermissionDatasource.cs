@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionDatasource">Kinetica.grantPermissionDatasource</see>.
+/// cref="Kinetica.grantPermissionDatasource(GrantPermissionDatasourceRequest)">Kinetica.grantPermissionDatasource</see>.
 /// </summary>
 /// <remarks><para>Grants a <a href="../../../concepts/data_sources/"
 /// target="_top">data source</a> permission to a user or role.</para>
@@ -110,7 +110,7 @@ public class GrantPermissionDatasourceRequest : KineticaData
 } // end class GrantPermissionDatasourceRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionDatasource">Kinetica.grantPermissionDatasource</see>.
+/// cref="Kinetica.grantPermissionDatasource(GrantPermissionDatasourceRequest)">Kinetica.grantPermissionDatasource</see>.
 /// </summary>
 public class GrantPermissionDatasourceResponse : KineticaData
 {

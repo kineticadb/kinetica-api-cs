@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showDatasink">Kinetica.showDatasink</see>.</summary>
+/// cref="Kinetica.showDatasink(ShowDatasinkRequest)">Kinetica.showDatasink</see>.
+/// </summary>
 /// <remarks><para>Shows information about a specified <a
 /// href="../../../concepts/data_sinks/" target="_top">data sink</a> or all
 /// data sinks.</para></remarks>
@@ -49,7 +50,8 @@ public class ShowDatasinkRequest : KineticaData
 } // end class ShowDatasinkRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showDatasink">Kinetica.showDatasink</see>.</summary>
+/// cref="Kinetica.showDatasink(ShowDatasinkRequest)">Kinetica.showDatasink</see>.
+/// </summary>
 public class ShowDatasinkResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

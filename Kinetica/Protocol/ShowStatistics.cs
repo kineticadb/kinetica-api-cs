@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showStatistics">Kinetica.showStatistics</see>.</summary>
+/// cref="Kinetica.showStatistics(ShowStatisticsRequest)">Kinetica.showStatistics</see>.
+/// </summary>
 /// <remarks><para>Retrieves the collected column statistics for the specified
 /// table(s).</para></remarks>
 public class ShowStatisticsRequest : KineticaData
@@ -24,7 +25,12 @@ public class ShowStatisticsRequest : KineticaData
         /// table names specified in <see
         /// cref="ShowStatisticsRequest.table_names" /> does not exist, no
         /// error is returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ShowStatisticsRequest.Options.FALSE">FALSE</see> and if the
+        /// table names specified in <see
+        /// cref="ShowStatisticsRequest.table_names" /> does not exist, then an
+        /// error is returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -41,7 +47,12 @@ public class ShowStatisticsRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowStatisticsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowStatisticsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Columns, per table in <see
@@ -63,7 +74,9 @@ public class ShowStatisticsRequest : KineticaData
         /// named by @{input.key options.column_names} are collected
         /// synchronously during this request and reflected in the response.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Default <see
+        /// cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -270,7 +283,8 @@ public class ShowStatisticsRequest : KineticaData
 } // end class ShowStatisticsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showStatistics">Kinetica.showStatistics</see>.</summary>
+/// cref="Kinetica.showStatistics(ShowStatisticsRequest)">Kinetica.showStatistics</see>.
+/// </summary>
 public class ShowStatisticsResponse : KineticaData
 {
     /// <summary>Value of <see

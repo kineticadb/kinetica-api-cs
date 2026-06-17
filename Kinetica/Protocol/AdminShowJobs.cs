@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminShowJobs">Kinetica.adminShowJobs</see>.</summary>
+/// cref="Kinetica.adminShowJobs(AdminShowJobsRequest)">Kinetica.adminShowJobs</see>.
+/// </summary>
 /// <remarks><para>Get a list of the current jobs in GPUdb.</para></remarks>
 public class AdminShowJobsRequest : KineticaData
 {
@@ -21,7 +22,9 @@ public class AdminShowJobsRequest : KineticaData
         /// <summary>If <see
         /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see>, then the
         /// completed async jobs are also included in the response.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>By default, once the async jobs are completed they
+        /// are no longer included in the jobs list.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -38,13 +41,20 @@ public class AdminShowJobsRequest : KineticaData
         /// </remarks>
         public const string SHOW_ASYNC_JOBS = "show_async_jobs";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowJobsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminShowJobsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
         /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see>, then
         /// information is also returned from worker ranks.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>By default only status from the head rank is
+        /// returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -179,7 +189,8 @@ public class AdminShowJobsRequest : KineticaData
 } // end class AdminShowJobsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminShowJobs">Kinetica.adminShowJobs</see>.</summary>
+/// cref="Kinetica.adminShowJobs(AdminShowJobsRequest)">Kinetica.adminShowJobs</see>.
+/// </summary>
 public class AdminShowJobsResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -196,22 +207,37 @@ public class AdminShowJobsResponse : KineticaData
         public const string WORKER_INFO = "worker_info";
     } // end struct Info
 
+    /// <summary>The identifiers of the running or completed jobs.</summary>
     public IList<long> job_id { get; set; } = new List<long>();
 
+    /// <summary>The current status of each job.</summary>
     public IList<string> status { get; set; } = new List<string>();
 
+    /// <summary>The endpoint each job is executing (e.g. "/insert/records").
+    /// </summary>
     public IList<string> endpoint_name { get; set; } = new List<string>();
 
+    /// <summary>The epoch time, in milliseconds, at which each job was
+    /// received.</summary>
     public IList<long> time_received { get; set; } = new List<long>();
 
+    /// <summary>The identifier of the submitting or execute-as user for each
+    /// job.</summary>
     public IList<string> auth_id { get; set; } = new List<string>();
 
+    /// <summary>The IP address from which each job request originated.
+    /// </summary>
     public IList<string> source_ip { get; set; } = new List<string>();
 
+    /// <summary>The text of the query associated with each job, when
+    /// applicable.</summary>
     public IList<string> query_text { get; set; } = new List<string>();
 
+    /// <summary>Arbitrary user-provided data associated with each job.
+    /// </summary>
     public IList<string> user_data { get; set; } = new List<string>();
 
+    /// <summary>Flags associated with each job.</summary>
     public IList<string> flags { get; set; } = new List<string>();
 
     /// <summary>Additional information.</summary>

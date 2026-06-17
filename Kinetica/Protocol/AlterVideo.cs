@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterVideo">Kinetica.alterVideo</see>.</summary>
+/// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
+/// </summary>
 /// <remarks><para>Alters a video.</para></remarks>
 public class AlterVideoRequest : KineticaData
 {
@@ -67,7 +68,8 @@ public class AlterVideoRequest : KineticaData
 } // end class AlterVideoRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterVideo">Kinetica.alterVideo</see>.</summary>
+/// cref="Kinetica.alterVideo(AlterVideoRequest)">Kinetica.alterVideo</see>.
+/// </summary>
 public class AlterVideoResponse : KineticaData
 {
     /// <summary>Fully qualified KIFS path to the video file.</summary>

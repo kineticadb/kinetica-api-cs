@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filter">Kinetica.filter</see>.</summary>
+/// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>.</summary>
 /// <remarks><para>Filters data based on the specified expression.  The results
 /// are stored in a <a href="../../../concepts/filtered_views/"
 /// target="_top">result set</a> with the given <see
@@ -30,7 +30,11 @@ public class FilterRequest : KineticaData
         /// unique temporary table name will be generated in the sys_temp
         /// schema and used in place of <see cref="FilterRequest.view_name" />.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="FilterResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see cref="FilterRequest.Options.TRUE">TRUE</see>
@@ -45,14 +49,19 @@ public class FilterRequest : KineticaData
         /// cref="FilterRequest.Options.FALSE">FALSE</see>.</para></remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// view as part of <see cref="FilterRequest.view_name" /> and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema for the newly created
-        /// view.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema for the
+        /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
         /// automatically created.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -126,8 +135,8 @@ public class FilterRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <see cref="FilterRequest.view_name" />
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
@@ -202,7 +211,8 @@ public class FilterRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
@@ -234,7 +244,7 @@ public class FilterRequest : KineticaData
 } // end class FilterRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filter">Kinetica.filter</see>.</summary>
+/// cref="Kinetica.filter(FilterRequest)">Kinetica.filter</see>.</summary>
 public class FilterResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

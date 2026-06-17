@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateUnique">Kinetica.aggregateUnique</see>.</summary>
+/// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>.
+/// </summary>
 /// <remarks><para>Returns all the unique values from a particular column
 /// (specified by <see cref="AggregateUniqueRequest.column_name" />) of a
 /// particular table or view (specified by <see
@@ -67,7 +68,14 @@ public class AggregateUniqueRequest : KineticaData
         /// used in place of <see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>
+        /// is <see cref="AggregateUniqueRequest.Options.FALSE">FALSE</see> (or
+        /// unspecified), then this is always allowed even if the caller does
+        /// not have permission to create tables. The generated name is
+        /// returned in <see
+        /// cref="AggregateUniqueResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -85,16 +93,21 @@ public class AggregateUniqueRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateUniqueRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AggregateUniqueRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema as part
         /// of <see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
         /// and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of a schema which is to contain
-        /// the table specified in <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
         /// </summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
@@ -124,7 +137,12 @@ public class AggregateUniqueRequest : KineticaData
         /// </para></remarks>
         public const string SORT_ORDER = "sort_order";
 
+        /// <summary>A constant for the <see
+        /// cref="AggregateUniqueRequest.Options" /> options.</summary>
         public const string ASCENDING = "ascending";
+
+        /// <summary>A constant for the <see
+        /// cref="AggregateUniqueRequest.Options" /> options.</summary>
         public const string DESCENDING = "descending";
 
         /// <summary>Comma-separated list of the columns to be sorted by as
@@ -152,7 +170,12 @@ public class AggregateUniqueRequest : KineticaData
         /// will be persisted and will not expire unless a <see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see> is specified.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>, then the
+        /// result table will be an in-memory table and will expire unless a
+        /// <see cref="AggregateUniqueRequest.Options.TTL">TTL</see> is
+        /// specified otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -172,7 +195,10 @@ public class AggregateUniqueRequest : KineticaData
 
         /// <summary>Force the result table to be replicated (ignores any
         /// sharding).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Must be used in combination with the <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -193,7 +219,10 @@ public class AggregateUniqueRequest : KineticaData
         /// <summary>If <see
         /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see> then set a
         /// primary key for the result table.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Must be used in combination with the <see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
+        /// option.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -346,9 +375,9 @@ public class AggregateUniqueRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -620,9 +649,9 @@ public class AggregateUniqueRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -921,9 +950,9 @@ public class AggregateUniqueRequest : KineticaData
     ///         as part of <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema which is
-    ///         to contain the table specified in <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema which
+    ///         is to contain the table specified in <see
     ///         cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>.
     ///         If the schema provided is non-existent, it will be
     ///         automatically created.</description>
@@ -1138,7 +1167,8 @@ public class AggregateUniqueRequest : KineticaData
 } // end class AggregateUniqueRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateUnique">Kinetica.aggregateUnique</see>.</summary>
+/// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>.
+/// </summary>
 public class RawAggregateUniqueResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -1185,7 +1215,8 @@ public class RawAggregateUniqueResponse : KineticaData
 } // end class RawAggregateUniqueResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateUnique">Kinetica.aggregateUnique</see>.</summary>
+/// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)">Kinetica.aggregateUnique</see>.
+/// </summary>
 public class AggregateUniqueResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

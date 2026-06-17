@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showSqlProc">Kinetica.showSqlProc</see>.</summary>
+/// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
+/// </summary>
 /// <remarks><para>Shows information about SQL procedures, including the full
 /// definition of each requested procedure.</para></remarks>
 public class ShowSqlProcRequest : KineticaData
@@ -22,7 +23,10 @@ public class ShowSqlProcRequest : KineticaData
         /// <summary>If <see cref="ShowSqlProcRequest.Options.TRUE">TRUE</see>,
         /// no error will be returned if the requested procedure does not
         /// exist.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If <see
+        /// cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>, an error will
+        /// be returned if the requested procedure does not exist.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -38,7 +42,12 @@ public class ShowSqlProcRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowSqlProcRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowSqlProcRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -131,7 +140,8 @@ public class ShowSqlProcRequest : KineticaData
 } // end class ShowSqlProcRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showSqlProc">Kinetica.showSqlProc</see>.</summary>
+/// cref="Kinetica.showSqlProc(ShowSqlProcRequest)">Kinetica.showSqlProc</see>.
+/// </summary>
 public class ShowSqlProcResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

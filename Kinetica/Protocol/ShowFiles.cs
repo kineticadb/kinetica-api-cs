@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showFiles">Kinetica.showFiles</see>.</summary>
+/// cref="Kinetica.showFiles(ShowFilesRequest)">Kinetica.showFiles</see>.
+/// </summary>
 /// <remarks><para>Shows information about files in <a
 /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used for
 /// individual files, or to show all files in a given directory.</para>
@@ -54,7 +55,8 @@ public class ShowFilesRequest : KineticaData
 } // end class ShowFilesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showFiles">Kinetica.showFiles</see>.</summary>
+/// cref="Kinetica.showFiles(ShowFilesRequest)">Kinetica.showFiles</see>.
+/// </summary>
 public class ShowFilesResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

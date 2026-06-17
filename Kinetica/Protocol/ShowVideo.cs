@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showVideo">Kinetica.showVideo</see>.</summary>
+/// cref="Kinetica.showVideo(ShowVideoRequest)">Kinetica.showVideo</see>.
+/// </summary>
 /// <remarks><para>Retrieves information about rendered videos.</para>
 /// </remarks>
 public class ShowVideoRequest : KineticaData
@@ -45,7 +46,8 @@ public class ShowVideoRequest : KineticaData
 } // end class ShowVideoRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showVideo">Kinetica.showVideo</see>.</summary>
+/// cref="Kinetica.showVideo(ShowVideoRequest)">Kinetica.showVideo</see>.
+/// </summary>
 public class ShowVideoResponse : KineticaData
 {
     /// <summary>Creation time for each video as an ISO-8601 datetime.

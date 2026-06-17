@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterResourceGroup">Kinetica.alterResourceGroup</see>.
+/// cref="Kinetica.alterResourceGroup(AlterResourceGroupRequest)">Kinetica.alterResourceGroup</see>.
 /// </summary>
 /// <remarks><para>Alters the properties of an existing resource group to
 /// facilitate resource management.</para></remarks>
@@ -92,7 +92,11 @@ public class AlterResourceGroupRequest : KineticaData
         /// <summary>If <see
         /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see>, this
         /// request applies to the global default resource group.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>It is an error for this field to be <see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see> when the
+        /// <see cref="AlterResourceGroupRequest.name" /> field is also
+        /// populated.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -110,7 +114,12 @@ public class AlterResourceGroupRequest : KineticaData
         /// </remarks>
         public const string IS_DEFAULT_GROUP = "is_default_group";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterResourceGroupRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AlterResourceGroupRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
@@ -118,7 +127,9 @@ public class AlterResourceGroupRequest : KineticaData
         /// system-level change was requested, the system configuration will be
         /// written to disk upon successful application of this request.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This will commit the changes from this request and
+        /// any additional in-memory modifications.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -146,7 +157,13 @@ public class AlterResourceGroupRequest : KineticaData
 
     /// <summary>Optional map containing tier names and their respective
     /// attribute group limits.</summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para> The only valid attribute limit that can be set is
+    /// max_memory (in bytes) for the VRAM and RAM tiers.</para>
+    /// <para>For instance, to set max VRAM capacity to 1GB per rank per GPU
+    /// and max RAM capacity to 10GB per rank, use:
+    /// {'VRAM':{'max_memory':'1000000000'},
+    /// 'RAM':{'max_memory':'10000000000'}}.</para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="AlterResourceGroupRequest.TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:
@@ -498,7 +515,7 @@ public class AlterResourceGroupRequest : KineticaData
 } // end class AlterResourceGroupRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterResourceGroup">Kinetica.alterResourceGroup</see>.
+/// cref="Kinetica.alterResourceGroup(AlterResourceGroupRequest)">Kinetica.alterResourceGroup</see>.
 /// </summary>
 public class AlterResourceGroupResponse : KineticaData
 {

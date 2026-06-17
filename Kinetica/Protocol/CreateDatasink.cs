@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createDatasink">Kinetica.createDatasink</see>.</summary>
+/// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+/// </summary>
 /// <remarks><para>Creates a <a href="../../../concepts/data_sinks/"
 /// target="_top">data sink</a>, which contains the destination information for
 /// a data sink that is external to the database.</para></remarks>
@@ -64,7 +65,12 @@ public class CreateDatasinkRequest : KineticaData
         /// </remarks>
         public const string S3_VERIFY_SSL = "s3_verify_ssl";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateDatasinkRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateDatasinkRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Whether to use virtual addressing when referencing the
@@ -243,7 +249,9 @@ public class CreateDatasinkRequest : KineticaData
 
         /// <summary>When no credentials are supplied, we use anonymous access
         /// by default.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If this is set, we will use cloud provider user
+        /// settings.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1096,7 +1104,8 @@ public class CreateDatasinkRequest : KineticaData
 } // end class CreateDatasinkRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createDatasink">Kinetica.createDatasink</see>.</summary>
+/// cref="Kinetica.createDatasink(CreateDatasinkRequest)">Kinetica.createDatasink</see>.
+/// </summary>
 public class CreateDatasinkResponse : KineticaData
 {
     /// <summary>Value of <see cref="CreateDatasinkRequest.name">name</see>.

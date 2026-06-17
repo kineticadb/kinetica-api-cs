@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterTableMetadata">Kinetica.alterTableMetadata</see>.
+/// cref="Kinetica.alterTableMetadata(AlterTableMetadataRequest)">Kinetica.alterTableMetadata</see>.
 /// </summary>
 /// <remarks><para>Updates (adds or changes) metadata for tables. The metadata
 /// key and values must both be strings. This is an easy way to annotate whole
@@ -68,7 +68,7 @@ public class AlterTableMetadataRequest : KineticaData
 } // end class AlterTableMetadataRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterTableMetadata">Kinetica.alterTableMetadata</see>.
+/// cref="Kinetica.alterTableMetadata(AlterTableMetadataRequest)">Kinetica.alterTableMetadata</see>.
 /// </summary>
 public class AlterTableMetadataResponse : KineticaData
 {

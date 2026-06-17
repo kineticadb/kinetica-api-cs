@@ -9,12 +9,13 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.</summary>
+/// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+/// </summary>
 /// <remarks><para>Shows the statuses of running or completed proc instances.
 /// Results are grouped by run ID (as returned from <see
-/// cref="Kinetica.executeProc">Kinetica.executeProc</see>) and data segment ID
-/// (each invocation of the proc command on a data segment is assigned a data
-/// segment ID).</para></remarks>
+/// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>)
+/// and data segment ID (each invocation of the proc command on a data segment
+/// is assigned a data segment ID).</para></remarks>
 public class ShowProcStatusRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -44,18 +45,24 @@ public class ShowProcStatusRequest : KineticaData
         /// </remarks>
         public const string CLEAR_COMPLETE = "clear_complete";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowProcStatusRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowProcStatusRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see cref="ShowProcStatusRequest.run_id" /> is
         /// specified, return the status for a proc instance that has a
         /// matching run ID and a matching run tag that was provided to <see
-        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>.</summary>
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        /// </summary>
         /// <remarks><para>If <see cref="ShowProcStatusRequest.run_id" /> is
         /// not specified, return statuses for all proc instances where a
         /// matching run tag was provided to <see
-        /// cref="Kinetica.executeProc">Kinetica.executeProc</see>. The default
-        /// value is ''.</para></remarks>
+        /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+        /// The default value is ''.</para></remarks>
         public const string RUN_TAG = "run_tag";
     } // end struct Options
 
@@ -102,12 +109,13 @@ public class ShowProcStatusRequest : KineticaData
     ///         <description>If <see cref="ShowProcStatusRequest.run_id" /> is
     ///         specified, return the status for a proc instance that has a
     ///         matching run ID and a matching run tag that was provided to
-    ///         <see cref="Kinetica.executeProc">Kinetica.executeProc</see>. If
-    ///         <see cref="ShowProcStatusRequest.run_id" /> is not specified,
-    ///         return statuses for all proc instances where a matching run tag
-    ///         was provided to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. The
-    ///         default value is ''.</description>
+    ///         <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         If <see cref="ShowProcStatusRequest.run_id" /> is not
+    ///         specified, return statuses for all proc instances where a
+    ///         matching run tag was provided to <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         The default value is ''.</description>
     ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
@@ -160,10 +168,11 @@ public class ShowProcStatusRequest : KineticaData
     ///         <description>If <paramref name="run_id" /> is specified, return
     ///         the status for a proc instance that has a matching run ID and a
     ///         matching run tag that was provided to <see
-    ///         cref="Kinetica.executeProc">Kinetica.executeProc</see>. If
-    ///         <paramref name="run_id" /> is not specified, return statuses
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
+    ///         If <paramref name="run_id" /> is not specified, return statuses
     ///         for all proc instances where a matching run tag was provided to
-    ///         <see cref="Kinetica.executeProc">Kinetica.executeProc</see>.
+    ///         <see
+    ///         cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>.
     ///         The default value is ''.</description>
     ///     </item>
     /// </list>
@@ -177,7 +186,8 @@ public class ShowProcStatusRequest : KineticaData
 } // end class ShowProcStatusRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showProcStatus">Kinetica.showProcStatus</see>.</summary>
+/// cref="Kinetica.showProcStatus(ShowProcStatusRequest)">Kinetica.showProcStatus</see>.
+/// </summary>
 public class ShowProcStatusResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -248,38 +258,43 @@ public class ShowProcStatusResponse : KineticaData
     public IDictionary<string, string> proc_names { get; set; } = new Dictionary<string, string>();
 
     /// <summary>The string params passed to <see
-    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
-    /// run IDs.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
     public IDictionary<string, IDictionary<string, string>> _params { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>The binary params passed to <see
-    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
-    /// run IDs.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
     public IDictionary<string, IDictionary<string, byte[]>> bin_params { get; set; } = new Dictionary<string, IDictionary<string, byte[]>>();
 
     /// <summary>The input table names passed to <see
-    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
-    /// run IDs.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
     public IDictionary<string, IList<string>> input_table_names { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>The input column names passed to <see
-    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
-    /// run IDs, supplemented with the column names for input tables not
-    /// included in the input column name map.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs, supplemented with the column names for input
+    /// tables not included in the input column name map.</summary>
     public IDictionary<string, IDictionary<string, IList<string>>> input_column_names { get; set; } = new Dictionary<string, IDictionary<string, IList<string>>>();
 
     /// <summary>The output table names passed to <see
-    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
-    /// run IDs.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
     public IDictionary<string, IList<string>> output_table_names { get; set; } = new Dictionary<string, IList<string>>();
 
     /// <summary>The optional parameters passed to <see
-    /// cref="Kinetica.executeProc">Kinetica.executeProc</see> for the returned
-    /// run IDs.</summary>
+    /// cref="Kinetica.executeProc(ExecuteProcRequest)">Kinetica.executeProc</see>
+    /// for the returned run IDs.</summary>
     public IDictionary<string, IDictionary<string, string>> options { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>Overall statuses for the returned run IDs.</summary>
-    /// <remarks><para>Valid values are:</para>
+    /// <remarks><para>Note that these are rollups and individual statuses may
+    /// differ between data segments for the same run ID; see <see
+    /// cref="ShowProcStatusResponse.statuses" /> and <see
+    /// cref="ShowProcStatusResponse.messages" /> for statuses from individual
+    /// data segments.
+    /// Valid values are:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term><see

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showWal">Kinetica.showWal</see>.</summary>
+/// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.</summary>
 /// <remarks><para>Requests table write-ahead log (WAL) properties.
 /// Returns information about the requested table WAL entries.</para></remarks>
 public class ShowWalRequest : KineticaData
@@ -37,7 +37,12 @@ public class ShowWalRequest : KineticaData
         /// cref="ShowWalRequest.Options.TRUE">TRUE</see>.</para></remarks>
         public const string SHOW_SETTINGS = "show_settings";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowWalRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowWalRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -115,7 +120,7 @@ public class ShowWalRequest : KineticaData
 } // end class ShowWalRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showWal">Kinetica.showWal</see>.</summary>
+/// cref="Kinetica.showWal(ShowWalRequest)">Kinetica.showWal</see>.</summary>
 public class ShowWalResponse : KineticaData
 {
     /// <summary>List of returned tables.</summary>

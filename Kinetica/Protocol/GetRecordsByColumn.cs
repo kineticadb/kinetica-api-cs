@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getRecordsByColumn">Kinetica.getRecordsByColumn</see>.
+/// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.
 /// </summary>
 /// <remarks><para>For a given table, retrieves the values from the requested
 /// column(s). Maps of column name to the array of values as well as the column
@@ -19,7 +19,7 @@ namespace kinetica;
 /// <para><a href="../../../concepts/window/" target="_top">Window
 /// functions</a>, which can perform operations like moving averages, are
 /// available through this endpoint as well as <see
-/// cref="Kinetica.createProjection">Kinetica.createProjection</see>.</para>
+/// cref="Kinetica.createProjection(CreateProjectionRequest)">Kinetica.createProjection</see>.</para>
 /// <para>When using pagination, if the table (or the underlying table in the
 /// case of a view) is modified (records are inserted, updated, or deleted)
 /// during a call to the endpoint, the records or values retrieved may differ
@@ -47,7 +47,12 @@ public class GetRecordsByColumnRequest : KineticaData
     /// </remarks>
     public struct Encoding
     {
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsByColumnRequest.Encoding" /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsByColumnRequest.Encoding" /> options.</summary>
         public const string JSON = "json";
     } // end struct Encoding
 
@@ -76,7 +81,12 @@ public class GetRecordsByColumnRequest : KineticaData
         /// or <see
         /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see>.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>
+        /// is provided, <see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see> has
+        /// to be provided.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -94,7 +104,12 @@ public class GetRecordsByColumnRequest : KineticaData
         /// </para></remarks>
         public const string SORT_ORDER = "sort_order";
 
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsByColumnRequest.Options" /> options.</summary>
         public const string ASCENDING = "ascending";
+
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsByColumnRequest.Options" /> options.</summary>
         public const string DESCENDING = "descending";
 
         /// <summary>Comma-separated list of the columns to be sorted by as
@@ -124,7 +139,12 @@ public class GetRecordsByColumnRequest : KineticaData
         /// </remarks>
         public const string CONVERT_WKTS_TO_WKBS = "convert_wkts_to_wkbs";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="GetRecordsByColumnRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="GetRecordsByColumnRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>For multihead record retrieval without shard key
@@ -582,7 +602,7 @@ public class GetRecordsByColumnRequest : KineticaData
 } // end class GetRecordsByColumnRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecordsByColumn">Kinetica.getRecordsByColumn</see>.
+/// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.
 /// </summary>
 public class RawGetRecordsByColumnResponse : KineticaData
 {
@@ -614,7 +634,7 @@ public class RawGetRecordsByColumnResponse : KineticaData
 } // end class RawGetRecordsByColumnResponse
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getRecordsByColumn">Kinetica.getRecordsByColumn</see>.
+/// cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)">Kinetica.getRecordsByColumn</see>.
 /// </summary>
 public class GetRecordsByColumnResponse : KineticaData
 {

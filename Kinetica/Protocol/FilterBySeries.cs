@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterBySeries">Kinetica.filterBySeries</see>.</summary>
+/// cref="Kinetica.filterBySeries(FilterBySeriesRequest)">Kinetica.filterBySeries</see>.
+/// </summary>
 /// <remarks><para>Filters objects matching all points of the given track
 /// (works only on track type data).  It allows users to specify a particular
 /// track to find all other points in the table that fall within specified
@@ -35,7 +36,11 @@ public class FilterBySeriesRequest : KineticaData
         /// temporary table name will be generated in the sys_temp schema and
         /// used in place of <see cref="FilterBySeriesRequest.view_name" />.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -52,12 +57,18 @@ public class FilterBySeriesRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterBySeriesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterBySeriesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// view as part of <see cref="FilterBySeriesRequest.view_name" /> and
-        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+        /// use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -80,7 +91,9 @@ public class FilterBySeriesRequest : KineticaData
 
         /// <summary>A string representing the coordinate system to use for the
         /// spatial search criteria.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Acceptable values are 'euclidean' and
+        /// 'great_circle'. Optional parameter; default is 'euclidean'.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -95,7 +108,12 @@ public class FilterBySeriesRequest : KineticaData
         /// </list></remarks>
         public const string SPATIAL_DISTANCE_METRIC = "spatial_distance_metric";
 
+        /// <summary>A constant for the <see
+        /// cref="FilterBySeriesRequest.Options" /> options.</summary>
         public const string EUCLIDEAN = "euclidean";
+
+        /// <summary>A constant for the <see
+        /// cref="FilterBySeriesRequest.Options" /> options.</summary>
         public const string GREAT_CIRCLE = "great_circle";
     } // end struct Options
 
@@ -168,8 +186,8 @@ public class FilterBySeriesRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <see
     ///         cref="FilterBySeriesRequest.view_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
@@ -281,7 +299,8 @@ public class FilterBySeriesRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
@@ -345,7 +364,8 @@ public class FilterBySeriesRequest : KineticaData
 } // end class FilterBySeriesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterBySeries">Kinetica.filterBySeries</see>.</summary>
+/// cref="Kinetica.filterBySeries(FilterBySeriesRequest)">Kinetica.filterBySeries</see>.
+/// </summary>
 public class FilterBySeriesResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

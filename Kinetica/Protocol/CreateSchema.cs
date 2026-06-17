@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createSchema">Kinetica.createSchema</see>.</summary>
+/// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
+/// </summary>
 /// <remarks><para>Creates a SQL-style <a href="../../../concepts/schemas/"
 /// target="_top">schema</a>. Schemas are containers for tables and views.
 /// Multiple tables and views can be defined with the same name in different
@@ -40,7 +41,12 @@ public class CreateSchemaRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateSchemaRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateSchemaRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -127,7 +133,8 @@ public class CreateSchemaRequest : KineticaData
 } // end class CreateSchemaRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createSchema">Kinetica.createSchema</see>.</summary>
+/// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>.
+/// </summary>
 public class CreateSchemaResponse : KineticaData
 {
     /// <summary>Value of <see

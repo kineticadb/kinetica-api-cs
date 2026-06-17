@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.filterByTable">Kinetica.filterByTable</see>.</summary>
+/// cref="Kinetica.filterByTable(FilterByTableRequest)">Kinetica.filterByTable</see>.
+/// </summary>
 /// <remarks><para>Filters objects in one table based on objects in another
 /// table. The user must specify matching column types from the two tables
 /// (i.e. the target table from which objects will be filtered and the source
@@ -32,7 +33,11 @@ public class FilterByTableRequest : KineticaData
         /// temporary table name will be generated in the sys_temp schema and
         /// used in place of <see cref="FilterByTableRequest.view_name" />.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This is always allowed even if the caller does not
+        /// have permission to create tables. The generated name is returned in
+        /// <see
+        /// cref="FilterByTableResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -49,12 +54,18 @@ public class FilterByTableRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="FilterByTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// view as part of <see cref="FilterByTableRequest.view_name" /> and
-        /// use <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+        /// use <see
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
         /// to create the schema if non-existent]  Name of a schema for the
         /// newly created view.</summary>
         /// <remarks><para>If the schema is non-existent, it will be
@@ -83,7 +94,12 @@ public class FilterByTableRequest : KineticaData
         /// </remarks>
         public const string FILTER_MODE = "filter_mode";
 
+        /// <summary>A constant for the <see
+        /// cref="FilterByTableRequest.Options" /> options.</summary>
         public const string IN_TABLE = "in_table";
+
+        /// <summary>A constant for the <see
+        /// cref="FilterByTableRequest.Options" /> options.</summary>
         public const string NOT_IN_TABLE = "not_in_table";
 
         /// <summary>Mode - should be either <see
@@ -107,7 +123,12 @@ public class FilterByTableRequest : KineticaData
         /// </remarks>
         public const string MODE = "mode";
 
+        /// <summary>A constant for the <see
+        /// cref="FilterByTableRequest.Options" /> options.</summary>
         public const string NORMAL = "normal";
+
+        /// <summary>A constant for the <see
+        /// cref="FilterByTableRequest.Options" /> options.</summary>
         public const string SPATIAL = "spatial";
 
         /// <summary>Buffer size, in meters.</summary>
@@ -117,7 +138,9 @@ public class FilterByTableRequest : KineticaData
         public const string BUFFER = "buffer";
 
         /// <summary>Method used to buffer polygons.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Only relevant for <see
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see> mode.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -241,8 +264,8 @@ public class FilterByTableRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <see
     ///         cref="FilterByTableRequest.view_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of a schema for the
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
     ///     </item>
@@ -436,7 +459,8 @@ public class FilterByTableRequest : KineticaData
     ///         </term>
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the view as part of <paramref name="view_name" /> and use
-    ///         <see cref="Kinetica.createSchema">Kinetica.createSchema</see>
+    ///         <see
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
     ///         to create the schema if non-existent]  Name of a schema for the
     ///         newly created view. If the schema is non-existent, it will be
     ///         automatically created.</description>
@@ -577,7 +601,8 @@ public class FilterByTableRequest : KineticaData
 } // end class FilterByTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.filterByTable">Kinetica.filterByTable</see>.</summary>
+/// cref="Kinetica.filterByTable(FilterByTableRequest)">Kinetica.filterByTable</see>.
+/// </summary>
 public class FilterByTableResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

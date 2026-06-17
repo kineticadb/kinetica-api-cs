@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.aggregateMinMaxGeometry">Kinetica.aggregateMinMaxGeometry</see>.
+/// cref="Kinetica.aggregateMinMaxGeometry(AggregateMinMaxGeometryRequest)">Kinetica.aggregateMinMaxGeometry</see>.
 /// </summary>
 /// <remarks><para>Calculates and returns the minimum and maximum x- and
 /// y-coordinates of a particular geospatial geometry column in a table.</para>
@@ -60,7 +60,7 @@ public class AggregateMinMaxGeometryRequest : KineticaData
 } // end class AggregateMinMaxGeometryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.aggregateMinMaxGeometry">Kinetica.aggregateMinMaxGeometry</see>.
+/// cref="Kinetica.aggregateMinMaxGeometry(AggregateMinMaxGeometryRequest)">Kinetica.aggregateMinMaxGeometry</see>.
 /// </summary>
 public class AggregateMinMaxGeometryResponse : KineticaData
 {

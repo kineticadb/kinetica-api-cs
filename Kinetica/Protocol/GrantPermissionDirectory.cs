@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.grantPermissionDirectory">Kinetica.grantPermissionDirectory</see>.
+/// cref="Kinetica.grantPermissionDirectory(GrantPermissionDirectoryRequest)">Kinetica.grantPermissionDirectory</see>.
 /// </summary>
 /// <remarks><para>Grants a <a href="../../../tools/kifs/"
 /// target="_top">KiFS</a> directory-level permission to a user or role.</para>
@@ -118,7 +118,7 @@ public class GrantPermissionDirectoryRequest : KineticaData
 } // end class GrantPermissionDirectoryRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.grantPermissionDirectory">Kinetica.grantPermissionDirectory</see>.
+/// cref="Kinetica.grantPermissionDirectory(GrantPermissionDirectoryRequest)">Kinetica.grantPermissionDirectory</see>.
 /// </summary>
 public class GrantPermissionDirectoryResponse : KineticaData
 {

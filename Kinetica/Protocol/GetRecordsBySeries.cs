@@ -35,7 +35,12 @@ public class GetRecordsBySeriesRequest : KineticaData
     /// </remarks>
     public struct Encoding
     {
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsBySeriesRequest.Encoding" /> options.</summary>
         public const string BINARY = "binary";
+
+        /// <summary>A constant for the <see
+        /// cref="GetRecordsBySeriesRequest.Encoding" /> options.</summary>
         public const string JSON = "json";
     } // end struct Encoding
 

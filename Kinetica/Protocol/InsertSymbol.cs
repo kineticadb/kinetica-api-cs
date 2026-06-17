@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertSymbol">Kinetica.insertSymbol</see>.</summary>
+/// cref="Kinetica.insertSymbol(InsertSymbolRequest)">Kinetica.insertSymbol</see>.
+/// </summary>
 /// <remarks><para>Adds a symbol or icon (i.e. an image) to represent data
 /// points when data is rendered visually. Users must provide the symbol
 /// identifier (string), a format (currently supported: 'svg' and 'svg_path'),
@@ -28,7 +29,12 @@ public class InsertSymbolRequest : KineticaData
     /// 'svg_path'.</para></remarks>
     public struct SymbolFormat
     {
+        /// <summary>A constant for the <see
+        /// cref="InsertSymbolRequest.SymbolFormat" /> options.</summary>
         public const string SVG = "svg";
+
+        /// <summary>A constant for the <see
+        /// cref="InsertSymbolRequest.SymbolFormat" /> options.</summary>
         public const string SVG_PATH = "svg_path";
     } // end struct SymbolFormat
 
@@ -53,7 +59,8 @@ public class InsertSymbolRequest : KineticaData
     public string symbol_id { get; set; }
 
     /// <summary>Specifies the symbol format.</summary>
-    /// <remarks><para>Supported values:</para>
+    /// <remarks><para>Must be either 'svg' or 'svg_path'.
+    /// Supported values:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -149,7 +156,8 @@ public class InsertSymbolRequest : KineticaData
 } // end class InsertSymbolRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertSymbol">Kinetica.insertSymbol</see>.</summary>
+/// cref="Kinetica.insertSymbol(InsertSymbolRequest)">Kinetica.insertSymbol</see>.
+/// </summary>
 public class InsertSymbolResponse : KineticaData
 {
     /// <summary>Value of <see

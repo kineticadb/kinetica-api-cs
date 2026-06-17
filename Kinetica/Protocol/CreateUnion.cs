@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createUnion">Kinetica.createUnion</see>.</summary>
+/// cref="Kinetica.createUnion(CreateUnionRequest)">Kinetica.createUnion</see>.
+/// </summary>
 /// <remarks><para>Merges data from one or more tables with comparable data
 /// types into a new table.</para>
 /// <para>The following merges are supported:</para>
@@ -38,7 +39,14 @@ public class CreateUnionRequest : KineticaData
         /// a unique temporary table name will be generated in the sys_temp
         /// schema and used in place of <see
         /// cref="CreateUnionRequest.table_name" />.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see> is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see> (or
+        /// unspecified), then this is always allowed even if the caller does
+        /// not have permission to create tables. The generated name is
+        /// returned in <see
+        /// cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -54,15 +62,20 @@ public class CreateUnionRequest : KineticaData
         /// </remarks>
         public const string CREATE_TEMP_TABLE = "create_temp_table";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateUnionRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateUnionRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>[DEPRECATED--please specify the containing schema for the
         /// projection as part of <see cref="CreateUnionRequest.table_name" />
         /// and use <see
-        /// cref="Kinetica.createSchema">Kinetica.createSchema</see> to create
-        /// the schema if non-existent]  Name of the schema for the output
-        /// table.</summary>
+        /// cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+        /// to create the schema if non-existent]  Name of the schema for the
+        /// output table.</summary>
         /// <remarks><para>If the schema provided is non-existent, it will be
         /// automatically created. The default value is ''.</para></remarks>
         public const string COLLECTION_NAME = "collection_name";
@@ -277,7 +290,10 @@ public class CreateUnionRequest : KineticaData
         /// <summary>If <see cref="CreateUnionRequest.Options.TRUE">TRUE</see>,
         /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -304,7 +320,12 @@ public class CreateUnionRequest : KineticaData
         /// not expire unless a <see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see> is specified.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>  If <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>, then the
+        /// output table will be an in-memory table and will expire unless a
+        /// <see cref="CreateUnionRequest.Options.TTL">TTL</see> is specified
+        /// otherwise.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -428,10 +449,10 @@ public class CreateUnionRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <see
     ///         cref="CreateUnionRequest.table_name" /> and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of the schema for the
-    ///         output table. If the schema provided is non-existent, it will
-    ///         be automatically created. The default value is ''.
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of the schema for
+    ///         the output table. If the schema provided is non-existent, it
+    ///         will be automatically created. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -802,10 +823,10 @@ public class CreateUnionRequest : KineticaData
     ///         <description>[DEPRECATED--please specify the containing schema
     ///         for the projection as part of <paramref name="table_name" />
     ///         and use <see
-    ///         cref="Kinetica.createSchema">Kinetica.createSchema</see> to
-    ///         create the schema if non-existent]  Name of the schema for the
-    ///         output table. If the schema provided is non-existent, it will
-    ///         be automatically created. The default value is ''.
+    ///         cref="Kinetica.createSchema(CreateSchemaRequest)">Kinetica.createSchema</see>
+    ///         to create the schema if non-existent]  Name of the schema for
+    ///         the output table. If the schema provided is non-existent, it
+    ///         will be automatically created. The default value is ''.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -1125,7 +1146,8 @@ public class CreateUnionRequest : KineticaData
 } // end class CreateUnionRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createUnion">Kinetica.createUnion</see>.</summary>
+/// cref="Kinetica.createUnion(CreateUnionRequest)">Kinetica.createUnion</see>.
+/// </summary>
 public class CreateUnionResponse : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see

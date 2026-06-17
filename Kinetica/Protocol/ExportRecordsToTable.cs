@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.exportRecordsToTable">Kinetica.exportRecordsToTable</see>.
+/// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
 /// </summary>
 /// <remarks><para>Exports records from source table to the specified target
 /// table in an external database.</para></remarks>
@@ -66,7 +66,12 @@ public class ExportRecordsToTableRequest : KineticaData
         /// </para></remarks>
         public const string USE_ST_GEOMFROM_CASTS = "use_st_geomfrom_casts";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ExportRecordsToTableRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ExportRecordsToTableRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Uses $n style syntax when generating insert query for
@@ -306,7 +311,7 @@ public class ExportRecordsToTableRequest : KineticaData
 } // end class ExportRecordsToTableRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.exportRecordsToTable">Kinetica.exportRecordsToTable</see>.
+/// cref="Kinetica.exportRecordsToTable(ExportRecordsToTableRequest)">Kinetica.exportRecordsToTable</see>.
 /// </summary>
 public class ExportRecordsToTableResponse : KineticaData
 {

@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.alterRole">Kinetica.alterRole</see>.</summary>
+/// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
+/// </summary>
 /// <remarks><para>Alters a Role.</para></remarks>
 public class AlterRoleRequest : KineticaData
 {
@@ -108,7 +109,8 @@ public class AlterRoleRequest : KineticaData
 } // end class AlterRoleRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.alterRole">Kinetica.alterRole</see>.</summary>
+/// cref="Kinetica.alterRole(AlterRoleRequest)">Kinetica.alterRole</see>.
+/// </summary>
 public class AlterRoleResponse : KineticaData
 {
     /// <summary>Value of <see cref="AlterRoleRequest.name">name</see>.

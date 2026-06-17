@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.insertRecordsFromPayload">Kinetica.insertRecordsFromPayload</see>.
+/// cref="Kinetica.insertRecordsFromPayload(InsertRecordsFromPayloadRequest)">Kinetica.insertRecordsFromPayload</see>.
 /// </summary>
 /// <remarks><para>Reads from the given text-based or binary payload and
 /// inserts the data into a new or existing table.  The table will be created
@@ -22,8 +22,8 @@ public class InsertRecordsFromPayloadRequest : KineticaData
     /// </summary>
     /// <remarks><para>Options used when creating the target table. Includes
     /// type to use. The other options match those in <see
-    /// cref="Kinetica.createTable">Kinetica.createTable</see>.</para>
-    /// </remarks>
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+    /// </para></remarks>
     public struct CreateTableOptions
     {
         /// <summary>ID of a currently registered <a
@@ -35,7 +35,9 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// prevents an error from occurring if the table already exists and is
         /// of the given type.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If a table with the same ID but a different type
+        /// exists, it is still an error.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -53,14 +55,37 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// </para></remarks>
         public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions" />
+        /// options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions" />
+        /// options.</summary>
         public const string FALSE = "false";
 
         /// <summary>Affects the <a
         /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If <see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TRUE">TRUE</see>
+        /// and the given type has no explicit <a
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
+        /// href="../../../concepts/tables/#replication"
+        /// target="_top">replicated</a>.  If <see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.FALSE">FALSE</see>,
+        /// the table will be <a href="../../../concepts/tables/#sharding"
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>,
+        /// or <a href="../../../concepts/tables/#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -190,7 +215,10 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TRUE">TRUE</see>,
         /// a new partition will be created for values which don't fall into an
         /// existing partition.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -228,7 +256,11 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// <summary>Indicates whether the table is a <a
         /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>A result table cannot contain columns with
+        /// text_search <a href="../../../concepts/types/#data-handling"
+        /// target="_top">data-handling</a>, and it will not be retained if the
+        /// server is restarted.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -549,12 +581,14 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// </para></remarks>
         public const string FLATTEN_COLUMNS = "flatten_columns";
 
-        /// <summary>Upsert new records when primary keys match existing
-        /// records.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromPayloadRequest.Options" /> options.
+        /// </summary>
         public const string TRUE = "true";
 
-        /// <summary>Reject new records when primary keys match existing
-        /// records.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="InsertRecordsFromPayloadRequest.Options" /> options.
+        /// </summary>
         public const string FALSE = "false";
 
         /// <summary>Comma separated list of gdal conf options, for the
@@ -571,7 +605,23 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> If set to <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>, any
+        /// record being inserted that is rejected for having primary key
+        /// values that match those of an existing table record will be ignored
+        /// with no error generated.  If <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>,
+        /// the rejection of any record for having primary key values matching
+        /// an existing record will result in an error being reported, as
+        /// determined by <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// If the specified table does not have a primary key or if upsert
+        /// mode is in effect (<see
+        /// cref="InsertRecordsFromPayloadRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>
+        /// is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>),
+        /// then this option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -652,7 +702,9 @@ public class InsertRecordsFromPayloadRequest : KineticaData
 
         /// <summary>Scheme for distributing the extraction and loading of data
         /// from the source data file(s).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>This option applies only when loading files that are
+        /// local to the database.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -835,7 +887,8 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// <summary>When inserting records from multiple files: if <see
         /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see>,
         /// then insert from each file into a new table.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Currently supported only for shapefiles.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -853,7 +906,14 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// </para></remarks>
         public const string TABLE_INSERT_MODE = "table_insert_mode";
 
+        /// <summary>A constant for the <see
+        /// cref="InsertRecordsFromPayloadRequest.Options" /> options.
+        /// </summary>
         public const string SINGLE = "single";
+
+        /// <summary>A constant for the <see
+        /// cref="InsertRecordsFromPayloadRequest.Options" /> options.
+        /// </summary>
         public const string TABLE_PER_FILE = "table_per_file";
 
         /// <summary>Specifies the character string that should be interpreted
@@ -896,7 +956,12 @@ public class InsertRecordsFromPayloadRequest : KineticaData
 
         /// <summary>Indicates whether the source data contains a header row.
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para> For <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>
+        /// <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FILE_TYPE">FILE_TYPE</see>
+        /// only.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1067,7 +1132,13 @@ public class InsertRecordsFromPayloadRequest : KineticaData
 
         /// <summary>Applies only when upserting (when update_on_existing_pk is
         /// true).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to true (the default), an existing record
+        /// matched by primary key is modified in place. If set to false, the
+        /// matched record is updated by deleting it and inserting a
+        /// replacement (delete and insert), which prevents the change from
+        /// being reflected in dependent materialized views until they are
+        /// refreshed.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1088,7 +1159,21 @@ public class InsertRecordsFromPayloadRequest : KineticaData
         /// <summary>Specifies the record collision policy for inserting into a
         /// table with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will be replaced by that new record (the new
+        /// data will be "upserted"). If set to <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will remain unchanged, while the new
+        /// record will be rejected and the error handled as determined by <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>
+        /// and <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1136,7 +1221,11 @@ public class InsertRecordsFromPayloadRequest : KineticaData
     public IDictionary<string, IDictionary<string, string>> modify_columns { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
     /// <summary>Options used when creating the target table.</summary>
-    /// <remarks><list type="bullet">
+    /// <remarks><para>Includes type to use. The other options match those in
+    /// <see
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
+    /// </para>
+    /// <list type="bullet">
     ///     <item>
     ///         <term><see
     ///         cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:
@@ -2356,7 +2445,8 @@ public class InsertRecordsFromPayloadRequest : KineticaData
     /// an empty Dictionary.</param>
     /// <param name="create_table_options">Options used when creating the
     /// target table. Includes type to use. The other options match those in
-    /// <see cref="Kinetica.createTable">Kinetica.createTable</see>.
+    /// <see
+    /// cref="Kinetica.createTable(CreateTableRequest)">Kinetica.createTable</see>.
     /// <list type="bullet">
     ///     <item>
     ///         <term><see
@@ -3565,7 +3655,7 @@ public class InsertRecordsFromPayloadRequest : KineticaData
 } // end class InsertRecordsFromPayloadRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.insertRecordsFromPayload">Kinetica.insertRecordsFromPayload</see>.
+/// cref="Kinetica.insertRecordsFromPayload(InsertRecordsFromPayloadRequest)">Kinetica.insertRecordsFromPayload</see>.
 /// </summary>
 public class InsertRecordsFromPayloadResponse : KineticaData
 {

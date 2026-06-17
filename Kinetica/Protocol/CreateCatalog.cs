@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.createCatalog">Kinetica.createCatalog</see>.</summary>
+/// cref="Kinetica.createCatalog(CreateCatalogRequest)">Kinetica.createCatalog</see>.
+/// </summary>
 /// <remarks><para>Creates a catalog, which contains the location and
 /// connection information for a deltalake catalog that is external to the
 /// database.</para></remarks>
@@ -39,7 +40,12 @@ public class CreateCatalogRequest : KineticaData
         /// </para></remarks>
         public const string ACCESS_DELEGATION = "access_delegation";
 
+        /// <summary>A constant for the <see
+        /// cref="CreateCatalogRequest.Options" /> options.</summary>
         public const string DATASOURCE_CREDENTIALS = "datasource_credentials";
+
+        /// <summary>A constant for the <see
+        /// cref="CreateCatalogRequest.Options" /> options.</summary>
         public const string VENDED_CREDENTIALS = "vended_credentials";
 
         /// <summary>Bypass validation of connection to remote source.
@@ -61,7 +67,12 @@ public class CreateCatalogRequest : KineticaData
         /// </remarks>
         public const string SKIP_VALIDATION = "skip_validation";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateCatalogRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="CreateCatalogRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -223,7 +234,8 @@ public class CreateCatalogRequest : KineticaData
 } // end class CreateCatalogRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.createCatalog">Kinetica.createCatalog</see>.</summary>
+/// cref="Kinetica.createCatalog(CreateCatalogRequest)">Kinetica.createCatalog</see>.
+/// </summary>
 public class CreateCatalogResponse : KineticaData
 {
     /// <summary>Value of <see cref="CreateCatalogRequest.name">name</see>.

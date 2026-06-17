@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.deleteRecords">Kinetica.deleteRecords</see>.</summary>
+/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.
+/// </summary>
 /// <remarks><para>Deletes record(s) matching the provided criteria from the
 /// given table. The record selection criteria can either be one or more  <see
 /// cref="DeleteRecordsRequest.expressions" /> (matching multiple records), a
@@ -46,7 +47,10 @@ public class DeleteRecordsRequest : KineticaData
         /// <summary>If set to <see
         /// cref="DeleteRecordsRequest.Options.TRUE">TRUE</see>, all records in
         /// the table will be deleted.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If set to <see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>, then the
+        /// option is effectively ignored.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -63,7 +67,12 @@ public class DeleteRecordsRequest : KineticaData
         /// </remarks>
         public const string DELETE_ALL_RECORDS = "delete_all_records";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteRecordsRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="DeleteRecordsRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -219,7 +228,8 @@ public class DeleteRecordsRequest : KineticaData
 } // end class DeleteRecordsRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.deleteRecords">Kinetica.deleteRecords</see>.</summary>
+/// cref="Kinetica.deleteRecords(DeleteRecordsRequest)">Kinetica.deleteRecords</see>.
+/// </summary>
 public class DeleteRecordsResponse : KineticaData
 {
     /// <summary>Total number of records deleted across all expressions.

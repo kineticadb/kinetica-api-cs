@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>.</summary>
+/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
+/// </summary>
 /// <remarks><para>Manually switch over one or more processes to another host.
 /// Individual ranks or entire hosts may be moved to another host.</para>
 /// </remarks>
@@ -23,7 +24,8 @@ public class AdminSwitchoverRequest : KineticaData
         /// <summary>If set to <see
         /// cref="AdminSwitchoverRequest.Options.TRUE">TRUE</see>, only
         /// validation checks will be performed.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Nothing is switched over.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -41,7 +43,12 @@ public class AdminSwitchoverRequest : KineticaData
         /// </remarks>
         public const string DRY_RUN = "dry_run";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminSwitchoverRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="AdminSwitchoverRequest.Options" /> options.</summary>
         public const string FALSE = "false";
     } // end struct Options
 
@@ -162,7 +169,8 @@ public class AdminSwitchoverRequest : KineticaData
 } // end class AdminSwitchoverRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.adminSwitchover">Kinetica.adminSwitchover</see>.</summary>
+/// cref="Kinetica.adminSwitchover(AdminSwitchoverRequest)">Kinetica.adminSwitchover</see>.
+/// </summary>
 public class AdminSwitchoverResponse : KineticaData
 {
     /// <summary>Additional information.</summary>

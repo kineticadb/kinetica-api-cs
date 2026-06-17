@@ -9,11 +9,12 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.getGraphEntities">Kinetica.getGraphEntities</see>.</summary>
+/// cref="Kinetica.getGraphEntities(GetGraphEntitiesRequest)">Kinetica.getGraphEntities</see>.
+/// </summary>
 /// <remarks><para>Retrieves node or edge entities from an existing graph, with
 /// pagination support via offset and limit. Use <see
-/// cref="Kinetica.showGraph">Kinetica.showGraph</see> to obtain the total
-/// number of nodes and edges.</para></remarks>
+/// cref="Kinetica.showGraph(ShowGraphRequest)">Kinetica.showGraph</see> to
+/// obtain the total number of nodes and edges.</para></remarks>
 public class GetGraphEntitiesRequest : KineticaData
 {
     /// <summary>A set of string constants for the parameter <see
@@ -62,7 +63,14 @@ public class GetGraphEntitiesRequest : KineticaData
         /// edge_label_index] where node1_index/node2_index are 0-based
         /// positions into the node array (obtained from a node-entity call on
         /// the same graph).</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>When requesting nodes with this option, the response
+        /// includes tombstoned (deleted) slots in order to keep position
+        /// indices stable so edge indices resolve correctly; deleted slots
+        /// carry id=0 for integer graphs or an empty identifier for string/WKT
+        /// graphs. For paginated node calls, subtract <see
+        /// cref="GetGraphEntitiesRequest.offset" /> from an edge endpoint
+        /// index to locate it within the returned page.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -85,14 +93,12 @@ public class GetGraphEntitiesRequest : KineticaData
         /// </remarks>
         public const string CONCISE_EDGE_CONNECTIVITY = "concise_edge_connectivity";
 
-        /// <summary>Populate <see
-        /// cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
-        /// with per-edge weights (edge requests only).</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="GetGraphEntitiesRequest.Options" /> options.</summary>
         public const string TRUE = "true";
 
-        /// <summary>Default: <see
-        /// cref="GetGraphEntitiesResponse.entities_weight">entities_weight</see>
-        /// is empty.</summary>
+        /// <summary>A boolean constant for the <see
+        /// cref="GetGraphEntitiesRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>When true and <c>options entity_type</c> is 'edge', the
@@ -104,7 +110,9 @@ public class GetGraphEntitiesRequest : KineticaData
         /// <see
         /// cref="GetGraphEntitiesResponse.entities_string">entities_string</see>).
         /// </summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>Empty when the graph has no weights component or
+        /// when requesting nodes.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -412,7 +420,8 @@ public class GetGraphEntitiesRequest : KineticaData
 } // end class GetGraphEntitiesRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.getGraphEntities">Kinetica.getGraphEntities</see>.</summary>
+/// cref="Kinetica.getGraphEntities(GetGraphEntitiesRequest)">Kinetica.getGraphEntities</see>.
+/// </summary>
 public class GetGraphEntitiesResponse : KineticaData
 {
     /// <summary>Indicates a successful retrieval.</summary>

@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace kinetica;
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowGraphGrammarRequest : KineticaData
 {
     public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -20,13 +21,16 @@ public class ShowGraphGrammarRequest : KineticaData
         this.options = options ?? new Dictionary<string, string>();
     } // end constructor
 } // end class ShowGraphGrammarRequest
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591
 
-/// @cond NO_DOCS
+#pragma warning disable CS1591  // intentionally-undocumented internal endpoint
+//! @cond NO_DOCS
 public class ShowGraphGrammarResponse : KineticaData
 {
     public bool result { get; set; }
     public string components_json { get; set; }
     public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 } // end class ShowGraphGrammarResponse
-/// @endcond
+//! @endcond
+#pragma warning restore CS1591

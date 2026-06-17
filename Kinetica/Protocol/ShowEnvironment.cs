@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace kinetica;
 
 /// <summary>A set of parameters for <see
-/// cref="Kinetica.showEnvironment">Kinetica.showEnvironment</see>.</summary>
+/// cref="Kinetica.showEnvironment(ShowEnvironmentRequest)">Kinetica.showEnvironment</see>.
+/// </summary>
 /// <remarks><para>Shows information about a specified <a
 /// href="../../../concepts/udf/" target="_top">user-defined function</a> (UDF)
 /// environment or all environments.
@@ -26,7 +27,12 @@ public class ShowEnvironmentRequest : KineticaData
         /// environment specified in <see
         /// cref="ShowEnvironmentRequest.environment_name" /> does not exist,
         /// no error is returned.</summary>
-        /// <remarks><para>Supported values:</para>
+        /// <remarks><para>If <see
+        /// cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see> and if the
+        /// environment specified in <see
+        /// cref="ShowEnvironmentRequest.environment_name" /> does not exist,
+        /// then an error is returned.
+        /// Supported values:</para>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -44,7 +50,12 @@ public class ShowEnvironmentRequest : KineticaData
         /// </remarks>
         public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
 
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowEnvironmentRequest.Options" /> options.</summary>
         public const string TRUE = "true";
+
+        /// <summary>A boolean constant for the <see
+        /// cref="ShowEnvironmentRequest.Options" /> options.</summary>
         public const string FALSE = "false";
 
         /// <summary>If <see
@@ -216,7 +227,8 @@ public class ShowEnvironmentRequest : KineticaData
 } // end class ShowEnvironmentRequest
 
 /// <summary>A set of results returned by <see
-/// cref="Kinetica.showEnvironment">Kinetica.showEnvironment</see>.</summary>
+/// cref="Kinetica.showEnvironment(ShowEnvironmentRequest)">Kinetica.showEnvironment</see>.
+/// </summary>
 public class ShowEnvironmentResponse : KineticaData
 {
     /// <summary>A list of all environment names.</summary>
