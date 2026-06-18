@@ -245,6 +245,39 @@ public partial class Kinetica : IDisposable
         /// </para>
         /// </remarks>
         public ILoggerFactory? LoggerFactory { get; set; } = null;
+
+        /// <summary>
+        /// Optional client application name to include in the User-Agent HTTP header.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// When set, this value is included in the User-Agent header sent with all HTTP
+        /// requests to the Kinetica server. This helps identify the client application
+        /// making requests for logging and debugging purposes.
+        /// </para>
+        /// <para>
+        /// The User-Agent header format is:
+        /// <c>Kinetica C# API/{version} ({runtime}){client_name}/{client_version}</c>
+        /// where the client_name/client_version suffix is only included if these
+        /// properties are set.
+        /// </para>
+        /// </remarks>
+        public string? ClientName { get; set; } = null;
+
+        /// <summary>
+        /// Optional client application version to include in the User-Agent HTTP header.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// When set along with <see cref="ClientName"/>, this value is included in the
+        /// User-Agent header sent with all HTTP requests to the Kinetica server.
+        /// </para>
+        /// <para>
+        /// This property is only meaningful when <see cref="ClientName"/> is also set.
+        /// If <see cref="ClientName"/> is null or empty, this property is ignored.
+        /// </para>
+        /// </remarks>
+        public string? ClientVersion { get; set; } = null;
     }
 
     /// <summary>
@@ -357,6 +390,108 @@ public partial class Kinetica : IDisposable
     private Dictionary<Type, KineticaType> kineticaTypeLookup = [];
 
     /// <summary>
+    /// The User-Agent string sent with all HTTP requests.
+    /// </summary>
+    private readonly string _userAgent;
+
+    /// <summary>
+    /// Regex pattern for characters NOT allowed in User-Agent tokens.
+    /// Matches any character that is not a word character, dot, or hyphen.
+    /// </summary>
+    private static readonly System.Text.RegularExpressions.Regex UserAgentDisallowedChars =
+        new(@"[^\w.\-]", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+    /// <summary>
+    /// Sanitizes a User-Agent token by replacing disallowed characters with underscores.
+    /// </summary>
+    /// <remarks>
+    /// Allowed characters are: word characters (a-zA-Z0-9_), dots (.), and hyphens (-).
+    /// All other characters are replaced with underscores (_).
+    /// </remarks>
+    /// <param name="value">The value to sanitize</param>
+    /// <returns>The sanitized value</returns>
+    private static string SanitizeUserAgentToken(string value)
+    {
+        return UserAgentDisallowedChars.Replace(value, "_");
+    }
+
+    /// <summary>
+    /// Builds the User-Agent string for HTTP requests.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The format is: <c>[{client_name}/{client_version} ]kinetica-api-cs/{version} ({runtime}; {os}/{os_version}; {arch})</c>
+    /// where the client prefix is only included if both <see cref="Options.ClientName"/> and
+    /// <see cref="Options.ClientVersion"/> are provided.
+    /// </para>
+    /// <para>
+    /// Special characters in client_name and client_version are sanitized: any character
+    /// that is not a word character (a-zA-Z0-9_), dot (.), or hyphen (-) is replaced with
+    /// an underscore (_).
+    /// </para>
+    /// </remarks>
+    /// <param name="options">Connection options (may be null)</param>
+    /// <returns>The User-Agent string to use for HTTP requests</returns>
+    private static string BuildUserAgentString(Options? options)
+    {
+        // Get runtime, OS, and architecture info (similar to Python's platform module)
+        var runtime = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
+        var osDescription = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+        var arch = System.Runtime.InteropServices.RuntimeInformation.OSArchitecture.ToString();
+
+        // Extract OS name and version from OSDescription
+        // OSDescription examples: "Microsoft Windows 10.0.19045", "Linux 5.15.0-generic", "Darwin 21.6.0"
+        var osName = GetOSName();
+        var osVersion = GetOSVersion(osDescription);
+
+        // Base User-Agent: "kinetica-api-cs/{version} ({runtime}; {os}/{os_version}; {arch})"
+        var baseUserAgent = $"kinetica-api-cs/{API_VERSION} ({runtime}; {osName}/{osVersion}; {arch})";
+
+        // Prepend client identification if BOTH client_name and client_version are provided
+        if (options != null &&
+            !string.IsNullOrEmpty(options.ClientName) &&
+            !string.IsNullOrEmpty(options.ClientVersion))
+        {
+            var sanitizedName = SanitizeUserAgentToken(options.ClientName);
+            var sanitizedVersion = SanitizeUserAgentToken(options.ClientVersion);
+            return $"{sanitizedName}/{sanitizedVersion} {baseUserAgent}";
+        }
+
+        return baseUserAgent;
+    }
+
+    /// <summary>
+    /// Gets the OS name (Windows, Linux, macOS, etc.)
+    /// </summary>
+    private static string GetOSName()
+    {
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
+            System.Runtime.InteropServices.OSPlatform.Windows))
+            return "Windows";
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
+            System.Runtime.InteropServices.OSPlatform.Linux))
+            return "Linux";
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
+            System.Runtime.InteropServices.OSPlatform.OSX))
+            return "macOS";
+        return "Unknown";
+    }
+
+    /// <summary>
+    /// Extracts the OS version from the OS description string.
+    /// </summary>
+    private static string GetOSVersion(string osDescription)
+    {
+        // Try to extract version number from OS description
+        // Examples: "Microsoft Windows 10.0.19045" -> "10.0.19045"
+        //           "Linux 5.15.0-generic" -> "5.15.0-generic"
+        //           "Darwin 21.6.0" -> "21.6.0"
+        var match = System.Text.RegularExpressions.Regex.Match(
+            osDescription, @"[\d]+\.[\d]+[\.\d\-\w]*");
+        return match.Success ? match.Value : Environment.OSVersion.Version.ToString();
+    }
+
+    /// <summary>
     /// Internal constructor for testing that accepts a custom HTTP transport.
     /// </summary>
     /// <param name="url_str">URL for Kinetica Server</param>
@@ -389,6 +524,9 @@ public partial class Kinetica : IDisposable
 
         // Use the provided transport (for testing)
         _transport = transport;
+
+        // Build and store the User-Agent string
+        _userAgent = BuildUserAgentString(options);
 
         // Set up logging (no-op factory when the caller supplies none)
         _loggerFactory = options.LoggerFactory ?? NullLoggerFactory.Instance;
@@ -470,6 +608,9 @@ public partial class Kinetica : IDisposable
             options.PooledConnectionLifetime,
             options.PooledConnectionIdleTimeout,
             connectTimeout);
+
+        // Build and store the User-Agent string
+        _userAgent = BuildUserAgentString(options);
 
         // Set up logging (no-op factory when the caller supplies none)
         _loggerFactory = options.LoggerFactory ?? NullLoggerFactory.Instance;
@@ -1290,6 +1431,7 @@ public partial class Kinetica : IDisposable
                 bodyBytes,
                 contentType,
                 Authorization,
+                _userAgent,
                 System.Threading.CancellationToken.None);
 
             // Decode the response
@@ -1396,7 +1538,7 @@ public partial class Kinetica : IDisposable
 
             // Use the HTTP transport layer to send the request asynchronously
             var responseBytes = await _transport
-                .PostAsync(url, bodyBytes, contentType, Authorization, cancellationToken)
+                .PostAsync(url, bodyBytes, contentType, Authorization, _userAgent, cancellationToken)
                 .ConfigureAwait(false);
 
             // Decode the response

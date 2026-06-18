@@ -13,9 +13,10 @@ internal interface IHttpTransport
     /// <param name="body">Request body bytes</param>
     /// <param name="contentType">Content-Type header value</param>
     /// <param name="authorization">Authorization header value (optional)</param>
+    /// <param name="userAgent">User-Agent header value (optional)</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Response body bytes</returns>
-    byte[] Post(string url, byte[] body, string contentType, string? authorization, CancellationToken cancellationToken);
+    byte[] Post(string url, byte[] body, string contentType, string? authorization, string? userAgent, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronous POST. Returns a task that completes when the response is received.
@@ -26,7 +27,8 @@ internal interface IHttpTransport
     /// <param name="body">Request body bytes</param>
     /// <param name="contentType">Content-Type header value</param>
     /// <param name="authorization">Authorization header value (optional)</param>
+    /// <param name="userAgent">User-Agent header value (optional)</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Task that returns response body bytes</returns>
-    Task<byte[]> PostAsync(string url, byte[] body, string contentType, string? authorization, CancellationToken cancellationToken);
+    Task<byte[]> PostAsync(string url, byte[] body, string contentType, string? authorization, string? userAgent, CancellationToken cancellationToken);
 }
