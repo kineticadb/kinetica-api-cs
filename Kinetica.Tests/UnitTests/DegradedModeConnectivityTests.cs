@@ -179,7 +179,7 @@ namespace Kinetica.Tests.UnitTests
             public HashSet<string> UnreachableHosts { get; } = new();
             public List<string> PostedUrls { get; } = new();
 
-            public byte[] Post(string url, byte[] body, string contentType, string authorization, CancellationToken cancellationToken)
+            public byte[] Post(string url, byte[] body, string contentType, string? authorization, string? userAgent, CancellationToken cancellationToken)
             {
                 PostedUrls.Add(url);
                 var uri = new Uri(url);
@@ -194,8 +194,8 @@ namespace Kinetica.Tests.UnitTests
                 return WrapResponse(new ShowSystemStatusResponse());
             }
 
-            public Task<byte[]> PostAsync(string url, byte[] body, string contentType, string authorization, CancellationToken cancellationToken)
-                => Task.FromResult(Post(url, body, contentType, authorization, cancellationToken));
+            public Task<byte[]> PostAsync(string url, byte[] body, string contentType, string? authorization, string? userAgent, CancellationToken cancellationToken)
+                => Task.FromResult(Post(url, body, contentType, authorization, userAgent, cancellationToken));
         }
 
         /// <summary>Minimal <see cref="ILoggerFactory"/> that records every log entry for assertions.</summary>

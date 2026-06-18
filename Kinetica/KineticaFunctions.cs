@@ -15,7 +15,7 @@ public partial class Kinetica
 {
     // Kinetica Version
     /// <summary>The version of this Kinetica API binding.</summary>
-    public const string API_VERSION = "7.2.3.3";
+    public const string API_VERSION = "7.2.3.4";
 
     /// <summary>Adds a host to an existing cluster.</summary>
     /// <remarks><para>This method should be used for on-premise deployments

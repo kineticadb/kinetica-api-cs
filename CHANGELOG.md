@@ -3,6 +3,12 @@
 
 ## Version 7.2
 
+### Version 7.2.3.4 - 2026-06-18
+
+#### Added
+-   Passing of API name & version in HTTP headers.
+
+
 ### Version 7.2.3.3 - 2026-06-17
 
 #### Changed

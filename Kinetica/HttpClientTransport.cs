@@ -73,9 +73,10 @@ internal sealed class HttpClientTransport : IHttpTransport, IDisposable
         byte[] body,
         string contentType,
         string? authorization,
+        string? userAgent,
         CancellationToken cancellationToken)
     {
-        using var request = BuildRequest(url, body, contentType, authorization);
+        using var request = BuildRequest(url, body, contentType, authorization, userAgent);
         using var response = _client.Send(request, cancellationToken);
         return ReadOrThrow(response, cancellationToken);
     }
@@ -88,9 +89,10 @@ internal sealed class HttpClientTransport : IHttpTransport, IDisposable
         byte[] body,
         string contentType,
         string? authorization,
+        string? userAgent,
         CancellationToken cancellationToken)
     {
-        using var request = BuildRequest(url, body, contentType, authorization);
+        using var request = BuildRequest(url, body, contentType, authorization, userAgent);
         using var response = await _client
             .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
             .ConfigureAwait(false);
@@ -109,7 +111,8 @@ internal sealed class HttpClientTransport : IHttpTransport, IDisposable
         string url,
         byte[] body,
         string contentType,
-        string? authorization)
+        string? authorization,
+        string? userAgent)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, url)
         {
@@ -136,6 +139,11 @@ internal sealed class HttpClientTransport : IHttpTransport, IDisposable
                 // Handle authorization without scheme (legacy compatibility)
                 request.Headers.Add("Authorization", authorization);
             }
+        }
+
+        if (!string.IsNullOrEmpty(userAgent))
+        {
+            request.Headers.TryAddWithoutValidation("User-Agent", userAgent);
         }
 
         return request;
