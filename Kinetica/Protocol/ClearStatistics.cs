@@ -18,16 +18,20 @@ public class ClearStatisticsRequest : KineticaData
     /// <summary>Name of a table, in [schema_name.]table_name format, using
     /// standard <a href="../../../concepts/tables/#table-name-resolution"
     /// target="_top">name resolution rules</a>.</summary>
-    /// <remarks><para>Must be an existing table. The default value is ''.
-    /// </para></remarks>
+    /// <remarks><para>Must be an existing table.  A value of '*' clears
+    /// statistics on every user table the caller may read (excluding system
+    /// schemas, views, and temporary tables); when used, <see
+    /// cref="ClearStatisticsRequest.column_name" /> must be empty. The default
+    /// value is ''.</para></remarks>
     public string table_name { get; set; } = "";
 
     /// <summary>Name of the column in <see
     /// cref="ClearStatisticsRequest.table_name" /> for which to clear
     /// statistics.</summary>
     /// <remarks><para>The column must be from an existing table. An empty
-    /// string clears statistics for all columns in the table. The default
-    /// value is ''.</para></remarks>
+    /// string clears statistics for all columns in the table.  Must be empty
+    /// when <see cref="ClearStatisticsRequest.table_name" /> is '*'. The
+    /// default value is ''.</para></remarks>
     public string column_name { get; set; } = "";
 
     /// <summary>Optional parameters.</summary>
@@ -45,12 +49,16 @@ public class ClearStatisticsRequest : KineticaData
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>. Must be an existing table. The
-    /// default value is ''.</param>
+    /// target="_top">name resolution rules</a>. Must be an existing table.  A
+    /// value of '*' clears statistics on every user table the caller may read
+    /// (excluding system schemas, views, and temporary tables); when used,
+    /// <paramref name="column_name" /> must be empty. The default value is ''.
+    /// </param>
     /// <param name="column_name">Name of the column in <paramref
     /// name="table_name" /> for which to clear statistics. The column must be
     /// from an existing table. An empty string clears statistics for all
-    /// columns in the table. The default value is ''.</param>
+    /// columns in the table.  Must be empty when <paramref name="table_name"
+    /// /> is '*'. The default value is ''.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     public ClearStatisticsRequest( string table_name = null,

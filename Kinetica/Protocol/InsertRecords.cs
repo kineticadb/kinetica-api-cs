@@ -294,6 +294,58 @@ public class RawInsertRecordsRequest : KineticaData
         /// </remarks>
         public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
 
+        /// <summary>Specifies how errors should be handled upon insertion.
+        /// </summary>
+        /// <remarks><para> When set, this option is authoritative; supplying a
+        /// contradictory <see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+        /// is an error.
+        /// Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+        ///         </term>
+        ///         <description>Records with bad column values are kept when
+        ///         possible: the offending column is filled with its default
+        ///         value if one exists, otherwise with null if the column is
+        ///         nullable; if neither is possible the record is skipped and
+        ///         reported.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+        ///         </term>
+        ///         <description>Records with bad values are skipped and
+        ///         reported; the rest of the batch is inserted.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+        ///         </term>
+        ///         <description>Stops the insertion and rejects the entire
+        ///         batch when any record is incorrect.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.</para>
+        /// </remarks>
+        public const string ERROR_HANDLING = "error_handling";
+
+        /// <summary>Records with bad column values are kept when possible: the
+        /// offending column is filled with its default value if one exists,
+        /// otherwise with null if the column is nullable; if neither is
+        /// possible the record is skipped and reported.</summary>
+        public const string PERMISSIVE = "permissive";
+
+        /// <summary>Records with bad values are skipped and reported; the rest
+        /// of the batch is inserted.</summary>
+        public const string SKIP = "skip";
+
+        /// <summary>Stops the insertion and rejects the entire batch when any
+        /// record is incorrect.</summary>
+        public const string ABORT = "abort";
+
         /// <summary>If set to <see
         /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
         /// will be saved and any errors will be returned.</summary>
@@ -636,6 +688,47 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
     ///         </term>
     ///         <description>If set to <see
@@ -958,6 +1051,47 @@ public class RawInsertRecordsRequest : KineticaData
     ///         </list>
     ///         The default value is <see
     ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -1314,6 +1448,47 @@ public class RawInsertRecordsRequest : KineticaData
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
     ///         </term>
     ///         <description>If set to <see
@@ -1637,6 +1812,58 @@ public class InsertRecordsRequest<T> : KineticaData
         /// </remarks>
         public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
 
+        /// <summary>Specifies how errors should be handled upon insertion.
+        /// </summary>
+        /// <remarks><para> When set, this option is authoritative; supplying a
+        /// contradictory <see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+        /// is an error.
+        /// Supported values:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+        ///         </term>
+        ///         <description>Records with bad column values are kept when
+        ///         possible: the offending column is filled with its default
+        ///         value if one exists, otherwise with null if the column is
+        ///         nullable; if neither is possible the record is skipped and
+        ///         reported.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+        ///         </term>
+        ///         <description>Records with bad values are skipped and
+        ///         reported; the rest of the batch is inserted.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+        ///         </term>
+        ///         <description>Stops the insertion and rejects the entire
+        ///         batch when any record is incorrect.</description>
+        ///     </item>
+        /// </list>
+        /// <para>The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.</para>
+        /// </remarks>
+        public const string ERROR_HANDLING = "error_handling";
+
+        /// <summary>Records with bad column values are kept when possible: the
+        /// offending column is filled with its default value if one exists,
+        /// otherwise with null if the column is nullable; if neither is
+        /// possible the record is skipped and reported.</summary>
+        public const string PERMISSIVE = "permissive";
+
+        /// <summary>Records with bad values are skipped and reported; the rest
+        /// of the batch is inserted.</summary>
+        public const string SKIP = "skip";
+
+        /// <summary>Stops the insertion and rejects the entire batch when any
+        /// record is incorrect.</summary>
+        public const string ABORT = "abort";
+
         /// <summary>If set to <see
         /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>, no data
         /// will be saved and any errors will be returned.</summary>
@@ -1944,6 +2171,47 @@ public class InsertRecordsRequest<T> : KineticaData
     ///         </list>
     ///         The default value is <see
     ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -2267,6 +2535,47 @@ public class InsertRecordsRequest<T> : KineticaData
     ///         </list>
     ///         The default value is <see
     ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>

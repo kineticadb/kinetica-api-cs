@@ -494,9 +494,15 @@ public class InsertRecordsFromFilesRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         cref="InsertRecordsFromFilesRequest.Options.SKIP">SKIP</see>:
         ///         </term>
         ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         </term>
+        ///         <description>Alias for skip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -518,6 +524,9 @@ public class InsertRecordsFromFilesRequest : KineticaData
         public const string PERMISSIVE = "permissive";
 
         /// <summary>Malformed records are skipped.</summary>
+        public const string SKIP = "skip";
+
+        /// <summary>Alias for skip.</summary>
         public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
 
         /// <summary>Stops current insertion and aborts entire operation when
@@ -1303,6 +1312,16 @@ public class InsertRecordsFromFilesRequest : KineticaData
         /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.
         /// </para></remarks>
         public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+        /// <summary>Comma-separated expressions, one per target table column.
+        /// </summary>
+        /// <remarks><para> Each expression is evaluated per record.  Empty
+        /// entries (two consecutive commas) mean no transformation for that
+        /// column -- the value is resolved from the input record, table
+        /// default, NULL, or an error. Expressions may reference input columns
+        /// by name or by position ($1 for the first input column, $2 for the
+        /// second, etc.). The default value is ''.</para></remarks>
+        public const string TRANSFORMATIONS = "transformations";
     } // end struct Options
 
     /// <summary>Name of the table into which the data will be inserted, in
@@ -1827,10 +1846,16 @@ public class InsertRecordsFromFilesRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromFilesRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -2651,6 +2676,19 @@ public class InsertRecordsFromFilesRequest : KineticaData
     ///         cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
+    ///     </item>
     /// </list>
     /// <para>The default value is an empty Dictionary.</para></remarks>
     public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -3171,10 +3209,16 @@ public class InsertRecordsFromFilesRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromFilesRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -3992,6 +4036,19 @@ public class InsertRecordsFromFilesRequest : KineticaData
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>

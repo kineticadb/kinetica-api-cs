@@ -29,4 +29,9 @@
     <ProjectReference Include="..\Kinetica\Kinetica.csproj" />
   </ItemGroup>
 
+  <!-- Exclude manual integration tests that have their own .csproj -->
+  <ItemGroup>
+    <Compile Remove="IntegrationTests\HAFailoverDrainingQueueIntegrationTests.cs" />
+  </ItemGroup>
+
 </Project>

@@ -15,7 +15,7 @@ public partial class Kinetica
 {
     // Kinetica Version
     /// <summary>The version of this Kinetica API binding.</summary>
-    public const string API_VERSION = "7.2.3.4";
+    public const string API_VERSION = "7.2.3.5";
 
     /// <summary>Adds a host to an existing cluster.</summary>
     /// <remarks><para>This method should be used for on-premise deployments
@@ -11672,6 +11672,49 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_ENABLED">ICEBERG_TABLE_METADATA_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of Iceberg table metadata.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SIZE">ICEBERG_TABLE_METADATA_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of Iceberg table metadata entries
+    ///         to cache.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_TTL">ICEBERG_TABLE_METADATA_CACHE_TTL</see>:
+    ///         </term>
+    ///         <description>Time-to-live (seconds) for cached Iceberg table
+    ///         metadata entries.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK">ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK</see>:
+    ///         </term>
+    ///         <description>When enabled, check the current Iceberg snapshot
+    ///         on cache hits and invalidate entries that have changed.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_CATALOG_CONNECTION_CACHE_SIZE">ICEBERG_CATALOG_CONNECTION_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of cached Iceberg REST catalog
+    ///         connections.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_MANIFEST_CACHE_ENABLED">ICEBERG_MANIFEST_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of parsed Iceberg manifest and
+    ///         manifest-list files.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
     ///         </term>
     ///         <description>Parquet file compression type.
@@ -11740,6 +11783,14 @@ public partial class Kinetica
     ///         deletes on table data.  Multi-head inserts are not affected by
     ///         this limit. The minimum allowed value is '2'. The maximum
     ///         allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REMOTE_IO_THREADS">REMOTE_IO_THREADS</see>:
+    ///         </term>
+    ///         <description>Size of the worker rank IO thread pool. This is
+    ///         used for blocking IO operations such as reads from object
+    ///         storage or external file systems.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12130,6 +12181,49 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_ENABLED">ICEBERG_TABLE_METADATA_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of Iceberg table metadata.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SIZE">ICEBERG_TABLE_METADATA_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of Iceberg table metadata entries
+    ///         to cache.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_TTL">ICEBERG_TABLE_METADATA_CACHE_TTL</see>:
+    ///         </term>
+    ///         <description>Time-to-live (seconds) for cached Iceberg table
+    ///         metadata entries.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK">ICEBERG_TABLE_METADATA_CACHE_SNAPSHOT_CHECK</see>:
+    ///         </term>
+    ///         <description>When enabled, check the current Iceberg snapshot
+    ///         on cache hits and invalidate entries that have changed.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_CATALOG_CONNECTION_CACHE_SIZE">ICEBERG_CATALOG_CONNECTION_CACHE_SIZE</see>:
+    ///         </term>
+    ///         <description>Maximum number of cached Iceberg REST catalog
+    ///         connections.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ICEBERG_MANIFEST_CACHE_ENABLED">ICEBERG_MANIFEST_CACHE_ENABLED</see>:
+    ///         </term>
+    ///         <description>Enable caching of parsed Iceberg manifest and
+    ///         manifest-list files.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:
     ///         </term>
     ///         <description>Parquet file compression type.
@@ -12198,6 +12292,14 @@ public partial class Kinetica
     ///         deletes on table data.  Multi-head inserts are not affected by
     ///         this limit. The minimum allowed value is '2'. The maximum
     ///         allowed value is '8192'.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REMOTE_IO_THREADS">REMOTE_IO_THREADS</see>:
+    ///         </term>
+    ///         <description>Size of the worker rank IO thread pool. This is
+    ///         used for blocking IO operations such as reads from object
+    ///         storage or external file systems.</description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -12969,6 +13071,23 @@ public partial class Kinetica
     ///         for possible values for <paramref name="_value" />.
     ///         </description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.REBUILD_TEXT_SEARCH_INDEX">REBUILD_TEXT_SEARCH_INDEX</see>:
+    ///         </term>
+    ///         <description>Drops and rebuilds the <a
+    ///         href="../../../concepts/full_text_search/" target="_top">text
+    ///         search</a> index for the table from current type metadata and
+    ///         chunk storage. Use this to repair a text-search index left
+    ///         incomplete by an interrupted or failed rebuild (for example,
+    ///         after a crash during an add-column that requested text search):
+    ///         re-running the original add_column will not work because the
+    ///         column already exists. This action is also dispatched
+    ///         automatically by <see
+    ///         cref="alterTableColumns(AlterTableColumnsRequest)">alterTableColumns</see>
+    ///         after add_column completions that require a full re-index. The
+    ///         <paramref name="_value" /> is ignored.</description>
+    ///     </item>
     /// </list></param>
     /// <param name="_value">The value of the modification, depending on
     /// <paramref name="action" />. For example, if <paramref name="action" />
@@ -13682,6 +13801,23 @@ public partial class Kinetica
     ///         cref="createMaterializedView(CreateMaterializedViewRequest)">createMaterializedView</see>
     ///         for possible values for <paramref name="_value" />.
     ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="AlterTableRequest.Action.REBUILD_TEXT_SEARCH_INDEX">REBUILD_TEXT_SEARCH_INDEX</see>:
+    ///         </term>
+    ///         <description>Drops and rebuilds the <a
+    ///         href="../../../concepts/full_text_search/" target="_top">text
+    ///         search</a> index for the table from current type metadata and
+    ///         chunk storage. Use this to repair a text-search index left
+    ///         incomplete by an interrupted or failed rebuild (for example,
+    ///         after a crash during an add-column that requested text search):
+    ///         re-running the original add_column will not work because the
+    ///         column already exists. This action is also dispatched
+    ///         automatically by <see
+    ///         cref="alterTableColumns(AlterTableColumnsRequest)">alterTableColumns</see>
+    ///         after add_column completions that require a full re-index. The
+    ///         <paramref name="_value" /> is ignored.</description>
     ///     </item>
     /// </list></param>
     /// <param name="_value">The value of the modification, depending on
@@ -15942,12 +16078,16 @@ public partial class Kinetica
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>. Must be an existing table. The
-    /// default value is ''.</param>
+    /// target="_top">name resolution rules</a>. Must be an existing table.  A
+    /// value of '*' clears statistics on every user table the caller may read
+    /// (excluding system schemas, views, and temporary tables); when used,
+    /// <paramref name="column_name" /> must be empty. The default value is ''.
+    /// </param>
     /// <param name="column_name">Name of the column in <paramref
     /// name="table_name" /> for which to clear statistics. The column must be
     /// from an existing table. An empty string clears statistics for all
-    /// columns in the table. The default value is ''.</param>
+    /// columns in the table.  Must be empty when <paramref name="table_name"
+    /// /> is '*'. The default value is ''.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -15966,12 +16106,16 @@ public partial class Kinetica
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>. Must be an existing table. The
-    /// default value is ''.</param>
+    /// target="_top">name resolution rules</a>. Must be an existing table.  A
+    /// value of '*' clears statistics on every user table the caller may read
+    /// (excluding system schemas, views, and temporary tables); when used,
+    /// <paramref name="column_name" /> must be empty. The default value is ''.
+    /// </param>
     /// <param name="column_name">Name of the column in <paramref
     /// name="table_name" /> for which to clear statistics. The column must be
     /// from an existing table. An empty string clears statistics for all
-    /// columns in the table. The default value is ''.</param>
+    /// columns in the table.  Must be empty when <paramref name="table_name"
+    /// /> is '*'. The default value is ''.</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -16585,15 +16729,15 @@ public partial class Kinetica
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  Must be an existing table.  A
-    /// value of <c>_*</c> collects statistics on every user table the caller
-    /// may read (excluding system schemas, views, and temporary tables); when
-    /// used, <paramref name="column_names" /> must be <c>_["*"]</c>.</param>
+    /// target="_top">name resolution rules</a>. Must be an existing table.  A
+    /// value of '*' collects statistics on every user table the caller may
+    /// read (excluding system schemas, views, and temporary tables); when
+    /// used, <paramref name="column_names" /> must be '*'.</param>
     /// <param name="column_names">List of one or more column names in
     /// <paramref name="table_name" /> for which to collect statistics
-    /// (cardinality, mean value, etc.).  A single entry of <c>_*</c> expands
-    /// to every collectable column on the table (geometry, vector, JSON, and
-    /// array columns are skipped).</param>
+    /// (cardinality, mean value, etc.). A single entry of '*' expands to every
+    /// collectable column on the table (geometry, vector, JSON, and array
+    /// columns are skipped).</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <returns>Response object containing the result of the operation.
@@ -16612,15 +16756,15 @@ public partial class Kinetica
     /// <param name="table_name">Name of a table, in [schema_name.]table_name
     /// format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  Must be an existing table.  A
-    /// value of <c>_*</c> collects statistics on every user table the caller
-    /// may read (excluding system schemas, views, and temporary tables); when
-    /// used, <paramref name="column_names" /> must be <c>_["*"]</c>.</param>
+    /// target="_top">name resolution rules</a>. Must be an existing table.  A
+    /// value of '*' collects statistics on every user table the caller may
+    /// read (excluding system schemas, views, and temporary tables); when
+    /// used, <paramref name="column_names" /> must be '*'.</param>
     /// <param name="column_names">List of one or more column names in
     /// <paramref name="table_name" /> for which to collect statistics
-    /// (cardinality, mean value, etc.).  A single entry of <c>_*</c> expands
-    /// to every collectable column on the table (geometry, vector, JSON, and
-    /// array columns are skipped).</param>
+    /// (cardinality, mean value, etc.). A single entry of '*' expands to every
+    /// collectable column on the table (geometry, vector, JSON, and array
+    /// columns are skipped).</param>
     /// <param name="options">Optional parameters. The default value is an
     /// empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -16764,6 +16908,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateBackupRequest.BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -16777,7 +16928,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -16843,6 +16996,33 @@ public partial class Kinetica
     /// stored.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.BLOCK_TABLE_MUTATIONS">BLOCK_TABLE_MUTATIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not to block all mutations on target
+    ///         tables while they are being backed up.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Block all mutations on target tables while
+    ///                 they are being backed up.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Only block mutations on a target table at
+    ///                 the point a disk eviction is necessary.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
@@ -17078,6 +17258,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="CreateBackupRequest.BackupObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="CreateBackupRequest.BackupObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -17091,7 +17278,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -17157,6 +17346,33 @@ public partial class Kinetica
     /// stored.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateBackupRequest.Options.BLOCK_TABLE_MUTATIONS">BLOCK_TABLE_MUTATIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not to block all mutations on target
+    ///         tables while they are being backed up.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Block all mutations on target tables while
+    ///                 they are being backed up.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Only block mutations on a target table at
+    ///                 the point a disk eviction is necessary.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="CreateBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
     ///     <item>
     ///         <term><see
     ///         cref="CreateBackupRequest.Options.CHECKSUM">CHECKSUM</see>:
@@ -25112,10 +25328,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="CreateTableExternalRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -25825,6 +26047,19 @@ public partial class Kinetica
     ///         the 'text_search' property to. Used only when <see
     ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
     ///         has a value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -26591,10 +26826,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="CreateTableExternalRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -27304,6 +27545,19 @@ public partial class Kinetica
     ///         the 'text_search' property to. Used only when <see
     ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
     ///         has a value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -38683,6 +38937,19 @@ public partial class Kinetica
     ///         If the column is a string type (non-charN) and the number of
     ///         records is too large, it will return 0.</description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.SEARCH_STATS">SEARCH_STATS</see>:
+    ///         </term>
+    ///         <description>Cross-shard BM25 corpus statistics for one
+    ///         (column, query) pair. Returns the merged BM25 statistics
+    ///         (max_doc, doc_count, sum_total_term_freq, per-term doc_freq /
+    ///         total_term_freq) needed by callers that score documents
+    ///         themselves (e.g. text_match_bm25_global SQL function pre-pass).
+    ///         Requires <c>COLUMN_NAMES</c> to contain exactly one column with
+    ///         text search enabled. The <c>VIEW_NAME</c> field is ignored —
+    ///         this mode does not produce a result table.</description>
+    ///     </item>
     /// </list></param>
     /// <param name="column_names">List of columns on which to apply the
     /// filter. Ignored for <see
@@ -38836,6 +39103,19 @@ public partial class Kinetica
     ///         <description>Full regular expression search (not accelerated).
     ///         If the column is a string type (non-charN) and the number of
     ///         records is too large, it will return 0.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="FilterByStringRequest.Mode.SEARCH_STATS">SEARCH_STATS</see>:
+    ///         </term>
+    ///         <description>Cross-shard BM25 corpus statistics for one
+    ///         (column, query) pair. Returns the merged BM25 statistics
+    ///         (max_doc, doc_count, sum_total_term_freq, per-term doc_freq /
+    ///         total_term_freq) needed by callers that score documents
+    ///         themselves (e.g. text_match_bm25_global SQL function pre-pass).
+    ///         Requires <c>COLUMN_NAMES</c> to contain exactly one column with
+    ///         text search enabled. The <c>VIEW_NAME</c> field is ignored —
+    ///         this mode does not produce a result table.</description>
     ///     </item>
     /// </list></param>
     /// <param name="column_names">List of columns on which to apply the
@@ -43983,6 +44263,47 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:
     ///         </term>
     ///         <description>If set to <see
@@ -44323,6 +44644,47 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawInsertRecordsRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:
+    ///         </term>
+    ///         <description>Specifies how errors should be handled upon
+    ///         insertion.  When set, this option is authoritative; supplying a
+    ///         contradictory <see
+    ///         cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>
+    ///         is an error.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.PERMISSIVE">PERMISSIVE</see>:
+    ///                 </term>
+    ///                 <description>Records with bad column values are kept
+    ///                 when possible: the offending column is filled with its
+    ///                 default value if one exists, otherwise with null if the
+    ///                 column is nullable; if neither is possible the record
+    ///                 is skipped and reported.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.SKIP">SKIP</see>:
+    ///                 </term>
+    ///                 <description>Records with bad values are skipped and
+    ///                 reported; the rest of the batch is inserted.
+    ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>:
+    ///                 </term>
+    ///                 <description>Stops the insertion and rejects the entire
+    ///                 batch when any record is incorrect.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RawInsertRecordsRequest.Options.ABORT">ABORT</see>.
     ///         </description>
     ///     </item>
     ///     <item>
@@ -45018,10 +45380,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromFilesRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -45839,6 +46207,19 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -46398,10 +46779,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromFilesRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -47221,6 +47608,19 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromFilesRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
+    ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -47757,10 +48157,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromPayloadRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -48488,6 +48894,19 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -48988,10 +49407,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromPayloadRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromPayloadRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -49721,6 +50146,19 @@ public partial class Kinetica
     ///         cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.
     ///         </description>
     ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="InsertRecordsFromPayloadRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
+    ///     </item>
     /// </list>
     /// The default value is an empty Dictionary.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the
@@ -50107,10 +50545,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -50794,10 +51238,16 @@ public partial class Kinetica
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="InsertRecordsFromQueryRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="InsertRecordsFromQueryRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -55958,6 +56408,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.RestoreObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
@@ -55987,6 +56444,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -56000,7 +56464,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -56249,6 +56715,33 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_ALL_PERMISSIONS">RESTORE_ALL_PERMISSIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not all permissions of restored
+    ///         principals should be restored or scoped to the restored
+    ///         objects.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Restore all permissions.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Restore only permissions on restored
+    ///                 objects.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>:
     ///         </term>
     ///         <description>Behavior to apply when any database object to
@@ -56285,6 +56778,20 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.TARGET_SCHEMA_MAP">TARGET_SCHEMA_MAP</see>:
+    ///         </term>
+    ///         <description>Restore schema-based objects to alternate schema.
+    ///         Value is a comma delimitted list of key:value pairs mapping the
+    ///         original (source) schema name as it exists in the backup to a
+    ///         target (destination) schema namespace:
+    ///         '&lt;src&gt;:&lt;dst&gt;,&lt;src&gt;:&lt;dst&gt;,...'. Note
+    ///         that schema names are case sensitive and must adhere to the
+    ///         database schema <a href="../../../concepts/schemas/"
+    ///         target="_top">naming criteria</a>. The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -56321,6 +56828,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.CATALOG">CATALOG</see>:
+    ///         </term>
+    ///         <description>Data Lake catalog that is external to the
+    ///         database.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.RestoreObjectsMap.CONTEXT">CONTEXT</see>:
     ///         </term>
     ///         <description><a
@@ -56350,6 +56864,13 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.RestoreObjectsMap.DIRECTORY">DIRECTORY</see>:
+    ///         </term>
+    ///         <description>KiFS <a href="../../../tools/kifs/"
+    ///         target="_top">File directory(ies)</a>.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.RestoreObjectsMap.FUNCTION_ENVIRONMENT">FUNCTION_ENVIRONMENT</see>:
     ///         </term>
     ///         <description><a
@@ -56363,7 +56884,9 @@ public partial class Kinetica
     ///         </term>
     ///         <description><a
     ///         href="../../../graph_solver/network_graph_solver/"
-    ///         target="_top">Graph(s)</a> definition.</description>
+    ///         target="_top">Graph</a> definition(s). Source table(s), if
+    ///         applicable, are required in order to restore graph objects.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -56612,6 +57135,33 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.RESTORE_ALL_PERMISSIONS">RESTORE_ALL_PERMISSIONS</see>:
+    ///         </term>
+    ///         <description>Whether or not all permissions of restored
+    ///         principals should be restored or scoped to the restored
+    ///         objects.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.TRUE">TRUE</see>:
+    ///                 </term>
+    ///                 <description>Restore all permissions.</description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RestoreBackupRequest.Options.FALSE">FALSE</see>:
+    ///                 </term>
+    ///                 <description>Restore only permissions on restored
+    ///                 objects.</description>
+    ///             </item>
+    ///         </list>
+    ///         The default value is <see
+    ///         cref="RestoreBackupRequest.Options.FALSE">FALSE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RestoreBackupRequest.Options.RESTORE_POLICY">RESTORE_POLICY</see>:
     ///         </term>
     ///         <description>Behavior to apply when any database object to
@@ -56648,6 +57198,20 @@ public partial class Kinetica
     ///         </list>
     ///         The default value is <see
     ///         cref="RestoreBackupRequest.Options.NONE">NONE</see>.
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RestoreBackupRequest.Options.TARGET_SCHEMA_MAP">TARGET_SCHEMA_MAP</see>:
+    ///         </term>
+    ///         <description>Restore schema-based objects to alternate schema.
+    ///         Value is a comma delimitted list of key:value pairs mapping the
+    ///         original (source) schema name as it exists in the backup to a
+    ///         target (destination) schema namespace:
+    ///         '&lt;src&gt;:&lt;dst&gt;,&lt;src&gt;:&lt;dst&gt;,...'. Note
+    ///         that schema names are case sensitive and must adhere to the
+    ///         database schema <a href="../../../concepts/schemas/"
+    ///         target="_top">naming criteria</a>. The default value is ''.
     ///         </description>
     ///     </item>
     /// </list>
@@ -60421,10 +60985,10 @@ public partial class Kinetica
     /// <param name="table_names">Names of tables whose metadata will be
     /// fetched, each in [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  All provided tables must
-    /// exist, or an error is returned.  A single entry of <c>_*</c> expands to
-    /// every user table the caller may read (excluding system schemas, views,
-    /// and temporary tables); when used it must be the only entry.</param>
+    /// target="_top">name resolution rules</a>. All provided tables must
+    /// exist, or an error is returned.  A single entry of '*' expands to every
+    /// user table the caller may read (excluding system schemas, views, and
+    /// temporary tables); when used it must be the only entry.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -60438,50 +61002,6 @@ public partial class Kinetica
     ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see> and if
     ///         the table names specified in <paramref name="table_names" />
     ///         does not exist, then an error is returned.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
-    ///                 </term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLUMN_NAMES">COLUMN_NAMES</see>:
-    ///         </term>
-    ///         <description>Columns, per table in <paramref name="table_names"
-    ///         />, to collect statistics for when @{input.key
-    ///         options.collect_now} is <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
-    ///         otherwise.  Encoded as a ';'-separated parallel array aligned
-    ///         with <paramref name="table_names" /> (e.g. <c>X,Y;Z</c>
-    ///         requests columns x,y for the first table and z for the second).
-    ///         A value of <c>_*</c> expands to every collectable column on
-    ///         each table (geometry, vector, JSON, and array columns are
-    ///         skipped).  An explicit list may not be combined with a
-    ///         <c>_*</c> table_names wildcard. The default value is ''.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLLECT_NOW">COLLECT_NOW</see>:
-    ///         </term>
-    ///         <description>If <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the
-    ///         columns named by @{input.key options.column_names} are
-    ///         collected synchronously during this request and reflected in
-    ///         the response.  Default <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -60515,10 +61035,10 @@ public partial class Kinetica
     /// <param name="table_names">Names of tables whose metadata will be
     /// fetched, each in [schema_name.]table_name format, using standard <a
     /// href="../../../concepts/tables/#table-name-resolution"
-    /// target="_top">name resolution rules</a>.  All provided tables must
-    /// exist, or an error is returned.  A single entry of <c>_*</c> expands to
-    /// every user table the caller may read (excluding system schemas, views,
-    /// and temporary tables); when used it must be the only entry.</param>
+    /// target="_top">name resolution rules</a>. All provided tables must
+    /// exist, or an error is returned.  A single entry of '*' expands to every
+    /// user table the caller may read (excluding system schemas, views, and
+    /// temporary tables); when used it must be the only entry.</param>
     /// <param name="options">Optional parameters.
     /// <list type="bullet">
     ///     <item>
@@ -60532,50 +61052,6 @@ public partial class Kinetica
     ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see> and if
     ///         the table names specified in <paramref name="table_names" />
     ///         does not exist, then an error is returned.
-    ///         Supported values:
-    ///         <list type="bullet">
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>
-    ///                 </term>
-    ///             </item>
-    ///             <item>
-    ///                 <term><see
-    ///                 cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>
-    ///                 </term>
-    ///             </item>
-    ///         </list>
-    ///         The default value is <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLUMN_NAMES">COLUMN_NAMES</see>:
-    ///         </term>
-    ///         <description>Columns, per table in <paramref name="table_names"
-    ///         />, to collect statistics for when @{input.key
-    ///         options.collect_now} is <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>; ignored
-    ///         otherwise.  Encoded as a ';'-separated parallel array aligned
-    ///         with <paramref name="table_names" /> (e.g. <c>X,Y;Z</c>
-    ///         requests columns x,y for the first table and z for the second).
-    ///         A value of <c>_*</c> expands to every collectable column on
-    ///         each table (geometry, vector, JSON, and array columns are
-    ///         skipped).  An explicit list may not be combined with a
-    ///         <c>_*</c> table_names wildcard. The default value is ''.
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term><see
-    ///         cref="ShowStatisticsRequest.Options.COLLECT_NOW">COLLECT_NOW</see>:
-    ///         </term>
-    ///         <description>If <see
-    ///         cref="ShowStatisticsRequest.Options.TRUE">TRUE</see>, the
-    ///         columns named by @{input.key options.column_names} are
-    ///         collected synchronously during this request and reflected in
-    ///         the response.  Default <see
-    ///         cref="ShowStatisticsRequest.Options.FALSE">FALSE</see>.
     ///         Supported values:
     ///         <list type="bullet">
     ///             <item>
@@ -63595,6 +64071,34 @@ public partial class Kinetica
     ///     </item>
     ///     <item>
     ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
     ///         cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:
     ///         </term>
     ///         <description>If set to <see
@@ -63922,6 +64426,34 @@ public partial class Kinetica
     ///         The default value is <see
     ///         cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>.
     ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="RawUpdateRecordsRequest.Options.ENABLE_WORKER_OOP_UPDATE">ENABLE_WORKER_OOP_UPDATE</see>:
+    ///         </term>
+    ///         <description>For an out-of-place update (delete and insert),
+    ///         controls where the replacement records are reinserted. If set
+    ///         to <see cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>,
+    ///         the workers that own the data reinsert them directly, avoiding
+    ///         a round trip through the head node; a shard-key change reshards
+    ///         the replacements to their new owning workers. If set to <see
+    ///         cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>, the
+    ///         replacement records are reinserted from the head node.
+    ///         Overrides the {feature.enable_worker_oop_update}@ configuration
+    ///         default.
+    ///         Supported values:
+    ///         <list type="bullet">
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>
+    ///                 </term>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>
+    ///                 </term>
+    ///             </item>
+    ///         </list></description>
     ///     </item>
     ///     <item>
     ///         <term><see

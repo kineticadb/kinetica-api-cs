@@ -130,9 +130,10 @@ public partial class Kinetica : IDisposable
         public bool DisableAutoDiscovery { get; set; } = false;
 
         /// <summary>
-        /// Order in which to failover to backup clusters
+        /// Order in which to failover to backup clusters. Defaults to
+        /// <see cref="HAFailoverOrder.Sequential"/> to match the Java client.
         /// </summary>
-        public HAFailoverOrder HAFailoverOrder { get; set; } = HAFailoverOrder.Random;
+        public HAFailoverOrder HAFailoverOrder { get; set; } = HAFailoverOrder.Sequential;
 
         /// <summary>
         /// Overall request timeout in milliseconds. <c>0</c> (the default) means infinite — no
@@ -561,6 +562,11 @@ public partial class Kinetica : IDisposable
 
         var uriList = urls.Select(u => new Uri(u.TrimEnd('/'))).ToList();
         _haFailoverManager.Initialize(uriList, this);
+
+        // Point at the selected cluster and perform connect-time failover (same as the public
+        // constructor). This constructor bypasses InitializeWithRetry, so a discovery failure
+        // surfaces directly from Initialize above rather than falling back to degraded mode.
+        FinalizeConnection();
     }
 
     /// <summary>
@@ -648,12 +654,65 @@ public partial class Kinetica : IDisposable
         // Match Java pattern: always attempt initialization, handle failures based on InitialConnectionAttemptTimeout
         InitializeWithRetry(uriList, options);
 
+        // Point at the selected cluster and, for full HA-aware connections, fail over at connect
+        // time if that cluster is down or draining.
+        FinalizeConnection();
+    }
+
+    /// <summary>
+    /// Post-discovery connection finalization shared by all constructors: point the client at the
+    /// currently-selected cluster and, for full HA-aware connections, perform connect-time failover
+    /// if that cluster is not usable (down or draining).
+    /// </summary>
+    /// <remarks>
+    /// Discovery leaves the pointer on the primary (index 0), but that cluster may be down or --
+    /// crucially -- draining. A draining cluster answers status endpoints and would NOT fail a
+    /// request on its own, so we cannot rely on "the request will fail" to move off it. Detect it
+    /// explicitly with the same usable-predicate the runtime loop uses, and fail over via the same
+    /// <see cref="HAFailoverManager.SwitchUrl"/> routine.
+    /// <para>
+    /// Guarded to full HA-aware connections: direct connections (failover or auto-discovery
+    /// disabled) connect to the given URL as-is, which is exactly what status probes and a failback
+    /// poller need so they can still read a draining primary. Uses the manager's current flags (not
+    /// the raw options) so a discovery failure that dropped us into degraded mode -- auto-discovery
+    /// flipped off in <see cref="InitializeWithRetry"/> -- correctly skips the check.
+    /// </para>
+    /// </remarks>
+    private void FinalizeConnection()
+    {
         // Update the URL to the current active cluster
         var currentUrl = _haFailoverManager.GetUrl();
         if (currentUrl != null)
         {
             Url = currentUrl.ToString().TrimEnd('/');
             URL = currentUrl;
+        }
+
+        if (!_haFailoverManager.DisableFailover &&
+            !_haFailoverManager.DisableAutoDiscovery &&
+            _haFailoverManager.HARingSize > 1)
+        {
+            var selectedUrl = _haFailoverManager.GetUrl();
+            if (selectedUrl != null && !IsClusterUsable(selectedUrl, quickCheck: false))
+            {
+                _logger.LogInformation(
+                    "[Kinetica] Initially-selected cluster <{Url}> is not usable (down or draining); " +
+                    "failing over to a usable cluster during connect.", selectedUrl);
+                try
+                {
+                    var usableUrl = _haFailoverManager.SwitchUrl(
+                        selectedUrl,
+                        _haFailoverManager.NumClusterSwitches,
+                        u => IsClusterUsable(u, quickCheck: true));
+                    Url = usableUrl.ToString().TrimEnd('/');
+                    URL = usableUrl;
+                }
+                catch (KineticaException ex)
+                {
+                    throw new KineticaException(
+                        $"Connectivity check for <{selectedUrl}> failed: {ex.Message}", ex);
+                }
+            }
         }
     }
 
@@ -1156,7 +1215,7 @@ public partial class Kinetica : IDisposable
                 // This is a connection error - attempt failover
                 try
                 {
-                    currentUrl = _haFailoverManager.SwitchUrl(originalUrl, currentSwitchCount, IsKineticaRunning);
+                    currentUrl = _haFailoverManager.SwitchUrl(originalUrl, currentSwitchCount, u => IsClusterUsable(u, quickCheck: true));
                     // Update the main URL reference
                     Url = currentUrl.ToString().TrimEnd('/');
                     URL = currentUrl;
@@ -1235,7 +1294,7 @@ public partial class Kinetica : IDisposable
                 // This is a connection error - attempt failover
                 try
                 {
-                    currentUrl = _haFailoverManager.SwitchUrl(originalUrl, currentSwitchCount, IsKineticaRunning);
+                    currentUrl = _haFailoverManager.SwitchUrl(originalUrl, currentSwitchCount, u => IsClusterUsable(u, quickCheck: true));
                     // Update the main URL reference
                     Url = currentUrl.ToString().TrimEnd('/');
                     URL = currentUrl;
@@ -1321,13 +1380,157 @@ public partial class Kinetica : IDisposable
     {
         try
         {
-            SubmitRequestRaw<ShowSystemStatusResponse>(url, new ShowSystemStatusRequest());
+            SubmitRequestRaw<ShowSystemStatusResponse>(BuildEndpointUri(url, ENDPOINT_SHOW_SYSTEM_STATUS), new ShowSystemStatusRequest());
             return true;
         }
         catch
         {
             return false;
         }
+    }
+
+    // /show/system/status status_map keys and values (must match the server).
+    private const string ENDPOINT_SHOW_SYSTEM_STATUS = "/show/system/status";
+    private const string ENDPOINT_SHOW_SYSTEM_PROPERTIES = "/show/system/properties";
+    private const string SYSTEM_STATUS_SYSTEM_KEY = "system";
+    private const string SYSTEM_STATUS_STATUS_KEY = "status";
+    private const string SYSTEM_STATUS_RUNNING_VALUE = "running";
+    private const string HA_STATUS_KEY = "ha_status";
+    private const string HA_STATUS_DRAINED_KEY = "drained";
+
+    /// <summary>The <c>ha_status.drained</c> value that means a cluster is up but not yet ready to serve.</summary>
+    internal const string HA_STATUS_DRAINING_VALUE = "draining";
+
+    /// <summary>
+    /// The running state of a cluster: whether its process reports <c>running</c> and, separately,
+    /// its HA drain state.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <see cref="IsRunning"/> is <em>drain-agnostic</em>: a draining cluster is still "running"
+    /// (it answers status endpoints); its drain state is carried separately in <see cref="HaStatus"/>.
+    /// Do not fold draining into <see cref="IsRunning"/> — routing decisions consult
+    /// <see cref="Kinetica.IsClusterUsable(Uri, bool)"/>, which combines the two.
+    /// </para>
+    /// </remarks>
+    internal readonly struct SystemStatusResult
+    {
+        /// <summary>Whether the process reports <c>running</c> (drain-agnostic).</summary>
+        public bool IsRunning { get; }
+
+        /// <summary>The HA drained status (<c>drained</c>/<c>draining</c>/<c>not_drained</c>), or <c>null</c> if absent.</summary>
+        public string HaStatus { get; }
+
+        public SystemStatusResult(bool isRunning, string haStatus)
+        {
+            IsRunning = isRunning;
+            HaStatus = haStatus;
+        }
+    }
+
+    /// <summary>
+    /// Queries <c>/show/system/status</c> at a specific URL and extracts both the running state and
+    /// the HA drain state in a single call. Mirrors the Java client's <c>getSystemRunningStatus</c>.
+    /// </summary>
+    /// <remarks>
+    /// Non-throwing: any error (unreachable, auth failure, malformed response) is logged and returned
+    /// as "not running." The request is submitted directly to <paramref name="url"/> (no HA failover),
+    /// so it can observe a draining cluster that a failover-routed call would skip.
+    /// </remarks>
+    /// <param name="url">The cluster head-node URL to probe.</param>
+    /// <param name="quickCheck">Reserved for a lighter-weight status variant used inside the failover
+    /// loop; currently both paths issue the same direct status request.</param>
+    /// <returns>A <see cref="SystemStatusResult"/> with the running and drain state.</returns>
+    internal SystemStatusResult GetSystemRunningStatus(Uri url, bool quickCheck)
+    {
+        bool isRunning = false;
+        string haStatus = null;
+        try
+        {
+            var response = SubmitRequestRaw<ShowSystemStatusResponse>(
+                BuildEndpointUri(url, ENDPOINT_SHOW_SYSTEM_STATUS), new ShowSystemStatusRequest());
+
+            if (response.status_map != null &&
+                response.status_map.TryGetValue(SYSTEM_STATUS_SYSTEM_KEY, out var systemStatusStr) &&
+                !string.IsNullOrEmpty(systemStatusStr))
+            {
+                var systemStatusInfo = Newtonsoft.Json.Linq.JObject.Parse(systemStatusStr);
+                var status = systemStatusInfo[SYSTEM_STATUS_STATUS_KEY]?.ToString();
+                isRunning = string.Equals(status, SYSTEM_STATUS_RUNNING_VALUE, StringComparison.Ordinal);
+
+                // Drain state is carried separately; a draining cluster is still "running" here.
+                if (response.status_map.TryGetValue(HA_STATUS_KEY, out var haStatusStr) &&
+                    !string.IsNullOrEmpty(haStatusStr))
+                {
+                    var haStatusInfo = Newtonsoft.Json.Linq.JObject.Parse(haStatusStr);
+                    haStatus = haStatusInfo[HA_STATUS_DRAINED_KEY]?.ToString();
+                }
+            }
+            else
+            {
+                _logger.LogWarning("[Kinetica] No system status entry for URL {Url}", url);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "[Kinetica] Exception checking running status of URL {Url}", url);
+        }
+
+        return new SystemStatusResult(isRunning, haStatus);
+    }
+
+    /// <summary>
+    /// The single, shared routing predicate: may the client route requests to the cluster at
+    /// <paramref name="url"/>? True iff it is reachable, running, and <em>not draining</em>.
+    /// Mirrors the Java client's <c>isClusterUsable</c>.
+    /// </summary>
+    /// <remarks>
+    /// Non-throwing so it can be used as a loop condition during failover. Used identically at
+    /// initial connect and in the failover loop, so both route around draining and down clusters
+    /// the same way. Note that, because errors (including auth failures) are treated as "not
+    /// usable," a fully misconfigured ring will surface as "HA unavailable" rather than an auth
+    /// error — an accepted trade-off for a non-throwing predicate.
+    /// </remarks>
+    /// <param name="url">The cluster head-node URL to test.</param>
+    /// <param name="quickCheck">Use the lighter status variant (passed through to
+    /// <see cref="GetSystemRunningStatus(Uri, bool)"/>); true inside the failover loop.</param>
+    /// <returns><c>true</c> if the cluster is usable; <c>false</c> otherwise.</returns>
+    internal bool IsClusterUsable(Uri url, bool quickCheck)
+    {
+        try
+        {
+            var result = GetSystemRunningStatus(url, quickCheck);
+            return result.IsRunning &&
+                   !string.Equals(result.HaStatus, HA_STATUS_DRAINING_VALUE, StringComparison.Ordinal);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "[Kinetica] Cluster {Url} not usable", url);
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Fetches the system property map from a specific URL (no HA failover). Used during discovery
+    /// so each ring member's properties are read from that member, not from whatever cluster the
+    /// client happens to be pointed at.
+    /// </summary>
+    /// <param name="url">The cluster head-node URL to query.</param>
+    /// <returns>The server's property map.</returns>
+    internal IDictionary<string, string> GetSystemProperties(Uri url)
+    {
+        var response = SubmitRequestRaw<ShowSystemPropertiesResponse>(
+            BuildEndpointUri(url, ENDPOINT_SHOW_SYSTEM_PROPERTIES), new ShowSystemPropertiesRequest());
+        return response.property_map;
+    }
+
+    /// <summary>
+    /// Appends an endpoint path to a base cluster URL. <see cref="SubmitRequestRaw{TResponse}"/> posts
+    /// to the URL verbatim, so status/property probes must include the endpoint path themselves.
+    /// </summary>
+    private static Uri BuildEndpointUri(Uri baseUrl, string endpoint)
+    {
+        return new Uri(baseUrl.ToString().TrimEnd('/') + endpoint);
     }
 
     #endregion
@@ -1356,15 +1559,20 @@ public partial class Kinetica : IDisposable
     /// <remarks>
     /// Issues a raw <c>GET</c> on its own short-lived <see cref="HttpClient"/> (no authorization,
     /// independent of the configured <see cref="IHttpTransport"/>) and looks for the server's
-    /// "Kinetica is running!" landing response. This is the predicate passed to
-    /// <c>HAFailoverManager.SwitchUrl</c> for failover candidate selection: it answers "is there
-    /// a live server to fail over to?" cheaply, without depending on valid credentials or a
-    /// functioning API endpoint.
+    /// "Kinetica is running!" landing response. It answers "is there a live server here?" cheaply,
+    /// without depending on valid credentials or a functioning API endpoint.
     /// <para>
-    /// For the stronger, authenticated "can I actually make API calls here?" check used when
-    /// deciding multi-head viability during initialization, see <see cref="IsSystemRunning(Uri)"/>.
-    /// The two are intentionally distinct probes; do not collapse one into the other without
-    /// accounting for the auth/transport and failover-behavior differences.
+    /// Note this is a bare liveness ping: a <em>draining</em> cluster (up but not ready to serve)
+    /// also answers it. It is therefore <em>not</em> the failover candidate-selection predicate --
+    /// that is <see cref="IsClusterUsable(Uri, bool)"/>, which additionally excludes draining
+    /// clusters. This ping is intended as a cheap first-stage liveness check (e.g. the failback
+    /// poller's liveness gate before the drain and readiness checks).
+    /// </para>
+    /// <para>
+    /// For the authenticated "can I actually make API calls here?" check used when deciding
+    /// multi-head viability during initialization, see <see cref="IsSystemRunning(Uri)"/>.
+    /// The three are intentionally distinct probes; do not collapse them without accounting for
+    /// the auth/transport and drain-awareness differences.
     /// </para>
     /// </remarks>
     /// <param name="url">The URL to check</param>
@@ -1639,7 +1847,7 @@ public partial class Kinetica : IDisposable
 
         try
         {
-            var newUrl = _haFailoverManager.SwitchUrl(currentUrl, currentSwitchCount, IsKineticaRunning);
+            var newUrl = _haFailoverManager.SwitchUrl(currentUrl, currentSwitchCount, u => IsClusterUsable(u, quickCheck: true));
             Url = newUrl.ToString().TrimEnd('/');
             URL = newUrl;
             return newUrl;

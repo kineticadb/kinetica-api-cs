@@ -487,9 +487,15 @@ public class CreateTableExternalRequest : KineticaData
         ///     </item>
         ///     <item>
         ///         <term><see
-        ///         cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         cref="CreateTableExternalRequest.Options.SKIP">SKIP</see>:
         ///         </term>
         ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        ///         cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+        ///         </term>
+        ///         <description>Alias for skip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -511,6 +517,9 @@ public class CreateTableExternalRequest : KineticaData
         public const string PERMISSIVE = "permissive";
 
         /// <summary>Malformed records are skipped.</summary>
+        public const string SKIP = "skip";
+
+        /// <summary>Alias for skip.</summary>
         public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
 
         /// <summary>Stops current insertion and aborts entire operation when
@@ -1206,6 +1215,16 @@ public class CreateTableExternalRequest : KineticaData
         /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
         /// has a value.</para></remarks>
         public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
+
+        /// <summary>Comma-separated expressions, one per target table column.
+        /// </summary>
+        /// <remarks><para> Each expression is evaluated per record.  Empty
+        /// entries (two consecutive commas) mean no transformation for that
+        /// column -- the value is resolved from the input record, table
+        /// default, NULL, or an error. Expressions may reference input columns
+        /// by name or by position ($1 for the first input column, $2 for the
+        /// second, etc.). The default value is ''.</para></remarks>
+        public const string TRANSFORMATIONS = "transformations";
 
         /// <summary>If set to <see
         /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>, remove
@@ -1932,10 +1951,16 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="CreateTableExternalRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -2645,6 +2670,19 @@ public class CreateTableExternalRequest : KineticaData
     ///         the 'text_search' property to. Used only when <see
     ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
     ///         has a value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see
@@ -3393,10 +3431,16 @@ public class CreateTableExternalRequest : KineticaData
     ///             </item>
     ///             <item>
     ///                 <term><see
-    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 cref="CreateTableExternalRequest.Options.SKIP">SKIP</see>:
     ///                 </term>
     ///                 <description>Malformed records are skipped.
     ///                 </description>
+    ///             </item>
+    ///             <item>
+    ///                 <term><see
+    ///                 cref="CreateTableExternalRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:
+    ///                 </term>
+    ///                 <description>Alias for skip.</description>
     ///             </item>
     ///             <item>
     ///                 <term><see
@@ -4106,6 +4150,19 @@ public class CreateTableExternalRequest : KineticaData
     ///         the 'text_search' property to. Used only when <see
     ///         cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>
     ///         has a value.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term><see
+    ///         cref="CreateTableExternalRequest.Options.TRANSFORMATIONS">TRANSFORMATIONS</see>:
+    ///         </term>
+    ///         <description>Comma-separated expressions, one per target table
+    ///         column.  Each expression is evaluated per record.  Empty
+    ///         entries (two consecutive commas) mean no transformation for
+    ///         that column -- the value is resolved from the input record,
+    ///         table default, NULL, or an error. Expressions may reference
+    ///         input columns by name or by position ($1 for the first input
+    ///         column, $2 for the second, etc.). The default value is ''.
+    ///         </description>
     ///     </item>
     ///     <item>
     ///         <term><see

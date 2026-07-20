@@ -171,7 +171,10 @@ namespace Kinetica.Tests.UnitTests
         /// <summary>
         /// Fake <see cref="IHttpTransport"/>: returns canned <c>show/system/properties</c> responses for
         /// the user-given URL, throws for hosts marked unreachable (to simulate an unroutable internal
-        /// rank URL), and returns an empty <c>show/system/status</c> response otherwise.
+        /// rank URL), and reports the system as <c>running</c> for <c>show/system/status</c> otherwise.
+        /// Discovery now issues a per-URL <c>show/system/status</c> pre-check (mirroring the Java
+        /// client's <c>process_urls</c>) and only fetches properties for a URL that reports running, so
+        /// the status response must advertise a running system for discovery to proceed.
         /// </summary>
         private sealed class FakeHttpTransport : IHttpTransport
         {
@@ -190,8 +193,12 @@ namespace Kinetica.Tests.UnitTests
                 if (url.Contains("/show/system/properties", StringComparison.OrdinalIgnoreCase))
                     return WrapResponse(new ShowSystemPropertiesResponse { property_map = PropertyMap });
 
-                // Any other reachable POST (e.g. the IsSystemRunning /show/system/status probe).
-                return WrapResponse(new ShowSystemStatusResponse());
+                // Any other reachable POST (the show/system/status pre-check and the IsSystemRunning
+                // probe): report the system as running so discovery proceeds. No ha_status entry ->
+                // treated as a non-HA / not-draining cluster.
+                var statusResponse = new ShowSystemStatusResponse();
+                statusResponse.status_map["system"] = "{\"status\":\"running\"}";
+                return WrapResponse(statusResponse);
             }
 
             public Task<byte[]> PostAsync(string url, byte[] body, string contentType, string? authorization, string? userAgent, CancellationToken cancellationToken)
